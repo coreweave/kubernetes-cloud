@@ -9,7 +9,7 @@ The example Pod does showcase some node affinity rules. These are purely for dem
 A [Service](https://kubernetes.io/docs/concepts/services-networking/service/) is included to show how to publish a Pod to the public Internet. The Service publishes the SSH server to the Internet.
 
 ## Persistent Storage
-A [Persistent Volume](https://kubernetes.io/docs/concepts/storage/persistent-volumes/) is allocated to the Pods `/root` directory. The allocation is done via a [Persistent Volume Claim](https://github.com/atlantic-crypto/kubernetes-cloud-examples/blob/master/sshd/sshd-pvc.yaml) requesting the storage size and backing storage type (SSD, HDD). This volule claim is then mounted to the `/root` directory in the Pod definition. Utilizing a persistent volume ensures that files persist even if the node currently running the Pod fails.
+A [Persistent Volume](https://kubernetes.io/docs/concepts/storage/persistent-volumes/) is allocated to the Pods `/root` directory. The allocation is done via a [Persistent Volume Claim](https://github.com/atlantic-crypto/kubernetes-cloud-examples/blob/master/cuda-ssh/sshd-pvc.yaml) requesting the storage size and backing storage type (SSD, HDD). This volule claim is then mounted to the `/root` directory in the Pod definition. Utilizing a persistent volume ensures that files persist even if the node currently running the Pod fails.
 
 ### Getting Started
 
