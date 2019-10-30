@@ -36,7 +36,7 @@ spec:
 
           resources:
             requests:
-              cpu: 500m
+              cpu: 500m # The CPU unit is mili-cores. 500m is 0.5 cores
               memory: 64Mi
             limits:
               cpu: 2000m
