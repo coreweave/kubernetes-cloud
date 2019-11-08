@@ -16,7 +16,7 @@ spec:
         app.kubernetes.io/name: tensorflow-jupyter
     spec:
       containers:
-        - name: miner
+        - name: tf
           image: tensorflow/tensorflow:1.15.0-gpu-py3-jupyter
 
           ports:
@@ -47,7 +47,7 @@ spec:
               cpu: 500m # The CPU unit is mili-cores. 500m is 0.5 cores
               memory: 256Mi
             limits:
-              cpu: 4000m
+              cpu: 2000m
               memory: 2048Mi
               # GPUs can only be allocated as a limit, which both reserves and limits the number of GPUs the Pod will have access to
               # Making individual Pods resource light is advantageous for bin-packing. In the case of Jupyter, we stick to two GPUs for
