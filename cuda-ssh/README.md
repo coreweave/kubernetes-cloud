@@ -2,7 +2,7 @@
 ### Introduction
 This example deploys a simple Kubernetes [Pod](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/) with a Linux container including the CUDA Runtime and development tools as well as running an SSH server. The Pod is allocate 6 GPUs.
 
-The Kubenetes Control-Plane in the Atlantic Cloud will ensure that the Pod is continuously running. The Control-Plane will reserve GPU, CPU and RAM on Atlantics compute nodes.
+The Kubenetes Control-Plane in the CoreWeave Cloud will ensure that the Pod is continuously running. The Control-Plane will reserve GPU, CPU and RAM on CoreWeaves compute nodes.
 The example Pod does showcase some node affinity rules. These are purely for demonstration purposes, and the entire affinity section can be removed without breaking the example.
 
 ### Service
@@ -13,7 +13,7 @@ A [Persistent Volume](https://kubernetes.io/docs/concepts/storage/persistent-vol
 
 ### Getting Started
 
-Clone the repository and modify the SSH password in `sshd-pod.yaml`. After installing `kubectl` and adding your Atlantic Cloud access credentials, the following steps will deploy the components.
+Clone the repository and modify the SSH password in `sshd-pod.yaml`. After installing `kubectl` and adding your CoreWeave Cloud access credentials, the following steps will deploy the components.
 
 1. Apply the resources. This can be used to both create and update existing manifests
    ```shell

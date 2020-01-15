@@ -6,7 +6,7 @@
 ### Introduction
 This example leverages a [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) to always maintain one instances of [Tensorflow](https://www.tensorflow.org) with Jupyter. Tensorflow is a highly popular deep learning framework that is greatly accelerated by GPUs. Each instance, in Kubernetes terminology called a [Pod](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/) is allocated 2 GPUs.
 
-The Kubenetes Control-Plane in the Atlantic Cloud will ensure that there are one instance ([Pods](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/)) of Tensorflow Jupyter running at all times. The Control-Plane will reserve GPU, CPU and RAM on Atlantics compute nodes. Pods in the same deployment can be scheduled on the same or multiple physical nodes, depending on resource availability. If co-location of Pods is required for some reason, ie. shared ephemeral or block storage, this can be controlled with [affinity rules](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity).
+The Kubenetes Control-Plane in the CoreWeave Cloud will ensure that there are one instance ([Pods](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/)) of Tensorflow Jupyter running at all times. The Control-Plane will reserve GPU, CPU and RAM on CoreWeaves compute nodes. Pods in the same deployment can be scheduled on the same or multiple physical nodes, depending on resource availability. If co-location of Pods is required for some reason, ie. shared ephemeral or block storage, this can be controlled with [affinity rules](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity).
 
 The example Deployment does showcase some node affinity rules. These are purely for demonstration purposes, and the entire affinity section can be removed without breaking the example.
 
@@ -18,7 +18,7 @@ A [Persistent Volume](https://kubernetes.io/docs/concepts/storage/persistent-vol
 
 ### Getting Started
 
-After installing `kubectl` and adding your Atlantic Cloud access credentials, the following steps will deploy the Ethminer Deployment and service.
+After installing `kubectl` and adding your CoreWeave Cloud access credentials, the following steps will deploy the Ethminer Deployment and service.
 
 1. Apply the resources. This can be used to both create and update existing manifests
    ```shell

@@ -1,6 +1,6 @@
-# Atlantic Crypto Kuberntes Cloud
+# CoreWeave Kuberntes Cloud
 ## Introduction
-The Kubernetes environment enables a flexible and reliable method of deploying workloads and services on Atlantic Cryptos Compute Cloud.
+The Kubernetes environment enables a flexible and reliable method of deploying workloads and services on CoreWeaves Accelerated Compute Cloud.
 
 ## Deployment examples
 Please see the folders in this repository for ready to Deploy examples Kubernetes manifests.
@@ -52,7 +52,7 @@ sudo mv ./kubectl /usr/local/bin/kubectl
 ```
 
 ### Set Up Access
-You will have received a pre-populated `kube-config` file from Atlantic Crypto as part of your onboarding package. The snippet below assumes that you have no other Kubernetes credentials stored on your system, if you do you will need to open both files and copy the `cluster`, `context` and `user` from the supplied `kube-config` file into your existing `~/.kube/config` file.
+You will have received a pre-populated `kube-config` file from CoreWeave as part of your onboarding package. The snippet below assumes that you have no other Kubernetes credentials stored on your system, if you do you will need to open both files and copy the `cluster`, `context` and `user` from the supplied `kube-config` file into your existing `~/.kube/config` file.
 
 Replace `~/Downloads` with the path to the `kube-config` supplied by ACC.
 ```shell
