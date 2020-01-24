@@ -30,7 +30,7 @@ Selecting the right hardware for your workload is important. All compute nodes a
 | NVIDIA | Pascal     | 1070 Ti     | 8       | GeForce_GTX_1070_Ti |
 | NVIDIA | Pascal     | 1080 Ti     | 11      | GeForce_GTX_1080_Ti |
 | NVIDIA | Volta      | Titan V 6Gb | 6       | Titan_V_6           |
-| NVIDIA | Volta      | V100        | 16      | V100-16             |
+| NVIDIA | Volta      | V100        | 16      | V100_16             |
 
 ## Getting Started
 ### Install Kubernetes Command Line Tools
