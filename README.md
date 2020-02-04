@@ -3,7 +3,7 @@
 The Kubernetes environment enables a flexible and reliable method of deploying workloads and services on CoreWeave's Accelerated Compute Cloud.
 
 ## Deployment examples
-Please see the folders in this repository for ready to Deploy examples Kubernetes manifests.
+Please see the folders in this repository for ready to deploy Kubernetes manifest examples.
 
 ## Node Labels
 Selecting the right hardware for your workload is important. All compute nodes are tagged with a set of labels specifying the hardware type that is available inside. [Affinity Rules](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity) should be leveraged on workloads to ensure that the desired type of hardware (ie. GPU model) gets assigned to the Pod. The following labels are currently available.
@@ -54,7 +54,7 @@ sudo mv ./kubectl /usr/local/bin/kubectl
 ### Set Up Access
 You will have received a pre-populated `kube-config` file from CoreWeave as part of your onboarding package. The snippet below assumes that you have no other Kubernetes credentials stored on your system, if you do you will need to open both files and copy the `cluster`, `context` and `user` from the supplied `kube-config` file into your existing `~/.kube/config` file.
 
-Replace `~/Downloads` with the path to the `kube-config` supplied by ACC.
+Replace `~/Downloads` with the path to the `kube-config` supplied by CoreWeave.
 ```shell
 mkdir -p ~/.kube/
 mv ~/Downloads/kube-config ~/.kube/config
