@@ -1,4 +1,4 @@
-# CoreWeave Kuberntes Cloud
+# CoreWeave Kubernetes Cloud
 ## Introduction
 The Kubernetes environment enables a flexible and reliable method of deploying workloads and services on CoreWeave's Accelerated Compute Cloud.
 
