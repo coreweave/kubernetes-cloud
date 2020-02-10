@@ -3,7 +3,7 @@ kind: InferenceService
 metadata:
   name: gpt-s3
   annotations:
-    autoscaling.knative.dev/target: 4 # Target concurrency of 4 active requests to each container
+    autoscaling.knative.dev/target: "4" # Target concurrency of 4 active requests to each container
     serving.kubeflow.org/gke-accelerator: GeForce_GTX_1070_Ti
 spec:
   default:
