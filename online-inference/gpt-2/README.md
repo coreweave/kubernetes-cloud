@@ -11,4 +11,7 @@ Serves a model stored in Amazon S3, including a transformer to encode/decode inp
 - [Transformer](./transformer)  
 A simple transformer for encoding/decoding text. It is not necesary to build this yourself to try the examples, a public image is available in Docker Hub
 - [Jupyter PVC](./jupyter-pvc)  
-A Jupyter notebook and a container serving it demonstrating packaging the model for serving and storing it to a CoreWeave `ReadWriteMany` [PVC](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)
+A Jupyter notebook and a container serving it demonstrating packaging the model for serving and storing it to a CoreWeave `ReadWriteMany` filesystem [PVC](https://kubernetes.io/docs/concepts/storage/persistent-volumes/).  
+This notebook will be allocated a GPU and can be used for finetuning as well
+- [PVC Model Serving](./service-pvc)  
+Serves the model exported from Jupyter from the network filesystem.

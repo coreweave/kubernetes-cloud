@@ -1,0 +1,35 @@
+apiVersion: serving.kubeflow.org/v1alpha2
+kind: InferenceService
+metadata:
+  name: gpt-pvc
+  annotations:
+    autoscaling.knative.dev/target: 4 # Target concurrency of 4 active requests to each container
+    serving.kubeflow.org/gke-accelerator: GeForce_GTX_1070_Ti
+spec:
+  default:
+    predictor:
+      minReplicas: 0 # Allow scale to zero
+      maxReplicas: 2 
+      tensorflow:
+        storageUri: pvc://model-storage/124M/ # The PVC and path inside the PVC to the model
+        runtimeVersion: "1.14.0-gpu"
+        resources:
+          limits:
+            cpu: 2
+            memory: 8Gi
+            nvidia.com/gpu: 1
+
+    transformer:
+      minReplicas: 0
+      maxReplicas: 1
+      custom:
+        container:
+          image: coreweave/gpt-transformer:0.9 # Docker image of the code found in transformer/
+          name: user-container
+          resources:
+            limits:
+              cpu: 3000m
+              memory: 1Gi
+            requests:
+              cpu: 300m
+              memory: 256Mi
