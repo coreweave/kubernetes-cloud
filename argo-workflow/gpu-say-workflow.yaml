@@ -1,0 +1,58 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: gpu-say
+spec:
+  entrypoint: main
+  activeDeadlineSeconds: 300 # Cancel operation if not finished in 5 minutes
+  ttlSecondsAfterFinished: 86400 # Clean out old workflows after a day
+  # Parameters can be passed/overridden via the argo CLI.
+  # To override the printed message, run `argo submit` with the -p option:
+  # $ argo submit examples/arguments-parameters.yaml -p messages='["CoreWeave", "Is", "Fun"]'
+  arguments:
+    parameters:
+    - name: messages
+      value: '["Argo", "Is", "Awesome"]'
+
+  templates:
+  - name: main
+    steps:
+    - - name: echo
+        template: gpu-echo
+        arguments:
+          parameters:
+          - name: message
+            value: "{{item}}"
+        withParam: "{{workflow.parameters.messages}}"
+
+  - name: gpu-echo
+    inputs:
+      parameters:
+      - name: message
+    retryStrategy:
+      limit: 1
+    script:
+      image: nvidia/cuda:10.2-runtime-ubuntu18.04
+      command: [bash]
+      source: |
+        nvidia-smi
+        echo "Input was: {{inputs.parameters.message}}"
+
+      resources:
+        requests:
+          memory: 128Mi
+          cpu: 500m # Half a core
+        limits:
+          nvidia.com/gpu: 1 # Allocate one GPU
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+            # This will REQUIRE the Pod to be run on a system with a GPU with 8, 10 or 11GB VRAM, ie. 1070 Ti, 1080 Ti or P104-100 GPU
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: gpu.nvidia.com/vram
+                  operator: In
+                  values:
+                    - "8"
+                    - "10"
+                    - "11"
