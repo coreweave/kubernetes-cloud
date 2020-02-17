@@ -18,6 +18,7 @@ rules:
   resources:
   - pods
   - pods/exec
+  - pods/log
   verbs:
   - create
   - get
@@ -207,6 +208,8 @@ spec:
       - args:
         - server
         - --namespaced
+        - --auth-mode 
+        - client
         image: argoproj/argocli:v2.5.0-rc10
         name: argo-server
         ports:
