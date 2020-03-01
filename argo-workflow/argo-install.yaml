@@ -178,7 +178,11 @@ metadata:
   name: workflow-controller-configmap
 data:
   config: | 
-    ContainerRuntimeExecutor: k8sapi
+    containerRuntimeExecutor: k8sapi
+    metricsConfig:
+      enabled: true
+      path: /metrics
+      port: 8080
 ---
 apiVersion: v1
 kind: Service
@@ -188,8 +192,24 @@ spec:
   ports:
   - port: 2746
     targetPort: 2746
+    name: api
   selector:
     app: argo-server
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: workflow-controller
+  labels:
+    app: workflow-controller
+    app.kubernetes.io/name: workflow-controller
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+    name: metrics
+  selector:
+    app: workflow-controller
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -208,9 +228,9 @@ spec:
       - args:
         - server
         - --namespaced
-        - --auth-mode 
-        - client
-        image: argoproj/argocli:v2.5.0-rc10
+#        - --auth-mode 
+#        - client
+        image: argoproj/argocli:v2.5.2
         name: argo-server
         ports:
         - containerPort: 2746
@@ -241,10 +261,12 @@ spec:
         - --configmap
         - workflow-controller-configmap
         - --executor-image
-        - argoproj/argoexec:v2.5.0-rc10
+        - argoproj/argoexec:v2.5.2
         - --namespaced
         command:
         - workflow-controller
-        image: argoproj/workflow-controller:v2.5.0-rc10
+        ports:
+        - containerPort: 8080
+        image: argoproj/workflow-controller:v2.5.2
         name: workflow-controller
       serviceAccountName: argo
