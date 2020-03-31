@@ -2,9 +2,9 @@
 ![Screenshot](argo-screenshot.png)
 
 ### Introduction
-[Argo Workflows](https://argoproj.github.io/argo/) is a great tool to orchestrate parallel execution of GPU jobs.
+[Argo Workflows](https://argoproj.github.io/argo/) is a great tool to orchestrate parallel execution of GPU jobs. It manages retries and parallelism for you, and allows you to submit workflows via CLI, [Rest API](https://github.com/argoproj/argo/blob/master/examples/rest-examples.md) and the [Kubernetes API](https://github.com/argoproj/argo/blob/master/docs/rest-api.md).
 
-ing Started
+### Getting Started
 
 After installing `kubectl` and adding your CoreWeave Cloud access credentials, the following steps will deploy the Ethminer Deployment and service.
 
@@ -75,3 +75,15 @@ After installing `kubectl` and adding your CoreWeave Cloud access credentials, t
    echo(1:Is)(0):	|-------------------------------+----------------------+----------------------+
    ...
    ```
+### Recommendations
+We recommend the following retry strategy on your workflow / steps.
+```yaml
+    retryStrategy:
+      limit: 4
+      retryPolicy: Always
+      backoff:
+        duration: "15s"
+        factor: 2
+```
+
+We also recommend setting an `activeDeadlineSeconds` on each `step`, but not on the entire workflow. This allows a step to retry but prevents it from taking unreasonably long time to finish.
