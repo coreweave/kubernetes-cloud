@@ -78,12 +78,12 @@ After installing `kubectl` and adding your CoreWeave Cloud access credentials, t
 ### Recommendations
 We recommend the following retry strategy on your workflow / steps.
 ```yaml
-    retryStrategy:
-      limit: 4
-      retryPolicy: Always
-      backoff:
-        duration: "15s"
-        factor: 2
+ retryStrategy:
+   limit: 4
+   retryPolicy: Always
+   backoff:
+     duration: "15s"
+     factor: 2
 ```
 
 We also recommend setting an `activeDeadlineSeconds` on each `step`, but not on the entire workflow. This allows a step to retry but prevents it from taking unreasonably long time to finish.
