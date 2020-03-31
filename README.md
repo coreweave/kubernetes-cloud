@@ -10,7 +10,7 @@ Selecting the right hardware for your workload is important. All compute nodes a
 
 | Label                                    | Possible Values                | Description                                                                                                                                                                       |
 |------------------------------------------|--------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| cpu.coreweave.cloud/family                | i9, i7, i5, celeron, xeon     | The CPU family of the CPU in the node                                                                                                                                             |
+| cpu.coreweave.cloud/family                | i9, i7, i5, celeron, xeon, epyc | The CPU family of the CPU in the node                                                                                                                                             |
 | ethernet.coreweave.cloud/speed            | 1G, 10G                        | The uplink speed from the node to the backbone                                                                                                                                    |
 | gpu.nvidia.com/count                     | 4-8                            | Number of GPUs provisioned in the node. Using this selector is not recommended as the GPU resource requests are the correct method of selecting GPU count requirement             |
 | gpu.nvidia.com/model                     | GeForce_GTX_1070_Ti (see list) | GPU model provisioned in the node                                                                                                                                                 |
@@ -19,7 +19,20 @@ Selecting the right hardware for your workload is important. All compute nodes a
 | pci.coreweave.cloud/version               | 1, 2, 3, 4                     | PCI Express Version for GPU interfaces                                                                                                                                            |
 | pci.coreweave.cloud/speed                 | 2.5, 5, 8, 16                  | PCI Express Link Speed for GPU interfaces in GT/s                                                                                                                                 |
 | pci.coreweave.cloud/lanes                 | 1, 4, 16                       | PCI Express Lanes (Bus width) for GPU interfaces                                                                                                                                  |
-| failure-domain.beta.kubernetes.io/region | CHI, NJ2, NJ3, NJ4, BUF, NC    | The region the node is placed in. Clusters will not span multiple regions and support for accessing a node in another region than your primary region is currently not supported  |
+| topology.kubernetes.io/region            | ORD1, EWR1, EWR2, BUF1         | The region the node is placed in. Clusters will not span multiple regions and support for accessing a node in another region than your primary region is currently not supported  |
+
+## GPU Availability
+
+| Vendor | Generation | Model       | VRAM GB | Label               |
+|--------|------------|-------------|---------|---------------------|
+| NVIDIA | Pascal     | P106-100    | 6       | P106-100            |
+| NVIDIA | Pascal     | 1060        | 6       | GeForce_GTX_1060_6GB|
+| NVIDIA | Pascal     | P104-100    | 8       | P104-100            |
+| NVIDIA | Pascal     | 1070        | 8       | GeForce_GTX_1070    |
+| NVIDIA | Pascal     | 1070 Ti     | 8       | GeForce_GTX_1070_Ti |
+| NVIDIA | Pascal     | 1080 Ti     | 11      | GeForce_GTX_1080_Ti |
+| NVIDIA | Volta      | Titan V 6Gb | 6       | Titan_V_6           |
+| NVIDIA | Volta      | V100        | 16      | Tesla_V100          |
 
 ## GPU Availability
 
