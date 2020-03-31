@@ -19,7 +19,7 @@ Selecting the right hardware for your workload is important. All compute nodes a
 | pci.coreweave.cloud/version               | 1, 2, 3, 4                     | PCI Express Version for GPU interfaces                                                                                                                                            |
 | pci.coreweave.cloud/speed                 | 2.5, 5, 8, 16                  | PCI Express Link Speed for GPU interfaces in GT/s                                                                                                                                 |
 | pci.coreweave.cloud/lanes                 | 1, 4, 16                       | PCI Express Lanes (Bus width) for GPU interfaces                                                                                                                                  |
-| topology.kubernetes.io/region            | ORD1, EWR1, EWR2, BUF1         | The region the node is placed in. Clusters will not span multiple regions and support for accessing a node in another region than your primary region is currently not supported  |
+| topology.kubernetes.io/region            | ORD1, EWR1, EWR2, BUF1         | The region the node is placed in  |
 
 ## GPU Availability
 
