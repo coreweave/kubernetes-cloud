@@ -6,9 +6,9 @@
 
 ### Getting Started
 
-After installing `kubectl` and adding your CoreWeave Cloud access credentials, the following steps will deploy the Ethminer Deployment and service.
+After installing `kubectl` and adding your CoreWeave Cloud access credentials, the following steps will deploy the Argo Server in your namespace.
 
-1. Apply the resource, this will install the Argo Workflow server into your namespace
+1. Apply the resource `argo-install.yaml` found in this repository, this will install the Argo Workflow server into your namespace
    ```bash
     $ kubectl apply -f argo-install.yaml
     serviceaccount/argo unchanged
@@ -23,9 +23,9 @@ After installing `kubectl` and adding your CoreWeave Cloud access credentials, t
     deployment.apps/workflow-controller unchanged
    ````
    
-2. Follow the [Argo documentation](https://github.com/argoproj/argo/blob/master/docs/getting-started.md) to install the Argo CLI
+2. Install the Argo CLI from the [Argo releases page](https://github.com/argoproj/argo/releases)
 
-3. Submit an example workflow. The workflow takes a JSON Array and spins up one Pod with one GPU allocated for each, in parallel.
+3. Submit an example workflow, `gpu-say-workflow.yaml` found in this repository. The workflow takes a JSON Array and spins up one Pod with one GPU allocated for each, in parallel.
    `nvidia-smi` output as well as the parameter entry assigned for that Pod is printed to the log.
    
    ![Workflow submit](workflow-submit.gif)
@@ -75,6 +75,14 @@ After installing `kubectl` and adding your CoreWeave Cloud access credentials, t
    echo(1:Is)(0):	|-------------------------------+----------------------+----------------------+
    ...
    ```
+
+5. Port forward the Argo UI
+ ```bash
+ kubectl port-forward svc/argo-server 2746:2746
+ ```
+
+6. Open and explore the Argo UI at http://localhost:2746
+ 
 ### Recommendations
 We recommend the following retry strategy on your workflow / steps.
 ```yaml
