@@ -3,7 +3,7 @@ kind: InferenceService
 metadata:
   name: gpt-pvc
   annotations:
-    serving.kubeflow.org/gke-accelerator: GeForce_GTX_1070_Ti
+    serving.kubeflow.org/gke-accelerator: Tesla_V100
 spec:
   default:
     predictor:
@@ -12,16 +12,16 @@ spec:
       minReplicas: 0 # Allow scale to zero
       maxReplicas: 4
       tensorflow:
-        storageUri: pvc://model-storage/124M/ # The PVC and path inside the PVC to the model
+        storageUri: pvc://model-storage/1558M/ # The PVC and path inside the PVC to the model
         runtimeVersion: "1.14.0-gpu"
         resources:
           limits:
             cpu: 1
-            memory: 8Gi
+            memory: 18Gi
             nvidia.com/gpu: 1
 
     transformer:
-      parallelism: 8
+      parallelism: 12
       minReplicas: 0
       maxReplicas: 2
       custom:
@@ -30,7 +30,7 @@ spec:
           name: user-container
           resources:
             limits:
-              cpu: 3
+              cpu: 3000m
               memory: 1Gi
             requests:
               cpu: 300m
