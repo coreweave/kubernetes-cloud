@@ -7,31 +7,31 @@ metadata:
 spec:
   default:
     predictor:
-      parallelism: 2
+      parallelism: 1
       # Target concurrency of 4 active requests to each container
       minReplicas: 0 # Allow scale to zero
-      maxReplicas: 4
+      maxReplicas: 30
       tensorflow:
         storageUri: pvc://model-storage/124M/ # The PVC and path inside the PVC to the model
         runtimeVersion: "1.14.0-gpu"
         resources:
           limits:
-            cpu: 1
+            cpu: 1.5
             memory: 8Gi
             nvidia.com/gpu: 1
 
     transformer:
-      parallelism: 8
+      parallelism: 300
       minReplicas: 0
       maxReplicas: 2
       custom:
         container:
-          image: coreweave/gpt-transformer:0.9 # Docker image of the code found in transformer/
+          image: coreweave/gpt-transformer:0.14 # Docker image of the code found in transformer/
           name: user-container
           resources:
             limits:
               cpu: 3
               memory: 1Gi
             requests:
-              cpu: 300m
+              cpu: 1
               memory: 256Mi

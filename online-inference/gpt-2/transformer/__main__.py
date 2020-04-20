@@ -13,5 +13,5 @@ args, _ = parser.parse_known_args()
 
 if __name__ == "__main__":
     transformer = Transformer(args.model_name, predictor_host=args.predictor_host)
-    kfserver = kfserving.KFServer()
+    kfserver = kfserving.KFServer(workers=4)
     kfserver.start(models=[transformer])

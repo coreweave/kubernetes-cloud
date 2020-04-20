@@ -7,21 +7,21 @@ metadata:
 spec:
   default:
     predictor:
-      parallelism: 2
+      parallelism: 1
       # Target concurrency of 4 active requests to each container
       minReplicas: 0 # Allow scale to zero
-      maxReplicas: 4
+      maxReplicas: 20
       tensorflow:
         storageUri: pvc://model-storage/1558M/ # The PVC and path inside the PVC to the model
         runtimeVersion: "1.14.0-gpu"
         resources:
           limits:
             cpu: 1
-            memory: 18Gi
+            memory: 12Gi
             nvidia.com/gpu: 1
 
     transformer:
-      parallelism: 12
+      parallelism: 40
       minReplicas: 0
       maxReplicas: 2
       custom:
