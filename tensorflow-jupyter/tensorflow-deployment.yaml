@@ -69,7 +69,7 @@ spec:
                 values:
                   - GeForce_GTX_1070_Ti
                   - GeForce_GTX_1070
-              - key: topology.kubernetes.io/region
+              - key: failure-domain.beta.kubernetes.io/region
                 operator: In
                 values:
                   - ORD1
