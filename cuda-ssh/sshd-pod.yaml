@@ -46,6 +46,10 @@ spec:
               - GeForce_GTX_1070_Ti
               - GeForce_GTX_1080_Ti
               - P104-100
+          - key: topology.kubernetes.io/region
+            operator: In
+            values:
+              - ORD1
 
   volumes:
     - name: storage
