@@ -68,8 +68,7 @@ spec:
                 operator: In
                 values:
                   - GeForce_GTX_1070_Ti
-                  - GeForce_GTX_1080_Ti
-                  - P104-100
+                  - GeForce_GTX_1070
               - key: topology.kubernetes.io/region
                 operator: In
                 values:
@@ -86,6 +85,7 @@ spec:
                 - key: cpu.atlantic.cloud/family
                   operator: In
                   values:
+                    - i7
                     - i5
                     - i9
                     - xeon
