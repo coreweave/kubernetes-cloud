@@ -179,7 +179,10 @@ metadata:
 data:
   config: | 
     containerRuntimeExecutor: k8sapi
+    featureFlags:
+      resourcesDuration: true
     metricsConfig:
+      disableLegacy: true
       enabled: true
       path: /metrics
       port: 8080
@@ -224,14 +227,30 @@ spec:
       labels:
         app: argo-server
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node.coreweave.cloud/class
+                operator: In
+                values:
+                  - control-plane
       containers:
       - args:
         - server
         - --namespaced
 #        - --auth-mode 
 #        - client
-        image: argoproj/argocli:v2.7.1
+        image: argoproj/argocli:v2.7.5
         name: argo-server
+        resources:
+          requests:
+            cpu: 100m
+            memory: 64Mi
+          limits:
+            cpu: 1
+            memory: 2Gi
         ports:
         - containerPort: 2746
         readinessProbe:
@@ -255,18 +274,33 @@ spec:
     metadata:
       labels:
         app: workflow-controller
-    spec:
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: node.coreweave.cloud/class
+              operator: In
+              values:
+                - control-plane
       containers:
       - args:
         - --configmap
         - workflow-controller-configmap
         - --executor-image
-        - argoproj/argoexec:v2.7.1
+        - argoproj/argoexec:v2.7.5
         - --namespaced
         command:
         - workflow-controller
+        resources:
+          requests:
+            cpu: 200m
+            memory: 500Mi
+          limits:
+            cpu: 1
+            memory: 15Gi
         ports:
         - containerPort: 8080
-        image: argoproj/workflow-controller:v2.7.1
+        image: argoproj/workflow-controller:v2.7.5
         name: workflow-controller
       serviceAccountName: argo
