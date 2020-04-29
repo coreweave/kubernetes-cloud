@@ -34,6 +34,21 @@ Selecting the right hardware for your workload is important. All compute nodes a
 | NVIDIA | Volta      | Titan V 6Gb | 6       | Titan_V_6           |
 | NVIDIA | Volta      | V100        | 16      | Tesla_V100          |
 
+## Included System Resources per GPU Model
+
+| GPU Model         | vCPU        | RAM GB | Great For                                               |
+|-------------------|-------------|--------|---------------------------------------------------------|
+| P106-100          | 0.5         | 6      | Batch processing, blockchain compute                    |
+| GTX 1060          | 0.5         | 6      | Video transcoding, batch processing                     |
+| P104-100          | 0.5         | 8      | Batch processing, blockchain compute, hashcat           |
+| GTX 1070          | 1           | 8      | Video transcoding, rendering, batch processing          |
+| GTX 1070Ti        | 1           | 8      | Video transcoding, rendering, batch processing          |
+| P102-100          | 1           | 10     | Batch processing, blockchain compute, hashcat           |
+| GTX 1080Ti        | 1           | 11     | Machine learning, rendering, batch processing           |
+| Titan V 6GB       | 2           | 10     | Batch processing, hashcat, blockchain compute           |
+| Tesla V100        | 3           | 16     | AI inference, rendering, batch processing, hashcat      |
+| Tesla V100 NVLINK | 4 Xeon Gold | 32     | Deep learning, neural network training, HPC             |
+
 ## Getting Started
 ### Install Kubernetes Command Line Tools
 
