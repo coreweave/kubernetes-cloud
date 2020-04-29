@@ -23,16 +23,16 @@ Selecting the right hardware for your workload is important. All compute nodes a
 
 ## GPU Availability
 
-| Vendor | Generation | Model       | VRAM GB | Label               |
-|--------|------------|-------------|---------|---------------------|
-| NVIDIA | Pascal     | P106-100    | 6       | P106-100            |
-| NVIDIA | Pascal     | 1060        | 6       | GeForce_GTX_1060_6GB|
-| NVIDIA | Pascal     | P104-100    | 8       | P104-100            |
-| NVIDIA | Pascal     | 1070        | 8       | GeForce_GTX_1070    |
-| NVIDIA | Pascal     | 1070 Ti     | 8       | GeForce_GTX_1070_Ti |
-| NVIDIA | Pascal     | 1080 Ti     | 11      | GeForce_GTX_1080_Ti |
-| NVIDIA | Volta      | Titan V 6Gb | 6       | Titan_V_6           |
-| NVIDIA | Volta      | V100        | 16      | Tesla_V100          |
+| Vendor | Generation | Model             | VRAM GB | Label               |
+|--------|------------|-------------------|---------|---------------------|
+| NVIDIA | Pascal     | P106-100          | 6       | P106-100            |
+| NVIDIA | Pascal     | GTX 1060          | 6       | GeForce_GTX_1060_6GB|
+| NVIDIA | Pascal     | P104-100          | 8       | P104-100            |
+| NVIDIA | Pascal     | GTX 1070          | 8       | GeForce_GTX_1070    |
+| NVIDIA | Pascal     | GTX 1070 Ti       | 8       | GeForce_GTX_1070_Ti |
+| NVIDIA | Pascal     | GTX 1080 Ti       | 11      | GeForce_GTX_1080_Ti |
+| NVIDIA | Volta      | Titan V 6GB       | 6       | Titan_V_6           |
+| NVIDIA | Volta      | Tesla V100        | 16      | Tesla_V100          |
 
 ## Included System Resources per GPU Model
 
@@ -42,9 +42,9 @@ Selecting the right hardware for your workload is important. All compute nodes a
 | GTX 1060          | 0.5         | 6      | Video transcoding, batch processing                     |
 | P104-100          | 0.5         | 8      | Batch processing, blockchain compute, hashcat           |
 | GTX 1070          | 1           | 8      | Video transcoding, rendering, batch processing          |
-| GTX 1070Ti        | 1           | 8      | Video transcoding, rendering, batch processing          |
+| GTX 1070 Ti       | 1           | 8      | Video transcoding, rendering, batch processing          |
 | P102-100          | 1           | 10     | Batch processing, blockchain compute, hashcat           |
-| GTX 1080Ti        | 1           | 11     | Machine learning, rendering, batch processing           |
+| GTX 1080 Ti       | 1           | 11     | Machine learning, rendering, batch processing           |
 | Titan V 6GB       | 2           | 10     | Batch processing, hashcat, blockchain compute           |
 | Tesla V100        | 3           | 16     | AI inference, rendering, batch processing, hashcat      |
 | Tesla V100 NVLINK | 4 Xeon Gold | 32     | Deep learning, neural network training, HPC             |
