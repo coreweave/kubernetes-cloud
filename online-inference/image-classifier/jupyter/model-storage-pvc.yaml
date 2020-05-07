@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: model-storage
+spec:
+  # Available shared filesystem storage classes.
+  # Only use shared filesystems when mounting on multiple nodes is a requirement.
+  # Regular storage classes provide better performance.
+  #
+  # sharedfs-hdd-replicated - HDD Backend shared filesystem with replicas
+  # sharedfs-ssd-replicated - SSD Backed shared filesystem with replicas
+  storageClassName: sharedfs-hdd-replicated
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 30Gi
