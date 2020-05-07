@@ -2,7 +2,8 @@
 
 ### Examples
 
-[OpenAI GPT-2 Text Generation](./gpt-2)
+[OpenAI GPT-2 Text Generation](./gpt-2) (TF 1)  
+[Inception Image Classifier](./image-classifier) (TF 2)
 
 ### Introduction
 The CoreWeave Kubernetes Cloud allows for easy serving of machine learning models. The models can be sourced from a range of storage backends, including Amazon S3 and a CoreWeave `ReadWriteMany` Persistent Volume. After deployment the inference engine auto scales the containers based on demand to swiftly fulfill user requests and scales down as load decreases to not waste GPU resources. Allocating new resources and scaling up a container usually takes 30 seconds, allowing a significantly more responsive service than depending on scaling of hypervisor backed instances of other cloud providers.
