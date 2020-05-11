@@ -1,0 +1,28 @@
+apiVersion: serving.kubeflow.org/v1alpha2
+kind: InferenceService
+metadata:
+  annotations:
+    serving.kubeflow.org/gke-accelerator: Tesla_V100
+  labels:
+    qos.coreweave.cloud/latency: low
+  name: basnet
+spec:
+  default:
+    predictor:
+      maxReplicas: 20
+      minReplicas: 1
+      parallelism: 1
+      custom:
+        container:
+          image: docker.io/cyrildiagne/basnet-http
+          name: kfserving-container
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              cpu: "3"
+              memory: 8Gi
+              nvidia.com/gpu: "1"
+            requests:
+              cpu: "0.5"
+              memory: 4Gi

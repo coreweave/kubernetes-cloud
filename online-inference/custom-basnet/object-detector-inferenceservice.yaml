@@ -1,0 +1,23 @@
+# This is a CPU only export of the model, for demonstration purposes only
+apiVersion: serving.kubeflow.org/v1alpha2
+kind: InferenceService
+metadata:
+  labels:
+    qos.coreweave.cloud/latency: low
+  name: object-detector
+spec:
+  default:
+    predictor:
+      custom:
+        container:
+          image: codait/max-object-detector
+          name: kfserving-container
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              cpu: "3"
+              memory: 8Gi
+            requests:
+              cpu: "1"
+              memory: 4Gi
