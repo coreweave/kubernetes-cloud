@@ -13,13 +13,13 @@ This example demonstrates deploying an auto-scaling Inference service from a pre
 
 After installing `kubectl` and adding your CoreWeave Cloud access credentials, the following steps will deploy the Inference Service. Clone all the files in this repository to follow along.
 
-2. Apply the resources. This can be used to both create and update existing manifests
+1. Apply the resources. This can be used to both create and update existing manifests
    ```bash
     $ kubectl apply -f basnet-inferenceservice.yaml
     inferenceservice.serving.kubeflow.org/basnet configured
     ```
     
-3. List pods to see that the Transformer and Predictor have launched successfully
+2. List pods to see that the Transformer and Predictor have launched successfully
    ```bash
    $ kubectl get pods
    NAME                                                           READY   STATUS    RESTARTS   AGE
@@ -27,7 +27,7 @@ After installing `kubectl` and adding your CoreWeave Cloud access credentials, t
    ```
    If the predictor fails to init, look in the logs for clues `kubectl logs basnet-predictor-default-sj9kr-deployment-76b67d669-4gjrp kfserving-container`.
 
-4. Once all the Pods are running, we can get the API endpoint for our model. Since this model doesn't adhere to the [Tensorflow V1 HTTP API](https://www.tensorflow.org/tfx/serving/api_rest#predict_api), we can't use the API endpoint provided by `kubectl get inferenceservices`. We have to hit up the predictor directly.
+3. Once all the Pods are running, we can get the API endpoint for our model. Since this model doesn't adhere to the [Tensorflow V1 HTTP API](https://www.tensorflow.org/tfx/serving/api_rest#predict_api), we can't use the API endpoint provided by `kubectl get inferenceservices`. We have to hit up the predictor directly.
    ```bash
    $ kubectl get ksvc
    NAME                         URL                                                                       LATESTCREATED                      LATESTREADY                        READY   REASON
@@ -35,7 +35,7 @@ After installing `kubectl` and adding your CoreWeave Cloud access credentials, t
    ```
    The URL in the output is the public API URL for your newly deployed model.
    
-5. Enter the client directory. You can either run the test client locally or in docker. The output will be in `images/output.png`. 
+4. Enter the client directory. You can either run the test client locally or in docker. The output will be in `images/output.png`. 
    ```bash
     $ cd client/
     $ export SERVICE_URL=https://basnet-predictor-default.tenant-test.knative.chi.coreweave.com
@@ -49,7 +49,7 @@ After installing `kubectl` and adding your CoreWeave Cloud access credentials, t
     $ open images/output.png
    ```
    
-8. Remove the inference service
+5. Remove the inference service
    ```bash
    $ kubectl delete inferenceservices basnet
    inferenceservice.serving.kubeflow.org "basnet" deleted

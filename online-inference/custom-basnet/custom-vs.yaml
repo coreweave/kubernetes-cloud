@@ -1,0 +1,20 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: basnet-predictor-public
+
+spec:
+  gateways:
+  - knative-serving/knative-ingress-gateway
+  hosts:
+  - basnet-predictor.tenant-compass.global.coreweave.com
+  http:
+    - route:
+      - destination:
+          host: cluster-local-gateway.istio-system.svc.tenant.chi.local #basnet-predictor-default.tenant-compass.knative.chi.coreweave.com
+          port:
+            number: 80
+      rewrite:
+        authority: basnet-predictor-default.tenant-compass.knative.chi.coreweave.com
+      timeout: 12s
+      websocketUpgrade: true
