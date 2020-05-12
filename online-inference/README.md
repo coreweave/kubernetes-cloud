@@ -3,9 +3,12 @@
 ### Examples
 
 [OpenAI GPT-2 Text Generation](./gpt-2) (TF 1)  
-[Inception Image Classifier](./image-classifier) (TF 2)
+[Inception Image Classifier](./image-classifier) (TF 2)  
+[BASNet Object Detector](./custom-basnet) (Custom)
 
 ### Introduction
+![diagram](./overview.png)
+
 The CoreWeave Kubernetes Cloud allows for easy serving of machine learning models. The models can be sourced from a range of storage backends, including Amazon S3 and a CoreWeave `ReadWriteMany` Persistent Volume. After deployment the inference engine auto scales the containers based on demand to swiftly fulfill user requests and scales down as load decreases to not waste GPU resources. Allocating new resources and scaling up a container usually takes 30 seconds, allowing a significantly more responsive service than depending on scaling of hypervisor backed instances of other cloud providers.
 
 Well supported Open Source tools back the inference stack. [Knative Serving](https://knative.dev/docs/serving/) acts as the serverless runtime, managing auto scaling, revision control and canary deployments. [Kubeflow Serving](https://www.kubeflow.org/docs/components/serving/kfserving/) provides an easy to use interface, via Kubernetes resource definitions to deploy models without having to worry about correctly configuring the underlying framework (ie. Tensorflow Serving). The examples in this repository are tailored specifically for common use cases, and there are many more examples in the [KFServing repostiory](https://github.com/kubeflow/kfserving/tree/master/docs/samples) that can be used directly in your namespace.
