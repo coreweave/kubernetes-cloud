@@ -1,0 +1,3 @@
+kfserving
+fastai==1.0.61
+torch==1.5.0

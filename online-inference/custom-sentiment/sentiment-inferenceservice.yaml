@@ -1,0 +1,29 @@
+apiVersion: serving.kubeflow.org/v1alpha2
+kind: InferenceService
+metadata:
+  annotations:
+    serving.kubeflow.org/gke-accelerator: GeForce_GTX_1070_Ti
+  labels:
+    qos.coreweave.cloud/latency: low
+  name: sentiment
+spec:
+  default:
+    predictor:
+      maxReplicas: 10
+      minReplicas: 0
+      parallelism: 1
+      custom:
+        container:
+          image: coreweave/fastai-sentiment:4
+          name: kfserving-container
+          env:
+          - name: STORAGE_URI
+            value: pvc://model-storage/sentiment
+          resources:
+            limits:
+              cpu: "3"
+              memory: 8Gi
+              nvidia.com/gpu: "1"
+            requests:
+              cpu: "1"
+              memory: 6Gi
