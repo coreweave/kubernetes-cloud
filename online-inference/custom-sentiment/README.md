@@ -64,13 +64,15 @@ As we don't want to bundle the model in the Docker image for performance reasons
    ```
 
 #### Deploy the model  
-1. Apply the resources. This can be used to both create and update existing manifests.
+1. Modify `sentiment-inferenceservice.yaml` to reference your docker image.
+
+2. Apply the resources. This can be used to both create and update existing manifests.
    ```bash
     $ kubectl apply -f sentiment-inferenceservice.yaml
     inferenceservice.serving.kubeflow.org/sentiment configured
     ```
     
-2. List pods to see that the Predictor has launched successfully. This can take a minute, wait for Ready to indicate 2/2.
+3. List pods to see that the Predictor has launched successfully. This can take a minute, wait for Ready to indicate 2/2.
    ```bash
    $ kubectl get pods
    NAME                                                           READY   STATUS    RESTARTS   AGE
@@ -78,7 +80,7 @@ As we don't want to bundle the model in the Docker image for performance reasons
    ```
    If the predictor fails to init, look in the logs for clues `kubectl logs sentiment-predictor-default-px8xk-deployment-85bb6787d7-h42xk kfserving-container`.
 
-3. Once all the Pods are running, we can get the API endpoint for our model. The API endpoints follow the [Tensorflow V1 HTTP API](https://www.tensorflow.org/tfx/serving/api_rest#predict_api).
+4. Once all the Pods are running, we can get the API endpoint for our model. The API endpoints follow the [Tensorflow V1 HTTP API](https://www.tensorflow.org/tfx/serving/api_rest#predict_api).
    ```bash
    $ kubectl get inferenceservices
    NAME        URL                                                                          READY   DEFAULT TRAFFIC   CANARY TRAFFIC   AGE
@@ -86,13 +88,13 @@ As we don't want to bundle the model in the Docker image for performance reasons
    ```
    The URL in the output is the public API URL for your newly deployed model. A HTTPs endpoint is also available, however this one bypasses any canary deployments. Retrieve this one with `kubectl get ksvc`.
    
-4. Run a test prediction on the URL from above. Remember to add the `:predict` postfix.
+5. Run a test prediction on the URL from above. Remember to add the `:predict` postfix.
    ```bash
     $ curl -d @sample.json http://sentiment.tenant-test.knative.chi.coreweave.com/v1/models/sentiment:predict
    {"predictions": ["positive"]}
    ```
    
-5. Remove the `InferenceService`. This will delete all the associated resources, except for your model storage and sleep Deployment.
+6. Remove the `InferenceService`. This will delete all the associated resources, except for your model storage and sleep Deployment.
    ```bash
    $ kubectl delete inferenceservices sentiment
    inferenceservice.serving.kubeflow.org "sentiment" deleted
