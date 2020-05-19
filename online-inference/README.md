@@ -5,7 +5,8 @@
 [OpenAI GPT-2 Text Generation](./gpt-2) (TF 1)  
 [Inception Image Classifier](./image-classifier) (TF 2)  
 [BASNet Object Detector](./custom-basnet) (Custom Public Predictor)  
-[FastAI Sentiment Analyzer](./custom-sentiment) (Custom PyTorch Predictor)
+[FastAI Sentiment Analyzer](./custom-sentiment) (Custom PyTorch Predictor)  
+[aitextgen GPT-2 Text Generation](./custom-pytorch-aitextgen) (Custom PyTorch Predictor)
 
 ### Introduction
 ![diagram](./overview.png)
