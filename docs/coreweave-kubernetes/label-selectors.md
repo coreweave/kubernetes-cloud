@@ -46,7 +46,7 @@ spec:
           - key: gpu.nvidia.com/nvlink
             operator: In
             values:
-              - true
+              - "true"
 ```
 {% endtab %}
 
@@ -73,7 +73,7 @@ spec:
           - key: gpu.nvidia.com/nvlink
             operator: In
             values:
-              - true
+              - "true"
 ```
 {% endtab %}
 
