@@ -1,6 +1,4 @@
-# README
-
-![Argo](../.gitbook/assets/argo.png) ![Screenshot](../.gitbook/assets/argo-screenshot.png)
+# Argo
 
 ## Introduction
 
@@ -29,8 +27,6 @@ After installing `kubectl` and adding your CoreWeave Cloud access credentials, t
 
 2. Install the Argo CLI from the [Argo releases page](https://github.com/argoproj/argo/releases)
 3. Submit an example workflow, `gpu-say-workflow.yaml` found in this repository. The workflow takes a JSON Array and spins up one Pod with one GPU allocated for each, in parallel. `nvidia-smi` output as well as the parameter entry assigned for that Pod is printed to the log.
-
-   ![Workflow submit](../.gitbook/assets/workflow-submit.gif)
 
    ```text
    $ argo submit --watch gpu-say-workflow.yaml -p messages='["Argo", "Is", "Awesome"]'

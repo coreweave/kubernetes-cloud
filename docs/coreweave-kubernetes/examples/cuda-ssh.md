@@ -1,4 +1,4 @@
-# README
+# SSH Server with CUDA
 
 ## CUDA Development Toolkit with SSH Server
 

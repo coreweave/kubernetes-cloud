@@ -2,8 +2,8 @@
 
 ## Quick Links
 
-* **Compass** - Production ML Model Deployment as a Service. Billed by the minute, with the industries most responsive auto scale.
-* **Workflows** - Spin up batch training, rendering or general computation jobs on thousands of GPUs in seconds. Hyper responsive, only pay for the time your computations are running.
+* \*\*\*\*[**Compass**](compass/online-inference/#introduction) - Production ML Model Deployment as a Service. Billed by the minute, with the industries most responsive auto scale.
+* \*\*\*\*[**Workflows**](argo.md#introduction) ****- Spin up batch training, rendering or general computation jobs on thousands of GPUs in seconds. Hyper responsive, only pay for the time your computations are running.
 * \*\*\*\*[**Kubernetes**](coreweave-kubernetes/getting-started.md) - Run and scale your own services and workloads with access to thousands of GPUs, CPU cores and high throughput networking in a fully managed Kubernetes environment.
 
 ## What is CoreWeave Cloud?

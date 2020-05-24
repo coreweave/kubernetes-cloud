@@ -1,8 +1,8 @@
-# README
+# Jupyter Notebook with TensorFlow
 
-## Tensorflow with Jupyter
+## TensorFlow with Jupyter
 
-![Screenshot](../.gitbook/assets/screenshot%20%281%29.png)
+![Screenshot](../../.gitbook/assets/screenshot%20%281%29.png)
 
 ### Introduction
 
