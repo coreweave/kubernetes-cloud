@@ -1,7 +1,5 @@
 # SSH Server with CUDA
 
-## CUDA Development Toolkit with SSH Server
-
 ### Introduction
 
 This example deploys a simple Kubernetes [Pod](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/) with a Linux container including the CUDA Runtime and development tools as well as running an SSH server. The Pod is allocate 6 GPUs.

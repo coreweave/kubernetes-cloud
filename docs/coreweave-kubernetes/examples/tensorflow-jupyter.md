@@ -1,7 +1,5 @@
 # Jupyter Notebook with TensorFlow
 
-## TensorFlow with Jupyter
-
 ![Screenshot](../../.gitbook/assets/screenshot%20%281%29.png)
 
 ### Introduction
