@@ -51,5 +51,3 @@ Head on over to Examples to deploy some workloads!
 
 {% page-ref page="examples/" %}
 
-
-
