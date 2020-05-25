@@ -19,14 +19,23 @@ apiVersion: serving.knative.dev/v1 # Current version of Knative
 kind: Service
 metadata:
   name: helloworld # The name of the app
+  annotations:
+    autoscaling.knative.dev/minScale: "0" # Allow scale to Zero
+    autoscaling.knative.dev/maxScale: "10" # Maximum number of Pods allowed to auto-scale to
 spec:
   template:
     spec:
+      containerConcurrency: 10 # Container can handle 10 concurrent requests
       containers:
         - image: gcr.io/knative-samples/helloworld-go # The URL to the image of the app
+          resources:
+            limits:
+              cpu: 2
+              memory: 4Gi
           env:
             - name: TARGET # The environment variable printed out by the sample app
               value: "Go Sample v1"
+          
 ```
 {% endcode %}
 
