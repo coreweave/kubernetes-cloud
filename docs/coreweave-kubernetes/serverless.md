@@ -2,6 +2,8 @@
 
 Deploying applications as serverless sercices is a good alternative to a regular Deployment / Service model when the applications purpose is to serve HTTP or gRPC requests, either internal or from the Internet. CoreWeave uses the [KNative](https://knative.dev/docs/serving/getting-started-knative-app/) runtime to support deploying a serverless application with a single manifest. No installation necessary.
 
+![](../.gitbook/assets/serverless_deployment.png)
+
 #### Serverless Benefits
 
 * Automatic public HTTPS endpoints
