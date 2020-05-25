@@ -45,7 +45,7 @@ spec:
               # Making individual Pods resource light is advantageous for bin-packing. In the case of Ethminer, running a single GPU
               # per Pod would work well and often be preferred. In this example we use 2 GPUs per pod to showcase the flexibility
               # of GPU allocation.
-              nvidia.com/gpu: 2
+              nvidia.com/gpu: 1
 
       # Node affinity can be used to require / prefer the Pods to be scheduled on a node with a specific hardware type
       # No affinity allows scheduling on all hardware types that can fulfill the resource request.
@@ -60,8 +60,8 @@ spec:
               - key: gpu.nvidia.com/model
                 operator: In
                 values:
+                  - GeForce_GTX_1070
                   - GeForce_GTX_1070_Ti
-                  - GeForce_GTX_1080_Ti
                   - P104-100
 
           # As mining doesn't require much CPU and very little network connectivity, we try to play nice and only schedule
