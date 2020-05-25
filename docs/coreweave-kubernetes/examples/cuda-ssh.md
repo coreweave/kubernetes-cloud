@@ -1,5 +1,7 @@
 # SSH Server with CUDA
 
+To follow along, please clone the [GitHub repository](https://github.com/coreweave/kubernetes-cloud/tree/master/cuda-ssh) with the example manifests.
+
 ### Introduction
 
 This example deploys a simple Kubernetes [Pod](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/) with a Linux container including the CUDA Runtime and development tools as well as running an SSH server. The Pod is allocate 6 GPUs.
@@ -13,6 +15,8 @@ A [Service](https://kubernetes.io/docs/concepts/services-networking/service/) is
 ## Persistent Storage
 
 A [Persistent Volume](https://kubernetes.io/docs/concepts/storage/persistent-volumes/) is allocated to the Pods `/root` directory. The allocation is done via a [Persistent Volume Claim](https://github.com/atlantic-crypto/kubernetes-cloud-examples/blob/master/cuda-ssh/sshd-pvc.yaml) requesting the storage size and backing storage type \(SSD, HDD\). This volule claim is then mounted to the `/root` directory in the Pod definition. Utilizing a persistent volume ensures that files persist even if the node currently running the Pod fails.
+
+{% page-ref page="../storage.md" %}
 
 ### Getting Started
 

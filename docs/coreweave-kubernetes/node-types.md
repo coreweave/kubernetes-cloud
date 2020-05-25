@@ -143,5 +143,7 @@ spec:
 {% endtab %}
 {% endtabs %}
 
-
+{% hint style="info" %}
+Kubernetes allows resources to be scheduled with `requests` and `limits`. When only `limits` are specificed, the `requests` are set to the same amount as the limit.
+{% endhint %}
 

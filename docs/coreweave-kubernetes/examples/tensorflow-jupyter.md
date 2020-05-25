@@ -1,5 +1,7 @@
 # Jupyter Notebook with TensorFlow
 
+To follow along, please clone the [GitHub repository](https://github.com/coreweave/kubernetes-cloud/tree/master/tensorflow-jupyter) with the example manifests.
+
 ![Screenshot](../../.gitbook/assets/screenshot%20%281%29.png)
 
 ### Introduction
@@ -18,6 +20,10 @@ A [Service](https://kubernetes.io/docs/concepts/services-networking/service/) is
 
 A [Persistent Volume](https://kubernetes.io/docs/concepts/storage/persistent-volumes/) is allocated to persist user uploaded Notebooks. The allocation is done via a [Persistent Volume Claim](https://github.com/atlantic-crypto/kubernetes-cloud-examples/blob/master/cuda-ssh/sshd-pvc.yaml) requesting the storage size and backing storage type \(SSD, HDD\). This volule claim is then mounted to the `/tf/notebooks` directory in the Pod definition. Utilizing a persistent volume ensures that files persist even if the node currently running the Pod fails.
 
+{% page-ref page="../storage.md" %}
+
+
+
 ### Getting Started
 
 After installing `kubectl` and adding your CoreWeave Cloud access credentials, the following steps will deploy the Ethminer Deployment and service.
@@ -28,8 +34,7 @@ After installing `kubectl` and adding your CoreWeave Cloud access credentials, t
     $ kubectl apply -f tensorflow-deployment.yaml
     deployment.apps/tensorflow-jupyter configured
     $ kubectl apply -f tensorflow-service.yaml
-    service/tensorflow-jupyter configured
-   `
+    service/tensorflow-jupyter configured 
    ```
 
 2. List pods to see the Deployment working to instantiate all our requested instances
@@ -74,11 +79,9 @@ After installing `kubectl` and adding your CoreWeave Cloud access credentials, t
 
 6. The logs can be viewed to retrieve the Jupyter login token
 
-   \`\`\`shell $ kubectl logs tensorflow-jupyter-6794bcb465-4czqb
-
-   **\_** /**\_\_** **\_\_/** /_**\_\_**_  **** /  __ \_  **\_ \_**/  **\_ \_**/ _/_  **/\_**  \_ \| /\| / /  _/ / **/ / / /\(** \)/ /_/ / /  _\_\_/_  / / /_/ /_ \|/ \|/ / /_/ \_\__//_/ /_//**/ \**//_/ /_/ /_/ \_**/\_**/\|\__/
-
 ```text
+$ kubectl logs tensorflow-jupyter-6794bcb465-4czqb
+
 WARNING: You are running this container as root, which can cause new files in
 mounted volumes to be created as the root user on your host machine.
 
@@ -92,7 +95,6 @@ $ docker run -u $(id -u):$(id -g) args...
 [I 14:09:13.153 NotebookApp] http://tensorflow-jupyter-6794bcb465-4czqb:8888/?token=a71eb39261e6ef01bdec8867c2c051b0b3aaf31545bfbb84
 [I 14:09:13.153 NotebookApp]  or http://127.0.0.1:8888/?token=a71eb39261e6ef01bdec8867c2c051b0b3aaf31545bfbb84
 ```
-```
 
 To get the public IP assigned to the service, simply list all services
 
@@ -101,8 +103,6 @@ $ kubetl get service                                                            
 NAME                 TYPE           CLUSTER-IP       EXTERNAL-IP     PORT(S)          AGE
 tensorflow-jupyter   LoadBalancer   10.134.100.173   64.79.105.199   8888:30947/TCP   30s
 ```
-
-\`\`\`
 
 You can now now access Jupyter on `http://EXTERNAL-IP:8888` using the login token from the log.
 

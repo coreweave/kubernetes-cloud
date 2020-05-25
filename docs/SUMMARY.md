@@ -7,9 +7,11 @@
 * [Getting Started](coreweave-kubernetes/getting-started.md)
 * [Node Types](coreweave-kubernetes/node-types.md)
 * [Advanced Label Selectors](coreweave-kubernetes/label-selectors.md)
+* [Storage](coreweave-kubernetes/storage.md)
+* [Exposing Applications](coreweave-kubernetes/exposing-applications.md)
 * [Examples](coreweave-kubernetes/examples/README.md)
-  * [Ethereum Miner](coreweave-kubernetes/examples/miner.md)
   * [Jupyter Notebook with TensorFlow](coreweave-kubernetes/examples/tensorflow-jupyter.md)
+  * [Ethereum Miner](coreweave-kubernetes/examples/miner.md)
   * [SSH Server with CUDA](coreweave-kubernetes/examples/cuda-ssh.md)
 
 ## Compass
@@ -26,5 +28,5 @@
 
 ## Workflows
 
-* [Argo](argo.md)
+* [Argo](workflows/argo.md)
 

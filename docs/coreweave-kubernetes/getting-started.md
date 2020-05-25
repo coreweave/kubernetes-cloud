@@ -6,7 +6,7 @@
 
 ### Install Kubernetes Command Line Tools
 
-Cut-and-paste instructions are below. For more detail please reference the [official documentation](https://kubernetes.io/docs/tasks/tools/install-kubectl/).
+Once you have received your credentials, all you have to do is put them in place and download the command line tools. No other setup is necessary, you are instantly ready to deploy your workloads and containers. Cut-and-paste instructions are below. For more detail please reference the [official documentation](https://kubernetes.io/docs/tasks/tools/install-kubectl/).
 
 #### Mac OS
 
