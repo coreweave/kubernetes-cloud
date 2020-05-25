@@ -2,7 +2,7 @@
 
 Deploying applications as serverless services is a good alternative to a regular Deployment / Service model when the applications purpose is to serve HTTP or gRPC requests, either internal or from the Internet. CoreWeave uses the [KNative](https://knative.dev/docs/serving/getting-started-knative-app/) runtime to support deploying a serverless application with a single manifest. No installation necessary.
 
-![](../.gitbook/assets/serverless_deployment.png)
+![](../.gitbook/assets/screen-shot-2020-05-25-at-9.08.48-am.png)
 
 #### Serverless Benefits
 
@@ -11,7 +11,7 @@ Deploying applications as serverless services is a good alternative to a regular
 * No public IP charges
 * [Canary deployments](https://knative.dev/docs/serving/samples/blue-green-deployment/) and other advanced deployment strategies
 
-**One Step Example**
+#### One Step Example
 
 {% code title="helloworld-ksvc.yaml" %}
 ```yaml
@@ -46,4 +46,10 @@ $ kubectl get ksvc
 NAME            URL                                                       LATESTCREATED         LATESTREADY           READY   REASON
 helloworld      https://helloworld.default.knative.chi.coreweave.com      helloworld-ngzsn      helloworld-ngzsn      True
 ```
+
+### Monitoring
+
+Managed Grafana provides monitoring of requests, success rates, response times and auto-scaling metrics transparently. No metrics specific code needs to be added to the serverless application.
+
+![](../.gitbook/assets/screen-shot-2020-05-08-at-1.34.33-am.png)
 
