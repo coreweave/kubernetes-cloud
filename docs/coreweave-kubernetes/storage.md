@@ -48,7 +48,7 @@ spec:
 
 #### Shared Filesystem
 
-Unlike block volumes a shared filesystem can be accessed by multiple nodes at the same time. This storage type is useful for ie. reading assets for CGI rendering or loading ML models for parallel inference. A shared filesystem is accessed similarly to block storage. The access mode changes to `ReadWriteMany` and the storage class names are different.
+Unlike block volumes a shared filesystem can be accessed by multiple nodes at the same time. This storage type is useful for parallel tasks, i.e. reading assets for CGI rendering or loading ML models for parallel inference. A shared filesystem is accessed similarly to block storage. The access mode changes to `ReadWriteMany` and the storage class names are different.
 
 {% tabs %}
 {% tab title="HDD" %}

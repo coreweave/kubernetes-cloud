@@ -4,10 +4,10 @@ description: Label selectors are available for precise placement of workloads
 
 # Advanced Label Selectors
 
-Selecting the right hardware for your workload is important. All compute nodes are tagged with a set of labels specifying the hardware type that is available inside. [Affinity Rules](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity) should be leveraged on workloads to ensure that the desired type of hardware \(ie. GPU model\) gets assigned to the Pod.
+Selecting the right hardware for your workload is important. All compute nodes are tagged with a set of labels specifying the hardware type. [Affinity Rules](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity) should be leveraged on workloads to ensure that the desired type of hardware \(ie. GPU model\) gets assigned to your job.
 
 {% hint style="info" %}
-The basic node selectors demonstrated in [Node Types](node-types.md#requesting-compute-in-kubernetes) are usually all that is needed to properly schedule the workloads. Please [contact support](mailto:support@coreweave.com) for any questions about advanced scheduling and special requirements.
+The basic node selectors demonstrated in [Node Types](node-types.md#requesting-compute-in-kubernetes) are usually all that is needed to properly schedule workloads. Please [contact support](mailto:support@coreweave.com) for any questions about advanced scheduling or special requirements.
 {% endhint %}
 
 
@@ -19,11 +19,11 @@ The basic node selectors demonstrated in [Node Types](node-types.md#requesting-c
 | gpu.nvidia.com/count | 4-8 | Number of GPUs provisioned in the node. Using this selector is not recommended as the GPU resource requests are the correct method of selecting GPU count requirement |
 | gpu.nvidia.com/model | GeForce\_GTX\_1070\_Ti \([see list](node-types.md#gpu-availability)\) | GPU model provisioned in the node |
 | gpu.nvidia.com/vram | 6, 8, 11, 16 | GPU VRAM in Gigabytes on the GPUs provisioned in the node |
-| gpu.nvidia.com/nvlink | true, false | Denotes if GPUs are interconnected with NVLink. Currently applicalbe only for Tesla\_V100 |
+| gpu.nvidia.com/nvlink | true, false | Denotes if GPUs are interconnected with NVLink. Currently applicable only for Tesla\_V100 |
 | topology.kubernetes.io/region | ORD1, EWR1, EWR2, BUF1, ARN1 | The region the node is placed in |
 
 {% tabs %}
-{% tab title="Full DGX-1 Chassis" %}
+{% tab title="8x Tesla V100 NVLINK" %}
 ```yaml
 spec:
   containers:
@@ -50,7 +50,7 @@ spec:
 ```
 {% endtab %}
 
-{% tab title="Half DGX-1 Chassis" %}
+{% tab title="4x Tesla V100 NVLINK" %}
 ```yaml
 spec:
   containers:

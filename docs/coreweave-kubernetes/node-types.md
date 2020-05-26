@@ -18,7 +18,7 @@ A wide range of GPU options are available, allowing you to select the most optim
 
 ### System Resources
 
-Each GPU includes a certain amount host CPU and RAM, these are included at no additional fee.
+Each GPU includes a certain amount of host CPU and RAM, these are included at no additional fee.
 
 | GPU Model | vCPU | RAM | Great For |
 | :--- | :--- | :--- | :--- |
@@ -34,9 +34,9 @@ Each GPU includes a certain amount host CPU and RAM, these are included at no ad
 | P106-100 | 0.5 | 6 GB | Batch processing, blockchain compute |
 
 {% hint style="warning" %}
-A workload requesting more resources than allowed for the specific GPU class will have it's resources clamped to the maximum allowable amount.  
+A workload requesting more resources than allowed for the specific GPU class will have its resources capped to the maximum allowable amount.  
   
-For example, launching a Pod with a request for 2 1070Tis will have it's resource request capped to 2 CPU and 16GB RAM. 
+For example, launching a Pod with a request for 2 1070Tis will have its resource request capped to 2 CPU and 16GB RAM. 
 {% endhint %}
 
 ### CPU Availability
@@ -52,7 +52,7 @@ Workloads without GPU requests are always scheduled on CPU nodes. If a specific 
 
 ### Requesting Compute in Kubernetes
 
-A combination of [resource requests ](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)and[ node affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity) is used to select the type and amount of compute to your workload. CoreWeave Cloud relies only on these native Kubernetes methods for resource allocation, allowing maximum flexibilty.
+A combination of [resource requests ](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)and[ node affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity) is used to select the type and amount of compute for your workload. CoreWeave Cloud relies only on these native Kubernetes methods for resource allocation, allowing maximum flexibilty.
 
 {% tabs %}
 {% tab title="Single Tesla V100" %}
