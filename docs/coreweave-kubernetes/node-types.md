@@ -6,13 +6,15 @@ A wide range of GPU options are available, allowing you to select the most optim
 
 | Vendor | Generation | Model | VRAM | Label |
 | :--- | :--- | :--- | :--- | :--- |
-| NVIDIA | Pascal | P106-100 | 6 GB | P106-100 |
-| NVIDIA | Pascal | GTX 1060 | 6 GB | GeForce\_GTX\_1060\_6GB |
-| NVIDIA | Pascal | P104-100 | 8 GB | P104-100 |
-| NVIDIA | Pascal | GTX 1070 | 8 GB | GeForce\_GTX\_1070 |
-| NVIDIA | Pascal | GTX 1070 Ti | 8 GB | GeForce\_GTX\_1070\_Ti |
-| NVIDIA | Pascal | GTX 1080 Ti | 11 GB | GeForce\_GTX\_1080\_Ti |
 | NVIDIA | Volta | Tesla V100 | 16 GB | Tesla\_V100 |
+| NVIDIA | Turing | RTX 2080 Ti | 11 GB | GeForce\_RTX\_2080\_Ti |
+| NVIDIA | Turing | RTX 2060 Super | 8 GB  | GeForce\_RTX\_2060\_Super |
+| NVIDIA | Pascal | GTX 1080 Ti | 11 GB | GeForce\_GTX\_1080\_Ti |
+| NVIDIA | Pascal | GTX 1070 Ti | 8 GB | GeForce\_GTX\_1070\_Ti |
+| NVIDIA | Pascal | GTX 1070 | 8 GB | GeForce\_GTX\_1070 |
+| NVIDIA | Pascal | P104-100 | 8 GB | P104-100 |
+| NVIDIA | Pascal | GTX 1060 | 6 GB | GeForce\_GTX\_1060\_6GB |
+| NVIDIA | Pascal | P106-100 | 6 GB | P106-100 |
 
 ### System Resources
 
@@ -20,14 +22,16 @@ Each GPU includes a certain amount host CPU and RAM, these are included at no ad
 
 | GPU Model | vCPU | RAM | Great For |
 | :--- | :--- | :--- | :--- |
-| P106-100 | 0.5 | 6 GB | Batch processing, blockchain compute |
-| GTX 1060 | 0.5 | 6 GB | Video transcoding, batch processing |
-| P104-100 | 0.5 | 8 GB | Batch processing, blockchain compute, hashcat |
-| GTX 1070 | 1 | 8 GB | Video transcoding, rendering, batch processing |
-| GTX 1070 Ti | 1 | 8 GB | Video transcoding, rendering, batch processing |
-| GTX 1080 Ti | 1 | 11 GB | Machine learning, rendering, batch processing |
-| Tesla V100 | 3 | 16 GB | AI inference, rendering, batch processing, hashcat |
 | Tesla V100 NVLINK | 4 Xeon Gold | 32 GB | Deep learning, neural network training, HPC |
+| Tesla V100 | 3 | 16 GB | AI inference, rendering, batch processing, hashcat |
+| RTX 2080 Ti | 3 | 16 GB | Machine learning, neural network training, HPC |
+| RTX 2060 Super | 3 | 16 GB | Machine learning, rendering, batch processing |
+| GTX 1080 Ti | 1 | 11 GB | Machine learning, rendering, batch processing |
+| GTX 1070 Ti | 1 | 8 GB | Video transcoding, rendering, batch processing |
+| GTX 1070 | 1 | 8 GB | Video transcoding, rendering, batch processing |
+| P104-100 | 0.5 | 8 GB | Batch processing, blockchain compute, hashcat |
+| GTX 1060 | 0.5 | 6 GB | Video transcoding, batch processing |
+| P106-100 | 0.5 | 6 GB | Batch processing, blockchain compute |
 
 {% hint style="warning" %}
 A workload requesting more resources than allowed for the specific GPU class will have it's resources clamped to the maximum allowable amount.  
@@ -144,6 +148,6 @@ spec:
 {% endtabs %}
 
 {% hint style="info" %}
-Kubernetes allows resources to be scheduled with `requests` and `limits`. When only `limits` are specificed, the `requests` are set to the same amount as the limit.
+Kubernetes allows resources to be scheduled with `requests` and `limits.` When only `limits` are specified, the `requests` are set to the same amount as the limit.
 {% endhint %}
 

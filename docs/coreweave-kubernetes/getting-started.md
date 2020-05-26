@@ -2,7 +2,7 @@
 
 ### Obtain Access Credentials
 
-[Sign up for CoreWeave Kubernetes](https://www.coreweave.com/#getstarted) and receive the credentials file needed to access the Kubernetes cluster.
+[Sign up for CoreWeave Cloud](http://www.coreweave.com/#getstarted) and receive the credential file needed to access CoreWeave Cloud via Kubernetes.
 
 ### Install Kubernetes Command Line Tools
 
@@ -35,7 +35,7 @@ mv ~/Downloads/k8s-tenant-test-conf ~/.kube/config
 
 ### Verify Access
 
-Since your new account will not have any resources, listing the secrets is a good start to make sure proper communication with the cluster.
+Since your new account will not have any resources, listing the secrets is a good start to ensure proper communication with the cluster.
 
 ```text
 $ kubectl get secret                                                                                                                                                                                                                            git:(master|…
