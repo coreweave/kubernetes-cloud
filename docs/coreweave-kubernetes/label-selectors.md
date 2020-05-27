@@ -10,8 +10,6 @@ Selecting the right hardware for your workload is important. All compute nodes a
 The basic node selectors demonstrated in [Node Types](node-types.md#requesting-compute-in-kubernetes) are usually all that is needed to properly schedule workloads. Please [contact support](mailto:support@coreweave.com) for any questions about advanced scheduling or special requirements.
 {% endhint %}
 
-
-
 | Label | Possible Values | Description |
 | :--- | :--- | :--- |
 | cpu.coreweave.cloud/family | i9, i7, i5, celeron, xeon, epyc | The CPU family of the CPU in the node |
@@ -21,6 +19,8 @@ The basic node selectors demonstrated in [Node Types](node-types.md#requesting-c
 | gpu.nvidia.com/vram | 6, 8, 11, 16 | GPU VRAM in Gigabytes on the GPUs provisioned in the node |
 | gpu.nvidia.com/nvlink | true, false | Denotes if GPUs are interconnected with NVLink. Currently applicable only for Tesla\_V100 |
 | topology.kubernetes.io/region | ORD1, EWR1, EWR2, BUF1, ARN1 | The region the node is placed in |
+
+#### Examples
 
 {% tabs %}
 {% tab title="8x Tesla V100 NVLINK" %}
@@ -103,4 +103,6 @@ spec:
 ```
 {% endtab %}
 {% endtabs %}
+
+#### 
 
