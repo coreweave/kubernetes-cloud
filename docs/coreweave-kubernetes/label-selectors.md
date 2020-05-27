@@ -30,7 +30,7 @@ spec:
   - name: example
     resources:
       limits:
-        cpu: 32
+        cpu: 30
         memory: 128Gi
         nvidia.com/gpu: 8
         
@@ -57,7 +57,7 @@ spec:
   - name: example
     resources:
       limits:
-        cpu: 16
+        cpu: 15
         memory: 64Gi
         nvidia.com/gpu: 4
         
