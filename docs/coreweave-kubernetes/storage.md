@@ -2,11 +2,11 @@
 
 ## Persistent Storage
 
-Fast SSD and cost effective HDD storage is available as both block storage and shared filesystem. All data is replicated for High Availability. Storage is allocated using Kubernetes [Persistent Volume Claims](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims). Volumes are automatically provisioned when a Volume Claim is created.
+Fast SSD and cost effective HDD storage are available as both block storage and shared filesystem types. All data is replicated for High Availability. Storage is allocated using Kubernetes [Persistent Volume Claims](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims). Volumes are automatically provisioned when a Persistent Volume Claim is created.
 
 #### Block Storage
 
-Block Storage provides the best performance, and is the recommended storage access method whenever possible. Block Storage is exposed via the Kubernetes `ReadWriteOnce` access mode. Block volumes can only be attached to a single physical node at the same time.
+Block Storage provides the best performance, and is the recommended storage access method whenever possible. Block Storage is exposed via the Kubernetes `ReadWriteOnce` access mode. Block volumes can only be attached to a single physical node at any one time.
 
 {% tabs %}
 {% tab title="HDD" %}
@@ -90,11 +90,11 @@ spec:
 
 #### Billing
 
-Storage is billed per gigabyte of allocated \(requested\) space as average amount requested over the month.
+Storage is billed per gigabyte of allocated \(requested\) space as an average over a billing cycle.
 
 ## Ephemeral Storage
 
-All physical nodes are equipped with SSD or NVMe persistent storage. Local storage available ranges between 100GB to 2TB depending on node type. No volume claims are needed to allocate local storage. Simply write anywhere in the container filesystem. If a larger amount \(above 20GB\) of ephemeral storage is used, it is recommended to include this in the workloads resource request.
+All physical nodes are equipped with SSD or NVMe ephemeral \(local\) storage. Ephemeral storage available ranges between 100GB to 2TB depending upon node type. No volume claims are needed to allocate ephemeral storage, simply write anywhere in the container filesystem. If a larger amount \(above 20GB\) of ephemeral storage is used, it is recommended to include this in the workloads resource request.
 
 ```yaml
 spec:
