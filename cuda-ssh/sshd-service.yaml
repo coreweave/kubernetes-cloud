@@ -17,4 +17,3 @@ spec:
       targetPort: sshd
   selector:
     app.kubernetes.io/name: sshd
-    app.kubernetes.io/instance: demo
