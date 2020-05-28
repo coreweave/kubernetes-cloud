@@ -96,6 +96,6 @@ No Acknowledgement of Fault by CoreWeave. CoreWeave’s notification of or respo
 
 **Changes to Terms of Service**
 
-The TOS for the Covered Service may be amended and modified from time to time by CoreWeave. Customer will be provided notice by email.  
+The TOS for the Covered Service may be amended and modified from time to time by CoreWeave.  
 
 
