@@ -32,3 +32,7 @@
 
 * [Argo](workflows/argo.md)
 
+## Resources
+
+* [Terms of Service](resources/terms-of-service.md)
+
