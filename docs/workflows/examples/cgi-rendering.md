@@ -282,7 +282,7 @@ spec:
           - matchExpressions:
             - key: gpu.nvidia.com/model
               operator: In
-              values: # This is where we identify what GPU type we want to run on. All types are listed, but most are commented out.
+              values: # This is where we identify what GPU type we want to run on.
               - GeForce_GTX_1070_Ti
               - GeForce_GTX_1070
 ```
