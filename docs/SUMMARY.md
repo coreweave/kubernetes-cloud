@@ -13,6 +13,7 @@
 * [Pricing](https://www.coreweave.com/#pricing)
 * [Examples](coreweave-kubernetes/examples/README.md)
   * [Jupyter Notebook with TensorFlow](coreweave-kubernetes/examples/tensorflow-jupyter.md)
+  * [CGI Rendering](coreweave-kubernetes/examples/cgi-rendering.md)
   * [Ethereum Miner](coreweave-kubernetes/examples/miner.md)
   * [SSH Server with CUDA](coreweave-kubernetes/examples/cuda-ssh.md)
 
