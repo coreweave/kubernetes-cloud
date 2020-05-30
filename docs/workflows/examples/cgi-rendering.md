@@ -31,7 +31,7 @@ spec:
 Once this is created and saved \(we named ours `pvc.yaml`\), run the following to create your claim:
 
 ```bash
-$ kubectl -n tenant-test apply -f pvc.yaml 
+$ kubectl apply -f pvc.yaml 
 persistentvolumeclaim/shared-data-pvc created
 ```
 
@@ -80,14 +80,14 @@ spec:
 We've saved our deployment as `filebrowser-deployment.yaml`. To launch the deployment, run:
 
 ```text
-$ kubectl -n tenant-test apply -f filebrowser-deployment.yaml 
+$ kubectl apply -f filebrowser-deployment.yaml 
 deployment.apps/filebrowser created
 ```
 
 To check to see if our pod has created successfully, run:
 
 ```text
-$ kubectl -n tenant-test get pods | grep filebrowser
+$ kubectl get pods | grep filebrowser
 filebrowser-5fddbbf864-8jbpm     1/1     Running      0      3h10m
 ```
 
@@ -120,7 +120,7 @@ spec:
 We've saved our service file as `filebrowser-service.yaml` and launch the service by:
 
 ```text
-$ kubectl -n tenant-test apply -f filebrowser-service.yaml
+$ kubectl apply -f filebrowser-service.yaml
 service/filebrowser created
 ```
 
