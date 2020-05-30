@@ -12,6 +12,7 @@ This example will walk you through the set up of a complete cloud rendering solu
 
 We will need a place for all of our render assets and outputs to reside, that is accessible to multiple workers and other services in our namespace. To do this, we will create a shared filesystem [Persistent Volume Claim](https://docs.coreweave.com/coreweave-kubernetes/storage#shared-filesystem). We've set the resource storage request to `100Gi` in this example, but feel free to adjust as necessary.
 
+{% code title="pvc.yaml" %}
 ```yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -25,6 +26,7 @@ spec:
     requests:
       storage: 100Gi # 100GB total volume size
 ```
+{% endcode %}
 
 Once this is created and saved \(we named ours `pvc.yaml`\), run the following to create your claim:
 
@@ -43,6 +45,7 @@ To get our web based platform running, we have to create both the application de
 
 Our deployment is going to use our `shared-data-pvc` storage volume as its data directory, and we are going to name it `filebrowser` for reference in our service in just a minute.
 
+{% code title="filebrowser-deployment.yaml" %}
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -72,6 +75,7 @@ spec:
           persistentVolumeClaim:
             claimName: shared-data-pvc
 ```
+{% endcode %}
 
 We've saved our deployment as `filebrowser-deployment.yaml`. To launch the deployment, run:
 
@@ -89,6 +93,7 @@ filebrowser-5fddbbf864-8jbpm     1/1     Running      0      3h10m
 
 Once we have our application deployed, it's time to make it accessible outside the cluster. To do this, we will launch a service linked to the deployment while grabbing an IP address from the CoreWeave Cloud public IP pool. Our service file is pretty simple, and looks like:
 
+{% code title="filebrowser-service.yaml" %}
 ```yaml
 apiVersion: v1
 kind: Service
@@ -110,6 +115,7 @@ spec:
   selector:
     app: filebrowser
 ```
+{% endcode %}
 
 We've saved our service file as `filebrowser-service.yaml` and launch the service by:
 
@@ -148,6 +154,7 @@ Our workflow file is going to do a few things for us:
 
 Some of the workflow steps in here are a little advanced, so we've commented them where possible. If you don't understand it immediately, don't worry, it will only take a few times interacting with Argo to pick it up.
 
+{% code title="blender-gpu-render.yaml" %}
 ```yaml
 apiVersion: argoproj.io/v1alpha1
 kind: Workflow
@@ -279,6 +286,7 @@ spec:
               - GeForce_GTX_1070_Ti
               - GeForce_GTX_1070
 ```
+{% endcode %}
 
 {% hint style="info" %}
 Retry logic is best-practice when running rendering in parallel. Due to the constant advancements in CGI rendering platforms and GPU compute, sometimes these things break for no reason, and retries defined in your Argo workflow template will ensure you aren't hunting for lost frames.
