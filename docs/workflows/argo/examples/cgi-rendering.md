@@ -12,7 +12,7 @@ This example will walk you through the set up of a complete cloud rendering solu
 
 We will need a place for all of our render assets and outputs to reside, that is accessible to multiple workers and other services in our namespace. To do this, we will create a shared filesystem [Persistent Volume Claim](https://docs.coreweave.com/coreweave-kubernetes/storage#shared-filesystem). We've set the resource storage request to `100Gi` in this example, but feel free to adjust as necessary.
 
-```text
+```yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -28,7 +28,7 @@ spec:
 
 Once this is created and saved \(we named ours `pvc.yaml`\), run the following to create your claim:
 
-```text
+```bash
 $ kubectl -n tenant-test apply -f pvc.yaml 
 persistentvolumeclaim/shared-data-pvc created
 ```
@@ -43,7 +43,7 @@ To get our web based platform running, we have to create both the application de
 
 Our deployment is going to use our `shared-data-pvc` storage volume as its data directory, and we are going to name it `filebrowser` for reference in our service in just a minute.
 
-```text
+```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -89,7 +89,7 @@ filebrowser-5fddbbf864-8jbpm     1/1     Running      0      3h10m
 
 Once we have our application deployed, it's time to make it accessible outside the cluster. To do this, we will launch a service linked to the deployment while grabbing an IP address from the CoreWeave Cloud public IP pool. Our service file is pretty simple, and looks like:
 
-```text
+```yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -127,13 +127,13 @@ filebrowser     LoadBalancer   10.135.198.207   64.xx.xx.xx     80:32765/TCP    
 
 Let's now browse to the `EXTERNAL-IP` as listed in our services, and we should be greeted by a login screen!
 
-![Default username/password is admin/admin. You should change this...](../../.gitbook/assets/image%20%283%29.png)
+![Default username/password is admin/admin. You should change this...](../../../.gitbook/assets/image%20%283%29.png)
 
 **Let's get something to render!**
 
 For this example, we want to render something that quickly shows the power available on CoreWeave Cloud, so we're going to take one of the typical Blender benchmarks, [BMW\_27](https://download.blender.org/demo/test/BMW27_2.blend.zip) and upload the unpacked file `bmw27_gpu.blend` to our root path in the File Browser.
 
-![Our BMW file is there, we are ready to go!](../../.gitbook/assets/image%20%282%29.png)
+![Our BMW file is there, we are ready to go!](../../../.gitbook/assets/image%20%282%29.png)
 
 **Creating our render workflow!**
 
@@ -148,7 +148,7 @@ Our workflow file is going to do a few things for us:
 
 Some of the workflow steps in here are a little advanced, so we've commented them where possible. If you don't understand it immediately, don't worry, it will only take a few times interacting with Argo to pick it up.
 
-```text
+```yaml
 apiVersion: argoproj.io/v1alpha1
 kind: Workflow
 metadata:
@@ -296,7 +296,7 @@ Immediately after this command is submitted, you should see the Argo command lin
 
 After about **1 minute** you should see a screen that looks like:
 
-```text
+```bash
 Name:                render-sjf6t
 Namespace:           tenant-test
 ServiceAccount:      default
@@ -329,11 +329,11 @@ STEP                                                   PODNAME                  
 
 This shows the status of your 10 frames being rendered on 10 different GPU instances with 4x GTX 1070\(Ti\) each. You can now browse to your File Browser site, and you should see a fresh folder `outputs` with sub-directory `bmw27_gpu` that is filled with your 10, freshly rendered frames!
 
-![](../../.gitbook/assets/image%20%281%29.png)
+![](../../../.gitbook/assets/image%20%281%29.png)
 
 So, what did we get with all this effort? We got ourselves a beautiful, CGI generated BMW demo file:
 
-![](../../.gitbook/assets/image.png)
+![](../../../.gitbook/assets/image.png)
 
 With just some small changes to the Argo workflow we just built and used, you can now run your Blender GPU rendering on thousands of GPUs simultaneously!
 
