@@ -242,7 +242,7 @@ spec:
         - --namespaced
 #        - --auth-mode 
 #        - client
-        image: argoproj/argocli:v2.8.0
+        image: argoproj/argocli:v2.9.1
         name: argo-server
         resources:
           requests:
@@ -289,7 +289,7 @@ spec:
         - --configmap
         - workflow-controller-configmap
         - --executor-image
-        - argoproj/argoexec:v2.8.0
+        - argoproj/argoexec:v2.9.1
         - --namespaced
         command:
         - workflow-controller
@@ -302,6 +302,6 @@ spec:
             memory: 15Gi
         ports:
         - containerPort: 8080
-        image: argoproj/workflow-controller:v2.8.0
+        image: argoproj/workflow-controller:v2.9.1
         name: workflow-controller
       serviceAccountName: argo
