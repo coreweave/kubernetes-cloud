@@ -19,8 +19,8 @@ spec:
       - name: sleep
         image: banst/awscli:1.18.56
         # Simple way of keeping an idle container running
-        command: [cat]
-        args: ["/dev/zero"]
+        command: [sleep]
+        args: ["86400d"]
         imagePullPolicy: IfNotPresent
         resources:
           requests:
