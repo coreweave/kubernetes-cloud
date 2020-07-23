@@ -10,7 +10,7 @@
 * [Storage](coreweave-kubernetes/storage.md)
 * [Exposing Applications](coreweave-kubernetes/exposing-applications.md)
 * [Serverless](coreweave-kubernetes/serverless.md)
-* [Pricing](https://www.coreweave.com/#pricing)
+* [Pricing](https://coreweave.com/cloud/#pricing)
 * [Examples](coreweave-kubernetes/examples/README.md)
   * [Jupyter Notebook with TensorFlow](coreweave-kubernetes/examples/tensorflow-jupyter.md)
   * [Ethereum Miner](coreweave-kubernetes/examples/miner.md)
@@ -35,5 +35,6 @@
 
 ## Resources
 
+* [Billing and Charges](resources/billing-and-charges.md)
 * [Terms of Service](resources/terms-of-service.md)
 
