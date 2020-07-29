@@ -30,8 +30,9 @@
 
 ## Workflows
 
-* [Argo](workflows/argo.md)
-* [CGI Rendering](workflows/cgi-rendering.md)
+* [Getting Started](workflows/argo.md)
+* [Examples](workflows/examples/README.md)
+  * [CGI Rendering](workflows/examples/cgi-rendering.md)
 
 ## Resources
 
