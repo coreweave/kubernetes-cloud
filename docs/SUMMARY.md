@@ -18,15 +18,17 @@
 
 ## Compass
 
-* [Online Inference Serving](compass/online-inference/README.md)
-  * [Introduction](compass/online-inference/gpt-2/README.md)
-    * [README](compass/online-inference/gpt-2/service-s3.md)
-    * [README](compass/online-inference/gpt-2/transformer.md)
-    * [README](compass/online-inference/gpt-2/jupyter-pvc.md)
-    * [README](compass/online-inference/gpt-2/service-pvc.md)
-  * [README](compass/online-inference/custom-sentiment.md)
-  * [README](compass/online-inference/custom-basnet.md)
-  * [README](compass/online-inference/custom-pytorch-aitextgen.md)
+* [Online Inference Serving](compass/online-inference.md)
+* [Examples](compass/examples/README.md)
+  * [TensorFlow - Open AI GPT-2](compass/examples/gpt-2/README.md)
+    * [Transformer](compass/examples/gpt-2/transformer.md)
+    * [Exporting with Jupyter](compass/examples/gpt-2/jupyter-pvc.md)
+    * [S3 Model Serving](compass/examples/gpt-2/service-s3.md)
+    * [PVC Model Serving](compass/examples/gpt-2/service-pvc.md)
+  * [TensorFlow2 - Image Classifier](compass/examples/tensorflow2-image-classifier.md)
+  * [PyTorch - GPT-2 AITextgen](compass/examples/custom-pytorch-aitextgen.md)
+  * [PyTorch - FastAI Sentiment](compass/examples/custom-sentiment.md)
+  * [Custom - BASNET](compass/examples/custom-basnet.md)
 
 ## Workflows
 
