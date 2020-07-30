@@ -4,6 +4,8 @@
 
 Workflows on CoreWeave run on [Argo Workflows](https://argoproj.github.io/argo/), which is a great tool to orchestrate parallel execution of GPU and CPU jobs. It manages retries and parallelism for you, and allows you to submit workflows via CLI, [Rest API](https://github.com/argoproj/argo/blob/master/examples/rest-examples.md) and the [Kubernetes API](https://github.com/argoproj/argo/blob/master/docs/rest-api.md).
 
+![Argo Web UI](../.gitbook/assets/screen-shot-2020-07-29-at-10.04.26-pm.png)
+
 ## Getting Started
 
 After installing `kubectl` and adding your CoreWeave Cloud access credentials, the following steps will deploy the Argo Server in your namespace.
