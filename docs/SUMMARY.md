@@ -5,6 +5,7 @@
 ## CoreWeave Kubernetes
 
 * [Getting Started](coreweave-kubernetes/getting-started.md)
+* [Useful Commands](coreweave-kubernetes/useful-commands.md)
 * [Node Types](coreweave-kubernetes/node-types.md)
 * [Advanced Label Selectors](coreweave-kubernetes/label-selectors.md)
 * [Storage](coreweave-kubernetes/storage.md)
