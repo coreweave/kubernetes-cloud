@@ -7,7 +7,7 @@ description: Label selectors are available for precise placement of workloads
 Selecting the right hardware for your workload is important. All compute nodes are tagged with a set of labels specifying the hardware type. [Affinity Rules](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity) should be leveraged on workloads to ensure that the desired type of hardware \(ie. GPU model\) gets assigned to your job.
 
 {% hint style="info" %}
-The basic node selectors demonstrated in [Node Types](node-types.md#requesting-compute-in-kubernetes) are usually all that is needed to properly schedule workloads. Please [contact support](mailto:support@coreweave.com) for any questions about advanced scheduling or special requirements.
+The basic node selectors demonstrated in [Node Types](node-types.md#requesting-compute-in-kubernetes) are usually all that is needed to properly schedule workloads. Please [contact support](mailto:%20cloud.support@coreweave.com) for any questions about advanced scheduling or special requirements.
 {% endhint %}
 
 | Label | Possible Values | Description |
