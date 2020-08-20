@@ -2,7 +2,7 @@ apiVersion: serving.kubeflow.org/v1alpha2
 kind: InferenceService
 metadata:
   annotations:
-    serving.kubeflow.org/gke-accelerator: GeForce_GTX_1070_Ti
+    serving.kubeflow.org/gke-accelerator: Tesla_V100
   labels:
     qos.coreweave.cloud/latency: low
   name: sentiment
