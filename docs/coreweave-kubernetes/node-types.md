@@ -21,7 +21,7 @@ Each GPU includes a certain amount of host CPU and RAM, these are included at no
 | Tesla V100 NVLINK | 4 Xeon Gold | 32 GB | Deep learning, neural network training, HPC |
 | Tesla V100 | 3 | 16 GB | AI inference, rendering, batch processing, hashcat |
 | Mutli Purpose Turing | 3 | 16 GB | Machine learning, rendering, batch processing |
-| Tesla P100 | 6 | 32 GB | Video transcoding, rendering, batch processing |
+| Tesla P100 | 6 | 32 GB | Entry level HPC, rendering, batch processing |
 | Multi Purpose Pascal | 1 | 8 GB | Video transcoding, rendering, batch processing |
 
 {% hint style="warning" %}

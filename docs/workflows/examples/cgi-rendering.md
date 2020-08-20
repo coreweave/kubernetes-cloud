@@ -280,11 +280,11 @@ spec:
         requiredDuringSchedulingIgnoredDuringExecution:
           nodeSelectorTerms:
           - matchExpressions:
-            - key: gpu.nvidia.com/model
+            - key: gpu.nvidia.com/class
               operator: In
               values: # This is where we identify what GPU type we want to run on.
-              - GeForce_GTX_1070_Ti
-              - GeForce_GTX_1070
+              - NV_Pascal
+
 ```
 {% endcode %}
 
