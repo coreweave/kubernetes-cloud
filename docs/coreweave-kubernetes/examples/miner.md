@@ -76,7 +76,7 @@ After installing `kubectl` and adding your CoreWeave Cloud access credentials, t
     | GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
     | Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
     |===============================+======================+======================|
-    |   0  GeForce GTX 107...  Off  | 00000000:01:00.0 Off |                  N/A |
+    |   0  NVIDIA Graphics...  Off  | 00000000:01:00.0 Off |                  N/A |
     | 45%   63C    P2   132W / 180W |   3549MiB /  8119MiB |    100%      Default |
     +-------------------------------+----------------------+----------------------+
 
