@@ -292,7 +292,7 @@ spec:
 Retry logic is best-practice when running rendering in parallel. Due to the constant advancements in CGI rendering platforms and GPU compute, sometimes these things break for no reason, and retries defined in your Argo workflow template will ensure you aren't hunting for lost frames.
 {% endhint %}
 
-Our completed workflow file, which we will save as `blender-gpu-render.yaml` is now setup to render, in parallel, using 10 pods of 4x GeForce GTX 1070\(Ti\) GPUs. Let's see if it works!
+Our completed workflow file, which we will save as `blender-gpu-render.yaml` is now setup to render, in parallel, using 10 pods of 4x NV_Pascal GPUs. Let's see if it works!
 
 To start our render, we do:
 
@@ -335,7 +335,7 @@ STEP                                                   PODNAME                  
    └-✔ render(9:start:10,stop:10)(0) (render-blender)  render-sjf6t-2756728893  1m 
 ```
 
-This shows the status of your 10 frames being rendered on 10 different GPU instances with 4x GTX 1070\(Ti\) each. You can now browse to your File Browser site, and you should see a fresh folder `outputs` with sub-directory `bmw27_gpu` that is filled with your 10, freshly rendered frames!
+This shows the status of your 10 frames being rendered on 10 different GPU instances with 4x  NV_Pascal GPUs each. You can now browse to your File Browser site, and you should see a fresh folder `outputs` with sub-directory `bmw27_gpu` that is filled with your 10, freshly rendered frames!
 
 ![](../../.gitbook/assets/image%20%281%29.png)
 
