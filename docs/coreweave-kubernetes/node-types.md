@@ -4,39 +4,30 @@ A wide range of GPU options are available, allowing you to select the most optim
 
 ### GPU Availability
 
-| Vendor | Generation | Model | VRAM | Label |
-| :--- | :--- | :--- | :--- | :--- |
-| NVIDIA | Volta | Tesla V100 | 16 GB | Tesla\_V100 |
-| NVIDIA | Turing | RTX 2080 Ti | 11 GB | GeForce\_RTX\_2080\_Ti |
-| NVIDIA | Turing | RTX 2060 Super | 8 GB  | GeForce\_RTX\_2060\_Super |
-| NVIDIA | Pascal | GTX 1080 Ti | 11 GB | GeForce\_GTX\_1080\_Ti |
-| NVIDIA | Pascal | GTX 1070 Ti | 8 GB | GeForce\_GTX\_1070\_Ti |
-| NVIDIA | Pascal | GTX 1070 | 8 GB | GeForce\_GTX\_1070 |
-| NVIDIA | Pascal | P104-100 | 8 GB | P104-100 |
-| NVIDIA | Pascal | GTX 1060 | 6 GB | GeForce\_GTX\_1060\_6GB |
-| NVIDIA | Pascal | P106-100 | 6 GB | P106-100 |
+| Vendor | Class | Generation | CUDA Cores | VRAM | Label |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| NVIDIA | Tesla V100 NVLINK | Volta | 5,120 | 16 GB | Tesla\_V100\_NVLINK |
+| NVIDIA | Tesla V100 | Volta | 5,120 | 16GB | Tesla\_V100 |
+| NVIDIA | Multi Purpose Turing | Turing | 2,000+ | 8+ GB  | NV\_Turing |
+| NVIDIA | Tesla P100 | Pascal | 3,584 | 16 GB | Tesla\_P100\_NVLINK |
+| NVIDIA | Multi Purpose Pascal | Pascal | 2,000+ | 8 GB | NV\_Pascal |
 
 ### System Resources
 
 Each GPU includes a certain amount of host CPU and RAM, these are included at no additional fee.
 
-| GPU Model | vCPU | RAM | Great For |
+| Class | vCPU | RAM | Great For |
 | :--- | :--- | :--- | :--- |
 | Tesla V100 NVLINK | 4 Xeon Gold | 32 GB | Deep learning, neural network training, HPC |
 | Tesla V100 | 3 | 16 GB | AI inference, rendering, batch processing, hashcat |
-| RTX 2080 Ti | 3 | 16 GB | Machine learning, neural network training, HPC |
-| RTX 2060 Super | 3 | 16 GB | Machine learning, rendering, batch processing |
-| GTX 1080 Ti | 1 | 11 GB | Machine learning, rendering, batch processing |
-| GTX 1070 Ti | 1 | 8 GB | Video transcoding, rendering, batch processing |
-| GTX 1070 | 1 | 8 GB | Video transcoding, rendering, batch processing |
-| P104-100 | 0.5 | 8 GB | Batch processing, blockchain compute, hashcat |
-| GTX 1060 | 0.5 | 6 GB | Video transcoding, batch processing |
-| P106-100 | 0.5 | 6 GB | Batch processing, blockchain compute |
+| Mutli Purpose Turing | 3 | 16 GB | Machine learning, rendering, batch processing |
+| Tesla P100 | 6 | 32 GB | Video transcoding, rendering, batch processing |
+| Multi Purpose Pascal | 1 | 8 GB | Video transcoding, rendering, batch processing |
 
 {% hint style="warning" %}
 A workload requesting more resources than allowed for the specific GPU class will have its resources capped to the maximum allowable amount.  
   
-For example, launching a Pod with a request for 2 1070Tis will have its resource request capped to 2 CPU and 16GB RAM. 
+For example, launching a Pod with a request for Mutli Purpose Pascal GPUs will have its resource request capped to 2 CPU and 16GB RAM. 
 {% endhint %}
 
 ### CPU Availability
@@ -71,14 +62,37 @@ spec:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
         - matchExpressions:
-          - key: gpu.nvidia.com/model
+          - key: gpu.nvidia.com/class
             operator: In
             values:
               - Tesla_V100
 ```
 {% endtab %}
 
-{% tab title="Dual GeForce 1070 \(Ti\)" %}
+{% tab title="4x Tesla V100 NVLINK" %}
+```yaml
+spec:
+  containers:
+  - name: example
+    resources:
+      limits:
+        cpu: 15
+        memory: 128Gi
+        nvidia.com/gpu: 4
+        
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: gpu.nvidia.com/class
+            operator: In
+            values:
+              - Tesla_V100_NVLINK
+```
+{% endtab %}
+
+{% tab title="Dual Pascal" %}
 ```yaml
 spec:
   containers:
@@ -94,11 +108,10 @@ spec:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
         - matchExpressions:
-          - key: gpu.nvidia.com/model
+          - key: gpu.nvidia.com/class
             operator: In
             values:
-              - GeForce_GTX_1070
-              - GeForce_GTX_1070_Ti
+              - NV_Pascal
 ```
 {% endtab %}
 
