@@ -13,8 +13,8 @@ Selecting the right hardware for your workload is important. All compute nodes a
 | cpu.coreweave.cloud/family                | i9, i7, i5, celeron, xeon, epyc | The CPU family of the CPU in the node                                                                                                                                             |
 | ethernet.coreweave.cloud/speed            | 1G, 10G                        | The uplink speed from the node to the backbone                                                                                                                                    |
 | gpu.nvidia.com/count                     | 4-8                            | Number of GPUs provisioned in the node. Using this selector is not recommended as the GPU resource requests are the correct method of selecting GPU count requirement             |
-| gpu.nvidia.com/model                     | GeForce_GTX_1070_Ti (see list) | GPU model provisioned in the node                                                                                                                                                 |
-| gpu.nvidia.com/vram                      | 6, 8, 11, 16                   | GPU VRAM in Gigabytes on the GPUs provisioned in the node                                                                                                                         |
+| gpu.nvidia.com/class                     | Tesla_V100  (see list) | GPU model provisioned in the node                                                                                                                                                 |
+| gpu.nvidia.com/vram                      | 8, 16                   | GPU VRAM in Gigabytes on the GPUs provisioned in the node                                                                                                                         |
 | gpu.nvidia.com/nvlink                    | true, false                    | Denotes if GPUs are interconnected with NVLink                                                                                                                                    |
 | pci.coreweave.cloud/version               | 1, 2, 3, 4                     | PCI Express Version for GPU interfaces                                                                                                                                            |
 | pci.coreweave.cloud/speed                 | 2.5, 5, 8, 16                  | PCI Express Link Speed for GPU interfaces in GT/s                                                                                                                                 |
@@ -23,31 +23,29 @@ Selecting the right hardware for your workload is important. All compute nodes a
 
 ## GPU Availability
 
-| Vendor | Generation | Model             | VRAM GB | Label               |
-|--------|------------|-------------------|---------|---------------------|
-| NVIDIA | Pascal     | P106-100          | 6       | P106-100            |
-| NVIDIA | Pascal     | GTX 1060          | 6       | GeForce_GTX_1060_6GB|
-| NVIDIA | Pascal     | P104-100          | 8       | P104-100            |
-| NVIDIA | Pascal     | GTX 1070          | 8       | GeForce_GTX_1070    |
-| NVIDIA | Pascal     | GTX 1070 Ti       | 8       | GeForce_GTX_1070_Ti |
-| NVIDIA | Pascal     | GTX 1080 Ti       | 11      | GeForce_GTX_1080_Ti |
-| NVIDIA | Volta      | Titan V 6GB       | 6       | Titan_V_6           |
-| NVIDIA | Volta      | Tesla V100        | 16      | Tesla_V100          |
+| Vendor | Class | Generation | CUDA Cores | VRAM | Label |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| NVIDIA | Tesla V100 NVLINK | Volta | 5,120 | 16 GB | Tesla\_V100\_NVLINK |
+| NVIDIA | Tesla V100 | Volta | 5,120 | 16GB | Tesla\_V100 |
+| NVIDIA | Multi Purpose Turing | Turing | 2,000+ | 8+ GB  | NV\_Turing |
+| NVIDIA | Tesla P100 | Pascal | 3,584 | 16 GB | Tesla\_P100\_NVLINK |
+| NVIDIA | Multi Purpose Pascal | Pascal | 2,000+ | 8 GB | NV\_Pascal |
 
-## Included System Resources per GPU Model
+## System Resources
 
-| GPU Model         | vCPU        | RAM GB | Great For                                               |
-|-------------------|-------------|--------|---------------------------------------------------------|
-| P106-100          | 0.5         | 6      | Batch processing, blockchain compute                    |
-| GTX 1060          | 0.5         | 6      | Video transcoding, batch processing                     |
-| P104-100          | 0.5         | 8      | Batch processing, blockchain compute, hashcat           |
-| GTX 1070          | 1           | 8      | Video transcoding, rendering, batch processing          |
-| GTX 1070 Ti       | 1           | 8      | Video transcoding, rendering, batch processing          |
-| P102-100          | 1           | 10     | Batch processing, blockchain compute, hashcat           |
-| GTX 1080 Ti       | 1           | 11     | Machine learning, rendering, batch processing           |
-| Titan V 6GB       | 2           | 10     | Batch processing, hashcat, blockchain compute           |
-| Tesla V100        | 3           | 16     | AI inference, rendering, batch processing, hashcat      |
-| Tesla V100 NVLINK | 4 Xeon Gold | 32     | Deep learning, neural network training, HPC             |
+Each GPU includes a certain amount of host CPU and RAM, these are included at no additional fee.
+
+| Class | vCPU | RAM | Great For |
+| :--- | :--- | :--- | :--- |
+| Tesla V100 NVLINK | 4 Xeon Gold | 32 GB | Deep learning, neural network training, HPC |
+| Tesla V100 | 3 | 16 GB | AI inference, rendering, batch processing, hashcat |
+| Mutli Purpose Turing | 3 | 16 GB | Machine learning, rendering, batch processing |
+| Tesla P100 | 6 | 32 GB | Entry level HPC, rendering, batch processing |
+| Multi Purpose Pascal | 1 | 8 GB | Video transcoding, rendering, batch processing |
+
+A workload requesting more resources than allowed for the specific GPU class will have its resources capped to the maximum allowable amount.  
+  
+For example, launching a Pod with a request for Mutli Purpose Pascal GPUs will have its resource request capped to 2 CPU and 16GB RAM. 
 
 ## Getting Started
 ### Install Kubernetes Command Line Tools
