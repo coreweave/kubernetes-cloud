@@ -62,7 +62,7 @@ spec:
       # Read more about affinity at: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
       affinity:
         nodeAffinity:
-          # This will REQUIRE the Pod to be run on a system with a 1070 Ti, 1080 Ti or P104-100 GPU
+          # This will REQUIRE the Pod to be run on a system with a GPU with 8, 10, 11GB VRAM
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
             - matchExpressions:
