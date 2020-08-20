@@ -3,7 +3,7 @@ kind: InferenceService
 metadata:
   name: gpt-pvc
   annotations:
-    serving.kubeflow.org/gke-accelerator: GeForce_GTX_1070_Ti
+    serving.kubeflow.org/gke-accelerator: Tesla_V100
 spec:
   default:
     predictor:
