@@ -47,7 +47,7 @@ spec:
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
-            # This will REQUIRE the Pod to be run on a system with a GPU with 8, 10 or 11GB VRAM, ie. 1070 Ti, 1080 Ti or P104-100 GPU
+            # This will REQUIRE the Pod to be run on a system with a GPU with 8, 10 or 11GB VRAM
               nodeSelectorTerms:
               - matchExpressions:
                 - key: gpu.nvidia.com/vram
