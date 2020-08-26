@@ -12,13 +12,20 @@ Internal, cluster local services should be configured as regular `ClusterIP` ser
 
 Exposing services to the Internet is done by deploying a `LoadBalancer` service type with an annotation to allocate a public IP for the service.
 
+Depending upon where you've requested your workloads to run, public IP pools are accessible via the region location in the following manner:
+
+| Region | Address Pool Label |
+| :--- | :--- |
+| ORD1 | public-ord1 |
+| EWR1 | public-ewr1 |
+
 {% code title="sshd-public-service.yaml" %}
 ```yaml
 apiVersion: v1
 kind: Service
 metadata:
   annotations:
-    metallb.universe.tf/address-pool: public
+    metallb.universe.tf/address-pool: public-ord1
     metallb.universe.tf/allow-shared-ip: default
   name: sshd
 spec:

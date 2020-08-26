@@ -6,7 +6,7 @@ description: Creating your own Blender render farm using thousands of GPUs
 
 **Introduction**
 
-This example will walk you through the set up of a complete cloud rendering solution for GPU rendering using Blender on CoreWeave Cloud. We will utilize node affinity rules to select the type and quantity of hardware we use for our render, and even pass in a custom `artifact` to our container. When done, you will have a web based file management solution for asset upload and downloading render output, and a highly parallel workflow template to launch your render jobs! 
+This example will walk you through the set up of a complete cloud rendering solution for GPU rendering using Blender on CoreWeave Cloud. We will utilize node affinity rules to select the type and quantity of hardware we use for our render, and even pass in a custom `artifact` to our container. When done, you will have a web based file management solution for asset upload and downloading render output, and a highly parallel workflow template to launch your render jobs!
 
 **Persistent Volume Claim**
 
@@ -133,13 +133,13 @@ filebrowser     LoadBalancer   10.135.198.207   64.xx.xx.xx     80:32765/TCP    
 
 Let's now browse to the `EXTERNAL-IP` as listed in our services, and we should be greeted by a login screen!
 
-![Default username/password is admin/admin. You should change this...](../../.gitbook/assets/image%20%283%29.png)
+![Default username/password is admin/admin. You should change this...](../../.gitbook/assets/image%20%283%29%20%281%29.png)
 
 **Let's get something to render!**
 
 For this example, we want to render something that quickly shows the power available on CoreWeave Cloud, so we're going to take one of the typical Blender benchmarks, [BMW\_27](https://download.blender.org/demo/test/BMW27_2.blend.zip) and upload the unpacked file `bmw27_gpu.blend` to our root path in the File Browser.
 
-![Our BMW file is there, we are ready to go!](../../.gitbook/assets/image%20%282%29.png)
+![Our BMW file is there, we are ready to go!](../../.gitbook/assets/image%20%282%29%20%281%29.png)
 
 **Creating our render workflow!**
 
@@ -284,7 +284,6 @@ spec:
               operator: In
               values: # This is where we identify what GPU type we want to run on.
               - NV_Pascal
-
 ```
 {% endcode %}
 
@@ -292,7 +291,7 @@ spec:
 Retry logic is best-practice when running rendering in parallel. Due to the constant advancements in CGI rendering platforms and GPU compute, sometimes these things break for no reason, and retries defined in your Argo workflow template will ensure you aren't hunting for lost frames.
 {% endhint %}
 
-Our completed workflow file, which we will save as `blender-gpu-render.yaml` is now setup to render, in parallel, using 10 pods of 4x NV_Pascal GPUs. Let's see if it works!
+Our completed workflow file, which we will save as `blender-gpu-render.yaml` is now setup to render, in parallel, using 10 pods of 4x NV\_Pascal GPUs. Let's see if it works!
 
 To start our render, we do:
 
@@ -332,16 +331,16 @@ STEP                                                   PODNAME                  
    ├-✔ render(6:start:7,stop:7)(0) (render-blender)    render-sjf6t-577269840   1m        
    ├-✔ render(7:start:8,stop:8)(0) (render-blender)    render-sjf6t-3336690355  1m        
    ├-✔ render(8:start:9,stop:9)(0) (render-blender)    render-sjf6t-3980468470  2m        
-   └-✔ render(9:start:10,stop:10)(0) (render-blender)  render-sjf6t-2756728893  1m 
+   └-✔ render(9:start:10,stop:10)(0) (render-blender)  render-sjf6t-2756728893  1m
 ```
 
-This shows the status of your 10 frames being rendered on 10 different GPU instances with 4x  NV_Pascal GPUs each. You can now browse to your File Browser site, and you should see a fresh folder `outputs` with sub-directory `bmw27_gpu` that is filled with your 10, freshly rendered frames!
+This shows the status of your 10 frames being rendered on 10 different GPU instances with 4x NV\_Pascal GPUs each. You can now browse to your File Browser site, and you should see a fresh folder `outputs` with sub-directory `bmw27_gpu` that is filled with your 10, freshly rendered frames!
 
-![](../../.gitbook/assets/image%20%281%29.png)
+![](../../.gitbook/assets/image%20%281%29%20%281%29.png)
 
 So, what did we get with all this effort? We got ourselves a beautiful, CGI generated BMW demo file:
 
-![](../../.gitbook/assets/image.png)
+![](../../.gitbook/assets/image%20%284%29.png)
 
 With just some small changes to the Argo workflow we just built and used, you can now run your Blender GPU rendering on thousands of GPUs simultaneously!
 
