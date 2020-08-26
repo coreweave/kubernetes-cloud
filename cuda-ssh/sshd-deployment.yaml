@@ -99,7 +99,6 @@ spec:
             # GPUs can only be allocated as a limit, which both reserves and limits the number of GPUs the Pod will have access to
             # Making individual Pods resource light is advantageous for bin-packing. Since this Pod is for general purpose interactive testing
             # we allocate 6 GPUs to it
-            nvidia.com/gpu: 6
 
       # Node affinity can be used to require / prefer the Pods to be scheduled on a node with a specific hardware type
       # No affinity allows scheduling on all hardware types that can fulfill the resource request.
@@ -115,7 +114,6 @@ spec:
                 operator: In
                 values:
                   - NV_Pascal
-
               - key: failure-domain.beta.kubernetes.io/region
                 operator: In
                 values:
