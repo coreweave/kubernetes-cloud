@@ -18,7 +18,7 @@ The basic node selectors demonstrated in [Node Types](node-types.md#requesting-c
 | gpu.nvidia.com/class | Tesla\_V100 \([see list](node-types.md#gpu-availability)\) | GPU model provisioned in the node |
 | gpu.nvidia.com/vram | 8, 16 | GPU VRAM in Gigabytes on the GPUs provisioned in the node |
 | gpu.nvidia.com/nvlink | true, false | Denotes if GPUs are interconnected with NVLink. Currently applicable only for Tesla\_V100 |
-| topology.kubernetes.io/region | ORD1, EWR1, EWR2, BUF1, ARN1 | The region the node is placed in |
+| topology.kubernetes.io/region | ORD1, EWR1, EWR2 | The region the node is placed in |
 
 #### Examples
 
