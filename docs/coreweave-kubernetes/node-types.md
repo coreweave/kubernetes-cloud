@@ -25,9 +25,9 @@ Each GPU includes a certain amount of host CPU and RAM, these are included at no
 | Multi Purpose Pascal | 1 | 8 GB | Video transcoding, rendering, batch processing |
 
 {% hint style="warning" %}
-A workload requesting more resources than allowed for the specific GPU class will have its resources capped to the maximum allowable amount.  
-  
-For example, launching a Pod with a request for Mutli Purpose Pascal GPUs will have its resource request capped to 2 CPU and 16GB RAM. 
+If a workload requests more peripheral compute resources \(vCPU, RAM\) than offered in a standard instance size, additional costs will incur. 
+
+Please reach out to [cloud.support@coreweave.com](mailto:%20cloud.support@coreweave.com) for additional information on enhanced vCPU/RAM combinations and their costs.
 {% endhint %}
 
 ### CPU Availability
