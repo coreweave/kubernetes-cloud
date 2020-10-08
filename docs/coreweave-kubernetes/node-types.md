@@ -8,7 +8,8 @@ A wide range of GPU options are available, allowing you to select the most optim
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | NVIDIA | Tesla V100 NVLINK | Volta | 5,120 | 16 GB | Tesla\_V100\_NVLINK |
 | NVIDIA | Tesla V100 | Volta | 5,120 | 16 GB | Tesla\_V100 |
-| NVIDIA | Multi Purpose Turing | Turing | 2,000+ | 8+ GB  | NV\_Turing |
+| NVIDIA | RTX 5000 | Turing | 3,072 | 16 GB | Quadro\_RTX\_5000 |
+| NVIDIA | RTX 4000 | Turing | 2,304 | 8 GB  | Quadro\_RTX\_4000 |
 | NVIDIA | Tesla P100 | Pascal | 3,584 | 16 GB | Tesla\_P100\_NVLINK |
 | NVIDIA | Multi Purpose Pascal | Pascal | 2,000+ | 8 GB | NV\_Pascal |
 
@@ -18,11 +19,12 @@ Each GPU includes a certain amount of host CPU and RAM, these are included at no
 
 | Class | vCPU | RAM | Great For |
 | :--- | :--- | :--- | :--- |
-| Tesla V100 NVLINK | 4 Xeon Silver | 32 GB | Deep learning, neural network training, HPC |
-| Tesla V100 | 3 | 20 GB | AI inference, rendering, batch processing, hashcat |
-| Mutli Purpose Turing | 3 | 16 GB | Machine learning, rendering, batch processing |
-| Tesla P100 NVLINK | 4 Xeon Silver | 32 GB | Entry level HPC, rendering, batch processing |
-| Multi Purpose Pascal | 1 | 8 GB | Video transcoding, rendering, batch processing |
+| Tesla V100 NVLINK | 4 Xeon Silver | 32 GB | Deep Neural Network training, HPC |
+| Tesla V100 | 3 | 20 GB | AI inference, Rendering, Batch processing, Hashcat |
+| RTX 5000 | 4 Xeon Silver | 32 GB | Machine learning, Rendering, Batch processing |
+| RTX 4000 | 3 | 16 GB | Machine learning, Rendering, Game streaming |
+| Tesla P100 NVLINK | 4 Xeon Silver | 32 GB | Entry level HPC, Rendering, Batch processing |
+| Multi Purpose Pascal | 1 | 8 GB | Transcoding, Rendering, Game streaming, Batch |
 
 {% hint style="warning" %}
 If a workload requests more peripheral compute resources \(vCPU, RAM\) than offered in a standard instance size, additional costs will incur. 
