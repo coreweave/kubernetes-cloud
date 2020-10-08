@@ -6,6 +6,7 @@ A wide range of GPU options are available, allowing you to select the most optim
 
 | Vendor | Class | Generation | CUDA Cores | VRAM | Label |
 | :--- | :--- | :--- | :--- | :--- | :--- |
+| NVIDIA | Tesla A100 NVINK | Ampere | 6,912 | 40GB | Tesla\_A100\_NVLINK |
 | NVIDIA | Tesla V100 NVLINK | Volta | 5,120 | 16 GB | Tesla\_V100\_NVLINK |
 | NVIDIA | Tesla V100 | Volta | 5,120 | 16 GB | Tesla\_V100 |
 | NVIDIA | RTX 5000 | Turing | 3,072 | 16 GB | Quadro\_RTX\_5000 |
@@ -19,6 +20,7 @@ Each GPU includes a certain amount of host CPU and RAM, these are included at no
 
 | Class | vCPU | RAM | Great For |
 | :--- | :--- | :--- | :--- |
+| Tesla A100 NVLINK | 8 Xeon Gold | 96 GB | Complex Deep Neural Network training, HPC |
 | Tesla V100 NVLINK | 4 Xeon Silver | 32 GB | Deep Neural Network training, HPC |
 | Tesla V100 | 3 | 20 GB | AI inference, Rendering, Batch processing, Hashcat |
 | RTX 5000 | 4 Xeon Silver | 32 GB | Machine learning, Rendering, Batch processing |
