@@ -9,6 +9,7 @@ A wide range of GPU options are available, allowing you to select the most optim
 | NVIDIA | Tesla A100 NVLINK | Ampere | 6,912 | 40GB | Tesla\_A100\_NVLINK |
 | NVIDIA | Tesla V100 NVLINK | Volta | 5,120 | 16 GB | Tesla\_V100\_NVLINK |
 | NVIDIA | Tesla V100 | Volta | 5,120 | 16 GB | Tesla\_V100 |
+| NVIDIA | RTX 6000 | Turing | 4,608 | 24 GB | Quadro\_RTX\_6000 |
 | NVIDIA | RTX 5000 | Turing | 3,072 | 16 GB | Quadro\_RTX\_5000 |
 | NVIDIA | RTX 4000 | Turing | 2,304 | 8 GB  | Quadro\_RTX\_4000 |
 | NVIDIA | Tesla P100 | Pascal | 3,584 | 16 GB | Tesla\_P100\_NVLINK |
@@ -16,13 +17,14 @@ A wide range of GPU options are available, allowing you to select the most optim
 
 ### System Resources
 
-Each GPU includes a certain amount of host CPU and RAM, these are included at no additional fee.
+Each GPU includes a certain amount of host CPU and RAM, these are included at no additional fee. Allocating multiple GPUs to a single workload will increase the CPU and RAM allocation proportionally.
 
 | Class | vCPU | RAM | Great For |
 | :--- | :--- | :--- | :--- |
 | Tesla A100 NVLINK | 8 Xeon Gold | 96 GB | Complex Deep Neural Network training, HPC |
 | Tesla V100 NVLINK | 4 Xeon Silver | 32 GB | Deep Neural Network training, HPC |
 | Tesla V100 | 3 | 20 GB | AI inference, Rendering, Batch processing, Hashcat |
+| RTX 6000 | 4 Xeon Silver | 64 GB | Complex DNN Training, Rendering, Batch processing |
 | RTX 5000 | 4 Xeon Silver | 32 GB | Machine learning, Rendering, Batch processing |
 | RTX 4000 | 3 | 16 GB | Machine learning, Rendering, Game streaming |
 | Tesla P100 NVLINK | 4 Xeon Silver | 32 GB | Entry level HPC, Rendering, Batch processing |
@@ -31,15 +33,17 @@ Each GPU includes a certain amount of host CPU and RAM, these are included at no
 {% hint style="warning" %}
 If a workload requests more peripheral compute resources \(vCPU, RAM\) than offered in a standard instance size, additional costs will incur. 
 
-Please reach out to [cloud.support@coreweave.com](mailto:%20cloud.support@coreweave.com) for additional information on enhanced vCPU/RAM combinations and their costs.
+Additional CPU and RAM is billed in increments of $0.07/hr for 1 vCPU + 8 GB RAM.
 {% endhint %}
 
 ### CPU Availability
 
-| CPU Model | RAM per vCPU | Label |
-| :--- | :--- | :--- |
-| Intel Xeon v1 | 3 GB | xeon |
-| AMD Epyc Rome | 4 GB | epyc |
+CPU Only nodes are available for tasks such as control-plane services, databases, ingresses and CPU rendering. 
+
+| CPU Model | RAM per vCPU | Max CPU per Workload | Label |
+| :--- | :--- | :--- | :--- |
+| Intel Xeon v1/v2 | 3 GB | 78 | xeon |
+| AMD Epyc Rome | 4 GB | 46 | epyc |
 
 {% hint style="info" %}
 Workloads without GPU requests are always scheduled on CPU nodes. If a specific CPU model is not [explicitly selected](node-types.md#requesting-compute-in-kubernetes), the scheduler will automatically schedule workloads requesting few CPU cores on Epyc class CPUs, as these perform exceptionally well on single thread workloads.
