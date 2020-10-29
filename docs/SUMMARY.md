@@ -37,6 +37,10 @@
 * [Examples](workflows/examples/README.md)
   * [CGI Rendering](workflows/examples/cgi-rendering.md)
 
+## Virtual Desktop
+
+* [Remote Access and Control](virtual-desktop/remote-access-and-control.md)
+
 ## Resources
 
 * [Billing and Charges](resources/billing-and-charges.md)
