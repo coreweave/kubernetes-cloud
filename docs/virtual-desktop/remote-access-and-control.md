@@ -8,6 +8,10 @@
 [Download for Windows](https://github.com/kubevirt/kubevirt/releases/download/v0.34.0/virtctl-v0.34.0-windows-amd64.exe)  
 [Download for Mac OS X](https://github.com/kubevirt/kubevirt/releases/download/v0.34.0/virtctl-v0.34.0-darwin-amd64)
 
+### Listing your Virtual Machine Instances
+
+To get a list and see the status of your Virtual Machine Instances, run `kubectl get vmi`.
+
 ### Instance Control
 
 **Starting an instance** `virtctl start my-vm`  
