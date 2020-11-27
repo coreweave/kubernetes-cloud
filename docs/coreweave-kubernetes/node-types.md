@@ -21,11 +21,11 @@ Each GPU includes a certain amount of host CPU and RAM, these are included at no
 
 | Class | vCPU | RAM | Great For |
 | :--- | :--- | :--- | :--- |
-| Tesla A100 NVLINK | 8 Xeon Gold | 96 GB | Complex Deep Neural Network training, HPC |
+| Tesla A100 NVLINK | 30 Epyc | 240 GB | Complex Deep Neural Network training, HPC |
 | Tesla V100 NVLINK | 4 Xeon Silver | 32 GB | Deep Neural Network training, HPC |
 | Tesla V100 | 3 | 20 GB | AI inference, Rendering, Batch processing, Hashcat |
-| RTX 6000 | 4 Xeon Silver | 64 GB | Complex DNN Training, Rendering, Batch processing |
-| RTX 5000 | 4 Xeon Silver | 32 GB | Machine learning, Rendering, Batch processing |
+| RTX 6000 | 8 | 60 GB | Complex DNN Training, Rendering, Batch processing |
+| RTX 5000 | 8 | 60 GB | Machine learning, Rendering, Batch processing |
 | RTX 4000 | 3 | 16 GB | Machine learning, Rendering, Game streaming |
 | Tesla P100 NVLINK | 4 Xeon Silver | 32 GB | Entry level HPC, Rendering, Batch processing |
 | Multi Purpose Pascal | 1 | 8 GB | Transcoding, Rendering, Game streaming, Batch |
@@ -42,7 +42,7 @@ CPU Only nodes are available for tasks such as control-plane services, databases
 
 | CPU Model | RAM per vCPU | Max CPU per Workload | Label |
 | :--- | :--- | :--- | :--- |
-| Intel Xeon v1/v2 | 3 GB | 78 | xeon |
+| Intel Xeon v1/v2 | 3 GB | 94 | xeon |
 | AMD Epyc Rome | 4 GB | 46 | epyc |
 
 {% hint style="info" %}
