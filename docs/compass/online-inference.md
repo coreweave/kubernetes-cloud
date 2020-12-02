@@ -16,12 +16,18 @@ Autoscaling is enabled by default for all Inference Services. The autoscaling pa
 | :--- | :--- | :--- |
 | tick-interval | 15s | Auto scaling decision are made every 10 seconds |
 | stable-window | 180s | The time period average concurrency is measured over in stable mode |
-| container-concurrency-target-percentage | 90% | Scale to load all containers at 100% of their configured concurrency |
-| max-scale-up-rate | 1.5 | Scale up at a maximum of 50% of current capacity or 1 container \(whichever is larger\) per 10 seconds |
-| max-scale-down-rate | 1.01 | Scale down at a maximum of 1% of current capacity or 1 container \(whichever is larger\) per 10 seconds |
+| container-concurrency-target-percentage | 85% | Scale to load all containers at 100% of their configured concurrency |
+| max-scale-up-rate | 20 | Scale up at a maximum of 200% of current capacity or 1 container \(whichever is larger\) per 10 seconds |
+| max-scale-down-rate | 2 | Scale down at a maximum of 50% of current capacity or 1 container \(whichever is larger\) per 10 seconds |
 | scale-to-zero-grace-period | 30m | If no requests have been received for 30 minutes, a service will be scaled to zero and not use any resources. This behavior can be disabled by setting minReplicas to 1 in the service spec |
 
 If concurrent requests exceeds the current scaled-for request volume by 200% during a period of 30 seconds, the autoscaler enters "panic mode" and starts scaling containers faster than the normal 120s stable window. Some of these settings, such as stable window can be modified using annotations on the `InferenceService`. Refer to the [KNative documentation](https://knative.dev/docs/serving/configuring-autoscaling/) for more information.
+
+## Scale To Zero
+
+Inference Services with long periods of idle time can automatically be scaled to zero. When scaled down, the Inference Service will consume no resources and incur no billing. As soon as a new request comes in, a Pod will be instantiated and the request will be served. For small models, this can be as quick as five seconds. For larger models, spin up times can be 30 to 60 seconds.
+
+To enable Scale To Zero, simply set `minReplicas` to 0. By default, scale down will happen in 0 to 30 minutes after the last request was served. To set the max scale down delay lower, add the annotation `autoscaling.knative.dev/scaleToZeroPodRetentionPeriod: "10m"` to the `InferenceService`.
 
 ## Billing
 
