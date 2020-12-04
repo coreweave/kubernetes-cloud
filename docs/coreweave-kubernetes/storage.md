@@ -4,6 +4,17 @@
 
 Fast SSD and cost effective HDD storage are available as both block storage and shared filesystem types. All data is replicated for High Availability. Storage is allocated using Kubernetes [Persistent Volume Claims](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims). Volumes are automatically provisioned when a Persistent Volume Claim is created.
 
+| Storage Type | Disk Class | Region | Storage Class Name |
+| :--- | :--- | :--- | :--- |
+| Block Storage | NVMe | EWR1 | block-nvme-ewr1 |
+| Block Storage | HDD | EWR1 | block-hdd-ewr1 |
+| Shared Filesystem | NVMe | EWR1 | shared-nvme-ewr1 |
+| Shared Filesystem | HDD | EWR1 | shared-hdd-ewr1 |
+| Block Storage | SSD | ORD1 | ceph-ssd-2-replica |
+| Block Storage | HDD | ORD1 | ceph-hdd-2-replica |
+| Shared Filesystem | SSD | ORD1 | sharedfs-ssd-replicated |
+| Shared Filesystem | HDD | ORD1 | sharedfs-hdd-replicated |
+
 #### Block Storage
 
 Block Storage provides the best performance, and is the recommended storage access method whenever possible. Block Storage is exposed via the Kubernetes `ReadWriteOnce` access mode. Block volumes can only be attached to a single physical node at any one time.
