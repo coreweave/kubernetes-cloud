@@ -96,6 +96,7 @@ spec:
           limits:
             cpu: 7000m
             memory: 8Gi
+            nvidia.com/gpu: 6
             # GPUs can only be allocated as a limit, which both reserves and limits the number of GPUs the Pod will have access to
             # Making individual Pods resource light is advantageous for bin-packing. Since this Pod is for general purpose interactive testing
             # we allocate 6 GPUs to it
