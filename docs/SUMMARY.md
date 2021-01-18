@@ -11,11 +11,11 @@
 * [Storage](coreweave-kubernetes/storage.md)
 * [Exposing Applications](coreweave-kubernetes/exposing-applications.md)
 * [Serverless](coreweave-kubernetes/serverless.md)
-* [Resource Based Pricing](coreweave-kubernetes/resource-based-pricing.md)
 * [Examples](coreweave-kubernetes/examples/README.md)
   * [Jupyter Notebook with TensorFlow](coreweave-kubernetes/examples/tensorflow-jupyter.md)
   * [Ethereum Miner](coreweave-kubernetes/examples/miner.md)
   * [SSH Server with CUDA](coreweave-kubernetes/examples/cuda-ssh.md)
+* [Resource Based Pricing](coreweave-kubernetes/resource-based-pricing.md)
 
 ## Compass
 
