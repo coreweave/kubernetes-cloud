@@ -2,7 +2,7 @@
 
 ### Obtain Access Credentials
 
-[Sign up for CoreWeave Cloud](http://www.coreweave.com/#getstarted) and receive the credential file needed to access CoreWeave Cloud via Kubernetes.
+[Sign up for CoreWeave Cloud](https://www.coreweave.com/signup) and receive the credential file needed to access CoreWeave Cloud via Kubernetes.
 
 ### Install Kubernetes Command Line Tools
 

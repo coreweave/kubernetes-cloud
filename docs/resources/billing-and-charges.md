@@ -2,7 +2,7 @@
 
 Billing and resource consumption are calculated on a per-minute basis. There is no minimum resource charge.
 
-#### GPU Instance Billing
+## GPU Instance Billing
 
 For Pods/Instances with a GPU attached, the rate of billing is determined by the price of the GPU per hour. The GPU price per hour, as listed on the [CoreWeave Cloud Pricing](https://coreweave.com/pricing) page, includes the host device vCPU, RAM and ephemeral storage allocations.
 
