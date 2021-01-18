@@ -6,7 +6,7 @@ A wide range of GPU options are available, allowing you to select the most optim
 
 | Vendor | Class | Generation | CUDA Cores | VRAM | Label |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| NVIDIA | Tesla A100 NVLINK | Ampere | 6,912 | 40GB | Tesla\_A100\_NVLINK |
+| NVIDIA | A100 NVLINK | Ampere | 6,912 | 40GB | A100\_NVLINK |
 | NVIDIA | Tesla V100 NVLINK | Volta | 5,120 | 16 GB | Tesla\_V100\_NVLINK |
 | NVIDIA | Tesla V100 | Volta | 5,120 | 16 GB | Tesla\_V100 |
 | NVIDIA | RTX 6000 | Turing | 4,608 | 24 GB | Quadro\_RTX\_6000 |
