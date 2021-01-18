@@ -69,7 +69,7 @@ Instance Cost:
 
 ### CPU Only Instance Resource Pricing
 
-Instances without a GPU attached are configurable in combinations of vCPU and system RAM. Combinations can be configured in multiples of:
+Instances without a GPU attached are configurable in combinations of vCPU and system RAM. For these instances, system RAM is included in the vCPU price. Combinations can be configured in multiples of:
 
 | CPU Type | Resource Label | Ram per vCPU | Cost per vCPU per Hour |
 | :--- | :--- | :--- | :--- |
