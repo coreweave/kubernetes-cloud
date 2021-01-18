@@ -21,7 +21,7 @@ Each GPU includes a certain amount of host CPU and RAM, these are included at no
 
 | Class | vCPU | RAM | Great For |
 | :--- | :--- | :--- | :--- |
-| Tesla A100 NVLINK | 30 Epyc | 240 GB | Complex Deep Neural Network training, HPC |
+| A100 NVLINK | 30 Epyc | 240 GB | Complex Deep Neural Network training, HPC |
 | Tesla V100 NVLINK | 4 Xeon Silver | 32 GB | Deep Neural Network training, HPC |
 | Tesla V100 | 3 | 20 GB | AI inference, Rendering, Batch processing, Hashcat |
 | RTX 6000 | 8 | 60 GB | Complex DNN Training, Rendering, Batch processing |
