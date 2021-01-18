@@ -23,7 +23,7 @@ The following components are configurable in GPU based instances.
 
 An example, guaranteed request, hardware configuration of 4 Tesla V100 NVLINK GPUs with 32 Intel Xeon vCPU and 128GB of RAM would look something like:
 
-```text
+```yaml
   containers:
   - name: v100-example
     resources:
@@ -78,7 +78,7 @@ Instances without a GPU attached are configurable in combinations of vCPU and sy
 
 An example configuration requesting 6 AMD Epyc vCPU with 24GB of RAM would look like:
 
-```text
+```yaml
   containers:
   - name: epyc-example
     resources:
