@@ -43,7 +43,9 @@ class VSClient {
   // init will initialize the client for use. init must be run before any VirtualServer function is called
   init = async() => {
     const virtualServerCRD = await this.kubeclient.apis['apiextensions.k8s.io'].v1beta1.customresourcedefinitions("virtualservers.virtualservers.coreweave.com").get().then(r => r.body)
+    const vmCRD = await this.kubeclient.apis['apiextensions.k8s.io'].v1beta1.customresourcedefinitions("virtualmachines.kubevirt.io").get().then(r => r.body)
     this.kubeclient.addCustomResourceDefinition(virtualServerCRD)
+    this.kubeclient.addCustomResourceDefinition(vmCRD)
     this.initialized = true
   }
   
@@ -69,6 +71,12 @@ class VSClient {
         return Promise.reject(new Error("Virtual Server namespace and name are required"))
       }
       return this.kubeclient.apis['virtualservers.coreweave.com'].v1alpha1.namespaces(namespace).virtualservers(name).get()
+    },
+    list: ({namespace}) => {
+      if(!namespace) {
+        return Promise.reject(new Error("Namespace is required"))
+      }
+      return this.kubeclient.apis['virtualservers.coreweave.com'].v1alpha1.namespaces(namespace).virtualservers().get()
     },
     // Create a new VirtualServer
     // manifest is a yaml string
