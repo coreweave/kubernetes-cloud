@@ -113,5 +113,7 @@ Instance Cost:
                       =  $0.18 per hour
 ```
 
+**Billing Periods**
 
+All CoreWeave Cloud billing periods cover the calendar month \(i.e. 1 January 12:00am UTC thru 1 February 12:00am UTC\).
 

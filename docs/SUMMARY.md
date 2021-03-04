@@ -15,9 +15,8 @@
   * [Jupyter Notebook with TensorFlow](coreweave-kubernetes/examples/tensorflow-jupyter.md)
   * [Ethereum Miner](coreweave-kubernetes/examples/miner.md)
   * [SSH Server with CUDA](coreweave-kubernetes/examples/cuda-ssh.md)
-* [Resource Based Pricing](coreweave-kubernetes/resource-based-pricing.md)
 
-## Compass
+## Inference <a id="compass"></a>
 
 * [Online Inference Serving](compass/online-inference.md)
 * [Examples](compass/examples/README.md)
@@ -37,12 +36,18 @@
 * [Examples](workflows/examples/README.md)
   * [CGI Rendering](workflows/examples/cgi-rendering.md)
 
-## Virtual Desktop
+## Virtual Machines <a id="virtual-desktop"></a>
 
+* [Getting Started](virtual-desktop/getting-started.md)
 * [Remote Access and Control](virtual-desktop/remote-access-and-control.md)
+
+## Solutions
+
+* [VFX](solutions/vfx/README.md)
+  * [On-Premise Integration](solutions/vfx/on-premise-integration.md)
 
 ## Resources
 
-* [Billing and Charges](resources/billing-and-charges.md)
+* [Resource Based Pricing](resources/resource-based-pricing.md)
 * [Terms of Service](resources/terms-of-service.md)
 
