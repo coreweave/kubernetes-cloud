@@ -2,6 +2,8 @@
 
 CoreWeave cloud provides all infrastructure needed to deploy an end to end production pipeline in the cloud. A solution can consist of the full cloud pipeline, or only certain components combined with an existing pipeline elsewhere.
 
+![](../../.gitbook/assets/110173671-f3156c80-7dcc-11eb-84b0-dbe255cfc72d.png)
+
 * Managed Deadline - One click deploy of a fully managed Thinkbox Deadline installation running in the cloud. Connect local artists via the Remote Connection Server.
 * Auto-Scaling Render Workers - Powerful GPU and CPU render workers with no idle charges. Industries fastest auto-scale starts your task on hundreds of GPUs or thousands of CPUs in 30 seconds, and scales them down once finished.
 * [Virtual Workstations](../../virtual-desktop/getting-started.md) - Linux and Windows high performance workstations with NVIDIA GPUs for editing, compositing and modeling work with direct access to storage and render capacity. Workstations come pre-loaded with [Teradici](https://www.teradici.com/) for multi monitor 4K support. New workstations can be instantiated in a minute, and stopped when the work-day is over.

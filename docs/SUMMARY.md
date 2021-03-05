@@ -44,7 +44,8 @@
 ## Solutions
 
 * [VFX](solutions/vfx/README.md)
-  * [On-Premise Integration](solutions/vfx/on-premise-integration.md)
+  * [On-Premise Integration](solutions/vfx/on-premise-integration/README.md)
+    * [Synology NAS](solutions/vfx/on-premise-integration/synology-nas.md)
 
 ## Resources
 
