@@ -9,7 +9,6 @@
   "author": "Yitzy Dier",
   "license": "ISC",
   "dependencies": {
-    "kubernetes-client": "^9.0.0",
-    "yaml": "^1.10.0"
+    "kubernetes-client": "^9.0.0"
   }
 }

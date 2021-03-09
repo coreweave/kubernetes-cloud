@@ -1,54 +1,67 @@
 const VSClient = require("./client.js")
+const { newVirtualServerManifest } = require("./util.js")
 
-// A sample VirtualServer manifest
-const virtualServerManifest = `
-apiVersion: virtualservers.coreweave.com/v1alpha1
-kind: VirtualServer
-metadata:
-  name: sample-virtual-server
-  namespace: my-namespace
-spec:
-  region: ORD1
-  affinity: {}
-  os:
+// Create a blank VirtualServer manifest
+const virtualServerManifest = newVirtualServerManifest({
+  name: "sample-virtual-server",
+  namespace: "my-namespace"
+})
+// Configure a sample spec
+virtualServerManifest.spec = {
+  region: "ORD1",
+  os: {
     type: "linux"
-  resources:
-    definition: "a"
-    gpu:
-      type: "Quadro_RTX_4000"
+  },
+  resources: {
+    gpu: {
+      type: "Quadro_RTX_4000",
       count: 4
-    cpu:
+    },
+    cpu: {
       count: 2
-    memory: 16Gi
-  storage:
-    root:
-      size: 40Gi
-      volumeMode: Block
-      accessMode: ReadWriteOnce
-      storageClassName: ceph-ssd-2-replica
-      source:
-        pvc:
-          namespace: vd-images
-          name: ubuntu2004-docker-master-20210210-ord1
-  users:
-    - username: user
-      password: pass
-  network:
-    tcp:
-      ports:
-      - 22
-      - 443
-      - 60443
-      - 4172
-      - 3389
-    udp:
-      ports:
-      - 4172
-      - 3389
-`
+    },
+    memory: "16Gi"
+  },
+  storage: {
+    root: {
+      size: "40Gi",
+      storageClassName: "ceph-ssd-2-replica",
+      source: {
+        pvc: {
+          namespace: "vd-images",
+          name: "ubuntu2004-docker-master-20210210-ord1"
+        }
+      }
+    }
+  },
+  users: [
+    {
+      username: "user",
+      password: "pass"
+    }
+  ],
+  network: {
+    tcp: {
+      ports: [
+        22,
+        443,
+        60443,
+        4172,
+        3389,
+      ]
+    },
+    udp: {
+      ports: [
+        4172,
+        3389
+      ]
+    }
+  }
+}
 
 const main = async() => {
   // Create and initialize a new VirtualServer client
+  // Path to kube config may be null, in which case the default ~/.kube kubeconfig location will be used
   const client = new VSClient('/path/to/kube/config')
   await client.init()
 
@@ -88,6 +101,27 @@ const main = async() => {
     return o.body
   })
   .catch(err => console.log(err.toString()))
+
+  // Log the network status of the VirtualServer to the console
+  const tcpIP = vs.status.network.tcpIP || ""
+  const udpIP = vs.status.network.udpIP || ""
+  const floatingIPs = vs.status.network.floatingIPs || {}
+  const internalIP = vs.status.network.internalIP || ""
+  console.log(`Virtual Server network status: 
+    TCP: ${tcpIP}
+    UDP: ${udpIP}
+    FloatingIPs:
+    \t${Object.entries(floatingIPs).map(([svc, ip]) => `${svc}: ${ip}`).join("\n\t")}
+    InternalIP: ${internalIP}
+  `)
+  /* 
+  Sample Output:
+    TCP: 0.0.0.0
+    UDP: 0.0.0.0
+    FloatingIPs:
+        sample-floating-ip-service: 1.1.1.1
+    InternalIP: 1.2.3.4
+  */
 
   // Increase the memory resource request to 32Gi and update the VirtualServer
   vs.spec.resources.memory = "32Gi"

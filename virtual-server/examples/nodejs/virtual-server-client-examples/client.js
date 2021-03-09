@@ -1,6 +1,5 @@
 const { KubeConfig, Client } = require('kubernetes-client')
 const Request = require('kubernetes-client/backends/request')
-const YAML = require('yaml')
 
 // Request to the kubevirt subresource api
 const VMBackendRequest = (kubeclient, namespace, name, command) =>
@@ -26,7 +25,7 @@ class VSClient {
   constructor(kubeconfig) {
     this.initialized = false
     let backend = null
-    if(kubeconfig) {
+    if(!!kubeconfig) {
       const config = new KubeConfig()
       config.loadFromFile(kubeconfig)
       backend = new Request({kubeconfig: config})
@@ -79,13 +78,11 @@ class VSClient {
       return this.kubeclient.apis['virtualservers.coreweave.com'].v1alpha1.namespaces(namespace).virtualservers().get()
     },
     // Create a new VirtualServer
-    // manifest is a yaml string
     create: (manifest) => {
-      const manifestObj = YAML.parse(manifest)
-      if(!manifestObj.metadata.namespace) {
+      if(!manifest.metadata.namespace) {
         return Promise.reject(new Error("VirtualServer metadata.namespace is required"))
       }
-      return this.kubeclient.apis['virtualservers.coreweave.com'].v1alpha1.namespaces(manifestObj.metadata.namespace).virtualservers.post({body: manifestObj})
+      return this.kubeclient.apis['virtualservers.coreweave.com'].v1alpha1.namespaces(manifest.metadata.namespace).virtualservers.post({body: manifest})
     },
     // Delete a VirtualServer
     delete: ({namespace, name}) => {
@@ -95,18 +92,16 @@ class VSClient {
       return this.kubeclient.apis['virtualservers.coreweave.com'].v1alpha1.namespaces(namespace).virtualservers(name).delete()
     },
     // Update a new VirtualServer
-    // manifest is a yaml string
     update: async (manifest) => {
-      const manifestObj = YAML.parse(manifest)
-      if(!manifestObj.metadata.namespace || !manifestObj.metadata.name) {
+      if(!manifest.metadata.namespace || !manifest.metadata.name) {
         return Promise.reject(new Error("VirtualServer metadata.namespace and metadata.name is required"))
       }
-      if(!manifestObj.metadata.resourceVersion) {
-        await this.virtualServer.get({namespace: manifestObj.metadata.namespace, name: manifestObj.metadata.name}).then(o => manifestObj.metadata.resourceVersion = o.body.metadata.resourceVersion)
+      if(!manifest.metadata.resourceVersion) {
+        await this.virtualServer.get({namespace: manifest.metadata.namespace, name: manifest.metadata.name}).then(o => manifest.metadata.resourceVersion = o.body.metadata.resourceVersion)
       }
-      return this.kubeclient.apis['virtualservers.coreweave.com'].v1alpha1.namespaces(manifestObj.metadata.namespace).virtualservers(manifestObj.metadata.name).put({body: manifestObj})
+      return this.kubeclient.apis['virtualservers.coreweave.com'].v1alpha1.namespaces(manifest.metadata.namespace).virtualservers(manifest.metadata.name).put({body: manifest})
     },
-    // Ready will resolve when the VirtualServer is ready (determined by the status field of the Ready Condition)
+    // Ready will resolve when the VirtualServer is ready for commands (determined by the status field of the VirtualMachineReady Condition)
     ready: async({namespace, name}) => {
       if(!namespace || !name) {
         return Promise.reject(new Error("Virtual Server namespace and name are required"))
@@ -120,7 +115,7 @@ class VSClient {
           }
           else {
             if(!!e.object.status) {
-              const readyCondition = e.object.status.conditions.filter(c => c.type === 'Ready')[0] || {}
+              const readyCondition = e.object.status.conditions.filter(c => c.type === 'VirtualMachineReady')[0] || {}
               if(readyCondition.status === 'True') {
                 stream.end()
                 return resolve('Ready')
