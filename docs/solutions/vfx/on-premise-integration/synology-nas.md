@@ -1,17 +1,17 @@
 # Synology NAS
 
-[Synology](https://www.synology.com/) can natively run [CoreWeave Cloud Link](./#cloud-link) as a Docker container. This makes integration with Synology storage straightforward, without need for any external components or firewall modifications.
+[Synology](https://www.synology.com/) can natively run [CoreWeave CloudLink](./#cloud-link) as a Docker container. This makes integration with Synology storage straightforward, without need for any external components or firewall modifications.
 
 #### Requirements
 
-* Any [Synology model capable of running Docker](https://www.synology.com/en-us/dsm/packages/Docker), which is any Synology able to run the latest version of DSM
+* Any [Synology model capable of running Docker](https://www.synology.com/en-us/dsm/packages/Docker), i.e. any Synology able to run the latest version of DSM
 * Admin credentials to the NAS
 
 ### Setup
 
-This guide will show you how to expose your storage as both **SMB \(Windows File Sharing\)** and **NFS** to CoreWeave. You are likely already using one of the two, and will want to expose whichever protocol you are currently using. Synology has demonstrated better performance on SMB over WAN links, if you are using both SMB and NFS in your environment we therefore recommend using SMB for Cloud Link.
+This guide will show you how to expose your storage as both **SMB \(Windows File Sharing\)** and **NFS** to CoreWeave. You are likely already using one of the two, and will want to expose whichever protocol you are currently using. Synology has demonstrated better performance on SMB over WAN links, if you are using both SMB and NFS in your environment we therefore recommend using SMB for CloudLink.
 
-1. Deploy the Cloud Link Server in your CoreWeave namespace on [Apps](https://apps.coreweave.com). It is likely that your CoreWeave specialist has already done this for you, and this step can be skipped.
+1. Deploy the CloudLink Server in your CoreWeave namespace on [Apps](https://apps.coreweave.com). It is likely that your CoreWeave specialist has already done this for you, and this step can be skipped.
 
 2. Install Docker the Docker package via the Package Center in the Synology UI.
 
@@ -33,18 +33,18 @@ This guide will show you how to expose your storage as both **SMB \(Windows File
 
 | Variable | Description |
 | :--- | :--- |
-| FRP\_SERVER | CoreWeave Cloud Link Server IP from Step 1 |
+| FRP\_SERVER | CoreWeave CloudLink Server IP from Step 1 |
 | FILE\_SERVER | NFS/SMB File Server. This is always 127.0.0.1 for Synology |
-| DEADLINE\_WEBSERVICE | If running Deadline locally, IP address of the server running the Deadline Webservice |
-| DEADLINE\_RCS | If running Deadline locally, IP address of the server running the Deadline RCS |
+| DEADLINE\_WEBSERVICE | If running the Deadline Repository locally, IP address of the server running the Deadline Webservice |
+| DEADLINE\_RCS | If running the Deadline Repository locally, IP address of the server running the Deadline RCS |
 
 ![](../../../.gitbook/assets/screen-shot-2021-03-05-at-5.06.50-pm.png)
 
-7. Start the container. Successful connection to the CoreWeave Cloud Link Server is identified by a state of Running and an uptime that is increasing. If the container is restarting, it means that the CoreWeave Cloud Link server cannot be reached. Validate the `FRP_SERVER` environment variable and that outbound connections on port `7000` to that IP address is allowed in your firewall.
+7. Start the container. Successful connection to the CoreWeave CloudLink Server is identified by a state of Running and an uptime that is increasing. If the container is restarting, it means that the CoreWeave CloudLink server cannot be reached. Validate the `FRP_SERVER` environment variable and that outbound connections on port `7000` to that IP address is allowed in your firewall.
 
-8. In the Control Panel, navigate to File Services. If you are primarily using **SMB \(Windows File Sharing\)** to access your data, SMB is likely already enabled. CoreWeave Cloud Link will then use SMB to connect to your storage. 
+8. In the Control Panel, navigate to File Services. If you are primarily using **SMB \(Windows File Sharing\)** to access your data, SMB is likely already enabled. CoreWeave CloudLink will then use SMB to connect to your storage. 
 
-9. If you are primarily using **Linux**, you will want to use **NFS** for CoreWeave Cloud Link. SMB users can skip this step and any other NFS related step. Make sure NFSv4.1 is enabled as well as packet sizes are set to `32KB` under Advanced Settings.
+9. If you are primarily using **Linux**, you will want to use **NFS** for CoreWeave CloudLink. SMB users can skip this step and any other NFS related step. Make sure NFSv4.1 is enabled as well as packet sizes are set to `32KB` under Advanced Settings.
 
 ![](../../../.gitbook/assets/screen-shot-2021-03-05-at-5.27.02-pm.png)
 
