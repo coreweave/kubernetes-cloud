@@ -44,8 +44,10 @@ CPU Only nodes are available for tasks such as control-plane services, databases
 
 | CPU Model | RAM per vCPU | Max CPU per Workload | Label |
 | :--- | :--- | :--- | :--- |
-| Intel Xeon v1/v2 | 3 GB | 94 | xeon |
-| AMD Epyc Rome | 4 GB | 46 | epyc |
+| Intel Xeon v1 | 3 GB | 79 | intel-xeon-v1 |
+| Intel Xeon v2 | 3 GB | 93 | intel-xeon-v2 |
+| Intel Xeon v4 | 4 GB | 30 | intel-xeon-v4 |
+| AMD Epyc Rome | 4 GB | 46 | amd-epyc-rome |
 
 {% hint style="info" %}
 Workloads without GPU requests are always scheduled on CPU nodes. If a specific CPU model is not [explicitly selected](node-types.md#requesting-compute-in-kubernetes), the scheduler will automatically schedule workloads requesting few CPU cores on Epyc class CPUs, as these perform exceptionally well on single thread workloads.
@@ -53,7 +55,7 @@ Workloads without GPU requests are always scheduled on CPU nodes. If a specific 
 
 ### Requesting Compute in Kubernetes
 
-A combination of [resource requests ](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)and[ node affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity) is used to select the type and amount of compute for your workload. CoreWeave Cloud relies only on these native Kubernetes methods for resource allocation, allowing maximum flexibilty.
+A combination of [resource requests ](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)and[ node affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity) is used to select the type and amount of compute for your workload. CoreWeave Cloud relies only on these native Kubernetes methods for resource allocation, allowing maximum flexibilty. The label used to select CPU type is `node.coreweave.cloud/cpu`
 
 {% tabs %}
 {% tab title="Single Tesla V100" %}
@@ -125,7 +127,7 @@ spec:
 ```
 {% endtab %}
 
-{% tab title="16 Core Xeon CPU" %}
+{% tab title="16 Core Xeon v1/v2 CPU" %}
 ```yaml
 spec:
   containers:
@@ -140,10 +142,11 @@ spec:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
         - matchExpressions:
-          - key: cpu.coreweave.cloud/family
+          - key: node.coreweave.cloud/cpu
             operator: In
             values:
-              - xeon
+              - xeon-v1
+              - xeon-v2
 ```
 {% endtab %}
 
@@ -162,10 +165,10 @@ spec:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
         - matchExpressions:
-          - key: cpu.coreweave.cloud/family
+          - key: node.coreweave.cloud/cpu
             operator: In
             values:
-              - epyc
+              - amd-epyc-rome
 ```
 {% endtab %}
 {% endtabs %}
