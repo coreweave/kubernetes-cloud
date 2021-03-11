@@ -145,8 +145,8 @@ spec:
           - key: node.coreweave.cloud/cpu
             operator: In
             values:
-              - xeon-v1
-              - xeon-v2
+              - intel-xeon-v1
+              - intel-xeon-v2
 ```
 {% endtab %}
 
