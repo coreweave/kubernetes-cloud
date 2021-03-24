@@ -4,9 +4,9 @@
 
 `virtctl`provides an easy, imperative method to start, stop and access VM instances. `virtctl` uses your existing Kubernetes credentials added in [Getting Started](../coreweave-kubernetes/getting-started.md).
 
-[Download for Linux](https://github.com/kubevirt/kubevirt/releases/download/v0.34.0/virtctl-v0.34.0-linux-amd64)  
-[Download for Windows](https://github.com/kubevirt/kubevirt/releases/download/v0.34.0/virtctl-v0.34.0-windows-amd64.exe)  
-[Download for Mac OS X](https://github.com/kubevirt/kubevirt/releases/download/v0.34.0/virtctl-v0.34.0-darwin-amd64)
+[Download for Linux](https://github.com/kubevirt/kubevirt/releases/download/v0.39.0/virtctl-v0.39.0-linux-amd64)  
+[Download for Windows](https://github.com/kubevirt/kubevirt/releases/download/v0.39.0/virtctl-v0.39.0-windows-amd64.exe)  
+[Download for Mac OS X](https://github.com/kubevirt/kubevirt/releases/download/v0.39.0/virtctl-v0.39.0-darwin-amd64)
 
 ### Listing your Virtual Machine Instances
 
