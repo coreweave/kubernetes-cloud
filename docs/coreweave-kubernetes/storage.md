@@ -105,7 +105,7 @@ Storage is billed per gigabyte of allocated \(requested\) space as an average ov
 
 **Resizing**
 
-Volumes can be expanded by simply increasing the `storage` request and re-applying the manifest. `ReadWriteMany` volumes are re-sized online without disruption the workload. For `ReadWriteOnce` volumes you will need to stop or restart all workloads that are attaching the volume for the reisize to take effect.
+Volumes can be expanded by simply increasing the `storage` request and reapplying the manifest. `ReadWriteMany` volumes are resized online without disruption the workload. For `ReadWriteOnce` volumes you will need to stop or restart all workloads that are attaching the volume for the resize to take effect.
 
 ## Ephemeral Storage
 
