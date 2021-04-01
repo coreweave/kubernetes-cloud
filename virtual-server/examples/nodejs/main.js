@@ -29,7 +29,7 @@ virtualServerManifest.spec = {
       source: {
         pvc: {
           namespace: "vd-images",
-          name: "ubuntu2004-docker-master-20210210-ord1"
+          name: "ubuntu2004-docker-master-20210323-ord1"
         }
       }
     }
@@ -41,6 +41,7 @@ virtualServerManifest.spec = {
     }
   ],
   network: {
+    public: true,
     tcp: {
       ports: [
         22,
@@ -56,7 +57,8 @@ virtualServerManifest.spec = {
         3389
       ]
     }
-  }
+  },
+  initializeRunning: true
 }
 
 const main = async() => {
@@ -103,24 +105,21 @@ const main = async() => {
   .catch(err => console.log(err.toString()))
 
   // Log the network status of the VirtualServer to the console
-  const tcpIP = vs.status.network.tcpIP || ""
-  const udpIP = vs.status.network.udpIP || ""
+  const externalIP = vs.status.network.externalIP || ""
   const floatingIPs = vs.status.network.floatingIPs || {}
   const internalIP = vs.status.network.internalIP || ""
   console.log(`Virtual Server network status: 
-    TCP: ${tcpIP}
-    UDP: ${udpIP}
+    InternalIP: ${internalIP}
+    ExternalIP: ${externalIP}
     FloatingIPs:
     \t${Object.entries(floatingIPs).map(([svc, ip]) => `${svc}: ${ip}`).join("\n\t")}
-    InternalIP: ${internalIP}
   `)
   /* 
   Sample Output:
-    TCP: 0.0.0.0
-    UDP: 0.0.0.0
+    InternalIP: 1.2.3.4
+    ExternalIP: 0.0.0.0
     FloatingIPs:
         sample-floating-ip-service: 1.1.1.1
-    InternalIP: 1.2.3.4
   */
 
   // Increase the memory resource request to 32Gi and update the VirtualServer
