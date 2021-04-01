@@ -13,8 +13,9 @@ The client ([client.js](client.js)) provides an interface to create a kubernetes
 
 `init()`: Initialize the client
 
-*init must be called prior to using the Client*
-*init will set up the client so that it is aware of Coreweave and Kubevirt CRDs as well as the kubevirt subresource api*
+*init must be called prior to using the Client.*
+
+*init will set up the client so that it is aware of Coreweave and Kubevirt CRDs as well as the kubevirt subresource api.*
 
 `get({namespace, name})`: Retrieves a Virtual Server
 * `namespace`: Namespace wherein the Virtual Server is deployed
