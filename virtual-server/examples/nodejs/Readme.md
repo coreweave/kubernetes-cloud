@@ -53,56 +53,64 @@ The application ([main.js](main.js)) implements client.js in order to create, wa
 ### Example Manifests
 ```
 {
-  region: "ORD1",
-  os: {
-    type: "linux"
+  apiVersion: "virtualservers.coreweave.com/v1alpha1",
+  kind: "VirtualServer",
+  metadata: {
+    name: "example-vs",
+    namespace: "my-namespace"
   },
-  resources: {
-    gpu: {
-      type: "Quadro_RTX_4000",
-      count: 4
+  spec: {
+    region: "ORD1",
+    os: {
+      type: "linux"
     },
-    cpu: {
-      count: 2
+    resources: {
+      gpu: {
+        type: "Quadro_RTX_4000",
+        count: 4
+      },
+      cpu: {
+        count: 2
+      },
+      memory: "16Gi"
     },
-    memory: "16Gi"
-  },
-  storage: {
-    root: {
-      size: "40Gi",
-      storageClassName: "ceph-ssd-2-replica",
-      source: {
-        pvc: {
-          namespace: "vd-images",
-          name: "ubuntu2004-docker-master-20210323-ord1"
+    storage: {
+      root: {
+        size: "40Gi",
+        storageClassName: "ceph-ssd-2-replica",
+        source: {
+          pvc: {
+            namespace: "vd-images",
+            name: "ubuntu2004-docker-master-20210323-ord1"
+          }
         }
       }
-    }
-  },
-  users: [
-    {
-      username: "user",
-      password: "pass"
-    }
-  ],
-  network: {
-    public: true,
-    tcp: {
-      ports: [
-        22,
-        443,
-        60443,
-        4172,
-        3389,
-      ]
     },
-    udp: {
-      ports: [
-        4172,
-        3389
-      ]
-    }
-  },
-  initializeRunning: true
+    users: [
+      {
+        username: "user",
+        password: "pass"
+      }
+    ],
+    network: {
+      public: true,
+      tcp: {
+        ports: [
+          22,
+          443,
+          60443,
+          4172,
+          3389,
+        ]
+      },
+      udp: {
+        ports: [
+          4172,
+          3389
+        ]
+      }
+    },
+    initializeRunning: true
+  }
 }
 ```
