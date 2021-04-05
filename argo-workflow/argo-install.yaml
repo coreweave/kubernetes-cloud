@@ -244,9 +244,8 @@ spec:
       - args:
         - server
         - --namespaced
-#        - --auth-mode 
-#        - client
-        image: argoproj/argocli:v3.0.0
+        - --secure=false
+        image: argoproj/argocli:v3.0.1
         name: argo-server
         resources:
           requests:
@@ -293,7 +292,7 @@ spec:
         - --configmap
         - workflow-controller-configmap
         - --executor-image
-        - argoproj/argoexec:v3.0.0
+        - argoproj/argoexec:v3.0.1
         - --namespaced
         command:
         - workflow-controller
@@ -319,6 +318,6 @@ spec:
             port: metrics
           initialDelaySeconds: 30
           periodSeconds: 30
-        image: argoproj/workflow-controller:v3.0.0
+        image: argoproj/workflow-controller:v3.0.1
         name: workflow-controller
       serviceAccountName: argo
