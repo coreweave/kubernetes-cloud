@@ -15,10 +15,10 @@ virtualServerManifest.spec = {
   resources: {
     gpu: {
       type: "Quadro_RTX_4000",
-      count: 4
+      count: 1
     },
     cpu: {
-      count: 2
+      count: 3
     },
     memory: "16Gi"
   },
@@ -121,12 +121,6 @@ const main = async() => {
     FloatingIPs:
         sample-floating-ip-service: 1.1.1.1
   */
-
-  // Increase the memory resource request to 32Gi and update the VirtualServer
-  vs.spec.resources.memory = "32Gi"
-  await client.virtualServer.update(JSON.stringify(vs))
-    .then(o => o.statusCode === 200 && console.log("VS patched"))
-    .catch(err => console.log(err))
 
   // Stop the VirtualServer
   await client.virtualServer.stop({name: "sample-virtual-server", namespace: "my-namespace"})

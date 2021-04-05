@@ -1,7 +1,7 @@
 
 ## Virtual Server NodeJS Example
 
-An example implementation in NodeJS of a kubernetes client to interact with a Virtual Server resource on Coreweave Cloud.
+An example implementation in NodeJS of a kubernetes client to interact with a Virtual Server resource on CoreWeave Cloud.
 
 ### Implementation Breakdown
 
@@ -14,16 +14,16 @@ The client ([client.js](client.js)) provides an interface to create a kubernetes
 `init()`: Initialize the client
 > *init must be called prior to using the Client.*
 > 
-> *init will set up the client so that it is aware of Coreweave and Kubevirt CRDs as well as the kubevirt subresource api.*
+> *init will set up the client so that it is aware of CoreWeave and Kubevirt CRDs as well as the kubevirt subresource api.*
 
 `get({namespace, name})`: Retrieves a Virtual Server
 * `namespace`: Namespace wherein the Virtual Server is deployed
 * `name`: Name of the Virtual Server
 
 `list({namespace})`: List all Virtual Servers
-* `namespace`: Namespace wherein the Virtual Servers is deployed
+* `namespace`: Namespace wherein the Virtual Servers are deployed
 
-`create(manifest)`: Retrieves a Virtual Server
+`create(manifest)`: Creates a Virtual Server
 * `manifest`: A Virtual Server manifest (JSON/Object)
 	> Example manifests detailed in [Example Manifests](#example-manifests)
 
@@ -48,7 +48,7 @@ The client ([client.js](client.js)) provides an interface to create a kubernetes
 * `name`: Name of the Virtual Server
 
 ### Application
-The application ([main.js](main.js)) implements client.js in order to create, watch, get, and update an example Virtual Server. The application serves as an example of how to implement client.js. Additionally, the application illustrates how one might retrieve status information from a running Virtual Server, retrieving it's run state and network information. Finally, the example shows how to simply interface with the subresource api, starting and stopping a Virtual Server.
+The application ([main.js](main.js)) implements client.js in order to create, watch, get, and update an example Virtual Server. The application serves as an example of how to implement client.js. Additionally, the application illustrates how one might retrieve status information from a running Virtual Server, retrieving its run state and network information. Finally, the example shows how to simply interface with the subresource api, starting and stopping a Virtual Server.
 
 ### Example Manifests
 ```
@@ -67,10 +67,10 @@ The application ([main.js](main.js)) implements client.js in order to create, wa
     resources: {
       gpu: {
         type: "Quadro_RTX_4000",
-        count: 4
+        count: 1
       },
       cpu: {
-        count: 2
+        count: 3
       },
       memory: "16Gi"
     },
