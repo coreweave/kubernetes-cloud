@@ -133,7 +133,7 @@ filebrowser     LoadBalancer   10.135.198.207   64.xx.xx.xx     80:32765/TCP    
 
 Let's now browse to the `EXTERNAL-IP` as listed in our services, and we should be greeted by a login screen!
 
-![Default username/password is admin/admin. You should change this...](../../.gitbook/assets/image%20%283%29%20%281%29.png)
+![Default username/password is admin/admin. You should change this...](../../.gitbook/assets/image%20%283%29%20%281%29%20%281%29.png)
 
 **Let's get something to render!**
 

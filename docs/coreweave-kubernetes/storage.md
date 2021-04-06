@@ -15,7 +15,7 @@ Fast SSD and cost effective HDD storage are available as both block storage and 
 | Shared Filesystem | SSD | ORD1 | sharedfs-ssd-replicated |
 | Shared Filesystem | HDD | ORD1 | sharedfs-hdd-replicated |
 
-#### Block Storage
+### Block Storage
 
 Block Storage provides the best performance, and is the recommended storage access method whenever possible. Block Storage is exposed via the Kubernetes `ReadWriteOnce` access mode. Block volumes can only be attached to a single physical node at any one time.
 
@@ -57,7 +57,7 @@ spec:
 {% endtab %}
 {% endtabs %}
 
-#### Shared Filesystem
+### Shared Filesystem
 
 Unlike block volumes a shared filesystem can be accessed by multiple nodes at the same time. This storage type is useful for parallel tasks, i.e. reading assets for CGI rendering or loading ML models for parallel inference. A shared filesystem is accessed similarly to block storage. The access mode changes to `ReadWriteMany` and the storage class names are different.
 
@@ -99,7 +99,7 @@ spec:
 {% endtab %}
 {% endtabs %}
 
-#### Billing
+### Billing
 
 Storage is billed per gigabyte of allocated \(requested\) space as an average over a billing cycle.
 

@@ -36,10 +36,16 @@
 * [Examples](workflows/examples/README.md)
   * [CGI Rendering](workflows/examples/cgi-rendering.md)
 
-## Virtual Machines <a id="virtual-desktop"></a>
+## Virtual Servers
 
-* [Getting Started](virtual-desktop/getting-started.md)
-* [Remote Access and Control](virtual-desktop/remote-access-and-control.md)
+* [Getting Started](virtual-servers/getting-started.md)
+* [Deployment Methods](virtual-servers/deployment-methods/README.md)
+  * [Kubectl](virtual-servers/deployment-methods/kubectl.md)
+  * [Programmatically](virtual-servers/deployment-methods/programmatically/README.md)
+    * [Python](virtual-servers/deployment-methods/programmatically/python.md)
+    * [NodeJS](virtual-servers/deployment-methods/programmatically/nodejs.md)
+    * [Golang](virtual-servers/deployment-methods/programmatically/golang.md)
+* [Remote Access and Control](virtual-servers/remote-access-and-control.md)
 
 ## Solutions
 
