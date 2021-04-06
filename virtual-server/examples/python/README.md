@@ -11,7 +11,7 @@ The python example illustrates the following:
 
 In order to workaround unresolved issue with resource paths in the native python client for kubevirt https://github.com/kubevirt/client-python, we introduced class `KubeVirtClient` for basic operations on kubevirt VirtualMachine resources.
 
-Class `VSClient` does the basic operation on Vitrual Server controller.
+Class VSClient performs basic operations on the Vitrual Server resource.
 
 ## Install
 
