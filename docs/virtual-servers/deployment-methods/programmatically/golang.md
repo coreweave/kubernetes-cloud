@@ -26,7 +26,7 @@ A `makefile` is provided within the [golang example](https://github.com/coreweav
 | run | Build and run the example executable |
 | clean | Remove the executable |
 
-###   Implementation
+### Implementation
 
 The go [example](https://github.com/coreweave/kubernetes-cloud/blob/master/virtual-server/examples/go/main.go) employs the [v1alpha1](https://pkg.go.dev/github.com/coreweave/virtual-server/api/v1alpha1) package of CoreWeave's VirtualServer in order to interface with the Virtual Server resource on CoreWeave Cloud. The Virtual Server struct is prepared using helper functions provided by package [v1alpha1](https://pkg.go.dev/github.com/coreweave/virtual-server/api/v1alpha1). Additionally, a PersistentVolumeClaim and a Service are created. They are then allocated to the Virtual Server as an additional filesystem and floatingIP respectively. Once prepared, a simple [sigs](https://github.com/kubernetes-sigs/controller-runtime) client is used to Create, Get, and Delete the Virtual Server. 
 
