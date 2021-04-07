@@ -36,11 +36,11 @@ The example application \([main.go](https://github.com/coreweave/kubernetes-clou
 
 #### Persistent Volume Claim
 
-A [PersistentVolumeClaim](https://kubernetes.io/docs/concepts/storage/persistent-volumes/) \(PVC\) is created and assigned to the Virtual Server as an additional file system. The PVC will then be accessible within the Virtual Server as a mounted file system. Within the example, function `buildPVC` illustrates the creation of an example PVC struct.The Kubernetes client is used to deploy the PVC to the cluster.
+A [PersistentVolumeClaim](https://kubernetes.io/docs/concepts/storage/persistent-volumes/) \(PVC\) is created and assigned to the Virtual Server as an additional file system. The PVC will then be accessible from within the Virtual Server as a mounted file system. The example function `buildPVC` illustrates the creation of a PVC struct.The Kubernetes client is then used to deploy the PVC to the cluster.
 
 #### Service
 
-A [Service](https://kubernetes.io/docs/concepts/services-networking/service/) is created and assigned to the Virtual Server as a floating IP service. The service must be of `type: LoadBalancer`, and have been assigned a load balancer IP in order to be used as a floating IP service. If the service is valid, the IP of service will be assigned to the Virtual Server as a floating IP. Within the example, function `buildFloatingIPService` illustrates the creation of an example PVC struct. Similarly as with the PVC, the Kubernetes client is used to deploy the PVC to the cluster.
+A [Service](https://kubernetes.io/docs/concepts/services-networking/service/) is created and assigned to the Virtual Server as a floating IP service. The service must be `type: LoadBalancer`, and have been assigned a load balancer IP in order to be used as a floating IP service. If the service is valid, the IP of the service will be assigned to the Virtual Server as a floating IP. The example, function `buildFloatingIPService` illustrates the creation of a PVC struct. The Kubernetes client is then used to deploy the PVC to the cluster.
 
 #### Virtual Server
 
