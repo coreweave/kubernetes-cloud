@@ -9,7 +9,10 @@ import (
 
 	vsv1alpha "github.com/coreweave/virtual-server/api/v1alpha1"
 	"github.com/spf13/pflag"
+	corev1 "k8s.io/api/core/v1"
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
+	"k8s.io/apimachinery/pkg/api/resource"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/client/config"
@@ -67,7 +70,7 @@ func Ready(namespace, name string, c client.Client) ReadyResponse {
 }
 
 func main() {
-	name := "my-virtual-server"
+	name := "my-test-virtual-server"
 
 	// Get namespace or use default
 	namespace, envExist := os.LookupEnv("NAMESPACE")
@@ -149,6 +152,23 @@ func main() {
 	// Set the VirtualServer to start as soon as it is created
 	virtualServer.InitializeRunning(true)
 
+	// Create an example pvc to be added as an additional file system
+	pvc := buildPVC("example-pvc", namespace, resource.MustParse("256Gi"))
+	if err := c.Create(context.Background(), pvc); err != nil {
+		log.Fatalf("Could not create example pvc\nReason: %s", err.Error())
+	}
+
+	// Add the example PVC as a file system to the Virtual Server
+	virtualServer.AddPVCFileSystem("example-storage", pvc.Name, false)
+
+	service := buildFloatingIPService("example-floating-ip-service", namespace)
+	if err := c.Create(context.Background(), service); err != nil {
+		log.Fatalf("Could not create example floatingIP service\nReason: %s", err.Error())
+	}
+
+	// Add the example floatingIP service to the VirtualServer
+	virtualServer.AddFloatingIP(service.Name)
+
 	// Delete Virtual Server if already exists
 	err = c.Delete(context.Background(), virtualServer)
 	if err != nil {
@@ -180,4 +200,45 @@ func main() {
 	if err != nil {
 		log.Fatalf("Failed to delete VirtualServer\nReason: %s", err.Error())
 	}
+}
+
+func buildPVC(name string, namespace string, size resource.Quantity) *corev1.PersistentVolumeClaim {
+	pvcVolumeMode := corev1.PersistentVolumeBlock
+	pvcStorageClass := "block-nvme-ewr1"
+	pvc := corev1.PersistentVolumeClaim{}
+	pvc.ObjectMeta = metav1.ObjectMeta{
+		Name:      name,
+		Namespace: namespace,
+	}
+	pvc.Spec = corev1.PersistentVolumeClaimSpec{
+		AccessModes: []corev1.PersistentVolumeAccessMode{
+			corev1.ReadWriteOnce,
+		},
+		VolumeMode:       &pvcVolumeMode,
+		StorageClassName: &pvcStorageClass,
+		Resources: corev1.ResourceRequirements{
+			Requests: corev1.ResourceList{
+				corev1.ResourceStorage: size,
+			},
+		},
+	}
+	return &pvc
+}
+
+func buildFloatingIPService(name string, namespace string) *corev1.Service {
+	service := corev1.Service{}
+	service.ObjectMeta = metav1.ObjectMeta{
+		Name:      name,
+		Namespace: namespace,
+	}
+	service.Spec = corev1.ServiceSpec{
+		Ports: []corev1.ServicePort{
+			{
+				Name: "p0",
+				Port: 1,
+			},
+		},
+		Type: corev1.ServiceTypeLoadBalancer,
+	}
+	return &service
 }
