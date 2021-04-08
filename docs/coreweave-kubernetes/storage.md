@@ -10,10 +10,10 @@ Fast SSD and cost effective HDD storage are available as both block storage and 
 | Block Storage | HDD | EWR1 | block-hdd-ewr1 |
 | Shared Filesystem | NVMe | EWR1 | shared-nvme-ewr1 |
 | Shared Filesystem | HDD | EWR1 | shared-hdd-ewr1 |
-| Block Storage | SSD | ORD1 | ceph-ssd-2-replica |
-| Block Storage | HDD | ORD1 | ceph-hdd-2-replica |
-| Shared Filesystem | SSD | ORD1 | sharedfs-ssd-replicated |
-| Shared Filesystem | HDD | ORD1 | sharedfs-hdd-replicated |
+| Block Storage | SSD | ORD1 | block-nvme-ord1 |
+| Block Storage | HDD | ORD1 | block-hdd-ord1 |
+| Shared Filesystem | SSD | ORD1 | shared-nvme-ord1 |
+| Shared Filesystem | HDD | ORD1 | shared-hdd-ord1 |
 
 ### Block Storage
 
@@ -28,7 +28,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: data
 spec:
-  storageClassName: ceph-hdd-2-replica
+  storageClassName: block-hdd-ord1
   accessModes:
     - ReadWriteOnce
   resources:
@@ -46,7 +46,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: data
 spec:
-  storageClassName: ceph-ssd-2-replica
+  storageClassName: block-nvme-ord1
   accessModes:
     - ReadWriteOnce
   resources:
@@ -70,7 +70,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: shared-data
 spec:
-  storageClassName: sharedfs-hdd-replicated
+  storageClassName: shared-hdd-ord1
   accessModes:
     - ReadWriteMany
   resources:
@@ -88,7 +88,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: shared-data
 spec:
-  storageClassName: sharedfs-ssd-replicated
+  storageClassName: shared-nvme-ord1
   accessModes:
     - ReadWriteMany
   resources:
