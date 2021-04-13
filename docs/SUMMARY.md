@@ -51,7 +51,7 @@
 
 * [VFX](solutions/vfx/README.md)
   * [On-Premise Integration](solutions/vfx/on-premise-integration/README.md)
-    * [Linux](solutions/vfx/on-premise-integration/linux.md)
+    * [CloudLink on Linux](solutions/vfx/on-premise-integration/linux.md)
     * [Synology NAS](solutions/vfx/on-premise-integration/synology-nas.md)
 
 ## Resources

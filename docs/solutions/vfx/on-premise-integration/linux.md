@@ -1,4 +1,4 @@
-# Linux
+# CloudLink on Linux
 
 Any Linux server or Virtual Machine that can run [Docker Containers](https://www.docker.com/) can run  [CoreWeave CloudLink](./#cloud-link). 
 
