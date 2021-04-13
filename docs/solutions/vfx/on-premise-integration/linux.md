@@ -35,7 +35,7 @@ services:
   cloudlink-client:
     image: coreweave/cloud-link:0.0.3
     environment:
-    - FRP_SERVER=207.53.234.184
+    - FRP_SERVER=cloudlink-server.example.coreweave.cloud
     - FILE_SERVER=127.0.0.1
     - DEADLINE_WEBSERVICE=127.0.0.1
     - DEADLINE_WEBSERVICE_PORT=8082
