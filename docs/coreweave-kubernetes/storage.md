@@ -14,6 +14,10 @@ Fast SSD and cost effective HDD storage are available as both block storage and 
 | Block Storage | HDD | ORD1 | block-hdd-ord1 |
 | Shared Filesystem | SSD | ORD1 | shared-nvme-ord1 |
 | Shared Filesystem | HDD | ORD1 | shared-hdd-ord1 |
+| Block Storage | NVMe | LAS1 | block-nvme-las1 |
+| Block Storage | HDD | LAS1 | block-hdd-las1 |
+| Shared Filesystem | NVMe | LAS1 | shared-nvme-las1 |
+| Shared Filesystem | HDD | LAS1 | shared-hdd-las1 |
 
 ### Block Storage
 
