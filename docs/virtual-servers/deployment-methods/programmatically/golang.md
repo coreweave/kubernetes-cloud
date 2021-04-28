@@ -40,7 +40,7 @@ A [PersistentVolumeClaim](https://kubernetes.io/docs/concepts/storage/persistent
 
 #### Service
 
-A [Service](https://kubernetes.io/docs/concepts/services-networking/service/) is created and assigned to the Virtual Server as a floating IP service. The service must be `type: LoadBalancer`, and have been assigned a load balancer IP in order to be used as a floating IP service. If the service is valid, the IP of the service will be assigned to the Virtual Server as a floating IP. The example, function `buildFloatingIPService` illustrates the creation of a PVC struct. The Kubernetes client is then used to deploy the PVC to the cluster.
+A [Service](https://kubernetes.io/docs/concepts/services-networking/service/) is created and assigned to the Virtual Server as a floating IP service. The service must be `type: LoadBalancer`, and have been assigned a load balancer IP in order to be used as a floating IP service. If the service is valid, the IP of the service will be assigned to the Virtual Server as a floating IP. The example, function `buildFloatingIPService` illustrates the creation of a Service struct. The Kubernetes client is then used to deploy the Service to the cluster.
 
 #### Virtual Server
 
