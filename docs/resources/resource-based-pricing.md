@@ -17,11 +17,15 @@ The following components are configurable in GPU based instances.
 | GPU | NVIDIA Quadro RTX 5000 | Quadro\_RTX_\__5000 | $0.57 | 16GB GDDR6 |
 | GPU | NVIDIA Quadro RTX 4000 | Quadro\_RTX\_4000 | $0.24 | 8GB GDDR6 |
 | GPU | NVIDIA P100 for NVLINK | Tesla\_P100\_NVLINK | $0.55 | 16GB HBM2 |
-| CPU | AMD Epyc vCPU | epyc | $0.010 | N/A |
-| CPU | Intel Xeon vCPU | xeon | $0.005 | N/A |
+| CPU | AMD Epyc Rome vCPU | amd-epyc-rome | $0.010 | N/A |
+| CPU | AMD Threadripper | amd-threadripper-zen2 | $0.010 | N/A |
+| CPU | Intel Xeon Scalable | intel-xeon-scalable | $0.010 | N/A |
+| CPU | Intel Xeon v4 | intel-xeon-v4 | $0.010 | N/A |
+| CPU | Intel Xeon v3 | intel-xeon-v3 | $0.005 | N/A |
+| CPU | Intel Xeon v2 | intel-xeon-v2 | $0.005 | N/A |
 | RAM | System RAM per GB | memory | $0.005 | N/A |
 
-An example, guaranteed request, hardware configuration of 4 Tesla V100 NVLINK GPUs with 32 Intel Xeon vCPU and 128GB of RAM would look something like:
+An example, guaranteed request, hardware configuration of 4 Tesla V100 NVLINK GPUs with 32 Intel Xeon Scalable vCPU and 128GB of RAM would look something like:
 
 ```yaml
   containers:
@@ -45,10 +49,10 @@ An example, guaranteed request, hardware configuration of 4 Tesla V100 NVLINK GP
             operator: In
             values:
               - Tesla_V100_NVLINK
-          - key: cpu.coreweave.cloud/family
+          - key: node.coreweave.cloud/cpu
             operator: In
             values:
-              - xeon    
+              - intel-xeon-scalable    
 ```
 
 In the above example, the cost per hour of the instance would be:
@@ -57,14 +61,14 @@ In the above example, the cost per hour of the instance would be:
 Instance Configuration:
 
 4x NVIDIA Tesla V100 for NVLINK
-32 Intel Xeon vCPU
+32 Intel Xeon Scalable vCPU
 128Gi System RAM
 
 Instance Cost:
     Tesla_V100_NVLINK -> $0.80 * 4
-    Xeon vCPU         -> $0.005 * 32
+    Xeon Scalable vCPU-> $0.01 * 32
     System RAM        -> $0.005 * 128
-                      =  $4.00 per hour
+                      =  $4.16 per hour
 ```
 
 ### CPU Only Instance Resource Pricing
@@ -73,10 +77,13 @@ Instances without a GPU attached are configurable in combinations of vCPU and sy
 
 | CPU Type | Resource Label | Ram per vCPU | Cost per vCPU per Hour |
 | :--- | :--- | :--- | :--- |
-| AMD Epyc | epyc | 4GB | $0.03 |
-| Intel Xeon v1/v2 | xeon | 3GB | $0.009 |
+| AMD Epyc Rome | amd-epyc-rome | 4GB | $0.03 |
+| Intel Xeon Scalable | intel-xeon-scalable | 4GB | $0.03 |
+| Intel Xeon v4 | intel-xeon-v4 | 4GB | $0.02 |
+| Intel Xeon v2 | intel-xeon-v2 | 3GB | $0.009 |
+| Intel Xeon v1 | intel-xeon-v1 | 3GB | $0.009 |
 
-An example configuration requesting 6 AMD Epyc vCPU with 24GB of RAM would look like:
+An example configuration requesting 6 AMD Epyc Rome vCPU with 24GB of RAM would look like:
 
 ```yaml
   containers:
@@ -94,10 +101,10 @@ An example configuration requesting 6 AMD Epyc vCPU with 24GB of RAM would look 
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
         - matchExpressions:
-          - key: cpu.coreweave.cloud/family
+          - key: node.coreweave.cloud/cpu
             operator: In
             values:
-              - epyc   
+              - amd-epyc-rome   
 ```
 
 In the above example, the cost per hour of the instance would be:
@@ -105,7 +112,7 @@ In the above example, the cost per hour of the instance would be:
 ```text
 Instance Configuration:
 
-6 AMD Epyc vCPU
+6 AMD Epyc Rome vCPU
 24Gi System RAM
 
 Instance Cost:
