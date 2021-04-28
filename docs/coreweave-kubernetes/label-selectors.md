@@ -20,9 +20,10 @@ The basic node selectors demonstrated in [Node Types](node-types.md#requesting-c
   </thead>
   <tbody>
     <tr>
-      <td style="text-align:left">cpu.coreweave.cloud/family</td>
-      <td style="text-align:left">i9, i7, i5, celeron, xeon, epyc</td>
-      <td style="text-align:left">The CPU family of the CPU in the node</td>
+      <td style="text-align:left">node.coreweave.cloud/cpu</td>
+      <td style="text-align:left">(<a href="../resources/resource-based-pricing.md#cpu-only-instance-resource-pricing">see list</a>)</td>
+      <td
+      style="text-align:left">The CPU family of the CPU in the node</td>
     </tr>
     <tr>
       <td style="text-align:left">ethernet.coreweave.cloud/speed</td>
@@ -82,10 +83,10 @@ spec:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
         - matchExpressions:
-          - key: cpu.coreweave.cloud/family
+          - key: node.coreweave.cloud/cpu
             operator: In
             values:
-              - xeon
+              - intel-xeon-v4
           - key: ethernet.coreweave.cloud/speed
             operator: In
             values:
