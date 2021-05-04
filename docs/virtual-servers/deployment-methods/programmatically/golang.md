@@ -8,7 +8,7 @@ description: >-
 
 The Go example illustrates the following:
 
-1. Building up a Virtual Server \([VirtualServer](https://github.com/coreweave/virtual-server/blob/13872bda37fadf2ea85bd2ac3a976c864548492d/api/v1alpha1/virtualserver_types.go#L64)\) struct.
+1. Building up a Virtual Server \([VirtualServer](https://github.com/coreweave/virtual-server/blob/master/api/v1alpha1/virtualserver_types.go#L68)\) struct.
 2. Builds a Service and PVC to be used as a FloatingIP and Additional Filesystem respectively.
 3. Removal of an existing Virtual Server.
 4. Creation of a new Virtual Server. \(The instance is started automatically\).
