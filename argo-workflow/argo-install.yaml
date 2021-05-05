@@ -14,6 +14,14 @@ metadata:
   name: argo-role
 rules:
 - apiGroups:
+  - coordination.k8s.io
+  resources:
+  - leases
+  verbs:
+  - create
+  - get
+  - update
+- apiGroups:
   - ""
   resources:
   - pods
@@ -177,15 +185,11 @@ kind: ConfigMap
 metadata:
   name: workflow-controller-configmap
 data:
-  config: | 
-    containerRuntimeExecutor: k8sapi
-    featureFlags:
-      resourcesDuration: true
-    metricsConfig:
-      disableLegacy: true
-      enabled: true
-      path: /metrics
-      port: 8080
+  containerRuntimeExecutor: k8sapi
+  metricsConfig: |
+    enabled: true
+    path: /metrics
+    port: 8080
 ---
 apiVersion: v1
 kind: Service
@@ -202,7 +206,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: workflow-controller
+  name: workflow-controller-metrics
   labels:
     app: workflow-controller
     app.kubernetes.io/name: workflow-controller
@@ -240,9 +244,8 @@ spec:
       - args:
         - server
         - --namespaced
-#        - --auth-mode 
-#        - client
-        image: argoproj/argocli:v2.11.7
+        - --secure=false
+        image: argoproj/argocli:v3.0.2
         name: argo-server
         resources:
           requests:
@@ -289,10 +292,16 @@ spec:
         - --configmap
         - workflow-controller-configmap
         - --executor-image
-        - argoproj/argoexec:v2.11.7
+        - argoproj/argoexec:v3.0.2
         - --namespaced
         command:
         - workflow-controller
+        env:
+        - name: LEADER_ELECTION_IDENTITY
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
         resources:
           requests:
             cpu: 200m
@@ -302,6 +311,13 @@ spec:
             memory: 15Gi
         ports:
         - containerPort: 8080
-        image: argoproj/workflow-controller:v2.11.7
+          name: metrics
+        livenessProbe:
+          httpGet:
+            path: /metrics
+            port: metrics
+          initialDelaySeconds: 30
+          periodSeconds: 30
+        image: argoproj/workflow-controller:v3.0.2
         name: workflow-controller
       serviceAccountName: argo
