@@ -12,11 +12,13 @@ The following components are configurable in GPU based instances.
 | :--- | :--- | :--- | :--- | :--- |
 | GPU | NVIDIA A100 for NVLINK | A100\_NVLINK | $2.06 | 40GB HBM2e |
 | GPU | NVIDIA V100 for NVLINK | Tesla\_V100\_NVLINK | $0.80 | 16GB HBM2 |
-| GPU | NVIDIA V100 for PCIe | Tesla\_V100 | $0.47 | 16GB HBM2 |
+| GPU | NVIDIA RTX A6000 | RTX\_A6000 | $1.28 | 48GB GDDR6 |
+| GPU | NVIDIA RTX A5000 | RTX\_A5000 | $0.75 | 24GB GDDR6 |
 | GPU | NVIDIA Quadro RTX 6000 | Quadro\_RTX\_6000 | $0.97 | 24GB GDDR6 |
 | GPU | NVIDIA Quadro RTX 5000 | Quadro\_RTX_\__5000 | $0.57 | 16GB GDDR6 |
 | GPU | NVIDIA Quadro RTX 4000 | Quadro\_RTX\_4000 | $0.24 | 8GB GDDR6 |
 | GPU | NVIDIA P100 for NVLINK | Tesla\_P100\_NVLINK | $0.55 | 16GB HBM2 |
+| GPU | NVIDIA V100 for PCIe | Tesla\_V100 | $0.47 | 16GB HBM2 |
 | CPU | AMD Epyc Rome vCPU | amd-epyc-rome | $0.010 | N/A |
 | CPU | AMD Threadripper | amd-threadripper-zen2 | $0.010 | N/A |
 | CPU | Intel Xeon Scalable | intel-xeon-scalable | $0.010 | N/A |
