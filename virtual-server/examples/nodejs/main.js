@@ -1,10 +1,17 @@
 const VSClient = require("./client.js")
 const { newVirtualServerManifest } = require("./util.js")
 
+const namespace = process.env.NAMESPACE
+const kubeconfig = process.env.KUBECONFIG
+
+if (!namespace || !kubeconfig) {
+  throw Error ('NAMESPACE and KUBECONFIG variablea are required!!!')
+}
+
 // Create a blank VirtualServer manifest
 const virtualServerManifest = newVirtualServerManifest({
   name: "sample-virtual-server",
-  namespace: "my-namespace"
+  namespace,
 })
 // Configure a sample spec
 virtualServerManifest.spec = {
@@ -64,11 +71,11 @@ virtualServerManifest.spec = {
 const main = async() => {
   // Create and initialize a new VirtualServer client
   // Path to kube config may be null, in which case the default ~/.kube kubeconfig location will be used
-  const client = new VSClient('/path/to/kube/config')
+  const client = new VSClient(kubeconfig)
   await client.init()
 
   // Delete the existing VirtualServer: my-namespace/sample-virtual-server
-  await client.virtualServer.delete({name: "sample-virtual-server", namespace: "my-namespace"})
+  await client.virtualServer.delete({name: "sample-virtual-server", namespace})
     .then(o => o.statusCode === 200 && console.log("VS deleted"))
     .catch(err => console.log(err.toString()))
 
@@ -78,7 +85,7 @@ const main = async() => {
     .catch(err => console.log(err.toString()))
   
   // Wait until the VirtualServer is ready
-  await client.virtualServer.ready({name: "sample-virtual-server", namespace: "my-namespace"})
+  await client.virtualServer.ready({name: "sample-virtual-server", namespace})
   .then(o => console.log("VS ready"))
   .catch(err => console.log(err.toString()))
 
@@ -86,7 +93,7 @@ const main = async() => {
   // After a VirtualServer is created, there may be a slight delay before the subresource API is available for the VirtualServer
   let started = false
   while(!started) {
-    await client.virtualServer.start({name: "sample-virtual-server", namespace: "my-namespace"})
+    await client.virtualServer.start({name: "sample-virtual-server", namespace})
     .then(o => {
       if(o.statusCode === 202) {
         started = true
@@ -97,7 +104,7 @@ const main = async() => {
   }
   
   // Get the VirtualServer we created
-  const vs = await client.virtualServer.get({name: "sample-virtual-server", namespace: "my-namespace"})
+  const vs = await client.virtualServer.get({name: "sample-virtual-server", namespace})
   .then(o => {
     console.log(`Found VS: ${o.body.metadata.name}`)
     return o.body
@@ -123,7 +130,7 @@ const main = async() => {
   */
 
   // Stop the VirtualServer
-  await client.virtualServer.stop({name: "sample-virtual-server", namespace: "my-namespace"})
+  await client.virtualServer.stop({name: "sample-virtual-server", namespace})
   .then(o => o.statusCode === 202 && console.log("VS stopped"))
   .catch(err => console.log(err.toString()))
 }

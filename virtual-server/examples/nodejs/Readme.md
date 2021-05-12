@@ -3,6 +3,16 @@
 
 An example implementation in NodeJS of a kubernetes client to interact with a Virtual Server resource on CoreWeave Cloud.
 
+## Quickstart
+
+`node.js` and `npm` are required. The latest versions can be downloaded from https://nodejs.org/en/download/
+
+```
+cd virtual-server/nodejs && npm install &&  NAMESPACE=<user's namespace> KUBECONFIG=~/.kube/config npm start
+```
+
+Environment variables `NAMESPACE` and `KUBECONFIG` are required to point to the proper cluster configuration.
+
 ### Implementation Breakdown
 
 The example is broken down into two parts, the [client](client.js), which is glue code layered on top of the godaddy implementation of a [kubernetes-client](https://github.com/godaddy/kubernetes-client), and the [application](main.js); both of which are described below.
