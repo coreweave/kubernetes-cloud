@@ -13,7 +13,7 @@ The following components are configurable in GPU based instances.
 | GPU | NVIDIA A100 for NVLINK | A100\_NVLINK | $2.06 | 40GB HBM2e |
 | GPU | NVIDIA V100 for NVLINK | Tesla\_V100\_NVLINK | $0.80 | 16GB HBM2 |
 | GPU | NVIDIA RTX A6000 | RTX\_A6000 | $1.28 | 48GB GDDR6 |
-| GPU | NVIDIA RTX A5000 | RTX\_A5000 | $0.75 | 24GB GDDR6 |
+| GPU | NVIDIA RTX A5000 | RTX\_A5000 | $0.77 | 24GB GDDR6 |
 | GPU | NVIDIA Quadro RTX 6000 | Quadro\_RTX\_6000 | $0.97 | 24GB GDDR6 |
 | GPU | NVIDIA Quadro RTX 5000 | Quadro\_RTX_\__5000 | $0.57 | 16GB GDDR6 |
 | GPU | NVIDIA Quadro RTX 4000 | Quadro\_RTX\_4000 | $0.24 | 8GB GDDR6 |
