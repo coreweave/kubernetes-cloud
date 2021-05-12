@@ -5,7 +5,7 @@ const namespace = process.env.NAMESPACE
 const kubeconfig = process.env.KUBECONFIG
 
 if (!namespace || !kubeconfig) {
-  throw Error ('NAMESPACE and KUBECONFIG variablea are required!!!')
+  throw Error ('NAMESPACE and KUBECONFIG variables are required.')
 }
 
 // Create a blank VirtualServer manifest
@@ -64,8 +64,7 @@ virtualServerManifest.spec = {
         3389
       ]
     }
-  },
-  initializeRunning: true
+  }
 }
 
 const main = async() => {
@@ -84,6 +83,8 @@ const main = async() => {
     .then(o => o.statusCode === 201 && console.log("VS created"))
     .catch(err => console.log(err.toString()))
   
+  console.log("Waiting for VS ready state")
+
   // Wait until the VirtualServer is ready
   await client.virtualServer.ready({name: "sample-virtual-server", namespace})
   .then(o => console.log("VS ready"))
