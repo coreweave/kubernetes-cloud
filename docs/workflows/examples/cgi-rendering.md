@@ -19,7 +19,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: shared-data-pvc
 spec:
-  storageClassName: sharedfs-hdd-replicated
+  storageClassName: shared-hdd-ord1
   accessModes:
     - ReadWriteMany
   resources:
