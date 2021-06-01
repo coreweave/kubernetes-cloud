@@ -100,8 +100,8 @@ The application \([main.js](https://github.com/coreweave/kubernetes-cloud/blob/m
     },
     users: [
       {
-        username: "user",
-        password: "pass"
+        username, #Set from environment variable
+        password #Set from environment variable
       }
     ],
     network: {
