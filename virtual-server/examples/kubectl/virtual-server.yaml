@@ -22,9 +22,9 @@ spec:
         pvc:
           namespace: vd-images
           name: ubuntu2004-docker-master-20210323-ord1
-  users:
-    - username: user
-      password: pass
+#  users:
+#    - username: SET YOUR USERNAME HERE
+#      password: SET YOUR PASSWORD HERE
   network:
     public: true
     tcp:
