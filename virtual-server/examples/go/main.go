@@ -83,6 +83,13 @@ func main() {
 		log.Fatalf("Failed to create client\n")
 	}
 
+	username, usernameExist := os.LookupEnv("USERNAME")
+	password, passwordExist := os.LookupEnv("PASSWORD")
+
+	if !usernameExist || passwordExist {
+		log.Fatalf("Required environment variables USERNAME and PASSWORD not found")
+	}
+
 	vsv1alpha.AddToScheme(c.Scheme())
 
 	// prepare config for kubevirt client, you need to set env variable, KUBECONFIG=<path-to-kubeconfig>/.kubeconfig
@@ -120,8 +127,8 @@ func main() {
 
 	// Add user
 	virtualServer.AddUser(vsv1alpha.VirtualServerUser{
-		Username: "myuser",
-		Password: "password",
+		Username: username,
+		Password: password,
 	})
 
 	// Configure the root filesystem of the VirtualServer to clone a preexisting PVC namedubuntu1804-docker-master-20210210-ord1

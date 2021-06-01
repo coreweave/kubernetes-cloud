@@ -16,5 +16,6 @@ The Go example illustrates the following:
 The first run takes more time until all necessary packages are downloaded.
 
 ```
-KUBECONFIG=/home/<user>/.kubeconfig NAMESPACE=<namespace> make
+Be sure to use secure credentials for USERNAME and PASSWORD as they will be used to create a user in your Virtual Server
+USERNAME=<my_username> PASSWORD=<my_password> KUBECONFIG=/home/<user>/.kubeconfig NAMESPACE=<namespace> make
 ```
