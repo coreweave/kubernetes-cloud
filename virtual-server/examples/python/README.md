@@ -23,5 +23,6 @@ pip install kubernetes
 ## Run
 
 ```
-NAMESPACE=<my_namespace> KUBECONFIG=$HOME/.kube/config python3 main.py
+Be sure to set secure credentials for your USERNAME and PASSWORD, as they will be used to create a user in your Virtual Server
+USERNAME=<my_username> PASSWORD=<my_password> NAMESPACE=<my_namespace> KUBECONFIG=$HOME/.kube/config python3 main.py
 ```

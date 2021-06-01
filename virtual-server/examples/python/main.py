@@ -1,11 +1,18 @@
 import os
 import time
+import sys
 
 from kubernetes.client.rest import ApiException
 from vsclient import VSClient
 
 name = 'my-virtual-server'
 namespace = os.environ.get('NAMESPACE', 'default')
+username = os.environ.get('USERNAME')
+password = os.environ.get('PASSWORD')
+
+if username == None or password == None:
+    print('USERNAME and PASSWORD environment variables are required')
+    sys.exit()
 
 my_virtualserver = {
     'apiVersion': f'{VSClient.GROUP}/{VSClient.VERSION}',
@@ -31,8 +38,8 @@ my_virtualserver = {
         },
         'users': [
             {
-                'username': 'user',
-                'password': 'pass',
+                'username': username,
+                'password': password,
             }
         ],
         'storage': {

@@ -3,9 +3,15 @@ const { newVirtualServerManifest } = require("./util.js")
 
 const namespace = process.env.NAMESPACE
 const kubeconfig = process.env.KUBECONFIG
+const username = process.env.USERNAME
+const password = process.env.PASSWORD
 
 if (!namespace || !kubeconfig) {
   throw Error ('NAMESPACE and KUBECONFIG variables are required.')
+}
+
+if (!username || !password) {
+  throw Error ('USERNAME and PASSWORD variables are required.')
 }
 
 // Create a blank VirtualServer manifest
@@ -43,8 +49,8 @@ virtualServerManifest.spec = {
   },
   users: [
     {
-      username: "user",
-      password: "pass"
+      username,
+      password
     }
   ],
   network: {

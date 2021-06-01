@@ -12,6 +12,7 @@ cd virtual-server/nodejs && npm install &&  NAMESPACE=<user's namespace> KUBECON
 ```
 
 Environment variables `NAMESPACE` and `KUBECONFIG` are required to point to the proper cluster configuration.
+Additionally, environment variables `USERNAME` and `PASSWORD` are required, and will be used to create a user in your Virtual Server. Be sure to use secure credentials for your user.
 
 ### Implementation Breakdown
 
@@ -98,8 +99,8 @@ The application ([main.js](main.js)) implements client.js in order to create, wa
     },
     users: [
       {
-        username: "user",
-        password: "pass"
+        username: "SET YOUR USERNAME HERE",
+        password: "SET YOU PASSWORD HERE"
       }
     ],
     network: {
