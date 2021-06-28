@@ -19,6 +19,7 @@ The following components are configurable in GPU based instances.
 | GPU | NVIDIA Quadro RTX 4000 | Quadro\_RTX\_4000 | $0.24 | 8GB GDDR6 |
 | GPU | NVIDIA P100 for NVLINK | Tesla\_P100\_NVLINK | $0.55 | 16GB HBM2 |
 | GPU | NVIDIA V100 for PCIe | Tesla\_V100 | $0.47 | 16GB HBM2 |
+| CPU | AMD Epyc Milan vCPU | amd-epyc-milan | $0.010 | N/A |
 | CPU | AMD Epyc Rome vCPU | amd-epyc-rome | $0.010 | N/A |
 | CPU | AMD Threadripper | amd-threadripper-zen2 | $0.010 | N/A |
 | CPU | Intel Xeon Scalable | intel-xeon-scalable | $0.010 | N/A |
@@ -79,9 +80,10 @@ Instances without a GPU attached are configurable in combinations of vCPU and sy
 
 | CPU Type | Resource Label | Ram per vCPU | Cost per vCPU per Hour |
 | :--- | :--- | :--- | :--- |
-| AMD Epyc Rome | amd-epyc-rome | 4GB | $0.03 |
-| Intel Xeon Scalable | intel-xeon-scalable | 4GB | $0.03 |
-| Intel Xeon v4 | intel-xeon-v4 | 4GB | $0.02 |
+| AMD Epyc Milan | amd-epyc-milan | 4GB | $0.035 |
+| AMD Epyc Rome | amd-epyc-rome | 4GB | $0.030 |
+| Intel Xeon Scalable | intel-xeon-scalable | 4GB | $0.030 |
+| Intel Xeon v4 | intel-xeon-v4 | 4GB | $0.020 |
 | Intel Xeon v2 | intel-xeon-v2 | 3GB | $0.009 |
 | Intel Xeon v1 | intel-xeon-v1 | 3GB | $0.009 |
 
