@@ -7,7 +7,9 @@ A wide range of GPU options are available, allowing you to select the most optim
 | Vendor | Class | Generation | CUDA Cores | VRAM | Label |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | NVIDIA | RTX A6000 | Ampere | 10,752 | 48 GB | RTX\_A6000 |
+| NVIDIA | A40 | Ampere | 10,752 | 48 GB | A40 |
 | NVIDIA | A100 NVLINK | Ampere | 6,912 | 40 GB | A100\_NVLINK |
+| NVIDIA | RTX A5000 | Ampere | 8,192 | 24 GB | RTX\_A5000 |
 | NVIDIA | Tesla V100 NVLINK | Volta | 5,120 | 16 GB | Tesla\_V100\_NVLINK |
 | NVIDIA | Tesla V100 | Volta | 5,120 | 16 GB | Tesla\_V100 |
 | NVIDIA | RTX 6000 | Turing | 4,608 | 24 GB | Quadro\_RTX\_6000 |
@@ -23,6 +25,7 @@ Each GPU includes a certain amount of host CPU and RAM, these are included at no
 | Class | vCPU | RAM | Great For |
 | :--- | :--- | :--- | :--- |
 | RTX A6000 | 30 Epyc | 128 GB | Rendering, Neural Network training |
+| RTX A5000 |  |  | Rendering, Neural Network training and Inference |
 | A100 NVLINK | 30 Epyc | 240 GB | Complex Deep Neural Network training, HPC |
 | Tesla V100 NVLINK | 4 Xeon Silver | 32 GB | Deep Neural Network training, HPC |
 | Tesla V100 | 3 | 20 GB | AI inference, Rendering, Batch processing, Hashcat |
@@ -34,8 +37,6 @@ Each GPU includes a certain amount of host CPU and RAM, these are included at no
 
 {% hint style="warning" %}
 If a workload requests more peripheral compute resources \(vCPU, RAM\) than offered in a standard instance size, additional costs will incur. 
-
-Additional CPU and RAM is billed in increments of $0.07/hr for 1 vCPU + 8 GB RAM.
 {% endhint %}
 
 ### CPU Availability
