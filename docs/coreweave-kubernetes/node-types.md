@@ -36,7 +36,7 @@ Each GPU includes a certain amount of host CPU and RAM, these are included at no
 | Multi Purpose Pascal | 1 | 8 GB | Transcoding, Rendering, Game streaming, Batch |
 
 {% hint style="warning" %}
-If a workload requests more peripheral compute resources \(vCPU, RAM\) than offered in a standard instance size, additional costs will incur. 
+If a workload requests more peripheral compute resources \(vCPU, RAM\) than offered in a standard instance size, [additional costs will incur](../resources/resource-based-pricing.md). 
 {% endhint %}
 
 ### CPU Availability
