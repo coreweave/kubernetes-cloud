@@ -1,10 +1,10 @@
-# Deploying VirtualServers to Kubernetes with Terraform
+# Deploying Virtual Servers to Kubernetes with Terraform
 
-This [terraform](terraform.io) module uses the [kubernetes provider](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs) to deploy `VirtualServers` (Virtual Desktops) to [CoreWeave Cloud](coreweave.io).
+This [terraform](terraform.io) module uses the [kubernetes provider](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs) to deploy `VirtualServers` to [CoreWeave Cloud](coreweave.io).
 
 ## Setup
 
-This module requires your `user_namespace`, `kubeconfig_path`, your desired desktop `vdi_username` (and you can optionally supply `vdi_password` or set `vdi_password_generate` to `true`), `vdi_image` (defaults to Ubuntu 20.04), `vdi_gpu_enable` (and `vdi_gpu_count`), and your desired `vdi_name` to set your system hostname.
+This module requires your `user_namespace`, `kubeconfig_path`, your desired desktop `vs_username` (and you can optionally supply `vs_password` or set `vs_password_generate` to `true`), `vs_image` (defaults to Ubuntu 20.04), `vs_gpu_enable` (and `vs_gpu_count`), and your desired `vs_name` to set your system hostname.
 
 ## Installation
 
@@ -19,4 +19,4 @@ This module will output the network and credential information for the system, c
 
 ## Examples
 
-In the `examples/` directory is a sample Terraform plan that demonstrates consuming the module to create two VDI instances.
+In the `examples/` directory is a sample Terraform plan that demonstrates consuming the module to create two Virtual Server instances.

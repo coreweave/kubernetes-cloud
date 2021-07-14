@@ -1,9 +1,9 @@
-output "vdi_network" {
+output "vs_network" {
   sensitive = true
   value     = kubernetes_manifest.virtualdesktop
 }
 
-output "vdi_password" {
+output "vs_password" {
   sensitive = true
-  value     = var.vdi_generate_password ? random_password.vdi_generate_password[0].result : var.vdi_password
+  value     = var.vs_generate_password ? random_password.vs_generate_password[0].result : var.vs_password
 }
