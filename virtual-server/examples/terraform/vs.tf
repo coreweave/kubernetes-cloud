@@ -13,19 +13,10 @@ resource "kubernetes_manifest" "virtualdesktop" {
       "network" = {
         "public" = var.vs_public_networking
         "tcp" = {
-          "ports" = [
-            22,
-            443,
-            60443,
-            4172,
-            3389,
-          ]
+          "ports" = var.vs_tcp_ports
         }
         "udp" = {
-          "ports" = [
-            4172,
-            3389,
-          ]
+          "ports" = var.vs_udp_ports
         }
       }
       "os" = {

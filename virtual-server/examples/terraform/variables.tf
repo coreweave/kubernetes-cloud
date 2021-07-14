@@ -77,3 +77,13 @@ variable "vs_running" {
 variable "vs_public_networking" {
   default = true
 }
+
+variable "vs_tcp_ports" {
+  type    = list(any)
+  default = [22, 443, 60443, 4172, 3389]
+}
+
+variable "vs_udp_ports" {
+  type    = list(any)
+  default = [4172, 3389]
+}
