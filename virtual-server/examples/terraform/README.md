@@ -1,6 +1,6 @@
 # Deploying Virtual Servers to Kubernetes with Terraform
 
-This [terraform](terraform.io) module uses the [kubernetes provider](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs) to deploy `VirtualServers` to [CoreWeave Cloud](coreweave.io).
+This [terraform](terraform.io) module uses the [kubernetes provider](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs) to deploy `VirtualServers` to [CoreWeave Cloud](coreweave.com).
 
 ## Setup
 
