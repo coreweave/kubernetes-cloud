@@ -4,16 +4,16 @@ variable "kubeconfig_path" {
 }
 
 variable "user_namespace" {
-  description = "Namespace VDI will be installed to"
+  description = "Namespace Virtual Server will be installed to"
 }
 
 variable "vs_name" {
-  description = "VDI hostname"
-  default     = "MY-VDI"
+  description = "Virtual Server hostname"
+  default     = "MY-VS"
 }
 
 variable "vs_username" {
-  description = "VDI username"
+  description = "Virtual Server username"
 }
 
 variable "vs_password" {
@@ -29,12 +29,12 @@ variable "vs_generate_password" {
 }
 
 variable "vs_memory" {
-  description = "VDI RAM"
+  description = "Virtual Server RAM"
   default     = "16Gi"
 }
 
 variable "vs_root_storage" {
-  description = "VDI root device storage (i.e 80Gi)"
+  description = "Virtual Server root device storage (i.e 80Gi)"
   default     = "80Gi"
 }
 
@@ -76,6 +76,11 @@ variable "vs_running" {
 
 variable "vs_public_networking" {
   default = true
+}
+
+variable "vs_attach_loadbalancer" {
+  description = "Attach Service LoadBalancer IP directly to VS (Ports must be empty)."
+  default     = false
 }
 
 variable "vs_tcp_ports" {
