@@ -11,7 +11,8 @@ resource "kubernetes_manifest" "virtualdesktop" {
     "spec" = {
       "initializeRunning" = var.vs_running
       "network" = {
-        "public" = var.vs_public_networking
+        "directAttachLoadBalancerIP" = var.vs_attach_loadbalancer
+        "public"                     = var.vs_public_networking
         "tcp" = {
           "ports" = var.vs_tcp_ports
         }
