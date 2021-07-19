@@ -17,7 +17,7 @@ spec:
   storage:
     root:
       size: 40Gi
-      storageClassName: ceph-ssd-2-replica
+      storageClassName: block-nvme-ord1
       source:
         pvc:
           namespace: vd-images
