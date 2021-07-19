@@ -88,11 +88,11 @@ The application ([main.js](main.js)) implements client.js in order to create, wa
     storage: {
       root: {
         size: "40Gi",
-        storageClassName: "ceph-ssd-2-replica",
+        storageClassName: "block-nvme-ord1",
         source: {
           pvc: {
             namespace: "vd-images",
-            name: "ubuntu2004-docker-master-20210323-ord1"
+            name: "ubuntu1804-nvidia-465-19-01-1-docker-master-20210629-ord1"
           }
         }
       }

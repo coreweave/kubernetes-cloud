@@ -47,11 +47,11 @@ my_virtualserver = {
                 'size': '40Gi',
                 'source': {
                     'pvc': {
-                        'name': 'ubuntu1804-docker-master-20210210-ord1',
+                        'name': 'ubuntu1804-nvidia-465-19-01-1-docker-master-20210629-ord1',
                         'namespace': 'vd-images'
                     }
                 },
-                'storageClassName': 'ceph-ssd-2-replica',
+                'storageClassName': 'block-nvme-ord1',
                 'volumeMode': 'Block',
                 'accessMode': 'ReadWriteOnce'
             }

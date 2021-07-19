@@ -135,9 +135,9 @@ func main() {
 	// sourced in the vd-images namespace
 	err = virtualServer.ConfigureStorageRootWithPVCSource(vsv1alpha.VirtualServerStorageRootPVCSource{
 		Size:             "40Gi",
-		PVCName:          "ubuntu1804-docker-master-20210210-ord1",
+		PVCName:          "ubuntu1804-nvidia-465-19-01-1-docker-master-20210629-ord1",
 		PVCNamespace:     "vd-images",
-		StorageClassName: "ceph-ssd-2-replica",
+		StorageClassName: "block-nvme-ord1",
 	})
 	if err != nil {
 		log.Fatalf("Cound not configure root filesystem\n")
