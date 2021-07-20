@@ -1,4 +1,4 @@
-resource "kubernetes_manifest" "virtualdesktop" {
+resource "kubernetes_manifest" "virtualserver" {
   provider = kubernetes-alpha
 
   manifest = {
@@ -49,10 +49,18 @@ resource "kubernetes_manifest" "virtualdesktop" {
       "users" = [
         {
           "username" = var.vs_username
-          "password" = var.vs_generate_password ? random_password.vs_generate_password[0].result : var.vs_password
+          "password" = var.vs_generate_password ? random_string.vs_generate_password[0].result : var.vs_password
         },
       ]
 
     }
+  }
+}
+
+data "kubernetes_service" "vs_loadbalancer" {
+  depends_on = [kubernetes_manifest.virtualserver]
+  metadata {
+    name      = "${var.vs_name}-tcp"
+    namespace = var.user_namespace
   }
 }

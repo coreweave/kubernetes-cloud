@@ -79,7 +79,7 @@ variable "vs_public_networking" {
 }
 
 variable "vs_attach_loadbalancer" {
-  description = "Attach Service LoadBalancer IP directly to VS (Ports must be empty)."
+  description = "Attach Service LoadBalancer IP directly to VS (vs_tcp_ports and vs_udp_ports must be empty)."
   default     = false
 }
 

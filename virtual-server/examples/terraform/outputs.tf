@@ -1,9 +1,7 @@
 output "vs_network" {
-  sensitive = true
-  value     = kubernetes_manifest.virtualdesktop
+  value = data.kubernetes_service.vs_loadbalancer.status.0.load_balancer.0.ingress.0.ip
 }
 
 output "vs_password" {
-  sensitive = true
-  value     = var.vs_generate_password ? random_password.vs_generate_password[0].result : var.vs_password
+  value = var.vs_generate_password ? random_string.vs_generate_password[0].result : var.vs_password
 }
