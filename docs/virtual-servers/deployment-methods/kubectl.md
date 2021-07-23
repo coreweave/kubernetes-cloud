@@ -15,6 +15,7 @@ The following fields are within the manifest spec
 | region | String | Defines the region where the Virtual Server is deployed |
 | os | {} | Defines the Operating System type |
 | os.type | String | The Operating System type - Linux/Windows |
+| os.enableUEFIBoot | Boolean | Enable the UEFI bootloader |
 | resources | {} | Defines the resources and devices allocated to the Virtual Server |
 | resources.definition | String | The resource definition - defaults to 'a' |
 | resources.cpu | {} | Defines the CPU allocation  |
