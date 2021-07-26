@@ -40,6 +40,7 @@
 
 * [Getting Started](virtual-servers/getting-started.md)
 * [Deployment Methods](virtual-servers/deployment-methods/README.md)
+  * [Terraform](virtual-servers/deployment-methods/terraform.md)
   * [Kubectl](virtual-servers/deployment-methods/kubectl.md)
   * [Programmatically](virtual-servers/deployment-methods/programmatically/README.md)
     * [Python](virtual-servers/deployment-methods/programmatically/python.md)

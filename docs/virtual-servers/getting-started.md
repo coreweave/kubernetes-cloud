@@ -6,7 +6,7 @@ CoreWeave supports both Linux and Windows Virtual Servers. Both GPU-enabled and 
 
 ### Deployment Methods
 
-Virtual Servers, being a Kubernetes custom-resource, can be be deployed onto CoreWeave Cloud easily using such conventional methods as application of a YAML manifest via `kubectl` and creation of a release via the Virtual Server helm chart. Additionally, CoreWeave provides a programmatic interface to create and manipulate Virtual Servers via the Kubernetes API server. These methods will be detailed in subsequent sections.
+Virtual Servers, being a Kubernetes custom-resource, can be be deployed onto CoreWeave Cloud easily using such conventional methods as application of a YAML manifest via `kubectl`. A Terraform example is also provided. Additionally, CoreWeave provides a programmatic interface to create and manipulate Virtual Servers via the Kubernetes API server. These methods will be detailed in subsequent sections.
 
 ### Management & Control
 
