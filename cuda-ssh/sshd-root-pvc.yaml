@@ -3,12 +3,8 @@ kind: PersistentVolumeClaim
 metadata:
   name: sshd-root-pv-claim
 spec:
-  # Available storage classes at time of writing are
-  # ceph-ssd-2-replica - SSD Backed Storage with 2 Replicas
-  # ceph-ssd-no-replica - SSD Backed Storage with 1 Replica (unsafe)
-  # ceph-hdd-2-replica - HDD Backed Storage with 2 Replicas
-  # ceph-hdd-no-replica - HDD Backed Storage with 1 Replicas (unsafe)
-  storageClassName: ceph-ssd-2-replica
+  # https://docs.coreweave.com/coreweave-kubernetes/storage
+  storageClassName: block-nvme-ord1
   accessModes:
     - ReadWriteOnce
   resources:
