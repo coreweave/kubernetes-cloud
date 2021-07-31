@@ -11,13 +11,12 @@
 * [Storage](coreweave-kubernetes/storage.md)
 * [Exposing Applications](coreweave-kubernetes/exposing-applications.md)
 * [Serverless](coreweave-kubernetes/serverless.md)
-* [Pricing](https://coreweave.com/pricing.html)
 * [Examples](coreweave-kubernetes/examples/README.md)
   * [Jupyter Notebook with TensorFlow](coreweave-kubernetes/examples/tensorflow-jupyter.md)
   * [Ethereum Miner](coreweave-kubernetes/examples/miner.md)
   * [SSH Server with CUDA](coreweave-kubernetes/examples/cuda-ssh.md)
 
-## Compass
+## Inference <a id="compass"></a>
 
 * [Online Inference Serving](compass/online-inference.md)
 * [Examples](compass/examples/README.md)
@@ -37,12 +36,29 @@
 * [Examples](workflows/examples/README.md)
   * [CGI Rendering](workflows/examples/cgi-rendering.md)
 
-## Virtual Desktop
+## Virtual Servers
 
-* [Remote Access and Control](virtual-desktop/remote-access-and-control.md)
+* [Getting Started](virtual-servers/getting-started.md)
+* [Deployment Methods](virtual-servers/deployment-methods/README.md)
+  * [Terraform](virtual-servers/deployment-methods/terraform.md)
+  * [Kubectl](virtual-servers/deployment-methods/kubectl.md)
+  * [Programmatically](virtual-servers/deployment-methods/programmatically/README.md)
+    * [Python](virtual-servers/deployment-methods/programmatically/python.md)
+    * [NodeJS](virtual-servers/deployment-methods/programmatically/nodejs.md)
+    * [Golang](virtual-servers/deployment-methods/programmatically/golang.md)
+* [Remote Access and Control](virtual-servers/remote-access-and-control.md)
+
+## Solutions
+
+* [VFX](solutions/vfx/README.md)
+  * [On-Premise Integration](solutions/vfx/on-premise-integration/README.md)
+    * [CloudLink on Linux](solutions/vfx/on-premise-integration/linux.md)
+    * [Synology NAS](solutions/vfx/on-premise-integration/synology-nas.md)
+* [Deadline](solutions/deadline.md)
+* [Virtual Workstations](solutions/virtual-workstations.md)
 
 ## Resources
 
-* [Billing and Charges](resources/billing-and-charges.md)
+* [Resource Based Pricing](resources/resource-based-pricing.md)
 * [Terms of Service](resources/terms-of-service.md)
 

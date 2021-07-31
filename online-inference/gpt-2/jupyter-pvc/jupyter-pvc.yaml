@@ -4,11 +4,10 @@ metadata:
   name: jupyter-pv-claim
 spec:
   # Available storage classes at time of writing are
-  # ceph-ssd-2-replica - SSD Backed Storage with 2 Replicas
-  # ceph-ssd-no-replica - SSD Backed Storage with 1 Replica (unsafe)
-  # ceph-hdd-2-replica - HDD Backed Storage with 2 Replicas
-  # ceph-hdd-no-replica - HDD Backed Storage with 1 Replicas (unsafe)
-  storageClassName: ceph-ssd-2-replica
+  # block-nvme-ord1 - Chicago - NVMe Storage with 3 Replicas
+  # block-hdd-ord1 - Chicago - HDD Storage with 3 Replicas
+  # Other data centers currently available [ewr1, las1]
+  storageClassName: block-nvme-ord1
   accessModes:
     - ReadWriteOnce
   resources:

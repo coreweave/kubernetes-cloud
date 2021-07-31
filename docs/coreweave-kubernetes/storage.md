@@ -10,12 +10,16 @@ Fast SSD and cost effective HDD storage are available as both block storage and 
 | Block Storage | HDD | EWR1 | block-hdd-ewr1 |
 | Shared Filesystem | NVMe | EWR1 | shared-nvme-ewr1 |
 | Shared Filesystem | HDD | EWR1 | shared-hdd-ewr1 |
-| Block Storage | SSD | ORD1 | ceph-ssd-2-replica |
-| Block Storage | HDD | ORD1 | ceph-hdd-2-replica |
-| Shared Filesystem | SSD | ORD1 | sharedfs-ssd-replicated |
-| Shared Filesystem | HDD | ORD1 | sharedfs-hdd-replicated |
+| Block Storage | NVMe | ORD1 | block-nvme-ord1 |
+| Block Storage | HDD | ORD1 | block-hdd-ord1 |
+| Shared Filesystem | NVMe | ORD1 | shared-nvme-ord1 |
+| Shared Filesystem | HDD | ORD1 | shared-hdd-ord1 |
+| Block Storage | NVMe | LAS1 | block-nvme-las1 |
+| Block Storage | HDD | LAS1 | block-hdd-las1 |
+| Shared Filesystem | NVMe | LAS1 | shared-nvme-las1 |
+| Shared Filesystem | HDD | LAS1 | shared-hdd-las1 |
 
-#### Block Storage
+### Block Storage
 
 Block Storage provides the best performance, and is the recommended storage access method whenever possible. Block Storage is exposed via the Kubernetes `ReadWriteOnce` access mode. Block volumes can only be attached to a single physical node at any one time.
 
@@ -28,7 +32,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: data
 spec:
-  storageClassName: ceph-hdd-2-replica
+  storageClassName: block-hdd-ord1
   accessModes:
     - ReadWriteOnce
   resources:
@@ -46,7 +50,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: data
 spec:
-  storageClassName: ceph-ssd-2-replica
+  storageClassName: block-nvme-ord1
   accessModes:
     - ReadWriteOnce
   resources:
@@ -57,7 +61,7 @@ spec:
 {% endtab %}
 {% endtabs %}
 
-#### Shared Filesystem
+### Shared Filesystem
 
 Unlike block volumes a shared filesystem can be accessed by multiple nodes at the same time. This storage type is useful for parallel tasks, i.e. reading assets for CGI rendering or loading ML models for parallel inference. A shared filesystem is accessed similarly to block storage. The access mode changes to `ReadWriteMany` and the storage class names are different.
 
@@ -70,7 +74,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: shared-data
 spec:
-  storageClassName: sharedfs-hdd-replicated
+  storageClassName: shared-hdd-ord1
   accessModes:
     - ReadWriteMany
   resources:
@@ -88,7 +92,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: shared-data
 spec:
-  storageClassName: sharedfs-ssd-replicated
+  storageClassName: shared-nvme-ord1
   accessModes:
     - ReadWriteMany
   resources:
@@ -99,13 +103,13 @@ spec:
 {% endtab %}
 {% endtabs %}
 
-#### Billing
+### Billing
 
 Storage is billed per gigabyte of allocated \(requested\) space as an average over a billing cycle.
 
 **Resizing**
 
-Volumes can be expanded by simply increasing the `storage` request and re-applying the manifest. `ReadWriteMany` volumes are re-sized online without disruption the workload. For `ReadWriteOnce` volumes you will need to stop or restart all workloads that are attaching the volume for the reisize to take effect.
+Volumes can be expanded by simply increasing the `storage` request and reapplying the manifest. `ReadWriteMany` volumes are resized online without disruption the workload. For `ReadWriteOnce` volumes you will need to stop or restart all workloads that are attaching the volume for the resize to take effect.
 
 ## Ephemeral Storage
 

@@ -3,8 +3,9 @@
 ## Quick Links
 
 * \*\*\*\*[**Kubernetes**](coreweave-kubernetes/getting-started.md) - Run and scale your own services and workloads with access to thousands of GPUs, CPU cores and high throughput networking in a fully managed Kubernetes environment.
-* \*\*\*\*[**Compass**](compass/online-inference.md#introduction) - Production ML Model Deployment as a Service. Billed by the minute, with the industry's most responsive auto scale.
+* \*\*\*\*[**Inference**](compass/online-inference.md#introduction) ****- Production ML Model Deployment as a Service. Billed by the minute, with the industry's most responsive auto scale.
 * \*\*\*\*[**Workflows**](workflows/argo.md#introduction) ****- Spin up batch training, rendering or general computation jobs on thousands of GPUs in seconds. Hyper responsive, only pay for the time your computations are running.
+* \*\*\*\*[**Virtual Machines**](virtual-servers/getting-started.md) **-** Linux and Windows Virtual Workstations with powerful GPUs, optionally pre-loaded with Teradici remote desktop software.
 
 ## What is CoreWeave Cloud?
 
@@ -12,7 +13,7 @@ CoreWeave Cloud is not your regular, one-size fits all, cloud provider. Built fr
 
 #### Accelerated Compute - At your fingertips
 
-Our cloud is built around the GPU. A traditionally costly and scarce resource, GPU compute options from mono-lithic cloud providers are extremely limited. CoreWeave provides the industry's [widest range of GPU options](https://www.coreweave.com/#pricing), allowing you to pick the perfect GPU for your use case. Thousands of GPUs are ready and waiting...
+Our cloud is built around the GPU. A traditionally costly and scarce resource, GPU compute options from mono-lithic cloud providers are extremely limited. CoreWeave provides the industry's [widest range of GPU options](https://www.coreweave.com/pricing), allowing you to pick the perfect GPU for your use case. Thousands of GPUs are ready and waiting...
 
 #### Scaling - The industries most responsive scaling
 

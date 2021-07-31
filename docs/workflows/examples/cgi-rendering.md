@@ -19,7 +19,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: shared-data-pvc
 spec:
-  storageClassName: sharedfs-hdd-replicated
+  storageClassName: shared-hdd-ord1
   accessModes:
     - ReadWriteMany
   resources:
@@ -133,7 +133,7 @@ filebrowser     LoadBalancer   10.135.198.207   64.xx.xx.xx     80:32765/TCP    
 
 Let's now browse to the `EXTERNAL-IP` as listed in our services, and we should be greeted by a login screen!
 
-![Default username/password is admin/admin. You should change this...](../../.gitbook/assets/image%20%283%29%20%281%29.png)
+![Default username/password is admin/admin. You should change this...](../../.gitbook/assets/image%20%283%29%20%281%29%20%281%29.png)
 
 **Let's get something to render!**
 
@@ -340,7 +340,7 @@ This shows the status of your 10 frames being rendered on 10 different GPU insta
 
 So, what did we get with all this effort? We got ourselves a beautiful, CGI generated BMW demo file:
 
-![](../../.gitbook/assets/image%20%284%29.png)
+![](../../.gitbook/assets/image%20%284%29%20%281%29.png)
 
 With just some small changes to the Argo workflow we just built and used, you can now run your Blender GPU rendering on thousands of GPUs simultaneously!
 

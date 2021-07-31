@@ -4,16 +4,19 @@ A wide range of GPU options are available, allowing you to select the most optim
 
 ### GPU Availability
 
-| Vendor | Class | Generation | CUDA Cores | VRAM | Label |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| NVIDIA | Tesla A100 NVLINK | Ampere | 6,912 | 40GB | Tesla\_A100\_NVLINK |
-| NVIDIA | Tesla V100 NVLINK | Volta | 5,120 | 16 GB | Tesla\_V100\_NVLINK |
-| NVIDIA | Tesla V100 | Volta | 5,120 | 16 GB | Tesla\_V100 |
-| NVIDIA | RTX 6000 | Turing | 4,608 | 24 GB | Quadro\_RTX\_6000 |
-| NVIDIA | RTX 5000 | Turing | 3,072 | 16 GB | Quadro\_RTX\_5000 |
-| NVIDIA | RTX 4000 | Turing | 2,304 | 8 GB  | Quadro\_RTX\_4000 |
-| NVIDIA | Tesla P100 | Pascal | 3,584 | 16 GB | Tesla\_P100\_NVLINK |
-| NVIDIA | Multi Purpose Pascal | Pascal | 2,000+ | 8 GB | NV\_Pascal |
+| Vendor | Class | Generation | CUDA Cores | VRAM | Max per Instance | Label |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| NVIDIA | RTX A6000 | Ampere | 10,752 | 48 GB | 4 | RTX\_A6000 |
+| NVIDIA | A40 | Ampere | 10,752 | 48 GB | 8 | A40 |
+| NVIDIA | A100 NVLINK | Ampere | 6,912 | 40 GB | 8 | A100\_NVLINK |
+| NVIDIA | RTX A5000 | Ampere | 8,192 | 24 GB | 4 | RTX\_A5000 |
+| NVIDIA | Tesla V100 NVLINK | Volta | 5,120 | 16 GB | 8 | Tesla\_V100\_NVLINK |
+| NVIDIA | Tesla V100 | Volta | 5,120 | 16 GB | 6 | Tesla\_V100 |
+| NVIDIA | RTX 6000 | Turing | 4,608 | 24 GB | 4 | Quadro\_RTX\_6000 |
+| NVIDIA | RTX 5000 | Turing | 3,072 | 16 GB | 4 | Quadro\_RTX\_5000 |
+| NVIDIA | RTX 4000 | Turing | 2,304 | 8 GB  | 7 | Quadro\_RTX\_4000 |
+| NVIDIA | Tesla P100 | Pascal | 3,584 | 16 GB | 4 | Tesla\_P100\_NVLINK |
+| NVIDIA | Multi Purpose Pascal | Pascal | 2,000+ | 8 GB | 8 | NV\_Pascal |
 
 ### System Resources
 
@@ -21,7 +24,9 @@ Each GPU includes a certain amount of host CPU and RAM, these are included at no
 
 | Class | vCPU | RAM | Great For |
 | :--- | :--- | :--- | :--- |
-| Tesla A100 NVLINK | 30 Epyc | 240 GB | Complex Deep Neural Network training, HPC |
+| RTX A6000 | 30 Epyc | 128 GB | Rendering, Neural Network training |
+| RTX A5000 | 8 | 60 GB | Rendering, Neural Network training and Inference |
+| A100 NVLINK | 30 Epyc | 240 GB | Complex Deep Neural Network training, HPC |
 | Tesla V100 NVLINK | 4 Xeon Silver | 32 GB | Deep Neural Network training, HPC |
 | Tesla V100 | 3 | 20 GB | AI inference, Rendering, Batch processing, Hashcat |
 | RTX 6000 | 8 | 60 GB | Complex DNN Training, Rendering, Batch processing |
@@ -31,9 +36,7 @@ Each GPU includes a certain amount of host CPU and RAM, these are included at no
 | Multi Purpose Pascal | 1 | 8 GB | Transcoding, Rendering, Game streaming, Batch |
 
 {% hint style="warning" %}
-If a workload requests more peripheral compute resources \(vCPU, RAM\) than offered in a standard instance size, additional costs will incur. 
-
-Additional CPU and RAM is billed in increments of $0.07/hr for 1 vCPU + 8 GB RAM.
+If a workload requests more peripheral compute resources \(vCPU, RAM\) than offered in a standard instance size, [additional costs will incur](../resources/resource-based-pricing.md). 
 {% endhint %}
 
 ### CPU Availability
@@ -42,8 +45,10 @@ CPU Only nodes are available for tasks such as control-plane services, databases
 
 | CPU Model | RAM per vCPU | Max CPU per Workload | Label |
 | :--- | :--- | :--- | :--- |
-| Intel Xeon v1/v2 | 3 GB | 94 | xeon |
-| AMD Epyc Rome | 4 GB | 46 | epyc |
+| Intel Xeon v1 | 3 GB | 79 | intel-xeon-v1 |
+| Intel Xeon v2 | 3 GB | 93 | intel-xeon-v2 |
+| Intel Xeon v4 | 4 GB | 30 | intel-xeon-v4 |
+| AMD Epyc Rome | 4 GB | 46 | amd-epyc-rome |
 
 {% hint style="info" %}
 Workloads without GPU requests are always scheduled on CPU nodes. If a specific CPU model is not [explicitly selected](node-types.md#requesting-compute-in-kubernetes), the scheduler will automatically schedule workloads requesting few CPU cores on Epyc class CPUs, as these perform exceptionally well on single thread workloads.
@@ -51,7 +56,7 @@ Workloads without GPU requests are always scheduled on CPU nodes. If a specific 
 
 ### Requesting Compute in Kubernetes
 
-A combination of [resource requests ](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)and[ node affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity) is used to select the type and amount of compute for your workload. CoreWeave Cloud relies only on these native Kubernetes methods for resource allocation, allowing maximum flexibilty.
+A combination of [resource requests ](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)and[ node affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity) is used to select the type and amount of compute for your workload. CoreWeave Cloud relies only on these native Kubernetes methods for resource allocation, allowing maximum flexibilty. The label used to select CPU type is `node.coreweave.cloud/cpu`
 
 {% tabs %}
 {% tab title="Single Tesla V100" %}
@@ -123,7 +128,7 @@ spec:
 ```
 {% endtab %}
 
-{% tab title="16 Core Xeon CPU" %}
+{% tab title="16 Core Xeon v1/v2 CPU" %}
 ```yaml
 spec:
   containers:
@@ -138,10 +143,11 @@ spec:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
         - matchExpressions:
-          - key: cpu.coreweave.cloud/family
+          - key: node.coreweave.cloud/cpu
             operator: In
             values:
-              - xeon
+              - intel-xeon-v1
+              - intel-xeon-v2
 ```
 {% endtab %}
 
@@ -160,10 +166,10 @@ spec:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
         - matchExpressions:
-          - key: cpu.coreweave.cloud/family
+          - key: node.coreweave.cloud/cpu
             operator: In
             values:
-              - epyc
+              - amd-epyc-rome
 ```
 {% endtab %}
 {% endtabs %}

@@ -1,0 +1,14 @@
+{
+  "name": "virtual-server-client-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "client.js",
+  "scripts": {
+    "start": "node main.js"
+  },
+  "author": "Yitzy Dier",
+  "license": "ISC",
+  "dependencies": {
+    "kubernetes-client": "^9.0.0"
+  }
+}
