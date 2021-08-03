@@ -1,8 +1,6 @@
 apiVersion: serving.kubeflow.org/v1alpha2
 kind: InferenceService
 metadata:
-  annotations:
-    serving.kubeflow.org/gke-accelerator: Tesla_V100_sxm
   labels:
     qos.coreweave.cloud/latency: low
   name: aitextgen
@@ -24,3 +22,12 @@ spec:
             requests:
               cpu: "1"
               memory: 10Gi
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: gpu.nvidia.com/class
+                operator: In
+                values:
+                  - Tesla_V100_sxm

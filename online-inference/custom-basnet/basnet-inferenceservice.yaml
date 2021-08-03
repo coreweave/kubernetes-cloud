@@ -1,8 +1,6 @@
 apiVersion: serving.kubeflow.org/v1alpha2
 kind: InferenceService
 metadata:
-  annotations:
-    serving.kubeflow.org/gke-accelerator: Tesla_V100
   labels:
     qos.coreweave.cloud/latency: low
   name: basnet
@@ -26,3 +24,12 @@ spec:
             requests:
               cpu: "0.5"
               memory: 4Gi
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: gpu.nvidia.com/class
+                operator: In
+                values:
+                  - Tesla_V100

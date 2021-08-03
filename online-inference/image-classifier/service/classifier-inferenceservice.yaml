@@ -3,7 +3,6 @@ kind: InferenceService
 metadata:
   name: classifier
   annotations:
-    serving.kubeflow.org/gke-accelerator: Tesla_V100
     os.coreweave.cloud/latency: low
 spec:
   default:
@@ -24,6 +23,15 @@ spec:
             cpu: 3
             memory: 10Gi
             nvidia.com/gpu: 1
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: gpu.nvidia.com/class
+                operator: In
+                values:
+                  - Tesla_V100
 
     transformer:
       parallelism: 200
