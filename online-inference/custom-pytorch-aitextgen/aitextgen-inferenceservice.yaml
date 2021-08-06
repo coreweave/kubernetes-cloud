@@ -1,33 +1,30 @@
-apiVersion: serving.kubeflow.org/v1alpha2
+apiVersion: serving.kubeflow.org/v1beta1
 kind: InferenceService
 metadata:
   labels:
     qos.coreweave.cloud/latency: low
   name: aitextgen
 spec:
-  default:
-    predictor:
-      maxReplicas: 10
-      minReplicas: 3
-      parallelism: 1
-      custom:
-        container:
-          image: coreweave/aitextgen-model:11
-          name: kfserving-container
-          resources:
-            limits:
-              cpu: "3"
-              memory: 18Gi
-              nvidia.com/gpu: "1"
-            requests:
-              cpu: "1"
-              memory: 10Gi
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: gpu.nvidia.com/class
-                operator: In
-                values:
-                  - Tesla_V100_sxm
+  predictor:
+    maxReplicas: 10
+    minReplicas: 3
+    containers:
+    - name: kfserving-container
+      image: coreweave/aitextgen-model:11
+      resources:
+        limits:
+          cpu: "3"
+          memory: 18Gi
+          nvidia.com/gpu: "1"
+        requests:
+          cpu: "1"
+          memory: 10Gi
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: gpu.nvidia.com/class
+              operator: In
+              values:
+              - Tesla_V100_sxm
