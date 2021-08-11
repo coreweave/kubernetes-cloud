@@ -24,26 +24,8 @@ Fast SSD and cost effective HDD storage are available as both block storage and 
 Block Storage provides the best performance, and is the recommended storage access method whenever possible. Block Storage is exposed via the Kubernetes `ReadWriteOnce` access mode. Block volumes can only be attached to a single physical node at any one time.
 
 {% tabs %}
-{% tab title="HDD" %}
-{% code title="data-hdd-pvc.yaml" %}
-```yaml
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: data
-spec:
-  storageClassName: block-hdd-ord1
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 10Gi
-```
-{% endcode %}
-{% endtab %}
-
-{% tab title="SSD" %}
-{% code title="data-ssd-pvc.yaml" %}
+{% tab title="NVMe" %}
+{% code title="data-ssd-nvme.yaml" %}
 ```yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -59,6 +41,24 @@ spec:
 ```
 {% endcode %}
 {% endtab %}
+
+{% tab title="HDD" %}
+{% code title="data-hdd-pvc.yaml" %}
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: data
+spec:
+  storageClassName: block-hdd-ord1
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Gi
+```
+{% endcode %}
+{% endtab %}
 {% endtabs %}
 
 ### Shared Filesystem
@@ -66,6 +66,24 @@ spec:
 Unlike block volumes a shared filesystem can be accessed by multiple nodes at the same time. This storage type is useful for parallel tasks, i.e. reading assets for CGI rendering or loading ML models for parallel inference. A shared filesystem is accessed similarly to block storage. The access mode changes to `ReadWriteMany` and the storage class names are different.
 
 {% tabs %}
+{% tab title="NVMe" %}
+{% code title="shared-data-nvme-pvc.yaml" %}
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: shared-data
+spec:
+  storageClassName: shared-nvme-ord1
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+```
+{% endcode %}
+{% endtab %}
+
 {% tab title="HDD" %}
 {% code title="shared-data-hdd-pvc.yaml" %}
 ```yaml
@@ -79,25 +97,7 @@ spec:
     - ReadWriteMany
   resources:
     requests:
-      storage: 10Gi
-```
-{% endcode %}
-{% endtab %}
-
-{% tab title="SSD" %}
-{% code title="shared-data-ssd-pvc.yaml" %}
-```yaml
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: shared-data
-spec:
-  storageClassName: shared-nvme-ord1
-  accessModes:
-    - ReadWriteMany
-  resources:
-    requests:
-      storage: 10Gi
+      storage: 100Gi
 ```
 {% endcode %}
 {% endtab %}
