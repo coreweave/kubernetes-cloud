@@ -27,4 +27,4 @@ spec:
             - key: gpu.nvidia.com/class
               operator: In
               values:
-              - Tesla_V100_sxm
+              - Tesla_V100
