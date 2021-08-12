@@ -41,3 +41,33 @@ Models can be served directly from Amazon S3, which is practical for testing and
 
 Due to restrictions in KFServe, all node selectors are not available to be used in the `InferenceService` definition. The annotation `serving.kubeflow.org/gke-accelerator` should be set to contain the label of the [GPU](../coreweave-kubernetes/node-types.md).
 
+## GPU Selectors & Affinities
+
+You will want to use [affinities](https://docs.coreweave.com/coreweave-kubernetes/node-types#requesting-compute-in-kubernetes), to specify what GPU type \(or CPU, in case of CPU only Inference\) your `InferenceService` should be scheduled on.
+
+```yaml
+spec:
+  predictor:
+    minReplicas: 0 
+    maxReplicas: 3
+    containers:
+    ...
+      resources:
+        requests:
+          cpu: 1
+          memory: 6Gi
+        limits:
+          cpu: 3
+          memory: 10Gi
+          nvidia.com/gpu: 1
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: gpu.nvidia.com/class
+              operator: In
+              values:
+              - Tesla_V100
+```
+
