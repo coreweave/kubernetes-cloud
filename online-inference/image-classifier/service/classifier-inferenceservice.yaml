@@ -1,42 +1,47 @@
-apiVersion: serving.kubeflow.org/v1alpha2
+apiVersion: serving.kubeflow.org/v1beta1
 kind: InferenceService
 metadata:
   name: classifier
   annotations:
-    serving.kubeflow.org/gke-accelerator: Tesla_V100
     os.coreweave.cloud/latency: low
 spec:
-  default:
-    predictor:
-      parallelism: 1
-      # Max one request processed at the same time per container (GPU)
-      minReplicas: 0 # Allow scale to zero
-      maxReplicas: 3
-      tensorflow:
-        # The PVC and path inside the PVC to the model. The path is what we put after /models/ in export_dir in the notebook.
-        storageUri: pvc://model-storage/inception/
-        runtimeVersion: "2.1.0-gpu"
-        resources:
-          requests:
-            cpu: 1
-            memory: 6Gi
-          limits:
-            cpu: 3
-            memory: 10Gi
-            nvidia.com/gpu: 1
+  predictor:
+    # Max one request processed at the same time per container (GPU)
+    minReplicas: 0 # Allow scale to zero
+    maxReplicas: 3
+    containerConcurrency: 1
+    tensorflow:
+      # The PVC and path inside the PVC to the model. The path is what we put after /models/ in export_dir in the notebook.
+      storageUri: pvc://model-storage/inception/
+      runtimeVersion: "2.1.0-gpu"
+      resources:
+        requests:
+          cpu: 1
+          memory: 6Gi
+        limits:
+          cpu: 3
+          memory: 10Gi
+          nvidia.com/gpu: 1
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: gpu.nvidia.com/class
+              operator: In
+              values:
+              - Tesla_V100
 
-    transformer:
-      parallelism: 200
-      minReplicas: 1
-      maxReplicas: 2
-      custom:
-        container:
-          image: coreweave/inception-transformer:0.11 # Docker image of the code found in transformer/
-          name: user-container
-          resources:
-            requests:
-              cpu: 200m
-              memory: 64Mi
-            limits:
-              cpu: 3
-              memory: 8Gi
+  transformer:
+    minReplicas: 1
+    maxReplicas: 2
+    containers:
+    - image: coreweave/inception-transformer:0.11 # Docker image of the code found in transformer/
+      name: user-container
+      resources:
+        requests:
+          cpu: 200m
+          memory: 64Mi
+        limits:
+          cpu: 3
+          memory: 8Gi
