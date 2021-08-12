@@ -8,6 +8,7 @@ spec:
   predictor:
     maxReplicas: 20
     minReplicas: 1
+    containerConcurrency: 1
     containers:
     - name: kfserving-container
       image: docker.io/cyrildiagne/basnet-http
@@ -20,7 +21,7 @@ spec:
           memory: 8Gi
           nvidia.com/gpu: "1"
         requests:
-          cpu: "0.5"
+          cpu: 500m
           memory: 4Gi
     affinity:
       nodeAffinity:

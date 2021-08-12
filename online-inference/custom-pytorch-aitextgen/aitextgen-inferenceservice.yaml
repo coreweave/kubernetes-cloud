@@ -8,6 +8,7 @@ spec:
   predictor:
     maxReplicas: 10
     minReplicas: 3
+    containerConcurrency: 1
     containers:
     - name: kfserving-container
       image: coreweave/aitextgen-model:11

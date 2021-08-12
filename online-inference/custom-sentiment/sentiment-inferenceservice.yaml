@@ -8,6 +8,7 @@ spec:
   predictor:
     maxReplicas: 10
     minReplicas: 0
+    containerConcurrency: 1
     containers:
     - name: kfserving-container
       image: coreweave/fastai-sentiment:4

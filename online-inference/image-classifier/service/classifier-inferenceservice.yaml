@@ -9,6 +9,7 @@ spec:
     # Max one request processed at the same time per container (GPU)
     minReplicas: 0 # Allow scale to zero
     maxReplicas: 3
+    containerConcurrency: 1
     tensorflow:
       # The PVC and path inside the PVC to the model. The path is what we put after /models/ in export_dir in the notebook.
       storageUri: pvc://model-storage/inception/
