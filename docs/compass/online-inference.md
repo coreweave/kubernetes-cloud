@@ -37,10 +37,6 @@ For on demand customers, billing is done on a per minute basis when containers a
 
 Models can be served directly from Amazon S3, which is practical for testing and multi cloud deployment. For faster container launch times in a production environment it is recommended to cache the model in a `ReadWriteMany` persistent volume on CoreWeave storage. The model can be written to a PVC from any container, such as SSH or Jupyter.
 
-## GPU Selectors
-
-Due to restrictions in KFServe, all node selectors are not available to be used in the `InferenceService` definition. The annotation `serving.kubeflow.org/gke-accelerator` should be set to contain the label of the [GPU](../coreweave-kubernetes/node-types.md).
-
 ## GPU Selectors & Affinities
 
 You will want to use [affinities](https://docs.coreweave.com/coreweave-kubernetes/node-types#requesting-compute-in-kubernetes), to specify what GPU type \(or CPU, in case of CPU only Inference\) your `InferenceService` should be scheduled on.
