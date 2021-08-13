@@ -7,7 +7,7 @@ metadata:
 spec:
   accessModes:
   - ReadWriteMany
-  storageClassName: shared-nvme-ewr1
+  storageClassName: shared-nvme-ord1
   volumeMode: Filesystem
   resources:
     requests:
