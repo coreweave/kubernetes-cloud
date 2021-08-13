@@ -3,6 +3,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: your-pv-claim
+  namespace: my-namespace
 spec:
   accessModes:
   - ReadWriteMany
@@ -36,11 +37,12 @@ spec:
         pvc:
           namespace: vd-images
           name: ubuntu2004-docker-master-20210323-ord1
-    sharedFs:
-      enabled: true
-      name: sharedfs
-      claimName: your-pv-claim
-      mountPoint: /mnt/sharedfs
+    additionalDisks:
+      - name: sharedfs
+        spec:
+          persistentVolumeClaim:
+            claimName: your-pv-claim
+
 #  users:
 #    - username: SET YOUR USERNAME HERE
 #      password: SET YOUR PASSWORD HERE
