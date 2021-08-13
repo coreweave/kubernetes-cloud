@@ -1,0 +1,41 @@
+apiVersion: virtualservers.coreweave.com/v1alpha1
+kind: VirtualServer
+metadata:
+  name: example-vs-windows
+  namespace: my-namespace
+spec:
+  region: LAS1
+  os:
+    type: windows
+  resources:
+    gpu:
+      type: Quadro_RTX_4000
+      count: 1
+    cpu:
+      count: 3
+    memory: 16Gi
+  storage:
+    root:
+      size: 80Gi
+      storageClassName: block-nvme-las1
+      source:
+        pvc:
+          namespace: vd-images
+          name: win10-master-20210722-las1
+#  users:
+#    - username: SET YOUR USERNAME HERE
+#      password: SET YOUR PASSWORD HERE
+  network:
+    public: true
+    tcp:
+      ports:
+        - 22
+        - 443
+        - 60443
+        - 4172
+        - 3389
+    udp:
+      ports:
+        - 4172
+        - 3389
+  initializeRunning: true
