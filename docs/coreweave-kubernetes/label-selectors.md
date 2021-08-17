@@ -27,7 +27,7 @@ The basic node selectors demonstrated in [Node Types](node-types.md#requesting-c
     </tr>
     <tr>
       <td style="text-align:left">ethernet.coreweave.cloud/speed</td>
-      <td style="text-align:left">1G, 10G</td>
+      <td style="text-align:left">1G, 10G, 40G, 100G</td>
       <td style="text-align:left">The uplink speed from the node to the backbone</td>
     </tr>
     <tr>
@@ -39,13 +39,12 @@ The basic node selectors demonstrated in [Node Types](node-types.md#requesting-c
     </tr>
     <tr>
       <td style="text-align:left">gpu.nvidia.com/class</td>
-      <td style="text-align:left">Tesla_V100 (<a href="node-types.md#gpu-availability">see list</a>)</td>
-      <td
-      style="text-align:left">GPU model provisioned in the node</td>
+      <td style="text-align:left">(<a href="node-types.md#gpu-availability">see list</a>)</td>
+      <td style="text-align:left">GPU model provisioned in the node</td>
     </tr>
     <tr>
       <td style="text-align:left">gpu.nvidia.com/vram</td>
-      <td style="text-align:left">8, 16</td>
+      <td style="text-align:left">(<a href="node-types.md#gpu-availability">see list</a>)</td>
       <td style="text-align:left">GPU VRAM in Gigabytes on the GPUs provisioned in the node</td>
     </tr>
     <tr>
