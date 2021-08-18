@@ -1,8 +1,7 @@
 apiVersion: virtualservers.coreweave.com/v1alpha1
 kind: VirtualServer
 metadata:
-  name: example-vs-windows
-  namespace: my-namespace
+  name: vs-windows10
 spec:
   region: LAS1
   os:
@@ -22,14 +21,14 @@ spec:
         pvc:
           namespace: vd-images
           name: win10-master-20210722-las1
-#  users:
-#    - username: SET YOUR USERNAME HERE
-#      password: SET YOUR PASSWORD HERE
+  # Change user name and pasword
+  users:
+    - username: myuser
+      password: password
   network:
     public: true
     tcp:
       ports:
-        - 22
         - 443
         - 60443
         - 4172

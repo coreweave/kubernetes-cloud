@@ -1,9 +1,7 @@
----
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: your-pv-claim
-  namespace: my-namespace
+  name: vs-shared-pvc
 spec:
   accessModes:
   - ReadWriteMany
@@ -16,8 +14,7 @@ spec:
 apiVersion: virtualservers.coreweave.com/v1alpha1
 kind: VirtualServer
 metadata:
-  name: example-vs-shared-pvc
-  namespace: my-namespace
+  name: vs-ubuntu2004-shared-pvc
 spec:
   region: ORD1
   os:
@@ -37,26 +34,19 @@ spec:
         pvc:
           namespace: vd-images
           name: ubuntu2004-docker-master-20210323-ord1
-    additionalDisks:
-      - name: sharedfs
+    filesystems:
+      - name: shared-pvc
         spec:
           persistentVolumeClaim:
-            claimName: your-pv-claim
-
-#  users:
-#    - username: SET YOUR USERNAME HERE
-#      password: SET YOUR PASSWORD HERE
+            claimName: vs-shared-pvc
+  # Change user name and pasword
+  # User is on the sudoer list
+  users:
+    - username: myuser
+      password: password
   network:
     public: true
     tcp:
       ports:
         - 22
-        - 443
-        - 60443
-        - 4172
-        - 3389
-    udp:
-      ports:
-        - 4172
-        - 3389
   initializeRunning: true

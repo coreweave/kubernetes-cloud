@@ -1,8 +1,7 @@
 apiVersion: virtualservers.coreweave.com/v1alpha1
 kind: VirtualServer
 metadata:
-  name: example-vs
-  namespace: my-namespace
+  name: vs-ubuntu2004-direct-lb
 spec:
   region: ORD1
   os:
@@ -22,9 +21,11 @@ spec:
         pvc:
           namespace: vd-images
           name: ubuntu2004-docker-master-20210323-ord1
-#  users:
-#    - username: SET YOUR USERNAME HERE
-#      password: SET YOUR PASSWORD HERE
+  # Change user name and pasword
+  # User is on the sudoers list
+  users:
+    - username: myuser
+      password: password
   network:
     public: true
     directAttachLoadBalancerIP: true
