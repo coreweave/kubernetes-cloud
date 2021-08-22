@@ -9,6 +9,7 @@ A wide range of GPU options are available, allowing you to select the most optim
 | NVIDIA | RTX A6000 | Ampere | 10,752 | 48 GB | 4 | RTX\_A6000 |
 | NVIDIA | A40 | Ampere | 10,752 | 48 GB | 8 | A40 |
 | NVIDIA | A100 NVLINK | Ampere | 6,912 | 40 GB | 8 | A100\_NVLINK |
+| NVIDIA | A100 PCIE | Ampere | 6,912 | 40 GB | 8 | A100\_PCIE\_40GB |
 | NVIDIA | RTX A5000 | Ampere | 8,192 | 24 GB | 4 | RTX\_A5000 |
 | NVIDIA | Tesla V100 NVLINK | Volta | 5,120 | 16 GB | 8 | Tesla\_V100\_NVLINK |
 | NVIDIA | Tesla V100 | Volta | 5,120 | 16 GB | 6 | Tesla\_V100 |
@@ -27,6 +28,7 @@ Each GPU includes a certain amount of host CPU and RAM, these are included at no
 | RTX A6000 | 30 Epyc | 128 GB | Rendering, Neural Network training |
 | RTX A5000 | 8 | 60 GB | Rendering, Neural Network training and Inference |
 | A100 NVLINK | 30 Epyc | 240 GB | Complex Deep Neural Network training, HPC |
+| A100 PCIE | 12 Epyc | 64 GB | Complex Deep Neural Network training, HPC |
 | Tesla V100 NVLINK | 4 Xeon Silver | 32 GB | Deep Neural Network training, HPC |
 | Tesla V100 | 3 | 20 GB | AI inference, Rendering, Batch processing, Hashcat |
 | RTX 6000 | 8 | 60 GB | Complex DNN Training, Rendering, Batch processing |
