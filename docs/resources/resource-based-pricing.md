@@ -11,6 +11,7 @@ The following components are configurable in GPU based instances.
 | Type | Description | Resource Label | Cost per Hour | VRAM |
 | :--- | :--- | :--- | :--- | :--- |
 | GPU | NVIDIA A100 for NVLINK | A100\_NVLINK | $2.06 | 40GB HBM2e |
+| GPU | NVIDIA A100 for PCIE | A100\_PCIE\_40GB | $2.06 | 40GB HBM2e |
 | GPU | NVIDIA V100 for NVLINK | Tesla\_V100\_NVLINK | $0.80 | 16GB HBM2 |
 | GPU | NVIDIA A40 | A40 | $1.28 | 48GB GDDR6 |
 | GPU | NVIDIA RTX A6000 | RTX\_A6000 | $1.28 | 48GB GDDR6 |
