@@ -14,19 +14,19 @@ Access the **Prometheus Dashboard** at [**https://prometheus.ord1.coreweave.com*
 
 ## API Key Authentication
 
-You can access the Prometheus server by sending your Access Token as the Authorization Header during your request. 
+You can access the Prometheus server by sending your [Access Token](../getting-started.md#obtain-access-credentials) as the Authorization Header during your request. 
 
-* Header: **`Authorization`** Value: **`Bearer <API_KEY>`**
+* Header: **`Authorization`** Value: **`Bearer <TOKEN>`**
 * URL: **`https://prometheus.ord1.coreweave.com`**
 * Methods: **`GET`** or **`POST`**
 
 {% hint style="warning" %}
- Replace `<API_KEY>` with your CoreWeave Access Token generated from [https://cloud.coreweave.com/api-access](https://cloud.coreweave.com/api-access).
+ Replace `<TOKEN>` with your CoreWeave Access Token generated from [https://cloud.coreweave.com/api-access](https://cloud.coreweave.com/api-access).
 {% endhint %}
 
 {% api-method method="post" host="https://prometheus.ord1.coreweave.com" path="/v1/api/query" %}
 {% api-method-summary %}
-Prometheus Query using API Key
+Prometheus Query using Access Token
 {% endapi-method-summary %}
 
 {% api-method-description %}
