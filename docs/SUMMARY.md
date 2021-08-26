@@ -11,7 +11,7 @@
 * [Storage](coreweave-kubernetes/storage.md)
 * [Exposing Applications](coreweave-kubernetes/exposing-applications.md)
 * [Serverless](coreweave-kubernetes/serverless.md)
-* [Prometheus](coreweave-kubernetes/prometheus/README.md)
+* [Metrics](coreweave-kubernetes/prometheus/README.md)
   * [Grafana](coreweave-kubernetes/prometheus/grafana.md)
   * [Useful Metrics](coreweave-kubernetes/prometheus/useful-metrics.md)
 * [Examples](coreweave-kubernetes/examples/README.md)

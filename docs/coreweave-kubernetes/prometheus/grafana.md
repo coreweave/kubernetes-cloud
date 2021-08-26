@@ -1,16 +1,16 @@
 # Grafana
 
-## Hosted Grafana Instance
+## Managed Grafana Instance
 
-CoreWeave provides a managed Grafana instance so you can make your own dashboards and charts for your own metrics. If you're already a CoreWeave user, you can start creating dashboards now. Feel free to startup your own Grafana instance using [KubeApps](https://apps.coreweave.com/).
+CoreWeave provides a managed Grafana instance to view predefined dashboards provided by CoreWeave.  You can not modify or create your own dashboards in this Grafana instance. To manage your own dashboards, please see the section below on Self Hosted Grafana.
 
 {% hint style="success" %}
-You can access **Grafana** at [https://grafana.coreweave.com](https://grafana.coreweave.com/)
+You can access **Grafana** at [https://grafana.coreweave.com](https://grafana.coreweave.com)
 {% endhint %}
 
 ## Self Hosted Grafana Instance
 
-You can host your own Grafana instance if you choose to. To use our Prometheus server in your own Grafana instance follow the guide below.
+You can connect to Prometheus from your own Grafana instance. A Grafana can be deployed with one click via [CoreWeave Apps.](https://apps.coreweave.com) You can also connect your existing on-prem Grafana to Prometheus. The following steps need to be taken to add the Prometheus DataSource.
 
 * Login as an admin on your Grafana instance and go to **Configuration** -&gt; **Data Sources**
 * **Add New Datasource** and select **Prometheus** as the provider

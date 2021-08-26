@@ -2,7 +2,7 @@
 description: CoreWeave manages the Prometheus cluster that will host your metrics.
 ---
 
-# Prometheus
+# Metrics
 
 To access CoreWeave's Prometheus server you'll first need a CoreWeave account and an Access Token. If you don't have an account yet, follow the steps on the [Getting Started](../getting-started.md) guide. 
 
