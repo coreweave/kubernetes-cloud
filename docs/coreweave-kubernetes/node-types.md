@@ -51,9 +51,10 @@ CPU Only nodes are available for tasks such as control-plane services, databases
 | Intel Xeon v2 | 3 GB | 93 | intel-xeon-v2 |
 | Intel Xeon v4 | 4 GB | 30 | intel-xeon-v4 |
 | AMD Epyc Rome | 4 GB | 46 | amd-epyc-rome |
+| AMD Epyc Milan | 4 GB | 46 | amd-epyc-milan |
 
 {% hint style="info" %}
-Workloads without GPU requests are always scheduled on CPU nodes. If a specific CPU model is not [explicitly selected](node-types.md#requesting-compute-in-kubernetes), the scheduler will automatically schedule workloads requesting few CPU cores on Epyc class CPUs, as these perform exceptionally well on single thread workloads.
+Workloads without GPU requests are always scheduled on CPU nodes.
 {% endhint %}
 
 ### Requesting Compute in Kubernetes
