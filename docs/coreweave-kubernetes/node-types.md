@@ -172,6 +172,7 @@ spec:
             operator: In
             values:
               - amd-epyc-rome
+              - amd-epyc-milan
 ```
 {% endtab %}
 {% endtabs %}
