@@ -4,6 +4,8 @@
 
 [Sign up for CoreWeave Cloud](https://cloud.coreweave.com/request-account) and generate a kubeconfig from the [API Access ](https://cloud.coreweave.com/api-access)page. Every time an access token is generated your corresponding kubeconfig will automatically download.
 
+![](../.gitbook/assets/cw-access-token.png)
+
 ### Install Kubernetes Command Line Tools
 
 Once you have received your credentials, all you have to do is put them in place and download the command line tools. No other setup is necessary, you are instantly ready to deploy your workloads and containers. Cut-and-paste instructions are below. For more detail please reference the [official documentation](https://kubernetes.io/docs/tasks/tools/install-kubectl/).
