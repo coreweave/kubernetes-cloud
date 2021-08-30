@@ -1,15 +1,8 @@
-This directory contains several examples of the manifests for `VirtualServer` service.
+This directory contains several example manifests for `VirtualServer`.
 
 To run any of the examples issue: `kubectl apply -f <manifest_file_name.yaml>`
 
-- [virtual-server-direct-attach-lb.yaml](virtual-server-direct-attach-lb.yaml) shows how to attach directly the virtual machine to the load balancer.
-  
-  **pros:**
-  - can handle more IP trafic to VM - the trafic is routed directly to VM.
-  - IP of the VM matches the assigned ingress IP
-
-  **cons:**
-  - cannot handle replicas, the same cannot get all benefits from load balancer
+- [virtual-server-direct-attach-lb.yaml](virtual-server-direct-attach-lb.yaml) shows how to directly attach the Load Balancer IP to a Virtual Server. This will give 
 
 - [virtual-server-shared-pvc.yaml](virtual-server-shared-pvc.yaml) attaches shared `PVC` to the virtual machine instance. The `PVC` formated already and mounted as `/mnt/shared-pvc`.
 
@@ -21,27 +14,6 @@ To run any of the examples issue: `kubectl apply -f <manifest_file_name.yaml>`
 - [virtual-server-block-pvc.yaml](virtual-server-block-pvc.yaml) attaches block `PVC` to the virtual machine instance. The new disk is raw and need to be formatted.
 
   ```
-  myuser@vs-ubuntu2004-block-pvc:~$ sudo fdisk /dev/vdb
-
-  Welcome to fdisk (util-linux 2.34).
-  Changes will remain in memory only, until you decide to write them.
-  Be careful before using the write command.
-
-  Device does not contain a recognized partition table.
-  Created a new DOS disklabel with disk identifier 0xfffa9647.
-
-  Command (m for help): n
-  Partition type
-    p   primary (0 primary, 0 extended, 4 free)
-    e   extended (container for logical partitions)
-  Select (default p): p
-  Partition number (1-4, default 1): 1
-  First sector (2048-41943039, default 2048): 2048
-  Last sector, +/-sectors or +/-size{K,M,G,T,P} (2048-41943039, default 41943039): 41943039
-
-  Created a new partition 1 of type 'Linux' and of size 20 GiB.
-
-  Command (m for help): q
 
   myuser@vs-ubuntu2004-block-pvc:~$ sudo mkfs.ext4 /dev/vdb
   mke2fs 1.45.5 (07-Jan-2020)
