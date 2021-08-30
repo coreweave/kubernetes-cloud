@@ -50,6 +50,14 @@
     * [NodeJS](virtual-servers/deployment-methods/programmatically/nodejs.md)
     * [Golang](virtual-servers/deployment-methods/programmatically/golang.md)
 * [Remote Access and Control](virtual-servers/remote-access-and-control.md)
+* [Root Disk Lifecycle Management](virtual-servers/root-disk-lifecycle-management/README.md)
+  * [Copying CoreWeave Images to a Writable PVC](virtual-servers/root-disk-lifecycle-management/exporting-coreweave-images-to-a-writable-pvc.md)
+  * [Using Hashicorp Packer to create and update OS Images](virtual-servers/root-disk-lifecycle-management/using-packer-to-create-and-update-os-images/README.md)
+    * [Creating a Packer Worker Virtual Server](virtual-servers/root-disk-lifecycle-management/using-packer-to-create-and-update-os-images/creating-a-packer-worker-virtual-server.md)
+    * [Configuring a Windows Image sourced from CoreWeave Cloud](virtual-servers/root-disk-lifecycle-management/using-packer-to-create-and-update-os-images/configuring-a-windows-image-sourced-from-coreweave-cloud.md)
+    * [Configuring a Linux image sourced from CoreWeave Cloud](virtual-servers/root-disk-lifecycle-management/using-packer-to-create-and-update-os-images/configuring-a-linux-image-sourced-from-coreweave-cloud.md)
+    * [Configuring an externally sourced cloud Linux image](virtual-servers/root-disk-lifecycle-management/using-packer-to-create-and-update-os-images/configuring-an-externally-sourced-cloud-linux-image.md)
+  * [Exporting images to QCOW2](virtual-servers/root-disk-lifecycle-management/exporting-images-to-qcow2.md)
 
 ## Solutions
 
