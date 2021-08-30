@@ -1,0 +1,53 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: vs-block-pvc
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: block-nvme-ord1
+  volumeMode: Block
+  resources:
+    requests:
+      storage: 20Gi
+---
+apiVersion: virtualservers.coreweave.com/v1alpha1
+kind: VirtualServer
+metadata:
+  name: vs-ubuntu2004-block-pvc
+spec:
+  region: ORD1
+  os:
+    type: linux
+  resources:
+    gpu:
+      type: Quadro_RTX_4000
+      count: 1
+    cpu:
+      count: 3
+    memory: 16Gi
+  storage:
+    root:
+      size: 40Gi
+      storageClassName: block-nvme-ord1
+      source:
+        pvc:
+          namespace: vd-images
+          name: ubuntu2004-docker-master-20210323-ord1
+    additionalDisks:
+      - name: additional-block-volume
+        spec:
+          persistentVolumeClaim:
+            claimName: vs-block-pvc
+  # Change user name and pasword
+  # User is on the sudoers list
+  users:
+    - username: myuser
+      password: password
+  network:
+    public: true
+    tcp:
+      ports:
+        - 22
+  initializeRunning: true

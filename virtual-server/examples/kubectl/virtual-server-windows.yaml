@@ -1,0 +1,40 @@
+apiVersion: virtualservers.coreweave.com/v1alpha1
+kind: VirtualServer
+metadata:
+  name: vs-windows10
+spec:
+  region: LAS1
+  os:
+    type: windows
+  resources:
+    gpu:
+      type: Quadro_RTX_4000
+      count: 1
+    cpu:
+      count: 3
+    memory: 16Gi
+  storage:
+    root:
+      size: 80Gi
+      storageClassName: block-nvme-las1
+      source:
+        pvc:
+          namespace: vd-images
+          name: win10-master-20210722-las1
+  # Change user name and pasword
+  users:
+    - username: myuser
+      password: password
+  network:
+    public: true
+    tcp:
+      ports:
+        - 443
+        - 60443
+        - 4172
+        - 3389
+    udp:
+      ports:
+        - 4172
+        - 3389
+  initializeRunning: true
