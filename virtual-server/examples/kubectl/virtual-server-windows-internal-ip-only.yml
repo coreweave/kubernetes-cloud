@@ -1,0 +1,31 @@
+apiVersion: virtualservers.coreweave.com/v1alpha1
+kind: VirtualServer
+metadata:
+  name: vs-windows-internal
+spec:
+  region: ORD1
+  os:
+    type: windows
+  resources:
+    cpu:
+      # Reference CPU instance label selectors here:
+      # https://docs.coreweave.com/resources/resource-based-pricing#cpu-only-instance-resource-pricing
+      type: amd-epyc-rome
+      count: 4
+    memory: 16Gi
+  storage:
+    root:
+      size: 80Gi
+      storageClassName: block-nvme-ord1
+      source:
+        pvc:
+          namespace: vd-images
+          name: winserver2019std-master-20210819-ord1
+  # Change user name and pasword
+  users:
+    - username: myuser
+      password: password
+  network:
+    directAttachLoadBalancerIP: true
+    public: false
+  initializeRunning: true
