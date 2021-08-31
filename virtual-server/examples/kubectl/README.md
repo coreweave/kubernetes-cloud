@@ -4,7 +4,7 @@ To run any of the examples issue: `kubectl apply -f <manifest_file_name.yaml>`
 
 - [virtual-server-direct-attach-lb.yaml](virtual-server-direct-attach-lb.yaml) shows how to directly attach the Load Balancer IP to a Virtual Server. This will give 
 
-- [virtual-server-windows-internal-ip-only.yaml](virtual-server-windows-internal-ip-only.yaml) creates a Windows Virtual Server with no public IP - useful for servers that will only be accessed in your namespace.
+- [virtual-server-windows-internal-ip-only.yaml](virtual-server-windows-internal-ip-only.yaml) creates a Windows Virtual Server with no public IP (STATIC internal IP only) - useful for servers that will only be accessed in your namespace, such as Domain Controllers.
 
 - [virtual-server-windows-cpu-only.yaml](virtual-server-windows-cpu-only.yaml) creates a Windows Virtual Server with no GPU - CPU compute only.
 
