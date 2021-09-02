@@ -20,6 +20,8 @@ spec:
       source:
         pvc:
           namespace: vd-images
+          # Reference querying source image here:
+          # https://docs.coreweave.com/virtual-servers/root-disk-lifecycle-management/exporting-coreweave-images-to-a-writable-pvc#identifying-source-image
           name: win10-master-20210722-las1
   # Change user name and pasword
   users:

@@ -20,6 +20,8 @@ spec:
       source:
         pvc:
           namespace: vd-images
+          # Reference querying source image here:
+          # https://docs.coreweave.com/virtual-servers/root-disk-lifecycle-management/exporting-coreweave-images-to-a-writable-pvc#identifying-source-image
           name: winserver2019std-master-20210819-ord1
   # Change user name and pasword
   users:
