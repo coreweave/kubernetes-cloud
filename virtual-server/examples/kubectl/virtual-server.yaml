@@ -2,7 +2,6 @@ apiVersion: virtualservers.coreweave.com/v1alpha1
 kind: VirtualServer
 metadata:
   name: example-vs
-  namespace: my-namespace
 spec:
   region: ORD1
   os:
@@ -22,9 +21,14 @@ spec:
         pvc:
           namespace: vd-images
           name: ubuntu2004-docker-master-20210323-ord1
-#  users:
-#    - username: SET YOUR USERNAME HERE
-#      password: SET YOUR PASSWORD HERE
+  # Change user name and pasword
+  # User is on the sudoers list
+  users:
+    - username: myuser
+      password: password
+      # To avoid password prompt, replace with your public SSH key from $HOME/.ssh/id_rsa.pub
+      # sshpublickey: |
+      #  ssh-rsa AAAAB3NzaC1yc2EAAAA ... user@hostname
   network:
     public: true
     tcp:
@@ -38,4 +42,32 @@ spec:
       ports:
         - 4172
         - 3389
+  cloudInit: |
+    # Additional user
+    users:
+      - name: newuser
+        plain_text_passwd: password
+        shell: /bin/bash
+        sudo: ALL=(ALL) NOPASSWD:ALL
+        lock_passwd: false
+    # Write a simple script
+    write_files:
+    - content: |
+        #!/bin/bash
+        echo "Hello world!"
+      path: /home/myuser/script.sh
+      permissions: '0744'
+      owner: myuser:myuser
+    # Update packages
+    package_update: true
+    # Install packages
+    packages:
+      - curl
+      - git
+    # Run additional commands
+    runcmd:
+      - [df, -h]
+      - [git, version]
+      - [curl, --version ]
+      - [bash, /home/myuser/script.sh]
   initializeRunning: true

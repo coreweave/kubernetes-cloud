@@ -1,4 +1,4 @@
-This directory contains several example manifests for `VirtualServer`.
+This directory contains several examples manifest for `VirtualServer`.
 
 To run any of the examples issue: `kubectl apply -f <manifest_file_name.yaml>`
 
@@ -6,7 +6,7 @@ To run any of the examples issue: `kubectl apply -f <manifest_file_name.yaml>`
 
 - [virtual-server-shared-pvc.yaml](virtual-server-shared-pvc.yaml) attaches shared `PVC` to the virtual machine instance. The `PVC` formated already and mounted as `/mnt/shared-pvc`.
 
-- [virtual-server-windows.yaml](virtual-server-windows.yaml) creates Windows10 virtual machine instance. In order to get the external IP and use remote desktop via `RDP` protocol, issue the following commnad: 
+- [virtual-server-windows.yaml](virtual-server-windows.yaml) creates Windows10 virtual machine instance. To get the external IP and use remote desktop via `RDP` protocol, issue the following command: 
   ```
   kubectl get svc vs-windows10-tcp -o jsonpath="{.status.loadBalancer.ingress[*].ip}"
   ```
