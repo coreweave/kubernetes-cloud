@@ -182,12 +182,15 @@ if(!(test-path $env:userprofile\.kube\config -ErrorAction SilentlyContinue))
                         $True
                             {
                                 $Prompt = Read-Host -Prompt "Please drag your cw-kubeconfig file into the PowerShell Window, or type the path manually:"
+                                $Prompt = $prompt.trim('"').Trim('''')
 
                                 if(test-path $Prompt)
                                     {
                                         if(!(test-path $env:userprofile\.kube)){New-Item -ItemType Directory -Path $env:userprofile -Name .kube -Force | out-null}
                                         Copy-Item -Path $Prompt -Destination $env:userprofile\.kube\config -Force -Verbose
                                     }
+
+                                Else{Write-Warning -Message "Could not parse path $($Prompt)" -WarningAction Continue}
                             }
 
                         $False{Write-Warning "Kubeconfig not found, please copy to $env:userprofile\.kube\config" -WarningAction Continue}
