@@ -202,12 +202,18 @@ if($Remove)
     {
         Check-AdminContext -Elevate
         remove-item $env:ProgramData\k8s -Force -Recurse -Verbose
-        remove-item $Prompt -Force -Verbose
-        remove-item $env:userprofile\.kube\config -Force -Verbose
+        remove-item $env:userprofile\.kube -Force -Recurse -Verbose
+        if(test-path $PROFILE)
+            {
+                $Alias = @('New-Alias k kubectl','New-Alias virt virtctl')
+                $PSProfile = gc $PROFILE
+                $alias| %{$PSProfile = $PSProfile -replace $_,''}
+                Set-Content $PROFILE -Value $PSProfile
+            }
         $Path = (Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH).path
         if(($Path.Contains($("$env:ProgramData\k8s"+';'))))
             {
-                $path.replace('C:\ProgramData\k8s;','')
+                $Path = $path.replace('C:\ProgramData\k8s;','')
                 Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH -Value $Path
             }
     }
