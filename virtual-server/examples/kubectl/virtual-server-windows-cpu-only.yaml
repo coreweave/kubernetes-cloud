@@ -1,16 +1,16 @@
 apiVersion: virtualservers.coreweave.com/v1alpha1
 kind: VirtualServer
 metadata:
-  name: vs-windows10
+  name: vs-windows-cpu
 spec:
   region: LAS1
   os:
     type: windows
   resources:
-    gpu:
-      type: Quadro_RTX_4000
-      count: 1
     cpu:
+      # Reference CPU instance label selectors here:
+      # https://docs.coreweave.com/resources/resource-based-pricing#cpu-only-instance-resource-pricing
+      type: amd-epyc-rome
       count: 3
     memory: 16Gi
   storage:
@@ -22,7 +22,7 @@ spec:
           namespace: vd-images
           # Reference querying source image here:
           # https://docs.coreweave.com/virtual-servers/root-disk-lifecycle-management/exporting-coreweave-images-to-a-writable-pvc#identifying-source-image
-          name: win10-master-20210722-las1
+          name: winserver2019std-master-20210813-las1
   # Change user name and pasword
   users:
     - username: myuser

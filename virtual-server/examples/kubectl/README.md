@@ -4,6 +4,10 @@ To run any of the examples issue: `kubectl apply -f <manifest_file_name.yaml>`
 
 - [virtual-server-direct-attach-lb.yaml](virtual-server-direct-attach-lb.yaml) shows how to directly attach the Load Balancer IP to a Virtual Server. This will give 
 
+- [virtual-server-windows-internal-ip-only.yaml](virtual-server-windows-internal-ip-only.yaml) creates a Windows Virtual Server with no public IP (STATIC internal IP only) - useful for servers that will only be accessed in your namespace, such as Domain Controllers.
+
+- [virtual-server-windows-cpu-only.yaml](virtual-server-windows-cpu-only.yaml) creates a Windows Virtual Server with no GPU - CPU compute only.
+
 - [virtual-server-shared-pvc.yaml](virtual-server-shared-pvc.yaml) attaches shared `PVC` to the virtual machine instance. The `PVC` formated already and mounted as `/mnt/shared-pvc`.
 
 - [virtual-server-windows.yaml](virtual-server-windows.yaml) creates Windows10 virtual machine instance. In order to get the external IP and use remote desktop via `RDP` protocol, issue the following commnad: 
