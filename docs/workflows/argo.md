@@ -10,22 +10,7 @@ Workflows on CoreWeave run on [Argo Workflows](https://argoproj.github.io/argo/)
 
 After installing `kubectl` and adding your CoreWeave Cloud access credentials, the following steps will deploy the Argo Server in your namespace.
 
-1. Apply the resource `argo-install.yaml` found in this repository, this will install the Argo Workflow server into your namespace
-
-   ```bash
-    $ kubectl apply -f argo-install.yaml
-    serviceaccount/argo unchanged
-    serviceaccount/argo-server unchanged
-    role.rbac.authorization.k8s.io/argo-role unchanged
-    role.rbac.authorization.k8s.io/argo-server-role unchanged
-    rolebinding.rbac.authorization.k8s.io/argo-binding unchanged
-    rolebinding.rbac.authorization.k8s.io/argo-server-binding unchanged
-    configmap/workflow-controller-configmap unchanged
-    service/argo-server unchanged
-    deployment.apps/argo-server unchanged
-    deployment.apps/workflow-controller unchanged
-   ```
-
+1. Install Argo in your namespace via [CoreWeave Apps](https://apps.coreweave.com)
 2. Install the Argo CLI from the [Argo releases page](https://github.com/argoproj/argo/releases)
 3. Submit an example workflow, `gpu-say-workflow.yaml` found in this repository. The workflow takes a JSON Array and spins up one Pod with one GPU allocated for each, in parallel. `nvidia-smi` output as well as the parameter entry assigned for that Pod is printed to the log.
 
