@@ -48,7 +48,8 @@ catch
 
 if(kubectl get vmi $($source) --ignore-not-found=true)
     {
-        $SourcePVC = kubectl get vmi $($source) -o 'jsonpath={".spec.volumes[?(@.name==''dv'')].persistentVolumeClaim.claimName"}'
+        if(kubectl get vmi $($source) --ignore-not-found=true -o 'jsonpath={".metadata.annotations.vs\.coreweave\.com/vmi"}'){$SourcePVC = kubectl get vmi $($source) -o 'jsonpath={".spec.volumes..dataVolume.name"}'}
+        Else{$SourcePVC = kubectl get vmi $($source) -o 'jsonpath={".spec.volumes[?(@.name==''dv'')].persistentVolumeClaim.claimName"}'}
         
         switch(Invoke-ActionPrompt -Text "Found running VM instance $($source).`nStop it? [y/N]")
             {
