@@ -70,12 +70,12 @@ func Ready(namespace, name string, c client.Client) ReadyResponse {
 }
 
 func main() {
-	name := "my-test-virtual-server"
+	name := "my-virtual-server"
 
 	// Get namespace or use default
 	namespace, envExist := os.LookupEnv("NAMESPACE")
-	if envExist == false {
-		namespace = "default"
+	if !envExist {
+		log.Fatalf("Required environment variables NAMESPACE not found")
 	}
 	// Uses the value of the KUBECONFIG environment variable as a filepath to a kube config file
 	c, err := client.New(config.GetConfigOrDie(), client.Options{})
@@ -86,7 +86,7 @@ func main() {
 	username, usernameExist := os.LookupEnv("USERNAME")
 	password, passwordExist := os.LookupEnv("PASSWORD")
 
-	if !usernameExist || passwordExist {
+	if !usernameExist || !passwordExist {
 		log.Fatalf("Required environment variables USERNAME and PASSWORD not found")
 	}
 
@@ -118,7 +118,7 @@ func main() {
 
 	// Set the cpu core count for the VirtualServer
 	// GPU type and CPU type are mutually exclusive i.e. CPU type cannot be specified when GPU type is selected.
-	virtualServer.SetCPUCount(2)
+	virtualServer.SetCPUCount(3)
 
 	// CPU type is selected automatically based on GPU type.
 	//virtualServer.SetCPUType("amd-epyc-rome")
@@ -126,9 +126,13 @@ func main() {
 	virtualServer.SetMemory("16Gi")
 
 	// Add user
+	// SSH public key is optional and allows to login without a password
+	// Public key is located in $HOME/.ssh/id_rsa.pub
+	// publicKey = `ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDEQCQpab6UWuA ... user@hostname`
 	virtualServer.AddUser(vsv1alpha.VirtualServerUser{
 		Username: username,
 		Password: password,
+		// SSHPublicKey: publicKey
 	})
 
 	// Configure the root filesystem of the VirtualServer to clone a preexisting PVC namedubuntu1804-docker-master-20210210-ord1
@@ -155,6 +159,31 @@ func main() {
 
 	// Expose service as public
 	virtualServer.EnablePublicIP(true)
+
+	// Add cloud config
+	// more examples on https://cloudinit.readthedocs.io/en/latest/topics/examples.html
+	customCloudInit :=
+		`
+# Update packages
+package_update: true
+# Install packages
+packages:
+  - curl
+  - git
+# Run additional commands
+runcmd:
+  - [df, -h]
+  - [git, version]
+  - [curl, --version ]
+# Additional user
+users:
+  - name: newuser
+    plain_text_passwd: password
+    shell: /bin/bash
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    lock_passwd: false
+`
+	virtualServer.AddCloudInit(customCloudInit)
 
 	// Set the VirtualServer to start as soon as it is created
 	virtualServer.InitializeRunning(true)
@@ -210,8 +239,8 @@ func main() {
 }
 
 func buildPVC(name string, namespace string, size resource.Quantity) *corev1.PersistentVolumeClaim {
-	pvcVolumeMode := corev1.PersistentVolumeBlock
-	pvcStorageClass := "block-nvme-ewr1"
+	pvcVolumeMode := corev1.PersistentVolumeFilesystem
+	pvcStorageClass := "block-nvme-ord1"
 	pvc := corev1.PersistentVolumeClaim{}
 	pvc.ObjectMeta = metav1.ObjectMeta{
 		Name:      name,
