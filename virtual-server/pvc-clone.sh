@@ -18,8 +18,12 @@ get_field() {
 if kubectl get vmi $SRC &>/dev/null; then
     echo "Found running VM instance: $SRC"
     read -p "Stop it? [y/N] " STOP
-
-    SRC_PVC=$(get_field vmi $SRC ".spec.volumes[?(@.name=='dv')].persistentVolumeClaim.claimName")
+    
+	if [ "$(get_field vmi $SRC ".metadata.annotations.vs\.coreweave\.com/vmi")" == "true" ]; then
+	SRC_PVC=$(get_field vmi $SRC ".spec.volumes..dataVolume.name")
+	else
+	SRC_PVC=$(get_field vmi $SRC ".spec.volumes[?(@.name=='dv')].persistentVolumeClaim.claimName")
+	fi
 
     if [[ "$STOP" =~ ^[yY]$ ]]; then
         virtctl stop $SRC
