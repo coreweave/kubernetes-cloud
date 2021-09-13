@@ -21,7 +21,6 @@ When custom configuring your instances on CoreWeave Cloud, the following table o
 | NVIDIA | RTX A4000 | Ampere | 6,144 | 16 GB | 7 | RTX\_A4000 |
 | NVIDIA | Tesla V100 NVLINK | Volta | 5,120 | 16 GB | 8 | Tesla\_V100\_NVLINK |
 | NVIDIA | Tesla V100 PCIe | Volta | 5,120 | 16 GB | 7 | Tesla\_V100\_PCIE |
-| NVIDIA | RTX 6000 | Turing | 4,608 | 24 GB | 4 | Quadro\_RTX\_6000 |
 | NVIDIA | RTX 5000 | Turing | 3,072 | 16 GB | 4 | Quadro\_RTX\_5000 |
 | NVIDIA | RTX 4000 | Turing | 2,304 | 8 GB  | 7 | Quadro\_RTX\_4000 |
 
