@@ -1,10 +1,10 @@
 # Node Types
 
-We have configured a "Standard Instance" that we have found to be useful for most workloads for each GPU type offered on CoreWeave Cloud. These instances are a "getting started" point, but can be configured entirely to suit your use case or compute needs.
+We have configured a "Standard Instance" that we have found to be useful for most workloads for each GPU type offered on CoreWeave Cloud. These instances are a starting point, but can be configured entirely to suit your use case or compute needs.
 
-You can view Standard Instance configurations on the CoreWeave Cloud Pricing page at https://www.coreweave.com/pricing.
+You can view Standard Instance configurations on the [pricing page](https://www.coreweave.com/pricing).
 
-For more information about the a la carte pricing of compute components on CoreWeave Cloud, click below.
+For more information about the à la carte pricing of compute components on CoreWeave Cloud, click below.
 
 {% page-ref page="../resources/resource-based-pricing.md" %}
 
