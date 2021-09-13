@@ -36,12 +36,39 @@ my_virtualserver = {
             },
             'memory': '16Gi'
         },
+        # Add user
+        # SSH public key is optional and allows to login without a password
+        # Public key is located in $HOME/.ssh/id_rsa.pub
+        # publicKey = `ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDEQCQpab6UWuA ... user@hostname`
         'users': [
             {
                 'username': username,
                 'password': password,
+          	  	# SSHPublicKey: publicKey
             }
         ],
+        # Add cloud config
+        # more examples on https://cloudinit.readthedocs.io/en/latest/topics/examples.html
+        'cloudInit': """
+# Update packages
+package_update: true
+# Install packages
+packages:
+  - curl
+  - git
+# Run additional commands
+runcmd:
+  - [df, -h]
+  - [git, version]
+  - [curl, --version ]
+# Additional user
+users:
+  - name: newuser
+    plain_text_passwd: password
+    shell: /bin/bash
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    lock_passwd: false
+""",
         'storage': {
             'root': {
                 'size': '40Gi',

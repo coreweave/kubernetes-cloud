@@ -44,7 +44,7 @@ spec:
   users:
     - username: myuser
       password: password
-      # To avoid password prompt, replace with your public SSH key from $HOME/.ssh/id_rsa.pub
+      # To use key-based authentication replace and uncomment ssh-rsa below with your public ssh key
       # sshpublickey: |
       #   ssh-rsa AAAAB3NzaC1yc2EAAAA ... user@hostname
   network:

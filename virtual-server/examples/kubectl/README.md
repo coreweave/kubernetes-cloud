@@ -1,4 +1,4 @@
-This directory contains several examples manifest for `VirtualServer`.
+This directory contains several example manifests for `VirtualServer`.
 
 To run any of the examples issue: `kubectl apply -f <manifest_file_name.yaml>`
 
@@ -11,7 +11,7 @@ To run any of the examples issue: `kubectl apply -f <manifest_file_name.yaml>`
   kubectl get svc vs-windows10-tcp -o jsonpath="{.status.loadBalancer.ingress[*].ip}"
   ```
 
-- [virtual-server-block-pvc.yaml](virtual-server-block-pvc.yaml) attaches block `PVC` to the virtual machine instance. The new disk is raw and need to be formatted.
+- [virtual-server-block-pvc.yaml](virtual-server-block-pvc.yaml) attaches block `PVC` to the virtual machine instance. The new disk is raw and needs to be formatted.
 
   ```
 
