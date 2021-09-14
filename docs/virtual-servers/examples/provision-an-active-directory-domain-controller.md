@@ -162,3 +162,77 @@ You will be prompted for credentials - the user account will need to have domain
 
 After rebooting, your Windows Virtual Server will now be joined to your Active Directory Domain.
 
+Confirm connectivity by performing a policy update:
+
+![Group Policy update](../../.gitbook/assets/image%20%2812%29.png)
+
+## Adding a secondary Domain Controller
+
+To create an additional domain controller, spin up a [new Virtual Server](provision-an-active-directory-domain-controller.md#create-primary-domain-controller-virtual-server) as an additional DC, and [join it](provision-an-active-directory-domain-controller.md#join-a-windows-virtual-server) to your existing domain.
+
+{% hint style="warning" %}
+Ensure you reboot after joining your Virtual Server to the domain, as well as perform a policy update.
+{% endhint %}
+
+Using the below PowerShell script, we'll install the Domain Services role and configure the DC:
+
+{% tabs %}
+{% tab title="PowerShell" %}
+{% code title="cw\_addc\_setup.ps1" %}
+```text
+$DomainName = Read-Host -Prompt "Enter Domain Name"
+$Tenant = Read-Host -Prompt "Enter CoreWeave tenant name"
+Write-Host "Ensure to precede username with $($domainname+'\')" -ForegroundColor Red -BackgroundColor Black
+$usr = Read-Host "Domain Admin UserName"
+$passwd= Read-Host "Domain Admin Password" -AsSecureString
+$cred = new-object System.Management.Automation.PSCredential($usr,$passwd)
+
+winrm quickconfig -q
+
+Add-WindowsFeature AD-Domain-Services -IncludeManagementTools
+
+Import-Module ADDSDeployment
+Install-ADDSDomainController `
+-NoGlobalCatalog:$false `
+-CreateDnsDelegation:$false `
+-Credential $cred `
+-CriticalReplicationOnly:$false `
+-DatabasePath "C:\Windows\NTDS" `
+-DomainName "$($DomainName).$($Tenant).svc.tenant.chi.local" `
+-InstallDns:$true `
+-LogPath "C:\Windows\NTDS" `
+-NoRebootOnCompletion:$false `
+-SiteName "Default-First-Site-Name" `
+-SysvolPath "C:\Windows\SYSVOL" `
+-Force:$true
+```
+{% endcode %}
+{% endtab %}
+{% endtabs %}
+
+Add the script to your VS:
+
+![Pasting cw\_addc\_setup.ps1 in over SSH](../../.gitbook/assets/image%20%2811%29.png)
+
+Once executed, follow the prompts. You'll be asked to provide:‌
+
+* **Domain Name**
+  * The name of your existing Active Directory Domain
+* **CoreWeave Tenant Name**
+  * This is your CoreWeave tenant - usually `tenant-<orgname>-<namespace>`
+* **Domain Admin UserName and Password**
+  * An account on your domain in the "Domain Administrators" group
+  * Be sure to enter this account with your domain name preceding, e.g. `AD\Admin`
+* **SafeModeAdministratorPassword**
+  * Used for Directory Services Restore Mode
+
+{% hint style="info" %}
+After executing the script, the server will automatically reboot as part of the ADDS deployment.
+{% endhint %}
+
+After rebooting, confirm your Domain Controller status with `Get-ADDomainController:`
+
+![Output of Get-AdDomainController](../../.gitbook/assets/image%20%2810%29.png)
+
+
+
