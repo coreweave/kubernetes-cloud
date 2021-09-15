@@ -8,11 +8,106 @@ Workflows on CoreWeave run on [Argo Workflows](https://argoproj.github.io/argo/)
 
 ## Getting Started
 
-After installing `kubectl` and adding your CoreWeave Cloud access credentials, the following steps will deploy the Argo Server in your namespace.
+* After logging into [CoreWeave Cloud](https://cloud.coreweave.com), go to the CoreWeave Apps `Catalog`
 
-1. Install Argo in your namespace via [CoreWeave Apps](https://apps.coreweave.com)
-2. Install the Argo CLI from the [Argo releases page](https://github.com/argoproj/argo/releases)
-3. Submit an example workflow, `gpu-say-workflow.yaml` found in this repository. The workflow takes a JSON Array and spins up one Pod with one GPU allocated for each, in parallel. `nvidia-smi` output as well as the parameter entry assigned for that Pod is printed to the log.
+![](../.gitbook/assets/image%20%2817%29.png)
+
+* A new window will open to CoreWeave Apps with the list of available applications. Find and select the **argo-workflows** application
+
+![](../.gitbook/assets/image%20%2814%29.png)
+
+* In the right upper corner, select the latest version of the helm chart and click `DEPLOY` 
+
+![](../.gitbook/assets/image%20%2825%29.png)
+
+* The deployment form will prompt you to enter an application name. The remaining parameters have our suggested defaults, when ready click `DEPLOY` at the bottom of the page 
+
+![](../.gitbook/assets/image%20%2820%29.png)
+
+{% hint style="warning" %}
+`server` authentication mode does not require credentials, we suggest using`client` mode instead for better security, for more information visit [https://argoproj.github.io/argo-workflows/argo-server-auth-mode](https://argoproj.github.io/argo-workflows/argo-server-auth-mode)
+{% endhint %}
+
+* After a few minutes, the deployment will be ready. If you selected `Expose UI via public Ingress`, Argo Workflows will be accessible outside the cluster.    
+
+
+  Click the ingress link to open Argo Workflows UI in a new window
+
+![](../.gitbook/assets/image%20%2823%29.png)
+
+{% hint style="warning" %}
+On first visit, you may encounter get a TLS certificate error. It can take up to five minutes for the certificate to be issued, once issued the error should disappear.
+{% endhint %}
+
+* To run a sample workflow, click `+SUBMIT NEW WORKFLOW` and then  `Edit using workflow options` This shows 'Argo says' workflow, click `+CREATE`, after a few minutes, on success, the workflow will change to green.
+
+## Argo CLI
+
+After installing `kubectl` and adding your CoreWeave Cloud access credentials, install Argo CLI from [https://github.com/argoproj/argo-workflows/releases](https://github.com/argoproj/argo-workflows/releases)
+
+1. Save an example workflow into the file `gpu-say-workflow.yaml`
+
+   ```text
+   apiVersion: argoproj.io/v1alpha1
+   kind: Workflow
+   metadata:
+     generateName: gpu-say
+   spec:
+     entrypoint: main
+     activeDeadlineSeconds: 300 # Cancel operation if not finished in 5 minutes
+     ttlSecondsAfterFinished: 86400 # Clean out old workflows after a day
+     # Parameters can be passed/overridden via the argo CLI.
+     # To override the printed message, run `argo submit` with the -p option:
+     # $ argo submit examples/arguments-parameters.yaml -p messages='["CoreWeave", "Is", "Fun"]'
+     arguments:
+       parameters:
+       - name: messages
+         value: '["Argo", "Is", "Awesome"]'
+
+     templates:
+     - name: main
+       steps:
+       - - name: echo
+           template: gpu-echo
+           arguments:
+             parameters:
+             - name: message
+               value: "{{item}}"
+           withParam: "{{workflow.parameters.messages}}"
+
+     - name: gpu-echo
+       inputs:
+         parameters:
+         - name: message
+       retryStrategy:
+         limit: 1
+       script:
+         image: nvidia/cuda:11.4.1-runtime-ubuntu20.04
+         command: [bash]
+         source: |
+           nvidia-smi
+           echo "Input was: {{inputs.parameters.message}}"
+
+         resources:
+           requests:
+             memory: 128Mi
+             cpu: 500m # Half a core
+           limits:
+             nvidia.com/gpu: 1 # Allocate one GPU
+       affinity:
+         nodeAffinity:
+           requiredDuringSchedulingIgnoredDuringExecution:
+               # This will REQUIRE the Pod to be run on a system with a GPU with 8 or 16GB VRAM
+                 nodeSelectorTerms:
+                 - matchExpressions:
+                   - key: gpu.nvidia.com/vram
+                     operator: In
+                     values:
+                       - "8"
+                       - "16"
+   ```
+
+2. Submit the workflow, `gpu-say-workflow.yaml` . The workflow takes a JSON Array and spins up one Pod with one GPU allocated for each, in parallel. `nvidia-smi` output, as well as the parameter entry assigned for that Pod, is printed to the log.
 
    ```text
    $ argo submit --watch gpu-say-workflow.yaml -p messages='["Argo", "Is", "Awesome"]'
@@ -33,7 +128,7 @@ After installing `kubectl` and adding your CoreWeave Cloud access credentials, t
         └-✔ echo(2:Awesome)(0) (gpu-echo)  gpu-sayzfwxc-3986963301  12s
    ```
 
-4. Get the log output from all parallel containers
+3. Get the log output from all parallel containers
 
    ```text
    $ argo logs -w gpu-sayrbr6z
@@ -60,14 +155,6 @@ After installing `kubectl` and adding your CoreWeave Cloud access credentials, t
    echo(1:Is)(0):    |-------------------------------+----------------------+----------------------+
    ...
    ```
-
-5. Port forward the Argo UI
-
-   ```bash
-   kubectl port-forward svc/argo-server 2746:2746
-   ```
-
-6. Open and explore the Argo UI at [http://localhost:2746](http://localhost:2746)
 
 ## Recommendations
 
