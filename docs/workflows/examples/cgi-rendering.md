@@ -280,10 +280,10 @@ spec:
         requiredDuringSchedulingIgnoredDuringExecution:
           nodeSelectorTerms:
           - matchExpressions:
-            - key: gpu.nvidia.com/class
+            - key: gpu.nvidia.com/model
               operator: In
               values: # This is where we identify what GPU type we want to run on.
-              - NV_Pascal
+              - Quadro_RTX_4000
 ```
 {% endcode %}
 
