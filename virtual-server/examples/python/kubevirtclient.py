@@ -252,6 +252,14 @@ class KubeVirtClient:
         version = self.version(namespace, name)
         return self.kubevirt_api(namespace, name, 'stop', version=version, **kwargs)
 
+    def restart(self, namespace, name, **kwargs):
+        """
+        Restart kubevirt instance.
+        """
+        kwargs['_return_http_data_only'] = True
+        version = self.version(namespace, name)
+        return self.kubevirt_api(namespace, name, 'restart', version=version, **kwargs)
+
     def version(self, namespace, name):
         """
         Retrieve kubevirt api version.

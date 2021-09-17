@@ -84,6 +84,18 @@ except ApiException as e:
 print(vsclient.create(my_virtualserver))
 print(f'VirtualServer status: {vsclient.ready(namespace, name)}')
 
+# Update the manifest and attach directly to Load Balancer
+my_virtualserver['spec']['network']['tcp']['ports'] = []
+my_virtualserver['spec']['network']['udp']['ports'] = []
+my_virtualserver['spec']['network']['directAttachLoadBalancerIP'] = True
+print(vsclient.update(my_virtualserver))
+
+# Restart the Virtual Machine Instance to apply changes.
+print(vsclient.kubevirt_api.restart(namespace, name))
+print(f'VirtualServer status: {vsclient.ready(namespace, name, expected_state="Terminating")}')
+print(f'VirtualServer status: {vsclient.ready(namespace, name)}')
+
+
 # Stop virtual server
 print(vsclient.kubevirt_api.stop(namespace, name))
 print(f'VirtualServer status: {vsclient.ready(namespace, name, expected_state="Stopped")}')

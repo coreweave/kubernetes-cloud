@@ -9,7 +9,7 @@ The python example illustrates the following:
 4. Stop the Virtual Server instance and wait until it is stopped.
 5. Delete the Virtual Server instance.
 
-In order to workaround unresolved issue with resource paths in the native python client for kubevirt https://github.com/kubevirt/client-python, we introduced class `KubeVirtClient` for basic operations on kubevirt VirtualMachine resources.
+In order to workaround unresolved issues with resource paths in the native python client for kubevirt https://github.com/kubevirt/client-python, we introduced the class `KubeVirtClient` for basic operations on kubevirt VirtualMachine resources.
 
 Class VSClient performs basic operations on the Vitrual Server resource.
 
