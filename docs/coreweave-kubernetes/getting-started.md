@@ -24,6 +24,20 @@ chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin/kubectl
 ```
 
+#### Windows
+
+{% tabs %}
+{% tab title="PowerShell" %}
+```text
+& $([scriptblock]::Create((New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/coreweave/kubernetes-cloud/master/getting-started/k8ctl_setup.ps1')))
+```
+
+{% hint style="info" %}
+Add `-Silent` to the end of this string for a non-interactive setup.
+{% endhint %}
+{% endtab %}
+{% endtabs %}
+
 ### Set Up Access
 
 You will have received a pre-populated `k8s-conf` file from CoreWeave as part of your onboarding package. The snippet below assumes that you have no other Kubernetes credentials stored on your system, if you do you will need to open both files and copy the `cluster`, `context` and `user` from the supplied `k8s-conf` file into your existing `~/.kube/config` file.
