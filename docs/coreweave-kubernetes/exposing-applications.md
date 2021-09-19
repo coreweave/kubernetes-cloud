@@ -4,7 +4,7 @@ description: Expose Applications using Kubernetes Services
 
 # Exposing Applications
 
-Kubernetes workloads can be exposed to each other, and to the public using Services and Ingresses. A Service allocates a dedicated IP for the exposed application, whereas an Ingress works for HTTP based protocols and alleviates the need for a separate IP for each endpoint. For stateless web-services, using the [Serverless](serverless.md) framework is another option where the application is deployed with a TLS enabled hostname and auto-scaling for you.
+Kubernetes workloads can be exposed to each other, and to the public using Services and [Ingresses](exposing-applications.md#ingress). A Service allocates a dedicated IP for the exposed application, whereas an Ingress works for HTTP based protocols and alleviates the need for a separate IP for each endpoint. For stateless web-services, using the [Serverless](serverless.md) framework is another option where the application is deployed with a TLS enabled hostname and auto-scaling for you.
 
 ## Internal Services
 
