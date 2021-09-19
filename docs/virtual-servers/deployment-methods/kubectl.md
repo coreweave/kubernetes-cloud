@@ -43,7 +43,7 @@ The following fields are within the manifest spec
 | users\[ \].username | String | Username for the user |
 | users\[ \].password | String | Password for the user |
 | network | {} | Defines the network configuration |
-| network.directAttachLoadBalancerIP | Boolean | Directly attach a loadbalancer IP to the Virtual Server |
+| network.directAttachLoadBalancerIP | Boolean | [Directly attach a loadbalancer IP to the Virtual Server](../../coreweave-kubernetes/exposing-applications.md#attaching-service-ip-directly-to-pod) |
 | network.floatingIPs | \[\] | A list of service references to be added as floating IPs |
 | network.floatingIPs\[ \].serviceName | String | Name of the service |
 | network.tcp | {} | Defines the TCP network configuration |
@@ -60,7 +60,7 @@ The following fields are within the manifest spec
 {% endhint %}
 
 {% hint style="info" %}
-Note: Certain fields are mutually exclusive. These are: 
+Certain fields are mutually exclusive:
 
 * GPU type and CPU type
 * TCP ports or UDP ports and directAttachLoadbalancerIP 
