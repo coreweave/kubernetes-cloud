@@ -43,7 +43,7 @@ spec:
 {% endcode %}
 
 {% hint style="info" %}
-For most public services, ensure that `externalTrafficPolicy: Local` is set on the service. This load balances ingress traffic from the Internet directly to the  nodes running the  application.
+For public services, ensure that `externalTrafficPolicy: Local` is set on the service. This load balances ingress traffic from the Internet directly to the  nodes running the  application.
 {% endhint %}
 
 
