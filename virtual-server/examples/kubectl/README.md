@@ -2,7 +2,7 @@ This directory contains several example manifests for `VirtualServer`.
 
 To run any of the examples issue: `kubectl apply -f <manifest_file_name.yaml>`
 
-- [virtual-server-direct-attach-lb.yaml](virtual-server-direct-attach-lb.yaml) shows how to directly attach the Load Balancer IP to a Virtual Server. This will give 
+- [virtual-server-direct-attach-lb.yaml](virtual-server-direct-attach-lb.yaml) shows how to directly attach the Load Balancer IP to a Virtual Server. This will the VS a unfiltered Public IP that also is visible to the VM itself. This will give a classic VPS style experience.
 
 - [virtual-server-windows-internal-ip-only.yaml](virtual-server-windows-internal-ip-only.yaml) creates a Windows Virtual Server with no public IP (STATIC internal IP only) - useful for servers that will only be accessed in your namespace, such as Domain Controllers.
 

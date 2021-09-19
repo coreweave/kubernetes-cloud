@@ -1,7 +1,7 @@
 apiVersion: virtualservers.coreweave.com/v1alpha1
 kind: VirtualServer
 metadata:
-  name: vs-ubuntu2004-direct-lb
+  name: example-vs-direct
 spec:
   region: ORD1
   os:
@@ -11,7 +11,7 @@ spec:
       type: Quadro_RTX_4000
       count: 1
     cpu:
-      count: 3
+      count: 4
     memory: 16Gi
   storage:
     root:
@@ -20,37 +20,15 @@ spec:
       source:
         pvc:
           namespace: vd-images
-          name: ubuntu2004-docker-master-20210323-ord1
+          name: ubuntu2004-nvidia-465-19-01-1-docker-master-20211011-ord1
   # Change user name and pasword
   # User is on the sudoers list
-#  users:
-#    - username: SET YOUR USERNAME HERE
-#      password: SET YOUR PASSWORD HERE  
-      # To use key-based authentication replace and uncomment ssh-rsa below with your public ssh key
-      # sshpublickey: |
-      #   ssh-rsa AAAAB3NzaC1yc2EAAAA ... user@hostname
+  #  users:
+  #    - username: SET YOUR USERNAME HERE
+  #      password: SET YOUR PASSWORD HERE  
+  # To use key-based authentication replace and uncomment ssh-rsa below with your public ssh key
+  #  sshpublickey: |
+  #    ssh-rsa AAAAB3NzaC1yc2EAAAA ... user@hostname
   network:
     public: true
     directAttachLoadBalancerIP: true
-  cloudInit: |
-    # Write a simple script
-    write_files:
-    - content: |
-        #!/bin/bash
-        echo "Hello world!"
-      path: /home/myuser/script.sh
-      permissions: '0744'
-      owner: myuser:myuser
-    # Update packages
-    package_update: true
-    # Install packages
-    packages:
-      - curl
-      - git
-    # Run additional commands
-    runcmd:
-      - [df, -h]
-      - [git, version]
-      - [curl, --version ]
-      - [bash, /home/myuser/script.sh]
-  initializeRunning: true

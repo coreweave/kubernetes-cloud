@@ -34,3 +34,33 @@ spec:
     tcp:
       ports:
         - 22
+        - 443
+        - 60443
+        - 4172
+        - 3389
+    udp:
+      ports:
+        - 4172
+        - 3389
+  cloudInit: |
+    # Write a simple script
+    write_files:
+    - content: |
+        #!/bin/bash
+        echo "Hello world!"
+      path: /home/myuser/script.sh
+      permissions: '0744'
+      owner: myuser:myuser
+    # Update packages
+    package_update: true
+    # Install packages
+    packages:
+      - curl
+      - git
+    # Run additional commands
+    runcmd:
+      - [df, -h]
+      - [git, version]
+      - [curl, --version ]
+      - [bash, /home/myuser/script.sh]
+  initializeRunning: true
