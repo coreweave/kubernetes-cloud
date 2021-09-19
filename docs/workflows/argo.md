@@ -47,67 +47,67 @@ After installing `kubectl` and adding your CoreWeave Cloud access credentials, i
 
 1. Save an example workflow into the file `gpu-say-workflow.yaml`
 
-   ```text
-   apiVersion: argoproj.io/v1alpha1
-   kind: Workflow
-   metadata:
-     generateName: gpu-say
-   spec:
-     entrypoint: main
-     activeDeadlineSeconds: 300 # Cancel operation if not finished in 5 minutes
-     ttlSecondsAfterFinished: 86400 # Clean out old workflows after a day
-     # Parameters can be passed/overridden via the argo CLI.
-     # To override the printed message, run `argo submit` with the -p option:
-     # $ argo submit examples/arguments-parameters.yaml -p messages='["CoreWeave", "Is", "Fun"]'
-     arguments:
-       parameters:
-       - name: messages
-         value: '["Argo", "Is", "Awesome"]'
+```yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: gpu-say
+spec:
+  entrypoint: main
+  activeDeadlineSeconds: 300 # Cancel operation if not finished in 5 minutes
+  ttlSecondsAfterFinished: 86400 # Clean out old workflows after a day
+  # Parameters can be passed/overridden via the argo CLI.
+  # To override the printed message, run `argo submit` with the -p option:
+  # $ argo submit examples/arguments-parameters.yaml -p messages='["CoreWeave", "Is", "Fun"]'
+  arguments:
+    parameters:
+    - name: messages
+      value: '["Argo", "Is", "Awesome"]'
 
-     templates:
-     - name: main
-       steps:
-       - - name: echo
-           template: gpu-echo
-           arguments:
-             parameters:
-             - name: message
-               value: "{{item}}"
-           withParam: "{{workflow.parameters.messages}}"
+  templates:
+  - name: main
+    steps:
+    - - name: echo
+        template: gpu-echo
+        arguments:
+          parameters:
+          - name: message
+            value: "{{item}}"
+        withParam: "{{workflow.parameters.messages}}"
 
-     - name: gpu-echo
-       inputs:
-         parameters:
-         - name: message
-       retryStrategy:
-         limit: 1
-       script:
-         image: nvidia/cuda:11.4.1-runtime-ubuntu20.04
-         command: [bash]
-         source: |
-           nvidia-smi
-           echo "Input was: {{inputs.parameters.message}}"
+  - name: gpu-echo
+    inputs:
+      parameters:
+      - name: message
+    retryStrategy:
+      limit: 1
+    script:
+      image: nvidia/cuda:11.4.1-runtime-ubuntu20.04
+      command: [bash]
+      source: |
+        nvidia-smi
+        echo "Input was: {{inputs.parameters.message}}"
 
-         resources:
-           requests:
-             memory: 128Mi
-             cpu: 500m # Half a core
-           limits:
-             nvidia.com/gpu: 1 # Allocate one GPU
-       affinity:
-         nodeAffinity:
-           requiredDuringSchedulingIgnoredDuringExecution:
-               # This will REQUIRE the Pod to be run on a system with a GPU with 8 or 16GB VRAM
-                 nodeSelectorTerms:
-                 - matchExpressions:
-                   - key: gpu.nvidia.com/vram
-                     operator: In
-                     values:
-                       - "8"
-                       - "16"
-   ```
+      resources:
+        requests:
+          memory: 128Mi
+          cpu: 500m # Half a core
+        limits:
+          nvidia.com/gpu: 1 # Allocate one GPU
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+            # This will REQUIRE the Pod to be run on a system with a GPU with 8 or 16GB VRAM
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: gpu.nvidia.com/vram
+                  operator: In
+                  values:
+                    - "8"
+                    - "16"
+```
 
-2. Submit the workflow, `gpu-say-workflow.yaml` . The workflow takes a JSON Array and spins up one Pod with one GPU allocated for each, in parallel. `nvidia-smi` output, as well as the parameter entry assigned for that Pod, is printed to the log.
+1. Submit the workflow, `gpu-say-workflow.yaml` . The workflow takes a JSON Array and spins up one Pod with one GPU allocated for each, in parallel. `nvidia-smi` output, as well as the parameter entry assigned for that Pod, is printed to the log.
 
    ```text
    $ argo submit --watch gpu-say-workflow.yaml -p messages='["Argo", "Is", "Awesome"]'
@@ -128,7 +128,7 @@ After installing `kubectl` and adding your CoreWeave Cloud access credentials, i
         └-✔ echo(2:Awesome)(0) (gpu-echo)  gpu-sayzfwxc-3986963301  12s
    ```
 
-3. Get the log output from all parallel containers
+2. Get the log output from all parallel containers
 
    ```text
    $ argo logs -w gpu-sayrbr6z
