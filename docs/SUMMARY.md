@@ -65,10 +65,10 @@
 ## Solutions
 
 * [VFX](solutions/vfx/README.md)
+  * [Deadline](solutions/vfx/deadline.md)
   * [On-Premise Integration](solutions/vfx/on-premise-integration/README.md)
     * [CloudLink on Linux](solutions/vfx/on-premise-integration/linux.md)
     * [Synology NAS](solutions/vfx/on-premise-integration/synology-nas.md)
-* [Deadline](solutions/deadline.md)
 * [Virtual Workstations](solutions/virtual-workstations.md)
 
 ## Resources

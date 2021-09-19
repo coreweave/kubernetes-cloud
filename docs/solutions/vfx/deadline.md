@@ -77,7 +77,7 @@ You'll need to point your client to the repository that contains the remote conn
 
 CoreWeave uses RCS to connect to your files so please choose the “Remote Connection Server” \(RCS\) option.   
 
-![](../.gitbook/assets/screen-shot-2021-05-28-at-12.01.09-pm.png)
+![](../../.gitbook/assets/screen-shot-2021-05-28-at-12.01.09-pm.png)
 
 Add the IP address and port for your Remote Connection Server \(RCS\) namespace. \(These should be included in your CoreWeave Welcome pack.\)
 
@@ -89,7 +89,7 @@ Please ensure that you're using:4433 as the port. CoreWeave uses TLS to ensure y
 
 CoreWeave is committed to your privacy and security. In order to connect to the CoreWeave repository, you’ll need to add the security certificate and the initial password that was included in your CoreWeave Welcome Pack.   
 
-![](../.gitbook/assets/screen-shot-2021-05-28-at-11.33.12-am.png)
+![](../../.gitbook/assets/screen-shot-2021-05-28-at-11.33.12-am.png)
 
 Please make sure you change the temporary password after submitting.   
 
@@ -99,13 +99,13 @@ Because you'll be rendering to CoreWeave's services in the Cloud and not your lo
 
 Please ensure that both the "Launch Worker when Launcher starts" and "Install Launcher As Service" boxes are both **unchecked**.   
 
-![](../.gitbook/assets/screen-shot-2021-05-28-at-12.02.27-pm.png)
+![](../../.gitbook/assets/screen-shot-2021-05-28-at-12.02.27-pm.png)
 
 This will now spin up your instances and connect to the right servers.
 
 You now should see the Deadline Launcher in your dock where you'll be able to perform key tasks like testing your connection, launch your workers, etc...   
 
-![](../.gitbook/assets/launchericon.png)
+![](../../.gitbook/assets/launchericon.png)
 
 If you do not see the Deadline Launcher, go to the search bar on Windows and type "Launcher", select Deadline Launcher to open. 
 
@@ -114,7 +114,7 @@ If you do not see the Deadline Launcher, go to the search bar on Windows and typ
 If you need to change your Repository settings, there are a few things you'll need to do.    
   
 
-![](../.gitbook/assets/screen-shot-2021-05-28-at-11.45.48-am.png)
+![](../../.gitbook/assets/screen-shot-2021-05-28-at-11.45.48-am.png)
 
 1: Right-click on the Deadline Launcher in your dock and choose the "Change Repository..." option.
 
@@ -131,7 +131,7 @@ b\) Update the IP address and port as required.
 
 When the Deadline Monitor launches, the monitor window should appear pretty quickly.   
 
-![](../.gitbook/assets/screen-shot-2021-05-28-at-1.12.21-pm.png)
+![](../../.gitbook/assets/screen-shot-2021-05-28-at-1.12.21-pm.png)
 
 If you encounter any errors, please check the following:
 
@@ -160,7 +160,7 @@ After your settings have been entered, it’s now time to launch Deadline and ge
 Go to your desktop and right-click on the Deadline icon that appears in the dock. The application should load and you should be greeted with a screen that shows you your Jobs, Tasks and Workers.    
    
 
-![](../.gitbook/assets/screen-shot-2021-05-28-at-1.00.27-pm.png)
+![](../../.gitbook/assets/screen-shot-2021-05-28-at-1.00.27-pm.png)
 
 The title bar of the “Workers” module should show you having a direct connection to the CoreWeave repository.
 
