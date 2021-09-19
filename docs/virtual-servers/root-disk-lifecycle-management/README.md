@@ -4,9 +4,15 @@ description: Manage custom OS images on CoreWeave Cloud
 
 # Root Disk Lifecycle Management
 
-## Contents
+When instantiating Virtual Servers, it is often desired to have a customized template root disk image to instantiate off. CoreWeave provides standard images with the base OS, GPU drivers and utilities like Docker. There are multiple ways to customize the CoreWeave provided images into your own templates, or import a new image from an external source.
 
-1. [Copying CoreWeave Images to a Writeable PVC](exporting-coreweave-images-to-a-writable-pvc.md)
+**Manual Customization and Cloning**
+
+{% page-ref page="creating-a-virtual-server-base-image.md" %}
+
+**Automatic provisioning and CI integration using Packer**
+
+1. \*\*\*\*[Copying CoreWeave Images to a Writeable PVC](exporting-coreweave-images-to-a-writable-pvc.md)
 2. [Using Hashicorp Packer to create and update OS Images](using-packer-to-create-and-update-os-images/)
    1. [Creating a Packer Worker Virtual Server](using-packer-to-create-and-update-os-images/creating-a-packer-worker-virtual-server.md)
    2. [Configuring a Windows Image sourced from CoreWeave Cloud](using-packer-to-create-and-update-os-images/configuring-a-windows-image-sourced-from-coreweave-cloud.md)

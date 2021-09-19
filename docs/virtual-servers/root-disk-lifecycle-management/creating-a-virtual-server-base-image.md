@@ -1,4 +1,4 @@
-# Creating a Virtual Server base image
+# Manually creating a Virtual Server base image
 
 **Objective:** Configure a Virtual Server instance to serve as the source for subsequent Virtual Server deployment instances.  
 **Overview:** CoreWeave offers a variety of operating system base images, enhanced to run on CoreWeave Cloud, via our **vd-images** namespace. This guide details using one of these base images, customizing it with desired changes, and using it as a source disk for subsequent machines in a private tenant namespace.
