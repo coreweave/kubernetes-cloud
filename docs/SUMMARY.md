@@ -74,5 +74,9 @@
 ## Resources
 
 * [Resource Based Pricing](resources/resource-based-pricing.md)
-* [Terms of Service](resources/terms-of-service.md)
+* [Terms of Service](resources/terms-of-service/README.md)
+  * [Data Protection Agreement](resources/terms-of-service/data-protection-agreement.md)
+  * [Acceptable Use Policy](resources/terms-of-service/acceptable-use-policy.md)
+  * [Privacy Policy](resources/terms-of-service/privacy-policy.md)
+  * [Security & Compliance](resources/terms-of-service/security-and-compliance.md)
 
