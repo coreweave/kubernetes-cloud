@@ -20,6 +20,11 @@ class VSClient:
             'reason': 'VirtualServerReady',
             'status': 'True',
             'type': 'Ready',
+        },
+        'Terminating': {
+            'reason': 'Terminating',
+            'status': 'False',
+            'type': 'Ready',
         }
     }
 
@@ -53,7 +58,7 @@ class VSClient:
         if not namespace or not name:
             raise TypeError('VirtualServer metadata.namespace and metadata.name is required')
         return self.api.patch_namespaced_custom_object(
-            VSClient.GROUP, VSClient.VERSION, namespace, VSClient.PLURAL, manifest)
+            VSClient.GROUP, VSClient.VERSION, namespace, VSClient.PLURAL, name, manifest)
 
     @staticmethod
     def match_condition(condition, expected_status):
@@ -75,7 +80,7 @@ class VSClient:
             'field_selector': f'metadata.name={name}'
         }
         ready_condition = None
-        print('Waiting for virtual server to be ready ...')
+        print(f'Waiting for virtual server to be {expected_state} ...')
         for event in w.stream(self.api.list_namespaced_custom_object,
                               VSClient.GROUP, VSClient.VERSION, namespace, VSClient.PLURAL, **kwargs):
             status = event['object']['status']
@@ -101,7 +106,7 @@ class VSClient:
                 udp_ip = network['internalIP'] if 'internalIP' in network else ''
                 print(f'{name}, external IP: {tcp_ip}, internal IP: {udp_ip}')
                 w.stop()
-            elif ready_condition == 'Stopped':
+            elif ready_condition == 'Stopped' or ready_condition == 'Terminating':
                 w.stop()
         return ready_condition
 
