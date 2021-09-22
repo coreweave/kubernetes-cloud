@@ -45,7 +45,7 @@ spec:
               # Making individual Pods resource light is advantageous for bin-packing. In the case of Ethminer, running a single GPU
               # per Pod would work well and often be preferred. In this example we use 2 GPUs per pod to showcase the flexibility
               # of GPU allocation.
-              nvidia.com/gpu: 1
+              nvidia.com/gpu: 2
 
       # Node affinity can be used to require / prefer the Pods to be scheduled on a node with a specific hardware type
       # No affinity allows scheduling on all hardware types that can fulfill the resource request.
@@ -61,19 +61,13 @@ spec:
                 operator: In
                 values:
                   - NV_Pascal
+                  - Tesla_V100
 
           # As mining doesn't require much CPU and very little network connectivity, we try to play nice and only schedule
           # the Pod on systems with Celeron family CPUs and 1G network connections. This is a preference, not a requirement.
           # If systems with Celeron CPUs and/or 1G ethernet are not available to fulfill the requested resources, the Pods
           # will be scheduled on higher end systems.
           preferredDuringSchedulingIgnoredDuringExecution:
-            - weight: 10
-              preference:
-                matchExpressions:
-                - key: cpu.coreweave.cloud/family
-                  operator: In
-                  values:
-                    - celeron
             - weight: 10
               preference:
                 matchExpressions:
