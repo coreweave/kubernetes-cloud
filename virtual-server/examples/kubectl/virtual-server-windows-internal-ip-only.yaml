@@ -24,9 +24,9 @@ spec:
           # https://docs.coreweave.com/virtual-servers/root-disk-lifecycle-management/exporting-coreweave-images-to-a-writable-pvc#identifying-source-image
           name: winserver2019std-master-20210819-ord1
   # Change user name and pasword
-  users:
-    - username: myuser
-      password: password
+#  users:
+#    - username: SET YOUR USERNAME HERE
+#      password: SET YOUR PASSWORD HERE  
   network:
     directAttachLoadBalancerIP: true
     public: false

@@ -72,13 +72,6 @@ runcmd:
   - [df, -h]
   - [git, version]
   - [curl, --version ]
-# Additional user
-users:
-  - name: newuser
-    plain_text_passwd: password
-    shell: /bin/bash
-    sudo: ALL=(ALL) NOPASSWD:ALL
-    lock_passwd: false
 `,
   network: {
     public: true,
