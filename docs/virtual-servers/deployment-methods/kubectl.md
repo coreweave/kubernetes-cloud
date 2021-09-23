@@ -150,7 +150,7 @@ $ kubectl get pods | grep virt-launcher
 virt-launcher-vs-ubuntu2004-block-pvc-m8mqt      1/1     Running     0          94s
 ```
 
-Depending on the current state of Virtual Server, the `vmi` will either be running or terminated
+Depending on the current state of Virtual Server, the `vmi` will either be running or terminated.
 
 | `virtctl` command | `vs` state | `vmi` state | `pod` state |
 | :--- | :--- | :--- | :--- |
