@@ -23,9 +23,9 @@ spec:
           name: ubuntu2004-docker-master-20210323-ord1
   # Change user name and pasword
   # User is on the sudoers list
-  users:
-    - username: myuser
-      password: password
+#  users:
+#    - username: SET YOUR USERNAME HERE
+#      password: SET YOUR PASSWORD HERE  
       # To use key-based authentication replace and uncomment ssh-rsa below with your public ssh key
       # sshpublickey: |
       #   ssh-rsa AAAAB3NzaC1yc2EAAAA ... user@hostname
@@ -33,13 +33,6 @@ spec:
     public: true
     directAttachLoadBalancerIP: true
   cloudInit: |
-    # Additional user
-    users:
-      - name: newuser
-        plain_text_passwd: password
-        shell: /bin/bash
-        sudo: ALL=(ALL) NOPASSWD:ALL
-        lock_passwd: false
     # Write a simple script
     write_files:
     - content: |
