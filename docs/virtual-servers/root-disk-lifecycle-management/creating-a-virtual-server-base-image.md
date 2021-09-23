@@ -65,7 +65,7 @@ We can monitor the Virtual Server spinning up with `k get pods --watch`
 
 Once our VS has reached "Running" status, we can get an External IP to connect to it with `k get vs`
 
-![Output of &quot;k get vs&quot;](../../.gitbook/assets/image%20%2831%29%20%281%29.png)
+![Output of &quot;k get vs&quot;](../../.gitbook/assets/image%20%2831%29%20%281%29%20%281%29.png)
 
 {% hint style="info" %}
 Allow ~5 minutes after "Running" status for the Virtual Server to complete initial start procedures.
