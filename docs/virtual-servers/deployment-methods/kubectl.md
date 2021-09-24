@@ -70,7 +70,7 @@ Certain fields are mutually exclusive:
 
 ### Deploying a Virtual Server
 
-We provide a few simple example [Virtual Server manifests](https://github.com/coreweave/kubernetes-cloud/tree/master/virtual-server/examples/kubectl). 
+We provide a few simple examples [Virtual Server manifests](https://github.com/coreweave/kubernetes-cloud/tree/master/virtual-server/examples/kubectl). 
 
 | Example | File | GPU |
 | :--- | :--- | :--- |
