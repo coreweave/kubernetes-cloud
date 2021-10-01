@@ -162,11 +162,13 @@ We recommend the following retry strategy on your workflow / steps.
 
 ```yaml
  retryStrategy:
-   limit: 4
+   limit: 2
    retryPolicy: Always
    backoff:
      duration: "15s"
      factor: 2
+   affinity:
+     nodeAntiAffinity: {}
 ```
 
 We also recommend setting an `activeDeadlineSeconds` on each `step`, but not on the entire workflow. This allows a step to retry but prevents it from taking unreasonably long time to finish.
