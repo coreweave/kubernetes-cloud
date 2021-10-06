@@ -95,6 +95,38 @@ spec:
 ```
 {% endtab %}
 
+{% tab title="Single A100 With Fallback To A40" %}
+```yaml
+spec:
+  containers:
+  - name: example
+    resources:
+      limits:
+        cpu: 12
+        memory: 24Gi
+        nvidia.com/gpu: 1
+        
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: gpu.nvidia.com/class
+            operator: In
+            values:
+              - A100_PCIE_40G
+              - A40
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 20
+          preference:
+            matchExpressions:
+              - key: gpu.nvidia.com/class
+                operator: In
+                values:
+                  - A100_PCIE_40G
+```
+{% endtab %}
+
 {% tab title="16 Core Xeon v1/v2 CPU" %}
 ```yaml
 spec:
