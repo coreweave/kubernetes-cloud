@@ -95,7 +95,7 @@ spec:
 ```
 {% endtab %}
 
-{% tab title="Single A100 With Fallback To A40" %}
+{% tab title="A100 With Fallback To A40" %}
 ```yaml
 spec:
   containers:
