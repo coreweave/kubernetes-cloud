@@ -23,7 +23,7 @@ resource "kubernetes_manifest" "virtualserver" {
       "os" = {
         "type" = var.vs_os_type
       }
-      "region" = var.vs_region
+      "region" = upper(var.vs_region)
       "resources" = {
         "cpu" = {
           "count" = var.vs_cpu_count
@@ -43,7 +43,7 @@ resource "kubernetes_manifest" "virtualserver" {
               "namespace" = "vd-images"
             }
           }
-          "storageClassName" = "block-nvme-${var.vs_region}"
+          "storageClassName" = "block-nvme-${lower(var.vs_region)}"
         }
       }
       "users" = [
@@ -52,7 +52,6 @@ resource "kubernetes_manifest" "virtualserver" {
           "password" = var.vs_generate_password ? random_string.vs_generate_password[0].result : var.vs_password
         },
       ]
-
     }
   }
 }
