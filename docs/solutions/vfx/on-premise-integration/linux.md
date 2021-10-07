@@ -35,7 +35,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 version: '2.2'
 services:
   cloudlink-client:
-    image: coreweave/cloud-link:0.0.3
+    image: coreweave/cloud-link:0.0.8
     environment:
     - FRP_SERVER=cloudlink-server.example.coreweave.cloud
     - FILE_SERVER=127.0.0.1
