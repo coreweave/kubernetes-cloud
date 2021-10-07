@@ -1,5 +1,5 @@
 resource "kubernetes_manifest" "virtualserver" {
-  provider = kubernetes-alpha
+  provider = kubernetes
 
   manifest = {
     "apiVersion" = "virtualservers.coreweave.com/v1alpha1"
@@ -14,11 +14,11 @@ resource "kubernetes_manifest" "virtualserver" {
         "directAttachLoadBalancerIP" = var.vs_attach_loadbalancer
         "public"                     = var.vs_public_networking
         "tcp" = {
-          "ports" = var.vs_tcp_ports
+          "ports" = var.vs_public_networking ? null : var.vs_tcp_ports
         }
         "udp" = {
-          "ports" = var.vs_udp_ports
-        }
+          "ports" = var.vs_public_networking ? null : var.vs_udp_ports
+        }        
       }
       "os" = {
         "type" = var.vs_os_type
@@ -27,10 +27,11 @@ resource "kubernetes_manifest" "virtualserver" {
       "resources" = {
         "cpu" = {
           "count" = var.vs_cpu_count
+          "type" = var.vs_gpu != "" ? null : (var.vs_cpu_type != "" ? var.vs_cpu_type : "amd-epyc-rome")
         }
         "gpu" = {
-          "count" = var.vs_gpu_count
-          "type"  = var.vs_gpu_enable ? var.vs_gpu : "Quadro_RTX_4000"
+          "count" = var.vs_gpu != "" ? var.vs_gpu_count : "1" 
+          "type"  = var.vs_gpu != "" ? (var.vs_gpu != "" ? var.vs_gpu : "Quadro_RTX_4000") : null
         }
         "memory" = var.vs_memory
       }
