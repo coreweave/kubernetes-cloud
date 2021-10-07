@@ -1,5 +1,8 @@
 provider "kubernetes" {
   config_path = var.kubeconfig_path
+  experiments {
+      manifest_resource = true
+  }  
 }
 resource "random_string" "vs_generate_password" {
   count            = var.vs_generate_password ? 1 : 0
