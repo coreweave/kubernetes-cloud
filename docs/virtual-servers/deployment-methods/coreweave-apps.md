@@ -45,7 +45,7 @@ Root disk storage size can be increased later, and the operating system will aut
 
 Configure your desired GPU type/count, CPU count, and RAM. 
 
-![Hardware configuration](../../.gitbook/assets/image%20%2850%29.png)
+![](../../.gitbook/assets/image%20%2854%29.png)
 
 {% hint style="info" %}
 CPU classes can only be specified in a CPU only instance. GPU nodes are pre-configured with frequency optimized CPUs.
