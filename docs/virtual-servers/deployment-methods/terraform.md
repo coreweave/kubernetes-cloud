@@ -23,7 +23,6 @@ In the environment's Terraform variables, or the root module's `terraform.tfvars
 | vs\_os\_type | string | Virtual Server OS variant \(i.e. linux\) | true |
 | vs\_image | string | OS image deployed to virtual server | true |
 | vs\_gpu | string | GPU model name for virtual server | true |
-| vs\_gpu\_enable | bool | Enable a GPU for this this virtual server | true |
 | vs\_gpu\_count | int | Number of GPUs requested | true |
 | vs\_cpu\_count | int | Number of CPUs requested | true |
 | vs\_region | string | Region to deploy server to | true |
