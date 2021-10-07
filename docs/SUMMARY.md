@@ -43,6 +43,7 @@
 
 * [Getting Started](virtual-servers/getting-started.md)
 * [Deployment Methods](virtual-servers/deployment-methods/README.md)
+  * [CoreWeave Apps Web UI](virtual-servers/deployment-methods/coreweave-apps.md)
   * [CLI](virtual-servers/deployment-methods/kubectl.md)
   * [Terraform](virtual-servers/deployment-methods/terraform.md)
   * [Programmatically](virtual-servers/deployment-methods/programmatically/README.md)
