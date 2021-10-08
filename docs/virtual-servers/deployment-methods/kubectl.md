@@ -42,6 +42,7 @@ The following fields are within the manifest spec
 | users | \[\] | A list of users to be added by cloud-init \(if supported by the OS\) |
 | users\[ \].username | String | Username for the user |
 | users\[ \].password | String | Password for the user |
+| users\[ \].sshpublickey | String | An ssh public key for the user |
 | network | {} | Defines the network configuration |
 | network.directAttachLoadBalancerIP | Boolean | [Directly attach a loadbalancer IP to the Virtual Server](../../coreweave-kubernetes/exposing-applications.md#attaching-service-ip-directly-to-pod) |
 | network.floatingIPs | \[\] | A list of service references to be added as floating IPs |
