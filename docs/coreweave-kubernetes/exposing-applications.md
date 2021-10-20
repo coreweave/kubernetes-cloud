@@ -17,10 +17,10 @@ Exposing services to the Internet is done by deploying a `LoadBalancer` service 
 Depending upon where you've requested your workloads to run, public IP pools are accessible via the region location in the following manner:
 
 | Region | Address Pool Label |
-| :--- | :--- |
-| ORD1 | public-ord1 |
-| EWR1 | public-ewr1 |
-| LAS1 | public-las1 |
+| ------ | ------------------ |
+| ORD1   | public-ord1        |
+| EWR1   | public-ewr1        |
+| LAS1   | public-las1        |
 
 {% code title="sshd-public-service.yaml" %}
 ```yaml
@@ -52,13 +52,13 @@ For public services, ensure that `externalTrafficPolicy: Local` is set on the se
 
 The traditional Kubernetes pattern is one or many Pods with dynamic internal IPs exposed behind a Service or Ingress with a static IP. For certain use cases, where there would only be one Pod behind a service, it can make sense to attach the Service IP directly to the Pod. A Pod would then have a static public IP as it's Pod IP. All connections originating from the pod will have this IP as it's source, and the Pod will see this as it's local IP. This is a non standard approach for containers, and should be used only when the traditional Service / Pod pattern is not feasible. Directly attaching the Service IP is beneficial in the following scenarios:
 
-* The application needs to expose a large number of ports \(above 10\), where listing them out in the service definition is impractical
+* The application needs to expose a large number of ports (above 10), where listing them out in the service definition is impractical
 * The application needs to see the service IP on the network interface inside the pod
 * Connections originating from the Pod to the outside need to originate from the Service IP
 * The application needs to receive all traffic regardless of type and port
 * A Virtual Machine type workload where a static IP provides a more native experience
 
-Please note that an application that directly attaches a Service IP can run with a maximum of **1** replica, as there would otherwise be multiple Pods with the same Pod IP. Traffic to the Pod will not be filtered, all inbound traffic to the IP will be sent to the pod. To provide security, [NetworkPolicies](https://kubernetes.io/docs/concepts/services-networking/network-policies/) can be applied.
+Please note that an application that directly attaches a Service IP can run with a maximum of **1 **replica, as there would otherwise be multiple Pods with the same Pod IP. Traffic to the Pod will not be filtered, all inbound traffic to the IP will be sent to the pod. To provide security, [NetworkPolicies](https://kubernetes.io/docs/concepts/services-networking/network-policies/) can be applied.
 
 A stub Service needs to be created to allocate the IP. The Service should expose only port `1` as in the example below.
 
@@ -77,6 +77,7 @@ spec:
       targetPort: attach
       protocol: TCP
       name: attach
+     # Do not add any additional ports, it is not required for direct attach
   selector: 
     coreweave.cloud/ignore: ignore # Do not change this
 ```
@@ -90,7 +91,7 @@ To attach the IP from the Service directly to a Pod, annotate the Pod spec.
 
 ## Ingress
 
-Using an Ingress for HTTP based applications are beneficial as it saves IP addresses and automatically provides a DNS name as well as TLS certificate to allow access to your application via `https`. CoreWeave already has all the infrastructure setup including the Ingress Controller, all you need to do is deploy an `Ingress` manifest. The hostname of the Ingress needs to be in the format of `<app>.<namespace>.<region>.ingress.coreweave.cloud`. The example below demonstrates an Ingress called `my-app` exposed via an Ingress in the ORD1 region for a namespace `tenant-test-default`.
+Using an Ingress for HTTP based applications are beneficial as it saves IP addresses and automatically provides a DNS name as well as TLS certificate to allow access to your application via `https`. CoreWeave already has all the infrastructure setup including the Ingress Controller, all you need to do is deploy an `Ingress` manifest. The hostname of the Ingress needs to be in the format of `<app>.<namespace>.<region>.ingress.coreweave.cloud`. The example below demonstrates an Ingress called `my-app `exposed via an Ingress in the ORD1 region for a namespace `tenant-test-default`.
 
 ```yaml
 apiVersion: networking.k8s.io/v1beta1
@@ -119,6 +120,4 @@ spec:
     - my-app.tenant-test-default.ord1.ingress.coreweave.cloud
     secretName: my-app-tls # This secret is automatically created for you
 ```
-
-
 
