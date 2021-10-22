@@ -17,6 +17,8 @@ Function Install-k8sctl
                 [switch]
                 $Virtctl,
                 [switch]
+                $Helm,
+                [switch]
                 $IsAdmin
             )
 
@@ -25,7 +27,15 @@ Function Install-k8sctl
 
         if($Kubectl){Invoke-WebRequest -UseBasicParsing -Uri "https://dl.k8s.io/release/$(Invoke-RestMethod -Uri "https://dl.k8s.io/release/stable.txt")/bin/windows/amd64/kubectl.exe" -OutFile $env:ProgramData\k8s\kubectl.exe}
 
-        if($Virtctl){Invoke-WebRequest -Uri $((Invoke-restmethod https://api.github.com/repos/kubevirt/kubevirt/releases/latest).assets.browser_download_url.Where({$_ -like '*virtctl-*-windows-amd64.exe'}))  -OutFile $env:ProgramData\k8s\virtctl.exe}
+        if($Virtctl){Invoke-WebRequest -UseBasicParsing -Uri $((Invoke-restmethod https://api.github.com/repos/kubevirt/kubevirt/releases/latest -UseBasicParsing).assets.browser_download_url.Where({$_ -like '*virtctl-*-windows-amd64.exe'}))  -OutFile $env:ProgramData\k8s\virtctl.exe}
+
+        if($Helm)
+            {
+               Invoke-WebRequest -Uri "https://get.helm.sh/helm-$((Invoke-restmethod https://api.github.com/repos/helm/helm/releases/latest).tag_name)-windows-amd64.zip" -UseBasicParsing -OutFile $env:ProgramData\k8s\helm.zip
+               Expand-Archive -Force $env:ProgramData\k8s\helm.zip -DestinationPath $env:ProgramData\k8s\
+               Move-Item -Path $env:ProgramData\k8s\windows-amd64\helm.exe -Destination $env:ProgramData\k8s\ -Force
+               Remove-Item $env:ProgramData\k8s\windows-amd64,$env:ProgramData\k8s\helm.zip -Force -Recurse
+            }
 
         $Path = (Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH).path
         if(!($Path.Contains($("$env:ProgramData\k8s"+';'))))
@@ -94,8 +104,8 @@ Function Invoke-ActionPrompt
             }
         until($Prompt -ne $NULL -and ($Prompt -contains 'yes' -or $Prompt -contains 'no' -or $Prompt -contains 'y' -or $Prompt -contains 'n'))
     
-        if($Prompt.StartsWith('y')){Return [bool]$true}
-        Elseif($Prompt.StartsWith('n')){Return [bool]$false}
+        if($Prompt.ToLower().StartsWith('y')){Return [bool]$true}
+        Elseif($Prompt.ToLower().StartsWith('n')){Return [bool]$false}
     }
 
 if(!(test-path $env:ProgramData\k8s\kubectl.exe -ErrorAction SilentlyContinue) -or !(get-command kubectl -ErrorAction SilentlyContinue))
@@ -166,6 +176,43 @@ if(!(test-path $env:ProgramData\k8s\virtctl.exe -ErrorAction SilentlyContinue) -
                         $false
                             {
                                Write-Warning -Message "virtctl not installed - please download and add to PATH" -WarningAction Continue
+                            }
+                    }
+            }
+    }
+
+if(!(test-path $env:ProgramData\k8s\helm.exe -ErrorAction SilentlyContinue) -or !(get-command helm -ErrorAction SilentlyContinue))
+    {
+        if($Silent){Install-k8sctl -helm -IsAdmin}
+
+        Else
+            {
+        
+                switch(Invoke-ActionPrompt -Text "Helm not detected - would you like to install? Yes or No:")
+                    {
+                        $true
+                            {
+                                if(!(Check-AdminContext))
+                                    {
+                                        switch(Invoke-ActionPrompt -Text "We need to be an admin to update PATH. Elevate? Yes or No:")
+                                            {
+                                                $true
+                                                    {
+                                                        Check-AdminContext -Elevate
+                                                    }
+                                                $false
+                                                    {
+                                                        Install-k8sctl -helm
+                                                    }
+                                            }
+                                    }
+
+                                Else{Install-k8sctl -helm -IsAdmin}
+                            }
+
+                        $false
+                            {
+                               Write-Warning -Message "Helm not installed - please download and add to PATH" -WarningAction Continue
                             }
                     }
             }
