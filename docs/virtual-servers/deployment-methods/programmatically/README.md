@@ -1,10 +1,14 @@
 # Programmatically
 
-{% page-ref page="python.md" %}
+{% content-ref url="python.md" %}
+[python.md](python.md)
+{% endcontent-ref %}
 
-{% page-ref page="nodejs.md" %}
+{% content-ref url="nodejs.md" %}
+[nodejs.md](nodejs.md)
+{% endcontent-ref %}
 
-{% page-ref page="golang.md" %}
-
-
+{% content-ref url="golang.md" %}
+[golang.md](golang.md)
+{% endcontent-ref %}
 

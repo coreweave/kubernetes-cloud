@@ -1,13 +1,13 @@
 # Creating a Packer Worker Virtual Server
 
-**Objective:** Create a Virtual Server on [CoreWeave Cloud](https://apps.coreweave.com/) to create images with [Hashicorp Packer](https://www.packer.io/).  
+**Objective:** Create a Virtual Server on [CoreWeave Cloud](https://apps.coreweave.com) to create images with [Hashicorp Packer](https://www.packer.io).\
 **Overview:** This process consists of deploying an Ubuntu Virtual Server on CoreWeave Cloud, with the [cloned PVC](../exporting-coreweave-images-to-a-writable-pvc.md) attached. The Virtual Server is then configured with a Docker image to run Packer. Note that this example assumes a cloned PVC was created as explained in the example [Copying CoreWeave Images to a Writable PVC](../exporting-coreweave-images-to-a-writable-pvc.md).
 
 #### References:
 
-{% file src="../../../.gitbook/assets/packer\_vs.yaml" %}
+{% file src="../../../../.gitbook/assets/packer_vs.yaml" %}
 
-{% file src="../../../.gitbook/assets/configure\_packer\_docker.sh" %}
+{% file src="../../../../.gitbook/assets/configure_packer_docker.sh" %}
 
 ## Deploying Virtual Server
 
@@ -15,7 +15,7 @@ Using **packer\_vs.yaml**, we will deploy our Virtual Server with`k create -f pa
 
 {% tabs %}
 {% tab title="YAML" %}
-{% code title="packer\_vs.yaml" %}
+{% code title="packer_vs.yaml" %}
 ```yaml
 apiVersion: virtualservers.coreweave.com/v1alpha1
 kind: VirtualServer
@@ -76,7 +76,7 @@ Since our Virtual Server was created using **ubuntu2004-docker-master-20210629-o
 
 {% tabs %}
 {% tab title="Bash" %}
-{% code title="configure\_packer\_docker.sh" %}
+{% code title="configure_packer_docker.sh" %}
 ```bash
 docker build -t "packer" -f - . <<EOF
 FROM ubuntu:20.04
@@ -109,4 +109,3 @@ EOF
 {% endtabs %}
 
 ![](../../../.gitbook/assets/7.png)
-

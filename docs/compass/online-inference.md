@@ -2,24 +2,24 @@
 
 ## Introduction
 
-![diagram](../.gitbook/assets/overview.png)
+![diagram](../../online-inference/overview.png)
 
 CoreWeave Cloud allows for easy serving of machine learning models. The models can be sourced from a range of storage backends, including Amazon S3 and a [CoreWeave Storage Volume](../coreweave-kubernetes/storage.md). After deployment the inference engine auto scales the containers based on demand to swiftly fulfill user requests and scales down as load decreases to not waste GPU resources. Allocating new resources and scaling up a container usually takes 30 seconds for smaller models and 60 seconds for the full 11.5B parameter GPT-2 model. The quick autoscale allows a significantly more responsive service than depending on scaling of hypervisor backed instances of other cloud providers.
 
-Well supported Open Source tools back the inference stack. [Knative Serving](https://knative.dev/docs/serving/) acts as the serverless runtime, managing auto scaling, revision control and canary deployments. [Kubeflow Serving](https://www.kubeflow.org/docs/components/serving/kfserving/) provides an easy to use interface, via Kubernetes resource definitions to deploy models without having to worry about correctly configuring the underlying framework \(ie. Tensorflow\). The examples in this repository are tailored specifically for common use cases, and there are many more examples in the [KFServing repostiory](https://github.com/kubeflow/kfserving/tree/master/docs/samples) that can be used directly in your namespace.
+Well supported Open Source tools back the inference stack. [Knative Serving](https://knative.dev/docs/serving/) acts as the serverless runtime, managing auto scaling, revision control and canary deployments. [Kubeflow Serving](https://www.kubeflow.org/docs/components/serving/kfserving/) provides an easy to use interface, via Kubernetes resource definitions to deploy models without having to worry about correctly configuring the underlying framework (ie. Tensorflow). The examples in this repository are tailored specifically for common use cases, and there are many more examples in the [KFServing repostiory](https://github.com/kubeflow/kfserving/tree/master/docs/samples) that can be used directly in your namespace.
 
 ## Autoscaling
 
 Autoscaling is enabled by default for all Inference Services. The autoscaling parameters have been pre-configured for GPU based workloads, where a large dataset usually needs to be loaded into GPU VRAM before serving can begin.
 
-| KNative Parameter | Value | Description |
-| :--- | :--- | :--- |
-| tick-interval | 15s | Auto scaling decision are made every 10 seconds |
-| stable-window | 180s | The time period average concurrency is measured over in stable mode |
-| container-concurrency-target-percentage | 85% | Scale to load all containers at 100% of their configured concurrency |
-| max-scale-up-rate | 20 | Scale up at a maximum of 200% of current capacity or 1 container \(whichever is larger\) per 10 seconds |
-| max-scale-down-rate | 2 | Scale down at a maximum of 50% of current capacity or 1 container \(whichever is larger\) per 10 seconds |
-| scale-to-zero-grace-period | 30m | If no requests have been received for 30 minutes, a service will be scaled to zero and not use any resources. This behavior can be disabled by setting minReplicas to 1 in the service spec |
+| KNative Parameter                       | Value | Description                                                                                                                                                                                 |
+| --------------------------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| tick-interval                           | 15s   | Auto scaling decision are made every 10 seconds                                                                                                                                             |
+| stable-window                           | 180s  | The time period average concurrency is measured over in stable mode                                                                                                                         |
+| container-concurrency-target-percentage | 85%   | Scale to load all containers at 100% of their configured concurrency                                                                                                                        |
+| max-scale-up-rate                       | 20    | Scale up at a maximum of 200% of current capacity or 1 container (whichever is larger) per 10 seconds                                                                                       |
+| max-scale-down-rate                     | 2     | Scale down at a maximum of 50% of current capacity or 1 container (whichever is larger) per 10 seconds                                                                                      |
+| scale-to-zero-grace-period              | 30m   | If no requests have been received for 30 minutes, a service will be scaled to zero and not use any resources. This behavior can be disabled by setting minReplicas to 1 in the service spec |
 
 If concurrent requests exceeds the current scaled-for request volume by 200% during a period of 30 seconds, the autoscaler enters "panic mode" and starts scaling containers faster than the normal 120s stable window. Some of these settings, such as stable window can be modified using annotations on the `InferenceService`. Refer to the [KNative documentation](https://knative.dev/docs/serving/configuring-autoscaling/) for more information.
 
@@ -39,7 +39,7 @@ Models can be served directly from Amazon S3, which is practical for testing and
 
 ## GPU Selectors & Affinities
 
-You will want to use [affinities](https://docs.coreweave.com/coreweave-kubernetes/node-types#requesting-compute-in-kubernetes), to specify what GPU type \(or CPU, in case of CPU only Inference\) your `InferenceService` should be scheduled on.
+You will want to use [affinities](https://docs.coreweave.com/coreweave-kubernetes/node-types#requesting-compute-in-kubernetes), to specify what GPU type (or CPU, in case of CPU only Inference) your `InferenceService` should be scheduled on.
 
 ```yaml
 spec:
@@ -66,4 +66,3 @@ spec:
               values:
               - Tesla_V100
 ```
-

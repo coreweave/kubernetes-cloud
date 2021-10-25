@@ -1,11 +1,11 @@
 # Copying CoreWeave Images to a Writable PVC
 
-**Objective:** Clone an existing CoreWeave image to your namespace, digestible by tools like Packer or bootable as a VS.  
+**Objective:** Clone an existing CoreWeave image to your namespace, digestible by tools like Packer or bootable as a VS.\
 **Overview:** This process consists of copying a CoreWeave block PVC from the **vd-images** namespace, into your own namespace.
 
 #### References:
 
-{% file src="../../.gitbook/assets/volume\_clone.yaml" %}
+{% file src="../../../.gitbook/assets/volume_clone.yaml" %}
 
 {% hint style="success" %}
 Be sure to review [Getting Started](../../coreweave-kubernetes/getting-started.md#obtain-access-credentials) and the [kubectl Virtual Server deployment method](../deployment-methods/kubectl.md#deploying-a-virtual-server) before starting this guide.
@@ -17,11 +17,11 @@ We start by identifying an image we wish to export and modify. To browse images 
 
 {% tabs %}
 {% tab title="Bash" %}
-`k get pvc -n vd-images -l images.coreweave.cloud/latest=true,images.coreweave.cloud/private=false,images.coreweave.cloud/family=`**`windows`** `--sort-by=.spec.storageClassName`
+`k get pvc -n vd-images -l images.coreweave.cloud/latest=true,images.coreweave.cloud/private=false,images.coreweave.cloud/family=`**`windows `**`--sort-by=.spec.storageClassName`
 {% endtab %}
 
 {% tab title="PowerShell" %}
-`(kubectl get pvc -n vd-images -l images.coreweave.cloud/latest=true,images.coreweave.cloud/private=false,images.coreweave.cloud/family=`**`windows`** `--sort-by=.spec.storageClassName) -replace '\s{2,}',',' |convertfrom-csv |ft`
+`(kubectl get pvc -n vd-images -l images.coreweave.cloud/latest=true,images.coreweave.cloud/private=false,images.coreweave.cloud/family=`**`windows `**`--sort-by=.spec.storageClassName) -replace '\s{2,}',',' |convertfrom-csv |ft`
 {% endtab %}
 {% endtabs %}
 
@@ -39,11 +39,11 @@ _Ensure your location is consistent throughout these examples – here we are us
 
 ### Clone source image into namespace
 
-Now we need to clone the PVC from vd-images into our own namespace so that we can attach it to a worker VM. To do this we deploy **volume\_clone.yaml** with `k create -f volume_clone.yaml`
+Now we need to clone the PVC from vd-images into our own namespace so that we can attach it to a worker VM. To do this we deploy **volume\_clone.yaml** with` k create -f volume_clone.yaml`
 
 {% tabs %}
 {% tab title="YAML" %}
-{% code title="volume\_clone.yaml" %}
+{% code title="volume_clone.yaml" %}
 ```yaml
 apiVersion: cdi.kubevirt.io/v1beta1
 kind: DataVolume
@@ -81,4 +81,3 @@ Note storage size needs to be equal to or greater than the source disk capacity.
 With `k get pvc`, we can see our newly cloned image existing in our own namespace:
 
 ![](../../.gitbook/assets/2.png)
-

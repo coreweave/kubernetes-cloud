@@ -19,9 +19,11 @@
   * [Ethereum Miner](coreweave-kubernetes/examples/miner.md)
   * [SSH Server with CUDA](coreweave-kubernetes/examples/cuda-ssh.md)
 
-## Inference <a id="compass"></a>
+## Inference <a href="compass" id="compass"></a>
 
 * [Online Inference Serving](compass/online-inference.md)
+* [Models](compass/models/README.md)
+  * [GPT-J-6B](compass/models/gpt-j-6b.md)
 * [Examples](compass/examples/README.md)
   * [TensorFlow - Open AI GPT-2](compass/examples/gpt-2/README.md)
     * [Transformer](compass/examples/gpt-2/transformer.md)
@@ -80,4 +82,3 @@
   * [Acceptable Use Policy](resources/terms-of-service/acceptable-use-policy.md)
   * [Privacy Policy](resources/terms-of-service/privacy-policy.md)
   * [Security & Compliance](resources/terms-of-service/security-and-compliance.md)
-

@@ -12,52 +12,56 @@ This example deploys a  Kubernetes Deployment with a Linux container including t
 
 The Kubenetes Control-Plane in the CoreWeave Cloud will ensure that the Deployment is continuously running. The Control-Plane will reserve GPU, CPU and RAM on CoreWeaves compute nodes. The example Deployment does showcase some node affinity rules. These are purely for demonstration purposes, and the entire affinity section can be removed without breaking the example.
 
-{% page-ref page="../node-types.md" %}
+{% content-ref url="../node-types.md" %}
+[node-types.md](../node-types.md)
+{% endcontent-ref %}
 
 ### Service
 
 A [Service](https://kubernetes.io/docs/concepts/services-networking/service/) is included to show how to publish a Pod to the public Internet. The Service publishes the SSH server to the Internet.
 
-{% page-ref page="../exposing-applications.md" %}
+{% content-ref url="../exposing-applications.md" %}
+[exposing-applications.md](../exposing-applications.md)
+{% endcontent-ref %}
 
 ## Persistent Storage
 
 A [Persistent Volume](https://kubernetes.io/docs/concepts/storage/persistent-volumes/) is allocated to the Pods root directories. The allocation is done via a [Persistent Volume Claim](https://github.com/atlantic-crypto/kubernetes-cloud-examples/blob/master/cuda-ssh/sshd-pvc.yaml) requesting a 200GB storage size and SSD backing. This volule claim is then mounted to the the different root directories in the Deployment definition. A separate, HDD backed 500GB Volume Claim is mounted under `/mnt/data` for data storage. Utilizing a persistent volume ensures that files persist even if the node currently running the Pod fails.
 
-{% page-ref page="../storage.md" %}
+{% content-ref url="../storage.md" %}
+[storage.md](../storage.md)
+{% endcontent-ref %}
 
 ### Getting Started
 
 Clone the repository. After installing `kubectl` and adding your CoreWeave Cloud access credentials, the following steps will deploy the components.
 
-1. Apply the resources. This can be used to both create and update existing manifests
+1.  Apply the resources. This can be used to both create and update existing manifests
 
-   ```text
-    $ kubectl apply -f sshd-root-pvc.yaml
-    persistentvolumeclaim/sshd-root-pv-claim configured
-    $ kubectl apply -f sshd-data-pvc.yaml
-    persistentvolumeclaim/sshd-data-pv-claim configured
-    $ kubectl apply -f sshd-service.yaml
-    service/sshd configured
-    $ kubectl apply -f sshd-deployment.yaml
-    deployment.apps/sshd configured
-   ```
+    ```
+     $ kubectl apply -f sshd-root-pvc.yaml
+     persistentvolumeclaim/sshd-root-pv-claim configured
+     $ kubectl apply -f sshd-data-pvc.yaml
+     persistentvolumeclaim/sshd-data-pv-claim configured
+     $ kubectl apply -f sshd-service.yaml
+     service/sshd configured
+     $ kubectl apply -f sshd-deployment.yaml
+     deployment.apps/sshd configured
+    ```
+2.  List pods to see the Deployment working to instantiate all our requested instances
 
-2. List pods to see the Deployment working to instantiate all our requested instances
+    ```
+     $ kubectl get pods
+     NAME                        READY   STATUS              RESTARTS   AGE
+     sshd-7b5f48f555-5h5g6       0/1     ContainerCreating   0          2s
+    ```
+3.  After a little while, all pods should transition to the `Running` state
 
-   ```text
+    ```
     $ kubectl get pods
-    NAME                        READY   STATUS              RESTARTS   AGE
-    sshd-7b5f48f555-5h5g6       0/1     ContainerCreating   0          2s
-   ```
-
-3. After a little while, all pods should transition to the `Running` state
-
-   ```text
-   $ kubectl get pods
-   NAME                        READY   STATUS    RESTARTS   AGE
-   sshd-7b5f48f555-5h5g6       0/1     Running   0          6s
-   ```
+    NAME                        READY   STATUS    RESTARTS   AGE
+    sshd-7b5f48f555-5h5g6       0/1     Running   0          6s
+    ```
 
 Show the log for the init container to grab the auto-generated root password
 
@@ -68,7 +72,7 @@ Root password is: BdxbmsVsiONQY Initialization complete
 
 To get the public IP assigned to the service, simply list all services
 
-```text
+```
 $ kubetl get service                                                                                                                                                                                                                               git:(master↓3|…
 NAME       TYPE           CLUSTER-IP       EXTERNAL-IP     PORT(S)          AGE
 sshd       LoadBalancer   10.134.100.93    64.79.105.198   22:30877/TCP     63m
@@ -76,7 +80,7 @@ sshd       LoadBalancer   10.134.100.93    64.79.105.198   22:30877/TCP     63m
 
 The external IP is allocated for the life of the service, and will not change unless the service is deleted. You can now SSH to the SSH server running inside the Pod from the Internet.
 
-```text
+```
 $ ssh root@64.79.105.198
 root@64.79.105.198's password:
 root@sshd-demo:~# ls
@@ -122,4 +126,3 @@ The SSH Pod can be used as a simple Linux machine. You can install applications 
 1. Run Docker images. Docker images need to be run as their own Deployments, Pods or Jobs. If you need to run Docker images for development from inside an SSH container, please [contact support](mailto:support@coreweave.com).
 2. Run systemd services. There is no systemd running in the container.
 {% endhint %}
-

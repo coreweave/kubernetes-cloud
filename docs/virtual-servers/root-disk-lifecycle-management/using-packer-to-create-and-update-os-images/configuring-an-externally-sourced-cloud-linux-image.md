@@ -1,17 +1,17 @@
 # Configuring an externally sourced cloud Linux image
 
-**Objective:** Several distributions such as [Ubuntu](https://cloud-images.ubuntu.com/) and [CentOS](https://cloud.centos.org/altarch/7/images/) offer OS images designed to run in the cloud – these are sparse images with an OS already installed, and setup with [Cloudinit](https://cloudinit.readthedocs.io/en/latest/). In this example, we'll use our Packer Virtual Server to configure an Ubuntu Cloud image from Canonical.  
+**Objective:** Several distributions such as [Ubuntu](https://cloud-images.ubuntu.com) and [CentOS](https://cloud.centos.org/altarch/7/images/) offer OS images designed to run in the cloud – these are sparse images with an OS already installed, and setup with [Cloudinit](https://cloudinit.readthedocs.io/en/latest/). In this example, we'll use our Packer Virtual Server to configure an Ubuntu Cloud image from Canonical.\
 **Overview:** [Packer by Hashicorp](https://www.packer.io/intro) uses KVM to spin up a virtual machine and perform configuration actions that would normally done by human hand. You feed it an image, which it then connects to via SSH, and it executes scripts/commands you describe in the configuration JSON. This process consists of using [the generated Virtual Server](creating-a-packer-worker-virtual-server.md) to configure Canonicals' Cloud image using Packer. Reference Packer’s [QEMU docs](https://www.packer.io/docs/builders/qemu) for more information
 
 #### References:
 
-{% file src="../../../.gitbook/assets/ubuntu.json" %}
+{% file src="../../../../.gitbook/assets/ubuntu.json" %}
 
-{% file src="../../../.gitbook/assets/new\_block\_pvc.yaml" %}
+{% file src="../../../../.gitbook/assets/new_block_pvc.yaml" %}
 
-{% file src="../../../.gitbook/assets/create-ci-data.sh" %}
+{% file src="../../../../.gitbook/assets/create-ci-data.sh" %}
 
-{% file src="../../../.gitbook/assets/launch\_docker.sh" %}
+{% file src="../../../../.gitbook/assets/launch_docker.sh" %}
 
 ## Create a destination block volume PVC
 
@@ -21,7 +21,7 @@ Using `k create -f new_block_pvc.yaml` we’ll have our block volume created acc
 
 {% tabs %}
 {% tab title="YAML" %}
-{% code title="new\_block\_pvc.yaml" %}
+{% code title="new_block_pvc.yaml" %}
 ```yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -43,11 +43,11 @@ spec:
 {% endtab %}
 {% endtabs %}
 
-Referencing [Creating a Packer Worker Virtual Server](https://app.gitbook.com/@coreweave/s/coreweave/~/drafts/-MgqXuJGx7Fuy03tCSXb/virtual-servers/examples/using-packer-to-create-and-update-os-images#creating-a-packer-worker-virtual-server), we will edit our YAML to point to our newly created blank PVC:
+Referencing [Creating a Packer Worker Virtual Server](https://app.gitbook.com/@coreweave/s/coreweave/\~/drafts/-MgqXuJGx7Fuy03tCSXb/virtual-servers/examples/using-packer-to-create-and-update-os-images#creating-a-packer-worker-virtual-server), we will edit our YAML to point to our newly created blank PVC:
 
 {% tabs %}
 {% tab title="YAML" %}
-{% code title="packer\_vs.yaml" %}
+{% code title="packer_vs.yaml" %}
 ```yaml
     additionalDisks:
     - name: ubuntu-cloudimg
@@ -151,7 +151,7 @@ genisoimage -output cidata.iso -input-charset utf-8 -volid cidata -joliet -r \
 {% endcode %}
 
 {% hint style="info" %}
-This generates an ISO \(**cidata.iso**\) referenced by our JSON that will be presented to the VM Packer configures
+This generates an ISO (**cidata.iso**) referenced by our JSON that will be presented to the VM Packer configures
 {% endhint %}
 
 {% hint style="warning" %}
@@ -162,11 +162,11 @@ Note the username and password referenced in our JSON is created here
 
 ## Execute Packer docker image
 
-Once our JSON is configured, we’ll launch the packer process with `launch-docker.sh ubuntu.json`. 
+Once our JSON is configured, we’ll launch the packer process with `launch-docker.sh ubuntu.json`.&#x20;
 
 {% tabs %}
 {% tab title="Bash" %}
-{% code title="launch\_docker.sh" %}
+{% code title="launch_docker.sh" %}
 ```bash
 CONFIG="$1"
 exec docker run --rm --dns 1.1.1.1 --device /dev/kvm --privileged --cap-add=NET_ADMIN --net=host \
@@ -198,5 +198,4 @@ Using DD, we’ll write to the PVC with **`dd if=output-qemu/packer-qemu of=/dev
 
 ![](../../../.gitbook/assets/17.png)
 
-With the DD operation complete - the Virtual Server can be safely deleted \(`k delete vs packer-worker`\). The written PVC will remain in your namespace to serve as a source image for subsequent Virtual Servers.
-
+With the DD operation complete - the Virtual Server can be safely deleted (`k delete vs packer-worker`). The written PVC will remain in your namespace to serve as a source image for subsequent Virtual Servers.

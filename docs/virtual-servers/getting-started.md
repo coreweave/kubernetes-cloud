@@ -10,11 +10,9 @@ Virtual Servers, being a Kubernetes custom-resource, can be be deployed onto Cor
 
 ### Management & Control
 
-Once a Virtual Server is deployed, tools such as [`kubectl`](https://kubernetes.io/docs/tasks/tools/#kubectl) and [`virtctl`](https://kubevirt.io/quickstart_minikube/#virtctl) can be utilized to manage and control the resources, and state of a Virtual Server.
+Once a Virtual Server is deployed, tools such as [`kubectl`](https://kubernetes.io/docs/tasks/tools/#kubectl) and [`virtctl`](https://kubevirt.io/quickstart\_minikube/#virtctl) can be utilized to manage and control the resources, and state of a Virtual Server.
 
 {% hint style="info" %}
 The examples and demo files that will be used in the following sections are available in the CoreWeave [kubernetes-cloud](https://github.com/coreweave/kubernetes-cloud/tree/master/virtual-server/examples) repository.
 {% endhint %}
-
-
 

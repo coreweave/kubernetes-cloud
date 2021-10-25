@@ -48,4 +48,3 @@ kubectl scale --replicas=[number] deployments/[deployment_name]
 kubectl exec -it [pod_id] /bin/bash # Opens a bash shell in your pod
 ```
 {% endcode %}
-

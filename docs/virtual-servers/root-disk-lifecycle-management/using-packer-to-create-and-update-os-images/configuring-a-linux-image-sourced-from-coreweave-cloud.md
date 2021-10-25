@@ -1,23 +1,23 @@
 # Configuring a Linux image sourced from CoreWeave Cloud
 
-**Objective:** Use our Packer Virtual Server to configure a Linux image from CoreWeave Cloud.  
-**Overview:** Combining examples from [Configuring a Windows Image sourced from CoreWeave Cloud](configuring-a-windows-image-sourced-from-coreweave-cloud.md) and [Configuring an externally sourced cloud Linux image](configuring-an-externally-sourced-cloud-linux-image.md), we will use our [Packer Worker Virtual Server](creating-a-packer-worker-virtual-server.md#deploying-virtual-server) to configure a Linux image sourced from CoreWeave Cloud.
+**Objective:** Use our Packer Virtual Server to configure a Linux image from CoreWeave Cloud.\
+**Overview: **Combining examples from [Configuring a Windows Image sourced from CoreWeave Cloud](configuring-a-windows-image-sourced-from-coreweave-cloud.md) and [Configuring an externally sourced cloud Linux image](configuring-an-externally-sourced-cloud-linux-image.md), we will use our [Packer Worker Virtual Server](creating-a-packer-worker-virtual-server.md#deploying-virtual-server) to configure a Linux image sourced from CoreWeave Cloud.
 
 #### References:
 
-{% file src="../../../.gitbook/assets/centos.json" %}
+{% file src="../../../../.gitbook/assets/centos.json" %}
 
 ## Selecting a source image
 
-Following the example in [Copying CoreWeave Images to a Writeable PVC](../exporting-coreweave-images-to-a-writable-pvc.md), we will search for the latest CentOS image in the vd-images namespace: 
+Following the example in [Copying CoreWeave Images to a Writeable PVC](../exporting-coreweave-images-to-a-writable-pvc.md), we will search for the latest CentOS image in the vd-images namespace:&#x20;
 
-![](../../../.gitbook/assets/image%20%285%29.png)
+![](<../../../.gitbook/assets/image (5).png>)
 
 We will then clone this image into our namespace:
 
 {% tabs %}
 {% tab title="YAML" %}
-{% code title="volume\_clone.yaml" %}
+{% code title="volume_clone.yaml" %}
 ```yaml
 apiVersion: cdi.kubevirt.io/v1beta1
 kind: DataVolume
@@ -50,7 +50,7 @@ Following the example in [Creating a Packer Worker Virtual Server](creating-a-pa
 
 {% tabs %}
 {% tab title="YAML" %}
-{% code title="packer\_vs.yaml" %}
+{% code title="packer_vs.yaml" %}
 ```yaml
     additionalDisks:
     - name: CentOS_7
@@ -115,11 +115,11 @@ Our Packer manifest will be a combination of our previous [Windows](configuring-
 {% endcode %}
 
 {% hint style="info" %}
-**/dev/vdb** refers to our cloned block device
+**/dev/vdb **refers to our cloned block device
 {% endhint %}
 
 {% hint style="info" %}
-The credentials in this configuration are created when the VM reads the image output of  [**create-ci-data.sh**](configuring-an-externally-sourced-cloud-linux-image.md#generate-credentials-for-the-packer-vm)\*\*\*\*
+The credentials in this configuration are created when the VM reads the image output of  [**create-ci-data.sh**](configuring-an-externally-sourced-cloud-linux-image.md#generate-credentials-for-the-packer-vm)****
 {% endhint %}
 
 {% hint style="info" %}
@@ -131,4 +131,3 @@ In this example, we are using the shell provisioner to install package updates. 
 ## Execute Packer docker image
 
 Similar to our [Windows example](configuring-a-windows-image-sourced-from-coreweave-cloud.md#execute-packer-docker-image), we'll kick off our CentOS build with `launch-docker.sh win.json`. Since we're writing to our PVC directly, all changes are made directly to our cloned disk.
-

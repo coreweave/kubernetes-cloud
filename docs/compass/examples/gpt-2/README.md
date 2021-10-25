@@ -9,19 +9,16 @@ $ curl -d '{"instances": ["That was easy"]}' http://gpt-s3-transformer-default.t
 
 
 
-* [Jupyter PVC](jupyter-pvc.md)  \(Start here and work your way down\)
+*   [Jupyter PVC](jupyter-pvc.md)  (Start here and work your way down)
 
-  A Jupyter notebook and a container serving it demonstrating packaging the model for serving and storing it to a [CoreWeave Storage](../../../coreweave-kubernetes/storage.md#shared-filesystem).  
+    A Jupyter notebook and a container serving it demonstrating packaging the model for serving and storing it to a [CoreWeave Storage](../../../coreweave-kubernetes/storage.md#shared-filesystem). &#x20;
 
-  This notebook will be allocated a GPU and can be used for finetuning as well.
+    This notebook will be allocated a GPU and can be used for finetuning as well.
+*   [PVC Model Serving](service-pvc.md)
 
-* [PVC Model Serving](service-pvc.md)
-
-  Serves the model exported from Jupyter from the storage volume.
-
+    Serves the model exported from Jupyter from the storage volume.
 * [Transformer](transformer.md)
 * A simple transformer for encoding/decoding text. It is not necesary to build this yourself to try the examples, a public image is available in Docker Hub
-* [S3 Model Serving](service-s3.md) \(alternative\)
+*   [S3 Model Serving](service-s3.md) (alternative)
 
-  Serves a model stored in Amazon S3, including a transformer to encode/decode inputs and outputs to clear text
-
+    Serves a model stored in Amazon S3, including a transformer to encode/decode inputs and outputs to clear text

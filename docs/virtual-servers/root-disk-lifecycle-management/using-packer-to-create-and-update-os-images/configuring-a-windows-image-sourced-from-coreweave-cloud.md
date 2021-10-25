@@ -1,6 +1,6 @@
 # Configuring a Windows Image sourced from CoreWeave Cloud
 
-**Objective:** Use our Packer Virtual Server to configure a Windows image from CoreWeave Cloud.  
+**Objective:** Use our Packer Virtual Server to configure a Windows image from CoreWeave Cloud.\
 **Overview:** [Packer by Hashicorp](https://www.packer.io/intro) uses KVM to spin up a virtual machine and perform configuration actions that would normally done by human hand. You feed it an image, which it then connects to via SSH, and it executes scripts/commands you describe in the configuration JSON. This process consists of using [the generated Virtual Server](creating-a-packer-worker-virtual-server.md) to configure our cloned image using Packer. Reference Packer’s [QEMU docs](https://www.packer.io/docs/builders/qemu) for more information.
 
 {% hint style="info" %}
@@ -9,13 +9,13 @@ This guide assumes you have created a [Packer Worker VS](creating-a-packer-worke
 
 #### References:
 
-{% file src="../../../.gitbook/assets/win.json" %}
+{% file src="../../../../.gitbook/assets/win.json" %}
 
-{% file src="../../../.gitbook/assets/create-ci-data.sh" %}
+{% file src="../../../../.gitbook/assets/create-ci-data.sh" %}
 
-{% file src="../../../.gitbook/assets/launch\_docker.sh" %}
+{% file src="../../../../.gitbook/assets/launch_docker.sh" %}
 
-{% file src="../../../.gitbook/assets/new\_block\_pvc.yaml" %}
+{% file src="../../../../.gitbook/assets/new_block_pvc.yaml" %}
 
 ## Configuring the Packer manifest
 
@@ -71,7 +71,7 @@ Using **win.json**, we’ll need to make a few edits before configuring our imag
 {% endcode %}
 
 {% hint style="info" %}
-**/dev/vdb** refers to our cloned block device
+**/dev/vdb **refers to our cloned block device
 {% endhint %}
 
 {% hint style="info" %}
@@ -115,7 +115,7 @@ genisoimage -output cidata.iso -input-charset utf-8 -volid cidata -joliet -r \
 {% endcode %}
 
 {% hint style="info" %}
-This generates an ISO \(**cidata.iso**\) referenced by our JSON that will be presented to the VM Packer configures
+This generates an ISO (**cidata.iso**) referenced by our JSON that will be presented to the VM Packer configures
 {% endhint %}
 
 {% hint style="warning" %}
@@ -130,7 +130,7 @@ With our cidata ISO created, we can kick off the Packer build with `launch-docke
 
 {% tabs %}
 {% tab title="Bash" %}
-{% code title="launch\_docker.sh" %}
+{% code title="launch_docker.sh" %}
 ```bash
 CONFIG="$1"
 exec docker run --rm --dns 1.1.1.1 --device /dev/kvm --privileged --net=host \
@@ -150,5 +150,4 @@ Once Packer has kicked started the virtual machine – it is viewable locally wi
 
 Since QEMU is referencing the PVC directly, all changes made to the cloned images are written directly to the mounted PVC.
 
-Once Packer has completed, the Virtual Server can be safely deleted \(`k delete vs packer-worker`\). The modified, now updated PVC will remain in your namespace to serve as a source image for subsequent Virtual Servers.
-
+Once Packer has completed, the Virtual Server can be safely deleted (`k delete vs packer-worker`). The modified, now updated PVC will remain in your namespace to serve as a source image for subsequent Virtual Servers.

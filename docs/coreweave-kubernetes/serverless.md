@@ -52,4 +52,3 @@ helloworld      https://helloworld.default.knative.chi.coreweave.com      hellow
 Managed Grafana provides monitoring of requests, success rates, response times and auto-scaling metrics transparently. No metrics specific code needs to be added to the serverless application.
 
 ![](../.gitbook/assets/screen-shot-2020-05-08-at-1.34.33-am.png)
-

@@ -4,60 +4,56 @@ description: CoreWeave manages the Prometheus cluster that will host your metric
 
 # Metrics
 
-To access CoreWeave's Prometheus server you'll first need a CoreWeave account and an Access Token. If you don't have an account yet, follow the steps on the [Getting Started](../getting-started.md) guide. 
+To access CoreWeave's Prometheus server you'll first need a CoreWeave account and an Access Token. If you don't have an account yet, follow the steps on the [Getting Started](../getting-started.md) guide.&#x20;
 
 You'll be able to access the Prometheus Dashboard once you're logged into CoreWeave.
 
 {% hint style="success" %}
-Access the **Prometheus Dashboard** at [**https://prometheus.ord1.coreweave.com**](https://prometheus.ord1.coreweave.com/)\*\*\*\*
+Access the **Prometheus Dashboard** at [**https://prometheus.ord1.coreweave.com**](https://prometheus.ord1.coreweave.com)****
 {% endhint %}
 
 ## API Key Authentication
 
-You can access the Prometheus server by sending your [Access Token](../getting-started.md#obtain-access-credentials) as the Authorization Header during your request. 
+You can access the Prometheus server by sending your [Access Token](../getting-started.md#obtain-access-credentials) as the Authorization Header during your request.&#x20;
 
 * Header: **`Authorization`** Value: **`Bearer <TOKEN>`**
 * URL: **`https://prometheus.ord1.coreweave.com`**
 * Methods: **`GET`** or **`POST`**
 
 {% hint style="warning" %}
- Replace `<TOKEN>` with your CoreWeave Access Token generated from [https://cloud.coreweave.com/api-access](https://cloud.coreweave.com/api-access).
+&#x20;Replace `<TOKEN>` with your CoreWeave Access Token generated from [https://cloud.coreweave.com/api-access](https://cloud.coreweave.com/api-access).
 {% endhint %}
 
-{% api-method method="post" host="https://prometheus.ord1.coreweave.com" path="/v1/api/query" %}
-{% api-method-summary %}
-Prometheus Query using Access Token
-{% endapi-method-summary %}
-
-{% api-method-description %}
+{% swagger baseUrl="https://prometheus.ord1.coreweave.com" path="/v1/api/query" method="post" summary="Prometheus Query using Access Token" %}
+{% swagger-description %}
 Example usage for sending a request to the Prometheus API using your Access Token.
-{% endapi-method-description %}
+{% endswagger-description %}
 
-{% api-method-spec %}
-{% api-method-request %}
-{% api-method-headers %}
-{% api-method-parameter name="Authorization" type="string" required=true %}
-Set value to `Bearer <TOKEN>` as the value, replacing `<TOKEN>` with your CoreWeave Access Token.
-{% endapi-method-parameter %}
-{% endapi-method-headers %}
+{% swagger-parameter in="header" name="Authorization" type="string" %}
+Set value to 
 
-{% api-method-query-parameters %}
-{% api-method-parameter name="time" type="number" required=true %}
+`Bearer <TOKEN>`
+
+ as the value, replacing 
+
+`<TOKEN>`
+
+ with your CoreWeave Access Token.
+{% endswagger-parameter %}
+
+{% swagger-parameter in="query" name="time" type="number" %}
 Unix timestamp of current time
-{% endapi-method-parameter %}
+{% endswagger-parameter %}
 
-{% api-method-parameter name="query" type="string" required=true %}
-Insert PromQL Query \(`kube_pod_container_info`\)
-{% endapi-method-parameter %}
-{% endapi-method-query-parameters %}
-{% endapi-method-request %}
+{% swagger-parameter in="query" name="query" type="string" %}
+Insert PromQL Query (
 
-{% api-method-response %}
-{% api-method-response-example httpCode=200 %}
-{% api-method-response-example-description %}
-Prometheus Data response on a query
-{% endapi-method-response-example-description %}
+`kube_pod_container_info`
 
+)
+{% endswagger-parameter %}
+
+{% swagger-response status="200" description="Prometheus Data response on a query" %}
 ```javascript
 {
 	"status": "success",
@@ -82,10 +78,8 @@ Prometheus Data response on a query
 	}
 }3
 ```
-{% endapi-method-response-example %}
-{% endapi-method-response %}
-{% endapi-method-spec %}
-{% endapi-method %}
+{% endswagger-response %}
+{% endswagger %}
 
 ## Metric Scraping
 
@@ -173,4 +167,3 @@ spec:
 ```
 {% endtab %}
 {% endtabs %}
-

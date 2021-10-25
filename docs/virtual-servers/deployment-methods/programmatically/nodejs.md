@@ -8,11 +8,11 @@ description: >-
 
 ### Implementation Breakdown
 
-The example is broken down into two parts, the [client](https://github.com/coreweave/kubernetes-cloud/blob/master/virtual-server/examples/nodejs/client.js), which is glue code layered on top of the godaddy implementation of a [kubernetes-client](https://github.com/godaddy/kubernetes-client), and the [application](https://github.com/coreweave/kubernetes-cloud/blob/master/virtual-server/examples/nodejs/main.js); both of which are described below.
+The example is broken down into two parts, the [client](../../../../virtual-server/examples/nodejs/client.js), which is glue code layered on top of the godaddy implementation of a [kubernetes-client](https://github.com/godaddy/kubernetes-client), and the [application](../../../../virtual-server/examples/nodejs/main.js); both of which are described below.
 
 ### Client
 
-The client \([client.js](https://github.com/coreweave/kubernetes-cloud/blob/master/virtual-server/examples/nodejs/client.js)\) provides an interface to create a kubernetes client using your kubernetes credentials \(token\). Client.js may be dropped into any application and used to interface with the Virtual Server resource. A set of functions specific to creating, modifying, and checking the status of a Virtual Server are additionally provided and operate as follows:
+The client ([client.js](../../../../virtual-server/examples/nodejs/client.js)) provides an interface to create a kubernetes client using your kubernetes credentials (token). Client.js may be dropped into any application and used to interface with the Virtual Server resource. A set of functions specific to creating, modifying, and checking the status of a Virtual Server are additionally provided and operate as follows:
 
 `init()`: Initialize the client
 
@@ -29,9 +29,9 @@ The client \([client.js](https://github.com/coreweave/kubernetes-cloud/blob/mast
 
 `virtualServer.create(manifest)`: Creates a Virtual Server
 
-* `manifest`: A Virtual Server manifest \(JSON/Object\)
+*   `manifest`: A Virtual Server manifest (JSON/Object)
 
-  > Example manifests detailed in Example Manifest section
+    > Example manifests detailed in Example Manifest section
 
 `virtualServer.delete({namespace, name})`: Delete a Virtual Server
 
@@ -40,7 +40,7 @@ The client \([client.js](https://github.com/coreweave/kubernetes-cloud/blob/mast
 
 `virtualServer.update(manifest)`: Update an existing Virtual Server
 
-* `manifest`: An updated Virtual Server \(JSON/Object\)
+* `manifest`: An updated Virtual Server (JSON/Object)
 
 `virtualServer.ready({namespace, name})`: Stopping function that waits for the VirtualMachineReady status condition of a Virtual Server
 
@@ -59,11 +59,11 @@ The client \([client.js](https://github.com/coreweave/kubernetes-cloud/blob/mast
 
 ### Application
 
-The application \([main.js](https://github.com/coreweave/kubernetes-cloud/blob/master/virtual-server/examples/nodejs/main.js)\) implements client.js in order to create, watch, get, and update an example Virtual Server. The application serves as an example of how to implement client.js. Additionally, the application illustrates how one might retrieve status information from a running Virtual Server, retrieving its run state and network information. Finally, the example shows how to simply interface with the kubevirt __subresource api in order to start and stop a Virtual Server.
+The application ([main.js](../../../../virtual-server/examples/nodejs/main.js)) implements client.js in order to create, watch, get, and update an example Virtual Server. The application serves as an example of how to implement client.js. Additionally, the application illustrates how one might retrieve status information from a running Virtual Server, retrieving its run state and network information. Finally, the example shows how to simply interface with the kubevirt_ _subresource api in order to start and stop a Virtual Server.
 
 ### Example Manifest
 
-```text
+```
 {
   apiVersion: "virtualservers.coreweave.com/v1alpha1",
   kind: "VirtualServer",
@@ -126,4 +126,3 @@ The application \([main.js](https://github.com/coreweave/kubernetes-cloud/blob/m
   }
 }
 ```
-

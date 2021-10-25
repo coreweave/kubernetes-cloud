@@ -1,12 +1,12 @@
 ---
-description: 'CoreWeave, Inc. Security & Compliance.'
+description: CoreWeave, Inc. Security & Compliance.
 ---
 
 # Security & Compliance
 
 **Last updated: September 16, 2021**
 
-Customer data privacy is built into the foundation of CoreWeave’s platform. From the datacenter through the software layer, customer data is protected using industry best practices, tracked and access controlled. 
+Customer data privacy is built into the foundation of CoreWeave’s platform. From the datacenter through the software layer, customer data is protected using industry best practices, tracked and access controlled.&#x20;
 
 ### **Multiple Layer Physical Security Before Access**
 
@@ -35,6 +35,5 @@ Customer data privacy is built into the foundation of CoreWeave’s platform. Fr
 ### **Preventing Breaches**
 
 * Physical and Logical intrusion prevention strategies
-* Distributed denial of service \(DDoS\) mitigation
+* Distributed denial of service (DDoS) mitigation
 * TLS encryption of all internet bound traffic
-
