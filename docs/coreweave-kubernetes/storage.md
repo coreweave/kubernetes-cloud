@@ -107,9 +107,9 @@ spec:
 
 Storage is billed per gigabyte of allocated (requested) space as an average over a billing cycle.
 
-**Resizing**
+### **Resizing**
 
-Volumes can be expanded by simply increasing the `storage` request and reapplying the manifest. `ReadWriteMany` volumes are resized online without disruption the workload. For `ReadWriteOnce` volumes you will need to stop or restart all workloads that are attaching the volume for the resize to take effect.
+Volumes can be expanded by simply increasing the `storage` request and reapplying the manifest. `ReadWriteMany` volumes are resized online without disruption the workload. For `ReadWriteOnce` volumes you will need to stop or restart all workloads that are attaching the volume for the resize to take effect. Please note that volumes cannot be shrunk after they are expanded. One-line example to grow a storage volume: `kubectl patch pvc myvolume -p '{"spec":{"resources":{"requests":{"storage": "500Gi"}}}}'`
 
 ## Ephemeral Storage
 

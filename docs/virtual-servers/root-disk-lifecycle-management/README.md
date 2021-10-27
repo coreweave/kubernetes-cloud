@@ -6,6 +6,12 @@ description: Manage custom OS images on CoreWeave Cloud
 
 When instantiating Virtual Servers, it is often desired to have a customized template root disk image to instantiate off. CoreWeave provides standard images with the base OS, GPU drivers and utilities like Docker. There are multiple ways to customize the CoreWeave provided images into your own templates, or import a new image from an external source.
 
+**Expanding a VM Root Disk**
+
+{% content-ref url="expanding-disks.md" %}
+[expanding-disks.md](expanding-disks.md)
+{% endcontent-ref %}
+
 **Manual Customization and Cloning**
 
 {% content-ref url="creating-a-virtual-server-base-image.md" %}

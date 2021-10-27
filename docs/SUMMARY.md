@@ -54,6 +54,7 @@
     * [Golang](virtual-servers/deployment-methods/programmatically/golang.md)
 * [Remote Access and Control](virtual-servers/remote-access-and-control.md)
 * [Root Disk Lifecycle Management](virtual-servers/root-disk-lifecycle-management/README.md)
+  * [Expanding Disks](virtual-servers/root-disk-lifecycle-management/expanding-disks.md)
   * [Manually creating a Virtual Server base image](virtual-servers/root-disk-lifecycle-management/creating-a-virtual-server-base-image.md)
   * [Copying CoreWeave Images to a Writable PVC](virtual-servers/root-disk-lifecycle-management/exporting-coreweave-images-to-a-writable-pvc.md)
   * [Using Hashicorp Packer to create and update OS Images](virtual-servers/root-disk-lifecycle-management/using-packer-to-create-and-update-os-images/README.md)
