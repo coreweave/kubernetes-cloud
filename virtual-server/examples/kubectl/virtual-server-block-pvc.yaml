@@ -34,7 +34,7 @@ spec:
       source:
         pvc:
           namespace: vd-images
-          name: ubuntu2004-docker-master-20210323-ord1
+          name: ubuntu2004-nvidia-465-19-01-1-docker-master-20211020-ord1
     additionalDisks:
       - name: additional-block-volume
         spec:
@@ -52,24 +52,19 @@ spec:
       ports:
         - 22
   cloudInit: |
-    # Write a simple script
-    write_files:
-    - content: |
-        #!/bin/bash
-        echo "Hello world!"
-      path: /home/myuser/script.sh
-      permissions: '0744'
-      owner: myuser:myuser
-    # Update packages
-    package_update: true
-    # Install packages
-    packages:
-      - curl
-      - git
-    # Run additional commands
-    runcmd:
-      - [df, -h]
-      - [git, version]
-      - [curl, --version ]
-      - [bash, /home/myuser/script.sh]
+    # The disk_setup directive instructs Cloud-init to partition a disk.
+    disk_setup:
+      /dev/vdb:
+        table_type: gpt
+        layout: True
+        overwrite: False
+    # fs_setup describes the how the file systems are supposed to look.
+    fs_setup:
+      - label: None
+        filesystem: ext4
+        device: /dev/vdb
+        partition: 'auto'
+    # 'mounts' contains a list of lists; the inner list are entries for an /etc/fstab line
+    mounts:
+     - [ vdb, /mnt/block-pvc, auto, "defaults" ]
   initializeRunning: true
