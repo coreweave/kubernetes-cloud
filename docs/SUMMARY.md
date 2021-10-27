@@ -22,7 +22,7 @@
 ## Inference <a href="compass" id="compass"></a>
 
 * [Online Inference Serving](compass/online-inference.md)
-* [Models](compass/models/README.md)
+* [One Click Models](compass/models/README.md)
   * [GPT-J-6B](compass/models/gpt-j-6b.md)
 * [Examples](compass/examples/README.md)
   * [TensorFlow - Open AI GPT-2](compass/examples/gpt-2/README.md)
