@@ -165,7 +165,7 @@ We already prepared a [benchmark](gpt-j-6b.md#benchmark) for different types of 
 
 ## Benchmark
 
-The table shows responses of the GPT-J6B for various sequence lengths per seconds for half precision (fp16). Brain Floating Point (bfloat16) precision has the same performance as fp16 but better accuracy and it is not available on Turing and Volta architectures.
+The table shows response time of the GPT-J6B for various sequence lengths in seconds for half precision (fp16). Brain Floating Point (bfloat16) precision has the same performance as fp16 but better accuracy and it is not available on Turing and Volta architectures.
 
 | Sequence length | V100   | Quadro RTX5000 | RTX A4000 | RTX A5000 | A40   | A100  |
 | --------------- | ------ | -------------- | --------- | --------- | ----- | ----- |
