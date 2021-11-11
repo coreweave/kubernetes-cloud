@@ -16,6 +16,8 @@ The Go example illustrates the following:
 6. Stopping the instance and waiting until it is completely stopped.
 7. Deletion of the Virtual Server.
 
+{% embed url="https://github.com/coreweave/kubernetes-cloud/tree/master/virtual-server/examples/go" %}
+
 ### Build & Run
 
 A `makefile` is provided within the [golang example](https://github.com/coreweave/kubernetes-cloud/tree/master/virtual-server/examples/go) with the following directives:

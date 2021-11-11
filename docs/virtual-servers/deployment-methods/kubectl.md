@@ -2,7 +2,9 @@
 
 Virtual Servers are a Kubernetes Custom Resource available on CoreWeave Cloud, and as such, `kubectl` can be used to create and modify the resource. The Virtual Server manifest used in the following example is available in the [examples](https://github.com/coreweave/kubernetes-cloud/tree/master/virtual-server/examples/kubectl) section of the CoreWeave Cloud repository.
 
-### Understanding the Virtual Server Manifest
+{% embed url="https://github.com/coreweave/kubernetes-cloud/tree/master/virtual-server/examples/kubectl" %}
+
+## Understanding the Virtual Server Manifest
 
 The Virtual Server manifest is broken into two parts, `metadata` and `spec`. The `metadata` section, as is the case with most Kubernetes manifests, contains the name of your Virtual Server and the namespace where it will be deployed. The `spec` contains configuration fields that define how the Virtual Server will be created. These fields are as follows:
 
@@ -69,17 +71,9 @@ Certain fields are mutually exclusive:
 * TCP ports or UDP ports and directAttachLoadbalancerIP&#x20;
 {% endhint %}
 
-### Deploying a Virtual Server
+## Deploying a Virtual Server
 
 We provide a few simple examples [Virtual Server manifests](https://github.com/coreweave/kubernetes-cloud/tree/master/virtual-server/examples/kubectl).&#x20;
-
-| Example                                         | File                                                                                                                                  | GPU |
-| ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | --- |
-| Attach block PVC                                | [virtual-server-block-pvc.yaml](../../../virtual-server/examples/kubectl/virtual-server-block-pvc.yaml)                               | Yes |
-| Attach shared PVC                               | [virtual-server-shared-pvc.yaml](../../../virtual-server/examples/kubectl/virtual-server-shared-pvc.yaml)                             | Yes |
-| Directly attaching a Load Balancer IP           | [virtual-server-direct-attach-lb.yaml](../../../virtual-server/examples/kubectl/virtual-server-direct-attach-lb.yaml)                 | Yes |
-| Windows with CPU compute only                   | [virtual-server-windows-cpu-only.yaml](../../../virtual-server/examples/kubectl/virtual-server-windows-cpu-only.yaml)                 | No  |
-| Windows with directly attached Load Balancer IP | [virtual-server-windows-internal-ip-only.yaml](../../../virtual-server/examples/kubectl/virtual-server-windows-internal-ip-only.yaml) | No  |
 
 All examples can be easily deployed in the same way using `kubectl.` The most comprehensive Virtual server example is [virtual-server-block-pvc.yaml](../../../virtual-server/examples/kubectl/virtual-server-block-pvc.yaml).
 
@@ -87,20 +81,24 @@ All examples can be easily deployed in the same way using `kubectl.` The most co
 The username and password field in the example manifests are unset. Before applying the manifest, set a secure username and password.
 {% endhint %}
 
-#### Deploying Virtual Server With Block PVC
+### Deploying a Virtual Server with an additional block disk
+
+An additional block device can be useful for storing data in a different storage class, such as HDD storage, and can also be used to separate data that shouldn't be lost if the Virtual Server is terminated.
+
+The example [virtual-server-block-pvc.yaml](../../../virtual-server/examples/kubectl/virtual-server-block-pvc.yaml)** **contains two manifests. The first part creates a 20Gi block type PVC with attributes `accessModes: ReadWriteOnce` and `storageClassName: block-nvme-ord1`.
+
+You can follow along this example by simply applying that manifest.
 
 ```
 kubectl apply -f virtual-server-block-pvc.yaml
 ```
-
-The file [virtual-server-block-pvc.yaml](../../../virtual-server/examples/kubectl/virtual-server-block-pvc.yaml)** **contains two manifests. The first part creates a 20Gi block type PVC with attributes `accessModes: ReadWriteOnce` and `storageClassName: block-nvme-ord1`.
 
 {% hint style="info" %}
 See the full list of [Storage Classes](https://docs.coreweave.com/coreweave-kubernetes/storage) for further details.
 {% endhint %}
 
 {% hint style="info" %}
-See [Root Disk Lifecycle Management](https://docs.coreweave.com/virtual-servers/root-disk-lifecycle-management) how to manage the Virtual Machine disks in Kubernetes
+See [Root Disk Lifecycle Management](https://docs.coreweave.com/virtual-servers/root-disk-lifecycle-management) how to manage the Virtual Machine disks
 {% endhint %}
 
 Once deployed, your Virtual Server will begin the initialization process. The status of your Virtual Server can be examined:
@@ -124,6 +122,8 @@ You can now access your Virtual Server using the`virtctl`command.&#x20;
 {% hint style="info" %}
 See [Remote Access and Control](https://docs.coreweave.com/virtual-servers/remote-access-and-control) for further details on how to install and use `virtctl`.
 {% endhint %}
+
+### Virtual Server Resources
 
 Virtual Server, built upon [Kubevirt](https://kubevirt.io), deploys three resources:
 
@@ -180,100 +180,16 @@ NAME                          TYPE           CLUSTER-IP       EXTERNAL-IP      P
 vs-ubuntu2004-block-pvc-tcp   LoadBalancer   10.135.203.211   207.53.234.124   22:32849/TCP   43m
 ```
 
-#### Format and Mount the Block PVC
+{% hint style="info" %}
+cloudInit automatically formats and mounts the block PVC in our [example](kubectl.md#deploying-a-virtual-server-with-an-additional-block-pvc):
+{% endhint %}
 
-The block PVC is raw and not mounted. In order to format the disk, first, login into the new system:
-
-```
-$ virtctl console vs-ubuntu2004-block-pvc
-Successfully connected to vs-ubuntu2004-block-pvc console. The escape sequence is ^]
-vs-ubuntu2004-block-pvc login: myuser
-Password: 
-
-Welcome to Ubuntu 20.04.2 LTS (GNU/Linux 5.8.0-45-generic x86_64)
-
-  System information as of Wed Sep 15 15:08:18 UTC 2021
-
-  System load:  0.1               Processes:                145
-  Usage of /:   6.5% of 38.60GB   Users logged in:          0
-  Memory usage: 1%                IPv4 address for docker0: 192.168.99.1
-  Swap usage:   0%                IPv4 address for enp3s0:  10.147.196.29
-Your Hardware Enablement Stack (HWE) is supported until April 2025.
-
-Last login: Wed Sep 15 15:02:21 UTC 2021 on ttyS0
-myuser@vs-ubuntu2004-block-pvc:~$ 
-
+```bash
+lsblk /dev/vdb
+NAME   MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
+vdb    252:16   0  10G  0 disk
+└─vdb1 252:17   0  10G  0 part /mnt/block-pvc
 ```
 
-The new disk is `/dev/vdb`:
-
-```
-myuser@vs-ubuntu2004-block-pvc:~$ sudo fdisk -l
-Disk /dev/loop0: 55.48 MiB, 58159104 bytes, 113592 sectors
-Units: sectors of 1 * 512 = 512 bytes
-Sector size (logical/physical): 512 bytes / 512 bytes
-I/O size (minimum/optimal): 512 bytes / 512 bytes
-
-...
-
-Disk /dev/vda: 40 GiB, 42949672960 bytes, 83886080 sectors
-Units: sectors of 1 * 512 = 512 bytes
-Sector size (logical/physical): 512 bytes / 512 bytes
-I/O size (minimum/optimal): 512 bytes / 512 bytes
-Disklabel type: gpt
-Disk identifier: F4869E7B-CC51-47AF-A921-6114387E6DE4
-
-Device      Start      End  Sectors  Size Type
-/dev/vda1  227328 83886046 83658719 39.9G Linux filesystem
-/dev/vda14   2048    10239     8192    4M BIOS boot
-/dev/vda15  10240   227327   217088  106M EFI System
-
-Partition table entries are not in disk order.
-
-
-Disk /dev/vdb: 20 GiB, 21474836480 bytes, 41943040 sectors
-Units: sectors of 1 * 512 = 512 bytes
-Sector size (logical/physical): 512 bytes / 512 bytes
-I/O size (minimum/optimal): 512 bytes / 512 bytes
-```
-
-Before we can use it, the disk first needs to be formatted:
-
-```
-myuser@vs-ubuntu2004-block-pvc:~$ sudo mkfs.ext4 /dev/vdb
-mke2fs 1.45.5 (07-Jan-2020)
-Discarding device blocks: done                            
-Creating filesystem with 5242880 4k blocks and 1310720 inodes
-Filesystem UUID: 26859f53-6e1c-4367-a83d-44d81c3b05f0
-Superblock backups stored on blocks: 
-	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208, 
-	4096000
-
-Allocating group tables: done                            
-Writing inode tables: done                            
-Creating journal (32768 blocks): done
-Writing superblocks and filesystem accounting information: done 
-```
-
-and then mounted:
-
-```
-myuser@vs-ubuntu2004-block-pvc:~$ sudo mkdir /mnt/vdb && sudo mount /dev/vdb /mnt/vdb
-myuser@vs-ubuntu2004-block-pvc:~$ df -h
-Filesystem      Size  Used Avail Use% Mounted on
-udev            7.9G     0  7.9G   0% /dev
-tmpfs           1.6G  1.1M  1.6G   1% /run
-/dev/vda1        39G  2.6G   37G   7% /
-tmpfs           7.9G     0  7.9G   0% /dev/shm
-tmpfs           5.0M     0  5.0M   0% /run/lock
-tmpfs           7.9G     0  7.9G   0% /sys/fs/cgroup
-/dev/loop0       56M   56M     0 100% /snap/core18/1988
-/dev/loop2       71M   71M     0 100% /snap/lxd/19647
-/dev/loop1       56M   56M     0 100% /snap/core18/2128
-/dev/vda15      105M  7.8M   97M   8% /boot/efi
-/dev/loop3       33M   33M     0 100% /snap/snapd/11107
-/dev/loop4       33M   33M     0 100% /snap/snapd/12883
-tmpfs           1.6G     0  1.6G   0% /run/user/1001
-/dev/vdb         20G   45M   19G   1% /mnt/vdb
-```
+####
 

@@ -10,6 +10,8 @@ description: >-
 
 The example is broken down into two parts, the [client](../../../../virtual-server/examples/nodejs/client.js), which is glue code layered on top of the godaddy implementation of a [kubernetes-client](https://github.com/godaddy/kubernetes-client), and the [application](../../../../virtual-server/examples/nodejs/main.js); both of which are described below.
 
+{% embed url="https://github.com/coreweave/kubernetes-cloud/tree/master/virtual-server/examples/nodejs" %}
+
 ### Client
 
 The client ([client.js](../../../../virtual-server/examples/nodejs/client.js)) provides an interface to create a kubernetes client using your kubernetes credentials (token). Client.js may be dropped into any application and used to interface with the Virtual Server resource. A set of functions specific to creating, modifying, and checking the status of a Virtual Server are additionally provided and operate as follows:

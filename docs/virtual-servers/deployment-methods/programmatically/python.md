@@ -14,6 +14,8 @@ The python example illustrates the following:&#x20;
 4. Stop the Virtual Server instance and wait until it is stopped.&#x20;
 5. Delete the Virtual Server instance.
 
+{% embed url="https://github.com/coreweave/kubernetes-cloud/blob/master/virtual-server/examples/python" %}
+
 {% hint style="info" %}
 In order to workaround unresolved issue with resource paths in the native python client for [kubevirt](https://github.com/kubevirt/client-python), we introduced class `KubeVirtClient` for basic operations on kubevirt VirtualMachine resources.
 {% endhint %}
