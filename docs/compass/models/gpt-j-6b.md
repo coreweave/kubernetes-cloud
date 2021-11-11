@@ -11,7 +11,7 @@ The model was trained on [the Pile](https://arxiv.org/pdf/2101.00027.pdf), a 825
     ![](https://gblobscdn.gitbook.com/assets%2F-M83TghsCfsi8FCYs2DZ%2F-Mj8bRkoZHQnzaZ64weP%2F-Mj8dNozNioSsymBNIg9%2Fimage.png?alt=media\&token=d56bb42a-0572-40ba-b053-4320528a4b25)
 2.  A new window opens to CoreWeave Apps with the list of available applications. Find and select the **gpt-j-6b** application&#x20;
 
-    ![](<../../.gitbook/assets/image (17).png>) \
+    &#x20;![](<../../.gitbook/assets/image (31).png>)\
 
 3. In the right upper corner, select the latest version of the helm chart and click `DEPLOY`
 4. The deployment's form prompts you to enter an application name. The remaining parameters have our suggested defaults; when ready, click `DEPLOY` at the bottom of the page.
@@ -165,23 +165,23 @@ We already prepared a [benchmark](gpt-j-6b.md#benchmark) for different types of 
 
 ## Benchmark
 
-The table shows response time of the GPT-J6B for various sequence lengths in seconds for half precision (fp16). Brain Floating Point (bfloat16) precision has the same performance as fp16 but better accuracy and it is not available on Turing and Volta architectures.
+The table shows responses of the GPT-J6B for various sequence lengths per second for half precision (fp16). Brain Floating Point (bfloat16) precision has the same performance as fp16 but better accuracy and it is not available on Turing and Volta architectures.
 
-| Sequence length | V100   | Quadro RTX5000 | RTX A4000 | RTX A5000 | A40   | A100  |
-| --------------- | ------ | -------------- | --------- | --------- | ----- | ----- |
-| 128             | 8.64   | 8.39           | 7.04      | 5.69      | 6.84  | 4.95  |
-| 256             | 15.39  | 14.54          | 12.15     | 9.86      | 11.9  | 8.52  |
-| 384             | 22.73  | 20.94          | 17.53     | 14.14     | 17.08 | 12.3  |
-| 512             | 30.01  | 26.88          | 22.42     | 18.28     | 21.88 | 15.74 |
-| 640             | 38.31  | 32.98          | 27.59     | 22.56     | 26.69 | 19.51 |
-| 768             | 48.56  | 41.27          | 34.58     | 28.07     | 33.39 | 24.36 |
-| 896             | 55.21  | 46.02          | 38.64     | 31.61     | 37.31 | 27.36 |
-| 1024            | 64.26  | 58.38          | 44.23     | 35.96     | 42.61 | 30.9  |
-| 1152            | 72.34  | 59.69          | 49.13     | 39.44     | 47.46 | 34.37 |
-| 1280            | 85.37  | 67.51          | 57.24     | 45.58     | 54.66 | 39.79 |
-| 1408            | 95.29  | 73.85          | 62.77     | 49.91     | 59.29 | 43.05 |
-| 1536            | 106.53 | 84.76          | 69.19     | 54.22     | 65.1  | 47.86 |
-| 1664            | 116.98 | 88.71          | 75.04     | 58.9      | 70.4  | 51.18 |
-| 1792            | 127.42 | 95.74          | 81.66     | 63.64     | 75.6  | 55.26 |
-| 1920            | 133.01 | 96.96          | 83.39     | 64.47     | 75.92 | 55.96 |
-| 2048            | 144.8  | 106.94         | 90.48     | 70.33     | 82.62 | 61.06 |
+| Sequence length | V100   | Quadro RTX5000 | RTX A5000 | A40   | A100  | A100  |
+| --------------- | ------ | -------------- | --------- | ----- | ----- | ----- |
+| 128             | 9.13   | 8.94           | 5.62      | 6.98  | 5.11  | 4.95  |
+| 256             | 16.2   | 16.95          | 9.74      | 12.09 | 8.9   | 8.52  |
+| 384             | 23.65  | 22.64          | 14.17     | 17.47 | 12.89 | 12.3  |
+| 512             | 31.38  | 30.03          | 17.97     | 22.32 | 16.47 | 15.74 |
+| 640             | 39.43  | 36.91          | 22.27     | 27.34 | 20.2  | 19.51 |
+| 768             | 50.27  | 43.9           | 28.09     | 34.12 | 25.11 | 24.36 |
+| 896             | 58.68  | 49.04          | 30.85     | 38.07 | 28.06 | 27.36 |
+| 1024            | 68.8   | 55.9           | 35.24     | 43.66 | 32.05 | 30.9  |
+| 1152            | 78.45  | 61.84          | 39.02     | 48.28 | 35.36 | 34.37 |
+| 1280            | 91.08  | 73.12          | 45.18     | 56.07 | 41.26 | 39.79 |
+| 1408            | 101.32 | 85.47          | 53.98     | 61.04 | 45.11 | 43.05 |
+| 1536            | 111.21 | 91.93          | 54.22     | 66.3  | 49.69 | 47.86 |
+| 1664            | 119.76 | 94.35          | 58        | 71.78 | 53.14 | 51.18 |
+| 1792            | 131.12 | 100.37         | 63.14     | 77.5  | 58.04 | 55.26 |
+| 1920            | 136.66 | 101.83         | 63.7      | 78.72 | 58.52 | 55.96 |
+| 2048            | 149.16 | 110.88         | 69.48     | 85.18 | 63.41 | 61.06 |

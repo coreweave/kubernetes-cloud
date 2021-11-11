@@ -19,28 +19,6 @@
   * [Ethereum Miner](coreweave-kubernetes/examples/miner.md)
   * [SSH Server with CUDA](coreweave-kubernetes/examples/cuda-ssh.md)
 
-## Inference <a href="compass" id="compass"></a>
-
-* [Online Inference Serving](compass/online-inference.md)
-* [One Click Models](compass/models/README.md)
-  * [GPT-J-6B](compass/models/gpt-j-6b.md)
-* [Examples](compass/examples/README.md)
-  * [TensorFlow - Open AI GPT-2](compass/examples/gpt-2/README.md)
-    * [Transformer](compass/examples/gpt-2/transformer.md)
-    * [Exporting with Jupyter](compass/examples/gpt-2/jupyter-pvc.md)
-    * [S3 Model Serving](compass/examples/gpt-2/service-s3.md)
-    * [PVC Model Serving](compass/examples/gpt-2/service-pvc.md)
-  * [TensorFlow2 - Image Classifier](compass/examples/tensorflow2-image-classifier.md)
-  * [PyTorch - GPT-2 AITextgen](compass/examples/custom-pytorch-aitextgen.md)
-  * [PyTorch - FastAI Sentiment](compass/examples/custom-sentiment.md)
-  * [Custom - BASNET](compass/examples/custom-basnet.md)
-
-## Workflows
-
-* [Getting Started](workflows/argo.md)
-* [Examples](workflows/examples/README.md)
-  * [CGI Rendering](workflows/examples/cgi-rendering.md)
-
 ## Virtual Servers
 
 * [Getting Started](virtual-servers/getting-started.md)
@@ -65,6 +43,28 @@
   * [Exporting images to QCOW2](virtual-servers/root-disk-lifecycle-management/exporting-images-to-qcow2.md)
 * [Examples](virtual-servers/examples/README.md)
   * [Provision an Active Directory Domain Controller](virtual-servers/examples/provision-an-active-directory-domain-controller.md)
+
+## Inference <a href="compass" id="compass"></a>
+
+* [Online Inference Serving](compass/online-inference.md)
+* [One Click Models](compass/models/README.md)
+  * [GPT-J-6B](compass/models/gpt-j-6b.md)
+* [Examples](compass/examples/README.md)
+  * [TensorFlow - Open AI GPT-2](compass/examples/gpt-2/README.md)
+    * [Transformer](compass/examples/gpt-2/transformer.md)
+    * [Exporting with Jupyter](compass/examples/gpt-2/jupyter-pvc.md)
+    * [S3 Model Serving](compass/examples/gpt-2/service-s3.md)
+    * [PVC Model Serving](compass/examples/gpt-2/service-pvc.md)
+  * [TensorFlow2 - Image Classifier](compass/examples/tensorflow2-image-classifier.md)
+  * [PyTorch - GPT-2 AITextgen](compass/examples/custom-pytorch-aitextgen.md)
+  * [PyTorch - FastAI Sentiment](compass/examples/custom-sentiment.md)
+  * [Custom - BASNET](compass/examples/custom-basnet.md)
+
+## Workflows
+
+* [Getting Started](workflows/argo.md)
+* [Examples](workflows/examples/README.md)
+  * [CGI Rendering](workflows/examples/cgi-rendering.md)
 
 ## Solutions
 
