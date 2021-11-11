@@ -61,7 +61,7 @@ Each query can be parameterized with the following parameters: \
 \-`top_p` \
 \-`repetition_penalty`
 
-See [Parameters](./) for the full description
+See [Parameters](https://docs.coreweave.com/compass/models/gpt-j-6b#parameters) for the full description
 {% endhint %}
 
 ## Few-Shot Learning Examples

@@ -2,7 +2,7 @@
 
 ### Obtain Access Credentials
 
-[Sign up for CoreWeave Cloud](https://cloud.coreweave.com/request-account) and generate a kubeconfig from the [API Access ](https://cloud.coreweave.com/api-access)page. Every time an access token is generated your corresponding kubeconfig will automatically download.
+[Sign up for CoreWeave Cloud](https://cloud.coreweave.com/request-account) and generate a `kubeconfig` from the [API Access ](https://cloud.coreweave.com/api-access)page. Every time an access token is generated your corresponding `kubeconfig` will automatically download.
 
 ![](../.gitbook/assets/cw-access-token.png)
 
@@ -40,9 +40,9 @@ Add `-Silent` to the end of this string for a non-interactive setup.
 
 ### Set Up Access
 
-You will have received a pre-populated `k8s-conf` file from CoreWeave as part of your onboarding package. The snippet below assumes that you have no other Kubernetes credentials stored on your system, if you do you will need to open both files and copy the `cluster`, `context` and `user` from the supplied `k8s-conf` file into your existing `~/.kube/config` file.
+The snippet below assumes that you have no other Kubernetes credentials stored on your system, if you do you will need to open both files and copy the `cluster`, `context` and `user` from the supplied `k8s-conf` file into your existing `~/.kube/config` file.
 
-Replace `~/Downloads` with the path to the `kube-config` supplied by CoreWeave.
+Replace `~/Downloads` with the path to the `kubeconfig` supplied by CoreWeave.
 
 ```
 mkdir -p ~/.kube/
