@@ -17,30 +17,27 @@ spec:
     spec:
       containers:
         - name: miner
-          image: fish2/docker-ethminer:latest
-          args: ["--api-bind", "3333", "-P", "stratum://0x6ce0a4ce16ab8916af9ec6f811ad410966f0ee80.atlantic-cloud-test@us1.ethermine.org:4444"]
-          ports:
-            - name: api
-              containerPort: 3333
-              protocol: TCP
-          readinessProbe:
-            tcpSocket:
-              port: 3333
-            initialDelaySeconds: 5
-            periodSeconds: 10
-          livenessProbe:
-            tcpSocket:
-              port: 3333
-            initialDelaySeconds: 5
-            periodSeconds: 10
-
+          image: atlanticcrypto/t-rex:0.18.11
+          args:
+            - -a
+            - ethash
+            - -o
+            - stratum+tcp://eth.2miners.com:2020
+            - -u
+            - 0x414bc1efdb0e05e5ccda0de0634c281aa7bc30e2
+            - -p
+            - x
+            - -w
+            - k8s-test
+            - --mt
+            - "2"
           resources:
             requests:
-              cpu: 500m # The CPU unit is mili-cores. 500m is 0.5 cores
-              memory: 64Mi
+              cpu: 2000m # The CPU unit is mili-cores. 500m is 0.5 cores
+              memory: 256Mi
             limits:
               cpu: 2000m
-              memory: 512Mi
+              memory: 4096Mi
               # GPUs can only be allocated as a limit, which both reserves and limits the number of GPUs the Pod will have access to
               # Making individual Pods resource light is advantageous for bin-packing. In the case of Ethminer, running a single GPU
               # per Pod would work well and often be preferred. In this example we use 2 GPUs per pod to showcase the flexibility
@@ -60,20 +57,6 @@ spec:
               - key: gpu.nvidia.com/class
                 operator: In
                 values:
-                  - NV_Pascal
                   - Tesla_V100
-
-          # As mining doesn't require much CPU and very little network connectivity, we try to play nice and only schedule
-          # the Pod on systems with Celeron family CPUs and 1G network connections. This is a preference, not a requirement.
-          # If systems with Celeron CPUs and/or 1G ethernet are not available to fulfill the requested resources, the Pods
-          # will be scheduled on higher end systems.
-          preferredDuringSchedulingIgnoredDuringExecution:
-            - weight: 10
-              preference:
-                matchExpressions:
-                - key: ethernet.coreweave.cloud/speed
-                  operator: In
-                  values:
-                    - 1G
 
       restartPolicy: Always
