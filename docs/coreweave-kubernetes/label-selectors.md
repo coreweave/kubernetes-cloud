@@ -23,6 +23,20 @@ The basic node selectors demonstrated in [Node Types](node-types.md#requesting-c
 #### Examples
 
 {% tabs %}
+{% tab title="Schedule in ORD1 only" %}
+```yaml
+affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: topology.kubernetes.io/region
+            operator: In
+            values:
+              - ORD1
+```
+{% endtab %}
+
 {% tab title="16 Core Xeon CPU with 10GE " %}
 ```yaml
 spec:

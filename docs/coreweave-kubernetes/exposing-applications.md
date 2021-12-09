@@ -44,8 +44,8 @@ spec:
 ```
 {% endcode %}
 
-{% hint style="info" %}
-For public services, ensure that `externalTrafficPolicy: Local` is set on the service. This load balances ingress traffic from the Internet directly to the  nodes running the  application.
+{% hint style="warning" %}
+To ensure optimal traffic routing, ensure that your workload is only scheduled to run in the region where a public IP is requested from. Use the [region label affinity](label-selectors.md) to limit scheduling of the workload to a single region.
 {% endhint %}
 
 ### Attaching Service IP directly to Pod
@@ -58,7 +58,7 @@ The traditional Kubernetes pattern is one or many Pods with dynamic internal IPs
 * The application needs to receive all traffic regardless of type and port
 * A Virtual Machine type workload where a static IP provides a more native experience
 
-Please note that an application that directly attaches a Service IP can run with a maximum of **1 **replica, as there would otherwise be multiple Pods with the same Pod IP. Traffic to the Pod will not be filtered, all inbound traffic to the IP will be sent to the pod. To provide security, [NetworkPolicies](https://kubernetes.io/docs/concepts/services-networking/network-policies/) can be applied.
+Please note that an application that directly attaches a Service IP can run with a maximum of **1** replica, as there would otherwise be multiple Pods with the same Pod IP. Traffic to the Pod will not be filtered, all inbound traffic to the IP will be sent to the pod. To provide security, [NetworkPolicies](https://kubernetes.io/docs/concepts/services-networking/network-policies/) can be applied.
 
 A stub Service needs to be created to allocate the IP. The Service should expose only port `1` as in the example below.
 
@@ -91,7 +91,7 @@ To attach the IP from the Service directly to a Pod, annotate the Pod spec.
 
 ## Ingress
 
-Using an Ingress for HTTP based applications are beneficial as it saves IP addresses and automatically provides a DNS name as well as TLS certificate to allow access to your application via `https`. CoreWeave already has all the infrastructure setup including the Ingress Controller, all you need to do is deploy an `Ingress` manifest. The hostname of the Ingress needs to be in the format of `<app>.<namespace>.<region>.ingress.coreweave.cloud`. The example below demonstrates an Ingress called `my-app `exposed via an Ingress in the ORD1 region for a namespace `tenant-test-default`.
+Using an Ingress for HTTP based applications are beneficial as it saves IP addresses and automatically provides a DNS name as well as TLS certificate to allow access to your application via `https`. CoreWeave already has all the infrastructure setup including the Ingress Controller, all you need to do is deploy an `Ingress` manifest. The hostname of the Ingress needs to be in the format of `<app>.<namespace>.<region>.ingress.coreweave.cloud`. The example below demonstrates an Ingress called `my-app` exposed via an Ingress in the ORD1 region for a namespace `tenant-test-default`.
 
 ```yaml
 apiVersion: networking.k8s.io/v1beta1

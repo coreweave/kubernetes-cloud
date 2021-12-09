@@ -103,6 +103,16 @@ spec:
 {% endtab %}
 {% endtabs %}
 
+{% hint style="warning" %}
+For the vast majority of use cases, workloads should run in the same region as the storage they are accessing. Use the [region label affinity](label-selectors.md) to limit scheduling of the workload to a single region. There are certain exceptions:
+
+\
+\- Batch workloads where IOPS is not a concern but accessing compute capacity from multiple regions might give a scaling benefits\
+\- When data is strictly read during startup of a process, such as when reading a ML model from storage into system and G{U memory for inference\
+\
+As a rule of thumb, Block volumes should always be used in the same region they are allocated. Shared volumes is where the above noted exceptions might be relevant.
+{% endhint %}
+
 ### Billing
 
 Storage is billed per gigabyte of allocated (requested) space as an average over a billing cycle.
