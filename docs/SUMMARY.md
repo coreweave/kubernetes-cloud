@@ -44,7 +44,7 @@
 * [Examples](virtual-servers/examples/README.md)
   * [Provision an Active Directory Domain Controller](virtual-servers/examples/provision-an-active-directory-domain-controller.md)
 
-## Inference <a href="compass" id="compass"></a>
+## Inference <a href="#compass" id="compass"></a>
 
 * [Online Inference Serving](compass/online-inference.md)
 * [One Click Models](compass/models/README.md)
@@ -73,6 +73,7 @@
   * [On-Premise Integration](solutions/vfx/on-premise-integration/README.md)
     * [CloudLink on Linux](solutions/vfx/on-premise-integration/linux.md)
     * [Synology NAS](solutions/vfx/on-premise-integration/synology-nas.md)
+    * [Direct Connections](solutions/vfx/on-premise-integration/direct-connections.md)
 * [Virtual Workstations](solutions/virtual-workstations.md)
 
 ## Resources
