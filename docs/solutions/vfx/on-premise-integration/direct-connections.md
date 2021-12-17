@@ -8,11 +8,11 @@ For clients who require guaranteed capacity connections to CoreWeave Cloud, we c
 
 **Data Center Direct Connect Availability:**
 
-| Region / Location  | On-Net Carriers                                                                    | Port Speeds      |
-| ------------------ | ---------------------------------------------------------------------------------- | ---------------- |
-| ORD1               | AT\&T, Comcast, Verizon, Zayo, Windstream, Sprint, United-IX, Lumen, Cogent        | 1Gbps to 100Gbps |
-| LAS1               | Over 50 Providers, including Lumen, Zayo, Verizon, Windstream, Cogent, Telia, GTT. | 1Gbps to 100Gbps |
-| LGA1 (coming soon) | AT\&T, Comcast, Verizon, Zayo, Lumen, GTT, Crown Castle, Cogent                    | 1Gbps to 100Gbps |
+| Region / Location  | On-Net Carriers                                                                   | Port Speeds      |
+| ------------------ | --------------------------------------------------------------------------------- | ---------------- |
+| ORD1               | AT\&T, Comcast, Verizon, Zayo, Windstream, Sprint, United-IX, Lumen, Cogent       | 1Gbps to 100Gbps |
+| LAS1               | Over 50 Providers, including Lumen, Zayo, Verizon, Windstream, Cogent, Telia, GTT | 1Gbps to 100Gbps |
+| LGA1 (coming soon) | AT\&T, Comcast, Verizon, Zayo, Lumen, GTT, Crown Castle, Cogent                   | 1Gbps to 100Gbps |
 
 {% hint style="danger" %}
 Not all port speeds are available for all carriers.
