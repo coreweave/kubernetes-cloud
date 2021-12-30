@@ -33,7 +33,7 @@ spec:
       source:
         pvc:
           namespace: vd-images
-          name: ubuntu2004-docker-master-20210323-ord1
+          name: ubuntu2004-nvidia-510-47-03-1-docker-master-20220517-ord1
     filesystems:
       - name: shared-pvc
         spec:
