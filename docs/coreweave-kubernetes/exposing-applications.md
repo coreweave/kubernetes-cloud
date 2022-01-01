@@ -20,6 +20,7 @@ Depending upon where you've requested your workloads to run, public IP pools are
 | ------ | ------------------ |
 | ORD1   | public-ord1        |
 | EWR1   | public-ewr1        |
+| LGA1   | public-lga1        |
 | LAS1   | public-las1        |
 
 {% code title="sshd-public-service.yaml" %}
