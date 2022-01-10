@@ -3,7 +3,7 @@ kind: InferenceService
 metadata:
   name: gpt-pvc
   annotations:
-    serving.kubeflow.org/gke-accelerator: Tesla_V100
+    serving.kubeflow.org/gke-accelerator: Quadro_RTX_5000
 spec:
   default:
     predictor:
