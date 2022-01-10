@@ -64,5 +64,5 @@ spec:
             - key: gpu.nvidia.com/class
               operator: In
               values:
-              - Tesla_V100
+              - Quadro_RTX_5000
 ```
