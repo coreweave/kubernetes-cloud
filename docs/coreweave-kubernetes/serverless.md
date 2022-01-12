@@ -25,7 +25,13 @@ metadata:
 spec:
   template:
     spec:
-      containerConcurrency: 10 # Container can handle 10 concurrent requests
+      # The container concurrency defines how many active requests are sent to a single
+      # backend pod at a time. This configuration is important as it effects how well requests
+      # are load balanced over Pods. For a standard, non-blocking web applocation this can usually
+      # be rather high, ie 100. For GPU Inference however, this should usually be set to 1.
+      # GPU Inference only processes one request at a time, and one wants to avoid a queue being
+      # built up in the local pod instead of centrally in the Load Balancer.
+      containerConcurrency: 10 
       containers:
         - image: gcr.io/knative-samples/helloworld-go # The URL to the image of the app
           resources:
