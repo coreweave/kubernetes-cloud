@@ -35,7 +35,7 @@ For on demand customers, billing is done on a per minute basis when containers a
 
 ## Model Storage
 
-Models can be served directly from Amazon S3, which is practical for testing and multi cloud deployment. For faster container launch times in a production environment it is recommended to cache the model in a `ReadWriteMany` persistent volume on CoreWeave storage. The model can be written to a PVC from any container, such as SSH or Jupyter.
+Models can be served directly from Amazon S3, which is practical for testing and multi cloud deployment. For faster container launch times in a production environment it is recommended to cache the model in a `ReadWriteMany` persistent volume on CoreWeave storage. The model can be written to a PVC from any container, such as SSH, Jupyter or FileBrowser deployed via [CoreWeave Apps](https://apps.coreweave.com).
 
 ## GPU Selectors & Affinities
 
@@ -46,6 +46,7 @@ spec:
   predictor:
     minReplicas: 0 
     maxReplicas: 3
+    containerConcurrency: 1
     containers:
     ...
       resources:
@@ -54,7 +55,7 @@ spec:
           memory: 6Gi
         limits:
           cpu: 3
-          memory: 10Gi
+          memory: 16Gi
           nvidia.com/gpu: 1
     affinity:
       nodeAffinity:
