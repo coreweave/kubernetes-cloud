@@ -19,11 +19,12 @@ apiVersion: serving.knative.dev/v1 # Current version of Knative
 kind: Service
 metadata:
   name: helloworld # The name of the app
-  annotations:
-    autoscaling.knative.dev/minScale: "0" # Allow scale to Zero
-    autoscaling.knative.dev/maxScale: "10" # Maximum number of Pods allowed to auto-scale to
 spec:
   template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/minScale: "0" # Allow scale to Zero
+        autoscaling.knative.dev/maxScale: "10" # Maximum number of Pods allowed to auto-scale to
     spec:
       # The container concurrency defines how many active requests are sent to a single
       # backend pod at a time. This configuration is important as it effects how well requests
