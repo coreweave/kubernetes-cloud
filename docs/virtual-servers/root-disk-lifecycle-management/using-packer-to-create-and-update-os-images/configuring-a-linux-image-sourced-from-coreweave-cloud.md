@@ -1,7 +1,7 @@
 # Configuring a Linux image sourced from CoreWeave Cloud
 
 **Objective:** Use our Packer Virtual Server to configure a Linux image from CoreWeave Cloud.\
-**Overview: **Combining examples from [Configuring a Windows Image sourced from CoreWeave Cloud](configuring-a-windows-image-sourced-from-coreweave-cloud.md) and [Configuring an externally sourced cloud Linux image](configuring-an-externally-sourced-cloud-linux-image.md), we will use our [Packer Worker Virtual Server](creating-a-packer-worker-virtual-server.md#deploying-virtual-server) to configure a Linux image sourced from CoreWeave Cloud.
+**Overview:** Combining examples from [Configuring a Windows Image sourced from CoreWeave Cloud](configuring-a-windows-image-sourced-from-coreweave-cloud.md) and [Configuring an externally sourced cloud Linux image](configuring-an-externally-sourced-cloud-linux-image.md), we will use our [Packer Worker Virtual Server](creating-a-packer-worker-virtual-server.md#deploying-virtual-server) to configure a Linux image sourced from CoreWeave Cloud.
 
 #### References:
 
@@ -11,7 +11,7 @@
 
 Following the example in [Copying CoreWeave Images to a Writeable PVC](../exporting-coreweave-images-to-a-writable-pvc.md), we will search for the latest CentOS image in the vd-images namespace:&#x20;
 
-![](<../../../.gitbook/assets/image (5).png>)
+![](<../../../../.gitbook/assets/image (5).png>)
 
 We will then clone this image into our namespace:
 
@@ -115,7 +115,7 @@ Our Packer manifest will be a combination of our previous [Windows](configuring-
 {% endcode %}
 
 {% hint style="info" %}
-**/dev/vdb **refers to our cloned block device
+**/dev/vdb** refers to our cloned block device
 {% endhint %}
 
 {% hint style="info" %}

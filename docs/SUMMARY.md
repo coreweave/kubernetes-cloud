@@ -69,11 +69,13 @@
 ## Solutions
 
 * [VFX](solutions/vfx/README.md)
-  * [Deadline](solutions/vfx/deadline.md)
+  * [Deploying Managed Deadline](solutions/vfx/deadline.md)
   * [On-Premise Integration](solutions/vfx/on-premise-integration/README.md)
     * [CloudLink on Linux](solutions/vfx/on-premise-integration/linux.md)
     * [Synology NAS](solutions/vfx/on-premise-integration/synology-nas.md)
     * [Direct Connections](solutions/vfx/on-premise-integration/direct-connections.md)
+  * [VFX Studio Components Guide](solutions/vfx/vfx-studio-components-guide.md)
+  * [Cloud Studio Reference Guide](solutions/vfx/cloud-studio-reference-guide.md)
 * [Virtual Workstations](solutions/virtual-workstations.md)
 
 ## Resources

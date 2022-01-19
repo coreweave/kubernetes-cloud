@@ -85,7 +85,7 @@ The username and password field in the example manifests are unset. Before apply
 
 An additional block device can be useful for storing data in a different storage class, such as HDD storage, and can also be used to separate data that shouldn't be lost if the Virtual Server is terminated.
 
-The example [virtual-server-block-pvc.yaml](../../../virtual-server/examples/kubectl/virtual-server-block-pvc.yaml)** **contains two manifests. The first part creates a 20Gi block type PVC with attributes `accessModes: ReadWriteOnce` and `storageClassName: block-nvme-ord1`.
+The example [virtual-server-block-pvc.yaml](../../../virtual-server/examples/kubectl/virtual-server-block-pvc.yaml) **** contains two manifests. The first part creates a 20Gi block type PVC with attributes `accessModes: ReadWriteOnce` and `storageClassName: block-nvme-ord1`.
 
 You can follow along this example by simply applying that manifest.
 

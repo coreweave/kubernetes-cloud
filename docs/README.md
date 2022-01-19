@@ -3,9 +3,9 @@
 ## Quick Links
 
 * ****[**Kubernetes**](coreweave-kubernetes/getting-started.md) - Run and scale your own services and workloads with access to thousands of GPUs, CPU cores and high throughput networking in a fully managed Kubernetes environment.
-* ****[**Inference**](compass/online-inference.md#introduction)** **- Production ML Model Deployment as a Service. Billed by the minute, with the industry's most responsive auto scale.
-* ****[**Workflows**](workflows/argo.md#introduction)** **- Spin up batch training, rendering or general computation jobs on thousands of GPUs in seconds. Hyper responsive, only pay for the time your computations are running.
-* ****[**Virtual Machines**](virtual-servers/getting-started.md)** - **Linux and Windows Virtual Workstations with powerful GPUs, optionally pre-loaded with Teradici remote desktop software.
+* ****[**Inference**](compass/online-inference.md#introduction) **** - Production ML Model Deployment as a Service. Billed by the minute, with the industry's most responsive auto scale.
+* ****[**Workflows**](workflows/argo.md#introduction) **** - Spin up batch training, rendering or general computation jobs on thousands of GPUs in seconds. Hyper responsive, only pay for the time your computations are running.
+* ****[**Virtual Machines**](virtual-servers/getting-started.md) **-** Linux and Windows Virtual Workstations with powerful GPUs, optionally pre-loaded with Teradici remote desktop software.
 
 ## What is CoreWeave Cloud?
 

@@ -61,11 +61,11 @@ This configuration creates a CPU only instance with a static internal IP - no pu
 
 We can monitor the Virtual Server spinning up with `k get pods --watch`
 
-![Output of k get pods --watch](<../../.gitbook/assets/image (7).png>)
+![Output of k get pods --watch](<../../../.gitbook/assets/image (7).png>)
 
 Once our VS has reached "Running" status, we can get an External IP to connect to it with `k get vs`
 
-![Output of k get vs](<../../.gitbook/assets/image (8).png>)
+![Output of k get vs](<../../../.gitbook/assets/image (8).png>)
 
 {% hint style="info" %}
 Allow \~5 minutes after "Running" status for the Virtual Server to complete initial start procedures.
@@ -109,7 +109,7 @@ Install-ADDSForest `
 
 We'll add the script to our server:
 
-![Pasting cw\_adds\_setup.ps1 in over SSH](<../../.gitbook/assets/image (6).png>)
+![Pasting cw\_adds\_setup.ps1 in over SSH](<../../../.gitbook/assets/image (6).png>)
 
 Once executed, follow the prompts. You'll be asked to provide:
 
@@ -121,7 +121,7 @@ Once executed, follow the prompts. You'll be asked to provide:
 * **SafeModeAdministratorPassword**
   * Used for Directory Services Restore Mode
 
-![](<../../.gitbook/assets/image (9).png>)
+![](<../../../.gitbook/assets/image (9).png>)
 
 {% hint style="info" %}
 After executing the script, the server will automatically reboot as part of the ADDS deployment.
@@ -129,10 +129,10 @@ After executing the script, the server will automatically reboot as part of the 
 
 Note the relevant details from this example:
 
-* **Domain Name: **AD
+* **Domain Name:** AD
 * **Search Realm:** ad.tenant-orgname-namespace.svc.tenant.chi.local
-* **PDC/DNS Server IP: **10.135.123.123
-* **PDC FQDN: **vs-pdc.ad.tenant-orgname-namespace.svc.tenant.chi.local
+* **PDC/DNS Server IP:** 10.135.123.123
+* **PDC FQDN:** vs-pdc.ad.tenant-orgname-namespace.svc.tenant.chi.local
 
 ## Join a Windows Virtual Server
 
@@ -164,7 +164,7 @@ After rebooting, your Windows Virtual Server will now be joined to your Active D
 
 Confirm connectivity by performing a policy update:
 
-![Group Policy update](<../../.gitbook/assets/image (12).png>)
+![Group Policy update](<../../../.gitbook/assets/image (12).png>)
 
 ## Adding a secondary Domain Controller
 
@@ -212,7 +212,7 @@ Install-ADDSDomainController `
 
 Add the script to your VS:
 
-![Pasting cw\_addc\_setup.ps1 in over SSH](<../../.gitbook/assets/image (11).png>)
+![Pasting cw\_addc\_setup.ps1 in over SSH](<../../../.gitbook/assets/image (11).png>)
 
 Once executed, follow the prompts. You'll be asked to provide:‌
 
@@ -232,5 +232,5 @@ After executing the script, the server will automatically reboot as part of the 
 
 After rebooting, confirm your Domain Controller status with `Get-ADDomainController:`
 
-![Output of Get-AdDomainController](<../../.gitbook/assets/image (10).png>)
+![Output of Get-AdDomainController](<../../../.gitbook/assets/image (10).png>)
 

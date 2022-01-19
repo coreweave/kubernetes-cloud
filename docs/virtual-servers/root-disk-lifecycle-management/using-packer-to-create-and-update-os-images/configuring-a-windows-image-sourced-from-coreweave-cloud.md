@@ -71,7 +71,7 @@ Using **win.json**, we’ll need to make a few edits before configuring our imag
 {% endcode %}
 
 {% hint style="info" %}
-**/dev/vdb **refers to our cloned block device
+**/dev/vdb** refers to our cloned block device
 {% endhint %}
 
 {% hint style="info" %}
@@ -146,7 +146,7 @@ exec docker run --rm --dns 1.1.1.1 --device /dev/kvm --privileged --net=host \
 
 Once Packer has kicked started the virtual machine – it is viewable locally with any VNC client:
 
-![](../../../.gitbook/assets/10.png)
+![](../../../../.gitbook/assets/10.png)
 
 Since QEMU is referencing the PVC directly, all changes made to the cloned images are written directly to the mounted PVC.
 

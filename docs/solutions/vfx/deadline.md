@@ -1,165 +1,366 @@
-# Deadline
+# Deploying Managed Deadline
 
-### **Summary of Terms**
+#### Background
 
-CoreWeave provides these terms as a point of reference for terminology that will be used in future discussions on the topic of Deadline.&#x20;
+Deadline is an industry standard render management platform developed by Thinkbox. CoreWeave provides a fully managed implementation of Deadline, including all its necessary components, delivered as a service to VFX/rendering companies who require quick setup, zero management, as well as automatic and limitless scalability.
 
-**DCC (application) -** Digital Content Creation application. This includes any software which generates a digital artifact at the beginning of the pipeline (e.g., Maya, Houdini, Photoshop). This does not explicitly include editing/compositing applications such as Nuke. However, you may hear the use of DCC about these applications in certain scenarios. &#x20;
+CoreWeave deploys Deadline through a Kubernetes Helm Chart. Helm allows us to template and reconfigure multistage Kubernetes deployments and provide unique configurability to Deadline users. Therefore most of the work done by users of this CoreWeave service is providing the information specific to individual pipelines, everything else will be managed automatically behind the scenes.
 
-**Worker (AKA slave) -** A server or container running the Deadline client that can execute rendering tasks.&#x20;
-
-**Task -** A specific step or operation to be performed within a job. Many tasks can belong to a single job. Most commonly, a task is a single frame of a potentially multi-frame rendering.&#x20;
-
-**Job -** A group of tasks to be executed on a specific project, most often a scene file or DCC project file (e.g., .mb, .ma, .hip, etc.). &#x20;
-
-**Repository -** The Deadline Repository is the central file share of the deadline render farm. It holds the settings and state for the system. Workers and services must read the repository and connect to the database to schedule jobs; archive completed tasks, and much more.&#x20;
-
-**Database -** Deadline requires a backend MongoDB to track information relating to jobs placed in the queue.&#x20;
-
-**Queue (verb) -** To list a job as ready to be scheduled.&#x20;
-
-**Priority -** Priority is a user-submitted parameter included in the job submission process. It allows user input into the order in which the job is scheduled. This is measured against the pool, submission time, and user-defined weighted/balanced scheduling parameters to determine which jobs will render when.&#x20;
-
-**Pool -** A logical grouping of workers based on the priority in which a worker will process a job submitted to a specified pool, if at all. This affects both the scheduling order and how different workers will prioritize jobs within a specific workflow. An example is one pool for animations and one for stills. A specific group of workers will prioritize the animation pool, and potentially another group of workers may prioritize the stills pool.&#x20;
-
-**Group -**  A set of workers grouped by resource type, e.g., installed software, hardware class, etc. This does not affect the order in which jobs are scheduled and mainly prevents incorrect resources from being dispatched onto jobs.&#x20;
+The CoreWeave implementation of Deadline is delivered as a High Availability service via Kubernetes. Every component of Deadline is replicated, redundant, and containerized. This makes your Deadline deployments more durable, faster, and more scalable than ever. Containerization of course comes at the cost of needing to convert existing Deadline worker images, thankfully the engineers at CoreWeave are happy to help! Here we provide the names of a few images you can pull today. If you are interested in seeing examples of Dockerfiles and the process to build and configure Deadline worker groups reach out to your CoreWeave support specialist.&#x20;
 
 ## **Thinkbox Deadline Documentation**
 
 ### **Getting Started**
 
-CoreWeave uses Thinkbox Deadline, the most responsive modern render management solution for accessing render nodes and scaling your workloads automatically. We’ll assume that you already have some familiarity with it and that you already have Deadline and its associated MongoDB installed.
-
-If you don't already have it installed, you can download the latest version here:
-
-### Download Thinkbox Deadline:
-
-[https://www.awsthinkbox.com/deadline](https://www.awsthinkbox.com/deadline)
-
-(NOTE: CoreWeave only supports Deadline versions from 10.1.13.2 and up. If you have an existing installation, it is recommended that you upgrade before integrating. If you have a previous version and cannot upgrade, please contact our customer support team for assistance.)
-
-If you are not familiar with Thinkbox Deadline, there are a number of resources available to help you get familiar with how it works. Please review the links below for more information.
+CoreWeave uses Thinkbox Deadline, the industry standard render management solution for accessing render nodes and scaling your workloads automatically. We’ll assume that you already have some familiarity with Deadline, if not consider checking out Thinkbox's own Documentation below:
 
 #### Thinkbox Deadline Documentation and User Guide:
 
-[https://docs.thinkboxsoftware.com/products/deadline/10.0/1\_User%20Manual/index.html](https://docs.thinkboxsoftware.com/products/deadline/10.0/1\_User%20Manual/index.html)
+{% embed url="https://docs.thinkboxsoftware.com/products/deadline/10.0/1_User%20Manual/index.html" %}
 
-#### Thinkbox Deadline REST API Guide:
+### Deploying the Deadline Application&#x20;
 
-[https://docs.thinkboxsoftware.com/products/deadline/10.0/1\_User%20Manual/manual/rest-overview.html](https://docs.thinkboxsoftware.com/products/deadline/10.0/1\_User%20Manual/manual/rest-overview.html)
+There are two ways of deploying Deadline on CoreWeave.&#x20;
 
-#### Thinkbox Deadline YouTube Installer Guide:
-
-[https://www.youtube.com/watch?v=-kpljH60whE](https://www.youtube.com/watch?v=-kpljH60whE)
-
-### Your CoreWeave Welcome Pack
-
-In order to properly set up your Deadline repository, you’ll need to enter some key information to ensure that everything is set up to your specifications and the correct file paths are mapped. Please make sure you have your CoreWeave Welcome Pack email handy so that you have the following information:\
+1. Fully managed: we deploy the repository and all related components entirely on CoreWeave Cloud **(Preferred)**
+2. Workers only: we deploy autoscaled deadline workers on CoreWeave which connect to an on premise Deadline repository
 
 
-• The CoreWeave Repo IP address
 
-• The CoreWeave Remote Connection Server (RCS) Certificate
+To Get started deploying your deadline repository and workers on CoreWeave login to your cloud dashboard and navigate to the apps interface from the menu on the left. From there, ensure you are within the "catalogue" tab and find Deadline from the list of available applications. Select Deadline and then hit deploy in the upper right. You should now see something like this (NOTE: your App version and Package Version may be different):
 
-• The CoreWeave Remote Connection Server (RCS) temporary password
+![](<../../.gitbook/assets/image (40).png>)
 
-If you haven’t received your CoreWeave Welcome Pack, please check the Spam folder of your email client or contact us at support@coreweave.com for further assistance. &#x20;
+Inside this box you can see the default values for deploying the Deadline chart. If you're interested in seeing what configuration options are available to you give this a look over. However, for our purposes we can **select everything in this box and delete it**! We will then put in values which only adjust the properties we want change from default.
 
-### **Choosing Your Installation Directory**
+To make things simpler we will split our configuration into two sections
 
-While CoreWeave will manage your Deadline repository, you'll still need to configure your client so that everything is set up to your specifications and file path mappings.
+1. Setup: these values will adjust versions, connectivity, authentication, and enable/disable deadline components
+2. Workers: these values will allow us to define our Deadline workers and configure autoscaling.
 
-After reading and accepting the End User License Agreement (EULA), you’ll need to specify a location on where you want your client to live on your computer. Some of our users prefer to run multiple versions of Deadline at once. If this applies to you, we suggest creating one main folder for all your Deadline versions and associated files. It will make it easier to find and map your work later on, regardless of which version you want to use. Just make sure you name it something that's easy to remember!
+#### Setup&#x20;
 
-### IP Address and Port Mapping
+To begin we should specify what version of Deadline repository/workers we would like to deploy. Our currently supported versions are&#x20;
 
-You'll need to point your client to the repository that contains the remote connection server that CoreWeave uses. This will allow CoreWeave to ask the server to retrieve the files you need as well as make changes to them when required.
+10.1.9.2, 10.1.10.6, 10.0.24.4, 10.1.11.5, 10.1.6.4, 10.1.12.1, 10.1.13.2, 10.1.15.2, 10.1.17.4, 10.1.18.5
 
-CoreWeave uses RCS to connect to your files so please choose the “Remote Connection Server” (RCS) option.  &#x20;
+If you require a version outside of this list, feel free to reach out to your CoreWeave support specialist.
 
-![](../../.gitbook/assets/screen-shot-2021-05-28-at-12.01.09-pm.png)
+To specify the repository version we would like to deploy we simply add to our YAML
 
-Add the IP address and port for your Remote Connection Server (RCS) namespace. (These should be included in your CoreWeave Welcome pack.)
+```
+version: 10.1.18.5
+```
 
-Please ensure that you're using:4433 as the port. CoreWeave uses TLS to ensure your privacy and security and strongly recommend not using the default:8080 port when connecting to our services.
+Next, if you plan on deploying **workers only**, add the following on a new line to your YAML
 
-4: Make sure the radio button for the remote connection server is checked as you'll be using a Remote Connection Server to connect to CoreWeave.
+```
+repository:
+    remoteRepository:
+        host: <ON-PREM HOST OR CL FORWARDS>
+        port: <REPOSITORY PORT>
+        auth:
+          certSecret:
+            name: <SECRET NAME>
+          password: temp123
+```
 
-### RCS Client Security Certificate
+Edit out the values to represent the connection details to your on-prem Deadline repository. If your repository is not accessible over a public IP you should consider first setting up Cloudlink to proxy that connection through. You can find a full guide on setting that up here:
 
-CoreWeave is committed to your privacy and security. In order to connect to the CoreWeave repository, you’ll need to add the security certificate and the initial password that was included in your CoreWeave Welcome Pack.  &#x20;
+{% content-ref url="on-premise-integration/linux.md" %}
+[linux.md](on-premise-integration/linux.md)
+{% endcontent-ref %}
 
-![](../../.gitbook/assets/screen-shot-2021-05-28-at-11.33.12-am.png)
+After that is set up you can run `kubectl get services` and look for the cloudlink forwards service. Use the external IP of that service as the host in your YAML file.&#x20;
 
-Please make sure you change the temporary password after submitting.  &#x20;
+For either deployment method, if your on-prem repository utilizes TLS certificates, you will need to create a kubernetes secret containing the certificate. You can see the full guide for creating kubernetes secrets [here](https://kubernetes.io/docs/concepts/configuration/secret/) however the basic command is `kubectl create secret generic <secret name> --from-file=<local full path to certificate file>`. Finally, specify the password used to decode the certificate in the final field of the YAML above.
 
-#### Deadline Launcher Setup
+If you are deploying the **full repository**, specify
 
-Because you'll be rendering to CoreWeave's services in the Cloud and not your local machine, you'll need to ensure that it's pointing to the right place.
+```
+rcs:
+  pass: <CERTIFICATE PASSWORD>
+```
 
-Please ensure that both the "Launch Worker when Launcher starts" and "Install Launcher As Service" boxes are both **unchecked**.  &#x20;
+We will automatically generate a deadline certificate for your repository. This value will allow you to specify the password used to decode that generated certificate.
 
-![](../../.gitbook/assets/screen-shot-2021-05-28-at-12.02.27-pm.png)
+One final thing that you may choose add is&#x20;
 
-This will now spin up your instances and connect to the right servers.
+```
+licenseForwarder:
+  enabled: true
+  auth:
+    secrets:
+      name: <SECRET NAME>
 
-You now should see the Deadline Launcher in your dock where you'll be able to perform key tasks like testing your connection, launch your workers, etc... ![](broken-reference) &#x20;
+```
 
-![](../../.gitbook/assets/launchericon.png)
+This will enable a license forwarder for utilizing thinkbox UBL. To authenticate your marketplace license allocations you will need to create a secret containing your certificates from the thinkbox marketplace using `kubectl create secret generic <secret name> --from-file=<local full path to directory containing all certificates>`.
 
-If you do not see the Deadline Launcher, go to the search bar on Windows and type "Launcher", select Deadline Launcher to open.&#x20;
+If you have followed up to this point and you are utilizing **workers only** your YAML should look something like this:
 
-### Changing Your Repository Settings
+```
+version: 10.1.18.5
+repository:
+    remoteRepository:
+        host: 127.0.0.1
+        port: 4433
+        auth:
+          certSecret:
+            name: on-prem-cert
+          password: password123
+ licenseForwarder:
+  enabled: true
+  auth:
+    secrets:
+      name: ubl-certificates
+```
 
-If you need to change your Repository settings, there are a few things you'll need to do.  \
-&#x20;&#x20;
+Otherwise, your YAML should look something like
 
-![](../../.gitbook/assets/screen-shot-2021-05-28-at-11.45.48-am.png)
+```
+version: 10.1.18.5
+rcs:
+  pass: password123
+ licenseForwarder:
+  enabled: true
+  auth:
+    secrets:
+      name: ubl-certificates
+```
 
-1: Right-click on the Deadline Launcher in your dock and choose the "Change Repository..." option.
+#### Workers
 
-2: You'll see a modal appear with a few options. To change your settings:
+In order for Deadline workers to spin up to process our Deadline jobs, we will need to specify in our YAML file what docker images we should use to render each type of job, what hardware we would like to use for those workers, as well as how we would like the scale of compute to respond to jobs in our repository. A worker definition might look something like:&#x20;
 
-a) Make sure that "Remote Connection Server" is checked.
+```
+workers:
+- name: maya-epyc
+    enabled: true
+    groups:
+      - maya-epyc
+      - maya
+    pools:
+      - vfx
+    scale:
+      pollingNames:
+      - name: maya-epyc
+        type: Group
+      minReplicas: 0
+      maxReplicas: 100
+      scalingFactor: 1
+    image: registry.gitlab.com/coreweave/render-images/maya2022:1
+    imagePullSecrets: &imagePullSecrets
+      - name: render-images
+    env:
+      - name: ARNOLD_LICENSE_ORDER
+        value: network
+      - name: ADSKFLEX_LICENSE_FILE
+        value: 127.0.0.1
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: node.coreweave.cloud/cpu
+                  operator: In
+                  values:
+                    - amd-epyc-rome
+                    - intel-xeon-v4
+                - key: node.coreweave.cloud/class
+                  operator: In
+                  values:
+                    - cpu
+        preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              preference:
+                matchExpressions:
+                  - key: topology.kubernetes.io/region
+                    operator: In
+                    values:
+                      - ORD1
+    resources:
+      limits:
+        cpu: 35
+        memory: 130Gi
+      requests:
+        cpu: 35
+        memory: 129Gi
+```
 
-b) Update the IP address and port as required.\
+Starting from the top `enabled: true` allows you to quickly and enable and disable different worker types during upgrades without removing them from your application. We will talk more about upgrading your deadline deployment later.&#x20;
 
+```
+groups:
+  - maya-epyc
+  - maya
+pools:
+  - vfx
+```
 
-(NOTE: When you change the IP address, you'll need to re-upload your certificate and re-enter your password for security purposes. You can do that in the fields immediately below the IP address.)
+The next values allow us to specify a list of groups and pools that we would like our Workers to be assigned to inside of Deadline. Workers when initializing will attempt to join these pools and groups, if they do not exist they will attempt to create them.&#x20;
 
-### Launching The Deadline Monitor
+Scaling is the next important section. Here we specify how we would like our workers to scale in response to jobs submitted to the repository. &#x20;
 
-When the Deadline Monitor launches, the monitor window should appear pretty quickly.  &#x20;
+```
+scale:
+  pollingNames:
+  - name: maya-epyc
+    type: Group
+  minReplicas: 0
+  maxReplicas: 100
+  scalingFactor: 1
+```
 
-![](../../.gitbook/assets/screen-shot-2021-05-28-at-1.12.21-pm.png)
+`pollingNames` is where we specify which tasks should monitored to scale up and down. In this example we are saying that we would like to scale based off of the number of tasks submitted to the Deadline group "maya-epyc," which also happens to be the same group that our workers will join! In fact if you do not specify any polling names, your worker will automatically create a limit with the same name as your worker group and scale based off of that. Other default options for type are User and Pool. Custom polling types are possible, allowing you to scale based on any job association including tags. For more information on Custom polling types reach out to a support specialist.
 
-If you encounter any errors, please check the following:
+We can configure the scaling limit for this worker type using limits inside of Deadline later, but for now we can set `minReplicas` and `maxReplicas` as a backstop so that if the Deadline limits are accidently modified incorrectly we will never exceed the max or go below the min number of deadline workers of this type.&#x20;
 
-• You have the correct Deadline client running
+Last but not least we have `scalingFactor` which allows us to add an overall multiplier for our scaling. For example a `scalingFactor` of .5 would mean that for ever 2 tasks submitted to the queue we would spin up 1 worker. For most use cases this value can remain at 1.
 
-• Your IP address and port number is correct
+Next up we configure our worker docker images:
 
-• Your file paths are pointing to the right place.
+```
+image: registry.gitlab.com/coreweave/render-images/maya2022:1
+imagePullSecrets: 
+- name: render-images
+```
 
-• Ensure that the "Super User" mode is enabled.
+In this example we provide a base maya2020 worker image which you can test out as well! In order to use this image you will need to create an image pull secret. Run the command `k create secret docker-registry render-images --docker-username render-images --docker-password "rJX7s8EjsD8UmD6-73yc" --docker-server registry.gitlab.com/coreweave/render-images` in order to create the necessary credentials. The image pull secret value in the worker definitions accepts multiple pull secrets if necessary/convenient.
 
-• Under Worker Settings, ensure that "Use Worker's IP address for Remote Control" and "Use fully qualified domain name (FQDN) for Machine Name instead of “host name" are both checked.
+Next we can add environment variables which will be initialized in the containers on startup. This is a convenient way to provide environment like license settings!&#x20;
 
-### Remote Connection Server (RCS) Worker Settings
+```
+env:
+  - name: ARNOLD_LICENSE_ORDER
+    value: network
+  - name: ADSKFLEX_LICENSE_FILE
+    value: 127.0.0.1
+```
 
-Most customers won’t be rendering on their local machines and will instead render in the cloud. You'll need to modify the worker settings to ensure that your renders go to the right place. To do this: &#x20;
+After this we have our affinity which allows us to choose where and what hardware our Deadline workers run on&#x20;
 
-• Uncheck the “Launch worker when Launcher Starts” option
+```
+affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: node.coreweave.cloud/cpu
+                  operator: In
+                  values:
+                    - amd-epyc-rome
+                    - intel-xeon-v4
+                - key: node.coreweave.cloud/class
+                  operator: In
+                  values:
+                    - cpu
+        preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              preference:
+                matchExpressions:
+                  - key: topology.kubernetes.io/region
+                    operator: In
+                    values:
+                      - ORD1
+```
 
-• Uncheck the “Install Launcher As Service account with network access” option
+You can read more about affinities, scheduling and provisioning resources on CoreWeave [here](../../coreweave-kubernetes/node-types.md), this example schedules our Maya worker on either amd-epyc-rome or intel-xeon-v4 cpu nodes, with a preference to be scheduled in ORD1, our Chicago datacenter. The resource request at the end of the spec then determines the CPU, GPU, and memory limits for the container.&#x20;
 
-### Running The Deadline Launcher
+```
+resources:
+      limits:
+        cpu: 35
+        memory: 130Gi
+      requests:
+        cpu: 35
+        memory: 129Gi
+```
 
-After your settings have been entered, it’s now time to launch Deadline and get started.
+#### Putting It All Together
 
-Go to your desktop and right-click on the Deadline icon that appears in the dock. The application should load and you should be greeted with a screen that shows you your Jobs, Tasks and Workers.  \
-&#x20; &#x20;
+Now that we have all our values ready, it's time to put it all together. If you followed up to this point your YAML might looks something like this:
 
-![](../../.gitbook/assets/screen-shot-2021-05-28-at-1.00.27-pm.png)
+```
+version: 10.1.18.5
+rcs:
+  pass: password123
+ licenseForwarder:
+  enabled: true
+  auth:
+    secrets:
+      name: ubl-certificates
+workers:
+  images:
+  - name: maya-epyc
+      enabled: true
+      groups:
+        - maya-epyc
+        - maya
+      pools:
+        - vfx
+      scale:
+        pollingNames:
+        - name: maya-epyc
+          type: Group
+        minReplicas: 0
+        maxReplicas: 100
+        scalingFactor: 1
+      image: registry.gitlab.com/coreweave/render-images/maya2022:1
+      imagePullSecrets: &imagePullSecrets
+        - name: render-images
+      env:
+        - name: ARNOLD_LICENSE_ORDER
+          value: network
+        - name: ADSKFLEX_LICENSE_FILE
+          value: 127.0.0.1
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: node.coreweave.cloud/cpu
+                    operator: In
+                    values:
+                      - amd-epyc-rome
+                      - intel-xeon-v4
+                  - key: node.coreweave.cloud/class
+                    operator: In
+                    values:
+                      - cpu
+          preferredDuringSchedulingIgnoredDuringExecution:
+              - weight: 100
+                preference:
+                  matchExpressions:
+                    - key: topology.kubernetes.io/region
+                      operator: In
+                      values:
+                        - ORD1
+      resources:
+        limits:
+          cpu: 35
+          memory: 130Gi
+        requests:
+          cpu: 35
+          memory: 129Gi
 
-The title bar of the “Workers” module should show you having a direct connection to the CoreWeave repository.
+```
+
+Note that it is common to have many worker types, sometimes multiple different hardware variations for the same DCC (e.g maya-epyc, maya-xeon, maya-A4000, etc.). Now we can just **paste that into Kubeapps and hit Deploy!**&#x20;
+
+If all goes well then you should see a number of deadline specific pods in your namespace if you run `kubectl get pods`. It is normal while the repository is installing for some components to restart. When the pod labeled `repository-init` transitions to state "Complete" then you should no longer see any deadline components restart.&#x20;
+
+### Managing/Updating Your Deadline Repository
+
+Once your deadline repository is in the running state you can connect to it. By default the deadline remote connection server is the simplest way to connect, and can be reached at rcs-\<Name Of Deadline Release>-\<Your Namespace Name>.coreweave.cloud, where \<Name of Deadline Release> is the name we used when deploying the deadline application.
+
+![](../../.gitbook/assets/deadline-repo-settings.PNG)
+
+We place that address in the "Remote Server" box in the Repository selection, by default the RCS uses port 4433. To retrieve your certificate to connect run `k cp $(kgp` `| grep rcs | grep "<Name of Deadline Release> | grep -o '^\S*'):/tmp/clientkey.pfx <local directory to store key>/key.pfx` and be sure to replace `<Name of Deadline Release>` and `<local directory to store key>` with their respective values. Select your downloaded certificate in the "Select Repository" dialogue and then enter the passphrase you specified in your setup YAML.
+
+Once connected Navigate to View > Panels > Limits and you will see pre-populated limits created on install. Open one up and you should see something like:
+
+![](<../../.gitbook/assets/image (21).png>)
+
+Note: due to limitations in the Deadline API we can only programaticly create "license limits" while they function identically to resource
+

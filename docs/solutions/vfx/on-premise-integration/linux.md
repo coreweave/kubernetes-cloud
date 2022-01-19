@@ -10,7 +10,7 @@ Any Linux server or Virtual Machine that can run [Docker Containers](https://www
 
 ### Setup
 
-This guide will show you how to expose both **SMB/CIFS (Windows File Sharing) **and **NFS **to CoreWeave. You are likely already using one of the two, and will want to expose whichever protocol you are currently using. Depending on storage system, CIFS can sometimes provide better performance than NFS.
+This guide will show you how to expose both **SMB/CIFS (Windows File Sharing)** and **NFS** to CoreWeave. You are likely already using one of the two, and will want to expose whichever protocol you are currently using. Depending on storage system, CIFS can sometimes provide better performance than NFS.
 
 1.Deploy the CloudLink Server in your CoreWeave namespace on [Apps](https://apps.coreweave.com). It is likely that your CoreWeave specialist has already done this for you, and this step can be skipped.\
 

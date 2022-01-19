@@ -110,7 +110,7 @@ Customer grants CoreWeave permission to include Customer’s name, logos, and tr
 
 Subject to Customer’s strict compliance with this TOS, CoreWeave grants Customer a limited, non-exclusive, non-transferable, non-sublicensable, revocable license to access and use the CoreWeave Cloud Platform as a Covered Service as described in and subject to this TOS.
 
-### **Use of Customer Data **
+### **Use of Customer Data**&#x20;
 
 CoreWeave will only access or use or share Customer Data in accordance with its then current Privacy Policy in effect. &#x20;
 
@@ -146,7 +146,7 @@ On expiry of the Term of an Order Form or the closing of a Customer account, Cus
 
 ### **Data Security**
 
-Customer should refer to CoreWeave’s [**Security and Compliance**](https://docs.coreweave.com/resources/terms-of-service/security-and-compliance)** **information for data and privacy policies with respect to the CoreWeave Cloud Platform. &#x20;
+Customer should refer to CoreWeave’s [**Security and Compliance**](https://docs.coreweave.com/resources/terms-of-service/security-and-compliance) **** information for data and privacy policies with respect to the CoreWeave Cloud Platform. &#x20;
 
 ### **Data Incidents**
 

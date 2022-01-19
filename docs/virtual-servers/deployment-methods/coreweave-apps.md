@@ -1,7 +1,7 @@
 # CoreWeave Apps Web UI
 
 **Objective:** Deploy a [Virtual Server](../getting-started.md) via the CoreWeave Cloud Web interface.\
-**Overview: **[CoreWeave Apps](https://apps.coreweave.com) provides a responsive, user-friendly UI to access our wide [array of compute](https://www.coreweave.com/pricing). In this guide, we'll cover deploying, modifying and accessing Virtual Servers on the web.&#x20;
+**Overview:** [CoreWeave Apps](https://apps.coreweave.com) provides a responsive, user-friendly UI to access our wide [array of compute](https://www.coreweave.com/pricing). In this guide, we'll cover deploying, modifying and accessing Virtual Servers on the web.&#x20;
 
 ## Accessing the Cloud UI
 
