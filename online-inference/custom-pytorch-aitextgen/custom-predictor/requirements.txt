@@ -1,4 +1,4 @@
-kfserving
+kfserving==0.5.1
 aitextgen
 tensorflow
 
