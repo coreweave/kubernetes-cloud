@@ -2,10 +2,6 @@
 
 ## CoreWeave Cloud Storage
 
-Highly available, persistent storage, that can be moved between your&#x20;
-
-
-
 Fast SSD and cost effective HDD storage are available as both block storage and shared filesystem types. All data is replicated for High Availability. Storage is allocated using Kubernetes [Persistent Volume Claims](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims). Volumes are automatically provisioned when a Persistent Volume Claim is created.
 
 | Storage Type      | Disk Class | Region | Storage Class Name |
