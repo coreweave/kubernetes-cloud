@@ -86,3 +86,4 @@
   * [Acceptable Use Policy](resources/terms-of-service/acceptable-use-policy.md)
   * [Privacy Policy](resources/terms-of-service/privacy-policy.md)
   * [Security & Compliance](resources/terms-of-service/security-and-compliance.md)
+  * [Maintenance Policy](resources/terms-of-service/maintenance-policy.md)
