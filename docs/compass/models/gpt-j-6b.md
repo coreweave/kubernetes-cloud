@@ -66,7 +66,7 @@ See [Parameters](https://docs.coreweave.com/compass/models/gpt-j-6b#parameters) 
 
 ## Batch Processing
 
-The Inference Service allows running multiple inputs in a single query.
+The Inference Service allows running multiple inputs in a single query. Batching requests can significantly improve throughput.
 
 For batch processing, we have to pass sentences in `instances` the array:
 
