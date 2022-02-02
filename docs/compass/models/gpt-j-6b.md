@@ -64,6 +64,67 @@ Each query can be parameterized with the following parameters: \
 See [Parameters](https://docs.coreweave.com/compass/models/gpt-j-6b#parameters) for the full description
 {% endhint %}
 
+## Batch Processing
+
+The Inference Service allows running multiple inputs in a single query.
+
+For batch processing, we have to pass sentences in `instances` the array:
+
+```json
+{
+   "instances":[
+      "Everytime I look to the sky, I always think",
+      "Right now is the perfect time to",
+      "The one thing I will never regret is",
+      "The secret to a happy life is to"
+   ]
+}
+```
+
+The full `curl` command is:
+
+```bash
+curl -d '{"parameters": {"min_length":50,"max_length":100}, "instances": ["Everytime I look to the sky, I always think", "Right now is the perfect time to", "The one thing I will never regret is", "The secret to a happy life is to"]}' <URL>/v1/models/eleutherai-gpt-j-6b:predict
+```
+
+Inference Service returns `generated_text` for each sentece from batch, the formatted output for our query is:
+
+```json
+{
+   "predictions":[
+      [
+         {
+            "generated_text":"Everytime I look to the sky, I always think about this.\n\n\u201cI wonder how high up the moon is? Is it as far away from earth or does it just feel like its not so close because of it being a full moon?\u201d\n\nWhat if the moon was not just a physical object but also something that has \u2018a real mind\u2019 and could remember past events, could you imagine what it would be like to actually meet with it face to face"
+         }
+      ],
+      [
+         {
+            "generated_text":"Right now is the perfect time to look for a job. It\u2019s getting cold and you don\u2019t want to be stuck in the office every day when it\u2019s below 40 degrees. Plus, there are so many opportunities out there that it can feel overwhelming trying to find one.\n\nIf you\u2019re looking to get back into the work force after taking some time off or just starting your career with a new company, there are a ton of benefits from going through"
+         }
+      ],
+      [
+         {
+            "generated_text":"The one thing I will never regret is my time with him.\n\nI\u2019m not going to write an essay about how I feel, or the things I wish were different. Because, it\u2019s just that \u2013 \u201cthings.\u201d Things like a few hundred thousand more books in his library, or more money (because he didn\u2019t have any). Or better yet, a new house and garden for me and our dog."
+         }
+      ],
+      [
+         {
+            "generated_text":"The secret to a happy life is to be kind whenever possible. It's an easy thing for people to forget, but we all know that what goes around comes back around, so kindness needs to start from the bottom up. I've been thinking about this lately because I was really mean today in a rather heated discussion. My first instinct was to go straight to being as mean as possible by saying \"I'm sorry you had such a bad day\" or something similar...not nice! But then it"
+         }
+      ]
+   ]
+}
+
+```
+
+{% hint style="info" %}
+`The block Parameters` are optional and overwrite defaults from Inference Service are created.
+{% endhint %}
+
+{% hint style="info" %}
+GPT-J-6B processes each sentence from a single query one by one. The overall time of the query, however, is slightly lower than querying each sentence separately.
+{% endhint %}
+
 ## Few-Shot Learning Examples
 
 Few-shot attempts to learn new tasks provided only a handful of training examples. Each query requires a few examples in a specific format so that GPT-J can understand what we expect.
@@ -87,7 +148,7 @@ The output may be different each time we query Inference Service with the same i
 
 ### Sentiment analysis
 
-```
+```bash
 $ curl -d '{"parameters": {"min_length":50,"max_length":100}, "instances": ["Message: The last show was terrible. Sentiment: Negative, Message: I feel great this morning.Sentiment: Positive, Message: GPT-J has 6 billion parameters.Sentiment: Neutral, Message: It was my all-time favorite movie.Sentiment:"]}' <URL>/v1/models/eleutherai-gpt-j-6b:predic
 
 {"predictions": [{"generated_text": "Message: The last show was terrible. Sentiment: Negative, Message: I feel great this morning.Sentiment: Positive, Message: GPT-J has 6 billion parameters.Sentiment: Neutral, Message: It was my all-time favorite movie.Sentiment: Positive, Message: I miss seeing old friends on Sundays.Sentiment: Negative, Message: Why did my phone die today? Sentiment: Positive, Message: What a nice surprise! This is awesome!Sentiment"}]}
@@ -97,7 +158,7 @@ $ curl -d '{"parameters": {"min_length":50,"max_length":100}, "instances": ["Mes
 
 ### SQL Code Generation
 
-```
+```bash
 curl -d '{"parameters": {"min_length":50,"max_length":250}, "instances": ["Question: Select teams that have less than 3 developers in it.Answer: SELECT TEAM, COUNT(DEVELOPER) FROM team GROUP BY TEAM HAVING COUNT(DEVELOPER) < 3;Question: Show all teams along with the number of developers in each team, Answer: SELECT TEAM, COUNT(TEAM) FROM team GROUP BY TEAM;Question: Show the recent hired developer, Answer: SELECT * FROM team ORDER BY ID DESC LIMIT 1;Question: Fetch the first three developers from team table;Answer:"]}' <URL>/v1/models/eleutherai-gpt-j-6b:predic
 
 {"predictions": [{"generated_text": "Question: Select teams that have less than 3 developers in it.Answer: SELECT TEAM, COUNT(DEVELOPER) FROM team GROUP BY TEAM HAVING COUNT(DEVELOPER) < 3;Question: Show all teams along with the number of developers in each team, Answer: SELECT TEAM, COUNT(TEAM) FROM team GROUP BY TEAM;Question: Show the recent hired developer, Answer: SELECT * FROM team ORDER BY ID DESC LIMIT 1;Question: Fetch the first three developers from team table;Answer: SELECT TEAM, DEV_NAME, DEV_EMAIL FROM team ORDER BY DEV_NAME ASC LIMIT 0,3\n    \"\"\"\n    __sql = {'SELECT': [f\"{t}.*\", f\"{t}.id AS `{key}`\"] for t, key in _table}\n\n    return __sql + list(_sub_sql())\n\n\ndef sub_query_count(*args):\n    def _get_count():\n        count = 0\n        sql = []\n        for"}]}
