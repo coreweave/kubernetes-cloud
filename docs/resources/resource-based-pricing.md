@@ -125,6 +125,10 @@ Instance Cost:
                       =  $0.18 per hour
 ```
 
+**Public IP Addresses**
+
+IP Addresses are billed at $4.00 per IP per month. For periods of use less than one month, this charge is pro-rated like other billing, by the minute. If a Public IP Address is assigned to an instance and the instance is not running, billing will CONTINUE to accrue for this reserved Public IP Address.
+
 **Billing Periods**
 
 All CoreWeave Cloud billing periods cover the calendar month (i.e. 1 January 12:00am UTC thru 1 February 12:00am UTC).
