@@ -1,6 +1,6 @@
 # VFX Studio Components Guide
 
-This guide gives an overview of the different application components available to studios on CoreWeave Cloud. For a more comprehensive review of cloud-native CoreWeave VFX solutions view .
+This guide gives an overview of the different application components available to studios on CoreWeave Cloud. For a more comprehensive review of cloud-native CoreWeave VFX solutions view [cloud-studio-reference-guide.md](cloud-studio-reference-guide.md "mention").
 
 ### Requirements:
 
