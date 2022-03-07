@@ -78,6 +78,10 @@
   * [Cloud Studio Reference Guide](solutions/vfx/cloud-studio-reference-guide.md)
 * [Virtual Workstations](solutions/virtual-workstations.md)
 
+## Cloud
+
+* [Organization Management](cloud/organization-management.md)
+
 ## Resources
 
 * [Resource Based Pricing](resources/resource-based-pricing.md)

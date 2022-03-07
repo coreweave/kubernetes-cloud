@@ -2,11 +2,11 @@
 
 ### Obtain Access Credentials
 
-[Sign up for CoreWeave Cloud](https://cloud.coreweave.com/request-account) and generate a `kubeconfig` from the [API Access ](https://cloud.coreweave.com/api-access)page. Every time an Access Token is generated, by default the corresponding `kubeconfig` will automatically download. This `kubeconfig` file allows you to interact with our Kubernetes cluster using kubectl and other Kubernetes applications.&#x20;
+[Sign up for CoreWeave Cloud](https://cloud.coreweave.com/request-account) and generate a `kubeconfig` from the [API Access ](https://cloud.coreweave.com/api-access)page. Every time an Access Token is generated, by default the corresponding `kubeconfig` will automatically download. This `kubeconfig` file allows you to interact with our Kubernetes cluster using kubectl and other Kubernetes applications.
 
 ![](../.gitbook/assets/cw-access-token.png)
 
-On CoreWeave's Access Token page click "Generate your first token" (or "Generate another token" if you have already generated a kubeconfig) and optionally give the token a recognizable name. Once you create it, a new kubeconfig will be generated that embeds the access token. By __ default your corresponding kubeconfig will automatically download. The browser might ask where to save the file `cw-kubeconfig`.
+On CoreWeave's Access Token page click "Generate your first token" (or "Generate another token" if you have already generated a kubeconfig) and optionally give the token a recognizable name. Once you create it, a new kubeconfig will be generated that embeds the access token. By \_\_ default your corresponding kubeconfig will automatically download. The browser might ask where to save the file `cw-kubeconfig`.
 
 * The generated **kubeconfig** file is used to interact with our Kubernetes cluster using clients like kubectl, etc.
 * **Access Tokens** are used for programmatic access to CoreWeave Cloud applications like [Prometheus](prometheus/)
@@ -14,8 +14,6 @@ On CoreWeave's Access Token page click "Generate your first token" (or "Generate
 {% hint style="danger" %}
 The kubeconfig and Access Token is shown & given one time! Be sure to save in a secure location. You can find your access token embedded inside your kubeconfig file if misplaced.
 {% endhint %}
-
-
 
 ### Install Kubernetes Command Line Tools
 
@@ -36,13 +34,9 @@ chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin/kubectl
 ```
 
-
-
 If you prefer to installing using the native package manager, please view Kubernetes guide on [Installing using Native Package Manager](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/#install-using-native-package-management).
 
-
-
-#### Verify kubectl Binary
+**Verify kubectl Binary**
 
 If you'd like to verify kubectl, you can verify it by running:
 
@@ -61,13 +55,11 @@ Most Mac users use [brew](https://brew.sh) to install packages, to install `kube
 brew install kubectl
 ```
 
-
-
-If you don't have brew installed, follow the [Brew Installation](https://brew.sh) guide.&#x20;
+If you don't have brew installed, follow the [Brew Installation](https://brew.sh) guide.
 {% endtab %}
 
 {% tab title="Windows" %}
-### Install Using PowerShell
+#### Install Using PowerShell
 
 If you use PowerShell, install `kubectl` using the following the command:
 
@@ -79,9 +71,7 @@ If you use PowerShell, install `kubectl` using the following the command:
 Add `-Silent` to the end of this string for a non-interactive setup.
 {% endhint %}
 
-
-
-### Install using Package Manager
+#### Install using Package Manager
 
 You can also install `kubectl` on Windows using either [Chocolatey](https://chocolatey.org) or [Scoop](https://scoop.sh) using the following commands:
 
@@ -97,13 +87,9 @@ Using [Scoop](https://scoop.sh):
 scoop install kubectl
 ```
 
-
-
-If you prefer to download the `kubectl` exe file directly, [download the latest version](https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/#install-kubectl-binary-with-curl-on-windows).&#x20;
+If you prefer to download the `kubectl` exe file directly, [download the latest version](https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/#install-kubectl-binary-with-curl-on-windows).
 {% endtab %}
 {% endtabs %}
-
-
 
 ### Setup Kubernetes Config
 
@@ -146,9 +132,6 @@ NAME                           TYPE                                  DATA   AGE
 default-token-frqgm            kubernetes.io/service-account-token   3      3h
 ```
 
-
-
 ### Congratulations! :tada: You're ready to use CoreWeave Cloud!
 
-Your system is ready to deploy all types of services on CoreWeave's Kubernetes infrastructure. Checkout some of the examples by heading over to Examples.Your  file is as secret as your password! **Keep it safe, and do not share.**
-
+Your system is ready to deploy all types of services on CoreWeave's Kubernetes infrastructure. Checkout some of the examples by heading over to Examples.Your file is as secret as your password! **Keep it safe, and do not share.**

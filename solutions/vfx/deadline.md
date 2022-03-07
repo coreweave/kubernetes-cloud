@@ -6,7 +6,7 @@ Deadline is an industry standard render management platform developed by Thinkbo
 
 CoreWeave deploys Deadline through a Kubernetes Helm Chart. Helm allows us to template and reconfigure multistage Kubernetes deployments and provide unique configurability to Deadline users. Therefore most of the work done by users of this CoreWeave service is providing the information specific to individual pipelines, everything else will be managed automatically behind the scenes.
 
-The CoreWeave implementation of Deadline is delivered as a High Availability service via Kubernetes. Every component of Deadline is replicated, redundant, and containerized. This makes your Deadline deployments more durable, faster, and more scalable than ever. Containerization of course comes at the cost of needing to convert existing Deadline worker images, thankfully the engineers at CoreWeave are happy to help! Here we provide the names of a few images you can pull today. If you are interested in seeing examples of Dockerfiles and the process to build and configure Deadline worker groups reach out to your CoreWeave support specialist.&#x20;
+The CoreWeave implementation of Deadline is delivered as a High Availability service via Kubernetes. Every component of Deadline is replicated, redundant, and containerized. This makes your Deadline deployments more durable, faster, and more scalable than ever. Containerization of course comes at the cost of needing to convert existing Deadline worker images, thankfully the engineers at CoreWeave are happy to help! Here we provide the names of a few images you can pull today. If you are interested in seeing examples of Dockerfiles and the process to build and configure Deadline worker groups reach out to your CoreWeave support specialist.
 
 ## **Thinkbox Deadline Documentation**
 
@@ -18,18 +18,16 @@ CoreWeave uses Thinkbox Deadline, the industry standard render management soluti
 
 {% embed url="https://docs.thinkboxsoftware.com/products/deadline/10.0/1_User%20Manual/index.html" %}
 
-### Deploying the Deadline Application&#x20;
+### Deploying the Deadline Application
 
-There are two ways of deploying Deadline on CoreWeave.&#x20;
+There are two ways of deploying Deadline on CoreWeave.
 
 1. Fully managed: we deploy the repository and all related components entirely on CoreWeave Cloud **(Preferred)**
 2. Workers only: we deploy autoscaled deadline workers on CoreWeave which connect to an on premise Deadline repository
 
-
-
 To Get started deploying your deadline repository and workers on CoreWeave login to your cloud dashboard and navigate to the apps interface from the menu on the left. From there, ensure you are within the "catalogue" tab and find Deadline from the list of available applications. Select Deadline and then hit deploy in the upper right. You should now see something like this (NOTE: your App version and Package Version may be different):
 
-![](<../../.gitbook/assets/image (95).png>)
+![](<../../.gitbook/assets/image (95) (1).png>)
 
 Inside this box you can see the default values for deploying the Deadline chart. If you're interested in seeing what configuration options are available to you give this a look over. However, for our purposes we can **select everything in this box and delete it**! We will then put in values which only adjust the properties we want change from default.
 
@@ -38,9 +36,9 @@ To make things simpler we will split our configuration into two sections
 1. Setup: these values will adjust versions, connectivity, authentication, and enable/disable deadline components
 2. Workers: these values will allow us to define our Deadline workers and configure autoscaling.
 
-#### Setup&#x20;
+#### Setup
 
-To begin we should specify what version of Deadline repository/workers we would like to deploy. Our currently supported versions are&#x20;
+To begin we should specify what version of Deadline repository/workers we would like to deploy. Our currently supported versions are
 
 10.1.9.2, 10.1.10.6, 10.0.24.4, 10.1.11.5, 10.1.6.4, 10.1.12.1, 10.1.13.2, 10.1.15.2, 10.1.17.4, 10.1.18.5
 
@@ -71,7 +69,7 @@ Edit out the values to represent the connection details to your on-prem Deadline
 [linux.md](on-premise-integration/linux.md)
 {% endcontent-ref %}
 
-After that is set up you can run `kubectl get services` and look for the cloudlink forwards service. Use the external IP of that service as the host in your YAML file.&#x20;
+After that is set up you can run `kubectl get services` and look for the cloudlink forwards service. Use the external IP of that service as the host in your YAML file.
 
 For either deployment method, if your on-prem repository utilizes TLS certificates, you will need to create a kubernetes secret containing the certificate. You can see the full guide for creating kubernetes secrets [here](https://kubernetes.io/docs/concepts/configuration/secret/) however the basic command is `kubectl create secret generic <secret name> --from-file=<local full path to certificate file>`. Finally, specify the password used to decode the certificate in the final field of the YAML above.
 
@@ -84,7 +82,7 @@ rcs:
 
 We will automatically generate a deadline certificate for your repository. This value will allow you to specify the password used to decode that generated certificate.
 
-One final thing that you may choose add is&#x20;
+One final thing that you may choose add is
 
 ```
 licenseForwarder:
@@ -92,7 +90,6 @@ licenseForwarder:
   auth:
     secrets:
       name: <SECRET NAME>
-
 ```
 
 This will enable a license forwarder for utilizing thinkbox UBL. To authenticate your marketplace license allocations you will need to create a secret containing your certificates from the thinkbox marketplace using `kubectl create secret generic <secret name> --from-file=<local full path to directory containing all certificates>`.
@@ -131,7 +128,7 @@ rcs:
 
 #### Workers
 
-In order for Deadline workers to spin up to process our Deadline jobs, we will need to specify in our YAML file what docker images we should use to render each type of job, what hardware we would like to use for those workers, as well as how we would like the scale of compute to respond to jobs in our repository. A worker definition might look something like:&#x20;
+In order for Deadline workers to spin up to process our Deadline jobs, we will need to specify in our YAML file what docker images we should use to render each type of job, what hardware we would like to use for those workers, as well as how we would like the scale of compute to respond to jobs in our repository. A worker definition might look something like:
 
 ```
 workers:
@@ -188,7 +185,7 @@ workers:
         memory: 129Gi
 ```
 
-Starting from the top `enabled: true` allows you to quickly and enable and disable different worker types during upgrades without removing them from your application. We will talk more about upgrading your deadline deployment later.&#x20;
+Starting from the top `enabled: true` allows you to quickly and enable and disable different worker types during upgrades without removing them from your application. We will talk more about upgrading your deadline deployment later.
 
 ```
 groups:
@@ -198,9 +195,9 @@ pools:
   - vfx
 ```
 
-The next values allow us to specify a list of groups and pools that we would like our Workers to be assigned to inside of Deadline. Workers when initializing will attempt to join these pools and groups, if they do not exist they will attempt to create them.&#x20;
+The next values allow us to specify a list of groups and pools that we would like our Workers to be assigned to inside of Deadline. Workers when initializing will attempt to join these pools and groups, if they do not exist they will attempt to create them.
 
-Scaling is the next important section. Here we specify how we would like our workers to scale in response to jobs submitted to the repository. &#x20;
+Scaling is the next important section. Here we specify how we would like our workers to scale in response to jobs submitted to the repository.
 
 ```
 scale:
@@ -214,7 +211,7 @@ scale:
 
 `pollingNames` is where we specify which tasks should monitored to scale up and down. In this example we are saying that we would like to scale based off of the number of tasks submitted to the Deadline group "maya-epyc," which also happens to be the same group that our workers will join! In fact if you do not specify any polling names, your worker will automatically create a limit with the same name as your worker group and scale based off of that. Other default options for type are User and Pool. Custom polling types are possible, allowing you to scale based on any job association including tags. For more information on Custom polling types reach out to a support specialist.
 
-We can configure the scaling limit for this worker type using limits inside of Deadline later, but for now we can set `minReplicas` and `maxReplicas` as a backstop so that if the Deadline limits are accidently modified incorrectly we will never exceed the max or go below the min number of deadline workers of this type.&#x20;
+We can configure the scaling limit for this worker type using limits inside of Deadline later, but for now we can set `minReplicas` and `maxReplicas` as a backstop so that if the Deadline limits are accidently modified incorrectly we will never exceed the max or go below the min number of deadline workers of this type.
 
 Last but not least we have `scalingFactor` which allows us to add an overall multiplier for our scaling. For example a `scalingFactor` of .5 would mean that for ever 2 tasks submitted to the queue we would spin up 1 worker. For most use cases this value can remain at 1.
 
@@ -228,7 +225,7 @@ imagePullSecrets:
 
 In this example we provide a base maya2020 worker image which you can test out as well! In order to use this image you will need to create an image pull secret. Run the command `k create secret docker-registry render-images --docker-username render-images --docker-password "rJX7s8EjsD8UmD6-73yc" --docker-server registry.gitlab.com/coreweave/render-images` in order to create the necessary credentials. The image pull secret value in the worker definitions accepts multiple pull secrets if necessary/convenient.
 
-Next we can add environment variables which will be initialized in the containers on startup. This is a convenient way to provide environment like license settings!&#x20;
+Next we can add environment variables which will be initialized in the containers on startup. This is a convenient way to provide environment like license settings!
 
 ```
 env:
@@ -238,7 +235,7 @@ env:
     value: 127.0.0.1
 ```
 
-After this we have our affinity which allows us to choose where and what hardware our Deadline workers run on&#x20;
+After this we have our affinity which allows us to choose where and what hardware our Deadline workers run on
 
 ```
 affinity:
@@ -265,7 +262,7 @@ affinity:
                       - ORD1
 ```
 
-You can read more about affinities, scheduling and provisioning resources on CoreWeave [here](../../coreweave-kubernetes/node-types.md), this example schedules our Maya worker on either amd-epyc-rome or intel-xeon-v4 cpu nodes, with a preference to be scheduled in ORD1, our Chicago datacenter. The resource request at the end of the spec then determines the CPU, GPU, and memory limits for the container.&#x20;
+You can read more about affinities, scheduling and provisioning resources on CoreWeave [here](../../coreweave-kubernetes/node-types.md), this example schedules our Maya worker on either amd-epyc-rome or intel-xeon-v4 cpu nodes, with a preference to be scheduled in ORD1, our Chicago datacenter. The resource request at the end of the spec then determines the CPU, GPU, and memory limits for the container.
 
 ```
 resources:
@@ -343,12 +340,11 @@ workers:
         requests:
           cpu: 35
           memory: 129Gi
-
 ```
 
-Note that it is common to have many worker types, sometimes multiple different hardware variations for the same DCC (e.g maya-epyc, maya-xeon, maya-A4000, etc.). Now we can just **paste that into Kubeapps and hit Deploy!**&#x20;
+Note that it is common to have many worker types, sometimes multiple different hardware variations for the same DCC (e.g maya-epyc, maya-xeon, maya-A4000, etc.). Now we can just **paste that into Kubeapps and hit Deploy!**
 
-If all goes well then you should see a number of deadline specific pods in your namespace if you run `kubectl get pods`. It is normal while the repository is installing for some components to restart. When the pod labeled `repository-init` transitions to state "Complete" then you should no longer see any deadline components restart.&#x20;
+If all goes well then you should see a number of deadline specific pods in your namespace if you run `kubectl get pods`. It is normal while the repository is installing for some components to restart. When the pod labeled `repository-init` transitions to state "Complete" then you should no longer see any deadline components restart.
 
 ### Managing/Updating Your Deadline Repository
 
@@ -363,4 +359,3 @@ Once connected Navigate to View > Panels > Limits and you will see pre-populated
 ![](<../../.gitbook/assets/image (78).png>)
 
 Note: due to limitations in the Deadline API we can only programaticly create "license limits" while they function identically to resource
-
