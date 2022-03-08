@@ -24,7 +24,7 @@ Selecting this, click deploy in the upper right and then select in the creation 
 
 We are going to walk through setting up a filesystem-volume for render-outputs -- a common use case that should come in handy! When rendering on CoreWeave cloud, ensuring that applications don't attempt to write over the internet to on prem storage is essential. Typically large amounts of data that is accessed infrequently such as render outputs belongs on our HDD tier. We will be provisioning everything in our Chicago datacenter (ORD) but feel free to provision resources in the datacenter closest to you.
 
-![Storage Options](<../../.gitbook/assets/image (66).png>) ![Deployment](<../../.gitbook/assets/image (60).png>) ![Success](<../../.gitbook/assets/image (76).png>)
+![Storage Options](<../../.gitbook/assets/image (66) (1).png>) ![Deployment](<../../.gitbook/assets/image (60).png>) ![Success](<../../.gitbook/assets/image (76).png>)
 
 Once you hit Deploy you should see the following message and an instance of the filesystem-volume application in the "Applications" tab.
 
@@ -54,7 +54,7 @@ If you would like the service to be accessible from places over the internet, en
 
 #### Connecting to Samba (WIN)
 
-![Find the DNS name for the samba.](<../../.gitbook/assets/image (81).png>)
+![Find the DNS name for the samba.](<../../.gitbook/assets/image (81) (1).png>)
 
 In order to connect. Map the network drive.
 
@@ -62,7 +62,7 @@ In order to connect. Map the network drive.
 
 ![Enter the DNS name and press Browse...](<../../.gitbook/assets/image (90).png>)
 
-![Press the drop down to find the mount name easily.](<../../.gitbook/assets/image (65).png>)
+![Press the drop down to find the mount name easily.](<../../.gitbook/assets/image (65) (1).png>)
 
 Select the mount, press ok, and enter credentials.
 
@@ -98,13 +98,13 @@ Press "Add" (above) and the checkbox (below). Then copy the registration key.
 
 ![After pressing the checkbox the registration key will be available to copy](<../../.gitbook/assets/image (82).png>)
 
-![After pressing Media Shuttle](<../../.gitbook/assets/image (87).png>)
+![After pressing Media Shuttle](<../../.gitbook/assets/image (87) (1).png>)
 
 Update the name, registry key, and add a [Persistent Volume Claim](https://docs.coreweave.com/coreweave-kubernetes/storage) to mount.
 
 ![Attaching our render-output PVC created in the reference namespace, and providing a custom name for the mount point.](<../../.gitbook/assets/image (93).png>)
 
-![Landing page updated!](<../../.gitbook/assets/image (92).png>)
+![Landing page updated!](<../../.gitbook/assets/image (92) (1).png>)
 
 ## Virtual Workstations
 

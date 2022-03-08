@@ -41,6 +41,8 @@
     * [Configuring a Linux image sourced from CoreWeave Cloud](virtual-servers/root-disk-lifecycle-management/using-packer-to-create-and-update-os-images/configuring-a-linux-image-sourced-from-coreweave-cloud.md)
     * [Configuring an externally sourced cloud Linux image](virtual-servers/root-disk-lifecycle-management/using-packer-to-create-and-update-os-images/configuring-an-externally-sourced-cloud-linux-image.md)
   * [Exporting images to QCOW2](virtual-servers/root-disk-lifecycle-management/exporting-images-to-qcow2.md)
+* [CoreWeave System Images](virtual-servers/coreweave-system-images/README.md)
+  * [Windows Images](virtual-servers/coreweave-system-images/windows-images.md)
 * [Examples](virtual-servers/examples/README.md)
   * [Provision an Active Directory Domain Controller](virtual-servers/examples/provision-an-active-directory-domain-controller.md)
 
@@ -63,7 +65,7 @@
 ## Workflows
 
 * [Getting Started](workflows/argo.md)
-* [Examples](workflows/examples/README.md)
+* [Examples](docs/workflows/examples/README.md)
   * [CGI Rendering](workflows/examples/cgi-rendering.md)
 
 ## Solutions
