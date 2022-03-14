@@ -265,11 +265,10 @@ The best way to manage connectivity between kubernetes components and the intern
 The first network policy we will call "artist." This network policy will use a pod selector to match against any pod with the label `user.group: artist`. Our policy then specifies that it will allow inbound traffic from any internal IP address, i.e. 10.0.0.0/8, as well as any traffic over the port 3389. Our policy additionally specifies that it will allow our artist VMs to send traffic to any internal IP address.
 
 ```
-piVersion: networking.k8s.io/v1
+apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: artist
-  namespace: tenant-sta-vfx1-reference
 spec:
   podSelector:
     matchLabels:
@@ -308,11 +307,10 @@ This policy would prevent connections originating outside the cluster from reach
 If we wanted our network policy to have stricter policies, we could allow only traffic from our AD samba and the Teradici connection manager. This would prevent any external or internal resource from connecting to our VMs without going through our connection manager and Leostream broker.
 
 ```
-piVersion: networking.k8s.io/v1
+apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: artist
-  namespace: tenant-sta-vfx1-reference
 spec:
   podSelector:
     matchLabels:
@@ -323,8 +321,8 @@ spec:
   ingress:
   - from:
     - podSelector:
-      matchLabels:
-        app: teradici-gateway-teridici-conn-gateway
+        matchLabels:
+          app.kubernetes.io/name: teradici-gateway-teridici-conn-gateway
     ports:
     - protocol: TCP
       port: 3389
@@ -337,8 +335,8 @@ spec:
   egress:
   - to:
     - podSelector:
-      matchLabels:
-        app.kubernetes.io/name: samba-ad-samba-ad
+        matchLabels:
+          app.kubernetes.io/name: samba-ad-samba-ad
     ports:
     - protocol: TCP
       port: 139
@@ -364,7 +362,6 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: administration
-  namespace: tenant-sta-vfx1-reference
 spec:
   podSelector:
     matchLabels:
@@ -402,7 +399,6 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: infra
-  namespace: tenant-sta-vfx1-reference
 spec:
   podSelector:
     matchLabels:
