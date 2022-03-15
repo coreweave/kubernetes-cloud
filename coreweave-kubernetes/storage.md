@@ -67,7 +67,7 @@ spec:
 
 ### Shared Filesystem
 
-Unlike block volumes a shared filesystem can be accessed by multiple nodes at the same time. This storage type is useful for parallel tasks, i.e. reading assets for CGI rendering or loading ML models for parallel inference. A shared filesystem is accessed similarly to block storage. The access mode changes to `ReadWriteMany` and the storage class names are different.
+Unlike block volumes a shared filesystem can be accessed by multiple nodes at the same time. This storage type is useful for parallel tasks, I.E. reading assets for CGI rendering or loading ML models for parallel inference. A shared filesystem is accessed similarly to block storage. The access mode changes to `ReadWriteMany` and the storage class names are different.
 
 {% tabs %}
 {% tab title="NVMe" %}
@@ -111,10 +111,10 @@ spec:
 For the vast majority of use cases, workloads should run in the same region as the storage they are accessing. Use the [region label affinity](label-selectors.md) to limit scheduling of the workload to a single region. There are certain exceptions:
 
 \
-\- Batch workloads where IOPS is not a concern but accessing compute capacity from multiple regions might give a scaling benefits\
-\- When data is strictly read during startup of a process, such as when reading a ML model from storage into system and G{U memory for inference\
+\- Batch workloads where IOPS are not a concern but accessing compute capacity from multiple regions might give scaling benefits\
+\- When data is strictly read during startup of a process, such as when reading a ML model from storage into system and GPU memory for inference\
 \
-As a rule of thumb, Block volumes should always be used in the same region they are allocated. Shared volumes is where the above noted exceptions might be relevant.
+As a rule of thumb, Block volumes should always be used in the same region they are allocated. Shared volumes are where the above noted exceptions might be relevant.
 {% endhint %}
 
 ### Billing
