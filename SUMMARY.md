@@ -11,6 +11,8 @@
 * [Storage](coreweave-kubernetes/storage.md)
 * [Exposing Applications](coreweave-kubernetes/exposing-applications.md)
 * [Serverless](coreweave-kubernetes/serverless.md)
+* [Networking](coreweave-kubernetes/networking/README.md)
+  * [Bring Your Own IP](coreweave-kubernetes/networking/bring-your-own-ip.md)
 * [Metrics](coreweave-kubernetes/prometheus/README.md)
   * [Grafana](coreweave-kubernetes/prometheus/grafana.md)
   * [Useful Metrics](coreweave-kubernetes/prometheus/useful-metrics.md)
