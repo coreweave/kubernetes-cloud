@@ -8,14 +8,14 @@ description: >-
 
 CoreWeave Cloud allows you to share all of your cloud resources with the rest of your team by inviting new users to join your organization via the organization management page.
 
-![Organization Management Page](<../.gitbook/assets/image (95) (1).png>)
+![Organization Management Page](<../.gitbook/assets/image (95).png>)
 
 #### Inviting a user
 
 Inviting a user is simple and intuitive. Selecting the "Invite a User" button triggers a form to enter the email of the invite:\
 
 
-![Organization Invitation Modal](<../.gitbook/assets/image (91) (1).png>)
+![Organization Invitation Modal](<../.gitbook/assets/image (91).png>)
 
 #### Managing an Invited User
 
