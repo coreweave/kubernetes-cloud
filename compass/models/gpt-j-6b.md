@@ -9,18 +9,16 @@ The model was trained on [the Pile](https://arxiv.org/pdf/2101.00027.pdf), a 825
 1.  After logging into [CoreWeave Cloud](https://cloud.coreweave.com), go to CoreWeave Apps `Catalog`
 
     ![](https://gblobscdn.gitbook.com/assets%2F-M83TghsCfsi8FCYs2DZ%2F-Mj8bRkoZHQnzaZ64weP%2F-Mj8dNozNioSsymBNIg9%2Fimage.png?alt=media\&token=d56bb42a-0572-40ba-b053-4320528a4b25)
-2.  A new window opens to CoreWeave Apps with the list of available applications. Find and select the **gpt-j-6b** application&#x20;
+2.  A new window opens to CoreWeave Apps with the list of available applications. Find and select the **gpt-j-6b** application
 
-    &#x20;![](<../../.gitbook/assets/image (75).png>)\
-
+    ![](<../../docs/.gitbook/assets/image (31).png>)\\
 3. In the right upper corner, select the latest version of the helm chart and click `DEPLOY`
 4. The deployment's form prompts you to enter an application name. The remaining parameters have our suggested defaults; when ready, click `DEPLOY` at the bottom of the page.
 5. It takes a few minutes before the deployment is ready.
 
 ## Uninstalling
 
-1. In order to delete the Inference Service, log in to [CoreWeave Cloud](https://cloud.coreweave.com), go to CoreWeave Apps `Application.`\
-
+1. In order to delete the Inference Service, log in to [CoreWeave Cloud](https://cloud.coreweave.com), go to CoreWeave Apps `Application.`\\
 2. A new window opens with a list of running applications; find the application you want to delete and click `DELETE` button, and then confirm.
 
 {% hint style="info" %}
@@ -53,12 +51,12 @@ In order to access Inference Service from the command line, it is necessary to g
 > `What's even more surprising, is that there was no indication from any of the villagers or scientists that they had ever seen one before! \nAhem. I'm sorry to tell you this, but I think the game has ended. There are no other possible moves left on your turn. The only remaining possibility for you to move would be to roll a 6, which will end your turn and cause both computers to stop playing immediately as well. If you're playing with real people, they'll need to make their own best guesses when rolling these dice in the future, but if it's just you and the computer, it won't matter.\nThe machine should have finished the first level by now, and so far it hasn't. As soon as you get a new tile on the board, it starts placing another piece right next to the existing piece. You can see it`
 
 {% hint style="info" %}
-Each query can be parameterized with the following parameters: \
-\- `min_length` \
-\- `max_length` \
-\- `temperature` \
-\- `top_k` \
-\-`top_p` \
+Each query can be parameterized with the following parameters:\
+\- `min_length`\
+\- `max_length`\
+\- `temperature`\
+\- `top_k`\
+\-`top_p`\
 \-`repetition_penalty`
 
 See [Parameters](https://docs.coreweave.com/compass/models/gpt-j-6b#parameters) for the full description
@@ -114,7 +112,6 @@ Inference Service returns `generated_text` for each sentece from batch, the form
       ]
    ]
 }
-
 ```
 
 {% hint style="info" %}
@@ -168,17 +165,17 @@ curl -d '{"parameters": {"min_length":50,"max_length":250}, "instances": ["Quest
 
 ## Parameters
 
-**General**\
-****
+**General**\\
+
+***
 
 | Parameter | Description                                                                                                                                                                                |
 | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `GPU`     | Select the proper GPU model. GPT-J-6B should fit into 16GB of VRAM. See [Node Types](../../coreweave-kubernetes/node-types.md#component-availability) for a full list of available labels. |
 
+**Model Parameters**\\
 
-
-**Model Parameters**\
-****
+***
 
 | Parameter            | Description                                                                                                                                                                                     |
 | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

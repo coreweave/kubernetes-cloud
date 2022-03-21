@@ -8,7 +8,7 @@
 {% file src="../../.gitbook/assets/volume_clone.yaml" %}
 
 {% hint style="success" %}
-Be sure to review [Getting Started](../../coreweave-kubernetes/getting-started.md#obtain-access-credentials) and the [kubectl Virtual Server deployment method](../deployment-methods/kubectl.md#deploying-a-virtual-server) before starting this guide.
+Be sure to review [Getting Started](../../coreweave-kubernetes/getting-started.md#obtain-access-credentials) and the [kubectl Virtual Server deployment method](../../docs/virtual-servers/deployment-methods/kubectl.md#deploying-a-virtual-server) before starting this guide.
 {% endhint %}
 
 ### Identifying source image
@@ -17,11 +17,11 @@ We start by identifying an image we wish to export and modify. To browse images 
 
 {% tabs %}
 {% tab title="Bash" %}
-`k get pvc -n vd-images -l images.coreweave.cloud/latest=true,images.coreweave.cloud/private=false,images.coreweave.cloud/family=`**`windows`**` ``--sort-by=.spec.storageClassName`
+`k get pvc -n vd-images -l images.coreweave.cloud/latest=true,images.coreweave.cloud/private=false,images.coreweave.cloud/family=`**`windows`**` `` ``--sort-by=.spec.storageClassName `
 {% endtab %}
 
 {% tab title="PowerShell" %}
-`(kubectl get pvc -n vd-images -l images.coreweave.cloud/latest=true,images.coreweave.cloud/private=false,images.coreweave.cloud/family=`**`windows`**` ``--sort-by=.spec.storageClassName) -replace '\s{2,}',',' |convertfrom-csv |ft`
+`(kubectl get pvc -n vd-images -l images.coreweave.cloud/latest=true,images.coreweave.cloud/private=false,images.coreweave.cloud/family=`**`windows`**` `` ``--sort-by=.spec.storageClassName) -replace '\s{2,}',',' |convertfrom-csv |ft `
 {% endtab %}
 {% endtabs %}
 

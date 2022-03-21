@@ -6,10 +6,10 @@
 ## Deploy source Virtual Server
 
 {% hint style="success" %}
-Be sure to review [Getting Started](../../coreweave-kubernetes/getting-started.md#obtain-access-credentials) and the [kubectl Virtual Server deployment method](../deployment-methods/kubectl.md#deploying-a-virtual-server) before starting this guide.
+Be sure to review [Getting Started](../../coreweave-kubernetes/getting-started.md#obtain-access-credentials) and the [kubectl Virtual Server deployment method](../../docs/virtual-servers/deployment-methods/kubectl.md#deploying-a-virtual-server) before starting this guide.
 {% endhint %}
 
-First, we will deploy a Windows Virtual Server using a [reference YAML](https://github.com/coreweave/kubernetes-cloud/blob/master/virtual-server/examples/kubectl/virtual-server-windows.yaml). This will serve as the source disk for our subsequent instances:&#x20;
+First, we will deploy a Windows Virtual Server using a [reference YAML](https://github.com/coreweave/kubernetes-cloud/blob/master/virtual-server/examples/kubectl/virtual-server-windows.yaml). This will serve as the source disk for our subsequent instances:
 
 `k create -f virtual-server-windows-source.yaml`
 
@@ -172,7 +172,7 @@ This will clone a PVC within the same region in which it was created.
 
 ![Output of pvc-clone.sh](<../../.gitbook/assets/image (39).png>)
 
-We can now safely delete our Virtual Server with `k delete vs vs-windows10-source`:&#x20;
+We can now safely delete our Virtual Server with `k delete vs vs-windows10-source`:
 
 ![Output of "k delete vs"](<../../.gitbook/assets/image (33).png>)
 

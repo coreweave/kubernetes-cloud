@@ -133,13 +133,13 @@ filebrowser     LoadBalancer   10.135.198.207   64.xx.xx.xx     80:32765/TCP    
 
 Let's now browse to the `EXTERNAL-IP` as listed in our services, and we should be greeted by a login screen!
 
-![Default username/password is admin/admin. You should change this...](<../../.gitbook/assets/image (3) (1) (1) (1).png>)
+![Default username/password is admin/admin. You should change this...](<../../.gitbook/assets/image (3) (1) (1).png>)
 
 **Let's get something to render!**
 
 For this example, we want to render something that quickly shows the power available on CoreWeave Cloud, so we're going to take one of the typical Blender benchmarks, [BMW\_27](https://download.blender.org/demo/test/BMW27\_2.blend.zip) and upload the unpacked file `bmw27_gpu.blend` to our root path in the File Browser.
 
-![Our BMW file is there, we are ready to go!](<../../.gitbook/assets/image (2) (1) (1).png>)
+![Our BMW file is there, we are ready to go!](<../../.gitbook/assets/image (2) (1).png>)
 
 **Creating our render workflow!**
 

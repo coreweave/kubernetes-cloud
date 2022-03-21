@@ -10,19 +10,17 @@ Workflows on CoreWeave run on [Argo Workflows](https://argoproj.github.io/argo/)
 
 * After logging into [CoreWeave Cloud](https://cloud.coreweave.com), go to the CoreWeave Apps `Catalog`
 
-![](<../.gitbook/assets/image (17) (2) (2).png>)
+![](<../.gitbook/assets/image (17) (2) (1).png>)
 
 * A new window will open to CoreWeave Apps with the list of available applications. Find and select the **argo-workflows** application
 
 ![](<../.gitbook/assets/image (14).png>)
 
-* In the right upper corner, select the latest version of the helm chart and click `DEPLOY`\
-
+* In the right upper corner, select the latest version of the helm chart and click `DEPLOY`\\
 
 ![](<../.gitbook/assets/image (25).png>)
 
-* The deployment form will prompt you to enter an application name. The remaining parameters have our suggested defaults, when ready click `DEPLOY` at the bottom of the page\
-
+* The deployment form will prompt you to enter an application name. The remaining parameters have our suggested defaults, when ready click `DEPLOY` at the bottom of the page\\
 
 ![](<../.gitbook/assets/image (20).png>)
 
@@ -30,12 +28,9 @@ Workflows on CoreWeave run on [Argo Workflows](https://argoproj.github.io/argo/)
 `server` authentication mode does not require credentials, we suggest using`client` mode instead for better security, for more information visit [https://argoproj.github.io/argo-workflows/argo-server-auth-mode](https://argoproj.github.io/argo-workflows/argo-server-auth-mode)
 {% endhint %}
 
-*   After a few minutes, the deployment will be ready. If you selected `Expose UI via public Ingress`, Argo Workflows will be accessible outside the cluster.  \
-
+*   After a few minutes, the deployment will be ready. If you selected `Expose UI via public Ingress`, Argo Workflows will be accessible outside the cluster. \\
 
     Click the ingress link to open Argo Workflows UI in a new window
-
-
 
 ![](<../.gitbook/assets/image (23).png>)
 
@@ -43,7 +38,7 @@ Workflows on CoreWeave run on [Argo Workflows](https://argoproj.github.io/argo/)
 On first visit, you may encounter get a TLS certificate error. It can take up to five minutes for the certificate to be issued, once issued the error should disappear.
 {% endhint %}
 
-* To run a sample workflow, click `+SUBMIT NEW WORKFLOW` and then  `Edit using workflow options`\
+* To run a sample workflow, click `+SUBMIT NEW WORKFLOW` and then `Edit using workflow options`\
   This shows 'Argo says' workflow, click `+CREATE`, after a few minutes, on success, the workflow will change to green.
 
 ## Argo CLI

@@ -26,7 +26,7 @@
 * [Getting Started](virtual-servers/getting-started.md)
 * [Deployment Methods](virtual-servers/deployment-methods/README.md)
   * [CoreWeave Apps Web UI](virtual-servers/deployment-methods/coreweave-apps.md)
-  * [CLI](virtual-servers/deployment-methods/kubectl.md)
+  * [CLI](docs/virtual-servers/deployment-methods/kubectl.md)
   * [Terraform](virtual-servers/deployment-methods/terraform.md)
   * [Programmatically](virtual-servers/deployment-methods/programmatically/README.md)
     * [Python](virtual-servers/deployment-methods/programmatically/python.md)
@@ -67,7 +67,7 @@
 ## Workflows
 
 * [Getting Started](workflows/argo.md)
-* [Examples](docs/workflows/examples/README.md)
+* [Examples](workflows/examples/README.md)
   * [CGI Rendering](workflows/examples/cgi-rendering.md)
 
 ## Solutions

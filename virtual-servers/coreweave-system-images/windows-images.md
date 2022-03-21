@@ -38,7 +38,7 @@ Within the Virtual Server deployment form, switch to the YAML tab:
 
 Towards the bottom of the page, a commented out cloudInit section will be pre-populated. Uncomment to add custom user data:
 
-![](<../../.gitbook/assets/image (66).png>)
+![](<../../.gitbook/assets/image (66) (1).png>)
 
 {% hint style="info" %}
 For more information on what be added via native cloudInit Userdata, view the Cloudbase Solutions documentation [here](https://cloudbase-init.readthedocs.io/en/latest/userdata.html#userdata).
@@ -195,21 +195,21 @@ Via Windows Apps and Features, the default behavior can be modified:
 
 Selecting "Modify" will prompt for an action to perform when it is detected that the root disk can be expanded. The default action of `ReSize` will expand the root disk. `NewPartition` will create a new partition with the unallocated space, and automatically assign a drive letter. Entering no value will disable any automatic action.
 
-![Changing the default action to "NewPartition"](<../../.gitbook/assets/image (87).png>)
+![Changing the default action to "NewPartition"](<../../.gitbook/assets/image (87) (1).png>)
 
 After selecting the desired re-size disk option, an additional prompt appears to set an action for newly detected RAW disks. Automatic formatting can be enabled or disabled with `true` or `false`.
 
-![Disabling auto RAW disk format](<../../.gitbook/assets/image (83).png>)
+![Disabling auto RAW disk format](<../../.gitbook/assets/image (83) (1).png>)
 
 #### CoreWeave Auto Shutdown
 
 Instance power-off based on interactive user input can be configured via [cloudInit](windows-images.md#coreweave-userdata-features) when an instance is initially deployed. Once an instance has already been deployed, this feature is also configurable via Windows Apps and Features:&#x20;
 
-![](<../../.gitbook/assets/image (81).png>)
+![](<../../.gitbook/assets/image (81) (1).png>)
 
 Modifying will prompt for an integer value in minutes to configure auto-shutoff, or set to 0 to disable:
 
-![](<../../.gitbook/assets/image (96).png>)
+![](<../../.gitbook/assets/image (96) (1).png>)
 
 #### CoreWeave Windows Update
 

@@ -6,7 +6,7 @@
 ## Create Primary Domain Controller Virtual Server
 
 {% hint style="success" %}
-Be sure to review [Getting Started](../../coreweave-kubernetes/getting-started.md#obtain-access-credentials) and the [kubectl Virtual Server deployment method](../deployment-methods/kubectl.md#deploying-a-virtual-server) before starting this guide.
+Be sure to review [Getting Started](../../coreweave-kubernetes/getting-started.md#obtain-access-credentials) and the [kubectl Virtual Server deployment method](../../docs/virtual-servers/deployment-methods/kubectl.md#deploying-a-virtual-server) before starting this guide.
 {% endhint %}
 
 We'll start out using [this Virtual Server manifest](https://github.com/coreweave/kubernetes-cloud/blob/master/virtual-server/examples/kubectl/virtual-server-windows-internal-ip-only.yaml) to create a Windows Server 2019 Virtual Server in our Chicago datacenter:
@@ -101,7 +101,6 @@ Install-ADDSForest `
 -NoRebootOnCompletion:$false `
 -SysvolPath "C:\Windows\SYSVOL" `
 -Force:$true
-
 ```
 {% endcode %}
 {% endtab %}
@@ -233,4 +232,3 @@ After executing the script, the server will automatically reboot as part of the 
 After rebooting, confirm your Domain Controller status with `Get-ADDomainController:`
 
 ![Output of Get-AdDomainController](<../../.gitbook/assets/image (10).png>)
-

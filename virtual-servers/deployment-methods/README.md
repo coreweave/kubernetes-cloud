@@ -4,8 +4,8 @@
 [coreweave-apps.md](coreweave-apps.md)
 {% endcontent-ref %}
 
-{% content-ref url="kubectl.md" %}
-[kubectl.md](kubectl.md)
+{% content-ref url="../../docs/virtual-servers/deployment-methods/kubectl.md" %}
+[kubectl.md](../../docs/virtual-servers/deployment-methods/kubectl.md)
 {% endcontent-ref %}
 
 {% content-ref url="terraform.md" %}
@@ -15,4 +15,3 @@
 {% content-ref url="programmatically/" %}
 [programmatically](programmatically/)
 {% endcontent-ref %}
-
