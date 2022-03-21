@@ -24,7 +24,7 @@ Selecting this, click deploy in the upper right and then select in the creation 
 
 We are going to walk through setting up a filesystem-volume for render-outputs -- a common use case that should come in handy! When rendering on CoreWeave cloud, ensuring that applications don't attempt to write over the internet to on prem storage is essential. Typically large amounts of data that is accessed infrequently such as render outputs belongs on our HDD tier. We will be provisioning everything in our Chicago datacenter (ORD) but feel free to provision resources in the datacenter closest to you.
 
-![Storage Options](<../../.gitbook/assets/image (67).png>) ![Deployment](<../../.gitbook/assets/image (57).png>) ![Success](<../../.gitbook/assets/image (76).png>)
+![Storage Options](<../../.gitbook/assets/image (68).png>) ![Deployment](<../../.gitbook/assets/image (60).png>) ![Success](<../../.gitbook/assets/image (77).png>)
 
 Once you hit Deploy you should see the following message and an instance of the filesystem-volume application in the "Applications" tab.
 
@@ -50,7 +50,7 @@ mounts:
 
 If you would like the service to be accessible from places over the internet, ensure you have "enable public IP" set to **true**.
 
-![samba-ad options](../../.gitbook/assets/SharedScreenshot.jpg) ![samba options](../../.gitbook/assets/SharedScreenshot\).jpg) ![](<../../.gitbook/assets/image (73).png>) ![Success! For those following along, your applications landing page should look similar.](<../../.gitbook/assets/image (95).png>)
+![samba-ad options](../../.gitbook/assets/SharedScreenshot.jpg) ![samba options](../../.gitbook/assets/SharedScreenshot\).jpg) ![](<../../.gitbook/assets/image (74).png>) ![Success! For those following along, your applications landing page should look similar.](<../../.gitbook/assets/image (95).png>)
 
 #### Connecting to Samba (WIN)
 
@@ -58,15 +58,15 @@ If you would like the service to be accessible from places over the internet, en
 
 In order to connect. Map the network drive.
 
-![](<../../.gitbook/assets/image (71).png>)
+![](<../../.gitbook/assets/image (72).png>)
 
 ![Enter the DNS name and press Browse...](<../../.gitbook/assets/image (91).png>)
 
-![Press the drop down to find the mount name easily.](<../../.gitbook/assets/image (66).png>)
+![Press the drop down to find the mount name easily.](<../../.gitbook/assets/image (67).png>)
 
 Select the mount, press ok, and enter credentials.
 
-![Success!!](<../../.gitbook/assets/image (75).png>)
+![Success!!](<../../.gitbook/assets/image (76).png>)
 
 #### NFS
 
@@ -116,7 +116,7 @@ For a general guide to getting started with virtual servers check out:
 [coreweave-apps.md](../../virtual-servers/deployment-methods/coreweave-apps.md)
 {% endcontent-ref %}
 
-![YAML tab to attach storage](<../../.gitbook/assets/image (56).png>)
+![YAML tab to attach storage](<../../.gitbook/assets/image (59).png>)
 
 For our virtual server we are going to mount in our shared storage as a filesystem using the following YAML modification:
 

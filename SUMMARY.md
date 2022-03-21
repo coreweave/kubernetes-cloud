@@ -67,7 +67,7 @@
 ## Workflows
 
 * [Getting Started](workflows/argo.md)
-* [Examples](workflows/examples/README.md)
+* [Examples](docs/workflows/examples/README.md)
   * [CGI Rendering](workflows/examples/cgi-rendering.md)
 
 ## Solutions

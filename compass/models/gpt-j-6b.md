@@ -11,7 +11,7 @@ The model was trained on [the Pile](https://arxiv.org/pdf/2101.00027.pdf), a 825
     ![](https://gblobscdn.gitbook.com/assets%2F-M83TghsCfsi8FCYs2DZ%2F-Mj8bRkoZHQnzaZ64weP%2F-Mj8dNozNioSsymBNIg9%2Fimage.png?alt=media\&token=d56bb42a-0572-40ba-b053-4320528a4b25)
 2.  A new window opens to CoreWeave Apps with the list of available applications. Find and select the **gpt-j-6b** application
 
-    ![](<../../docs/.gitbook/assets/image (31).png>)\\
+    ![](<../../.gitbook/assets/image (75) (1).png>)\\
 3. In the right upper corner, select the latest version of the helm chart and click `DEPLOY`
 4. The deployment's form prompts you to enter an application name. The remaining parameters have our suggested defaults; when ready, click `DEPLOY` at the bottom of the page.
 5. It takes a few minutes before the deployment is ready.

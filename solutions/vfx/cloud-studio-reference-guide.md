@@ -48,7 +48,7 @@ Selecting this, click deploy in the upper right and then select in the creation 
 
 We are going to create a filesystem-volume for render outputs, that way all of our virtual desktops can access the same shared storage as our render nodes. When rendering on CoreWeave cloud, ensuring that applications don't attempt to write over the internet to on prem storage is essential. Typically large amounts of data that is accessed infrequently such as render outputs belongs on our HDD tier. We will be provisioning everything in our Chicago datacenter (ORD) but feel free to provision resources in the datacenter closest to you.
 
-![Storage Options](<../../.gitbook/assets/image (67).png>) ![Deployment](<../../.gitbook/assets/image (57).png>) ![Success](<../../.gitbook/assets/image (76).png>)
+![Storage Options](<../../.gitbook/assets/image (68).png>) ![Deployment](<../../.gitbook/assets/image (60).png>) ![Success](<../../.gitbook/assets/image (77).png>)
 
 Once you hit Deploy you should see the following message and an instance of the filesystem-volume application in the "Applications" tab.
 
@@ -92,7 +92,7 @@ Note that at this time Parsec is not supported for hosting on Centos 7.
 
 To get started, log into your cloud account and navigate to the applications page or simply enter [apps.coreweave.com](https://apps.coreweave.com) in your browser. Next go to Catalog and select Virtual Server. There you can specify all the different details of your virtual desktop. To start, create a Windows VDI by selecting Windows 10 Professional in the drop down.
 
-![](<../../.gitbook/assets/image (60).png>)
+![](<../../.gitbook/assets/image (64).png>)
 
 Once you have specified the other details for your artist workstation, GPU, CPU, etc., put in user credentials (Note if you are utilizing AD you will have to put in a temporary user before you join the storage)
 
@@ -104,7 +104,7 @@ The three examples in the reference namespace are as follows:
 
 The values used to create them are the same, with the source image being the only difference:
 
-```
+```yaml
 affinity: {}
 initializeRunning: true
 labels:
@@ -168,7 +168,7 @@ To deploy Windows 10 with Teradici the process is the same as with our previous 
 
 Navigating to the yaml tab inside the virtual server deploy interface you should see a commented out section such as:
 
-```
+```yaml
 #cloudInit: |
 #  # Write a simple script
 #  write_files:
@@ -212,7 +212,7 @@ For the final machine we are going to follow the same steps except here we can s
 
 For our Linux based workstation we will also want to mount in our storage via virtio-fs. To do this switch to the YAML editor and edit the filesystem value with:
 
-```
+```yaml
 filesystems: 
   - name: render-outputs
     source:
@@ -262,9 +262,9 @@ Finally, to finish our management interface, we should install the Teradici Secu
 
 The best way to manage connectivity between kubernetes components and the internet is using kubernetes network policies. For our reference implementation we will create a simple group of network policies which create "user groups" with different access to internal and external resources. Network policies are specified in YAML manifests and can be applied to the namespace using `kubectl apply -f <path to yaml manifest>`
 
-The first network policy we will call "artist." This network policy will use a pod selector to match against any pod with the label `user.group: artist`. Our policy then specifies that it will allow inbound traffic from any internal IP address, i.e. 10.0.0.0/8, as well as any traffic over the port 3389. Our policy additionally specifies that it will allow our artist VMs to send traffic to any internal IP address.
+The first network policy we will call "artist." This network policy will use a pod selector to match against any pod with the label `user.group: artist`. Our policy then specifies that it will allow inbound traffic from the local namespace on ports 3389, 4172, 60443 and 443. Our policy additionally specifies that it will allow our artist VMs to send traffic to any target i nthe same namespace on port 139 and 445.
 
-```
+```yaml
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -306,7 +306,7 @@ This policy would prevent connections originating outside the cluster from reach
 
 If we wanted our network policy to have stricter policies, we could allow only traffic from our AD samba and the Teradici connection manager. This would prevent any external or internal resource from connecting to our VMs without going through our connection manager and Leostream broker.
 
-```
+```yaml
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -348,7 +348,7 @@ Note that all network policies are additive, so any IP range or port not explici
 
 To apply this policy to our virtual servers we can upgrade our workstations from the applications UI. Switch to the YAML editor and add the following entry:
 
-```
+```yaml
 labels:
   user.group: "artist"
 ```
@@ -357,7 +357,7 @@ After restarting your virtual server you will notice that the launcher pod now c
 
 Next we can create another network policy for our administrators. This policy should likely be the opposite: enable internet access but disable access to other internal resources.
 
-```
+```yaml
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -394,7 +394,7 @@ This policy for example will prohibit administrators from accessing the Samba st
 
 Last but not least we should create a network policy that is open to all traffic within the namespace, that way for internal infrastructure can be reached from other resources. We also add a wide open egress policy so that our services can connect to resources in the namespace or on the internet.
 
-```
+```yaml
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -431,6 +431,6 @@ First, secure your repository by creating a super-user password at Tools > Confi
 
 Next configure your user groups by going to Tools > Manage User Groups.
 
-![](<../../.gitbook/assets/image (58).png>)
+![](<../../.gitbook/assets/image (61).png>)
 
 Consider creating a few groups for the different users who might be interacting with your repository.

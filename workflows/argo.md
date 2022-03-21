@@ -10,7 +10,7 @@ Workflows on CoreWeave run on [Argo Workflows](https://argoproj.github.io/argo/)
 
 * After logging into [CoreWeave Cloud](https://cloud.coreweave.com), go to the CoreWeave Apps `Catalog`
 
-![](<../.gitbook/assets/image (17) (2) (1).png>)
+![](<../.gitbook/assets/image (17) (2) (2).png>)
 
 * A new window will open to CoreWeave Apps with the list of available applications. Find and select the **argo-workflows** application
 
