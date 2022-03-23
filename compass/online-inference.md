@@ -38,7 +38,7 @@ For on demand customers, billing is done on a per minute basis when containers a
 
 Models can be served directly from Amazon S3, which is practical for testing and multi cloud deployment. For faster container launch times in a production environment it is recommended to cache the model in a `ReadWriteMany` persistent volume on CoreWeave storage. The model can be written to a PVC from any container, such as SSH, Jupyter or FileBrowser deployed via [CoreWeave Apps](https://apps.coreweave.com).
 
-For best performance, small models (less than 1GB) can safely be included in the docker image. For larger models, loading from a storage PVC is strongly recommended.
+For best performance, small models (less than 1GB) can safely be included in the docker image. For larger models, loading from a storage PVC is strongly recommended. Use NVMe backed storage volumes for optimal loading speeds.
 
 ## GPU Selectors & Affinities
 
