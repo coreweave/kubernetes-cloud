@@ -4,7 +4,7 @@
 
 ![diagram](../.gitbook/assets/overview.png)
 
-CoreWeave Cloud allows for easy serving of machine learning models. The models can be sourced from a range of storage backends, including Amazon S3 and a [CoreWeave Storage Volume](../coreweave-kubernetes/storage.md). After deployment the inference engine auto scales the containers based on demand to swiftly fulfill user requests and scales down as load decreases to not waste GPU resources. Allocating new resources and scaling up a container usually takes 30 seconds for smaller models and 60 seconds for the full 11.5B parameter GPT-2 model. The quick autoscale allows a significantly more responsive service than depending on scaling of hypervisor backed instances of other cloud providers.
+CoreWeave Cloud allows for easy serving of machine learning models. The models can be sourced from a range of storage backends, including Amazon S3 and a [CoreWeave Storage Volume](../coreweave-kubernetes/storage.md). After deployment the inference engine auto scales the containers based on demand to swiftly fulfill user requests and scales down as load decreases to not waste GPU resources. Allocating new resources and scaling up a container can be as fastas 20 seconds for the 6B GPT-J model. The quick autoscale allows a significantly more responsive service than depending on scaling of hypervisor backed instances of other cloud providers.
 
 Well supported Open Source tools back the inference stack. [Knative Serving](https://knative.dev/docs/serving/) acts as the serverless runtime, managing auto scaling, revision control and canary deployments. [Kubeflow Serving](https://www.kubeflow.org/docs/components/serving/kfserving/) provides an easy to use interface, via Kubernetes resource definitions to deploy models without having to worry about correctly configuring the underlying framework (ie. Tensorflow). The examples in this repository are tailored specifically for common use cases, and there are many more examples in the [KFServing repostiory](https://github.com/kubeflow/kfserving/tree/master/docs/samples) that can be used directly in your namespace.
 
@@ -14,14 +14,15 @@ Autoscaling is enabled by default for all Inference Services. The autoscaling pa
 
 | KNative Parameter                       | Value | Description                                                                                                                                                                                 |
 | --------------------------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| tick-interval                           | 15s   | Auto scaling decision are made every 10 seconds                                                                                                                                             |
+| tick-interval                           | 15s   | Auto scaling decision are made every 15 seconds                                                                                                                                             |
 | stable-window                           | 180s  | The time period average concurrency is measured over in stable mode                                                                                                                         |
-| container-concurrency-target-percentage | 85%   | Scale to load all containers at 100% of their configured concurrency                                                                                                                        |
-| max-scale-up-rate                       | 20    | Scale up at a maximum of 200% of current capacity or 1 container (whichever is larger) per 10 seconds                                                                                       |
-| max-scale-down-rate                     | 2     | Scale down at a maximum of 50% of current capacity or 1 container (whichever is larger) per 10 seconds                                                                                      |
+| container-concurrency-target-percentage | 85%   | Scale to keep an average headroom of 15% of available concurrent request to accommodate for bursts                                                                                          |
+| max-scale-up-rate                       | 20    | Scale up at a maximum of 20x of current capacity or 1 container (whichever is larger) per 15 seconds                                                                                        |
+| max-scale-down-rate                     | 1.1   | Scale down at a maximum of 10% of current capacity or 1 container (whichever is larger) per 15 seconds                                                                                      |
 | scale-to-zero-grace-period              | 30m   | If no requests have been received for 30 minutes, a service will be scaled to zero and not use any resources. This behavior can be disabled by setting minReplicas to 1 in the service spec |
+| scale-down-delay                        | 60s   | Containers are only scaled down if scaled-down has been requested over a 60s period. This is to avoid thrashing.                                                                            |
 
-If concurrent requests exceeds the current scaled-for request volume by 200% during a period of 30 seconds, the autoscaler enters "panic mode" and starts scaling containers faster than the normal 120s stable window. Some of these settings, such as stable window can be modified using annotations on the `InferenceService`. Refer to the [KNative documentation](https://knative.dev/docs/serving/configuring-autoscaling/) for more information.
+If concurrent requests exceeds the current scaled-for request volume by 200% during a period of 24 seconds, the autoscaler enters "panic mode" and starts scaling containers faster than the normal 128s stable window. Some of these settings, such as stable window can be modified using annotations on the `InferenceService`. Refer to the [KNative documentation](https://knative.dev/docs/serving/configuring-autoscaling/) for more information.
 
 ## Scale To Zero
 
@@ -36,6 +37,8 @@ For on demand customers, billing is done on a per minute basis when containers a
 ## Model Storage
 
 Models can be served directly from Amazon S3, which is practical for testing and multi cloud deployment. For faster container launch times in a production environment it is recommended to cache the model in a `ReadWriteMany` persistent volume on CoreWeave storage. The model can be written to a PVC from any container, such as SSH, Jupyter or FileBrowser deployed via [CoreWeave Apps](https://apps.coreweave.com).
+
+For best performance, small models (less than 1GB) can safely be included in the docker image. For larger models, loading from a storage PVC is strongly recommended.
 
 ## GPU Selectors & Affinities
 
