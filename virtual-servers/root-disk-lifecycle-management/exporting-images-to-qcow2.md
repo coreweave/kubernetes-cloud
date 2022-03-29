@@ -51,9 +51,9 @@ Note our source image exists in the **ORD** region - matching our shared data fi
 
 ## Deploy worker pod
 
-Next, we'll create a worker pod that has both our source disk, and shared data filesystem mounted.&#x20;
+Next, we'll create a worker pod that has both our source disk, and shared data filesystem mounted.
 
-Using `k create -f clone-to-file.yaml`:&#x20;
+Using `k create -f clone-to-file.yaml`:
 
 {% tabs %}
 {% tab title="YAML" %}
@@ -114,4 +114,4 @@ Progress can be monitored with `k get pods --watch`:
 
 Once the job status shows Completed, the job can be deleted with `k delete job clone-to-file`.
 
-The shared data filesystem, with its exported QCOW2 can be attached to a Virtual Server or Samba pod for further inspection.
+The shared data filesystem, with its exported QCOW2 can be attached to a Virtual Server or ia [apps.coreweave.com](https://apps.coreweave.com) a Based File Browser or SAMBA for further inspection.
