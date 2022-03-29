@@ -122,7 +122,7 @@ $ kubectl apply -f example-vs.yaml
 virtualserver.virtualservers.coreweave.com/example-vs created
 ```
 
-The Virtual Server will now start, and be available over SSH (assuming the image supports SSH) as well as [regular remote console](../remote-access-and-control.md).
+The Virtual Server will now start, and be available over SSH (assuming the image supports SSH) as well as [regular remote console](remote-access-and-control.md).
 
 ```
 $ kubectl get vs example-vs
