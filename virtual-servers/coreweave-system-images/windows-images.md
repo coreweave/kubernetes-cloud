@@ -50,19 +50,25 @@ There are several CoreWeave init scripts included in our base Windows image, tha
 
 #### Add Samba Mounts
 
-Samba shares (Or any SMB/CIFS compliant share) can be added via cloudInit, to be mounted to the first available drive letter, at initial user login:
+Samba shares (Or any SMB/CIFS compliant share) can be added via cloudInit, to be mounted to the first available drive letter, at initial user login.
+
+Using an example from a Samba instance hosted via CoreWeave Cloud Apps, we can derive the following information:
+
+![](<../../.gitbook/assets/image (92).png>)
+
+Using our share information, we can populate the cloudInit `key: value` pairs:
 
 ```yaml
   cloudInit: |
     SmbMounts:
-    - share: share1
-      server: samba-pod-1.tenant-user.coreweave.cloud 
-      username: user
-      password: pass
-    - share: share2
-      username: user
-      server: samba-pod-1.tenant-user.coreweave.cloud 
-      password: pass
+    - share: vol01
+      server: fil01.tenant-orgname-namespace.coreweave.cloud
+      username: gaben
+      password: hunter2
+    - share: vol02
+      server: fil01.tenant-orgname-namespace.coreweave.cloud
+      username: gaben
+      password: hunter2
 ```
 
 {% hint style="info" %}

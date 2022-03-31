@@ -20,7 +20,7 @@ Begin by logging into your cloud account and navigating to apps. Clicking on the
 
 Selecting this, click deploy in the upper right and then select in the creation dialogue the name, region, storage type, and storage size for your PVC object. The available storage types are our NVMe and HDD tiers. (NOTE: this application will create a shared filesystem, if you require block storage volumes please see our documentation [here](vfx-studio-components-guide.md#storage) on provisioning storage using YAML manifests and kubectl).
 
-![](<../../.gitbook/assets/image (85).png>)
+![](<../../.gitbook/assets/image (85) (1).png>)
 
 We are going to walk through setting up a filesystem-volume for render-outputs -- a common use case that should come in handy! When rendering on CoreWeave cloud, ensuring that applications don't attempt to write over the internet to on prem storage is essential. Typically large amounts of data that is accessed infrequently such as render outputs belongs on our HDD tier. We will be provisioning everything in our Chicago datacenter (ORD) but feel free to provision resources in the datacenter closest to you.
 
@@ -104,7 +104,7 @@ Update the name, registry key, and add a [Persistent Volume Claim](https://docs.
 
 ![Attaching our render-output PVC created in the reference namespace, and providing a custom name for the mount point.](<../../.gitbook/assets/image (93).png>)
 
-![Landing page updated!](<../../.gitbook/assets/image (92) (1).png>)
+![Landing page updated!](<../../.gitbook/assets/image (92) (1) (1).png>)
 
 ## Virtual Workstations
 

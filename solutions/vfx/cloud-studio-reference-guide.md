@@ -44,7 +44,7 @@ Begin by logging into your cloud account and navigating to apps. Clicking on the
 
 Selecting this, click deploy in the upper right and then select in the creation dialogue the name, region, storage type, and storage size for your PVC object. The available storage types are our NVMe and HDD tiers. (NOTE: this application will create a shared filesystem, if you require block storage volumes please see our documentation [here](cloud-studio-reference-guide.md#storage) on provisioning storage using YAML manifests and kubectl).
 
-![](<../../.gitbook/assets/image (85).png>)
+![](<../../.gitbook/assets/image (85) (1).png>)
 
 We are going to create a filesystem-volume for render outputs, that way all of our virtual desktops can access the same shared storage as our render nodes. When rendering on CoreWeave cloud, ensuring that applications don't attempt to write over the internet to on prem storage is essential. Typically large amounts of data that is accessed infrequently such as render outputs belongs on our HDD tier. We will be provisioning everything in our Chicago datacenter (ORD) but feel free to provision resources in the datacenter closest to you.
 
