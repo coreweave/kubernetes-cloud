@@ -45,7 +45,9 @@
 * [CoreWeave System Images](virtual-servers/coreweave-system-images/README.md)
   * [Windows Images](virtual-servers/coreweave-system-images/windows-images.md)
 * [Examples](virtual-servers/examples/README.md)
-  * [Provision an Active Directory Domain Controller](virtual-servers/examples/provision-an-active-directory-domain-controller.md)
+  * [Active Directory Environment hosted on CoreWeave Cloud](virtual-servers/examples/active-directory-environment-hosted-on-coreweave-cloud/README.md)
+    * [Provision an Active Directory Domain](virtual-servers/examples/active-directory-environment-hosted-on-coreweave-cloud/provision-an-active-directory-domain-controller.md)
+    * [Highly Available Storage using Samba-AD and AD DFS](virtual-servers/examples/active-directory-environment-hosted-on-coreweave-cloud/highly-available-storage-using-samba-ad-and-ad-dfs.md)
 
 ## Inference <a href="#compass" id="compass"></a>
 

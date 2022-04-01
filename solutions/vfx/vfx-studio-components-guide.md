@@ -20,7 +20,7 @@ Begin by logging into your cloud account and navigating to apps. Clicking on the
 
 Selecting this, click deploy in the upper right and then select in the creation dialogue the name, region, storage type, and storage size for your PVC object. The available storage types are our NVMe and HDD tiers. (NOTE: this application will create a shared filesystem, if you require block storage volumes please see our documentation [here](vfx-studio-components-guide.md#storage) on provisioning storage using YAML manifests and kubectl).
 
-![](<../../.gitbook/assets/image (85) (1).png>)
+![](<../../.gitbook/assets/image (85) (2).png>)
 
 We are going to walk through setting up a filesystem-volume for render-outputs -- a common use case that should come in handy! When rendering on CoreWeave cloud, ensuring that applications don't attempt to write over the internet to on prem storage is essential. Typically large amounts of data that is accessed infrequently such as render outputs belongs on our HDD tier. We will be provisioning everything in our Chicago datacenter (ORD) but feel free to provision resources in the datacenter closest to you.
 
@@ -38,7 +38,7 @@ CoreWeave provides many methods out of the box for exposing your PVCs to externa
 
 #### Samba
 
-![](<../../.gitbook/assets/image (86).png>) ![](<../../.gitbook/assets/image (88).png>)
+![](<../../.gitbook/assets/image (86) (1).png>) ![](<../../.gitbook/assets/image (88) (1).png>)
 
 You can deploy both standard and active directory flavors of samba using the apps catalog accessible from your cloud dashboard. After selecting Samba from the catalog and hitting deploy select the same region you deployed your filesystem volume in (NOTE: while it is possible to deploy the samba server in a region different from the PVC it is not recommended due to storage latency and you will see degraded performance). Create a user for this share, if you require more advanced access permissions consider pairing our samba-ad option with your on prem active directory domain services. In the "Mounts" section you should specify the name of the pvc you created in the previous step. Sometimes it may be easier to edit the application using the raw YAML manifest accessible using the tabs under the name entry box such as:
 
@@ -50,7 +50,7 @@ mounts:
 
 If you would like the service to be accessible from places over the internet, ensure you have "enable public IP" set to **true**.
 
-![samba-ad options](../../.gitbook/assets/SharedScreenshot.jpg) ![samba options](../../.gitbook/assets/SharedScreenshot\).jpg) ![](<../../.gitbook/assets/image (72).png>) ![Success! For those following along, your applications landing page should look similar.](<../../.gitbook/assets/image (94).png>)
+![samba-ad options](../../.gitbook/assets/SharedScreenshot.jpg) ![samba options](../../.gitbook/assets/SharedScreenshot\).jpg) ![](<../../.gitbook/assets/image (72).png>) ![Success! For those following along, your applications landing page should look similar.](<../../.gitbook/assets/image (94) (1).png>)
 
 #### Connecting to Samba (WIN)
 
@@ -60,13 +60,13 @@ In order to connect. Map the network drive.
 
 ![](<../../.gitbook/assets/image (70).png>)
 
-![Enter the DNS name and press Browse...](<../../.gitbook/assets/image (90).png>)
+![Enter the DNS name and press Browse...](<../../.gitbook/assets/image (90) (1).png>)
 
 ![Press the drop down to find the mount name easily.](<../../.gitbook/assets/image (65) (1).png>)
 
 Select the mount, press ok, and enter credentials.
 
-![Success!!](<../../.gitbook/assets/image (74).png>)
+![Success!!](<../../.gitbook/assets/image (74) (1).png>)
 
 #### NFS
 
@@ -98,11 +98,11 @@ Press "Add" (above) and the checkbox (below). Then copy the registration key.
 
 ![After pressing the checkbox the registration key will be available to copy](<../../.gitbook/assets/image (82).png>)
 
-![After pressing Media Shuttle](<../../.gitbook/assets/image (87) (1).png>)
+![After pressing Media Shuttle](<../../.gitbook/assets/image (87) (1) (1).png>)
 
 Update the name, registry key, and add a [Persistent Volume Claim](https://docs.coreweave.com/coreweave-kubernetes/storage) to mount.
 
-![Attaching our render-output PVC created in the reference namespace, and providing a custom name for the mount point.](<../../.gitbook/assets/image (93).png>)
+![Attaching our render-output PVC created in the reference namespace, and providing a custom name for the mount point.](<../../.gitbook/assets/image (93) (1).png>)
 
 ![Landing page updated!](<../../.gitbook/assets/image (92) (1) (1).png>)
 

@@ -15,7 +15,7 @@ CoreWeave Cloud allows you to share all of your cloud resources with the rest of
 Inviting a user is simple and intuitive. Selecting the "Invite a User" button triggers a form to enter the email of the invite:\
 
 
-![Organization Invitation Modal](<../.gitbook/assets/image (91).png>)
+![Organization Invitation Modal](<../.gitbook/assets/image (91) (1).png>)
 
 #### Managing an Invited User
 

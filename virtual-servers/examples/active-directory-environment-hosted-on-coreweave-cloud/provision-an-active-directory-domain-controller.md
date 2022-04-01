@@ -1,15 +1,15 @@
-# Provision an Active Directory Domain Controller
+# Provision an Active Directory Domain
 
 **Objective:** Spin up a Windows Server and Active Directory Domain on CoreWeave Cloud.\
-**Overview:** This process consists of deploying a Windows Server 2019 Virtual Server in your namespace with a static, internal only IP. We will also highlight creating a domain with the appropriate DNS configurations, and the attributes needed to join additional Virtual Servers in your namespace, to your Active Directory domain.
+**Overview:** This process consists of deploying a Windows Server 2022 Virtual Server in your namespace with a static, internal only IP. We will also highlight creating a domain with the appropriate DNS configurations, and the attributes needed to join additional Virtual Servers in your namespace, to your Active Directory domain.
 
 ## Create Primary Domain Controller Virtual Server
 
 {% hint style="success" %}
-Be sure to review [Getting Started](../../coreweave-kubernetes/getting-started.md#obtain-access-credentials) and the [kubectl Virtual Server deployment method](../../docs/virtual-servers/deployment-methods/kubectl.md#deploying-a-virtual-server) before starting this guide.
+Be sure to review [Getting Started](../../../coreweave-kubernetes/getting-started.md#obtain-access-credentials) and the [kubectl Virtual Server deployment method](../../../docs/virtual-servers/deployment-methods/kubectl.md#deploying-a-virtual-server) before starting this guide.
 {% endhint %}
 
-We'll start out using [this Virtual Server manifest](https://github.com/coreweave/kubernetes-cloud/blob/master/virtual-server/examples/kubectl/virtual-server-windows-internal-ip-only.yaml) to create a Windows Server 2019 Virtual Server in our Chicago datacenter:
+We'll start out using [this Virtual Server manifest](https://github.com/coreweave/kubernetes-cloud/blob/master/virtual-server/examples/kubectl/virtual-server-windows-internal-ip-only.yaml) to create a Windows Server 2022 Virtual Server in our Chicago datacenter:
 
 `k create -f virtual-server-windows-internal-ip-only.yaml`
 
@@ -21,6 +21,8 @@ apiVersion: virtualservers.coreweave.com/v1alpha1
 kind: VirtualServer
 metadata:
   name: vs-pdc
+  labels:
+    app.kubernetes.io/component: dc
 spec:
   region: ORD1
   os:
@@ -41,7 +43,7 @@ spec:
           namespace: vd-images
           # Reference querying source image here:
           # https://docs.coreweave.com/virtual-servers/root-disk-lifecycle-management/exporting-coreweave-images-to-a-writable-pvc#identifying-source-image
-          name: winserver2019std-master-20210819-ord1
+          name: winsvr2022std-master-20220319-ord1
   # Change user name and pasword
   users:
     - username:
@@ -50,22 +52,44 @@ spec:
     directAttachLoadBalancerIP: true
     public: false
   initializeRunning: true
+  cloudInit: |
+    autologon: false
+    parsec: false
+    edid: false
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+          - key: app.kubernetes.io/component
+            operator: In
+            values:
+            - dc
+        topologyKey: topology.kubernetes.io/zone
 ```
 {% endcode %}
 
 {% hint style="info" %}
+`podAntiAffinity` ensures that if we spin up another domain controller, it will not schedule on the same node.&#x20;
+{% endhint %}
+
+{% hint style="info" %}
 This configuration creates a CPU only instance with a static internal IP - no public facing address, as we typically do not want Domain Controllers exposed publicly.
+{% endhint %}
+
+{% hint style="warning" %}
+This example uses `ORD1` as our region - this should be adjusted depending on which region one's resources reside.
 {% endhint %}
 {% endtab %}
 {% endtabs %}
 
 We can monitor the Virtual Server spinning up with `k get pods --watch`
 
-![Output of k get pods --watch](<../../.gitbook/assets/image (7).png>)
+![Output of k get pods --watch](<../../../.gitbook/assets/image (7).png>)
 
 Once our VS has reached "Running" status, we can get an External IP to connect to it with `k get vs`
 
-![Output of k get vs](<../../.gitbook/assets/image (8).png>)
+![Output of k get vs](<../../../.gitbook/assets/image (8).png>)
 
 {% hint style="info" %}
 Allow \~5 minutes after "Running" status for the Virtual Server to complete initial start procedures.
@@ -108,7 +132,7 @@ Install-ADDSForest `
 
 We'll add the script to our server:
 
-![Pasting cw\_adds\_setup.ps1 in over SSH](<../../.gitbook/assets/image (6).png>)
+![Pasting cw\_adds\_setup.ps1 in over SSH](<../../../.gitbook/assets/image (6).png>)
 
 Once executed, follow the prompts. You'll be asked to provide:
 
@@ -120,7 +144,7 @@ Once executed, follow the prompts. You'll be asked to provide:
 * **SafeModeAdministratorPassword**
   * Used for Directory Services Restore Mode
 
-![](<../../.gitbook/assets/image (9).png>)
+![](<../../../.gitbook/assets/image (9).png>)
 
 {% hint style="info" %}
 After executing the script, the server will automatically reboot as part of the ADDS deployment.
@@ -163,7 +187,7 @@ After rebooting, your Windows Virtual Server will now be joined to your Active D
 
 Confirm connectivity by performing a policy update:
 
-![Group Policy update](<../../.gitbook/assets/image (12).png>)
+![Group Policy update](<../../../.gitbook/assets/image (12).png>)
 
 ## Adding a secondary Domain Controller
 
@@ -211,7 +235,7 @@ Install-ADDSDomainController `
 
 Add the script to your VS:
 
-![Pasting cw\_addc\_setup.ps1 in over SSH](<../../.gitbook/assets/image (11).png>)
+![Pasting cw\_addc\_setup.ps1 in over SSH](<../../../.gitbook/assets/image (11).png>)
 
 Once executed, follow the prompts. You'll be asked to provide:‌
 
@@ -231,4 +255,4 @@ After executing the script, the server will automatically reboot as part of the 
 
 After rebooting, confirm your Domain Controller status with `Get-ADDomainController:`
 
-![Output of Get-AdDomainController](<../../.gitbook/assets/image (10).png>)
+![Output of Get-AdDomainController](<../../../.gitbook/assets/image (10).png>)

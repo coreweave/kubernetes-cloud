@@ -356,6 +356,6 @@ We place that address in the "Remote Server" box in the Repository selection, by
 
 Once connected Navigate to View > Panels > Limits and you will see pre-populated limits created on install. Open one up and you should see something like:
 
-![](<../../.gitbook/assets/image (78) (1).png>)
+![](<../../.gitbook/assets/image (78) (1) (1).png>)
 
 Note: due to limitations in the Deadline API we can only programaticly create "license limits" while they function identically to resource

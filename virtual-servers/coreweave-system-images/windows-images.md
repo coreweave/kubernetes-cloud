@@ -34,7 +34,7 @@ When creating a new Virtual Server on CoreWeave cloud, instance specific informa
 
 Within the Virtual Server deployment form, switch to the YAML tab:
 
-![](<../../.gitbook/assets/image (64).png>)
+![](<../../.gitbook/assets/image (64) (1).png>)
 
 Towards the bottom of the page, a commented out cloudInit section will be pre-populated. Uncomment to add custom user data:
 
@@ -201,7 +201,7 @@ Via Windows Apps and Features, the default behavior can be modified:
 
 Selecting "Modify" will prompt for an action to perform when it is detected that the root disk can be expanded. The default action of `ReSize` will expand the root disk. `NewPartition` will create a new partition with the unallocated space, and automatically assign a drive letter. Entering no value will disable any automatic action.
 
-![Changing the default action to "NewPartition"](<../../.gitbook/assets/image (87).png>)
+![Changing the default action to "NewPartition"](<../../.gitbook/assets/image (87) (1).png>)
 
 After selecting the desired re-size disk option, an additional prompt appears to set an action for newly detected RAW disks. Automatic formatting can be enabled or disabled with `true` or `false`.
 
@@ -239,7 +239,7 @@ There are no user configurable options for CoreWeave Windows Update. To revert t
 
 When launching a new PowerShell session, users are presented with some helpful system stats:
 
-![](<../../.gitbook/assets/image (78).png>)
+![](<../../.gitbook/assets/image (78) (1).png>)
 
 To disable this functionality, simply delete the profile:
 
