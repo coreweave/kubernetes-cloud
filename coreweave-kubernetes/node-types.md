@@ -22,25 +22,24 @@ When custom configuring your instances on CoreWeave Cloud, the following table o
 | NVIDIA | RTX A5000         | Ampere     | 8,192      | 24 GB | 4                | RTX\_A5000          |
 | NVIDIA | RTX A4000         | Ampere     | 6,144      | 16 GB | 7                | RTX\_A4000          |
 | NVIDIA | Tesla V100 NVLINK | Volta      | 5,120      | 16 GB | 8                | Tesla\_V100\_NVLINK |
-| NVIDIA | Tesla V100 PCIe   | Volta      | 5,120      | 16 GB | 7                | Tesla\_V100\_PCIE   |
 | NVIDIA | RTX 5000          | Turing     | 3,072      | 16 GB | 4                | Quadro\_RTX\_5000   |
 | NVIDIA | RTX 4000          | Turing     | 2,304      | 8 GB  | 7                | Quadro\_RTX\_4000   |
 
 {% hint style="warning" %}
-If a workload requests more peripheral compute resources (vCPU, RAM) than offered in a standard instance size, [additional costs will incur](../resources/resource-based-pricing.md).&#x20;
+If a workload requests more peripheral compute resources (vCPU, RAM) than offered in a standard instance size, [additional costs will incur](../resources/resource-based-pricing.md).
 {% endhint %}
 
 ### CPU Availability
 
-CPU Only nodes are available for tasks such as control-plane services, databases, ingresses and CPU rendering.&#x20;
+CPU Only nodes are available for tasks such as control-plane services, databases, ingresses and CPU rendering.
 
-| CPU Model      | RAM per vCPU | Max CPU per Workload | Label          |
-| -------------- | ------------ | -------------------- | -------------- |
-| Intel Xeon v1  | 3 GB         | 79                   | intel-xeon-v1  |
-| Intel Xeon v2  | 3 GB         | 93                   | intel-xeon-v2  |
-| Intel Xeon v4  | 4 GB         | 71                   | intel-xeon-v4  |
-| AMD Epyc Rome  | 4 GB         | 46                   | amd-epyc-rome  |
-| AMD Epyc Milan | 4 GB         | 46                   | amd-epyc-milan |
+| CPU Model           | RAM per vCPU | Max CPU per Workload | Label               |
+| ------------------- | ------------ | -------------------- | ------------------- |
+| Intel Xeon v3       | 4 GB         | 71                   | intel-xeon-v3       |
+| Intel Xeon v4       | 4 GB         | 71                   | intel-xeon-v4       |
+| Intel Xeon Scalable | 4 GB         | 31                   | intel-xeon-scalable |
+| AMD Epyc Rome       | 4 GB         | 46                   | amd-epyc-rome       |
+| AMD Epyc Milan      | 4 GB         | 46                   | amd-epyc-milan      |
 
 {% hint style="info" %}
 Workloads without GPU requests are always scheduled on CPU nodes.
@@ -70,7 +69,7 @@ spec:
           - key: gpu.nvidia.com/class
             operator: In
             values:
-              - Tesla_V100
+              - Tesla_V100_NVLINK
 ```
 {% endtab %}
 
@@ -129,7 +128,7 @@ spec:
 ```
 {% endtab %}
 
-{% tab title="16 Core Xeon v1/v2 CPU" %}
+{% tab title="16 Core Xeon v3/v4 CPU" %}
 ```yaml
 spec:
   containers:
@@ -147,8 +146,8 @@ spec:
           - key: node.coreweave.cloud/cpu
             operator: In
             values:
-              - intel-xeon-v1
-              - intel-xeon-v2
+              - intel-xeon-v3
+              - intel-xeon-v4
 ```
 {% endtab %}
 
