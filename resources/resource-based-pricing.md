@@ -8,25 +8,22 @@ While we also show pricing and allow scheduling based upon ["Standard Instances"
 
 The following components are configurable in GPU based instances.
 
-| Type | Description            | Resource Label        | Cost per Hour | VRAM       |
-| ---- | ---------------------- | --------------------- | ------------- | ---------- |
-| GPU  | NVIDIA A100 for NVLINK | A100\_NVLINK          | $2.06         | 40GB HBM2e |
-| GPU  | NVIDIA A100 for PCIE   | A100\_PCIE\_40GB      | $2.06         | 40GB HBM2e |
-| GPU  | NVIDIA V100 for NVLINK | Tesla\_V100\_NVLINK   | $0.80         | 16GB HBM2  |
-| GPU  | NVIDIA A40             | A40                   | $1.28         | 48GB GDDR6 |
-| GPU  | NVIDIA RTX A6000       | RTX\_A6000            | $1.28         | 48GB GDDR6 |
-| GPU  | NVIDIA RTX A5000       | RTX\_A5000            | $0.77         | 24GB GDDR6 |
-| GPU  | NVIDIA RTX A4000       | RTX\_A4000            | $0.61         | 16GB GDDR6 |
-| GPU  | NVIDIA Quadro RTX 5000 | Quadro\_RTX\_5000     | $0.57         | 16GB GDDR6 |
-| GPU  | NVIDIA Quadro RTX 4000 | Quadro\_RTX\_4000     | $0.24         | 8GB GDDR6  |
-| CPU  | AMD Epyc Milan vCPU    | amd-epyc-milan        | $0.010        | N/A        |
-| CPU  | AMD Epyc Rome vCPU     | amd-epyc-rome         | $0.010        | N/A        |
-| CPU  | AMD Threadripper       | amd-threadripper-zen2 | $0.010        | N/A        |
-| CPU  | Intel Xeon Scalable    | intel-xeon-scalable   | $0.010        | N/A        |
-| CPU  | Intel Xeon v4          | intel-xeon-v4         | $0.010        | N/A        |
-| CPU  | Intel Xeon v3          | intel-xeon-v3         | $0.005        | N/A        |
-| CPU  | Intel Xeon v2          | intel-xeon-v2         | $0.005        | N/A        |
-| RAM  | System RAM per GB      | memory                | $0.005        | N/A        |
+| Type | Description            | Resource Label      | Cost per Hour | VRAM       |
+| ---- | ---------------------- | ------------------- | ------------- | ---------- |
+| GPU  | NVIDIA A100 for NVLINK | A100\_NVLINK        | $2.06         | 40GB HBM2e |
+| GPU  | NVIDIA A100 for PCIE   | A100\_PCIE\_40GB    | $2.06         | 40GB HBM2e |
+| GPU  | NVIDIA V100 for NVLINK | Tesla\_V100\_NVLINK | $0.80         | 16GB HBM2  |
+| GPU  | NVIDIA A40             | A40                 | $1.28         | 48GB GDDR6 |
+| GPU  | NVIDIA RTX A6000       | RTX\_A6000          | $1.28         | 48GB GDDR6 |
+| GPU  | NVIDIA RTX A5000       | RTX\_A5000          | $0.77         | 24GB GDDR6 |
+| GPU  | NVIDIA RTX A4000       | RTX\_A4000          | $0.61         | 16GB GDDR6 |
+| GPU  | NVIDIA Quadro RTX 5000 | Quadro\_RTX\_5000   | $0.57         | 16GB GDDR6 |
+| GPU  | NVIDIA Quadro RTX 4000 | Quadro\_RTX\_4000   | $0.24         | 8GB GDDR6  |
+| CPU  | AMD Epyc Milan vCPU    | amd-epyc-milan      | $0.010        | N/A        |
+| CPU  | AMD Epyc Rome vCPU     | amd-epyc-rome       | $0.010        | N/A        |
+| CPU  | Intel Xeon Scalable    | intel-xeon-scalable | $0.010        | N/A        |
+| CPU  | Intel Xeon v4          | intel-xeon-v4       | $0.010        | N/A        |
+| RAM  | System RAM per GB      | memory              | $0.005        | N/A        |
 
 An example, guaranteed request, hardware configuration of 4 Tesla V100 NVLINK GPUs with 32 Intel Xeon Scalable vCPU and 128GB of RAM would look something like:
 
@@ -52,10 +49,6 @@ An example, guaranteed request, hardware configuration of 4 Tesla V100 NVLINK GP
             operator: In
             values:
               - Tesla_V100_NVLINK
-          - key: node.coreweave.cloud/cpu
-            operator: In
-            values:
-              - intel-xeon-scalable    
 ```
 
 In the above example, the cost per hour of the instance would be:
@@ -63,13 +56,13 @@ In the above example, the cost per hour of the instance would be:
 ```
 Instance Configuration:
 
-4x NVIDIA Tesla V100 for NVLINK
-32 Intel Xeon Scalable vCPU
+4     NVIDIA Tesla V100 for NVLINK
+32    vCPU
 128Gi System RAM
 
 Instance Cost:
     Tesla_V100_NVLINK -> $0.80 * 4
-    Xeon Scalable vCPU-> $0.01 * 32
+    vCPU              -> $0.01 * 32
     System RAM        -> $0.005 * 128
                       =  $4.16 per hour
 ```
