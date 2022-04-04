@@ -16,18 +16,16 @@ Be sure to review [Getting Started](../../coreweave-kubernetes/getting-started.m
 We start by identifying an image we wish to export and modify. To browse images from the CoreWeave store:
 
 {% tabs %}
-{% tab title="Bash" %}
-`k get pvc -n vd-images -l images.coreweave.cloud/latest=true,images.coreweave.cloud/private=false,images.coreweave.cloud/family=`**`windows`**` `` ``--sort-by=.spec.storageClassName `
-{% endtab %}
-
-{% tab title="PowerShell" %}
-`(kubectl get pvc -n vd-images -l images.coreweave.cloud/latest=true,images.coreweave.cloud/private=false,images.coreweave.cloud/family=`**`windows`**` `` ``--sort-by=.spec.storageClassName) -replace '\s{2,}',',' |convertfrom-csv |ft `
-{% endtab %}
-{% endtabs %}
+{% tab title="CLI" %}
+```
+kubectl get pvc -n vd-images -l images.coreweave.cloud/latest=true,images.coreweave.cloud/private=false,images.coreweave.cloud/family=windows --sort-by=.spec.storageClassName
+```
 
 {% hint style="info" %}
-_Valid OS family search term also includes **linux**_
+For more information on querying source images, see [Identifying Images](../coreweave-system-images/#identifying-images)
 {% endhint %}
+{% endtab %}
+{% endtabs %}
 
 In this example – we’ll be targeting the latest Windows Server 2019 Standard image presented from region **ORD1**:
 
