@@ -17,9 +17,8 @@ The following components are configurable in GPU based instances.
 | GPU  | NVIDIA RTX A6000       | RTX\_A6000            | $1.28         | 48GB GDDR6 |
 | GPU  | NVIDIA RTX A5000       | RTX\_A5000            | $0.77         | 24GB GDDR6 |
 | GPU  | NVIDIA RTX A4000       | RTX\_A4000            | $0.61         | 16GB GDDR6 |
-| GPU  | NVIDIA Quadro RTX 5000 | Quadro\_RTX_\__5000   | $0.57         | 16GB GDDR6 |
+| GPU  | NVIDIA Quadro RTX 5000 | Quadro\_RTX\_5000     | $0.57         | 16GB GDDR6 |
 | GPU  | NVIDIA Quadro RTX 4000 | Quadro\_RTX\_4000     | $0.24         | 8GB GDDR6  |
-| GPU  | NVIDIA V100 for PCIe   | Tesla\_V100\_PCIE     | $0.47         | 16GB HBM2  |
 | CPU  | AMD Epyc Milan vCPU    | amd-epyc-milan        | $0.010        | N/A        |
 | CPU  | AMD Epyc Rome vCPU     | amd-epyc-rome         | $0.010        | N/A        |
 | CPU  | AMD Threadripper       | amd-threadripper-zen2 | $0.010        | N/A        |
