@@ -9,7 +9,9 @@
 * [Node Types](coreweave-kubernetes/node-types.md)
 * [Advanced Label Selectors](coreweave-kubernetes/label-selectors.md)
 * [Storage](coreweave-kubernetes/storage.md)
-* [Exposing Applications](coreweave-kubernetes/exposing-applications.md)
+* [Networking](coreweave-kubernetes/networking/README.md)
+  * [Exposing Applications](coreweave-kubernetes/networking/exposing-applications.md)
+  * [Bring Your Own IP](coreweave-kubernetes/networking/bring-your-own-ip.md)
 * [Serverless](coreweave-kubernetes/serverless.md)
 * [Metrics](coreweave-kubernetes/prometheus/README.md)
   * [Grafana](coreweave-kubernetes/prometheus/grafana.md)
@@ -90,7 +92,6 @@
 ## Resources
 
 * [Resource Based Pricing](resources/resource-based-pricing.md)
-* [Bring Your Own IP](resources/bring-your-own-ip.md)
 * [Terms of Service](resources/terms-of-service/README.md)
   * [Data Protection Agreement](resources/terms-of-service/data-protection-agreement.md)
   * [Acceptable Use Policy](resources/terms-of-service/acceptable-use-policy.md)
