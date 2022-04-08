@@ -114,4 +114,4 @@ Progress can be monitored with `k get pods --watch`:
 
 Once the job status shows Completed, the job can be deleted with `k delete job clone-to-file`.
 
-The shared data filesystem, with its exported QCOW2 can be attached to a Virtual Server or ia [apps.coreweave.com](https://apps.coreweave.com) a Based File Browser or SAMBA for further inspection.
+The shared data filesystem, with its exported QCOW2 can be attached to a Virtual Server or a [apps.coreweave.com](https://apps.coreweave.com) based File Browser or SAMBA for further inspection.
