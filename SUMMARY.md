@@ -82,7 +82,6 @@
     * [Direct Connections](solutions/vfx/on-premise-integration/direct-connections.md)
   * [VFX Studio Components Guide](solutions/vfx/vfx-studio-components-guide.md)
   * [Cloud Studio Reference Guide](solutions/vfx/cloud-studio-reference-guide.md)
-* [Virtual Workstations](solutions/virtual-workstations.md)
 
 ## Cloud
 
