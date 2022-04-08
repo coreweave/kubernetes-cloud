@@ -83,9 +83,9 @@
   * [VFX Studio Components Guide](solutions/vfx/vfx-studio-components-guide.md)
   * [Cloud Studio Reference Guide](solutions/vfx/cloud-studio-reference-guide.md)
 
-## Cloud
+## Cloud Account Management
 
-* [Organization Management](cloud/organization-management.md)
+* [Organizations](cloud-account-management/organizations.md)
 
 ## Resources
 
