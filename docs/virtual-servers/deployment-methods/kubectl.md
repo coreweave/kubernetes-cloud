@@ -12,6 +12,12 @@ The Virtual Server manifest is broken into two parts, `metadata` and `spec`. The
 The Virtual Server name must comply with [DNS-1035 specification](https://datatracker.ietf.org/doc/html/rfc1035#section-2.3.1)
 {% endhint %}
 
+{% hint style="info" %}
+The following fields are within the manifest spec
+{% endhint %}
+
+The `spec` contains configuration fields that define how the Virtual Server will be created. These fields are as follows:
+
 | Field                               | Type                                                                                                                      | Description                                                                                                                                                       |
 | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | region                              | String                                                                                                                    | Defines the region where the Virtual Server is deployed                                                                                                           |
@@ -57,19 +63,18 @@ The Virtual Server name must comply with [DNS-1035 specification](https://datatr
 | network.udp.ports                   | \[]                                                                                                                       | List of UDP ports to expose                                                                                                                                       |
 | network.public                      | Boolean                                                                                                                   | Whether a public IP will be assigned                                                                                                                              |
 | network.macAddress                  | String                                                                                                                    | Set MAC address for VS. If not provided, Virtual Server generates a unicast/local type MAC address                                                                |
-| network.dnsConfig                   | [PodDNSConfig](https://pkg.go.dev/k8s.io/api/core/v1#PodDNSConfig)                                                        | Defines the DNS parameters of the VS                                                                                                                              |
+| network.dnsConfig                   | [PodDNSConfig](https://pkg.go.dev/k8s.io/api/core/v1#PodDNSConfig)                                                        | Defines the DNS parameters of the VS. Defult value is [DNSClusterFirst](https://pkg.go.dev/k8s.io/kubernetes/pkg/apis/core#DNSPolicy).                            |
 | network.dnsPolicy                   | [DNSPolicy](https://pkg.go.dev/k8s.io/api/core/v1#DNSPolicy)                                                              | Set the DNS policy for VS. The default value is `ClustrFirst`                                                                                                     |
 | firmware                            | [Firmware](https://pkg.go.dev/github.com/coreweave/virtual-server/api/v1alpha1#Firmware)                                  | Firmware identification.                                                                                                                                          |
 | firmware.UUID                       | String                                                                                                                    | UUID reported by the vmi bios. Defaults to a random generated uid.                                                                                                |
 | firmware.Serial                     | String                                                                                                                    | The system-serial-number in SMBIOS.                                                                                                                               |
-| cloudInit \[¹]                      | String                                                                                                                    | Define [cloud-init](https://cloudinit.readthedocs.io/en/latest/) parameters                                                                                       |
+| cloudInit \[¹]                      | String                                                                                                                    | Define [cloud-init](https://cloudinit.readthedocs.io/en/latest/) parameter                                                                                        |
+| runStrategy                         | [VirtualMachineRunStrategy](https://pkg.go.dev/kubevirt.io/client-go/api/v1#VirtualMachineRunStrategy)                    | Defines [RunStrategy](https://kubevirt.io/user-guide/virtual\_machines/run\_strategies/#run-strategies) parameter. Default value is _RerunOnFailure_.             |
+| useVirtioTransitional               | Boolean                                                                                                                   | Enables virtio-transitional to support compatibility with old guest operating systems. Default value is _false_.                                                  |
+| terminationGracePeriodSeconds       | Number                                                                                                                    | Specifies the number in seconds before the guest is killed. Allows shutting down operating system gracefully. Defaults to _300_ for Windows, _60_ for Linux.      |
 | initializeRunning                   | Boolean                                                                                                                   | The Virtual Server will be started as soon as it is created and initialized                                                                                       |
 
-The `spec` contains configuration fields that define how the Virtual Server will be created. These fields are as follows:
 
-{% hint style="info" %}
-The following fields are within the manifest spec
-{% endhint %}
 
 {% hint style="info" %}
 \[¹] - See [Cloud Init](https://cloudinit.readthedocs.io/en/latest/topics/examples.html) for more examples
