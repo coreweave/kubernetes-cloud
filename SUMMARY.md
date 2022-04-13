@@ -11,6 +11,7 @@
 * [Storage](coreweave-kubernetes/storage.md)
 * [Networking](coreweave-kubernetes/networking/README.md)
   * [Exposing Applications](coreweave-kubernetes/networking/exposing-applications.md)
+  * [Direct Connect](coreweave-kubernetes/networking/direct-connections.md)
   * [Bring Your Own IP](coreweave-kubernetes/networking/bring-your-own-ip.md)
 * [Serverless](coreweave-kubernetes/serverless.md)
 * [Metrics](coreweave-kubernetes/prometheus/README.md)
@@ -79,7 +80,6 @@
   * [On-Premise Integration](solutions/vfx/on-premise-integration/README.md)
     * [CloudLink on Linux](solutions/vfx/on-premise-integration/linux.md)
     * [Synology NAS](solutions/vfx/on-premise-integration/synology-nas.md)
-    * [Direct Connections](solutions/vfx/on-premise-integration/direct-connections.md)
   * [VFX Studio Components Guide](solutions/vfx/vfx-studio-components-guide.md)
   * [Cloud Studio Reference Guide](solutions/vfx/cloud-studio-reference-guide.md)
 

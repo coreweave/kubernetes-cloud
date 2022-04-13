@@ -94,6 +94,6 @@ It is a common desire to connect private on-premise networks with CoreWeave Clou
 
 Site to Site VPNs are provided by instantiating a virtual firewall in a Layer 2 VPC. Each workload needing access to the Site to Site VPN should be placed into the VPC in addition to the regular CoreWeave networking. The IPSEC VPN has been benchmarked to over 5Gbps. Please note that most on-premise firewalls and cloud firewalls on other cloud-providers are rarely rated for over 1Gbps of IPSEC performance.
 
-#### Direct Connect
+#### [Direct Connect](./#direct-connect)
 
 Direct Connect is available by working with your connectivity provider to bring a physical connection to one of our data centers or cloud on-ramps. A direct connect can also be established instantly via Megaport. Please contact support for more information. We support Direct Connects with bandwidth between 1Gbps and 100Gbps. The default configuration for a Direct Connect is a Layer 3 connection into a Layer 2 VPC, however the Layer 2 VPC can be extended over the Direct Connect to create a flat Layer 2 connection all the way to the customer premises.
