@@ -90,9 +90,11 @@ To attach the IP from the Service directly to a Pod, annotate the Pod spec.
     net.coreweave.cloud/attachLoadbalancerIP: my-app
 ```
 
-## Ingress
+### Ingress
 
 Using an Ingress for HTTP based applications are beneficial as it saves IP addresses and automatically provides a DNS name as well as TLS certificate to allow access to your application via `https`. CoreWeave already has all the infrastructure setup including the Ingress Controller, all you need to do is deploy an `Ingress` manifest. The hostname of the Ingress needs to be in the format of `<app>.<namespace>.<region>.ingress.coreweave.cloud`. The example below demonstrates an Ingress called `my-app` exposed via an Ingress in the ORD1 region for a namespace `tenant-test-default`.
+
+If a custom domain name is desired, a custom Ingress Controller can be deployed via [CoreWeave apps](https://apps.coreweave.com).
 
 ```yaml
 apiVersion: networking.k8s.io/v1beta1
@@ -120,4 +122,28 @@ spec:
   - hosts:
     - my-app.tenant-test-default.ord1.ingress.coreweave.cloud
     secretName: my-app-tls # This secret is automatically created for you
+```
+
+### External DNS
+
+[Kubernetes internal DNS](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/) provides service discovery inside the cluster, allowing reachability of Services and Pods without the use of IP addresses. Many applications will need to be reached not only from inside the cluster, but also from outside on the broader Internet.  CoreWeave provides External DNS out of the box for all types of applications, similar to Ingress for HTTP. The DNS name must be in the format of `<your-chice>.<namespace>.<region>.coreweave.cloud`
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    metallb.universe.tf/address-pool: public-ord1
+    external-dns.alpha.kubernetes.io/hostname: my-sshd.tenant-test-default.ord1.coreweave.cloud
+  name: sshd
+spec:
+  type: LoadBalancer
+  externalTrafficPolicy: Local
+  ports:
+    - name: sshd
+      port: 22
+      protocol: TCP
+      targetPort: sshd
+  selector:
+    app.kubernetes.io/name: sshd
 ```

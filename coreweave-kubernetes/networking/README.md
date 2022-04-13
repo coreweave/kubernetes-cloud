@@ -26,9 +26,21 @@ A special condition where a static public or private IP from a Service is attach
 [How to Direct Attach an IP Address to Workloads ->](exposing-applications.md#attaching-service-ip-directly-to-pod)
 {% endhint %}
 
+#### Ingress Controller
+
+[Ingresses](https://kubernetes.io/docs/concepts/services-networking/ingress/) provide an attractive option for HTTP(S) based applications where one or multiple application can be placed behind a hostname without needing to allocate individual public IPs. Ingresses support routing, and can be used to route different query paths to different backing microservices. They also provide automatic TLS, alleviating the need to configure TLS and certificates in the backend applications. CoreWeave provides a shared ingress with automatic certificate generation to quickly deploy secure HTTP endpoints.
+
+{% hint style="info" %}
+[How to create Ingresses ->](https://docs.coreweave.com/coreweave-kubernetes/networking/exposing-applications#ingress)
+{% endhint %}
+
 #### Service Discovery
 
-All services are registered in CoreWeave internal DNS, and also optionally in public DNS records. A proper cloud-native application design never relies on hard-coded IPs, but instead uses the name of a Service to reach different applications. By using DNS names only, the same application can easily be deployed multiple times in different environments (namespaces) without updating statically configured IP addresses.
+All services are registered in CoreWeave internal DNS, and also optionally in public DNS records. A proper cloud-native application design never relies on hard-coded IPs, but instead uses the name of a Service to reach different applications. By using DNS names only, the same application can easily be deployed multiple times in different environments (namespaces) without updating statically configured IP addresses. External DNS is also available for generation of DNS names that are accessible from all over the internet.
+
+{% hint style="info" %}
+[How to create an External DNS record ->](https://docs.coreweave.com/coreweave-kubernetes/networking/exposing-applications#external-dns)
+{% endhint %}
 
 #### Network Policies (Firewalling)
 
@@ -38,10 +50,10 @@ Firewalling is built in to the network fabric. Each instance, be it a VM or a Po
 
 CoreWeave's network fabric is multi-region, connectivity works the same way if all your workloads are in a single region or span multiple regions. Powerful technologies such as anycast (contact support for more info) can be used to route applications spanning multiple regions optimally.
 
-### CoreWeave Layer 2 VPC (L2VPC) \[COMING SOON]
+### CoreWeave Layer 2 VPC (L2VPC)
 
 {% hint style="danger" %}
-Layer 2 VPC networks are coming soon to CoreWeave Cloud. Please contact your account manager or sales@coreweave.com for more information and timing.
+Layer 2 VPC networks are coming soon to CoreWeave Cloud. Please contact your account manager or sales@coreweave.com for more information and timing
 {% endhint %}
 
 CoreWeave's Layer 2 VPC is vastly different from the CoreWeave Cloud Native Networking fabric. It removes many of the features in order to provide more control to the user, which might be preferred in specific use cases. Layer 2 VPC can be enabled on a workload by workload basis. A workload (Pod or VM) can have multiple interfaces, it can keep the regular CCNN interface as well as add on one or multiple VPC interfaces, or it can attach to L2VPC only.
