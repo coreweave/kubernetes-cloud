@@ -182,7 +182,7 @@ spec:
         - name: checkpoint
         - name: wandb_key
     container:
-      image: docker.io/gooseai/finetuner:rc34
+      image: docker.io/gooseai/finetuner:rc35
       command: [ "/usr/bin/python3", "/app/finetuner.py" ]
       args: ["--run_name", "{{inputs.parameters.run_name}}",
              "--model", "{{inputs.parameters.model}}",

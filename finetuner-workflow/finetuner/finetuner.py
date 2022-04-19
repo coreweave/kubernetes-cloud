@@ -313,5 +313,8 @@ else:
 final_path = os.path.join(output_dir, "final")
 model.save_pretrained(final_path)
 
+# Write out our tokenizer files.
+tokenizer.save_pretrained(final_path)
+
 # Record that the model is ready for work.
 open(os.path.join(final_path, ".ready.txt"), 'a').close()
