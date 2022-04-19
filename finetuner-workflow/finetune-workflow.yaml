@@ -43,6 +43,8 @@ spec:
     # Inference service configuration.
     - name: run_inference
       value: false
+    - name: inference_only
+      value: false
     - name: inference_image
       value: 'coreweave/ml-images:pytorch-huggingface-81d5ce11'
 
@@ -68,6 +70,7 @@ spec:
             value: "{{workflow.parameters.pad_token}}"
           - name: boundary
             value: "\n"
+        when: "{{workflow.parameters.inference_only}} == false"
 
     - - name: finetuner
         template: model-finetuner
@@ -105,15 +108,15 @@ spec:
             value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.logs}}"
           - name: wandb_key
             value: "{{workflow.parameters.wandb_key}}"
+        when: "{{workflow.parameters.inference_only}} == false"
 
-   #{{ if eq (workflow.parameters.run_inference | lower) "true" }}
-   #- - name: inference-service
-   #    template: model-inference-service
-   #    arguments:
-   #      parameters:
-   #        - name: model_path
-   #          value: "finetunes/{{workflow.parameters.run_name}}/final"
-   #{{ end }}
+    - - name: inference-service
+        template: model-inference-service
+        arguments:
+          parameters:
+            - name: model_path
+              value: "finetunes/results-{{workflow.parameters.run_name}}"
+        when: "{{workflow.parameters.run_inference}} == true"
 
   - name: model-tokenizer
     inputs:
@@ -229,63 +232,64 @@ spec:
               values:
               - "{{workflow.parameters.region}}"
 
-# - name: model-inference-service
-#   inputs:
-#     parameters:
-#       - name: model_path
-#   resource:
-#     action: create
-#     manifest: |
-#       apiVersion: serving.kubeflow.org/v1beta1
-#       kind: InferenceService
-#       metadata:
-#         name: inference-{{ workflow.parameters.run_name }}
-#         annotations:
-#           autoscaling.knative.dev/scaleToZeroPodRetentionPeriod: 20m
-#       spec:
-#         predictor:
-#           minReplicas: 0
-#           maxReplicas: 1
-#           parallelism: 1
-#           affinity:
-#             nodeAffinity:
-#               requiredDuringSchedulingIgnoredDuringExecution:
-#                 nodeSelectorTerms:
-#                 - matchExpressions:
-#                     - key: gpu.nvidia.com/vram
-#                       operator: In
-#                       values:
-#                       - "24"
-#               preferredDuringSchedulingIgnoredDuringExecution:
-#               - weight: 10
-#                 preference:
-#                   matchExpressions:
-#                     - key: topology.kubernetes.io/region
-#                       operator: In
-#                       values:
-#                         - {{ workflow.parameters.region }}
-#           containers:
-#             - name: kfserving-container
-#               image: {{ workflow.parameters.inference_image }}
-#               imagePullPolicy: IfNotPresent
-#               command:
-#                 - "python3"
-#                 - "/inference/huggingface.py"
-#               env:
-#                 - name: MODEL_NAME
-#                   value: {{ workflow.parameters.run_name }}
-#                 - name: MODEL_PRECISION
-#                   value: "fp16"
-#                 - name: STORAGE_URI # KFServing mounts the PVC at /mnt/pvc/
-#                   value: pvc://{{ workflow.parameters.pvc }}/
-#                 - name: MODEL_PATH
-#                   value: /mnt/pvc/{{ inputs.parameters.model_path }}
-#           resources:
-#             requests:
-#               nvidia.com/gpu: 1
-#                 cpu: 4
-#                 memory: 8Gi
-#               limits:
-#                 nvidia.com/gpu: 1
-#                 cpu: 12
-#                 memory: 60Gi
+  - name: model-inference-service
+    inputs:
+      parameters:
+        - name: model_path
+    resource:
+      action: apply
+      manifest: |
+        apiVersion: serving.kubeflow.org/v1beta1
+        kind: InferenceService
+        metadata:
+          name: inference-{{ workflow.parameters.run_name }}
+          annotations:
+            autoscaling.knative.dev/scaleToZeroPodRetentionPeriod: 20m
+        spec:
+          predictor:
+            minReplicas: 0
+            maxReplicas: 1
+            affinity:
+              nodeAffinity:
+                requiredDuringSchedulingIgnoredDuringExecution:
+                  nodeSelectorTerms:
+                  - matchExpressions:
+                      - key: gpu.nvidia.com/vram
+                        operator: In
+                        values:
+                        - "24"
+                preferredDuringSchedulingIgnoredDuringExecution:
+                - weight: 10
+                  preference:
+                    matchExpressions:
+                      - key: topology.kubernetes.io/region
+                        operator: In
+                        values:
+                          - {{ workflow.parameters.region }}
+            containers:
+              - name: kfserving-container
+                image: {{ workflow.parameters.inference_image }}
+                imagePullPolicy: IfNotPresent
+                command:
+                  - "python3"
+                  - "/inference/huggingface.py"
+                env:
+                  - name: MODEL_NAME
+                    value: "final"
+                  - name: MODEL_PRECISION
+                    value: "fp16"
+                  - name: STORAGE_URI # KFServing mounts the PVC at /mnt/pvc/
+                    value: pvc://{{ workflow.parameters.pvc }}/
+                  - name: MODEL_PATH
+                    value: /mnt/pvc/{{ inputs.parameters.model_path }}
+                  - name: MODEL_CONFIG
+                    value: /mnt/pvc/{{ inputs.parameters.model_path }}/final/config.json
+                resources:
+                  requests:
+                    nvidia.com/gpu: 1
+                    cpu: 4
+                    memory: 8Gi
+                  limits:
+                    nvidia.com/gpu: 1
+                    cpu: 12
+                    memory: 60Gi
