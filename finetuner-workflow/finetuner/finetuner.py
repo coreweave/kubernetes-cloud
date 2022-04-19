@@ -47,6 +47,10 @@ parser.add_argument('--pad', type=str, help="Pad token to use",
                     default="<|endoftext|>")
 parser.add_argument('--bs', type=int, help="Batch size (-1 == autosize)",
                     default=-1)
+parser.add_argument("--bs_divisor", type=float, help="Batch size divisor for "
+                                                     "automatically "
+                                                     "determining batch size",
+                    default=0.6)
 parser.add_argument('--seed', type=int, help="Random seed value",
                     default=42)
 parser.add_argument('--output_path', type=str, help="Root path of all output",
@@ -74,7 +78,7 @@ parser.add_argument("--ds_config", type=str, help="DeepSpeed configuration",
 args = parser.parse_args()
 
 
-def estimate_batch_size() -> int:
+def estimate_batch_size(divisor: int = 0.6) -> int:
     """
     Attempts to estimate the batch size to use based on the amount of RAM
     that the model takes up, and RAM free.
@@ -89,7 +93,7 @@ def estimate_batch_size() -> int:
     gpu_info = pynvml.nvmlDeviceGetMemoryInfo(nvml_device)
     gpu_free = gpu_info.free
     used_gpu = torch.cuda.memory_allocated()
-    new_bs = int(math.ceil(gpu_free / (used_gpu * 0.6)))
+    new_bs = int(math.ceil(gpu_free / (used_gpu * divisor)))
     print(get_gpu_ram())
     print(f"Setting batch size to {new_bs}")
     return new_bs
@@ -260,7 +264,7 @@ print(get_gpu_ram())
 # Automatically make a guess at what (conservative) batchsize we should
 # use for this model and GPU.
 if args.bs == -1:
-    bs = estimate_batch_size()
+    bs = estimate_batch_size(args.bs_divisor)
 else:
     bs = args.bs
 

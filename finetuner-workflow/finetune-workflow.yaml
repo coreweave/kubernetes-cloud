@@ -30,6 +30,8 @@ spec:
       value: '0.9'
     - name: batch_size
       value: '-1'
+    - name: batch_size_divisor
+      value: '0.6'
     - name: random_seed
       value: '42'
     - name: eot_token
@@ -174,6 +176,7 @@ spec:
         - name: eot
         - name: pad
         - name: bs
+        - name: bs_divisor
         - name: seed
         - name: output_path
         - name: cache
@@ -182,7 +185,7 @@ spec:
         - name: checkpoint
         - name: wandb_key
     container:
-      image: docker.io/gooseai/finetuner:rc35
+      image: docker.io/gooseai/finetuner:rc37
       command: [ "/usr/bin/python3", "/app/finetuner.py" ]
       args: ["--run_name", "{{inputs.parameters.run_name}}",
              "--model", "{{inputs.parameters.model}}",
@@ -196,6 +199,7 @@ spec:
              "--output", "{{inputs.parameters.output_path}}",
              "--cache", "{{inputs.parameters.cache}}",
              "--logs", "{{inputs.parameters.logs}}",
+             "--bs_divisor", "{{inputs.parameters.bs_divisor}}"
              "--{{inputs.parameters.checkpoint}}"]
       tty: true
       env:
