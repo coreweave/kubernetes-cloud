@@ -31,7 +31,7 @@ spec:
     - name: batch_size
       value: '-1'
     - name: batch_size_divisor
-      value: '0.6'
+      value: '1.0'
     - name: random_seed
       value: '42'
     - name: eot_token

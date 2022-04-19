@@ -50,7 +50,7 @@ parser.add_argument('--bs', type=int, help="Batch size (-1 == autosize)",
 parser.add_argument("--bs_divisor", type=float, help="Batch size divisor for "
                                                      "automatically "
                                                      "determining batch size",
-                    default=0.6)
+                    default=1.0)
 parser.add_argument('--seed', type=int, help="Random seed value",
                     default=42)
 parser.add_argument('--output_path', type=str, help="Root path of all output",
