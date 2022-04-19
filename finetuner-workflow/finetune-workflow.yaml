@@ -131,7 +131,7 @@ spec:
     retryStrategy:
       limit: 1
     container:
-      image: ghcr.io/wbrown/gpt_bpe/dataset_tokenizer:d345e5c
+      image: ghcr.io/wbrown/gpt_bpe/dataset_tokenizer:4422662
       command: [ "/ko-app/dataset_tokenizer" ]
       args: ["-tokenizer", "{{inputs.parameters.tokenizer}}",
              "-context", "{{inputs.parameters.context}}",
