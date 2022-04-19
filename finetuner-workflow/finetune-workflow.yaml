@@ -96,6 +96,8 @@ spec:
             value: "{{workflow.parameters.pad_token}}"
           - name: bs
             value: "{{workflow.parameters.batch_size}}"
+          - name: bs_divisor
+            value: "{{workflow.parameters.batch_size_divisor}}"
           - name: seed
             value: "{{workflow.parameters.random_seed}}"
           - name: output_path
@@ -199,7 +201,7 @@ spec:
              "--output", "{{inputs.parameters.output_path}}",
              "--cache", "{{inputs.parameters.cache}}",
              "--logs", "{{inputs.parameters.logs}}",
-             "--bs_divisor", "{{inputs.parameters.bs_divisor}}"
+             "--bs_divisor", "{{inputs.parameters.bs_divisor}}",
              "--{{inputs.parameters.checkpoint}}"]
       tty: true
       env:
