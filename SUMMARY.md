@@ -86,6 +86,7 @@
 ## Cloud Account Management
 
 * [Organizations](cloud-account-management/organizations.md)
+* [Billing Portal](cloud-account-management/billing-portal.md)
 
 ## Resources
 

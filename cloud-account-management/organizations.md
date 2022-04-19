@@ -4,11 +4,11 @@ description: >-
   page in your CoreWeave Cloud dashboard
 ---
 
-# Organization Management
+# Organizations
 
 CoreWeave Cloud allows you to share all of your cloud resources with the rest of your team by inviting new users to join your organization via the organization management page.
 
-![Organization Management Page](<../.gitbook/assets/image (95).png>)
+![Organization Management Page](<../.gitbook/assets/image (95) (1).png>)
 
 #### Inviting a user
 
