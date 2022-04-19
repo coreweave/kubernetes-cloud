@@ -48,8 +48,8 @@ spec:
     - name: inference_only
       value: false
     - name: inference_image
-    #  value: 'coreweave/ml-images:pytorch-huggingface-81d5ce11'
-      value: 'gooseai/pytorch-huggingface:rc0'
+      value: 'coreweave/ml-images:pytorch-huggingface-81d5ce11'
+    #  value: 'gooseai/pytorch-huggingface:rc0'
 
 
   templates:
@@ -188,7 +188,7 @@ spec:
         - name: checkpoint
         - name: wandb_key
     container:
-      image: docker.io/gooseai/finetuner:rc37
+      image: docker.io/gooseai/finetuner:rc38
       command: [ "/usr/bin/python3", "/app/finetuner.py" ]
       args: ["--run_name", "{{inputs.parameters.run_name}}",
              "--model", "{{inputs.parameters.model}}",
