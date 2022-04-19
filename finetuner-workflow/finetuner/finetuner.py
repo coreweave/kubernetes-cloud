@@ -78,7 +78,7 @@ parser.add_argument("--ds_config", type=str, help="DeepSpeed configuration",
 args = parser.parse_args()
 
 
-def estimate_batch_size(divisor: int = 0.6) -> int:
+def estimate_batch_size(divisor: float = 1.0) -> int:
     """
     Attempts to estimate the batch size to use based on the amount of RAM
     that the model takes up, and RAM free.
@@ -315,7 +315,7 @@ else:
 
 # At the end of it all, record to a `final` output.
 final_path = os.path.join(output_dir, "final")
-model.save_pretrained(final_path)
+trainer.save_model(final_path)
 
 # Write out our tokenizer files.
 tokenizer.save_pretrained(final_path)

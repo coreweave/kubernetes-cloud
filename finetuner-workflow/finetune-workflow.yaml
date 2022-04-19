@@ -48,7 +48,8 @@ spec:
     - name: inference_only
       value: false
     - name: inference_image
-      value: 'coreweave/ml-images:pytorch-huggingface-81d5ce11'
+    #  value: 'coreweave/ml-images:pytorch-huggingface-81d5ce11'
+      value: 'gooseai/pytorch-huggingface:rc0'
 
 
   templates:
