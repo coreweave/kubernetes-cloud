@@ -282,8 +282,6 @@ spec:
                     value: pvc://{{ workflow.parameters.pvc }}/
                   - name: MODEL_PATH
                     value: /mnt/pvc/{{ inputs.parameters.model_path }}
-                  - name: MODEL_CONFIG
-                    value: /mnt/pvc/{{ inputs.parameters.model_path }}/final/config.json
                 resources:
                   requests:
                     nvidia.com/gpu: 1

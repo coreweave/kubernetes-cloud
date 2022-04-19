@@ -1,4 +1,7 @@
 #!/bin/which python3
+# A simple Huggingface-based text-model finetuner meant to be used in an
+# automated workflow.
+
 import gc
 import resource
 import psutil
@@ -8,28 +11,27 @@ import sys
 import struct
 import socket
 import math
+import torch
+from torch.utils.data import Dataset, random_split
+import argparse
 
-pynvml.nvmlInit()
 os.environ['MASTER_ADDR'] = 'localhost'
 os.environ['MASTER_PORT'] = '9994'
 os.environ['RANK'] = "0"
 os.environ['LOCAL_RANK'] = "0"
 os.environ['WORLD_SIZE'] = "1"
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
-import torch
-from torch.utils.data import Dataset, random_split
-import argparse
-import transformers
-from transformers import AutoTokenizer
-from transformers import TrainingArguments
-from transformers import Trainer
-from transformers import AutoModelForCausalLM
-from transformers import IntervalStrategy
 
-parser = argparse.ArgumentParser(description='CoreWeave Finetuner')
+import transformers
+from transformers import AutoTokenizer, TrainingArguments, Trainer, \
+    AutoModelForCausalLM, IntervalStrategy
+pynvml.nvmlInit()
+
+parser = argparse.ArgumentParser(description='Simple Text Model Finetuner')
 parser.add_argument('--run_name', type=str, help='the run name to use',
                     required=True)
-parser.add_argument('--model', type=str, help='the model to train against',
+parser.add_argument('--model', type=str, help='the model to train against' +
+                                              ' (directory, or HuggingFace ID)',
                     required=True)
 parser.add_argument('--dataset', type=str, help='pre-tokenized dataset to use',
                     required=True)
@@ -73,6 +75,12 @@ args = parser.parse_args()
 
 
 def estimate_batch_size() -> int:
+    """
+    Attempts to estimate the batch size to use based on the amount of RAM
+    that the model takes up, and RAM free.
+
+    :return: batch size to use
+    """
     gc.collect()
     torch.cuda.synchronize()
     torch.cuda.empty_cache()
@@ -88,6 +96,11 @@ def estimate_batch_size() -> int:
 
 
 def get_gpu_ram() -> str:
+    """
+    Returns memory usage statistics for the CPU, GPU, and Torch.
+
+    :return:
+    """
     cudadev = torch.cuda.current_device()
     nvml_device = pynvml.nvmlDeviceGetHandleByIndex(cudadev)
     gpu_info = pynvml.nvmlDeviceGetMemoryInfo(nvml_device)
@@ -110,6 +123,11 @@ def get_gpu_ram() -> str:
 
 
 class ModifiedTrainer(Trainer):
+    """
+    A modification of the Trainer class to allow for better console reporting
+    in the container and fix gradient handling on the loss tensor returned.
+    """
+
     def compute_loss(self, model, inputs, return_outputs=False):
         if self.label_smoother is not None and "labels" in inputs:
             labels = inputs.pop("labels")
@@ -141,6 +159,11 @@ class ModifiedTrainer(Trainer):
 
 
 class TokenizedDataset(Dataset):
+    """
+    Consumes a flat binary file containing 16-bit token serialization, aligned
+    along `context_length` chunks.
+    """
+
     def __init__(self, path: str, context_length=2048):
         self.file = open(path, 'rb')
         self.length = int(os.stat(path).st_size / 2 / context_length)
@@ -167,12 +190,14 @@ class TokenizedDataset(Dataset):
         return self.load(idx)
 
 
+# Inform the user of host, and various versions -- useful for debugging isseus.
 print("HOST:", socket.gethostname())
 print("CUDA:", torch.version.cuda)
 print("TORCH:", torch.__version__)
 print("TRANSFORMERS:", transformers.__version__)
 print(get_gpu_ram())
 
+# Where we write our training checkpoints and final model.
 output_dir = os.path.join(args.output_path, "results-" + args.run_name)
 
 # Discover if we have any checkpoints to resume from.
@@ -219,9 +244,9 @@ tokenizer = AutoTokenizer.from_pretrained(args.tokenizer,
 print(f"Loading {args.model}")
 try:
     model = AutoModelForCausalLM.from_pretrained(
-        args.model,           # Can be a HuggingFace ID or directory.
+        args.model,  # Can be a HuggingFace ID or directory.
         cache_dir=args.cache,
-        use_cache=False)      # Gradient checkpointing needs this off.
+        use_cache=False)  # Gradient checkpointing needs this off.
     model = model.half().cuda().eval()
     model.resize_token_embeddings(len(tokenizer))
     sys.stderr.flush()
@@ -285,4 +310,8 @@ else:
     trainer.train()
 
 # At the end of it all, record to a `final` output.
-model.save_pretrained(output_dir + "/final")
+final_path = os.path.join(output_dir, "final")
+model.save_pretrained(final_path)
+
+# Record that the model is ready for work.
+open(os.path.join(final_path, ".ready.txt"), 'a').close()
