@@ -2,6 +2,7 @@
 # A simple Huggingface-based text-model finetuner meant to be used in an
 # automated workflow.
 
+import json
 import gc
 import resource
 import psutil
@@ -51,15 +52,17 @@ parser.add_argument("--bs_divisor", type=float, help="Batch size divisor for "
                                                      "automatically "
                                                      "determining batch size",
                     default=1.0)
+parser.add_argument("--gradients", type=int, help="Gradient accumulation steps",
+                    default=5)
+parser.add_argument("--zero_stage", type=int, help="ZeRO optimizer stage",
+                    default=3)
 parser.add_argument('--seed', type=int, help="Random seed value",
                     default=42)
 parser.add_argument('--output_path', type=str, help="Root path of all output",
                     default="./")
-parser.add_argument('--resume', action='store_true',
-                    help="Resume from last checkpoint")
-parser.add_argument('--no-resume', action='store_false',
+parser.add_argument('--no_resume', type=bool, default=False,
                     help="Do not resume from last checkpoint")
-parser.set_defaults(resume=True)
+parser.set_defaults(no_resume=False)
 parser.add_argument("--cache", type=str, help="Huggingface cache location",
                     default="/tmp")
 parser.add_argument("--save_steps", type=int,
@@ -168,13 +171,15 @@ class TokenizedDataset(Dataset):
     along `context_length` chunks.
     """
 
-    def __init__(self, path: str, context_length=2048):
+    def __init__(self, path: str, context_length: int=2048):
+        file_stat = os.stat(path)
         self.file = open(path, 'rb')
-        self.length = int(os.stat(path).st_size / 2 / context_length)
+        self.length = int(file_stat.st_size / 2 / context_length)
         self.formatstr = '%sH' % context_length
         self.context_length = context_length
-        numTokens = self.length * context_length
-        print(f"DATASET: {numTokens:,} tokens")
+        length_mb = int(os.stat(path).st_size / 1024.0)
+        num_tokens = self.length * context_length
+        print(f"DATASET: {num_tokens:,} tokens, {length_mb:,.2f}mb")
 
     def __len__(self):
         return self.length
@@ -201,11 +206,22 @@ print("TORCH:", torch.__version__)
 print("TRANSFORMERS:", transformers.__version__)
 print(get_gpu_ram())
 
+# Set up our dataset from our tokenized data files, and split into training
+# dataset and values dataset -- values dataset is used to test the outcome
+# and determine our loss rate.
+dataset = TokenizedDataset(args.dataset, context_length=args.context_size)
+train_size = int(args.train_ratio * float(len(dataset)))
+train_dataset, val_dataset = random_split(dataset,
+                                          [train_size,
+                                           len(dataset) - train_size])
+print(f"TRAIN_DATASET: {len(train_dataset):,} examples")
+print(f"VALUE_DATASET: {len(val_dataset):,} examples")
+
 # Where we write our training checkpoints and final model.
 output_dir = os.path.join(args.output_path, "results-" + args.run_name)
 
 # Discover if we have any checkpoints to resume from.
-if args.resume:
+if not args.no_resume:
     try:
         output_dir_list = os.listdir(output_dir)
         lastCheckpoint = sorted(output_dir_list,
@@ -214,7 +230,7 @@ if args.resume:
         lastCheckpoint = None
 else:
     lastCheckpoint = None
-print("Last Checkpoint:", lastCheckpoint)
+print("LAST CHECKPOINT:", lastCheckpoint)
 
 # Set up `wandb` reporting if we have an API key, and resume reporting
 # if we are resuming a checkpoint.
@@ -236,7 +252,7 @@ if os.environ.get("WANDB_API_KEY") not in [None, ""]:
 # Set random seed, for ML research purposes and reproducibility, it's important
 # that we set this to a consistent value.
 torch.manual_seed(args.seed)
-
+print("RANDOM SEED:", args.seed)
 # Load our tokenizer. Usually `gpt2`, and only used for sizing the model's
 # token embeddings.
 tokenizer = AutoTokenizer.from_pretrained(args.tokenizer,
@@ -244,7 +260,8 @@ tokenizer = AutoTokenizer.from_pretrained(args.tokenizer,
                                           pad_token=args.pad,
                                           cache_dir=args.cache)
 
-# Load our model that we're training. This may fetch via HTTP.
+# Load our model that we're training. This may fetch via HTTP if not cached
+# already.
 print(f"Loading {args.model}")
 try:
     model = AutoModelForCausalLM.from_pretrained(
@@ -268,6 +285,12 @@ if args.bs == -1:
 else:
     bs = args.bs
 
+# Rewrite our `ds_config` to match arguments passed in.
+ds_config = json.load(open(args.ds_config))
+if "zero_optimization" in ds_config and \
+        ds_config["zero_optimization"].get("stage", None) != args.zero_stage:
+    ds_config["zero_optimization"]["stage"] = args.zero_stage
+
 # Parametrize our training based on provided arguments.
 training_args = TrainingArguments(output_dir=output_dir,
                                   num_train_epochs=args.epochs,
@@ -275,7 +298,7 @@ training_args = TrainingArguments(output_dir=output_dir,
                                   save_strategy=IntervalStrategy.STEPS,
                                   per_device_train_batch_size=bs,
                                   per_device_eval_batch_size=bs,
-                                  gradient_accumulation_steps=5,
+                                  gradient_accumulation_steps=args.gradients,
                                   gradient_checkpointing=True,
                                   learning_rate=args.lr,
                                   warmup_steps=8,
@@ -283,19 +306,12 @@ training_args = TrainingArguments(output_dir=output_dir,
                                   save_steps=args.save_steps,
                                   logging_dir=args.logs,
                                   fp16=True,
-                                  deepspeed=args.ds_config,
+                                  deepspeed=ds_config,
                                   report_to=report_to,
                                   run_name=args.run_name,
                                   disable_tqdm=False)
 
-# Set up our dataset from our tokenized data files, and split into training
-# dataset and values dataset -- values dataset is used to test the outcome
-# and determine our loss rate.
-dataset = TokenizedDataset(args.dataset, context_length=args.context_size)
-train_size = int(args.train_ratio * float(len(dataset)))
-train_dataset, val_dataset = random_split(dataset,
-                                          [train_size,
-                                           len(dataset) - train_size])
+
 collector = lambda data: {'input_ids': torch.stack([f[0] for f in data]),
                           'attention_mask': torch.stack([f[1] for f in data]),
                           'labels': torch.stack([f[0] for f in data])}

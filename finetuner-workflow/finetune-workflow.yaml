@@ -42,6 +42,12 @@ spec:
       value: 'logs'
     - name: wandb_key
       value: ''
+    - name: gradients
+      value: '5'
+    - name: zero_stage
+      value: '3'
+    - name: no_resume
+      value: 'false'
     # Inference service configuration.
     - name: run_inference
       value: false
@@ -107,12 +113,16 @@ spec:
             value: "/{{workflow.parameters.pvc}}/cache/"
           - name: torch_cache
             value: "/{{workflow.parameters.pvc}}/torch/"
-          - name: checkpoint
-            value: "{{workflow.parameters.checkpoint}}"
+          - name: no_resume
+            value: "{{workflow.parameters.no_resume}}"
           - name: logs
             value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.logs}}"
           - name: wandb_key
             value: "{{workflow.parameters.wandb_key}}"
+          - name: gradients
+            value: "{{workflow.parameters.gradients}}"
+          - name: zero_stage
+            value: "{{workflow.parameters.zero_stage}}"
         when: "{{workflow.parameters.inference_only}} == false"
 
     - - name: inference-service
@@ -185,10 +195,12 @@ spec:
         - name: cache
         - name: logs
         - name: torch_cache
-        - name: checkpoint
+        - name: no_resume
         - name: wandb_key
+        - name: gradients
+        - name: zero_stage
     container:
-      image: docker.io/gooseai/finetuner:rc38
+      image: docker.io/gooseai/finetuner:rc39
       command: [ "/usr/bin/python3", "/app/finetuner.py" ]
       args: ["--run_name", "{{inputs.parameters.run_name}}",
              "--model", "{{inputs.parameters.model}}",
@@ -203,7 +215,9 @@ spec:
              "--cache", "{{inputs.parameters.cache}}",
              "--logs", "{{inputs.parameters.logs}}",
              "--bs_divisor", "{{inputs.parameters.bs_divisor}}",
-             "--{{inputs.parameters.checkpoint}}"]
+             "--gradients", "{{inputs.parameters.gradients}}",
+             "--zero_stage", "{{inputs.parameters.zero_stage}}",
+             "--no_resume", "{{inputs.parameters.no_resume}}"]
       tty: true
       env:
       - name: WANDB_API_KEY
