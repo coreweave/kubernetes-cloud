@@ -2,20 +2,24 @@ This directory contains several example manifests for `VirtualServer`.
 
 To run any of the examples issue: `kubectl apply -f <manifest_file_name.yaml>`
 
+CoreWeave provides base images for different operating systems, including images pre-loaded with NVIDIA drivers and remote desktop software. Refer to the [System Images Documentation](https://docs.coreweave.com/virtual-servers/coreweave-system-images) to learn how to list these images via CLI.
+
 - [virtual-server-direct-attach-lb.yaml](virtual-server-direct-attach-lb.yaml) shows how to directly attach the Load Balancer IP to a Virtual Server. This will the VS a unfiltered Public IP that also is visible to the VM itself. This will give a classic VPS style experience.
 
 - [virtual-server-windows-internal-ip-only.yaml](virtual-server-windows-internal-ip-only.yaml) creates a Windows Virtual Server with no public IP (STATIC internal IP only) - useful for servers that will only be accessed in your namespace, such as Domain Controllers.
 
 - [virtual-server-windows-cpu-only.yaml](virtual-server-windows-cpu-only.yaml) creates a Windows Virtual Server with no GPU - CPU compute only.
 
-- [virtual-server-shared-pvc.yaml](virtual-server-shared-pvc.yaml) attaches shared `PVC` to the virtual machine instance. The `PVC` formated already and mounted as `/mnt/shared-pvc`.
+- [virtual-server-shared-pvc.yaml](virtual-server-shared-pvc.yaml) attaches shared `PVC` to the Virtual Server. The `PVC` formated already and mounted as `/mnt/shared-pvc`.
 
-- [virtual-server-windows.yaml](virtual-server-windows.yaml) creates Windows10 virtual machine instance. To get the external IP and use remote desktop via `RDP` protocol, issue the following command: 
+- [virtual-server-ephemeral-root-disk.yaml](virtual-server-ephemeral-root-disk.yaml) boots a Virtual Server from a root-disk image in ephemeral mode. Changes to the VM root disk will be written to local node ephemeral storage, and lost on restart. Useful for epehemeral tasks such as pixel-streaming and data-processing.
+
+- [virtual-server-windows.yaml](virtual-server-windows.yaml) creates Windows10 Virtual Server. To get the external IP and use remote desktop via `RDP` protocol, issue the following command:
   ```
   kubectl get svc vs-windows10-tcp -o jsonpath="{.status.loadBalancer.ingress[*].ip}"
   ```
 
-- [virtual-server-block-pvc.yaml](virtual-server-block-pvc.yaml) attaches block `PVC` to the virtual machine instance. The new disk is raw and needs to be formatted.
+- [virtual-server-block-pvc.yaml](virtual-server-block-pvc.yaml) attaches an additional block `PVC` disk to the virtual machine. The new disk is raw and needs to be formatted.
 
   ```
 

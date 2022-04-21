@@ -34,7 +34,7 @@ spec:
       source:
         pvc:
           namespace: vd-images
-          name: ubuntu2004-nvidia-465-19-01-1-docker-master-20211020-ord1
+          name: ubuntu2004-nvidia-510-47-03-1-docker-master-20220421-ord1
     additionalDisks:
       - name: additional-block-volume
         spec:
