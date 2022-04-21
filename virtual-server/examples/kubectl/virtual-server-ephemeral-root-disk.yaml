@@ -1,0 +1,62 @@
+### 
+## Ephemeral Root Disks
+# Many use cases, such as data processing or pixel-streaming is ephemeral. VM instances are short-lived and deleted on shut-down.
+# In these instances, leveraging ephemeral root disks will speed up instantiation as well as lower costs.
+# Ephemeral root-disks don't require a new root volume to be allocated, removing a time consuming step in the instantiation process.
+# Epehemeral disks are still writeable, modifications made at run-time is temporarily stored in the ephemeral disk of the serving node.
+# All changes written to the root disk are lost on when the VM is shut down. A shared filesystem volume or NFS/SMB/Object storage should be used
+# to store persistent data in ie data-processing use cases.
+#
+# To launch a VS using an ephemeral root disk, the source image needs to be cloned into a `ReadOnlyMany` type volume.
+###
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: image-rox
+spec:
+  accessModes:
+  - ReadOnlyMany
+  dataSource:
+    kind: PersistentVolumeClaim
+    name: <source-root-disk-pvc> # This name will be the same name as a DataVolume/VirtualServer used as the source.
+  resources:
+    requests:
+      storage: 40Gi # Must match the size of the source volume
+  storageClassName: block-nvme-ord1
+  volumeMode: Block
+---
+apiVersion: virtualservers.coreweave.com/v1alpha1
+kind: VirtualServer
+metadata:
+  name: example-vs
+spec:
+  region: ORD1
+  os:
+    type: linux
+  resources:
+    gpu:
+      type: Quadro_RTX_4000
+      count: 1
+    cpu:
+      count: 4
+    memory: 16Gi
+  storage:
+    root:
+      size: 40Gi
+      storageClassName: block-nvme-ord1
+      ephemeral: true
+      source:
+        pvc:
+          namespace: tenant-example # Replace with your namespace
+          name: image-rox
+  # Change user name and pasword
+  # User is on the sudoers list
+  #  users:
+  #    - username: SET YOUR USERNAME HERE
+  #      password: SET YOUR PASSWORD HERE  
+  # To use key-based authentication replace and uncomment ssh-rsa below with your public ssh key
+  #  sshpublickey: |
+  #    ssh-rsa AAAAB3NzaC1yc2EAAAA ... user@hostname
+  network:
+    public: false
