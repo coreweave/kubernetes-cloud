@@ -59,7 +59,7 @@ spec:
     - name: tokenizer_image
       value: 'ghcr.io/wbrown/gpt_bpe/dataset_tokenizer:4422662'
     - name: finetuner_image
-      value: 'docker.io/gooseai/finetuner:rc41'
+      value: 'docker.io/gooseai/finetuner:rc44'
     - name: inference_image
       value: 'coreweave/ml-images:pytorch-huggingface-81d5ce11'
 

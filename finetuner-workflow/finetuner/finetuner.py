@@ -1,7 +1,7 @@
 #!/bin/which python3
 # A simple Huggingface-based text-model finetuner meant to be used in an
 # automated workflow.
-
+import wandb
 import json
 import gc
 import resource
@@ -26,6 +26,7 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 import transformers
 from transformers import AutoTokenizer, TrainingArguments, Trainer, \
     AutoModelForCausalLM, IntervalStrategy
+
 pynvml.nvmlInit()
 
 parser = argparse.ArgumentParser(description='Simple Text Model Finetuner')
@@ -171,15 +172,15 @@ class TokenizedDataset(Dataset):
     along `context_length` chunks.
     """
 
-    def __init__(self, path: str, context_length: int=2048):
+    def __init__(self, path: str, context_length: int = 2048):
         file_stat = os.stat(path)
         self.file = open(path, 'rb')
         self.length = int(file_stat.st_size / 2 / context_length)
         self.formatstr = '%sH' % context_length
         self.context_length = context_length
-        length_mb = int(os.stat(path).st_size / 1024.0)
+        length_mb = int(os.stat(path).st_size / 1024.0 / 1024.0)
         num_tokens = self.length * context_length
-        print(f"DATASET: {num_tokens:,} tokens, {length_mb:,.2f}mb")
+        print(f"DATASET: {path}; {num_tokens:,} tokens; {length_mb:,.2f} mb")
 
     def __len__(self):
         return self.length
@@ -199,7 +200,9 @@ class TokenizedDataset(Dataset):
         return self.load(idx)
 
 
+
 # Inform the user of host, and various versions -- useful for debugging isseus.
+print("RUN_NAME:", args.run_name)
 print("HOST:", socket.gethostname())
 print("CUDA:", torch.version.cuda)
 print("TORCH:", torch.__version__)
@@ -218,7 +221,8 @@ print(f"TRAIN_DATASET: {len(train_dataset):,} examples")
 print(f"VALUE_DATASET: {len(val_dataset):,} examples")
 
 # Where we write our training checkpoints and final model.
-output_dir = os.path.join(args.output_path, "results-" + args.run_name)
+output_dir = os.path.abspath(
+    os.path.join(args.output_path, "results-" + args.run_name))
 
 # Discover if we have any checkpoints to resume from.
 if not args.no_resume:
@@ -232,22 +236,7 @@ else:
     lastCheckpoint = None
 print("LAST CHECKPOINT:", lastCheckpoint)
 
-# Set up `wandb` reporting if we have an API key, and resume reporting
-# if we are resuming a checkpoint.
-report_to = None
-if os.environ.get("WANDB_API_KEY") not in [None, ""]:
-    import wandb
 
-    wandbApi = wandb.Api(overrides={"project": args.project_id})
-    report_to = "wandb"
-
-    if lastCheckpoint != None:
-        for run in wandbApi.runs(path=args.project_id):
-            if run.state == "crashed" and run.name == args.run_name:
-                wandb.init(id=run.id, project=args.project_id,
-                           resume="must", name=run.name)
-                print(f"Resuming {run.id}")
-                break
 
 # Set random seed, for ML research purposes and reproducibility, it's important
 # that we set this to a consistent value.
@@ -291,6 +280,26 @@ if "zero_optimization" in ds_config and \
         ds_config["zero_optimization"].get("stage", None) != args.zero_stage:
     ds_config["zero_optimization"]["stage"] = args.zero_stage
 
+# Change our current directory due to some packages assumptions.
+os.chdir(args.output_path)
+
+# Set up `wandb` reporting if we have an API key, and resume reporting
+# if we are resuming a checkpoint.
+report_to = None
+if os.environ.get("WANDB_API_KEY") not in [None, ""]:
+    import wandb
+
+    wandbApi = wandb.Api(overrides={"project": args.project_id})
+    report_to = "wandb"
+
+    if lastCheckpoint != None:
+        for run in wandbApi.runs(path=args.project_id):
+            if run.state == "crashed" and run.name == args.run_name:
+                wandb.init(id=run.id, project=args.project_id,
+                           resume="must", name=run.name)
+                print(f"Resuming {run.id}")
+                break
+
 # Parametrize our training based on provided arguments.
 training_args = TrainingArguments(output_dir=output_dir,
                                   num_train_epochs=args.epochs,
@@ -310,7 +319,6 @@ training_args = TrainingArguments(output_dir=output_dir,
                                   report_to=report_to,
                                   run_name=args.run_name,
                                   disable_tqdm=False)
-
 
 collector = lambda data: {'input_ids': torch.stack([f[0] for f in data]),
                           'attention_mask': torch.stack([f[1] for f in data]),
