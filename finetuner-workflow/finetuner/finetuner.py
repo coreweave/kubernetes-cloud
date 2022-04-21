@@ -71,7 +71,7 @@ parser.add_argument("--save_steps", type=int,
 parser.add_argument("--context_size", type=int, help="Dataset context sizes",
                     default=2048)
 parser.add_argument("--project_id", type=str, help="Project ID for reporting",
-                    default="coreweave")
+                    default="huggingface")
 parser.add_argument("--tokenizer", type=str, help="Tokenizer ID to use",
                     default="gpt2")
 parser.add_argument("--logs", type=str, help="log directory location",

@@ -42,6 +42,8 @@ spec:
       value: 'logs'
     - name: wandb_key
       value: ''
+    - name: project_id
+      value: 'huggingface'
     - name: gradients
       value: '5'
     - name: zero_stage
@@ -53,10 +55,13 @@ spec:
       value: false
     - name: inference_only
       value: false
+    # Container images
+    - name: tokenizer_image
+      value: 'ghcr.io/wbrown/gpt_bpe/dataset_tokenizer:4422662'
+    - name: finetuner_image
+      value: 'docker.io/gooseai/finetuner:rc41'
     - name: inference_image
       value: 'coreweave/ml-images:pytorch-huggingface-81d5ce11'
-    #  value: 'gooseai/pytorch-huggingface:rc0'
-
 
   templates:
   - name: main
@@ -123,6 +128,8 @@ spec:
             value: "{{workflow.parameters.gradients}}"
           - name: zero_stage
             value: "{{workflow.parameters.zero_stage}}"
+          - name: project_id
+            value: "{{workflow.parameters.project_id}}"
         when: "{{workflow.parameters.inference_only}} == false"
 
     - - name: inference-service
@@ -146,7 +153,7 @@ spec:
     retryStrategy:
       limit: 1
     container:
-      image: ghcr.io/wbrown/gpt_bpe/dataset_tokenizer:4422662
+      image: "{{workflow.parameters.tokenizer_image}}"
       command: [ "/ko-app/dataset_tokenizer" ]
       args: ["-tokenizer", "{{inputs.parameters.tokenizer}}",
              "-context", "{{inputs.parameters.context}}",
@@ -197,10 +204,11 @@ spec:
         - name: torch_cache
         - name: no_resume
         - name: wandb_key
+        - name: project_id
         - name: gradients
         - name: zero_stage
     container:
-      image: docker.io/gooseai/finetuner:rc39
+      image: "{{workflow.parameters.finetuner_image}}"
       command: [ "/usr/bin/python3", "/app/finetuner.py" ]
       args: ["--run_name", "{{inputs.parameters.run_name}}",
              "--model", "{{inputs.parameters.model}}",
@@ -217,7 +225,8 @@ spec:
              "--bs_divisor", "{{inputs.parameters.bs_divisor}}",
              "--gradients", "{{inputs.parameters.gradients}}",
              "--zero_stage", "{{inputs.parameters.zero_stage}}",
-             "--no_resume", "{{inputs.parameters.no_resume}}"]
+             "--no_resume", "{{inputs.parameters.no_resume}}",
+             "--project_id", "{{inputs.parameters.project_id}}"]
       tty: true
       env:
       - name: WANDB_API_KEY
@@ -289,7 +298,7 @@ spec:
                           - {{ workflow.parameters.region }}
             containers:
               - name: kfserving-container
-                image: {{ workflow.parameters.inference_image }}
+                image: "{{ workflow.parameters.inference_image }}"
                 imagePullPolicy: IfNotPresent
                 command:
                   - "python3"
