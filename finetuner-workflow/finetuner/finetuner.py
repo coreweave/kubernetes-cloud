@@ -73,12 +73,12 @@ parser.add_argument("--context_size", type=int, help="Dataset context sizes",
                     default=2048)
 parser.add_argument("--project_id", type=str, help="Project ID for reporting",
                     default="huggingface")
-parser.add_argument("--tokenizer", type=str, help="Tokenizer ID to use",
-                    default="gpt2")
 parser.add_argument("--logs", type=str, help="log directory location",
                     default="./logs")
 parser.add_argument("--ds_config", type=str, help="DeepSpeed configuration",
                     default="./ds_config.json")
+parser.add_argument("--fp16", type=bool, default=False,
+                    help="Force training in fp16.")
 args = parser.parse_args()
 
 
@@ -200,7 +200,6 @@ class TokenizedDataset(Dataset):
         return self.load(idx)
 
 
-
 # Inform the user of host, and various versions -- useful for debugging isseus.
 print("RUN_NAME:", args.run_name)
 print("HOST:", socket.gethostname())
@@ -236,18 +235,18 @@ else:
     lastCheckpoint = None
 print("LAST CHECKPOINT:", lastCheckpoint)
 
-
-
 # Set random seed, for ML research purposes and reproducibility, it's important
 # that we set this to a consistent value.
 torch.manual_seed(args.seed)
 print("RANDOM SEED:", args.seed)
-# Load our tokenizer. Usually `gpt2`, and only used for sizing the model's
-# token embeddings.
-tokenizer = AutoTokenizer.from_pretrained(args.tokenizer,
+tokenizer = AutoTokenizer.from_pretrained(args.model,
                                           eos_token=args.eot,
                                           pad_token=args.pad,
                                           cache_dir=args.cache)
+
+# Determine if we train in fp32 or fp16 mode.
+print("FORCE FP16:", args.fp16)
+
 
 # Load our model that we're training. This may fetch via HTTP if not cached
 # already.
@@ -257,7 +256,10 @@ try:
         args.model,  # Can be a HuggingFace ID or directory.
         cache_dir=args.cache,
         use_cache=False)  # Gradient checkpointing needs this off.
-    model = model.half().cuda().eval()
+    if args.fp16:
+        model = model.half().cuda().eval()
+    else:
+        model = model.cuda().eval()
     model.resize_token_embeddings(len(tokenizer))
     sys.stderr.flush()
     sys.stdout.flush()
@@ -300,6 +302,8 @@ if os.environ.get("WANDB_API_KEY") not in [None, ""]:
                 print(f"Resuming {run.id}")
                 break
 
+
+
 # Parametrize our training based on provided arguments.
 training_args = TrainingArguments(output_dir=output_dir,
                                   num_train_epochs=args.epochs,
@@ -314,7 +318,6 @@ training_args = TrainingArguments(output_dir=output_dir,
                                   weight_decay=0.01,
                                   save_steps=args.save_steps,
                                   logging_dir=args.logs,
-                                  fp16=True,
                                   deepspeed=ds_config,
                                   report_to=report_to,
                                   run_name=args.run_name,

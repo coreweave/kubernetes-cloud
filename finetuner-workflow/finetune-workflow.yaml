@@ -6,26 +6,37 @@ spec:
   entrypoint: main
   arguments:
     parameters:
+    # run_name should be unique on a per-run basis, especially if reporting
+    # to wandb or sharing PVCs between runs.
     - name: run_name
     - name: pvc
       value: 'finetune-data'
     # Training parameters.
-    - name: dataset
-      value: 'dataset'
     - name: model
       value: 'EleutherAI/gpt-neo-2.7B'
-    - name: learn_rate
-      value: '5e-5'
-    - name: epochs
-      value: '1'
-    - name: region
-      value: 'ORD1'
-    - name: checkpoint
-      value: 'resume'
+    - name: dataset
+      value: 'dataset'
+    # Whether to retokenize the data on each run. It is strongly recommended to
+    # NOT enable this if you are making multiple runs on the same dataset.
+    - name: retokenize
+      value: 'false'
+    - name: eot_token
+      value: ''
+    - name: pad_token
+      value: ''
+    # The token that marks a boundary - if the end of a `context` is reached,
+    # and the rest of the range cannot fit in the remainder of a context, the
+    # range is allowed to fill out the current `context`, and then the entire
+    # range is used to start the next `context`.
+    - name: boundary_token
+      value: '\n'
+    # The context size to train. Most models have a default maximum of `2048`, but
+    # this can be adjusted downwards. This is most useful when the text you're
+    # training on is divided along logical boundaries and is split using
+    # `boundary_token`.
     - name: context
       value: '2048'
-    - name: tokenizer
-      value: 'gpt2'
+    # Model training parameters
     - name: train_ratio
       value: '0.9'
     - name: batch_size
@@ -34,34 +45,37 @@ spec:
       value: '1.0'
     - name: random_seed
       value: '42'
-    - name: eot_token
-      value: '<|endoftext|>'
-    - name: pad_token
-      value: '<|endoftext|>'
-    - name: boundary_token
-      value: '\n'
-    - name: logs
-      value: 'logs'
-    - name: wandb_key
-      value: ''
-    - name: project_id
-      value: 'huggingface'
+    - name: learn_rate
+      value: '5e-5'
+    - name: epochs
+      value: '1'
     - name: gradients
       value: '5'
     - name: zero_stage
       value: '3'
     - name: no_resume
       value: 'false'
+    # Where we store our training logs on the PVC.
+    - name: logs
+      value: 'logs'
+    # Project reporting/id
+    - name: wandb_key
+      value: ''
+    - name: project_id
+      value: 'huggingface'
     # Inference service configuration.
     - name: run_inference
       value: false
     - name: inference_only
       value: false
+    # CoreWeave region to default to; ORD1 has most of the GPUs.
+    - name: region
+      value: 'ORD1'
     # Container images
     - name: tokenizer_image
-      value: 'ghcr.io/wbrown/gpt_bpe/dataset_tokenizer:4422662'
+      value: 'ghcr.io/wbrown/gpt_bpe/dataset_tokenizer:ed439c6'
     - name: finetuner_image
-      value: 'docker.io/gooseai/finetuner:rc45'
+      value: 'docker.io/gooseai/finetuner:rc49'
     - name: inference_image
       value: 'coreweave/ml-images:pytorch-huggingface-81d5ce11'
 
@@ -75,9 +89,9 @@ spec:
           - name: input
             value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.dataset}}"
           - name: output
-            value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.dataset}}-{{workflow.parameters.tokenizer}}-{{workflow.parameters.context}}.tokens"
-          - name: tokenizer
-            value: "{{workflow.parameters.tokenizer}}"
+            value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.dataset}}-{{=sprig.replace('/', '_', sprig.replace('.','_', sprig.replace('-','_', workflow.parameters.model)))}}-{{workflow.parameters.context}}.tokens"
+          - name: model
+            value: "{{workflow.parameters.model}}"
           - name: context
             value: "{{workflow.parameters.context}}"
           - name: eot
@@ -97,7 +111,7 @@ spec:
           - name: model
             value: "{{workflow.parameters.model}}"
           - name: dataset
-            value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.dataset}}-{{workflow.parameters.tokenizer}}-{{workflow.parameters.context}}.tokens"
+            value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.dataset}}-{{=sprig.replace('/', '_', sprig.replace('.','_', sprig.replace('-','_', workflow.parameters.model)))}}-{{workflow.parameters.context}}.tokens"
           - name: learn_rate
             value: "{{workflow.parameters.learn_rate}}"
           - name: epochs
@@ -146,7 +160,7 @@ spec:
     inputs:
       parameters:
         - name: input
-        - name: tokenizer
+        - name: model
         - name: context
         - name: eot
         - name: pad
@@ -157,7 +171,7 @@ spec:
     container:
       image: "{{workflow.parameters.tokenizer_image}}"
       command: [ "/ko-app/dataset_tokenizer" ]
-      args: ["-tokenizer", "{{inputs.parameters.tokenizer}}",
+      args: ["-tokenizer", "{{inputs.parameters.model}}",
              "-context", "{{inputs.parameters.context}}",
              "-eot", "{{inputs.parameters.eot}}",
              "-pad", "{{inputs.parameters.pad}}",
