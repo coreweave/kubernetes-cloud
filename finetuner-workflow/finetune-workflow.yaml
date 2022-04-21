@@ -38,6 +38,8 @@ spec:
       value: '<|endoftext|>'
     - name: pad_token
       value: '<|endoftext|>'
+    - name: boundary_token
+      value: '\n'
     - name: logs
       value: 'logs'
     - name: wandb_key
@@ -83,7 +85,7 @@ spec:
           - name: pad
             value: "{{workflow.parameters.pad_token}}"
           - name: boundary
-            value: "\n"
+            value: "{{workflow.parameters.boundary_token}}"
         when: "{{workflow.parameters.inference_only}} == false"
 
     - - name: finetuner
