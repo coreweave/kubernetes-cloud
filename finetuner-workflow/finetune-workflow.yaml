@@ -91,11 +91,17 @@ spec:
     # CoreWeave region to default to; ORD1 has most of the GPUs.
     - name: region
       value: 'ORD1'
+    # Training GPU - A40, 48gb VRAM
+    - name: trainer_gpu
+      value: 'A40'
+    # Inference GPU - RTX A5000, 24gb VRAM
+    - name: inference_gpu
+      value: 'RTX_A5000'
     # Container images -- generally, don't alter this.
     - name: tokenizer_image
       value: 'ghcr.io/wbrown/gpt_bpe/dataset_tokenizer:ed439c6'
     - name: finetuner_image
-      value: 'docker.io/gooseai/finetuner:rc51'
+      value: 'docker.io/gooseai/finetuner:rc52'
     - name: inference_image
       value: 'coreweave/ml-images:pytorch-huggingface-81d5ce11'
 
@@ -204,6 +210,9 @@ spec:
         requests:
           memory: 256Mi
           cpu: "4"
+        limits:
+          memory: 256Mi
+          cpu: "4"
       volumeMounts:
         - mountPath: "/{{workflow.parameters.pvc}}"
           name: "{{workflow.parameters.pvc}}"
@@ -281,6 +290,8 @@ spec:
           memory: 128Gi
           cpu: "8"
         limits:
+          memory: 192Gi
+          cpu: "8"
           nvidia.com/gpu: 1
       volumeMounts:
         - mountPath: "/{{workflow.parameters.pvc}}"
@@ -293,15 +304,15 @@ spec:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
           nodeSelectorTerms:
-          - matchExpressions:
-            - key: gpu.nvidia.com/vram
-              operator: In
-              values:
-              - "48"
-            - key: topology.kubernetes.io/region
-              operator: In
-              values:
-              - "{{workflow.parameters.region}}"
+            - matchExpressions:
+                - key: gpu.nvidia.com/class
+                  operator: In
+                  values:
+                    - "{{workflow.parameters.trainer_gpu}}"
+                - key: topology.kubernetes.io/region
+                  operator: In
+                  values:
+                    - "{{workflow.parameters.region}}"
 
   - name: model-inference-service
     inputs:
@@ -324,19 +335,15 @@ spec:
               nodeAffinity:
                 requiredDuringSchedulingIgnoredDuringExecution:
                   nodeSelectorTerms:
-                  - matchExpressions:
-                      - key: gpu.nvidia.com/vram
-                        operator: In
-                        values:
-                        - "24"
-                preferredDuringSchedulingIgnoredDuringExecution:
-                - weight: 10
-                  preference:
-                    matchExpressions:
-                      - key: topology.kubernetes.io/region
-                        operator: In
-                        values:
-                          - {{ workflow.parameters.region }}
+                    - matchExpressions:
+                        - key: gpu.nvidia.com/class
+                          operator: In
+                          values:
+                            - "{{workflow.parameters.inference_gpu}}"
+                        - key: topology.kubernetes.io/region
+                          operator: In
+                          values:
+                            - "{{workflow.parameters.region}}"
             containers:
               - name: kfserving-container
                 image: "{{ workflow.parameters.inference_image }}"
