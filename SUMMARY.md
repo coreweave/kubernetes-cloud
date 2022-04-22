@@ -66,6 +66,7 @@
   * [PyTorch - GPT-2 AITextgen](compass/examples/custom-pytorch-aitextgen.md)
   * [PyTorch - FastAI Sentiment](compass/examples/custom-sentiment.md)
   * [Custom - BASNET](compass/examples/custom-basnet.md)
+* [Finetuning Machine Learning Models](compass/finetuning-machine-learning-models.md)
 
 ## Workflows
 

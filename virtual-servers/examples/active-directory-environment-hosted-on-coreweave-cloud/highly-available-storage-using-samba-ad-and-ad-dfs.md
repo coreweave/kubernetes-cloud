@@ -12,7 +12,7 @@ Before deploying our Samba-AD instance, we must first have storage volumes to pr
 
 Our Samba-AD instance uses Shared Filesystem volumes:
 
-![](<../../../.gitbook/assets/image (88).png>)
+![](<../../../.gitbook/assets/image (88) (1).png>)
 
 In this example, we have three volumes we'll be using for our Samba-AD instance:
 

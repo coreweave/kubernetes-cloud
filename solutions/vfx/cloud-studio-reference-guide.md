@@ -48,7 +48,7 @@ Selecting this, click deploy in the upper right and then select in the creation 
 
 We are going to create a filesystem-volume for render outputs, that way all of our virtual desktops can access the same shared storage as our render nodes. When rendering on CoreWeave cloud, ensuring that applications don't attempt to write over the internet to on prem storage is essential. Typically large amounts of data that is accessed infrequently such as render outputs belongs on our HDD tier. We will be provisioning everything in our Chicago datacenter (ORD) but feel free to provision resources in the datacenter closest to you.
 
-![Storage Options](<../../.gitbook/assets/image (66) (1).png>) ![Deployment](<../../.gitbook/assets/image (60).png>) ![Success](<../../.gitbook/assets/image (76).png>)
+![Storage Options](<../../.gitbook/assets/image (66) (1).png>) ![Deployment](<../../.gitbook/assets/image (60) (1).png>) ![Success](<../../.gitbook/assets/image (76).png>)
 
 Once you hit Deploy you should see the following message and an instance of the filesystem-volume application in the "Applications" tab.
 

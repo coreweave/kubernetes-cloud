@@ -54,7 +54,7 @@ Samba shares (Or any SMB/CIFS compliant share) can be added via cloudInit, to be
 
 Using an example from a Samba instance hosted via CoreWeave Cloud Apps, we can derive the following information:
 
-![](<../../.gitbook/assets/image (92).png>)
+![](<../../.gitbook/assets/image (92) (1).png>)
 
 Using our share information, we can populate the cloudInit `key: value` pairs:
 

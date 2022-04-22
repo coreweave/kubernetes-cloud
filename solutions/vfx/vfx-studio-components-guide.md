@@ -24,7 +24,7 @@ Selecting this, click deploy in the upper right and then select in the creation 
 
 We are going to walk through setting up a filesystem-volume for render-outputs -- a common use case that should come in handy! When rendering on CoreWeave cloud, ensuring that applications don't attempt to write over the internet to on prem storage is essential. Typically large amounts of data that is accessed infrequently such as render outputs belongs on our HDD tier. We will be provisioning everything in our Chicago datacenter (ORD) but feel free to provision resources in the datacenter closest to you.
 
-![Storage Options](<../../.gitbook/assets/image (66) (1).png>) ![Deployment](<../../.gitbook/assets/image (60).png>) ![Success](<../../.gitbook/assets/image (76).png>)
+![Storage Options](<../../.gitbook/assets/image (66) (1).png>) ![Deployment](<../../.gitbook/assets/image (60) (1).png>) ![Success](<../../.gitbook/assets/image (76).png>)
 
 Once you hit Deploy you should see the following message and an instance of the filesystem-volume application in the "Applications" tab.
 
@@ -38,7 +38,7 @@ CoreWeave provides many methods out of the box for exposing your PVCs to externa
 
 #### Samba
 
-![](<../../.gitbook/assets/image (86) (1).png>) ![](<../../.gitbook/assets/image (88) (1).png>)
+![](<../../.gitbook/assets/image (86) (1).png>) ![](<../../.gitbook/assets/image (88) (1) (1).png>)
 
 You can deploy both standard and active directory flavors of samba using the apps catalog accessible from your cloud dashboard. After selecting Samba from the catalog and hitting deploy select the same region you deployed your filesystem volume in (NOTE: while it is possible to deploy the samba server in a region different from the PVC it is not recommended due to storage latency and you will see degraded performance). Create a user for this share, if you require more advanced access permissions consider pairing our samba-ad option with your on prem active directory domain services. In the "Mounts" section you should specify the name of the pvc you created in the previous step. Sometimes it may be easier to edit the application using the raw YAML manifest accessible using the tabs under the name entry box such as:
 
@@ -104,7 +104,7 @@ Update the name, registry key, and add a [Persistent Volume Claim](https://docs.
 
 ![Attaching our render-output PVC created in the reference namespace, and providing a custom name for the mount point.](<../../.gitbook/assets/image (93) (1).png>)
 
-![Landing page updated!](<../../.gitbook/assets/image (92) (1) (1).png>)
+![Landing page updated!](<../../.gitbook/assets/image (92) (1) (1) (1).png>)
 
 ## Virtual Workstations
 
