@@ -209,6 +209,7 @@ print("CUDA:", torch.version.cuda)
 print("TORCH:", torch.__version__)
 print("TRANSFORMERS:", transformers.__version__)
 print(get_gpu_ram())
+print("MODEL:", args.model)
 
 # Set up our dataset from our tokenized data files, and split into training
 # dataset and values dataset -- values dataset is used to test the outcome
@@ -293,7 +294,8 @@ os.chdir(args.output_path)
 # Set up `wandb` reporting if we have an API key, and resume reporting
 # if we are resuming a checkpoint.
 report_to = None
-if os.environ.get("WANDB_API_KEY") not in [None, ""]:
+wandb_key = os.getenv("WANDB_API_KEY", "").lstrip().rstrip()
+if wandb_key:
     import wandb
 
     wandbApi = wandb.Api(overrides={"project": args.project_id})
