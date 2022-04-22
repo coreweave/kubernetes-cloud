@@ -178,9 +178,11 @@ class TokenizedDataset(Dataset):
         self.length = int(file_stat.st_size / 2 / context_length)
         self.formatstr = '%sH' % context_length
         self.context_length = context_length
-        length_mb = int(os.stat(path).st_size / 1024.0 / 1024.0)
+        length_mb = os.stat(path).st_size / 1024.0 / 1024.0
         num_tokens = self.length * context_length
-        print(f"DATASET: {path}; {num_tokens:,} tokens; {length_mb:,.2f} mb")
+        print(f"DATASET: {path}")
+        print(f"DATASET SIZE: {length_mb:,.2f}mb, {num_tokens:,} tokens, " +
+              f"{self.length:,} contexts")
 
     def __len__(self):
         return self.length
@@ -246,6 +248,9 @@ tokenizer = AutoTokenizer.from_pretrained(args.model,
 
 # Determine if we train in fp32 or fp16 mode.
 print("FORCE FP16:", args.fp16)
+fp16_arg = {}
+if args.fp16:
+    fp16_arg = {'fp16': True}
 
 
 # Load our model that we're training. This may fetch via HTTP if not cached
@@ -321,7 +326,8 @@ training_args = TrainingArguments(output_dir=output_dir,
                                   deepspeed=ds_config,
                                   report_to=report_to,
                                   run_name=args.run_name,
-                                  disable_tqdm=False)
+                                  disable_tqdm=False,
+                                  **fp16_arg)
 
 collector = lambda data: {'input_ids': torch.stack([f[0] for f in data]),
                           'attention_mask': torch.stack([f[1] for f in data]),
