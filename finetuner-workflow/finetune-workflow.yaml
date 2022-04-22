@@ -22,7 +22,8 @@ spec:
     # NOT enable this if you are making multiple runs on the same dataset.
     - name: retokenize
       value: 'false'
-    # eot and pad tokens, it is suggested not to change this value.
+    # eot and pad tokens, it is suggested not to change this value, but usual
+    # values are `<|padding|>` or `<|endoftext|>`
     - name: eot_token
       value: ''
     - name: pad_token
@@ -46,6 +47,12 @@ spec:
     # guess.
     - name: batch_size
       value: '-1'
+    # Force `fp16` precision mode. By default, we train in the precision the
+    # model provides as configuration option. But for less memory, and thus
+    # faster training because of batch size, you might try this. This will
+    # not work well with models such as Fairseq.
+    - name: force_fp16
+      value: false
     # The batch size quotient for the batch size guess.
     - name: batch_size_divisor
       value: '1.0'
@@ -57,7 +64,7 @@ spec:
     # Number of epochs, the number of times it will go through your dataset.
     - name: epochs
       value: '1'
-    # The number of gradients to work through on each back.
+    # The number of gradient checkpoint layers to work through on each batch.
     - name: gradients
       value: '5'
     # ZeRO optimizer stage -- ref: https://arxiv.org/abs/1910.02054
@@ -125,6 +132,8 @@ spec:
             value: "{{workflow.parameters.model}}"
           - name: dataset
             value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.dataset}}-{{=sprig.replace('/', '_', sprig.replace('.','_', sprig.replace('-','_', workflow.parameters.model)))}}-{{workflow.parameters.context}}.tokens"
+          - name: force_fp16
+            value: "{{workflow.parameters.force_fp16}}"
           - name: learn_rate
             value: "{{workflow.parameters.learn_rate}}"
           - name: epochs
@@ -236,6 +245,7 @@ spec:
         - name: project_id
         - name: gradients
         - name: zero_stage
+        - name: force_fp16
     container:
       image: "{{workflow.parameters.finetuner_image}}"
       command: [ "/usr/bin/python3", "/app/finetuner.py" ]
@@ -256,7 +266,8 @@ spec:
              "--zero_stage", "{{inputs.parameters.zero_stage}}",
              "--no_resume", "{{inputs.parameters.no_resume}}",
              "--project_id", "{{inputs.parameters.project_id}}",
-             "--epochs", "{{inputs.parameters.epochs}}"]
+             "--epochs", "{{inputs.parameters.epochs}}",
+             "--fp16", "{{inputs.parameters.force_fp16}}"]
       tty: true
       env:
       - name: WANDB_API_KEY
