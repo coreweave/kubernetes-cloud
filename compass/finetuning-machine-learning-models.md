@@ -135,7 +135,7 @@ Apply the permissions above by invoking `kubectl apply -f inference-role.yaml.`
 
 ## Getting and Running the Workflow
 
-The [example code is available at GitHub](https://github.com/coreweave/kubernetes-cloud/finetuner-workflow), and it is recommended that you use `git checkout` to pull down the latest copy of the code.
+The [example code is available at GitHub](https://github.com/coreweave/kubernetes-cloud/tree/master/finetuner-workflow), and it is recommended that you use `git checkout` to pull down the latest copy of the code.
 
 It includes the following files:
 
