@@ -48,7 +48,7 @@ The following Kubernetes-based components are required to be setup:
 
 {% code title="finetune-data.yaml" %}
 ```yaml
-api-version: v1
+apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: finetune-data
@@ -70,7 +70,7 @@ The following components are optional, but may make your interaction easier:
   * This allows you to share out and access your PVC using an easy application that lets you upload and download files and folders.
   * You can deploy the filebrowser over at the same[ Application Catalog](https://apps.coreweave.com) that you used to deploy Argo Workflows.&#x20;
   * It is recommended that the name you give this filebrowser application be very short, or you will run into SSL CNAME issues. We recommend `finetune`.
-  * Simply select the `finetune-data` PVC that you created earlier.
+  * Simply select the `finetune-data` PVC that you created earlier. **Make sure that you actually add your PVC to the filebrowser list of mounts!**
   * Some people may prefer to use a Virtual Server and interact with their PVC via ssh or other mechanism. This flexibility is one of the key advantages of CoreWeave.
 
 ![filebrowser application](<../.gitbook/assets/image (88).png>)
