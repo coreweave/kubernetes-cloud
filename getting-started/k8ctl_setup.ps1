@@ -3,7 +3,9 @@
         [switch]
         $Silent,
         [switch]
-        $Remove
+        $Remove,
+        [switch]
+        $UseLatest
     )
 
 Start-Transcript -Path $env:TEMP\k8setup.log -IncludeInvocationHeader -Append
@@ -19,15 +21,22 @@ Function Install-k8sctl
                 [switch]
                 $Helm,
                 [switch]
-                $IsAdmin
+                $IsAdmin,
+                [switch]
+                $UseLatest
             )
+
+        $k8ver = 'v1.19.16'
+        $virtver = 'v0.38.1'
 
         if(!(test-path $env:ProgramData\k8s -ErrorAction SilentlyContinue)){New-Item -Path $env:ProgramData -Name k8s -ItemType Directory -Force | out-null}
         $ProgressPreference = 'SilentlyContinue'
 
-        if($Kubectl){Invoke-WebRequest -UseBasicParsing -Uri "https://dl.k8s.io/release/$(Invoke-RestMethod -Uri "https://dl.k8s.io/release/stable.txt")/bin/windows/amd64/kubectl.exe" -OutFile $env:ProgramData\k8s\kubectl.exe}
+        if($Kubectl -and $UseLatest){Invoke-WebRequest -UseBasicParsing -Uri "https://dl.k8s.io/release/$(Invoke-RestMethod -Uri "https://dl.k8s.io/release/stable.txt")/bin/windows/amd64/kubectl.exe" -OutFile $env:ProgramData\k8s\kubectl.exe}
+        Elseif($Kubectl){Invoke-WebRequest -UseBasicParsing -Uri "https://dl.k8s.io/release/$($k8ver)/bin/windows/amd64/kubectl.exe" -OutFile $env:ProgramData\k8s\kubectl.exe}
 
-        if($Virtctl){Invoke-WebRequest -UseBasicParsing -Uri $((Invoke-restmethod https://api.github.com/repos/kubevirt/kubevirt/releases/latest -UseBasicParsing).assets.browser_download_url.Where({$_ -like '*virtctl-*-windows-amd64.exe'}))  -OutFile $env:ProgramData\k8s\virtctl.exe}
+        if($Virtctl -and $UseLatest){Invoke-WebRequest -UseBasicParsing -Uri $((Invoke-restmethod https://api.github.com/repos/kubevirt/kubevirt/releases/latest -UseBasicParsing).assets.browser_download_url.Where({$_ -like '*virtctl-*-windows-amd64.exe'}))  -OutFile $env:ProgramData\k8s\virtctl.exe}
+        Elseif($Virtctl){Invoke-WebRequest -UseBasicParsing -Uri "https://github.com/kubevirt/kubevirt/releases/download/$($virtver)/virtctl-$($virtver)-windows-amd64.exe" -OutFile $env:ProgramData\k8s\virtctl.exe}
 
         if($Helm)
             {
@@ -110,7 +119,7 @@ Function Invoke-ActionPrompt
 
 if(!(test-path $env:ProgramData\k8s\kubectl.exe -ErrorAction SilentlyContinue) -or !(get-command kubectl -ErrorAction SilentlyContinue))
     {
-        if($Silent){Install-k8sctl -Kubectl -IsAdmin}
+        if($Silent){Install-k8sctl -UseLatest:$PSBoundParameters.UseLatest.IsPresent -Kubectl -IsAdmin}
 
         Else
             {        
@@ -128,12 +137,12 @@ if(!(test-path $env:ProgramData\k8s\kubectl.exe -ErrorAction SilentlyContinue) -
                                                     }
                                                 $false
                                                     {
-                                                        Install-k8sctl -Kubectl
+                                                        Install-k8sctl -UseLatest:$PSBoundParameters.UseLatest.IsPresent -Kubectl
                                                     }
                                             }
                                     }
 
-                                Else{Install-k8sctl -Kubectl -IsAdmin}
+                                Else{Install-k8sctl -UseLatest:$PSBoundParameters.UseLatest.IsPresent -Kubectl -IsAdmin}
                             }
 
                         $false
@@ -146,7 +155,7 @@ if(!(test-path $env:ProgramData\k8s\kubectl.exe -ErrorAction SilentlyContinue) -
 
 if(!(test-path $env:ProgramData\k8s\virtctl.exe -ErrorAction SilentlyContinue) -or !(get-command virtctl -ErrorAction SilentlyContinue))
     {
-        if($Silent){Install-k8sctl -Virtctl -IsAdmin}
+        if($Silent){Install-k8sctl -UseLatest:$PSBoundParameters.UseLatest.IsPresent -Virtctl -IsAdmin}
 
         Else
             {
@@ -165,12 +174,12 @@ if(!(test-path $env:ProgramData\k8s\virtctl.exe -ErrorAction SilentlyContinue) -
                                                     }
                                                 $false
                                                     {
-                                                        Install-k8sctl -Virtctl
+                                                        Install-k8sctl -UseLatest:$PSBoundParameters.UseLatest.IsPresent -Virtctl
                                                     }
                                             }
                                     }
 
-                                Else{Install-k8sctl -Virtctl -IsAdmin}
+                                Else{Install-k8sctl -UseLatest:$PSBoundParameters.UseLatest.IsPresent -Virtctl -IsAdmin}
                             }
 
                         $false
@@ -183,7 +192,7 @@ if(!(test-path $env:ProgramData\k8s\virtctl.exe -ErrorAction SilentlyContinue) -
 
 if(!(test-path $env:ProgramData\k8s\helm.exe -ErrorAction SilentlyContinue) -or !(get-command helm -ErrorAction SilentlyContinue))
     {
-        if($Silent){Install-k8sctl -helm -IsAdmin}
+        if($Silent){Install-k8sctl -UseLatest:$PSBoundParameters.UseLatest.IsPresent -helm -IsAdmin}
 
         Else
             {
@@ -202,12 +211,12 @@ if(!(test-path $env:ProgramData\k8s\helm.exe -ErrorAction SilentlyContinue) -or 
                                                     }
                                                 $false
                                                     {
-                                                        Install-k8sctl -helm
+                                                        Install-k8sctl -UseLatest:$PSBoundParameters.UseLatest.IsPresent -helm
                                                     }
                                             }
                                     }
 
-                                Else{Install-k8sctl -helm -IsAdmin}
+                                Else{Install-k8sctl -UseLatest:$PSBoundParameters.UseLatest.IsPresent -helm -IsAdmin}
                             }
 
                         $false
