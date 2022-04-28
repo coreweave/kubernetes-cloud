@@ -1,7 +1,6 @@
 #!/bin/which python3
 # A simple Huggingface-based text-model finetuner meant to be used in an
 # automated workflow.
-import wandb
 import json
 import gc
 import resource
@@ -15,6 +14,13 @@ import math
 import torch
 from torch.utils.data import Dataset, random_split
 import argparse
+import pathlib
+from typing import Callable, Tuple
+try:
+    from tensorizer.tensorizer import load_model, get_tokenizer, no_init
+except ModuleNotFoundError:
+    pass
+import validators
 
 os.environ['MASTER_ADDR'] = 'localhost'
 os.environ['MASTER_PORT'] = '9994'
@@ -23,9 +29,14 @@ os.environ['LOCAL_RANK'] = "0"
 os.environ['WORLD_SIZE'] = "1"
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
+thisPath = str(pathlib.Path(__file__).parent.resolve())
+sys.path.append(thisPath + "/transformers/src")
+
 import transformers
 from transformers import AutoTokenizer, TrainingArguments, Trainer, \
     AutoModelForCausalLM, IntervalStrategy
+from transformers.modeling_utils import no_init_weights, PreTrainedModel
+
 
 pynvml.nvmlInit()
 
@@ -81,6 +92,22 @@ parser.add_argument("--fp16", type=bool, default=False,
                     help="Force training in fp16.")
 args = parser.parse_args()
 
+def no_init(loading_code: Callable[[], PreTrainedModel]) -> PreTrainedModel:
+    def dummy(self):
+        return
+
+    modules = [torch.nn.Linear, torch.nn.Embedding, torch.nn.LayerNorm]
+    original = {}
+    for mod in modules:
+        original[mod] = mod.reset_parameters
+        mod.reset_parameters = dummy
+
+    with no_init_weights():
+        result = loading_code()
+    for mod in modules:
+        mod.reset_parameters = original[mod]
+
+    return result
 
 def estimate_batch_size(divisor: float = 1.0) -> int:
     """
@@ -100,6 +127,8 @@ def estimate_batch_size(divisor: float = 1.0) -> int:
     new_bs = int(math.ceil(gpu_free / (used_gpu * divisor)))
     print(get_gpu_ram())
     print(f"Setting batch size to {new_bs}")
+    #if new_bs == 1:
+    #    gc.set_threshold(10)
     return new_bs
 
 
@@ -115,19 +144,19 @@ def get_gpu_ram() -> str:
     gpu_total = int(gpu_info.total / 1E6)
     gpu_free = int(gpu_info.free / 1E6)
     gpu_used = int(gpu_info.used / 1E6)
-    reserved_gpu = int(torch.cuda.memory.memory_reserved() / 1E6)
-    reserved_max = int(torch.cuda.memory.max_memory_reserved() / 1E6)
-    used_gpu = int(torch.cuda.memory_allocated() / 1E6)
-    max_used_gpu = int(torch.cuda.max_memory_allocated() / 1E6)
-    maxrss = int(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1E3 +
-                 resource.getrusage(resource.RUSAGE_CHILDREN).ru_maxrss / 1E3)
-    vmem = psutil.virtual_memory()
-    cpufree = int(vmem.free / 1E6)
-    return "CPU: (maxrss: {:,}mb F: {:,}mb) ".format(maxrss, cpufree) + \
-           "GPU: (U: {:,}mb F: {:,}mb T: {:,}mb) ".format(
-               gpu_used, gpu_free, gpu_total) + \
-           "TORCH: (R: {:,}mb/{:,}mb, A: {:,}mb/{:,}mb)".format(
-               reserved_gpu, reserved_max, used_gpu, max_used_gpu)
+    torch_reserved_gpu = int(torch.cuda.memory.memory_reserved() / 1E6)
+    torch_reserved_max = int(torch.cuda.memory.max_memory_reserved() / 1E6)
+    torch_used_gpu = int(torch.cuda.memory_allocated() / 1E6)
+    torch_max_used_gpu = int(torch.cuda.max_memory_allocated() / 1E6)
+    cpu_maxrss = int(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1E3 +
+                     resource.getrusage(
+                         resource.RUSAGE_CHILDREN).ru_maxrss / 1E3)
+    cpu_vmem = psutil.virtual_memory()
+    cpu_free = int(cpu_vmem.free / 1E6)
+    return f"CPU: (maxrss: {cpu_maxrss:,}mb F: {cpu_free:,}mb) " \
+           f"GPU: (U: {gpu_used:,}mb F: {gpu_free:,}mb T: {gpu_total:,}mb) " \
+           f"TORCH: (R: {torch_reserved_gpu:,}mb/{torch_reserved_max:,}mb, " \
+           f"A: {torch_used_gpu:,}mb/{torch_max_used_gpu:,}mb)"
 
 
 class ModifiedTrainer(Trainer):
@@ -160,7 +189,7 @@ class ModifiedTrainer(Trainer):
         else:
             self.report_idx += 1
         if self.report_idx % 10 == 0:
-            print("\n" + get_gpu_ram(), file=sys.stderr)
+            print(f"\nLOSS: {loss:.3f} {get_gpu_ram()}", file=sys.stderr)
             sys.stderr.flush()
 
         return (loss, outputs) if return_outputs else loss
@@ -181,13 +210,13 @@ class TokenizedDataset(Dataset):
         length_mb = os.stat(path).st_size / 1024.0 / 1024.0
         num_tokens = self.length * context_length
         print(f"DATASET: {path}")
-        print(f"DATASET SIZE: {length_mb:,.2f}mb, {num_tokens:,} tokens, " +
+        print(f"DATASET SIZE: {length_mb:,.2f}mb, {num_tokens:,} tokens, "
               f"{self.length:,} contexts")
 
-    def __len__(self):
+    def __len__(self) -> int:
         return self.length
 
-    def load(self, idx):
+    def load(self, idx: int) -> Tuple[torch.Tensor, torch.Tensor]:
         self.seek(idx)
         input_ids = torch.tensor(
             struct.unpack(self.formatstr,
@@ -198,7 +227,7 @@ class TokenizedDataset(Dataset):
     def seek(self, idx):
         self.file.seek(self.context_length * idx * 2)
 
-    def __getitem__(self, idx):
+    def __getitem__(self, idx) -> Tuple[torch.Tensor, torch.Tensor]:
         return self.load(idx)
 
 
@@ -242,10 +271,6 @@ print("LAST CHECKPOINT:", lastCheckpoint)
 # that we set this to a consistent value.
 torch.manual_seed(args.seed)
 print("RANDOM SEED:", args.seed)
-tokenizer = AutoTokenizer.from_pretrained(args.model,
-                                          eos_token=args.eot,
-                                          pad_token=args.pad,
-                                          cache_dir=args.cache)
 
 # Determine if we train in fp32 or fp16 mode.
 print("FORCE FP16:", args.fp16)
@@ -253,27 +278,45 @@ fp16_arg = {}
 if args.fp16:
     fp16_arg = {'fp16': True}
 
-
 # Load our model that we're training. This may fetch via HTTP if not cached
 # already.
 print(f"Loading {args.model}")
-try:
-    model = AutoModelForCausalLM.from_pretrained(
-        args.model,  # Can be a HuggingFace ID or directory.
-        cache_dir=args.cache,
-        use_cache=False)  # Gradient checkpointing needs this off.
+if 'tensorizer' in sys.modules and validators.url(args.model):
+    tokenizer, unitrim, word_tokens = get_tokenizer(args.model,
+                                                    {"eos_token": args.eot,
+                                                     "pad_token": args.pad})
     if args.fp16:
-        model = model.half().cuda().eval()
+        model = load_model(args.model).half()
     else:
-        model = model.cuda().eval()
-    model.resize_token_embeddings(len(tokenizer))
-    sys.stderr.flush()
-    sys.stdout.flush()
-except Exception as e:
-    print(e)
+        model = load_model(args.model)
+
+else:
+    try:
+        tokenizer = AutoTokenizer.from_pretrained(args.model,
+                                                  eos_token=args.eot,
+                                                  pad_token=args.pad,
+                                                  cache_dir=args.cache)
+        model = AutoModelForCausalLM.from_pretrained(
+            args.model,  # Can be a HuggingFace ID or directory.
+            cache_dir=args.cache,
+            use_cache=False)  # Gradient checkpointing needs this off.
+        if args.fp16:
+            model = no_init(lambda: model.half().cuda())
+        else:
+            model = no_init(lambda: model.cuda())
+        sys.stderr.flush()
+        sys.stdout.flush()
+    except Exception as e:
+        print(e)
+        print(get_gpu_ram())
+        sys.exit(1)
     print(get_gpu_ram())
-    sys.exit(1)
-print(get_gpu_ram())
+
+model.config.gradient_checkpointing = True
+model.resize_token_embeddings(len(tokenizer))
+model.config.use_cache = False
+if hasattr(model.config, 'force_fp32_attn'):
+    model.config.force_fp32_attn = True
 
 # Automatically make a guess at what (conservative) batchsize we should
 # use for this model and GPU.
@@ -308,8 +351,8 @@ if wandb_key:
                            resume="must", name=run.name)
                 print(f"Resuming {run.id}")
                 break
-
-
+else:
+    os.environ['WANDB_DISABLED'] = 'True'
 
 # Parametrize our training based on provided arguments.
 training_args = TrainingArguments(output_dir=output_dir,
@@ -319,7 +362,6 @@ training_args = TrainingArguments(output_dir=output_dir,
                                   per_device_train_batch_size=bs,
                                   per_device_eval_batch_size=bs,
                                   gradient_accumulation_steps=args.gradients,
-                                  gradient_checkpointing=True,
                                   learning_rate=args.lr,
                                   warmup_steps=8,
                                   weight_decay=0.01,
@@ -328,6 +370,7 @@ training_args = TrainingArguments(output_dir=output_dir,
                                   deepspeed=ds_config,
                                   report_to=report_to,
                                   run_name=args.run_name,
+                                  gradient_checkpointing=True,
                                   disable_tqdm=False,
                                   **fp16_arg)
 

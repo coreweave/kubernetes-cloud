@@ -8,3 +8,4 @@ pynvml~=11.4.1
 wandb~=0.12.10
 torch
 psutil~=5.9.0
+validators
