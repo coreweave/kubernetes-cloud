@@ -115,19 +115,18 @@ def get_gpu_ram() -> str:
     gpu_total = int(gpu_info.total / 1E6)
     gpu_free = int(gpu_info.free / 1E6)
     gpu_used = int(gpu_info.used / 1E6)
-    reserved_gpu = int(torch.cuda.memory.memory_reserved() / 1E6)
-    reserved_max = int(torch.cuda.memory.max_memory_reserved() / 1E6)
-    used_gpu = int(torch.cuda.memory_allocated() / 1E6)
-    max_used_gpu = int(torch.cuda.max_memory_allocated() / 1E6)
-    maxrss = int(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1E3 +
+    torch_reserved_gpu = int(torch.cuda.memory.memory_reserved() / 1E6)
+    torch_reserved_max = int(torch.cuda.memory.max_memory_reserved() / 1E6)
+    torch_used_gpu = int(torch.cuda.memory_allocated() / 1E6)
+    torch_max_used_gpu = int(torch.cuda.max_memory_allocated() / 1E6)
+    cpu_maxrss = int(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1E3 +
                  resource.getrusage(resource.RUSAGE_CHILDREN).ru_maxrss / 1E3)
-    vmem = psutil.virtual_memory()
-    cpufree = int(vmem.free / 1E6)
-    return "CPU: (maxrss: {:,}mb F: {:,}mb) ".format(maxrss, cpufree) + \
-           "GPU: (U: {:,}mb F: {:,}mb T: {:,}mb) ".format(
-               gpu_used, gpu_free, gpu_total) + \
-           "TORCH: (R: {:,}mb/{:,}mb, A: {:,}mb/{:,}mb)".format(
-               reserved_gpu, reserved_max, used_gpu, max_used_gpu)
+    cpu_vmem = psutil.virtual_memory()
+    cpu_free = int(cpu_vmem.free / 1E6)
+    return f"CPU: (maxrss: {cpu_maxrss:,}mb F: {cpu_free:,}mb) " \
+           f"GPU: (U: {gpu_used:,}mb F: {gpu_free:,}mb T: {gpu_total:,}mb) " \
+           f"TORCH: (R: {torch_reserved_gpu:,}mb/{torch_reserved_max:,}mb, " \
+           f"A: {torch_used_gpu:,}mb/{torch_max_used_gpu:,}mb)"
 
 
 class ModifiedTrainer(Trainer):
@@ -181,7 +180,7 @@ class TokenizedDataset(Dataset):
         length_mb = os.stat(path).st_size / 1024.0 / 1024.0
         num_tokens = self.length * context_length
         print(f"DATASET: {path}")
-        print(f"DATASET SIZE: {length_mb:,.2f}mb, {num_tokens:,} tokens, " +
+        print(f"DATASET SIZE: {length_mb:,.2f}mb, {num_tokens:,} tokens, "
               f"{self.length:,} contexts")
 
     def __len__(self):
