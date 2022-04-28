@@ -98,16 +98,27 @@ spec:
     - name: inference_gpu
       value: 'RTX_A5000'
     # Container images -- generally, don't alter this.
+    - name: downloader_image
+      value: 'ghcr.io/wbrown/gpt_bpe/model_downloader:b3b29d7'
     - name: tokenizer_image
-      value: 'ghcr.io/wbrown/gpt_bpe/dataset_tokenizer:ed439c6'
+      value: 'ghcr.io/wbrown/gpt_bpe/dataset_tokenizer:b3b29d7'
     - name: finetuner_image
-      value: 'docker.io/gooseai/finetuner:rc52'
+      value: 'docker.io/gooseai/finetuner:rc56'
     - name: inference_image
       value: 'coreweave/ml-images:pytorch-huggingface-81d5ce11'
 
   templates:
   - name: main
     steps:
+    - - name: downloader
+        template: model-downloader
+        arguments:
+          parameters:
+            - name: model
+              value: "{{workflow.parameters.model}}"
+            - name: dest
+              value: "/{{workflow.parameters.pvc}}/models/{{workflow.parameters.model}}"
+
     - - name: tokenizer
         template: model-tokenizer
         arguments:
@@ -117,7 +128,7 @@ spec:
           - name: output
             value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.dataset}}-{{=sprig.replace('/', '_', sprig.replace('.','_', sprig.replace('-','_', workflow.parameters.model)))}}-{{workflow.parameters.context}}.tokens"
           - name: model
-            value: "{{workflow.parameters.model}}"
+            value: "/{{workflow.parameters.pvc}}/models/{{workflow.parameters.model}}"
           - name: context
             value: "{{workflow.parameters.context}}"
           - name: eot
@@ -135,7 +146,7 @@ spec:
           - name: run_name
             value: "{{workflow.parameters.run_name}}"
           - name: model
-            value: "{{workflow.parameters.model}}"
+            value: "/{{workflow.parameters.pvc}}/models/{{workflow.parameters.model}}"
           - name: dataset
             value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.dataset}}-{{=sprig.replace('/', '_', sprig.replace('.','_', sprig.replace('-','_', workflow.parameters.model)))}}-{{workflow.parameters.context}}.tokens"
           - name: force_fp16
@@ -183,6 +194,42 @@ spec:
             - name: model_path
               value: "finetunes/results-{{workflow.parameters.run_name}}"
         when: "{{workflow.parameters.run_inference}} == true"
+
+  - name: model-downloader
+    inputs:
+      parameters:
+        - name: model
+        - name: dest
+    retryStrategy:
+      limit: 1
+    container:
+      image: "{{workflow.parameters.downloader_image}}"
+      command: [ "/ko-app/model_downloader" ]
+      args: [ "-model", "{{inputs.parameters.model}}",
+              "-dest", "{{inputs.parameters.dest}}" ]
+      resources:
+        requests:
+          memory: 512Mi
+          cpu: "2"
+        limits:
+          memory: 512Mi
+          cpu: "2"
+      volumeMounts:
+        - mountPath: "/{{workflow.parameters.pvc}}"
+          name: "{{workflow.parameters.pvc}}"
+    volumes:
+      - name: "{{workflow.parameters.pvc}}"
+        persistentVolumeClaim:
+           claimName: "{{workflow.parameters.pvc}}"
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: topology.kubernetes.io/region
+              operator: In
+              values:
+              - "{{workflow.parameters.region}}"
 
   - name: model-tokenizer
     inputs:
