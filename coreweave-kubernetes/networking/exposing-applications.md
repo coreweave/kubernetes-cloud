@@ -126,7 +126,7 @@ spec:
 
 ### External DNS
 
-[Kubernetes internal DNS](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/) provides service discovery inside the cluster, allowing reachability of Services and Pods without the use of IP addresses. Many applications will need to be reached not only from inside the cluster, but also from outside on the broader Internet.  CoreWeave provides External DNS out of the box for all types of applications, similar to Ingress for HTTP. The DNS name must be in the format of `<your-chice>.<namespace>.<region>.coreweave.cloud`
+[Kubernetes internal DNS](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/) provides service discovery inside the cluster, allowing reachability of Services and Pods without the use of IP addresses. Many applications will need to be reached not only from inside the cluster, but also from outside on the broader Internet.  CoreWeave provides External DNS out of the box for all types of applications, similar to Ingress for HTTP. The DNS name must be in the format of `<your-chice>.<namespace>.coreweave.cloud`
 
 ```yaml
 apiVersion: v1
@@ -134,7 +134,7 @@ kind: Service
 metadata:
   annotations:
     metallb.universe.tf/address-pool: public-ord1
-    external-dns.alpha.kubernetes.io/hostname: my-sshd.tenant-test-default.ord1.coreweave.cloud
+    external-dns.alpha.kubernetes.io/hostname: my-sshd.tenant-test-default.coreweave.cloud
   name: sshd
 spec:
   type: LoadBalancer
