@@ -185,6 +185,8 @@ spec:
             value: "{{workflow.parameters.zero_stage}}"
           - name: project_id
             value: "{{workflow.parameters.project_id}}"
+          - name: context
+            value: "{{workflow.parameters.context}}"
         when: "{{workflow.parameters.inference_only}} == false"
 
     - - name: inference-service
@@ -302,6 +304,7 @@ spec:
         - name: gradients
         - name: zero_stage
         - name: force_fp16
+        - name: context
     container:
       image: "{{workflow.parameters.finetuner_image}}"
       command: [ "/usr/bin/python3", "/app/finetuner.py" ]
@@ -323,7 +326,8 @@ spec:
              "--no_resume", "{{inputs.parameters.no_resume}}",
              "--project_id", "{{inputs.parameters.project_id}}",
              "--epochs", "{{inputs.parameters.epochs}}",
-             "--fp16", "{{inputs.parameters.force_fp16}}"]
+             "--fp16", "{{inputs.parameters.force_fp16}}",
+             "--context_size", "{{inputs.parameters.context}}"]
       tty: true
       env:
       - name: WANDB_API_KEY
