@@ -332,6 +332,7 @@ if "zero_optimization" in ds_config and \
     ds_config["zero_optimization"]["stage"] = args.zero_stage
 
 # Change our current directory due to some packages assumptions.
+os.makedirs(args.output_path, exist_ok=True)
 os.chdir(args.output_path)
 
 # Set up `wandb` reporting if we have an API key, and resume reporting
