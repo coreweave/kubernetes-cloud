@@ -99,9 +99,9 @@ spec:
       value: 'RTX_A5000'
     # Container images -- generally, don't alter this.
     - name: downloader_image
-      value: 'ghcr.io/wbrown/gpt_bpe/model_downloader:b3b29d7'
+      value: 'ghcr.io/wbrown/gpt_bpe/model_downloader:a075bc9'
     - name: tokenizer_image
-      value: 'ghcr.io/wbrown/gpt_bpe/dataset_tokenizer:b3b29d7'
+      value: 'ghcr.io/wbrown/gpt_bpe/dataset_tokenizer:a075bc9'
     - name: finetuner_image
       value: 'docker.io/gooseai/finetuner:rc56'
     - name: inference_image
@@ -254,7 +254,8 @@ spec:
              "-pad", "{{inputs.parameters.pad}}",
              "-input", "{{inputs.parameters.input}}",
              "-output", "{{inputs.parameters.output}}",
-             "-boundary", "{{inputs.parameters.boundary}}"]
+             "-boundary", "{{inputs.parameters.boundary}}",
+             "-sanitize"]
       resources:
         requests:
           memory: 256Mi
