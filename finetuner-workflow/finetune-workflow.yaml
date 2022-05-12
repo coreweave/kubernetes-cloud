@@ -99,9 +99,9 @@ spec:
       value: 'RTX_A5000'
     # Container images -- generally, don't alter this.
     - name: downloader_image
-      value: 'ghcr.io/wbrown/gpt_bpe/model_downloader:a075bc9'
+      value: 'ghcr.io/wbrown/gpt_bpe/model_downloader:105000f'
     - name: tokenizer_image
-      value: 'ghcr.io/wbrown/gpt_bpe/dataset_tokenizer:a075bc9'
+      value: 'ghcr.io/wbrown/gpt_bpe/dataset_tokenizer:105000f'
     - name: finetuner_image
       value: 'docker.io/gooseai/finetuner:rc56'
     - name: inference_image
