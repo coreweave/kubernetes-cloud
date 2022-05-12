@@ -99,13 +99,21 @@ spec:
       value: 'RTX_A5000'
     # Container images -- generally, don't alter this.
     - name: downloader_image
-      value: 'ghcr.io/wbrown/gpt_bpe/model_downloader:b60025d'
+      value: 'ghcr.io/wbrown/gpt_bpe/model_downloader'
+    - name: downloader_tag
+      value: 'b60025d'
     - name: tokenizer_image
-      value: 'ghcr.io/wbrown/gpt_bpe/dataset_tokenizer:b60025d'
+      value: 'ghcr.io/wbrown/gpt_bpe/dataset_tokenizer'
+    - name: tokenizer_tag
+      value: 'b60025d'
     - name: finetuner_image
-      value: 'docker.io/gooseai/finetuner:rc56'
+      value: 'docker.io/gooseai/finetuner'
+    - name: finetuner_tag
+      value: 'rc56'
     - name: inference_image
-      value: 'coreweave/ml-images:pytorch-huggingface-81d5ce11'
+      value: 'coreweave/ml-images'
+    - name: inference_tag
+      value: 'pytorch-huggingface-81d5ce11'
 
   templates:
   - name: main
@@ -126,7 +134,7 @@ spec:
           - name: input
             value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.dataset}}"
           - name: output
-            value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.dataset}}-{{=sprig.replace('/', '_', sprig.replace('.','_', sprig.replace('-','_', workflow.parameters.model)))}}-{{workflow.parameters.context}}.tokens"
+            value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.dataset}}-{{=sprig.replace('/', '_', sprig.replace('.','_', sprig.replace('-','_', workflow.parameters.model)))}}-{{workflow.parameters.context}}-{{workflow.parameters.tokenizer_tag}}.tokens"
           - name: model
             value: "/{{workflow.parameters.pvc}}/models/{{workflow.parameters.model}}"
           - name: context
@@ -148,7 +156,7 @@ spec:
           - name: model
             value: "/{{workflow.parameters.pvc}}/models/{{workflow.parameters.model}}"
           - name: dataset
-            value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.dataset}}-{{=sprig.replace('/', '_', sprig.replace('.','_', sprig.replace('-','_', workflow.parameters.model)))}}-{{workflow.parameters.context}}.tokens"
+            value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.dataset}}-{{=sprig.replace('/', '_', sprig.replace('.','_', sprig.replace('-','_', workflow.parameters.model)))}}-{{workflow.parameters.context}}-{{workflow.parameters.tokenizer_tag}}.tokens"
           - name: force_fp16
             value: "{{workflow.parameters.force_fp16}}"
           - name: learn_rate
@@ -205,7 +213,7 @@ spec:
     retryStrategy:
       limit: 1
     container:
-      image: "{{workflow.parameters.downloader_image}}"
+      image: "{{workflow.parameters.downloader_image}}:{{workflow.parameters.downloader_tag}}"
       command: [ "/ko-app/model_downloader" ]
       args: [ "-model", "{{inputs.parameters.model}}",
               "-dest", "{{inputs.parameters.dest}}" ]
@@ -246,7 +254,7 @@ spec:
     retryStrategy:
       limit: 1
     container:
-      image: "{{workflow.parameters.tokenizer_image}}"
+      image: "{{workflow.parameters.tokenizer_image}}:{{workflow.parameters.tokenizer_tag}}"
       command: [ "/ko-app/dataset_tokenizer" ]
       args: ["-tokenizer", "{{inputs.parameters.model}}",
              "-context", "{{inputs.parameters.context}}",
@@ -307,7 +315,7 @@ spec:
         - name: force_fp16
         - name: context
     container:
-      image: "{{workflow.parameters.finetuner_image}}"
+      image: "{{workflow.parameters.finetuner_image}}:{{workflow.parameters.finetuner_tag}}"
       command: [ "/usr/bin/python3", "/app/finetuner.py" ]
       args: ["--run_name", "{{inputs.parameters.run_name}}",
              "--model", "{{inputs.parameters.model}}",
@@ -398,7 +406,7 @@ spec:
                             - "{{workflow.parameters.region}}"
             containers:
               - name: kfserving-container
-                image: "{{ workflow.parameters.inference_image }}"
+                image: "{{workflow.parameters.inference_image}}:{{workflow.parameters.inference_tag}}"
                 imagePullPolicy: IfNotPresent
                 command:
                   - "python3"
