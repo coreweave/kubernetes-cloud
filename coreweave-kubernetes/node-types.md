@@ -18,7 +18,9 @@ When custom configuring your instances on CoreWeave Cloud, the following table o
 | ------ | ----------------- | ---------- | ---------- | ----- | ---------------- | ------------------- |
 | NVIDIA | A100 NVLINK       | Ampere     | 6,912      | 40 GB | 8                | A100\_NVLINK        |
 | NVIDIA | A100 PCIe         | Ampere     | 6,912      | 40 GB | 8                | A100\_PCIE\_40GB    |
-| NVIDIA | A40 / A6000       | Ampere     | 10,752     | 48 GB | 8                | A40 / RTX\_A6000    |
+| NVIDIA | A100 PCIe         | Ampere     | 6,912      | 80 GB | 8                | A100\_PCIE\_80GB    |
+| NVIDIA | A40               | Ampere     | 10,752     | 48 GB | 8                | A40                 |
+| NVIDIA | A6000             | Ampere     | 10,752     | 48 GB | 8                | RTX\_A6000          |
 | NVIDIA | RTX A5000         | Ampere     | 8,192      | 24 GB | 4                | RTX\_A5000          |
 | NVIDIA | RTX A4000         | Ampere     | 6,144      | 16 GB | 7                | RTX\_A4000          |
 | NVIDIA | Tesla V100 NVLINK | Volta      | 5,120      | 16 GB | 8                | Tesla\_V100\_NVLINK |
@@ -50,15 +52,15 @@ Workloads without GPU requests are always scheduled on CPU nodes.
 A combination of [resource requests ](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)and[ node affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity) is used to select the type and amount of compute for your workload. CoreWeave Cloud relies only on these native Kubernetes methods for resource allocation, allowing maximum flexibilty. The label used to select CPU type is `node.coreweave.cloud/cpu`
 
 {% tabs %}
-{% tab title="Single Tesla V100" %}
+{% tab title="Single A100 80GB" %}
 ```yaml
 spec:
   containers:
   - name: example
     resources:
       limits:
-        cpu: 3
-        memory: 16Gi
+        cpu: 15
+        memory: 97Gi
         nvidia.com/gpu: 1
         
   affinity:
@@ -69,20 +71,21 @@ spec:
           - key: gpu.nvidia.com/class
             operator: In
             values:
-              - Tesla_V100_NVLINK
+              - A100_PCIE_80GB
 ```
 {% endtab %}
 
-{% tab title="4x Tesla V100 NVLINK" %}
+{% tab title="8x A100 NVLINK" %}
 ```yaml
 spec:
   containers:
   - name: example
     resources:
+      requests:
+        cpu: 90
+        memory: 700Gi
       limits:
-        cpu: 15
-        memory: 128Gi
-        nvidia.com/gpu: 4
+        nvidia.com/gpu: 8
         
   affinity:
     nodeAffinity:
@@ -92,7 +95,7 @@ spec:
           - key: gpu.nvidia.com/class
             operator: In
             values:
-              - Tesla_V100_NVLINK
+              - A100_NVLINK
 ```
 {% endtab %}
 
