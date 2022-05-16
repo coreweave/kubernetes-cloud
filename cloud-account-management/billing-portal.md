@@ -14,7 +14,7 @@ The Billing Portal account is completely separate from your CoreWeave Cloud acco
 
 ### Security and Compliance
 
-CoreWeave Cloud values user security and privacy. Our billing portal is provided and hosted by a software company called [Chargify](https://www.chargify.com). Chargify is PCI DSS Level 1 compliant and has undergone a SOC 1 Type II audit, more information can be found on [their website](https://www.chargify.com/security/).
+CoreWeave Cloud values user security and privacy. Our billing portal is provided and hosted by a software company called [Chargify](https://www.chargify.com/). Chargify is PCI DSS Level 1 compliant and has undergone a SOC 1 Type II audit, more information can be found on [their website](https://www.chargify.com/security/).
 
 
 
