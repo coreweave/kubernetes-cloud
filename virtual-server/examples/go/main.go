@@ -2,9 +2,9 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"os"
+	"regexp"
 	"time"
 
 	vsv1alpha "github.com/coreweave/virtual-server/api/v1alpha1"
@@ -49,16 +49,12 @@ func Ready(namespace, name string, c client.Client) ReadyResponse {
 		if cond == nil {
 			return VSUnknown
 		} else if cond.Reason == string(vsv1alpha.VSConditionReasonReady) &&
-			cond.Type == string(vsv1alpha.VSConditionTypeReady) &&
-			cond.Status == "True" {
-			fmt.Printf("Network:\n\tinternalIP: %s\n\texternal IP: %s\n\tfloating IPs:",
-				vs.Status.InternalIP(),
-				vs.Status.ExternalIP(),
-			)
+			cond.Type == string(vsv1alpha.VSConditionTypeReady) && cond.Status == "True" {
+			log.Printf("Internal IP: %s", vs.Status.InternalIP())
+			log.Printf("External IP: %s", vs.Status.ExternalIP())
 			for service, ip := range vs.Status.FloatingIPs() {
-				fmt.Printf("\t\t%s: %s\n", service, ip)
+				log.Printf("Floating service: %s, IP: %s", service, ip)
 			}
-			fmt.Printf("\n")
 			return VSReady
 		} else if cond.Reason == string(vsv1alpha.VSConditionReasonStopped) &&
 			cond.Type == string(vsv1alpha.VSConditionTypeReady) &&
@@ -85,6 +81,17 @@ func main() {
 
 	username, usernameExist := os.LookupEnv("USERNAME")
 	password, passwordExist := os.LookupEnv("PASSWORD")
+	floatingServiceName, floatingServiceExist := os.LookupEnv("FLOATING_SERVICE_NAME")
+
+	if floatingServiceExist {
+		ok, err := regexp.MatchString(`^[a-z]([-a-z0-9]*[a-z0-9])?$`, floatingServiceName)
+		if err != nil {
+			log.Fatalf("FLOATING_SERVICE_NAME must comply RFC-1035 DNS format; error: %s", err.Error())
+		}
+		if !ok {
+			log.Fatal("FLOATING_SERVICE_NAME must comply RFC-1035 DNS format")
+		}
+	}
 
 	if !usernameExist || !passwordExist {
 		log.Fatalf("Required environment variables USERNAME and PASSWORD not found")
@@ -139,12 +146,12 @@ func main() {
 	// sourced in the vd-images namespace
 	err = virtualServer.ConfigureStorageRootWithPVCSource(vsv1alpha.VirtualServerStorageRootPVCSource{
 		Size:             "40Gi",
-		PVCName:          "ubuntu1804-nvidia-465-19-01-1-docker-master-20210629-ord1",
+		PVCName:          "ubuntu2004-nvidia-515-43-04-1-docker-master-20220708-ord1",
 		PVCNamespace:     "vd-images",
 		StorageClassName: "block-nvme-ord1",
 	})
 	if err != nil {
-		log.Fatalf("Cound not configure root filesystem\n")
+		log.Fatalf("Cound not configure root filesystem")
 	}
 	// Add a floating IP to the VirtualServer
 	//virtualServer.AddFloatingIP("my-floating-ip-service")
@@ -190,44 +197,55 @@ runcmd:
 	// Add the example PVC as a file system to the Virtual Server
 	virtualServer.AddPVCFileSystem("example-storage", pvc.Name, false)
 
-	service := buildFloatingIPService("example-floating-ip-service", namespace)
-	if err := c.Create(context.Background(), service); err != nil {
-		log.Fatalf("Could not create example floatingIP service\nReason: %s", err.Error())
-	}
+	service := &corev1.Service{}
+	if floatingServiceExist {
+		log.Printf("Creating floatingIP service %s", floatingServiceName)
+		service = buildFloatingIPService(floatingServiceName, namespace)
+		if err := c.Create(context.Background(), service); err != nil {
+			log.Fatalf("Could not create example floatingIP service, reason: %s", err.Error())
+		}
 
-	// Add the example floatingIP service to the VirtualServer
-	virtualServer.AddFloatingIP(service.Name)
+		// Add the example floatingIP service to the VirtualServer
+		virtualServer.AddFloatingIP(service.Name)
+	}
 
 	// Delete Virtual Server if already exists
 	err = c.Delete(context.Background(), virtualServer)
 	if err != nil {
-		if apierrors.IsNotFound(err) == true {
-			fmt.Printf("VirtualServer %s in namespace %s already deleted\n", name, namespace)
+		if apierrors.IsNotFound(err) {
+			log.Printf("VirtualServer %s in namespace %s already deleted", name, namespace)
 		} else {
-			log.Fatalf("Failed to create VirtualServer\nReason: %s", err.Error())
+			log.Fatalf("Failed to create VirtualServer, reason: %s", err.Error())
 		}
 	}
 
 	// Create a new Virtual Server
 	err = c.Create(context.Background(), virtualServer)
 	if err != nil {
-		log.Fatalf("Failed to create VirtualServer\nReason: %s", err.Error())
+		log.Fatalf("Failed to create VirtualServer, reason: %s", err.Error())
 	}
 
 	// Wait until Virtual Server is ready
-	fmt.Printf("VirtualServer status: %s\n", Ready(namespace, name, c))
+	log.Printf("VirtualServer status: %s", Ready(namespace, name, c))
 
 	err = kubevirtClient.VirtualMachine(namespace).Stop(name)
 	if err != nil {
-		log.Fatalf("Cannot stop virtual sever %s in namespace %s, err: %v\n", name, namespace, err)
+		log.Fatalf("Cannot stop virtual sever %s in namespace %s, err: %v", name, namespace, err)
 	}
 
 	// Wait until Virtual Server is stopped
-	fmt.Printf("VirtualServer status: %s\n", Ready(namespace, name, c))
+	log.Printf("VirtualServer status: %s", Ready(namespace, name, c))
 
 	err = c.Delete(context.Background(), virtualServer)
 	if err != nil {
-		log.Fatalf("Failed to delete VirtualServer\nReason: %s", err.Error())
+		log.Fatalf("Failed to delete VirtualServer, reason: %s", err.Error())
+	}
+
+	if floatingServiceExist {
+		err = c.Delete(context.Background(), service)
+		if err != nil {
+			log.Fatalf("Failed to delete floating service, reason: %s", err.Error())
+		}
 	}
 }
 
