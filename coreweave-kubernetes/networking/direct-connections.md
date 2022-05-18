@@ -25,7 +25,7 @@ In addition to dedicated connections to our data centers, we also have network P
 | Region / Location   | On-Net Carriers                                                                | Port Speeds       |
 | ------------------- | ------------------------------------------------------------------------------ | ----------------- |
 | LAX1 (CoreSite LA2) | [https://www.coresite.com/carrier-list](https://www.coresite.com/carrier-list) | 1Gbps to 100Gbps  |
-| LAS1 (Megaport)     | [https://www.megaport.com/](https://www.megaport.com/)                         | 100Mbps to 10Gbps |
+| LAS1 (Megaport)     | [https://www.megaport.com/](https://www.megaport.com)                          | 100Mbps to 10Gbps |
 
 
 

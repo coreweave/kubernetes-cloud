@@ -77,7 +77,9 @@ The `spec` contains configuration fields that define how the Virtual Server will
 
 
 {% hint style="info" %}
-\[¹] - See [Cloud Init](https://cloudinit.readthedocs.io/en/latest/topics/examples.html) for more examples
+\[¹] - See [Cloud-Init](https://cloudinit.readthedocs.io/en/latest/topics/examples.html) for more examples
+
+Create the same user  in `spec.users` and Cloud-Init may produce conflicts.
 {% endhint %}
 
 {% hint style="info" %}
@@ -86,6 +88,21 @@ Certain fields are mutually exclusive:
 * GPU type and CPU type
 * TCP ports or UDP ports and directAttachLoadbalancerIP
 {% endhint %}
+
+## Updating fields
+
+Certain fields in the Virtual Server resource may be updated while the Instance is running. However, some require that the Virtual Server be restarted in order to take effect.
+
+<table><thead><tr><th>Field</th><th>Description</th><th data-type="checkbox">Restart required</th></tr></thead><tbody><tr><td><p>metadata.annotations </p><p>metadata.labels</p></td><td>The change is propagated to VM and VMI</td><td>false</td></tr><tr><td>spec.net.floatingIPs</td><td>Add or remove floating IP services</td><td>false</td></tr><tr><td>spec.network.TCP.ports<br>spec.network.UDP.ports</td><td>Add or remove ports from the service</td><td>false</td></tr><tr><td>spec.storage.root.size</td><td>Resize the root disk (can only be increased)</td><td>true</td></tr></tbody></table>
+
+## Headless service
+
+In order to facilitate name resolution via Cluster DNS, Virtual Server creates [headless service](https://kubernetes.io/docs/concepts/services-networking/service/#headless-services) when the following conditions are fulfilled:
+
+* `spec.network.public` is `false`
+* `spec.network.directAttachLoadBalancerIP` is `false`,
+* `spec.network.TCP.ports` is empty
+* `spec.network.UDP.ports` is empty
 
 ## Deploying a Virtual Server
 
@@ -190,9 +207,9 @@ vs-ubuntu2004-block-pvc   Bound    pvc-3ec3a05c-dc53-4f29-8f02-ff95de06f750   40
 * Service
 
 ```
-$ kubectl get svc vs-ubuntu2004-block-pvc-tcp
+$ kubectl get svc vs-ubuntu2004-block-pvc
 NAME                          TYPE           CLUSTER-IP       EXTERNAL-IP      PORT(S)        AGE
-vs-ubuntu2004-block-pvc-tcp   LoadBalancer   10.135.203.211   207.53.234.124   22:32849/TCP   43m
+vs-ubuntu2004-block-pvc       LoadBalancer   10.135.203.211   207.53.234.124   22:32849/TCP   43m
 ```
 
 {% hint style="info" %}
