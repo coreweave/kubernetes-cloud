@@ -97,7 +97,7 @@ Certain fields in the Virtual Server resource may be updated while the Instance 
 
 ## Headless service
 
-In order to facilitate name resolution via Cluster DNS, Virtual Server creates [headless service](https://kubernetes.io/docs/concepts/services-networking/service/#headless-services) when the following conditions are fulfilled:
+In order to facilitate name resolution via Cluster DNS, Virtual Server creates a [headless service](https://kubernetes.io/docs/concepts/services-networking/service/#headless-services) when the following conditions are fulfilled:
 
 * `spec.network.public` is `false`
 * `spec.network.directAttachLoadBalancerIP` is `false`,
