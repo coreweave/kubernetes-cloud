@@ -17,6 +17,7 @@
 * [Metrics](coreweave-kubernetes/prometheus/README.md)
   * [Grafana](coreweave-kubernetes/prometheus/grafana.md)
   * [Useful Metrics](coreweave-kubernetes/prometheus/useful-metrics.md)
+  * [Logging](coreweave-kubernetes/prometheus/logging.md)
 * [Examples](coreweave-kubernetes/examples/README.md)
   * [Jupyter Notebook with TensorFlow](coreweave-kubernetes/examples/tensorflow-jupyter.md)
   * [SSH Server with CUDA](coreweave-kubernetes/examples/cuda-ssh.md)

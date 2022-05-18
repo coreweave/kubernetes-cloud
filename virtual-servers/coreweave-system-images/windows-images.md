@@ -99,7 +99,7 @@ When enrolling a Parsec Teams machine, Boolean values `Parsec: true` and `EDID: 
 
 #### Install Additional Software
 
-All CoreWeave Windows images are pre-loaded with [Chocolatey](https://community.chocolatey.org/packages) package manager. On non Server editions of Windows, [WinGet](https://winget.run) is included as well.&#x20;
+All CoreWeave Windows images are pre-loaded with [Chocolatey](https://community.chocolatey.org/packages) package manager. On non Server editions of Windows, [WinGet](https://winget.run/) is included as well.&#x20;
 
 Software specified via cloudInit will be installed automatically at initial user logon:
 
@@ -160,7 +160,7 @@ Unless set to `false`, this flag defaults to `true`.
 
 #### Parsec Remote Desktop
 
-CoreWeave strongly recommends [Parsec](https://parsec.app) for remote access on Windows GPU instances. Adding the following will install Parsec on initial logon:
+CoreWeave strongly recommends [Parsec](https://parsec.app/) for remote access on Windows GPU instances. Adding the following will install Parsec on initial logon:
 
 ```yaml
   cloudInit: |
