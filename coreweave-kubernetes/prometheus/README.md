@@ -4,24 +4,24 @@ description: CoreWeave manages the Prometheus cluster that will host your metric
 
 # Metrics
 
-To access CoreWeave's Prometheus server you'll first need a CoreWeave account and an Access Token. If you don't have an account yet, follow the steps on the [Getting Started](../getting-started.md) guide.
+To access CoreWeave's Prometheus server you'll first need a CoreWeave account and an Access Token. If you don't have an account yet, follow the steps on the [Getting Started](../getting-started.md) guide.&#x20;
 
 You'll be able to access the Prometheus Dashboard once you're logged into CoreWeave.
 
 {% hint style="success" %}
-Access the **Prometheus Dashboard** at [**https://prometheus.ord1.coreweave.com**](https://prometheus.ord1.coreweave.com)
+Access the **Prometheus Dashboard** at [**https://prometheus.ord1.coreweave.com**](https://prometheus.ord1.coreweave.com)****
 {% endhint %}
 
 ## API Key Authentication
 
-You can access the Prometheus server by sending your [Access Token](../getting-started.md#obtain-access-credentials) as the Authorization Header during your request.
+You can access the Prometheus server by sending your [Access Token](../getting-started.md#obtain-access-credentials) as the Authorization Header during your request.&#x20;
 
 * Header: **`Authorization`** Value: **`Bearer <TOKEN>`**
 * URL: **`https://prometheus.ord1.coreweave.com`**
 * Methods: **`GET`** or **`POST`**
 
 {% hint style="warning" %}
-Replace `<TOKEN>` with your CoreWeave Access Token generated from [https://cloud.coreweave.com/api-access](https://cloud.coreweave.com/api-access).
+&#x20;Replace `<TOKEN>` with your CoreWeave Access Token generated from [https://cloud.coreweave.com/api-access](https://cloud.coreweave.com/api-access).
 {% endhint %}
 
 {% swagger baseUrl="https://prometheus.ord1.coreweave.com" path="/v1/api/query" method="post" summary="Prometheus Query using Access Token" %}
@@ -29,23 +29,23 @@ Replace `<TOKEN>` with your CoreWeave Access Token generated from [https://cloud
 Example usage for sending a request to the Prometheus API using your Access Token.
 {% endswagger-description %}
 
-{% swagger-parameter in="header" name="Authorization" type="string" required="false" %}
-Set value to
+{% swagger-parameter in="header" name="Authorization" type="string" %}
+Set value to 
 
 `Bearer <TOKEN>`
 
-as the value, replacing
+ as the value, replacing 
 
 `<TOKEN>`
 
-with your CoreWeave Access Token.
+ with your CoreWeave Access Token.
 {% endswagger-parameter %}
 
-{% swagger-parameter in="query" name="time" type="number" required="false" %}
+{% swagger-parameter in="query" name="time" type="number" %}
 Unix timestamp of current time
 {% endswagger-parameter %}
 
-{% swagger-parameter in="query" name="query" type="string" required="false" %}
+{% swagger-parameter in="query" name="query" type="string" %}
 Insert PromQL Query (
 
 `kube_pod_container_info`
@@ -137,13 +137,11 @@ spec:
         - name: example
           image: "infinityworks/docker-hub-exporter:latest"
           imagePullPolicy: Always
-          env: 
-            - name: ORG
-              value: coreweave #replace with your org
           ports:
             - name: http
               containerPort: 9170
               protocol: TCP
+
 ```
 {% endtab %}
 
@@ -160,11 +158,12 @@ spec:
   type: ClusterIP
   ports:
     - port: 8080
-      targetPort: 9170
+      targetPort: 8080
       protocol: TCP
       name: http
   selector:
     app: example
+
 ```
 {% endtab %}
 {% endtabs %}

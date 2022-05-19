@@ -86,10 +86,17 @@ CoreWeave Windows images support [Parsec Teams](https://parsec.app/teams). To en
     ParsecTeams:
       ComputerKey: key_generated_from_parsec_admin_panel
       TeamId: parsec_team_id
-      # Use EITHER Group ID or EMail
+      # Use EITHER Group ID or EMail or User ID
       GroupId: parsec_group_id
+      UserId: parsec_user_id
       EMail: parsec_user_email
 ```
+
+{% hint style="info" %}
+If a Parsec machine is assigned to an EMail that isn't part of the Team, the machine will be made available to them after they've been invited and accepted the invitation.\
+\
+If none of GroupId, UserId, or EMail is provided, the machine will be added to the Parsec Team unassigned.
+{% endhint %}
 
 For more information on Parsec Teams and where to obtain your enrollment key, please visit [Parsec's documentation](https://support.parsec.app/hc/en-us/articles/360054176332-Team-Computers).
 
