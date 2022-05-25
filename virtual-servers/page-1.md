@@ -6,6 +6,10 @@ description: Importing a qcow2 image from a Internet URL
 
 Images from external URLs can be imported and used as source images for both root and additional disks in Virtual Servers. In addition to `qcow2`, `raw` and `iso` images are also supported. Images may be compressed with either `gz` or `xz`.
 
+{% hint style="info" %}
+Most operating systems and virtual appliances provide a cloud image in qcow2 or raw format. These are all compatible and ready to use with this guide. Using a .iso installation media (ie virtual DVD) requires additional parameters not covered by this document.
+{% endhint %}
+
 ### Importing Disk Image
 
 A `DataVolume` is used to both do the import and store the imported image.
@@ -70,7 +74,7 @@ Events:
 ```
 
 {% hint style="info" %}
-Images are currently fully validated after import, which makes the import process slow. Import times will be decreased in the future.
+Images are fully validated after import, which makes the import process slow. Import times will be decreased in the future.
 {% endhint %}
 
 ### Launching a Virtual Server
@@ -129,3 +133,7 @@ $ kubectl get vs example-vs
 NAME           STATUS               REASON               STARTED   INTERNAL IP      EXTERNAL IP
 example-vs     VirtualServerReady   VirtualServerReady   True      10.135.208.235   207.53.234.142
 ```
+
+{% hint style="info" %}
+To export an Amazon AMI, chose the `raw` format when following the [AWS Export guide](https://docs.aws.amazon.com/vm-import/latest/userguide/vmexport\_image.html)
+{% endhint %}
