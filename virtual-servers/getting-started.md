@@ -2,6 +2,12 @@
 
 ![](../.gitbook/assets/virtualserver-6-.png)
 
+High performance Virtual Servers are easy to create and manage on CoreWeave Cloud. With no pre-set instance types, you can configure your GPU accelerated and CPU only Virtual Servers with the right combination of resources for your needs, optimizing both your cloud spend and your ability to scale your applications and services.
+
+Available to launch with multiple Linux distributions or Windows, Virtual Servers are backed by All-NVMe Cloud Storage, providing tremendous flexibility to quickly right size your instance configurations as needed. Need an additional OS option? Leverage our Bring Your Own ISO
+
+
+
 CoreWeave supports both Linux and Windows Virtual Servers. Both GPU-enabled and CPU-only Virtual Servers are available for deployment, and can be configured from the variety of GPUs and CPUs in the CoreWeave fleet. CoreWeave storage can be mounted in automatically, providing high performance access to shared storage volumes accessible by other Kubernetes workloads including other Virtual Servers.
 
 ### Deployment Methods
@@ -15,4 +21,3 @@ Once a Virtual Server is deployed, tools such as [`kubectl`](https://kubernetes.
 {% hint style="info" %}
 The examples and demo files that will be used in the following sections are available in the CoreWeave [kubernetes-cloud](https://github.com/coreweave/kubernetes-cloud/tree/master/virtual-server/examples) repository.
 {% endhint %}
-
