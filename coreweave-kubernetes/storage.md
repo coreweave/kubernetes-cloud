@@ -4,17 +4,17 @@ High-performance network attached storage for both containerized workloads and V
 
 CoreWeave Cloud Storage Volumes are built on top of Ceph, a software defined scale-out enterprise grade storage platform. Built with triple replication, the CoreWeave Cloud Storage platform is built to provide high-availability, performant storage for your most demanding cloud native workloads.
 
-### Block Storage Volumes
+### Block Storage Volumes&#x20;
 
 Block Storage Volumes are attached to containerized workloads and Virtual Server instances as high-performance virtual disks. When served from our all-NVMe storage tier, these virtual disks readily outperform local workstation SSDs and are scalable to the Petabyte scale. These volumes are presented as generic block devices, so they are treated by the operating system like a typical physically connected storage device.
 
-### Shared File System Volumes
+### Shared File System Volumes&#x20;
 
 POSIX compliant Shared File System Volumes can be attached to both containerized and Virtual Server workloads to provide native shared file systems. Attachable to many instances at the same time, these Volumes are great for centralized asset storage, whether for sharing with co-workers in the cloud or as a data source for massively parallel computation.
 
 ### Available Storage Types
 
-#### All-NVMe
+#### :fast\_forward: All-NVMe
 
 The All-NVMe CoreWeave Cloud storage tier offers the highest performance in both throughput and IOPS. Great for hosting the root disk of a Virtual Server, or as the backing store for a transactional database, the All-NVMe tier can provide up to 10 million IOPS per Volume and peak storage throughput into the Tbps range.
 
@@ -25,7 +25,7 @@ Block Volumes: block-nvme-<region>
 Shared File System: shared-nvme-<region>
 ```
 
-#### HDD
+#### :arrow\_forward: HDD
 
 The HDD CoreWeave Cloud storage tier offers excellent throughput optimized performance at a lower cost. Great for large file storage with sequential IOPS access patterns, the HDD tier is backed by an NVMe caching layer to improve performance and scale throughput capacity.
 
@@ -104,11 +104,11 @@ For the vast majority of use cases, workloads should run in the same region as t
 As a rule of thumb, Block volumes should always be used in the same region they are allocated. Shared volumes are where the above noted exceptions might be relevant.
 {% endhint %}
 
-### Billing
+### Billing&#x20;
 
 Storage is billed per gigabyte of allocated (requested) space as an average over a billing month.
 
-### **Resizing**
+### **Resizing** :dart:****
 
 Volumes can be expanded by simply increasing the `storage` request and reapplying the manifest. Shared File System Volumes are resized online without disruption the workload. For Block Volumes you will need to stop or restart all workloads that are attaching the volume for the resize to take effect. **Please note that volumes cannot be shrunk after they are expanded.** Storage volumes can be resized in the[ CoreWeave Cloud UI](https://cloud.coreweave.com) or via kubectl.
 
@@ -116,7 +116,7 @@ One-line example to grow a storage volume: `kubectl patch pvc <myvolume> -p '{"s
 
 ## Ephemeral Storage
 
-All physical nodes are equipped with SSD or NVMe ephemeral (local) storage. Ephemeral storage available ranges between 100GB to 2TB depending upon node type. No volume claims are needed to allocate ephemeral storage, simply write anywhere in the container filesystem. If a larger amount (above 20GB) of ephemeral storage is used, it is recommended to include this in the workloads resource request.
+All physical nodes are equipped with SSD or NVMe ephemeral (local) storage. Ephemeral storage available ranges between 100GB to 2TB depending upon node type. No volume claims are needed to allocate ephemeral storage, simply write anywhere in the container file system. If a larger amount (above 20GB) of ephemeral storage is used, it is recommended to include this in the workloads resource request.
 
 ```yaml
 spec:
