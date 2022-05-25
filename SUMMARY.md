@@ -1,11 +1,11 @@
 # Table of contents
 
 * [CoreWeave Cloud](README.md)
+* [Release Notes](release-notes.md)
 
 ## CoreWeave Kubernetes
 
 * [Getting Started](coreweave-kubernetes/getting-started.md)
-* [Release Notes](coreweave-kubernetes/release-notes.md)
 * [Useful Commands](coreweave-kubernetes/useful-commands.md)
 * [Node Types](coreweave-kubernetes/node-types.md)
 * [Advanced Label Selectors](coreweave-kubernetes/label-selectors.md)
