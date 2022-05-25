@@ -204,7 +204,7 @@ By default, when the root disk of a Windows image is expanded, Windows will auto
 
 Via Windows Apps and Features, the default behavior can be modified:
 
-![](<../../.gitbook/assets/image (62).png>)
+![](<../../.gitbook/assets/image (62) (1).png>)
 
 Selecting "Modify" will prompt for an action to perform when it is detected that the root disk can be expanded. The default action of `ReSize` will expand the root disk. `NewPartition` will create a new partition with the unallocated space, and automatically assign a drive letter. Entering no value will disable any automatic action.
 

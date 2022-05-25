@@ -92,7 +92,7 @@ _**Important**_\*\* after your first login you must change the password of your 
 
 The first step is to gather your Media Shuttle registration key.
 
-![](<../../.gitbook/assets/image (79).png>)
+![](<../../.gitbook/assets/image (79) (1).png>)
 
 Press "Add" (above) and the checkbox (below). Then copy the registration key.
 
