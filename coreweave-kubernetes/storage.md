@@ -112,11 +112,13 @@ Storage is billed per gigabyte of allocated (requested) space as an average over
 
 Volumes can be expanded by simply increasing the `storage` request and reapplying the manifest. Shared File System Volumes are resized online without disruption the workload. For Block Volumes you will need to stop or restart all workloads that are attaching the volume for the resize to take effect. **Please note that volumes cannot be shrunk after they are expanded.** Storage volumes can be resized in the[ CoreWeave Cloud UI](https://cloud.coreweave.com) or via kubectl.
 
+![](<../.gitbook/assets/Screen Shot 2022-05-25 at 4.33.13 PM (1).png>)
+
 One-line example to grow a storage volume: `kubectl patch pvc <myvolume> -p '{"spec":{"resources":{"requests":{"storage": "500Gi"}}}}'`
 
 ## Ephemeral Storage
 
-All physical nodes are equipped with SSD or NVMe ephemeral (local) storage. Ephemeral storage available ranges between 100GB to 2TB depending upon node type. No volume claims are needed to allocate ephemeral storage, simply write anywhere in the container file system. If a larger amount (above 20GB) of ephemeral storage is used, it is recommended to include this in the workloads resource request.
+All physical nodes are equipped with SSD or NVMe ephemeral (local) storage. Ephemeral storage available ranges between 512GB to 2TB depending upon node type. No volume claims are needed to allocate ephemeral storage, simply write anywhere in the container file system. If a larger amount (above 20GB) of ephemeral storage is used, it is recommended to include this in the workloads resource request.
 
 ```yaml
 spec:
