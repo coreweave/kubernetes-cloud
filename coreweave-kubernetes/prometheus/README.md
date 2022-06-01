@@ -24,7 +24,7 @@ You can access the Prometheus server by sending your [Access Token](../getting-s
 Replace `<TOKEN>` with your CoreWeave Access Token generated from [https://cloud.coreweave.com/api-access](https://cloud.coreweave.com/api-access).
 {% endhint %}
 
-{% swagger baseUrl="https://prometheus.ord1.coreweave.com" path="/v1/api/query" method="post" summary="Prometheus Query using Access Token" %}
+{% swagger baseUrl="https://prometheus.ord1.coreweave.com" path="/api/v1/query" method="post" summary="Prometheus Query using Access Token" %}
 {% swagger-description %}
 Example usage for sending a request to the Prometheus API using your Access Token.
 {% endswagger-description %}
