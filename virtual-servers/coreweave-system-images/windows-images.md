@@ -161,10 +161,6 @@ Many applications on Windows require a display connected to GPU in order to rend
     EDID: true
 ```
 
-{% hint style="info" %}
-Unless set to `false`, this flag defaults to `true`.
-{% endhint %}
-
 #### Parsec Remote Desktop
 
 CoreWeave strongly recommends [Parsec](https://parsec.app/) for remote access on Windows GPU instances. Adding the following will install Parsec on initial logon:
@@ -177,8 +173,6 @@ CoreWeave strongly recommends [Parsec](https://parsec.app/) for remote access on
 
 {% hint style="info" %}
 Parsec requires the use of a Virtual Display, and thus must always be installed alongside `EDID: true`.
-
-Unless set to `false`, this flag defaults to `true`.
 {% endhint %}
 
 #### Automatic Logon
@@ -189,10 +183,6 @@ This flag configures the user account created for automatic logon.
   cloudInit: |
     Autologon: true
 ```
-
-{% hint style="info" %}
-Unless set to `false`, this flag defaults to `true`.
-{% endhint %}
 
 ## Operating System Customizations
 
