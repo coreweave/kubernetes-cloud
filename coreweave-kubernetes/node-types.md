@@ -49,7 +49,7 @@ Workloads without GPU requests are always scheduled on CPU nodes.
 
 ### Requesting Compute in Kubernetes
 
-A combination of [resource requests ](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)and[ node affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity) is used to select the type and amount of compute for your workload. CoreWeave Cloud relies only on these native Kubernetes methods for resource allocation, allowing maximum flexibilty. The label used to select CPU type is `node.coreweave.cloud/cpu`
+A combination of [resource requests ](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)and[ node affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity) is used to select the type and amount of compute for your workload. CoreWeave Cloud relies only on these native Kubernetes methods for resource allocation, allowing maximum flexibilty. The label used to select GPU type is `gpu.nvidia.com/class` and CPU type is `node.coreweave.cloud/cpu`. Please note that these labels are mutually exclusive, CPU type can't be explicitly selected for GPU nodes.
 
 {% tabs %}
 {% tab title="Single A100 80GB" %}
