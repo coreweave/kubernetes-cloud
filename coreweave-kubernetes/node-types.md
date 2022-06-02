@@ -14,18 +14,18 @@ For more information about the à la carte pricing of compute components on Core
 
 When custom configuring your instances on CoreWeave Cloud, the following table outlines the physical limitation of how many GPUs are available per instance.
 
-| Vendor | Class             | Generation | CUDA Cores | VRAM  | Max per Instance | Label               |
-| ------ | ----------------- | ---------- | ---------- | ----- | ---------------- | ------------------- |
-| NVIDIA | A100 NVLINK       | Ampere     | 6,912      | 40 GB | 8                | A100\_NVLINK        |
-| NVIDIA | A100 PCIe         | Ampere     | 6,912      | 40 GB | 8                | A100\_PCIE\_40GB    |
-| NVIDIA | A100 PCIe         | Ampere     | 6,912      | 80 GB | 8                | A100\_PCIE\_80GB    |
-| NVIDIA | A40               | Ampere     | 10,752     | 48 GB | 8                | A40                 |
-| NVIDIA | A6000             | Ampere     | 10,752     | 48 GB | 8                | RTX\_A6000          |
-| NVIDIA | RTX A5000         | Ampere     | 8,192      | 24 GB | 4                | RTX\_A5000          |
-| NVIDIA | RTX A4000         | Ampere     | 6,144      | 16 GB | 7                | RTX\_A4000          |
-| NVIDIA | Tesla V100 NVLINK | Volta      | 5,120      | 16 GB | 8                | Tesla\_V100\_NVLINK |
-| NVIDIA | RTX 5000          | Turing     | 3,072      | 16 GB | 4                | Quadro\_RTX\_5000   |
-| NVIDIA | RTX 4000          | Turing     | 2,304      | 8 GB  | 7                | Quadro\_RTX\_4000   |
+| Class             | Generation | CUDA Cores | VRAM  | Max per Instance | Label               | Vendor |
+| ----------------- | ---------- | ---------- | ----- | ---------------- | ------------------- | ------ |
+| A100 NVLINK       | Ampere     | 6,912      | 40 GB | 8                | A100\_NVLINK        | NVIDIA |
+| A100 PCIe         | Ampere     | 6,912      | 40 GB | 8                | A100\_PCIE\_40GB    | NVIDIA |
+| A100 PCIe         | Ampere     | 6,912      | 80 GB | 8                | A100\_PCIE\_80GB    | NVIDIA |
+| A40               | Ampere     | 10,752     | 48 GB | 8                | A40                 | NVIDIA |
+| A6000             | Ampere     | 10,752     | 48 GB | 8                | RTX\_A6000          | NVIDIA |
+| RTX A5000         | Ampere     | 8,192      | 24 GB | 4                | RTX\_A5000          | NVIDIA |
+| RTX A4000         | Ampere     | 6,144      | 16 GB | 7                | RTX\_A4000          | NVIDIA |
+| Tesla V100 NVLINK | Volta      | 5,120      | 16 GB | 8                | Tesla\_V100\_NVLINK | NVIDIA |
+| RTX 5000          | Turing     | 3,072      | 16 GB | 4                | Quadro\_RTX\_5000   | NVIDIA |
+| RTX 4000          | Turing     | 2,304      | 8 GB  | 7                | Quadro\_RTX\_4000   | NVIDIA |
 
 {% hint style="warning" %}
 If a workload requests more peripheral compute resources (vCPU, RAM) than offered in a standard instance size, [additional costs will incur](../resources/resource-based-pricing.md).
