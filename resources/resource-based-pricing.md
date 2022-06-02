@@ -8,7 +8,7 @@ While we also show pricing and allow scheduling based upon ["Standard Instances"
 
 The following components are configurable in GPU based instances.
 
-| Type | Description            | Resource Label      | Cost per Hour | VRAM       |
+| Type | Description            | Label               | Cost per Hour | VRAM       |
 | ---- | ---------------------- | ------------------- | ------------- | ---------- |
 | GPU  | NVIDIA A100 for NVLINK | A100\_NVLINK        | $2.06         | 40GB HBM2e |
 | GPU  | NVIDIA A100 for PCIE   | A100\_PCIE\_40GB    | $2.06         | 40GB HBM2e |
@@ -72,7 +72,7 @@ Instance Cost:
 
 Instances without a GPU attached are configurable in combinations of vCPU and system RAM. For these instances, system RAM is included in the vCPU price. Combinations can be configured in multiples of:
 
-| CPU Type            | Resource Label      | Ram per vCPU | Cost per vCPU per Hour |
+| CPU Type            | Label               | RAM per vCPU | Cost per vCPU per Hour |
 | ------------------- | ------------------- | ------------ | ---------------------- |
 | AMD Epyc Milan      | amd-epyc-milan      | 4GB          | $0.035                 |
 | AMD Epyc Rome       | amd-epyc-rome       | 4GB          | $0.030                 |
