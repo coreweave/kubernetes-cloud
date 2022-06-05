@@ -48,7 +48,7 @@ For more information on what be added via native cloudInit Userdata, view the Cl
 
 There are several CoreWeave init scripts included in our base Windows image, that can be enabled via cloudInit Userdata.&#x20;
 
-#### Add Samba Mounts
+#### Add SMB Mounts
 
 Samba shares (Or any SMB/CIFS compliant share) can be added via cloudInit, to be mounted to the first available drive letter, at initial user login.
 
