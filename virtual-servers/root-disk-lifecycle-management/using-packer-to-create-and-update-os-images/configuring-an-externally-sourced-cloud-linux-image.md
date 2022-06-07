@@ -17,7 +17,7 @@
 
 First, we’ll create a new block volume PVC – this will serve as the destination for our image once Packer completes processing.
 
-Using `k create -f new_block_pvc.yaml` we’ll have our block volume created accordingly:
+Using `kubectl create -f new_block_pvc.yaml` we’ll have our block volume created accordingly:
 
 {% tabs %}
 {% tab title="YAML" %}
@@ -115,7 +115,7 @@ In this example, we are using the shell provisioner to install package updates. 
 {% endhint %}
 
 {% hint style="info" %}
-The credentials in this configuration are created when the VM reads the image output of  **create-ci-data.sh**
+The credentials in this configuration are created when the VM reads the image output of **create-ci-data.sh**
 {% endhint %}
 {% endtab %}
 {% endtabs %}
@@ -162,7 +162,7 @@ Note the username and password referenced in our JSON is created here
 
 ## Execute Packer docker image
 
-Once our JSON is configured, we’ll launch the packer process with `launch-docker.sh ubuntu.json`.&#x20;
+Once our JSON is configured, we’ll launch the packer process with `launch-docker.sh ubuntu.json`.
 
 {% tabs %}
 {% tab title="Bash" %}

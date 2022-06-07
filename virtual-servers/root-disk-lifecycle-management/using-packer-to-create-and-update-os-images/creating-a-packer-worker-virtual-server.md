@@ -11,7 +11,7 @@
 
 ## Deploying Virtual Server
 
-Using **packer\_vs.yaml**, we will deploy our Virtual Server with`kubectl create -f packer_vs.yaml`**:**
+Using **packer\_vs.yaml**, we will deploy our Virtual Server with`k create -f packer_vs.yaml`**:**
 
 {% tabs %}
 {% tab title="YAML" %}
@@ -62,13 +62,13 @@ Note our region matches the region used when creating the [cloned volume](../exp
 {% endtab %}
 {% endtabs %}
 
-`kubectl get vs` will show us our Virtual Server has been deployed, along with an IP we can use to SSH into:
+`k get vs` will show us our Virtual Server has been deployed, along with an IP we can use to SSH into:
 
 ![](../../../.gitbook/assets/4.png)
 
 ### Configuring Packer Environment
 
-Using the external IP noted from `kubectl get vs`, connect to your Virtual Server via SSH. If you followed [Copying CoreWeave Images to a Writable PVC](../exporting-coreweave-images-to-a-writable-pvc.md), you’ll notice our root disk is mounted to **/dev/vda**, and our cloned PVC is mounted to **/dev/vdb**:
+Using the external IP noted from `k get vs`, connect to your Virtual Server via SSH. If you followed [Copying CoreWeave Images to a Writable PVC](../exporting-coreweave-images-to-a-writable-pvc.md), you’ll notice our root disk is mounted to **/dev/vda**, and our cloned PVC is mounted to **/dev/vdb**:
 
 ![](../../../.gitbook/assets/5.png)
 
