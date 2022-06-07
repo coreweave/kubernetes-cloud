@@ -1,18 +1,18 @@
 ---
-description: Fully managed Prometheus metrics available for your cloud environment.
+description: CoreWeave manages the Prometheus cluster that will host your metrics.
 ---
 
 # Metrics
 
-CoreWeave makes a wide range of Prometheus metrics available out of the box. To access CoreWeave's Prometheus metrics service you'll need a CoreWeave account and an Access Token. If you don't have an account yet, follow the steps on the [Getting Started](../getting-started.md) guide.
+To access CoreWeave's Prometheus server you'll first need a CoreWeave account and an Access Token. If you don't have an account yet, follow the steps on the [Getting Started](../getting-started.md) guide.
 
-You'll be able to access the Prometheus Dashboard once you're logged into CoreWeave Cloud.
+You'll be able to access the Prometheus Dashboard once you're logged into CoreWeave.
 
 {% hint style="success" %}
 Access the **Prometheus Dashboard** at [**https://prometheus.ord1.coreweave.com**](https://prometheus.ord1.coreweave.com)
 {% endhint %}
 
-## API Key Authentication :key2:
+## API Key Authentication
 
 You can access the Prometheus server by sending your [Access Token](../getting-started.md#obtain-access-credentials) as the Authorization Header during your request.
 
@@ -21,7 +21,7 @@ You can access the Prometheus server by sending your [Access Token](../getting-s
 * Methods: **`GET`** or **`POST`**
 
 {% hint style="warning" %}
-Replace **`<TOKEN>`** with your CoreWeave Access Token generated from [https://cloud.coreweave.com/api-access](https://cloud.coreweave.com/api-access).
+Replace `<TOKEN>` with your CoreWeave Access Token generated from [https://cloud.coreweave.com/api-access](https://cloud.coreweave.com/api-access).
 {% endhint %}
 
 {% swagger baseUrl="https://prometheus.ord1.coreweave.com" path="/api/v1/query" method="post" summary="Prometheus Query using Access Token" %}
@@ -81,11 +81,11 @@ Insert PromQL Query (
 {% endswagger-response %}
 {% endswagger %}
 
-## Custom Metric Scraping :construction\_worker:
+## Metric Scraping
 
-CoreWeave's hosted Prometheus service will scrape your custom targets using a [ServiceMonitor](https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/user-guides/getting-started.md). Annotations from the ServiceMonitor must match the Service hosting the Prometheus exporter endpoint, usually `/metrics`.
+CoreWeave's hosted Prometheus cluster will scrape your targets using a [ServiceMonitor](https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/user-guides/getting-started.md). Annotations from the ServiceMonitor must match the Service hosting the Prometheus exporter endpoint. Usually `/metrics`
 
-Below is an example of a Prometheus exporter that will be scraped by our Prometheus service.
+Below is an example of a Prometheus exporter that will be scraped by our Prometheus clusters.
 
 {% tabs %}
 {% tab title="servicemonitor.yaml" %}
