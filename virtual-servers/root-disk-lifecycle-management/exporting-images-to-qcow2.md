@@ -13,7 +13,7 @@
 
 Creating a [shared filesystem](../../coreweave-kubernetes/storage.md#shared-filesystem) gives us a destination for our worker pod to write to, as well as a volume that can be attached to a Virtual Server or Samba Pod to egress the exported QCOW2 file.
 
-We'll deploy the following YAML with `k create -f shared_data.yaml`.
+We'll deploy the following YAML with `kubectl create -f shared_data.yaml`.
 
 {% tabs %}
 {% tab title="YAML" %}
@@ -41,19 +41,19 @@ Note we've created our shared filesystem in the **ORD** region. If our source di
 
 ## Identify source disk
 
-Using `k get pvc`, we'll identify a PVC in our namespace that we wish to export:
+Using `kubectl get pvc`, we'll identify a PVC in our namespace that we wish to export:
 
 ![](<../../.gitbook/assets/image (3).png>)
 
 {% hint style="info" %}
-Note our source image exists in the **ORD** region - matching our shared data filesystem.
+Note our source image exists in the **ORD1** region - matching our shared data filesystem.
 {% endhint %}
 
 ## Deploy worker pod
 
-Next, we'll create a worker pod that has both our source disk, and shared data filesystem mounted.
+Next, we'll create a worker pod that has both our source disk, and shared data file system mounted.
 
-Using `k create -f clone-to-file.yaml`:
+Using `kubectl create -f clone-to-file.yaml`:
 
 {% tabs %}
 {% tab title="YAML" %}
@@ -108,10 +108,10 @@ Note that while our shared filesystem can be mounted to multiple pods/Virtual Se
 {% endtab %}
 {% endtabs %}
 
-Progress can be monitored with `k get pods --watch`:
+Progress can be monitored with `kubectl get pods --watch`:
 
 ![](<../../.gitbook/assets/image (2).png>)
 
-Once the job status shows Completed, the job can be deleted with `k delete job clone-to-file`.
+Once the job status shows Completed, the job can be deleted with `kubectl delete job clone-to-file`.
 
 The shared data filesystem, with its exported QCOW2 can be attached to a Virtual Server or a [apps.coreweave.com](https://apps.coreweave.com) based File Browser or SAMBA for further inspection.

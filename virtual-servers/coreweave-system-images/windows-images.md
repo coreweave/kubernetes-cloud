@@ -95,7 +95,7 @@ CoreWeave Windows images support [Parsec Teams](https://parsec.app/teams). To en
 {% hint style="info" %}
 If a Parsec machine is assigned to an EMail that isn't part of the Team, the machine will be made available to them after they've been invited and accepted the invitation.\
 \
-If none of GroupId, UserId, or EMail is provided, the machine will be added to the Parsec Team unassigned.
+If none of `GroupId`, `UserId`, or `EMail` is provided, the machine will be added to the Parsec Team unassigned.
 {% endhint %}
 
 For more information on Parsec Teams and where to obtain your enrollment key, please visit [Parsec's documentation](https://support.parsec.app/hc/en-us/articles/360054176332-Team-Computers).
@@ -134,6 +134,39 @@ This feature should be combined with `RunStrategy: RerunOnFailure` via `vm.Spec`
 
 Additionally, boolean flag `Autologon` should be set to `true`, as the idle tracker runs within the user context.
 {% endhint %}
+
+#### Configure Readiness Probe
+
+The CoreWeave Cloud UI adds a [Readiness Probe](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-readiness-probes) to Windows Virtual Servers, to better communicate when start-up procedures have completed. Windows images include a simple TCP listener on port `1337` to communicate with the Kubernetes API. The port Windows listens on can be changed via Cloud-Init:
+
+```yaml
+# Port used to evaluate Readiness
+readinessProbePort: 1234
+# If disableReadinessProbe is true, readiness probes will be disabled, enabled by default
+disableReadinessProbe: false
+cloudInit: |
+  readinessProbePort: 1234
+```
+
+{% hint style="info" %}
+Note `readinessProbePort` must also be set in the YAML section of the Virtual Server deployment, outside of the cloudInit block. \
+\
+Setting `readinessProbePort` in the cloudInit block to 0 will disable the listener in Windows.
+{% endhint %}
+
+#### Display Requests Override
+
+Certain applications in Windows, like Parsec, can disrupt idle an inactivity timers. This can mean that despite setting a lock screen or screensaver timer, they never engage when a Parsec session (or other application) is active.&#x20;
+
+This behavior can be overridden via cloudInit. For Parsec or Teradici, only the application name is required. For other applications, specify the executable name:&#x20;
+
+```yaml
+  cloudInit: |
+    DisplayRequestsOverride:
+      - Parsec
+      - Teradici
+      - chrome.exe
+```
 
 ### Boolean Userdata Features
 
@@ -250,4 +283,148 @@ To disable this functionality, simply delete the profile:
 
 ```powershell
 rm "$env:SystemRoot\System32\WindowsPowerShell\v1.0\Microsoft.PowerShell_profile.ps1" -Force -Verbose
+```
+
+### CoreWeave PowerShell Module
+
+Included in CoreWeave Windows Images is a PowerShell module that provides functions for useful tasks and automation; moreover, some of the Cloud-Init Userdata features rely on the CoreWeave PowerShell module.&#x20;
+
+#### Using the CoreWeave PowerShell Module
+
+The CoreWeave PowerShell Module is a system-wide module - as all Windows Images on CoreWeave Cloud use at minimum PowerShell version 5.1, the module will be automatically imported when any of its functions are called.&#x20;
+
+To manually import the CoreWeave Module:
+
+```powershell
+Import-Module CoreWeave -WarningAction SilentlyContinue
+```
+
+#### Get-nVidiaDeviceDriverParameters
+
+This function matches and returns properties of the currently attached NVIDIA GPU. If there is not a valid driver installed and Windows cannot identify the attached GPU, the PCI ID will attempt to be matched instead. The output from this function is formatted for use in automating NVIDIA driver downloads.
+
+```
+Get-nVidiaDeviceDriverParameters
+VERBOSE: After matching, GPU is NVIDIA Quadro RTX 4000, type is Quadro, series is Quadro RTX Series, product is Quadro
+RTX 4000, OS is Windows Server 2022, Current driver is 516.25
+
+Name                           Value
+----                           -----
+ProductType                    Quadro
+ProductSeries                  Quadro RTX Series
+Product                        Quadro RTX 4000
+OperatingSystem                Windows Server 2022
+RunningDriverVersion           516.25
+```
+
+#### Download-nVidiaDisplayDriver
+
+This function automates downloading drivers from NVIDIA. This function has many parameters, each of which include argument completers:
+
+```powershell
+Syntax
+    Download-nVidiaDisplayDriver [-ProductType] <string> [-ProductSeries] <string> [-Product] <string> [-OperatingSystem] <string> [-Language] <string> [[-DCH] <bool>] [[-RunningDriverVersion] <string>] [-Force ] [<CommonParameters>]
+```
+
+![Argument Completers](../../.gitbook/assets/2022.gif)
+
+The easiest way to use this function is to combine with [Get-nVidiaDeviceDriverParameters](windows-images.md#get-nvidiadevicedriverparameters). The returned output will be the location of the downloaded driver file:
+
+```powershell
+PS C:\> $Parameters = Get-nVidiaDeviceDriverParameters
+VERBOSE: After matching, GPU is NVIDIA Quadro RTX 4000, type is Quadro, series is Quadro RTX Series, product is Quadro RTX 4000, OS is Windows Server 2019
+PS C:\> Download-nVidiaDisplayDriver @Parameters -Language 'English (US)'
+VERBOSE: Target driver version is 516.25
+C:\Users\user\AppData\Local\Temp\1\516.25-nvidia-rtx-winserv-2016-2019-2022-64bit-international-dch-whql.exe
+```
+
+#### Install-nVidiaDisplayDriver
+
+This function installs a downloaded NVIDIA driver file. If no path is provided, it will attempt to match and download the correct driver.
+
+Setup will be ran directly and silently if it is detected that there is an attached NVIDIA GPU device. If no NVIDIA GPU device is detected, drivers will be manually added to the Windows Driver Store via `pnputil`.
+
+```powershell
+Synopsis
+ 
+    Install-nVidiaDisplayDriver [[-DriverPath] <string>] [-CleanInstall] [-ForceInstall] [<CommonParameters>]
+```
+
+{% hint style="info" %}
+`-ForceInstall` will force the installation of the same or older driver version. `-CleanInstall` will wipe existing driver configurations.
+{% endhint %}
+
+The easiest way to use this function is to run it directly, allowing auto-match of the attached NVIDIA GPU. If you're already running the latest driver, no action will be taken:
+
+```powershell
+PS C:\> Install-nVidiaDisplayDriver
+Transcript started, output file is C:\Logs\InstallnVidiaDisplayDriver.LOG
+VERBOSE: After matching, GPU is NVIDIA Quadro RTX 4000, type is Quadro, series is Quadro RTX Series, product is Quadro  RTX 4000, OS is Windows Server 2022, Current driver is 516.25                                                           VERBOSE: Target driver version is 516.25
+VERBOSE: Target driver 516.25 is less than or equal to running driver 516.25 and Force flag was not passed, we're not
+gonna download anything
+Transcript stopped, output file is C:\Logs\InstallnVidiaDisplayDriver.LOG
+0
+```
+
+{% hint style="info" %}
+In the event new drivers are installed, a reboot is required, but not **enforced**.
+{% endhint %}
+
+#### Configure-AutoLogon
+
+This function is called when [`Autologon: true`](windows-images.md#automatic-logon). The `-Action` parameter will either enable or disable automatic logon, with `$true` or `$false` respectively.
+
+```powershell
+Synopsis
+    
+    Configure-AutoLogon [[-InputObject] <pscredential>] [-Action] <bool> [<CommonParameters>]
+```
+
+The easiest way to use this function is to combine with `Get-Credential`:
+
+```powershell
+Configure-AutoLogon -Action:$true -InputObject (Get-Credential)
+```
+
+#### Enroll-ParsecTeamMachine
+
+This function is called by the [Parsec Teams Cloud-Init feature](windows-images.md#enroll-a-parsec-teams-machine). If an instance was not enrolled at the time of deployment, enrollment can be completed silently using this function.
+
+```powershell
+Synopsis
+    
+    Enroll-ParsecTeamMachine [[-APIHost] <string>] [-ComputerKey] <string> [-TeamID] <string> [[-AppRuleID] <string>] [[-GuestAccess] <bool>] [[-UserID] <int>] [[-GroupID] <int>] [[-EMail] <string>] [[-BinPath] <string>] [<CommonParameters>]
+```
+
+#### Invoke-SilentMSI
+
+This function automates silently installing a provided [Windows Installer](https://docs.microsoft.com/en-us/windows/win32/msi/windows-installer-portal) file.&#x20;
+
+```powershell
+Synopsis
+    
+    Invoke-SilentMSI [-Action] <string> [[-MSI] <string>] [[-InstallerArgs] <string[]>] [<CommonParameters>]
+```
+
+An example installing [PowerShell 7](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.2):
+
+```powershell
+PS C:\> Start-BitsTransfer -Source https://github.com/PowerShell/PowerShell/releases/download/v7.2.4/PowerShell-7.2.4-win-x64.msi -Destination $env:TEMP
+PS C:\> Invoke-SilentMSI -Action Install -MSI "$env:TEMP\PowerShell-7.2.4-win-x64.msi" -InstallerArgs @('ADD_FILE_CONTEXT_MENU_RUNPOWERSHELL=1','ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1','ENABLE_PSREMOTING=1','REGISTER_MANIFEST=1')
+Transcript started, output file is C:\Logs\PowerShell7-x647.2.4.0.LOG
+VERBOSE: Beginning installation of PowerShell 7-x64 7.2.4.0
+VERBOSE: PowerShell 7-x64 7.2.4.0  has completed with exit code 0: ERROR_SUCCESS
+Transcript stopped, output file is C:\Logs\PowerShell7-x647.2.4.0.LOG
+0
+```
+
+A given MSI can also be uninstalled using the same function:
+
+```powershell
+PS C:\> Invoke-SilentMSI -Action Remove -MSI "$env:TEMP\PowerShell-7.2.4-win-x64.msi"
+Transcript started, output file is C:\Logs\PowerShell7-x647.2.4.0.LOG
+VERBOSE: Beginning REMOVAL of PowerShell 7-x64 7.2.4.0
+VERBOSE: PowerShell 7-x64 7.2.4.0  REMOVAL has completed with exit code 0: ERROR_SUCCESS
+Transcript stopped, output file is C:\Logs\PowerShell7-x647.2.4.0.LOG
+0
 ```
