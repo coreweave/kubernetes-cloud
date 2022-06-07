@@ -11,7 +11,7 @@ Be sure to review [Getting Started](../../../coreweave-kubernetes/getting-starte
 
 We'll start out using [this Virtual Server manifest](https://github.com/coreweave/kubernetes-cloud/blob/master/virtual-server/examples/kubectl/virtual-server-windows-internal-ip-only.yaml) to create a Windows Server 2022 Virtual Server in our Chicago datacenter:
 
-`k create -f virtual-server-windows-internal-ip-only.yaml`
+`kubectl create -f virtual-server-windows-internal-ip-only.yaml`
 
 {% tabs %}
 {% tab title="YAML" %}
@@ -83,13 +83,13 @@ This example uses `ORD1` as our region - this should be adjusted depending on wh
 {% endtab %}
 {% endtabs %}
 
-We can monitor the Virtual Server spinning up with `k get pods --watch`
+We can monitor the Virtual Server spinning up with `kubectl get pods --watch`
 
-![Output of k get pods --watch](<../../../.gitbook/assets/image (7).png>)
+![Output of kubectl get pods --watch](<../../../.gitbook/assets/image (7).png>)
 
 Once our VS has reached "Running" status, we can get an External IP to connect to it with `k get vs`
 
-![Output of k get vs](<../../../.gitbook/assets/image (8).png>)
+![Output of kubectl get vs](<../../../.gitbook/assets/image (8).png>)
 
 {% hint style="info" %}
 Allow \~5 minutes after "Running" status for the Virtual Server to complete initial start procedures.
@@ -97,7 +97,7 @@ Allow \~5 minutes after "Running" status for the Virtual Server to complete init
 
 ## Install and Configure Domain Services
 
-Once our Virtual Server is up and running, we'll connect using SSH with the Internal IP provided by `k get vs`. One can also connect using RDP if a graphical interface is preferred.
+Once our Virtual Server is up and running, we'll connect using SSH with the Internal IP provided by `kubectl get vs`. One can also connect using RDP if a graphical interface is preferred.
 
 Using the below PowerShell script, we'll install and configure the Domain Services role:
 
