@@ -1,6 +1,8 @@
 # Manually creating a Virtual Server base image
 
-**Objective:** Configure a Virtual Server instance to serve as the source for subsequent Virtual Server deployment instances.\
+**Objective:** Configure a Virtual Server instance to serve as the source for subsequent Virtual Server deployment instances.
+
+\
 **Overview:** CoreWeave offers a variety of operating system base images, enhanced to run on CoreWeave Cloud, via our **vd-images** namespace. This guide details using one of these base images, customizing it with desired changes, and using it as a source disk for subsequent machines in a private tenant namespace.
 
 ## Deploy source Virtual Server
@@ -11,7 +13,7 @@ Be sure to review [Getting Started](../../coreweave-kubernetes/getting-started.m
 
 First, we will deploy a Windows Virtual Server using a [reference YAML](https://github.com/coreweave/kubernetes-cloud/blob/master/virtual-server/examples/kubectl/virtual-server-windows.yaml). This will serve as the source disk for our subsequent instances:
 
-`k create -f virtual-server-windows-source.yaml`
+`kubectl create -f virtual-server-windows-source.yaml`
 
 {% tabs %}
 {% tab title="YAML" %}
@@ -59,13 +61,13 @@ Note this instance exists in **LAS1** - subsequent instances should match this r
 {% endtab %}
 {% endtabs %}
 
-We can monitor the Virtual Server spinning up with `k get pods --watch`
+We can monitor the Virtual Server spinning up with `kubectl get pods --watch`
 
-![Output of "k get pods --watch"](<../../.gitbook/assets/image (30).png>)
+![Output of "kubectl get pods --watch"](<../../.gitbook/assets/image (30).png>)
 
-Once our VS has reached "Running" status, we can get an External IP to connect to it with `k get vs`
+Once our VS has reached "Running" status, we can get an External IP to connect to it with `kubectl get vs`
 
-![Output of "k get vs"](<../../.gitbook/assets/image (31) (1) (1).png>)
+![Output of "kubectl get vs"](<../../.gitbook/assets/image (31) (1) (1).png>)
 
 {% hint style="info" %}
 Allow \~5 minutes after "Running" status for the Virtual Server to complete initial start procedures.
@@ -81,25 +83,25 @@ Or via OpenSSH:
 
 ![Connection prompt via SSH](<../../.gitbook/assets/image (32).png>)
 
-Or even via Console (useful for instances where a Public IP is not desired) using `k virt console vs-windows10-source`:
+Or even via Console (useful for instances where a Public IP is not desired) using `virtctl console vs-windows10-source`:
 
-![Output of "k virt console vs-windows10-source"](<../../.gitbook/assets/image (36).png>)
+![Output of "virtctl console vs-windows10-source"](<../../.gitbook/assets/image (36).png>)
 
 {% hint style="info" %}
 Review [Remote Access and Control](../remote-access-and-control.md#installing-virtctl) for more information on `virtctl`
 {% endhint %}
 
-When customization of the instance is complete, stop it using `virtctl` (`k virt stop vs-windows10-source`). Note that shutting down from within the operating system will cause the instance to start back up with a new pod - the instance must be shutdown using `virtctl`.
+When customization of the instance is complete, stop it using `virtctl` (`virtctl stop vs-windows10-source`). Note that shutting down from within the operating system will cause the instance to start back up with a new pod - the instance must be shutdown using `virtctl`.
 
-Using `k get vs`, we can confirm `Started: False`:
+Using `kubectl get vs`, we can confirm `Started: False`:
 
-![Output of "k get vs"](<../../.gitbook/assets/image (35).png>)
+![Output of "kubectl get vs"](<../../.gitbook/assets/image (35).png>)
 
 ## Referencing source PVC in a new instance
 
 We can see that the PVC created along with our source Virtual Server persists with it shut off:
 
-![Output of "k get pvc"](<../../.gitbook/assets/image (34).png>)
+![Output of "kubectl get pvc"](<../../.gitbook/assets/image (34).png>)
 
 We will reference this PVC to create a new Virtual Server:
 
@@ -174,11 +176,11 @@ This will clone a PVC within the same region in which it was created.
 
 We can now safely delete our Virtual Server with `k delete vs vs-windows10-source`:
 
-![Output of "k delete vs"](<../../.gitbook/assets/image (33).png>)
+![Output of "kubectl delete vs"](<../../.gitbook/assets/image (33).png>)
 
 With `k get pvc`, we can see our original Virtual Server PVC is now deleted, and only the clone remains:
 
-![Output of "k get pvc"](<../../.gitbook/assets/image (29).png>)
+![Output of "kubectl get pvc"](<../../.gitbook/assets/image (29).png>)
 
 We'll adjust our Virtual Server spec to suit:
 

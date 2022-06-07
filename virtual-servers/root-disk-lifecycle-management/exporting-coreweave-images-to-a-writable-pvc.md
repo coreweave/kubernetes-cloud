@@ -37,7 +37,7 @@ _Ensure your location is consistent throughout these examples – here we are us
 
 ### Clone source image into namespace
 
-Now we need to clone the PVC from vd-images into our own namespace so that we can attach it to a worker VM. To do this we deploy **volume\_clone.yaml** with `kubectl create -f volume_clone.yaml`
+Now we need to clone the PVC from vd-images into our own namespace so that we can attach it to a worker VM. To do this we deploy **volume\_clone.yaml** with `k create -f volume_clone.yaml`
 
 {% tabs %}
 {% tab title="YAML" %}
@@ -76,6 +76,6 @@ Note storage size needs to be equal to or greater than the source disk capacity.
 {% endtab %}
 {% endtabs %}
 
-With `kubectl get pvc`, we can see our newly cloned image existing in our own namespace:
+With `k get pvc`, we can see our newly cloned image existing in our own namespace:
 
 ![](../../.gitbook/assets/2.png)
