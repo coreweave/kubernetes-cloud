@@ -1,6 +1,6 @@
 # Getting Started
 
-![](../../.gitbook/assets/virtualserver-6-.png)
+![](<../../.gitbook/assets/virtualserver-6- (1).png>)
 
 CoreWeave supports both Linux and Windows Virtual Servers. Both GPU-enabled and CPU-only Virtual Servers are available for deployment, and can be configured from the variety of GPUs and CPUs in the CoreWeave fleet. CoreWeave storage can be mounted in automatically, providing high performance access to shared storage volumes accessible by other Kubernetes workloads including other Virtual Servers.
 
@@ -15,4 +15,3 @@ Once a Virtual Server is deployed, tools such as [`kubectl`](https://kubernetes.
 {% hint style="info" %}
 The examples and demo files that will be used in the following sections are available in the CoreWeave [kubernetes-cloud](https://github.com/coreweave/kubernetes-cloud/tree/master/virtual-server/examples) repository.
 {% endhint %}
-

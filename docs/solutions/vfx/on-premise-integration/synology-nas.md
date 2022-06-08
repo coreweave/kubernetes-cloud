@@ -15,19 +15,19 @@ This guide will show you how to expose your storage as both **SMB (Windows File 
 
 2\. Install Docker the Docker package via the Package Center in the Synology UI.
 
-![](../../../../.gitbook/assets/screen-shot-2021-03-05-at-2.42.49-pm.png)
+![](<../../../../.gitbook/assets/screen-shot-2021-03-05-at-2.42.49-pm (1).png>)
 
 3\. Once installed, open Docker from the main menu
 
-![](../../../../.gitbook/assets/screen-shot-2021-03-05-at-2.42.58-pm.png)
+![](<../../../../.gitbook/assets/screen-shot-2021-03-05-at-2.42.58-pm (1).png>)
 
 4\. Inside the Docker window, navigate to Image, select Add and Add From URL. Add `coreweave/cloud-link`. No username and password needed.
 
-![](../../../../.gitbook/assets/screen-shot-2021-03-05-at-2.43.55-pm.png)
+![](<../../../../.gitbook/assets/screen-shot-2021-03-05-at-2.43.55-pm (1).png>)
 
-5\. Once the image is loaded, navigate to Container, and select Settings and Import. Upload the `coreweave-cloud-link.json` file provided by your CoreWeave specialist.&#x20;
+5\. Once the image is loaded, navigate to Container, and select Settings and Import. Upload the `coreweave-cloud-link.json` file provided by your CoreWeave specialist.
 
-![](../../../../.gitbook/assets/screen-shot-2021-03-05-at-4.55.35-pm.png)
+![](<../../../../.gitbook/assets/screen-shot-2021-03-05-at-4.55.35-pm (1).png>)
 
 6\. Once loaded, select the newly created container and hit Edit. Do not change any settings except those under Environment. The file provided to you likely already has all the settings needed, please validate that they are correct.
 
@@ -38,19 +38,19 @@ This guide will show you how to expose your storage as both **SMB (Windows File 
 | DEADLINE\_WEBSERVICE | If running the Deadline Repository locally, IP address of the server running the Deadline Webservice |
 | DEADLINE\_RCS        | If running the Deadline Repository locally, IP address of the server running the Deadline RCS        |
 
-![](../../../../.gitbook/assets/screen-shot-2021-03-05-at-5.06.50-pm.png)
+![](<../../../../.gitbook/assets/screen-shot-2021-03-05-at-5.06.50-pm (1).png>)
 
 7\. Start the container. Successful connection to the CoreWeave CloudLink Server is identified by a state of Running and an uptime that is increasing. If the container is restarting, it means that the CoreWeave CloudLink server cannot be reached. Validate the `FRP_SERVER` environment variable and that outbound connections on port `7000` to that IP address is allowed in your firewall.
 
-8\. In the Control Panel, navigate to File Services. If you are primarily using **SMB (Windows File Sharing)** to access your data, SMB is likely already enabled. CoreWeave CloudLink will then use SMB to connect to your storage.&#x20;
+8\. In the Control Panel, navigate to File Services. If you are primarily using **SMB (Windows File Sharing)** to access your data, SMB is likely already enabled. CoreWeave CloudLink will then use SMB to connect to your storage.
 
 9\. If you are primarily using **Linux**, you will want to use **NFS** for CoreWeave CloudLink. SMB users can skip this step and any other NFS related step. Make sure NFSv4.1 is enabled as well as packet sizes are set to `32KB` under Advanced Settings.
 
-![](../../../../.gitbook/assets/screen-shot-2021-03-05-at-5.27.02-pm.png)
+![](<../../../../.gitbook/assets/screen-shot-2021-03-05-at-5.27.02-pm (1).png>)
 
 10\. If using **SMB (Windows File Sharing):** Create a specific User account for CoreWeave. Provide the username and password to your CoreWeave specialist. Give this user permissions on all Shared Folders that should be accessible from CoreWeave Cloud. Note down the share names and provide them to your CoreWeave specialist.
 
-![](../../../../.gitbook/assets/screen-shot-2021-03-05-at-5.30.57-pm.png)
+![](<../../../../.gitbook/assets/screen-shot-2021-03-05-at-5.30.57-pm (1).png>)
 
 11\. If using **NFS**, add NFS permissions on all Shared Folders that should be accessible from CoreWeave Cloud. The permissions should be setup as the table below. Provide the Mount path of the shares to your specialist.
 
@@ -64,6 +64,6 @@ This guide will show you how to expose your storage as both **SMB (Windows File 
 | Allow connections from non-privileged ports | Yes                                                                         |
 | Allow users to access mounted subfolders    | Yes                                                                         |
 
-![](../../../../.gitbook/assets/screen-shot-2021-03-05-at-5.33.30-pm.png)
+![](<../../../../.gitbook/assets/screen-shot-2021-03-05-at-5.33.30-pm (1).png>)
 
 12\. Done! With the information gathered, your CoreWeave specialist will now test file access and finish the setup.

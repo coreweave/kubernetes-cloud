@@ -42,6 +42,7 @@
     * [Configuring an externally sourced cloud Linux image](virtual-servers/root-disk-lifecycle-management/using-packer-to-create-and-update-os-images/configuring-an-externally-sourced-cloud-linux-image.md)
   * [Exporting images to QCOW2](virtual-servers/root-disk-lifecycle-management/exporting-images-to-qcow2.md)
 * [Examples](virtual-servers/examples/README.md)
+  * [Clone a block volume between regions](virtual-servers/examples/clone-a-block-volume-between-regions.md)
   * [Provision an Active Directory Domain Controller](virtual-servers/examples/provision-an-active-directory-domain-controller.md)
 
 ## Inference <a href="#compass" id="compass"></a>

@@ -5,9 +5,9 @@
 
 #### References:
 
-{% file src="../../../.gitbook/assets/clone_to_file.yaml" %}
+{% file src="../../../.gitbook/assets/clone_to_file (1).yaml" %}
 
-{% file src="../../../.gitbook/assets/shared_data.yaml" %}
+{% file src="../../../.gitbook/assets/shared_data (1).yaml" %}
 
 ## Create a shared filesystem
 
@@ -43,7 +43,7 @@ Note we've created our shared filesystem in the **ORD** region. If our source di
 
 Using `k get pvc`, we'll identify a PVC in our namespace that we wish to export:
 
-![](<../../../.gitbook/assets/image (3).png>)
+![](<../../.gitbook/assets/image (3).png>)
 
 {% hint style="info" %}
 Note our source image exists in the **ORD** region - matching our shared data filesystem.
@@ -51,9 +51,9 @@ Note our source image exists in the **ORD** region - matching our shared data fi
 
 ## Deploy worker pod
 
-Next, we'll create a worker pod that has both our source disk, and shared data filesystem mounted.&#x20;
+Next, we'll create a worker pod that has both our source disk, and shared data filesystem mounted.
 
-Using `k create -f clone-to-file.yaml`:&#x20;
+Using `k create -f clone-to-file.yaml`:
 
 {% tabs %}
 {% tab title="YAML" %}
@@ -110,7 +110,7 @@ Note that while our shared filesystem can be mounted to multiple pods/Virtual Se
 
 Progress can be monitored with `k get pods --watch`:
 
-![](<../../../.gitbook/assets/image (2).png>)
+![](<../../.gitbook/assets/image (2).png>)
 
 Once the job status shows Completed, the job can be deleted with `k delete job clone-to-file`.
 

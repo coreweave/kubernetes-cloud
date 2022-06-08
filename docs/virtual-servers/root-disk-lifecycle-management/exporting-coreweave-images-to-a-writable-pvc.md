@@ -5,7 +5,7 @@
 
 #### References:
 
-{% file src="../../../.gitbook/assets/volume_clone.yaml" %}
+{% file src="../../../.gitbook/assets/volume_clone (1).yaml" %}
 
 {% hint style="success" %}
 Be sure to review [Getting Started](../../coreweave-kubernetes/getting-started.md#obtain-access-credentials) and the [kubectl Virtual Server deployment method](../deployment-methods/kubectl.md#deploying-a-virtual-server) before starting this guide.
@@ -17,11 +17,11 @@ We start by identifying an image we wish to export and modify. To browse images 
 
 {% tabs %}
 {% tab title="Bash" %}
-`k get pvc -n vd-images -l images.coreweave.cloud/latest=true,images.coreweave.cloud/private=false,images.coreweave.cloud/family=`**`windows`**` ``--sort-by=.spec.storageClassName`
+`k get pvc -n vd-images -l images.coreweave.cloud/latest=true,images.coreweave.cloud/private=false,images.coreweave.cloud/family=`**`windows`**` `` ``--sort-by=.spec.storageClassName `
 {% endtab %}
 
 {% tab title="PowerShell" %}
-`(kubectl get pvc -n vd-images -l images.coreweave.cloud/latest=true,images.coreweave.cloud/private=false,images.coreweave.cloud/family=`**`windows`**` ``--sort-by=.spec.storageClassName) -replace '\s{2,}',',' |convertfrom-csv |ft`
+`(kubectl get pvc -n vd-images -l images.coreweave.cloud/latest=true,images.coreweave.cloud/private=false,images.coreweave.cloud/family=`**`windows`**` `` ``--sort-by=.spec.storageClassName) -replace '\s{2,}',',' |convertfrom-csv |ft `
 {% endtab %}
 {% endtabs %}
 
@@ -35,7 +35,7 @@ In this example – we’ll be targeting the latest Windows Server 2019 Standard
 _Ensure your location is consistent throughout these examples – here we are using **ORD1** - valid locations also include **EWR1** and **LAS1**_
 {% endhint %}
 
-![](../../../.gitbook/assets/0.png)
+![](<../../../.gitbook/assets/0 (1).png>)
 
 ### Clone source image into namespace
 
@@ -80,4 +80,4 @@ Note storage size needs to be equal to or greater than the source disk capacity.
 
 With `k get pvc`, we can see our newly cloned image existing in our own namespace:
 
-![](../../../.gitbook/assets/2.png)
+![](<../../../.gitbook/assets/2 (1).png>)

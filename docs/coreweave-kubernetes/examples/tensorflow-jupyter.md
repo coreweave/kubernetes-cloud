@@ -2,7 +2,7 @@
 
 To follow along, please clone the [GitHub repository](https://github.com/coreweave/kubernetes-cloud/tree/master/tensorflow-jupyter) with the example manifests.
 
-![Screenshot](<../../../.gitbook/assets/screenshot (1).png>)
+![Screenshot](<../../../.gitbook/assets/screenshot (1) (1).png>)
 
 ### Introduction
 
@@ -23,8 +23,6 @@ A [Persistent Volume](https://kubernetes.io/docs/concepts/storage/persistent-vol
 {% content-ref url="../storage.md" %}
 [storage.md](../storage.md)
 {% endcontent-ref %}
-
-
 
 ### Getting Started
 
