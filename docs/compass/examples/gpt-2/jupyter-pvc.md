@@ -2,7 +2,7 @@
 
 ## Exporting GPT-2 Model with Jupyter
 
-![Screenshot](<../../../../.gitbook/assets/screenshot (2).png>)
+![Screenshot](../../../../.gitbook/assets/screenshot.png)
 
 ### Introduction
 
