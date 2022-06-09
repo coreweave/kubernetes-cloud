@@ -8,6 +8,8 @@ CoreWeave provides base images for different operating systems, including images
 
 - [virtual-server-windows-internal-ip-only.yaml](virtual-server-windows-internal-ip-only.yaml) creates a Windows Virtual Server with no public IP (STATIC internal IP only) - useful for servers that will only be accessed in your namespace, such as Domain Controllers.
 
+- [virtual-server-highly-burstable-ip.yaml](virtual-server-highly-burstable-ip.yaml) creates a Linux Virtual Server with public IP from a dedicated IP space for highly burstable applications, designed for ephemeral instances that need to burst to thousands of replicas with public IPs.
+
 - [virtual-server-windows-cpu-only.yaml](virtual-server-windows-cpu-only.yaml) creates a Windows Virtual Server with no GPU - CPU compute only.
 
 - [virtual-server-shared-pvc.yaml](virtual-server-shared-pvc.yaml) attaches shared `PVC` to the Virtual Server. The `PVC` formated already and mounted as `/mnt/shared-pvc`.

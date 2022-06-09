@@ -1,0 +1,46 @@
+### 
+## Highly Burstable IP Space
+# For certain use-cases, a large number of short lived Virtual Machines with Public, Internet routable IP addresses are required.
+# CoreWeave has dedicated IP address space for highly burstable use, where a customer wishes to scale fromzero to several thousand
+# Public VMs over a shorter period of time. The burstable IP space is intended for instances with a lifetime shorter than 30 days.
+#
+# A special annotation including the name of the region the VS is deployed in needs to be added to the VS definition.
+# Counter-intuitively, the public and direct attach flags need to be set to disabled to use this feature. Don't worry,
+# the VMs will receive public directly attached IPs even though these are set to false.
+#
+# You will likely want to combine this with the Ephemeral Root Disk feature.
+#
+###
+apiVersion: virtualservers.coreweave.com/v1alpha1
+kind: VirtualServer
+metadata:
+  name: event-lga1
+  annotations:
+    "cni.projectcalico.org/ipv4pools": "[\"public-burstable-lga1-1\"]"
+spec:
+  region: LGA1
+  os:
+    type: linux
+  resources:
+    cpu:
+      type: amd-epyc-rome
+      count: 4
+    memory: 16Gi
+  storage:
+    root:
+      size: 40Gi # Root disk will automatically be expanded
+      storageClassName: block-nvme-lga1 # Needs to match the class of the imported volume
+      source:
+        pvc:
+          namespace: vd-images
+          name: ubuntu2204-docker-master-20220522-lga1
+  # User is on the sudoers list
+  users:
+  - username: user
+    sshpublickey: |
+      ssh-rsa MY-KEY
+  network:
+    public: false # Needs to be set to false
+    directAttachLoadBalancerIP: false # Needs to be set to false
+
+  initializeRunning: true
