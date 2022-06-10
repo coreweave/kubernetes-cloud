@@ -27,7 +27,7 @@ There are two ways of deploying Deadline on CoreWeave.
 
 To Get started deploying your deadline repository and workers on CoreWeave login to your cloud dashboard and navigate to the apps interface from the menu on the left. From there, ensure you are within the "catalogue" tab and find Deadline from the list of available applications. Select Deadline and then hit deploy in the upper right. You should now see something like this (NOTE: your App version and Package Version may be different):
 
-![](<../../../.gitbook/assets/image (95) (1) (1).png>)
+![](<../../.gitbook/assets/image (40) (2).png>)
 
 Inside this box you can see the default values for deploying the Deadline chart. If you're interested in seeing what configuration options are available to you give this a look over. However, for our purposes we can **select everything in this box and delete it**! We will then put in values which only adjust the properties we want change from default.
 
@@ -356,6 +356,6 @@ We place that address in the "Remote Server" box in the Repository selection, by
 
 Once connected Navigate to View > Panels > Limits and you will see pre-populated limits created on install. Open one up and you should see something like:
 
-![](<../../../.gitbook/assets/image (78) (1) (1).png>)
+![](<../../.gitbook/assets/image (21) (2).png>)
 
 Note: due to limitations in the Deadline API we can only programaticly create "license limits" while they function identically to resource

@@ -18,15 +18,15 @@ Storage is a broad topic and many solutions may require customization and carefu
 
 Begin by logging into your cloud account and navigating to apps. Clicking on the Catalog tab you should see a range of applications that you can deploy. Find the application "filesystem-volume."
 
-![](<../../../.gitbook/assets/image (84).png>)
+![](<../../.gitbook/assets/image (27) (2).png>)
 
 Selecting this, click deploy in the upper right and then select in the creation dialogue the name, region, storage type, and storage size for your PVC object. The available storage types are our NVMe and HDD tiers. (NOTE: this application will create a shared filesystem, if you require block storage volumes please see our documentation [here](vfx-studio-components-guide.md#storage) on provisioning storage using YAML manifests and kubectl).
 
-![](<../../../.gitbook/assets/image (85) (2).png>)
+![](<../../.gitbook/assets/image (29) (2).png>)
 
 We are going to walk through setting up a filesystem-volume for render-outputs -- a common use case that should come in handy! When rendering on CoreWeave cloud, ensuring that applications don't attempt to write over the internet to on prem storage is essential. Typically large amounts of data that is accessed infrequently such as render outputs belongs on our HDD tier. We will be provisioning everything in our Chicago datacenter (ORD) but feel free to provision resources in the datacenter closest to you.
 
-![Storage Options](<../../../.gitbook/assets/image (66) (1).png>) ![Deployment](<../../../.gitbook/assets/image (60) (1).png>) ![Success](<../../.gitbook/assets/image (19) (1).png>)
+![Storage Options](<../../.gitbook/assets/image (8) (2).png>) ![Deployment](<../../.gitbook/assets/image (2) (2).png>) ![Success](<../../.gitbook/assets/image (19) (2).png>)
 
 Once you hit Deploy you should see the following message and an instance of the filesystem-volume application in the "Applications" tab.
 
@@ -40,7 +40,7 @@ CoreWeave provides many methods out of the box for exposing your PVCs to externa
 
 #### Samba
 
-![](<../../../.gitbook/assets/image (86) (1).png>) ![](<../../../.gitbook/assets/image (88) (1) (1).png>)
+![](<../../.gitbook/assets/image (30) (2).png>) ![](<../../.gitbook/assets/image (33) (2).png>)
 
 You can deploy both standard and active directory flavors of samba using the apps catalog accessible from your cloud dashboard. After selecting Samba from the catalog and hitting deploy select the same region you deployed your filesystem volume in (NOTE: while it is possible to deploy the samba server in a region different from the PVC it is not recommended due to storage latency and you will see degraded performance). Create a user for this share, if you require more advanced access permissions consider pairing our samba-ad option with your on prem active directory domain services. In the "Mounts" section you should specify the name of the pvc you created in the previous step. Sometimes it may be easier to edit the application using the raw YAML manifest accessible using the tabs under the name entry box such as:
 
@@ -52,7 +52,7 @@ mounts:
 
 If you would like the service to be accessible from places over the internet, ensure you have "enable public IP" set to **true**.
 
-![samba-ad options](../../.gitbook/assets/SharedScreenshot.jpg) ![samba options](../../.gitbook/assets/SharedScreenshot\).jpg) ![](<../../../.gitbook/assets/image (72).png>) ![Success! For those following along, your applications landing page should look similar.](<../../../.gitbook/assets/image (94) (1).png>)
+![samba-ad options](../../.gitbook/assets/SharedScreenshot.jpg) ![samba options](../../.gitbook/assets/SharedScreenshot\).jpg) ![](<../../.gitbook/assets/image (14) (2).png>) ![Success! For those following along, your applications landing page should look similar.](<../../.gitbook/assets/image (39) (2).png>)
 
 #### Connecting to Samba (WIN)
 
@@ -60,21 +60,21 @@ If you would like the service to be accessible from places over the internet, en
 
 In order to connect. Map the network drive.
 
-![](<../../.gitbook/assets/image (12) (1).png>)
+![](<../../.gitbook/assets/image (12) (2).png>)
 
-![Enter the DNS name and press Browse...](<../../../.gitbook/assets/image (90) (1).png>)
+![Enter the DNS name and press Browse...](<../../.gitbook/assets/image (35) (2).png>)
 
-![Press the drop down to find the mount name easily.](<../../.gitbook/assets/image (7) (1).png>)
+![Press the drop down to find the mount name easily.](<../../.gitbook/assets/image (7) (2).png>)
 
 Select the mount, press ok, and enter credentials.
 
-![Success!!](<../../../.gitbook/assets/image (74) (1).png>)
+![Success!!](<../../.gitbook/assets/image (18) (2).png>)
 
 #### NFS
 
 To expose the same storage over NFS you can deploy the NFS application in the catalogue. The process is very similar to deploying samba, ensure that you deploy the application in the same region as the storage you created. One major difference between this deployment and those available with Samba is that our one-click NFS solution does not include any authentication, for that consider integrating with active directory directly or use network policies to ensure access to the NFS service is only accessible to the correct endpoints.
 
-![](../../.gitbook/assets/nfs\_mount.jpg) ![Post Deployment. Note: Not ready state](<../../../.gitbook/assets/Screenshot 2021-10-18 170019 (1).jpg>) ![Deployment is ready](<../../.gitbook/assets/Screenshot 2021-10-18 170312.jpg>)
+![](../../.gitbook/assets/nfs\_mount.jpg) ![Post Deployment. Note: Not ready state](<../../.gitbook/assets/Screenshot 2021-10-18 170019 (1) (1).jpg>) ![Deployment is ready](<../../.gitbook/assets/Screenshot 2021-10-18 170312.jpg>)
 
 ![Updated Landing Page!](<../../.gitbook/assets/Screenshot 2021-10-18 170110.jpg>)
 
@@ -88,25 +88,25 @@ _**Important**_\*\* after your first login you must change the password of your 
 
 #### Media Shuttle (TEMP not available)
 
-![](<../../../.gitbook/assets/image (80).png>)
+![](<../../.gitbook/assets/image (23) (2).png>)
 
 [Media Shuttle](https://www.signiant.com/products/media-shuttle/) makes it easy to share and receive media from outside parties. CoreWeave offers the Media Shuttle server to use with your own subscription or licensed via CoreWeave. Please reach out to your CoreWeave representative if you'd like to license Media Shuttle via CoreWeave.
 
 The first step is to gather your Media Shuttle registration key.
 
-![](<../../../.gitbook/assets/image (91) (1) (1) (1).png>)
+![](<../../.gitbook/assets/image (22) (2).png>)
 
 Press "Add" (above) and the checkbox (below). Then copy the registration key.
 
-![After pressing the checkbox the registration key will be available to copy](<../../../.gitbook/assets/image (82).png>)
+![After pressing the checkbox the registration key will be available to copy](<../../.gitbook/assets/image (25) (2).png>)
 
-![After pressing Media Shuttle](<../../../.gitbook/assets/image (87) (1) (1).png>)
+![After pressing Media Shuttle](<../../.gitbook/assets/image (32) (2).png>)
 
 Update the name, registry key, and add a [Persistent Volume Claim](https://docs.coreweave.com/coreweave-kubernetes/storage) to mount.
 
 ![Attaching our render-output PVC created in the reference namespace, and providing a custom name for the mount point.](<../../.gitbook/assets/image (38) (1).png>)
 
-![Landing page updated!](<../../../.gitbook/assets/image (92) (1) (1) (1).png>)
+![Landing page updated!](<../../.gitbook/assets/image (37) (2).png>)
 
 ## Virtual Workstations
 
@@ -118,7 +118,7 @@ For a general guide to getting started with virtual servers check out:
 [coreweave-apps.md](../../virtual-servers/deployment-methods/coreweave-apps.md)
 {% endcontent-ref %}
 
-![YAML tab to attach storage](<../../.gitbook/assets/image (1) (2).png>)
+![YAML tab to attach storage](<../../.gitbook/assets/image (1) (3).png>)
 
 For our virtual server we are going to mount in our shared storage as a filesystem using the following YAML modification:
 
