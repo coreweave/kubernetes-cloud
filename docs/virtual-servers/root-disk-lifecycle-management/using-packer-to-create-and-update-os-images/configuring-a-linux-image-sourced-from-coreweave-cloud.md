@@ -5,13 +5,13 @@
 
 #### References:
 
-{% file src="../../../../.gitbook/assets/centos.json" %}
+{% file src="../../../.gitbook/assets/centos.json" %}
 
 ## Selecting a source image
 
-Following the example in [Copying CoreWeave Images to a Writeable PVC](../exporting-coreweave-images-to-a-writable-pvc.md), we will search for the latest CentOS image in the vd-images namespace:&#x20;
+Following the example in [Copying CoreWeave Images to a Writeable PVC](../exporting-coreweave-images-to-a-writable-pvc.md), we will search for the latest CentOS image in the vd-images namespace:
 
-![](<../../../../.gitbook/assets/image (5).png>)
+![](<../../../.gitbook/assets/image (5).png>)
 
 We will then clone this image into our namespace:
 
@@ -119,7 +119,7 @@ Our Packer manifest will be a combination of our previous [Windows](configuring-
 {% endhint %}
 
 {% hint style="info" %}
-The credentials in this configuration are created when the VM reads the image output of  [**create-ci-data.sh**](configuring-an-externally-sourced-cloud-linux-image.md#generate-credentials-for-the-packer-vm)****
+The credentials in this configuration are created when the VM reads the image output of [**create-ci-data.sh**](configuring-an-externally-sourced-cloud-linux-image.md#generate-credentials-for-the-packer-vm)\*\*\*\*
 {% endhint %}
 
 {% hint style="info" %}

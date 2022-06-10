@@ -9,13 +9,13 @@ This guide assumes you have created a [Packer Worker VS](creating-a-packer-worke
 
 #### References:
 
-{% file src="../../../../.gitbook/assets/win.json" %}
+{% file src="../../../.gitbook/assets/win.json" %}
 
-{% file src="../../../../.gitbook/assets/create-ci-data.sh" %}
+{% file src="../../../.gitbook/assets/create-ci-data.sh" %}
 
-{% file src="../../../../.gitbook/assets/launch_docker.sh" %}
+{% file src="../../../.gitbook/assets/launch_docker.sh" %}
 
-{% file src="../../../../.gitbook/assets/new_block_pvc.yaml" %}
+{% file src="../../../.gitbook/assets/new_block_pvc.yaml" %}
 
 ## Configuring the Packer manifest
 
@@ -66,7 +66,6 @@ Using **win.json**, we’ll need to make a few edits before configuring our imag
         }
     ]
 }
-
 ```
 {% endcode %}
 
@@ -75,7 +74,7 @@ Using **win.json**, we’ll need to make a few edits before configuring our imag
 {% endhint %}
 
 {% hint style="info" %}
-The credentials in this configuration are created when the VM reads the image output of  **create-ci-data.sh**
+The credentials in this configuration are created when the VM reads the image output of **create-ci-data.sh**
 {% endhint %}
 
 {% hint style="info" %}
@@ -146,7 +145,7 @@ exec docker run --rm --dns 1.1.1.1 --device /dev/kvm --privileged --net=host \
 
 Once Packer has kicked started the virtual machine – it is viewable locally with any VNC client:
 
-![](../../../../.gitbook/assets/10.png)
+![](../../../.gitbook/assets/10.png)
 
 Since QEMU is referencing the PVC directly, all changes made to the cloned images are written directly to the mounted PVC.
 

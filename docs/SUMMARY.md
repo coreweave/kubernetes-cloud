@@ -1,6 +1,7 @@
 # Table of contents
 
 * [CoreWeave Cloud](README.md)
+* [Data Center Regions](data-center-regions.md)
 
 ## CoreWeave Kubernetes
 

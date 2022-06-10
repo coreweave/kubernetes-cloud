@@ -2,7 +2,7 @@
 
 ## Exporting GPT-2 Model with Jupyter
 
-![Screenshot](../../../../.gitbook/assets/screenshot.png)
+![Screenshot](../../../.gitbook/assets/screenshot.png)
 
 ### Introduction
 
@@ -77,7 +77,7 @@ After installing `kubectl` and adding your CoreWeave Cloud access credentials, t
 
     \`\`\`shell $ kubectl logs tensorflow-jupyter-6794bcb465-4czqb
 
-    **\_** /**\_\_** **\_\_/** /_**\_\_**_ **** / __ \_ **\_ \_**/ **\_ \_**/ _/_ **/\_** \_ | /| / / _/ / **/ / / /(** )/ /_/ / / _\_\_/_ / / /_/ /_ |/ |/ / /_/ \_\__//_/ /_//**/ \\**//_/ /_/ /_/ \_**/\_**/|\__/
+    **\_** /**\_\_** **\_\_/** /_**\_\_**_ \*\*\*\* / \_\_ \_ **\_ \_**/ **\_ \_**/ _/_ **/\_** \_ | /| / / _/ / **/ / / /(** )/ /_/ / / _\_\_/_ / / /_/ /_ |/ |/ / /_/ \_\__//_/ /_//**/ \\**//_/ /_/ /_/ \_**/\_**/|\__/
 
 ````
 WARNING: You are running this container as root, which can cause new files in
