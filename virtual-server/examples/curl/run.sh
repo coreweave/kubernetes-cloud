@@ -3,10 +3,10 @@
 # Enable to trace the script
 # set -x
 
-APISERVER=k8s.ord1.coreweave.com
+APISERVER=k8s.ord1.staging.coreweave.com
 
 if [ -z ${NAMESPACE} ] || [ -z ${TOKEN} ]; then
-  echo "NAMESPACE and TOKEN variable must be set: TOKEN=<token> NAMESPACE=<namespace> ./run.sh"
+  echo "NAMESPACE and TOKEN variable must be set: TOKEN=<token> NAMESPACE=<namespace> ./$(basename $BASH_SOURCE)"
   exit 1
 fi  
 
@@ -159,7 +159,6 @@ function get_vm() {
 # List of all Virtual Machine Instances in namespace
 # The list is formatted by helper function `print_list`, similar to kubectl command
 function list_vmi() {
-  local NAME=$1
   local OUTPUT=$(curl -X GET "https://${APISERVER}/apis/kubevirt.io/v1/namespaces/${NAMESPACE}/virtualmachineinstances" \
     --header "Authorization: Bearer $TOKEN" \
     --header "Accept: application/json;as=Table;g=meta.k8s.io;v=v1" \
