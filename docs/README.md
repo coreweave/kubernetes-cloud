@@ -15,7 +15,7 @@ CoreWeave Cloud is not your regular, one-size fits all, cloud provider. Built fr
 
 Our cloud is built around the GPU. A traditionally costly and scarce resource, GPU compute options from mono-lithic cloud providers are extremely limited. CoreWeave provides the industry's [widest range of GPU options](https://www.coreweave.com/pricing), allowing you to pick the perfect GPU for your use case. Thousands of GPUs are ready and waiting...
 
-### **Scaling - The industries most responsive scaling** :chart\_with\_upwards\_trend:****
+### **Scaling - The industry's most responsive scaling** :chart\_with\_upwards\_trend:****
 
 Unlike other cloud providers, your workloads execute on bare metal. When a container is deployed to CoreWeave Cloud, there are no minutes of wait time for Virtual Machines to spin up. Your workloads start executing in as little as 20 seconds. When they are done, billing stops immediately.
 
