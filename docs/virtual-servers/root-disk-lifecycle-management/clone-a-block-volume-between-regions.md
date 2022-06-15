@@ -56,8 +56,10 @@ To automate the process of cloning a Virtual Server root disk block volume, we p
 
 First, we identify the Virtual Server root disk volume we'd like to clone:
 
+{% embed url="https://github.com/coreweave/kubernetes-cloud/blob/master/virtual-server/clone_block_volume.sh" %}
+
 ```bash
-kubectl get pvc vs-example
+$ kubectl get pvc vs-example
 NAME         STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS      AGE
 vs-example   Bound    pvc-78d4950a-e1ba-476f-815e-b9c32e9c8b27   40Gi       RWO            block-nvme-ewr1   3m11s
 ```
@@ -65,7 +67,7 @@ vs-example   Bound    pvc-78d4950a-e1ba-476f-815e-b9c32e9c8b27   40Gi       RWO 
 Ensure it's not running:
 
 ```bash
-kubectl get vs vs-example
+$ kubectl get vs vs-example
 NAME         STATUS                 REASON                 STARTED   INTERNAL IP   EXTERNAL IP
 vs-example   VirtualServerStopped   VirtualServerStopped   False 
 ```
@@ -73,19 +75,18 @@ vs-example   VirtualServerStopped   VirtualServerStopped   False
 Download and source the script:
 
 ```
-curl https://raw.githubusercontent.com/coreweave/kubernetes-cloud/master/virtual-server/clone_block_volume.sh -o ~/clone_block_volume.sh
+$ curl https://raw.githubusercontent.com/coreweave/kubernetes-cloud/master/virtual-server/clone_block_volume.sh -o ~/clone_block_volume.sh
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
 100  4109  100  4109    0     0  27211      0 --:--:-- --:--:-- --:--:-- 27211
 
-source ~/clone_block_volume.sh
-
+$ source ~/clone_block_volume.sh
 ```
 
 Initiate a clone:
 
 ```
-clone_block_volume  --source vs-example --destination vs-example --region lga1
+$ clone_block_volume  --source vs-example --destination vs-example --region lga1
 persistentvolumeclaim/vs-example-lga1 created
 job.batch/clone-vs-example-lga1 created
 No resources found in namespace.

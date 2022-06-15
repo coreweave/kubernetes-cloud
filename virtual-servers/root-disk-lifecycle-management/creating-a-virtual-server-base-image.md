@@ -13,7 +13,7 @@ Be sure to review [Getting Started](../../coreweave-kubernetes/getting-started.m
 
 First, we will deploy a Windows Virtual Server using a [reference YAML](https://github.com/coreweave/kubernetes-cloud/blob/master/virtual-server/examples/kubectl/virtual-server-windows.yaml). This will serve as the source disk for our subsequent instances:
 
-`kubectl create -f virtual-server-windows-source.yaml`
+`$ kubectl create -f virtual-server-windows-source.yaml`
 
 {% tabs %}
 {% tab title="YAML" %}
@@ -163,7 +163,7 @@ Using `pvc-clone.sh`, located in CoreWeave's Kubernetes Cloud [GitHub repository
 {% tab title="Bash" %}
 ```bash
 Usage: ./pvc-clone.sh <source vmi> <destination pvc name>
-./pvc-clone.sh vs-windows10-source windows10-base-disk
+$ ./pvc-clone.sh vs-windows10-source windows10-base-disk
 ```
 {% endtab %}
 {% endtabs %}
