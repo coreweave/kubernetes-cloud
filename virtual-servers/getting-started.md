@@ -10,7 +10,7 @@ description: >-
 
 **CoreWeave Cloud's** **Virtual Servers** are highly configurable virtual machines managed in CoreWeave Cloud by Kubernetes, enabling anyone to deploy and host applications at scale with high availability.
 
-Hosted across [three datacenter regions](https://docs.coreweave.com/data-center-regions#las1-las-vegas-nv-us-west), Virtual Servers can be deployed running [a variety of Linux distributions](https://docs.coreweave.com/virtual-servers/coreweave-system-images/linux-images) or [Windows versions](https://docs.coreweave.com/virtual-servers/coreweave-system-images/windows-images) as their operating systems, and can be configured either as CPU-only machines, or with [high-performance NVIDIA GPUs](https://www.coreweave.com/pricing) enabled - ideal for applications that require intensive compute power.
+Hosted across [three datacenter regions](https://docs.coreweave.com/data-center-regions#las1-las-vegas-nv-us-west), Virtual Servers can be deployed running [a variety of Linux distributions](https://docs.coreweave.com/virtual-servers/coreweave-system-images/linux-images) or [Windows versions](https://docs.coreweave.com/virtual-servers/coreweave-system-images/windows-images) as their operating systems, and can be configured either as CPU-only machines, or with [high-performance NVIDIA GPUs](https://www.coreweave.com/pricing) attached - ideal for applications that require intensive compute power.
 
 ### What can I do with Virtual Servers?
 
@@ -39,7 +39,7 @@ Virtual Servers can be deployed with **virtual desktop environments**, providing
 {% hint style="success" %}
 **Don't need a Virtual Server?**
 
-If you've determined you don't need a Virtual Server, but still but want to leverage the bare-metal performance benefits of running containerized workloads on CoreWeave Cloud, check out our documentation [on CoreWeave Kubernetes](broken-reference).
+If you've determined you don't need a Virtual Server, but want to leverage the bare-metal performance benefits of running containerized workloads on CoreWeave Cloud, check out our documentation [on CoreWeave Kubernetes](broken-reference).
 {% endhint %}
 
 ## Deploying Virtual Servers
