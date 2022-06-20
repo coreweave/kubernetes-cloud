@@ -32,7 +32,7 @@ Locate the Samba-AD chart:
 
 Using the information from our [Configure Domain Services](provision-an-active-directory-domain-controller.md#install-and-configure-domain-services) example, fill out the form, including instance name. The volumes we created earlier are attached to our deployment example below:
 
-![](<../../../.gitbook/assets/image (68).png>)
+![](<../../../.gitbook/assets/image (68) (1).png>)
 
 Once deployed, we're taken to a status page indicating our deployment is running:
 
@@ -128,13 +128,13 @@ Navigating to `\\ad\Shares`, we can see each of our DFS Folder Targets:
 
 Under properties, the DFS tab shows us `smbad02` is the current active file server:
 
-![](<../../../.gitbook/assets/image (62).png>)
+![](<../../../.gitbook/assets/image (62) (1).png>)
 
 Copying a file to our DFS Root Folder path, we can see it's actually been copied to the shares presented by the Samba-AD instances:
 
-![](<../../../.gitbook/assets/image (65).png>)
+![](<../../../.gitbook/assets/image (65) (1).png>)
 
-![](<../../../.gitbook/assets/image (66).png>)
+![](<../../../.gitbook/assets/image (66) (1).png>)
 
 ![](<../../../.gitbook/assets/image (56).png>)
 

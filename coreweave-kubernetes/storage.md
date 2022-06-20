@@ -54,7 +54,7 @@ Shared File System: shared-hdd-<region>
 
 The CoreWeave Cloud UI has an easy to use Storage Volume management page:
 
-![](<../docs/.gitbook/assets/image (53).png>)
+![](<../docs/.gitbook/assets/image (53) (1).png>)
 
 Storage can also be managed via the Kubernetes API natively via kubectl. Below are example resource manifests.
 

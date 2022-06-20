@@ -37,7 +37,7 @@ The following Kubernetes-based components are required to be setup:
 * [Argo Workflows](broken-reference)
   * You can deploy Argo Workflows using the [Application Catalog](https://apps.coreweave.com). Click on the `Catalog` tab, and find the `argo-workflows` application to deploy it.
 
-![Argo Workflows](<../.gitbook/assets/image (82).png>)
+![Argo Workflows](<../.gitbook/assets/image (82) (1).png>)
 
 * [PVC](../../coreweave-kubernetes/storage.md)
   * You can create a `ReadWriteMany` PVC storage volume at [Storage](https://cloud.coreweave.com/storage).
@@ -73,7 +73,7 @@ The following components are optional, but may make your interaction easier:
   * Simply select the `finetune-data` PVC that you created earlier. **Make sure that you actually add your PVC to the filebrowser list of mounts!**
   * Some people may prefer to use a Virtual Server and interact with their PVC via ssh or other mechanism. This flexibility is one of the key advantages of CoreWeave.
 
-![filebrowser application](<../.gitbook/assets/image (77).png>)
+![filebrowser application](<../.gitbook/assets/image (77) (1).png>)
 
 ## Dataset Setup
 
@@ -318,7 +318,7 @@ You can instnatly watch a submitted workflow by using `argo submit --watch` when
 
 * Access your Argo Workflow application via HTTPS to see all the finetuner jobs and check on the status.&#x20;
 
-![Argo Workflows HTTPS Request](<../.gitbook/assets/image (63).png>)
+![Argo Workflows HTTPS Request](<../.gitbook/assets/image (63) (1).png>)
 
 ## Workflow Options
 

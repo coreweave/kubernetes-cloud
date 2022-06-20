@@ -34,11 +34,11 @@ When creating a new Virtual Server on CoreWeave cloud, instance specific informa
 
 Within the Virtual Server deployment form, switch to the YAML tab:
 
-![](<../../.gitbook/assets/image (59).png>)
+![](<../../.gitbook/assets/image (59) (1).png>)
 
 Towards the bottom of the page, a commented out cloudInit section will be pre-populated. Uncomment to add custom user data:
 
-![](<../../.gitbook/assets/image (61).png>)
+![](<../../.gitbook/assets/image (61) (1).png>)
 
 {% hint style="info" %}
 For more information on what be added via native cloudInit Userdata, view the Cloudbase Solutions documentation [here](https://cloudbase-init.readthedocs.io/en/latest/userdata.html#userdata).
@@ -235,7 +235,7 @@ By default, when the root disk of a Windows image is expanded, Windows will auto
 
 Via Windows Apps and Features, the default behavior can be modified:
 
-![](<../../.gitbook/assets/image (54).png>)
+![](<../../.gitbook/assets/image (54) (1).png>)
 
 Selecting "Modify" will prompt for an action to perform when it is detected that the root disk can be expanded. The default action of `ReSize` will expand the root disk. `NewPartition` will create a new partition with the unallocated space, and automatically assign a drive letter. Entering no value will disable any automatic action.
 
@@ -243,17 +243,17 @@ Selecting "Modify" will prompt for an action to perform when it is detected that
 
 After selecting the desired re-size disk option, an additional prompt appears to set an action for newly detected RAW disks. Automatic formatting can be enabled or disabled with `true` or `false`.
 
-![Disabling auto RAW disk format](<../../.gitbook/assets/image (72).png>)
+![Disabling auto RAW disk format](<../../.gitbook/assets/image (72) (1).png>)
 
 #### CoreWeave Auto Shutdown
 
 Instance power-off based on interactive user input can be configured via [cloudInit](windows-images.md#coreweave-userdata-features) when an instance is initially deployed. Once an instance has already been deployed, this feature is also configurable via Windows Apps and Features:&#x20;
 
-![](<../../.gitbook/assets/image (71).png>)
+![](<../../.gitbook/assets/image (71) (1).png>)
 
 Modifying will prompt for an integer value in minutes to configure auto-shutoff, or set to 0 to disable:
 
-![](<../../.gitbook/assets/image (92).png>)
+![](<../../.gitbook/assets/image (92) (1).png>)
 
 #### CoreWeave Windows Update
 
@@ -277,7 +277,7 @@ There are no user configurable options for CoreWeave Windows Update. To revert t
 
 When launching a new PowerShell session, users are presented with some helpful system stats:
 
-![](<../../.gitbook/assets/image (69).png>)
+![](<../../.gitbook/assets/image (69) (1).png>)
 
 To disable this functionality, simply delete the profile:
 
