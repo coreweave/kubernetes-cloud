@@ -1,5 +1,5 @@
 ---
-description: Importing a qcow2 image from a Internet URL
+description: Importing a QCOW2 image from a Internet URL
 ---
 
 # Importing a QCOW2 image

@@ -8,9 +8,17 @@ description: >-
 
 ## Introduction
 
-**CoreWeave Cloud's** **Virtual Servers** are highly configurable virtual machines managed in CoreWeave Cloud by Kubernetes, enabling anyone to deploy and host applications at scale with high availability.
+**CoreWeave Cloud's** **Virtual Servers** are highly configurable virtual machines deployed and managed on CoreWeave Cloud via an easy-to-use UI or programmatically via the Kubernetes API, enabling anyone to deploy and host applications at scale with high availability.
 
-Hosted across [three datacenter regions](https://docs.coreweave.com/data-center-regions#las1-las-vegas-nv-us-west), Virtual Servers can be deployed running [a variety of Linux distributions](https://docs.coreweave.com/virtual-servers/coreweave-system-images/linux-images) or [Windows versions](https://docs.coreweave.com/virtual-servers/coreweave-system-images/windows-images) as their operating systems, and can be configured either as CPU-only machines, or with [high-performance NVIDIA GPUs](https://www.coreweave.com/pricing) attached - ideal for applications that require intensive compute power.
+### Virtual Server Features
+
+* :zap: Powerful **CPU and** [**high-performance NVIDIA GPU**](https://www.coreweave.com/pricing)**-accelerated** Virtual Servers with unlimited resource configurability.
+* :earth\_americas: Available in all of CoreWeave's [**Data Center Regions**](../docs/data-center-regions.md) for geographic diversity.
+* ****:gear: **Bare-metal performance via GPU PCI pass-through.** No GPU virtualization or shared resources.
+* :minidisc: Available with pre-built [**Linux distributions**](https://docs.coreweave.com/virtual-servers/coreweave-system-images/linux-images)**,** [**Windows versions**](https://docs.coreweave.com/virtual-servers/coreweave-system-images/windows-images)**, or** [**bring your own image**](../docs/virtual-servers/root-disk-lifecycle-management/importing-a-qcow2-image.md)**.** Need additional control? [Use cloud-init for customization at startup.](https://docs.coreweave.com/virtual-servers/coreweave-system-images/linux-images)
+* :floppy\_disk: Leverage **high-performance** [**CoreWeave Cloud Storage**](../coreweave-kubernetes/storage.md) for both the Virtual Server root disk and any shared file system volumes to connect to centralized asset storage.
+* :rocket: Up to **100Gbps internal and external networking speed** per instance, for blazing fast data transfers.
+* ****:bulb: **** [**Directly attach public IP addresses**](https://docs.coreweave.com/coreweave-kubernetes/networking) to a Virtual Server network interface, or leverage [Load Balancer IPs](https://docs.coreweave.com/coreweave-kubernetes/networking) to control internal and external service access.
 
 ### What can I do with Virtual Servers?
 
