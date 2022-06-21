@@ -32,6 +32,7 @@
   * [CLI](virtual-servers/deployment-methods/kubectl.md)
   * [Terraform](../virtual-servers/deployment-methods/terraform.md)
   * [Programmatically](../virtual-servers/deployment-methods/programmatically/README.md)
+    * [Bash](virtual-servers/deployment-methods/programmatically/bash.md)
     * [Python](../virtual-servers/deployment-methods/programmatically/python.md)
     * [NodeJS](../virtual-servers/deployment-methods/programmatically/nodejs.md)
     * [Golang](../virtual-servers/deployment-methods/programmatically/golang.md)
