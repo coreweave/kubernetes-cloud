@@ -26,8 +26,8 @@
 
 ## Virtual Servers
 
-* [Getting Started](../virtual-servers/getting-started.md)
-* [Deployment Methods](../virtual-servers/deployment-methods/README.md)
+* [Getting Started with Virtual Servers](../virtual-servers/getting-started.md)
+* [Virtual Server Deployment Methods](../virtual-servers/deployment-methods/README.md)
   * [CoreWeave Apps Web UI](../virtual-servers/deployment-methods/coreweave-apps.md)
   * [CLI](virtual-servers/deployment-methods/kubectl.md)
   * [Terraform](../virtual-servers/deployment-methods/terraform.md)

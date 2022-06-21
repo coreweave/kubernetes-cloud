@@ -4,7 +4,7 @@ description: >-
   CoreWeave Cloud.
 ---
 
-# Getting Started
+# Getting Started with Virtual Servers
 
 ## Introduction
 
@@ -49,53 +49,3 @@ Virtual Servers can be deployed with **virtual desktop environments**, providing
 
 If you've determined you don't need a Virtual Server, but want to leverage the bare-metal performance benefits of running containerized workloads on CoreWeave Cloud, check out our documentation [on CoreWeave Kubernetes](broken-reference).
 {% endhint %}
-
-## Deploying Virtual Servers
-
-There are multiple ways to deploy and manage Virtual Servers on CoreWeave Cloud, each with their own unique advantages. Below are descriptions of some of the deployment possibilities CoreWeave offers, as well as some information on each to help you choose which to use.
-
-### Graphical deployment methods
-
-#### [Using The CoreWeave Cloud UI](deployment-methods/coreweave-apps.md)****
-
-The **CoreWeave Cloud UI** is an easy-to-use Web interface to deploy, visualize, and manage Virtual Servers, while still providing access to deployment configuration files, server event details, and even a virtual terminal for quick access to your Virtual Servers right from the Cloud UI.
-
-{% hint style="info" %}
-**Best if:** You prefer using a graphical interface with toggles and buttons to visualize your configurations, but still want access to lower-level configuration files.
-{% endhint %}
-
-![The Virtual Server deployment page on CoreWeave Cloud UI.](<../docs/.gitbook/assets/image (66).png>)
-
-### Command line deployment options
-
-Virtual Servers can be deployed via the command line onto CoreWeave Cloud a few different ways. CoreWeave supports the following methods for command line deployment options:
-
-#### [Using Kubernetes CLI](../docs/virtual-servers/deployment-methods/kubectl.md)****
-
-![](<../docs/.gitbook/assets/image (71).png>)
-
-{% hint style="info" %}
-**Best if:** You are comfortable with Kubernetes principles and using `kubectl` on the command line.
-{% endhint %}
-
-#### [Using Terraform](deployment-methods/terraform.md)
-
-![](<../docs/.gitbook/assets/image (54).png>)
-
-{% hint style="info" %}
-**Best if:** You are comfortable with Terraform modules, and with using Terraform on the command line.
-{% endhint %}
-
-### [Programmatic API interface options](deployment-methods/programmatically/)
-
-{% hint style="info" %}
-**Best if:** You are interested in precise customizations and configurations, and are comfortable interacting programmatically with the Kubernetes API.
-{% endhint %}
-
-CoreWeave offers several methods for interfacing with the Kubernetes API programmatically to deploy Virtual Servers into CoreWeave Cloud. Additionally, any Kubernetes standards-compliant SDK may be used.
-
-CoreWeave supports API interfaces in the following languages:
-
-* [Golang](deployment-methods/programmatically/golang.md)
-* [Python](deployment-methods/programmatically/python.md)
-* [NodeJS](deployment-methods/programmatically/nodejs.md)
