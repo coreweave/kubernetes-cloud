@@ -31,7 +31,7 @@
   * [CoreWeave Apps Web UI](../virtual-servers/deployment-methods/coreweave-apps.md)
   * [CLI](virtual-servers/deployment-methods/kubectl.md)
   * [Terraform](../virtual-servers/deployment-methods/terraform.md)
-  * [Programmatically](../virtual-servers/deployment-methods/programmatically/README.md)
+  * [Programmatic deployment](../virtual-servers/deployment-methods/programmatically/README.md)
     * [Bash](virtual-servers/deployment-methods/programmatically/bash.md)
     * [Python](../virtual-servers/deployment-methods/programmatically/python.md)
     * [NodeJS](../virtual-servers/deployment-methods/programmatically/nodejs.md)

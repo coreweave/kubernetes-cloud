@@ -37,7 +37,7 @@ The following Kubernetes-based components are required to be setup:
 * [Argo Workflows](broken-reference)
   * You can deploy Argo Workflows using the [Application Catalog](https://apps.coreweave.com). Click on the `Catalog` tab, and find the `argo-workflows` application to deploy it.
 
-![Argo Workflows](<../.gitbook/assets/image (82) (1).png>)
+![Argo Workflows](<../.gitbook/assets/image (82) (1) (1).png>)
 
 * [PVC](../../coreweave-kubernetes/storage.md)
   * You can create a `ReadWriteMany` PVC storage volume at [Storage](https://cloud.coreweave.com/storage).
