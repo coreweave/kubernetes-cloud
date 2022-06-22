@@ -6,12 +6,12 @@ description: >-
 
 # Python
 
-The python example illustrates the following:&#x20;
+The python example illustrates the following:
 
-1. Removal of an existing Virtual Server.&#x20;
-2. Creation of a new Virtual Server based on the `my_virtualserver` example configuration&#x20;
-3. Waiting for a Virtual Server ready status.&#x20;
-4. Stop the Virtual Server instance and wait until it is stopped.&#x20;
+1. Removal of an existing Virtual Server.
+2. Creation of a new Virtual Server based on the `my_virtualserver` example configuration
+3. Waiting for a Virtual Server ready status.
+4. Stop the Virtual Server instance and wait until it is stopped.
 5. Delete the Virtual Server instance.
 
 {% embed url="https://github.com/coreweave/kubernetes-cloud/blob/master/virtual-server/examples/python" %}

@@ -1,5 +1,7 @@
 # Remote Access and Control
 
+Virtual Servers can be managed via the [cloud.coreweave.com](https://cloud.coreweave.com) UI. For management and access via the command line, the `virtctl` tool can be used.
+
 ## Installing virtctl
 
 `virtctl`provides an easy, imperative method to start, stop and access VM instances. `virtctl` uses your existing Kubernetes credentials set up in [Getting Started](../coreweave-kubernetes/getting-started.md).

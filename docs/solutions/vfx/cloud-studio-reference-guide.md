@@ -30,39 +30,37 @@ Before viewing this guide please consider checking out the following getting sta
 
 This guide assumes that you have some authentication in mind. Where applicable throughout we have used AD deployed using our guide here:
 
-{% content-ref url="../../virtual-servers/examples/provision-an-active-directory-domain-controller.md" %}
-[provision-an-active-directory-domain-controller.md](../../virtual-servers/examples/provision-an-active-directory-domain-controller.md)
+{% content-ref url="../../virtual-servers/examples/active-directory-environment-hosted-on-coreweave-cloud/provision-an-active-directory-domain-controller.md" %}
+[provision-an-active-directory-domain-controller.md](../../virtual-servers/examples/active-directory-environment-hosted-on-coreweave-cloud/provision-an-active-directory-domain-controller.md)
 {% endcontent-ref %}
 
-This may be a great first step when setting up your cloud studio but you can also come back later to handle this step after you have set up other components.&#x20;
+This may be a great first step when setting up your cloud studio but you can also come back later to handle this step after you have set up other components.
 
 ## Creating Storage
 
 Begin by logging into your cloud account and navigating to apps. Clicking on the Catalog tab you should see a range of applications that you can deploy. Find the application "filesystem-volume."
 
-![](<../../.gitbook/assets/image (27).png>)
+![](<../../.gitbook/assets/image (120).png>)
 
-Selecting this, click deploy in the upper right and then select in the creation dialogue the name, region, storage type, and storage size for your PVC object. The available storage types are our NVMe and HDD tiers. (NOTE: this application will create a shared filesystem, if you require block storage volumes please see our documentation [here](cloud-studio-reference-guide.md#storage) on provisioning storage using YAML manifests and kubectl).&#x20;
+Selecting this, click deploy in the upper right and then select in the creation dialogue the name, region, storage type, and storage size for your PVC object. The available storage types are our NVMe and HDD tiers. (NOTE: this application will create a shared filesystem, if you require block storage volumes please see our documentation [here](cloud-studio-reference-guide.md#storage) on provisioning storage using YAML manifests and kubectl).
 
-![](<../../.gitbook/assets/image (29).png>)
+![](<../../.gitbook/assets/image (125).png>)
 
 We are going to create a filesystem-volume for render outputs, that way all of our virtual desktops can access the same shared storage as our render nodes. When rendering on CoreWeave cloud, ensuring that applications don't attempt to write over the internet to on prem storage is essential. Typically large amounts of data that is accessed infrequently such as render outputs belongs on our HDD tier. We will be provisioning everything in our Chicago datacenter (ORD) but feel free to provision resources in the datacenter closest to you.
 
-&#x20;
-
-![Storage Options](<../../.gitbook/assets/image (8).png>) ![Deployment ](<../../.gitbook/assets/image (2).png>) ![Success](<../../.gitbook/assets/image (19).png>)
+![Storage Options](<../../.gitbook/assets/image (84).png>) ![Deployment](<../../.gitbook/assets/image (61).png>) ![Success](<../../.gitbook/assets/image (104).png>)
 
 Once you hit Deploy you should see the following message and an instance of the filesystem-volume application in the "Applications" tab.
 
-If you would like to see the resource inside of Kubernetes you can use `kubectl get pvc` to list all the available storage volumes in your namespace and then use `kubectl describe pvc <name of pvc>`  to get more information about the resource you created. If you installed Helm in your local terminal you can also use `helm list` to see the full list of applications deployed in your namespace which should.&#x20;
+If you would like to see the resource inside of Kubernetes you can use `kubectl get pvc` to list all the available storage volumes in your namespace and then use `kubectl describe pvc <name of pvc>` to get more information about the resource you created. If you installed Helm in your local terminal you can also use `helm list` to see the full list of applications deployed in your namespace which should.
 
-With this storage deployed, you can now mount this shared volume into any kubernetes pod or a CoreWeave virtual server which we will do later in this guide.&#x20;
+With this storage deployed, you can now mount this shared volume into any kubernetes pod or a CoreWeave virtual server which we will do later in this guide.
 
 ## Creating and Configuring Workstations
 
 For our reference environment we are going to create an array of virtual workstations with different configurations.
 
-For our configurations we are going to create artist machines in Windows and Centos 7 as well as lighter weight machines designed for administrators. Later we will configure special network policies which help to provide security barriers between users of different types.&#x20;
+For our configurations we are going to create artist machines in Windows and Centos 7 as well as lighter weight machines designed for administrators. Later we will configure special network policies which help to provide security barriers between users of different types.
 
 For more information on deploying virtual-machines see:
 
@@ -76,7 +74,7 @@ In particular we are going to Deploy our VMs via the CoreWeave apps UI.
 [coreweave-apps.md](../../virtual-servers/deployment-methods/coreweave-apps.md)
 {% endcontent-ref %}
 
-### Connecting Storage&#x20;
+### Connecting Storage
 
 In order to connect our render output storage to our virtual servers we will take two approaches. For our Linux based workstations we will mount the storage directly using virtiofs. For our Windows machines we are going to export our storage using samba and mount that from the workstation after initialization. To see the process of interacting with storage and VMs see our VFX Components Guide:
 
@@ -90,11 +88,11 @@ Following this guide, create a Samba deployment NOTE: the AD flavor of the Samba
 
 For the artist machines we will provision three separate VMs using either Teradici or Parsec for remote access.
 
-Note that at this time Parsec is not supported for hosting on Centos 7.&#x20;
+Note that at this time Parsec is not supported for hosting on Centos 7.
 
 To get started, log into your cloud account and navigate to the applications page or simply enter [apps.coreweave.com](https://apps.coreweave.com) in your browser. Next go to Catalog and select Virtual Server. There you can specify all the different details of your virtual desktop. To start, create a Windows VDI by selecting Windows 10 Professional in the drop down.
 
-![](<../../.gitbook/assets/image (5).png>)
+![](<../../.gitbook/assets/image (73).png>)
 
 Once you have specified the other details for your artist workstation, GPU, CPU, etc., put in user credentials (Note if you are utilizing AD you will have to put in a temporary user before you join the storage)
 
@@ -106,7 +104,7 @@ The three examples in the reference namespace are as follows:
 
 The values used to create them are the same, with the source image being the only difference:
 
-```
+```yaml
 affinity: {}
 initializeRunning: true
 labels:
@@ -166,11 +164,11 @@ At this point you may decide to load up a VM with all of your applications to pr
 
 ### Windows and Teradici
 
-To deploy Windows 10 with Teradici the process is the same as with our previous machine however we are going to modify our cloud init values in the yaml editor to automatically install Teradici. Cloud init is a simple way of running commands on initialization to get your machine set up.&#x20;
+To deploy Windows 10 with Teradici the process is the same as with our previous machine however we are going to modify our cloud init values in the yaml editor to automatically install Teradici. Cloud init is a simple way of running commands on initialization to get your machine set up.
 
 Navigating to the yaml tab inside the virtual server deploy interface you should see a commented out section such as:
 
-```
+```yaml
 #cloudInit: |
 #  # Write a simple script
 #  write_files:
@@ -208,13 +206,13 @@ cloudInit:
     choco_install: [googlechrome,firefox,vlc]
 ```
 
-For the final machine we are going to follow the same steps except here we can simply select the Teradici toggle along with the NVIDIA drivers toggle.&#x20;
+For the final machine we are going to follow the same steps except here we can simply select the Teradici toggle along with the NVIDIA drivers toggle.
 
 ![Note: these options will only be available when selecting a Linux distro as your OS](<../../.gitbook/assets/Screen Shot 2021-11-08 at 3.37.58 PM.png>)
 
 For our Linux based workstation we will also want to mount in our storage via virtio-fs. To do this switch to the YAML editor and edit the filesystem value with:
 
-```
+```yaml
 filesystems: 
   - name: render-outputs
     source:
@@ -245,7 +243,7 @@ To begin setting up our management stack, create a new Centos based virtual serv
 2. `sudo curl http://downloads.leostream.com/broker.prod.sh | sudo bash`
 3. `service leostream start`
 
-This will start the leostream connection broker and begin looking for incoming connections. When you enter the IP address of your connection broker virtual server in your browser you should be presented with the leostream login screen. Here you can set up your leostream licensing and login with the default administrator credentials `admin:leo`. For more instructions on installing and configuring the leostream broker visit [Leostream's website](https://www.leostream.com/wp-content/uploads/2018/11/installation\_guide.pdf#:\~:text=Go%20to%20https%3A%2F%2Flicense,into%20the%20License%20key%20field.).&#x20;
+This will start the leostream connection broker and begin looking for incoming connections. When you enter the IP address of your connection broker virtual server in your browser you should be presented with the leostream login screen. Here you can set up your leostream licensing and login with the default administrator credentials `admin:leo`. For more instructions on installing and configuring the leostream broker visit [Leostream's website](https://www.leostream.com/wp-content/uploads/2018/11/installation\_guide.pdf).
 
 Once your connection broker is installed, logon and configure the broker. Begin by navigating to Configuration > Protocol Plans. Here create a protocol plan which prioritizes Teradici PCoIP. Additionally, if you are utilizing Active Directory navigate to Setup > Authentication Servers, and enter the details for your domain controller.
 
@@ -255,7 +253,7 @@ To do this on Linux use ssh or Teradici to gain access to the command line. Once
 
 1. `sudo yum update`
 2. `sudo yum install LibXScrnSaver java-1.7.0-openjdk.x86_64`
-3. `wget`[`https://s3.amazonaws.com/downloads.leostream.com/LeostreamAgentJava-5.2.6.0.jar`](https://s3.amazonaws.com/downloads.leostream.com/LeostreamAgentJava-5.2.6.0.jar)``
+3. `wget`[`https://s3.amazonaws.com/downloads.leostream.com/LeostreamAgentJava-5.2.6.0.jar`](https://s3.amazonaws.com/downloads.leostream.com/LeostreamAgentJava-5.2.6.0.jar)\`\`
 4. `sudo java -jar ./LeostreamAgentJava-5.2.6.0.jar`
 
 Finally, to finish our management interface, we should install the Teradici Security Gateway/Connection Manager you can launch the Teradici Connection Manager from the Applications catalogue. This will require that you specify the connection broker IP address in the deployment interface. Once installed, users should be able to connect directly to the connection manager and have their session properly routed.
@@ -264,14 +262,13 @@ Finally, to finish our management interface, we should install the Teradici Secu
 
 The best way to manage connectivity between kubernetes components and the internet is using kubernetes network policies. For our reference implementation we will create a simple group of network policies which create "user groups" with different access to internal and external resources. Network policies are specified in YAML manifests and can be applied to the namespace using `kubectl apply -f <path to yaml manifest>`
 
-The first network policy we will call "artist." This network policy will use a pod selector to match against any pod with the label `user.group: artist`. Our policy then specifies that it will allow inbound traffic from any internal IP address, i.e. 10.0.0.0/8, as well as any traffic over the port 3389. Our policy additionally specifies that it will allow our artist VMs to send traffic to any internal IP address.
+The first network policy we will call "artist." This network policy will use a pod selector to match against any pod with the label `user.group: artist`. Our policy then specifies that it will allow inbound traffic from the local namespace on ports 3389, 4172, 60443 and 443. Our policy additionally specifies that it will allow our artist VMs to send traffic to any target i nthe same namespace on port 139 and 445.
 
-```
-piVersion: networking.k8s.io/v1
+```yaml
+apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: artist
-  namespace: tenant-sta-vfx1-reference
 spec:
   podSelector:
     matchLabels:
@@ -305,16 +302,15 @@ spec:
       port: 445
 ```
 
-This policy would prevent connections originating outside the cluster from reaching our VMs except on port 3389, which is RDP. This could provide admins access to troubleshoot machines externally using a separate account or login.&#x20;
+This policy would prevent connections originating outside the cluster from reaching our VMs except on port 3389, which is RDP. This could provide admins access to troubleshoot machines externally using a separate account or login.
 
-If we wanted our network policy to have stricter policies, we could allow only traffic from our AD samba and the Teradici connection manager. This would prevent any external or internal resource from connecting to our VMs without going through our connection manager and Leostream broker.&#x20;
+If we wanted our network policy to have stricter policies, we could allow only traffic from our AD samba and the Teradici connection manager. This would prevent any external or internal resource from connecting to our VMs without going through our connection manager and Leostream broker.
 
-```
-piVersion: networking.k8s.io/v1
+```yaml
+apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: artist
-  namespace: tenant-sta-vfx1-reference
 spec:
   podSelector:
     matchLabels:
@@ -325,8 +321,8 @@ spec:
   ingress:
   - from:
     - podSelector:
-      matchLabels:
-        app: teradici-gateway-teridici-conn-gateway
+        matchLabels:
+          app.kubernetes.io/name: teradici-gateway-teridici-conn-gateway
     ports:
     - protocol: TCP
       port: 3389
@@ -339,8 +335,8 @@ spec:
   egress:
   - to:
     - podSelector:
-      matchLabels:
-        app.kubernetes.io/name: samba-ad-samba-ad
+        matchLabels:
+          app.kubernetes.io/name: samba-ad-samba-ad
     ports:
     - protocol: TCP
       port: 139
@@ -348,26 +344,24 @@ spec:
       port: 445
 ```
 
-Note that all network policies are additive, so any IP range or port not explicitly mentioned will not be accessible.&#x20;
+Note that all network policies are additive, so any IP range or port not explicitly mentioned will not be accessible.
 
 To apply this policy to our virtual servers we can upgrade our workstations from the applications UI. Switch to the YAML editor and add the following entry:
 
-```
+```yaml
 labels:
   user.group: "artist"
-
 ```
 
 After restarting your virtual server you will notice that the launcher pod now contains this label and the network policy will be applied.
 
 Next we can create another network policy for our administrators. This policy should likely be the opposite: enable internet access but disable access to other internal resources.
 
-```
+```yaml
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: administration
-  namespace: tenant-sta-vfx1-reference
 spec:
   podSelector:
     matchLabels:
@@ -396,16 +390,15 @@ spec:
           - 10.0.0.0/8
 ```
 
-This policy for example will prohibit administrators from accessing the Samba storage but will allow them to connect to anything else.&#x20;
+This policy for example will prohibit administrators from accessing the Samba storage but will allow them to connect to anything else.
 
 Last but not least we should create a network policy that is open to all traffic within the namespace, that way for internal infrastructure can be reached from other resources. We also add a wide open egress policy so that our services can connect to resources in the namespace or on the internet.
 
-```
+```yaml
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: infra
-  namespace: tenant-sta-vfx1-reference
 spec:
   podSelector:
     matchLabels:
@@ -434,11 +427,10 @@ To begin setting up a managed Deadline repository in your namespace first follow
 
 Afterwards, there are a few additional changes we will want to make to prepare our repository for a full scale deployment.
 
-First, secure your repository by creating a super-user password  at Tools > Configure Repository Options > User Security. In that same menu ensure that "Use the System User for the Deadline User" is enabled. This will ensure that users don't attempt to impersonate other user groups.
+First, secure your repository by creating a super-user password at Tools > Configure Repository Options > User Security. In that same menu ensure that "Use the System User for the Deadline User" is enabled. This will ensure that users don't attempt to impersonate other user groups.
 
 Next configure your user groups by going to Tools > Manage User Groups.
 
-![](<../../.gitbook/assets/image (3).png>)
+![](<../../.gitbook/assets/image (64).png>)
 
 Consider creating a few groups for the different users who might be interacting with your repository.
-

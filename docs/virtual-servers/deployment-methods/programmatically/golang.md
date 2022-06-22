@@ -30,11 +30,11 @@ A `makefile` is provided within the [golang example](https://github.com/coreweav
 
 ### Implementation
 
-The go [example](../../../../virtual-server/examples/go/main.go) employs the [v1alpha1](https://pkg.go.dev/github.com/coreweave/virtual-server/api/v1alpha1) package of CoreWeave's VirtualServer in order to interface with the Virtual Server resource on CoreWeave Cloud. The Virtual Server struct is prepared using helper functions provided by package [v1alpha1](https://pkg.go.dev/github.com/coreweave/virtual-server/api/v1alpha1). Additionally, a PersistentVolumeClaim and a Service are created. They are then allocated to the Virtual Server as an additional file system and floating IP respectively. Once prepared, a simple [sigs](https://github.com/kubernetes-sigs/controller-runtime) client is used to Create, Get, and Delete the Virtual Server.&#x20;
+The go [example](../../../../virtual-server/examples/go/main.go) employs the [v1alpha1](https://pkg.go.dev/github.com/coreweave/virtual-server/api/v1alpha1) package of CoreWeave's VirtualServer in order to interface with the Virtual Server resource on CoreWeave Cloud. The Virtual Server struct is prepared using helper functions provided by package [v1alpha1](https://pkg.go.dev/github.com/coreweave/virtual-server/api/v1alpha1). Additionally, a PersistentVolumeClaim and a Service are created. They are then allocated to the Virtual Server as an additional file system and floating IP respectively. Once prepared, a simple [sigs](https://github.com/kubernetes-sigs/controller-runtime) client is used to Create, Get, and Delete the Virtual Server.
 
 #### Client
 
-The example application ([main.go](../../../../virtual-server/examples/go/main.go)) builds Kubernetes client using the credentials from either a Kubernetes config file or service account mount. Additional information on building a config can be found at [config](https://pkg.go.dev/sigs.k8s.io/controller-runtime/pkg/client/config).&#x20;
+The example application ([main.go](../../../../virtual-server/examples/go/main.go)) builds Kubernetes client using the credentials from either a Kubernetes config file or service account mount. Additional information on building a config can be found at [config](https://pkg.go.dev/sigs.k8s.io/controller-runtime/pkg/client/config).
 
 #### Persistent Volume Claim
 
@@ -49,5 +49,5 @@ A [Service](https://kubernetes.io/docs/concepts/services-networking/service/) is
 Using utility functions provided by [v1alpha1](https://pkg.go.dev/github.com/coreweave/virtual-server/api/v1alpha1), the application creates a VirtualServer struct, and then deploys the Virtual Server to the cluster using the Kubernetes client.
 
 {% hint style="info" %}
-For long-running, fine-grained and event-driven control of Virtual Servers, a [sigs controller](https://pkg.go.dev/sigs.k8s.io/controller-runtime/pkg/builder) can  be implemented for Virtual Servers.
+For long-running, fine-grained and event-driven control of Virtual Servers, a [sigs controller](https://pkg.go.dev/sigs.k8s.io/controller-runtime/pkg/builder) can be implemented for Virtual Servers.
 {% endhint %}

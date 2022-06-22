@@ -10,7 +10,7 @@ We're deploying the new text generation toolchain for GPT-2, [aitextgen](https:/
 
 Make sure you use a GPU enabled Docker image as a base, and that you enable GPU support when loading the model.
 
-To follow along, please clone the manifests from [GitHub](https://github.com/coreweave/kubernetes-cloud/tree/master/online-inference/custom-pytorch-aitextgen).&#x20;
+To follow along, please clone the manifests from [GitHub](https://github.com/coreweave/kubernetes-cloud/tree/master/online-inference/custom-pytorch-aitextgen).
 
 ## Getting Started
 
@@ -20,7 +20,7 @@ Sign up for a [Docker Hub](https://hub.docker.com) account, or use a different c
 
 ### Build the Docker image
 
-1.  Enter the `custom-predictor` directory. Build and push the Docker image. No modifications are needed to any of the files to follow along. The Docker image can be quite resource intensive to build, as it rebuilds the NVIDIA Apex library with fp16 support. The default Docker tag is `latest`. We strongly discourage you to use this, as containers are cached on the nodes and in other parts of the CoreWeave stack. Once you have pushed to a tag, do not push to that tag again. Below, we use simple versioning by using tag `1` for the first iteration of the image. &#x20;
+1.  Enter the `custom-predictor` directory. Build and push the Docker image. No modifications are needed to any of the files to follow along. The Docker image can be quite resource intensive to build, as it rebuilds the NVIDIA Apex library with fp16 support. The default Docker tag is `latest`. We strongly discourage you to use this, as containers are cached on the nodes and in other parts of the CoreWeave stack. Once you have pushed to a tag, do not push to that tag again. Below, we use simple versioning by using tag `1` for the first iteration of the image.
 
     ```bash
      export DOCKER_USER=coreweave
@@ -71,7 +71,7 @@ Sign up for a [Docker Hub](https://hub.docker.com) account, or use a different c
 5.  Run a test prediction on the URL from above. Remember to add the `:predict` postfix.
 
     ```bash
-     $ curl -d @sample.json http://aitextgen.tenant-test.knative.chi.coreweave.com/v1/models/sentiment:predict
+     $ curl -d @sample.json http://aitextgen.tenant-test.knative.chi.coreweave.com/v1/models/aitextgen:predict
     {"predictions": ["positive"]}
     ```
 6.  Remove the `InferenceService`. This will delete all the associated resources, except for your model storage and sleep Deployment.

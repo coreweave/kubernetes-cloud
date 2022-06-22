@@ -8,7 +8,7 @@ To follow along, please clone the [GitHub repository](https://github.com/corewea
 
 ### Introduction
 
-This example deploys a  Kubernetes Deployment with a Linux container including the CUDA Runtime and development tools, including CUDNN as well as running an SSH server. The Deployment allocates 6 GPUs. The Pod includes an `initContainer` that copies the entire root system to a persistent volume on boot, and then mounts all directories on subsequent boots. This gives a VM-like container where manually installed applications will survive a restart.
+This example deploys a Kubernetes Deployment with a Linux container including the CUDA Runtime and development tools, including CUDNN as well as running an SSH server. The Deployment allocates 6 GPUs. The Pod includes an `initContainer` that copies the entire root system to a persistent volume on boot, and then mounts all directories on subsequent boots. This gives a VM-like container where manually installed applications will survive a restart.
 
 The Kubenetes Control-Plane in the CoreWeave Cloud will ensure that the Deployment is continuously running. The Control-Plane will reserve GPU, CPU and RAM on CoreWeaves compute nodes. The example Deployment does showcase some node affinity rules. These are purely for demonstration purposes, and the entire affinity section can be removed without breaking the example.
 
@@ -20,8 +20,8 @@ The Kubenetes Control-Plane in the CoreWeave Cloud will ensure that the Deployme
 
 A [Service](https://kubernetes.io/docs/concepts/services-networking/service/) is included to show how to publish a Pod to the public Internet. The Service publishes the SSH server to the Internet.
 
-{% content-ref url="../exposing-applications.md" %}
-[exposing-applications.md](../exposing-applications.md)
+{% content-ref url="../networking/exposing-applications.md" %}
+[exposing-applications.md](../networking/exposing-applications.md)
 {% endcontent-ref %}
 
 ## Persistent Storage

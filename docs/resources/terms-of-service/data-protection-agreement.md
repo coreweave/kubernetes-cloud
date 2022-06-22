@@ -6,9 +6,9 @@ description: CoreWeave Data Processing Agreement (DPA)
 
 **Last updated: September 16, 2021**
 
-A DPA is required when a Controller (in this case, the Customer) engages a Processor (in this case, CoreWeave) and the Controller is required to comply with applicable Data Protection Laws. &#x20;
+A DPA is required when a Controller (in this case, the Customer) engages a Processor (in this case, CoreWeave) and the Controller is required to comply with applicable Data Protection Laws.
 
-The Customer is responsible to determine and notify CoreWeave if the Customer is subject to any Data Protection Laws that would require the parties to effectuate this DPA. &#x20;
+The Customer is responsible to determine and notify CoreWeave if the Customer is subject to any Data Protection Laws that would require the parties to effectuate this DPA.
 
 This DPA is incorporated with, and part of, the CoreWeave Terms of Service (TOS) and is entered into between CoreWeave, Inc.(“CoreWeave,” “Processor,” or “Supplier”) and the Customer (the “Customer,” or “Controller”). This DPA includes and incorporates by reference the annexes and addenda referenced at the bottom of this document. All capitalized terms not defined in this DPA shall have the meanings set forth in the TOS. Customer enters into this DPA on behalf of itself and, to the extent required under Data Protection Laws, in the name and on behalf of its Authorized Affiliates (defined below).
 
@@ -44,7 +44,7 @@ This DPA is incorporated with, and part of, the CoreWeave Terms of Service (TOS)
 
 ### 2. Scope and Applicability of this DPA
 
-2.1 This DPA applies where and only to the extent that CoreWeave processes Personal Data on behalf of the Customer in the course of providing CoreWeave Services and the Personal Data is subject to Data Protection Laws, including of the State of California and any other states that have enacted Data Protection Laws, the European Union, the European Economic Area and/or their member states, Switzerland and/or the United Kingdom that are in effect and as amended from time to time. Further, this DPA applies where and only to the extent that CoreWeave either encrypts the Personal Data that the Customer is authorizing CoreWeave to process or CoreWeave can access such Personal Data and use such Personal Data to identify an individual.  The parties agree to comply with the terms and conditions of this DPA in connection with such Personal Data.
+2.1 This DPA applies where and only to the extent that CoreWeave processes Personal Data on behalf of the Customer in the course of providing CoreWeave Services and the Personal Data is subject to Data Protection Laws, including of the State of California and any other states that have enacted Data Protection Laws, the European Union, the European Economic Area and/or their member states, Switzerland and/or the United Kingdom that are in effect and as amended from time to time. Further, this DPA applies where and only to the extent that CoreWeave either encrypts the Personal Data that the Customer is authorizing CoreWeave to process or CoreWeave can access such Personal Data and use such Personal Data to identify an individual. The parties agree to comply with the terms and conditions of this DPA in connection with such Personal Data.
 
 2.2 Role of the Parties. As between CoreWeave and Customer, Customer is the Controller of Personal Data and CoreWeave shall process Personal Data only as a Processor on behalf of Customer. Nothing in the TOS or this DPA shall prevent CoreWeave from using or sharing any data that CoreWeave would otherwise collect and process independently of Customer's use of CoreWeave Services.
 
@@ -84,7 +84,7 @@ This DPA is incorporated with, and part of, the CoreWeave Terms of Service (TOS)
 
 ### 6. International Transfers
 
-6.1 Processing Locations. CoreWeave may transfer and process Customer Data in the United States and anywhere in the world where CoreWeave, its Affiliates and/or its Sub-processors maintain data processing operations. CoreWeave shall implement appropriate safeguards to protect the Personal Data, wherever it is processed, in accordance with the requirements of Data Protection Laws.&#x20;
+6.1 Processing Locations. CoreWeave may transfer and process Customer Data in the United States and anywhere in the world where CoreWeave, its Affiliates and/or its Sub-processors maintain data processing operations. CoreWeave shall implement appropriate safeguards to protect the Personal Data, wherever it is processed, in accordance with the requirements of Data Protection Laws.
 
 6.2 Transfer Mechanism: Notwithstanding Section 6.1, to the extent CoreWeave processes or transfers (directly or via onward transfer) Personal Data under this DPA from the European Union, the European Economic Area and/or their member states and Switzerland (“EU Data”) in or to countries which do not ensure an adequate level of data protection within the meaning of applicable Data Protection Laws of the foregoing territories, the parties agree that CoreWeave shall be deemed to provide appropriate safeguards for such data by virtue of: (a) CoreWeave having reasonably provided other appropriate safeguards under the Data Protection Laws of the foregoing territories; or (b) only if and to the extent 6.2(a) is sufficiently appropriate under the Data Protection Laws of the foregoing territories, CoreWeave adhering to the Standard Contractual Clauses issued pursuant to the European Commission Decision of February 5, 2010 on standard contractual clauses for the transfer of personal data to processors established in third countries under Directive 95/46/EC. Customer hereby authorizes any transfer of EU Data to, or access to EU Data from, such destinations outside the EU subject to any of these measures having been taken. Notwithstanding the foregoing, the Standard Contractual Clauses shall not apply and have no legal effect if CoreWeave adopts an alternative appropriate safeguard or means for the transfer of EU Data described in this section during the term of this DPA.
 
@@ -106,4 +106,4 @@ This DPA is incorporated with, and part of, the CoreWeave Terms of Service (TOS)
 
 9.3 In no event shall any party limit its liability with respect to any individual's data protection rights under this DPA or otherwise.
 
-9.4 This DPA shall be governed by and construed in accordance with governing law and jurisdiction provisions in the TOS, unless required otherwise by Data Protection Laws.\
+9.4 This DPA shall be governed by and construed in accordance with governing law and jurisdiction provisions in the TOS, unless required otherwise by Data Protection Laws.\\

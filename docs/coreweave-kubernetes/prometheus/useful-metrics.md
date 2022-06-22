@@ -8,7 +8,7 @@ description: >-
 
 ## Billing Metrics
 
-All billing metrics return values in USD.&#x20;
+All billing metrics return values in USD.
 
 | PromQL Metric                 | Description                                                   |
 | ----------------------------- | ------------------------------------------------------------- |

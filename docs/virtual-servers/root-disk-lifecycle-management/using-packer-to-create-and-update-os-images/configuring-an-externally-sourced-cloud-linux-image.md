@@ -5,19 +5,19 @@
 
 #### References:
 
-{% file src="../../../../.gitbook/assets/ubuntu.json" %}
+{% file src="../../../.gitbook/assets/ubuntu.json" %}
 
-{% file src="../../../../.gitbook/assets/new_block_pvc.yaml" %}
+{% file src="../../../.gitbook/assets/new_block_pvc.yaml" %}
 
-{% file src="../../../../.gitbook/assets/create-ci-data.sh" %}
+{% file src="../../../.gitbook/assets/create-ci-data (1).sh" %}
 
-{% file src="../../../../.gitbook/assets/launch_docker.sh" %}
+{% file src="../../../.gitbook/assets/launch_docker.sh" %}
 
 ## Create a destination block volume PVC
 
 First, we’ll create a new block volume PVC – this will serve as the destination for our image once Packer completes processing.
 
-Using `k create -f new_block_pvc.yaml` we’ll have our block volume created accordingly:
+Using `kubectl create -f new_block_pvc.yaml` we’ll have our block volume created accordingly:
 
 {% tabs %}
 {% tab title="YAML" %}
@@ -115,7 +115,7 @@ In this example, we are using the shell provisioner to install package updates. 
 {% endhint %}
 
 {% hint style="info" %}
-The credentials in this configuration are created when the VM reads the image output of  **create-ci-data.sh**
+The credentials in this configuration are created when the VM reads the image output of **create-ci-data.sh**
 {% endhint %}
 {% endtab %}
 {% endtabs %}
@@ -162,7 +162,7 @@ Note the username and password referenced in our JSON is created here
 
 ## Execute Packer docker image
 
-Once our JSON is configured, we’ll launch the packer process with `launch-docker.sh ubuntu.json`.&#x20;
+Once our JSON is configured, we’ll launch the packer process with `launch-docker.sh ubuntu.json`.
 
 {% tabs %}
 {% tab title="Bash" %}
@@ -182,20 +182,20 @@ exec docker run --rm --dns 1.1.1.1 --device /dev/kvm --privileged --cap-add=NET_
 
 Packer pulls down the image, verifies it checksum, then boots it:
 
-![](../../../../.gitbook/assets/13.png)
+![](../../../.gitbook/assets/13.png)
 
 When the Packer operation completes, the output image will be located in outpuet-qemu/packer-qemu:
 
-![](../../../../.gitbook/assets/15.png)
+![](../../../.gitbook/assets/15.png)
 
 ## Write generated image to block volume PVC
 
 We need to write Packer’s output image to the PVC we created earlier – in this example, the PVC is mounted to **/dev/vdc:**
 
-![](../../../../.gitbook/assets/16.png)
+![](../../../.gitbook/assets/16.png)
 
 Using DD, we’ll write to the PVC with **`dd if=output-qemu/packer-qemu of=/dev/vdc bs=1M status=progress`**
 
-![](../../../../.gitbook/assets/17.png)
+![](../../../.gitbook/assets/17.png)
 
 With the DD operation complete - the Virtual Server can be safely deleted (`k delete vs packer-worker`). The written PVC will remain in your namespace to serve as a source image for subsequent Virtual Servers.

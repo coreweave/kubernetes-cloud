@@ -20,7 +20,7 @@ Sign up for a [Docker Hub](https://hub.docker.com) account, or use a different c
 
 ### Build the Docker image
 
-1.  Enter the `custom-predictor` directory. Build and push the Docker image. No modifications are needed to any of the files to follow along. The default Docker tag is `latest`. We strongly discourage you to use this, as containers are cached on the nodes and in other parts of the CoreWeave stack. Once you have pushed to a tag, do not push to that tag again. Below, we use simple versioning by using tag `1` for the first iteration of the image. &#x20;
+1.  Enter the `custom-predictor` directory. Build and push the Docker image. No modifications are needed to any of the files to follow along. The default Docker tag is `latest`. We strongly discourage you to use this, as containers are cached on the nodes and in other parts of the CoreWeave stack. Once you have pushed to a tag, do not push to that tag again. Below, we use simple versioning by using tag `1` for the first iteration of the image.
 
     ```bash
      export DOCKER_USER=coreweave

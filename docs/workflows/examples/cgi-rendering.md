@@ -133,13 +133,13 @@ filebrowser     LoadBalancer   10.135.198.207   64.xx.xx.xx     80:32765/TCP    
 
 Let's now browse to the `EXTERNAL-IP` as listed in our services, and we should be greeted by a login screen!
 
-![Default username/password is admin/admin. You should change this...](<../../../.gitbook/assets/image (3) (1) (1).png>)
+![Default username/password is admin/admin. You should change this...](<../../.gitbook/assets/image (3) (1) (1) (1).png>)
 
 **Let's get something to render!**
 
 For this example, we want to render something that quickly shows the power available on CoreWeave Cloud, so we're going to take one of the typical Blender benchmarks, [BMW\_27](https://download.blender.org/demo/test/BMW27\_2.blend.zip) and upload the unpacked file `bmw27_gpu.blend` to our root path in the File Browser.
 
-![Our BMW file is there, we are ready to go!](<../../../.gitbook/assets/image (2) (1).png>)
+![Our BMW file is there, we are ready to go!](<../../.gitbook/assets/image (2) (1) (1).png>)
 
 **Creating our render workflow!**
 
@@ -336,10 +336,10 @@ STEP                                                   PODNAME                  
 
 This shows the status of your 10 frames being rendered on 10 different GPU instances with 4x NV\_Pascal GPUs each. You can now browse to your File Browser site, and you should see a fresh folder `outputs` with sub-directory `bmw27_gpu` that is filled with your 10, freshly rendered frames!
 
-![](<../../../.gitbook/assets/image (1) (1).png>)
+![](<../../.gitbook/assets/image (1) (1).png>)
 
 So, what did we get with all this effort? We got ourselves a beautiful, CGI generated BMW demo file:
 
-![](<../../../.gitbook/assets/image (4) (1).png>)
+![](<../../.gitbook/assets/image (4) (1).png>)
 
 With just some small changes to the Argo workflow we just built and used, you can now run your Blender GPU rendering on thousands of GPUs simultaneously!

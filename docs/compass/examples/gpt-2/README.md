@@ -7,11 +7,9 @@ $ curl -d '{"instances": ["That was easy"]}' http://gpt-s3-transformer-default.t
 {"predictions": ["That was easy to say, what else would you do, what would you do, would you say to your daughter and say to her, 'Where is the work you're doing, where is the work you're working on, and how are you doing it?' and she was like, 'I'm not going to be here, I can't do it!' and she became, you know, frustrated. And I think there's a different type of anxiety. There's this self-pity that comes in, and that's also why they call their child a 'brilliant' child.\n\nShe was always saying that when she was a little girl, there was something really important to do. But she really doesn't go. She knows that whatever she does, when she's ready, she's going to go into any school or program and that she's going to do. And she really needs to do that, because it's just so much more exciting to her now.\n\nIt made her less able to put her mind at the 'solution' to her child's difficulties \u2013 even as she had more opportunities than I or anyone could ever do, and at a time when we were trying a lot of things to find the balance in the world. And I"]}
 ```
 
+*   [Jupyter PVC](jupyter-pvc.md) (Start here and work your way down)
 
-
-*   [Jupyter PVC](jupyter-pvc.md)  (Start here and work your way down)
-
-    A Jupyter notebook and a container serving it demonstrating packaging the model for serving and storing it to a [CoreWeave Storage](../../../coreweave-kubernetes/storage.md#shared-filesystem). &#x20;
+    A Jupyter notebook and a container serving it demonstrating packaging the model for serving and storing it to a [CoreWeave Storage](../../../coreweave-kubernetes/storage.md#shared-filesystem).
 
     This notebook will be allocated a GPU and can be used for finetuning as well.
 *   [PVC Model Serving](service-pvc.md)

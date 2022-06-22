@@ -61,7 +61,7 @@ The client ([client.js](../../../../virtual-server/examples/nodejs/client.js)) p
 
 ### Application
 
-The application ([main.js](../../../../virtual-server/examples/nodejs/main.js)) implements client.js in order to create, watch, get, and update an example Virtual Server. The application serves as an example of how to implement client.js. Additionally, the application illustrates how one might retrieve status information from a running Virtual Server, retrieving its run state and network information. Finally, the example shows how to simply interface with the kubevirt __ subresource api in order to start and stop a Virtual Server.
+The application ([main.js](../../../../virtual-server/examples/nodejs/main.js)) implements client.js in order to create, watch, get, and update an example Virtual Server. The application serves as an example of how to implement client.js. Additionally, the application illustrates how one might retrieve status information from a running Virtual Server, retrieving its run state and network information. Finally, the example shows how to simply interface with the kubevirt \_\_ subresource api in order to start and stop a Virtual Server.
 
 ### Example Manifest
 

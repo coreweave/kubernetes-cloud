@@ -1,6 +1,8 @@
 # Table of contents
 
 * [CoreWeave Cloud](README.md)
+* [Data Center Regions](data-center-regions.md)
+* [Release Notes](release-notes.md)
 
 ## CoreWeave Kubernetes
 
@@ -9,24 +11,28 @@
 * [Node Types](coreweave-kubernetes/node-types.md)
 * [Advanced Label Selectors](coreweave-kubernetes/label-selectors.md)
 * [Storage](coreweave-kubernetes/storage.md)
-* [Exposing Applications](coreweave-kubernetes/exposing-applications.md)
+* [Networking](coreweave-kubernetes/networking/README.md)
+  * [Exposing Applications](coreweave-kubernetes/networking/exposing-applications.md)
+  * [Direct Connect](coreweave-kubernetes/networking/direct-connections.md)
+  * [Bring Your Own IP](coreweave-kubernetes/networking/bring-your-own-ip.md)
 * [Serverless](coreweave-kubernetes/serverless.md)
 * [Metrics](coreweave-kubernetes/prometheus/README.md)
   * [Grafana](coreweave-kubernetes/prometheus/grafana.md)
   * [Useful Metrics](coreweave-kubernetes/prometheus/useful-metrics.md)
+  * [Logging](coreweave-kubernetes/prometheus/logging.md)
 * [Examples](coreweave-kubernetes/examples/README.md)
   * [Jupyter Notebook with TensorFlow](coreweave-kubernetes/examples/tensorflow-jupyter.md)
-  * [Ethereum Miner](coreweave-kubernetes/examples/miner.md)
   * [SSH Server with CUDA](coreweave-kubernetes/examples/cuda-ssh.md)
 
 ## Virtual Servers
 
-* [Getting Started](virtual-servers/getting-started.md)
-* [Deployment Methods](virtual-servers/deployment-methods/README.md)
+* [Getting Started with Virtual Servers](virtual-servers/getting-started.md)
+* [Virtual Server Deployment Methods](virtual-servers/deployment-methods/README.md)
   * [CoreWeave Apps Web UI](virtual-servers/deployment-methods/coreweave-apps.md)
   * [CLI](virtual-servers/deployment-methods/kubectl.md)
   * [Terraform](virtual-servers/deployment-methods/terraform.md)
-  * [Programmatically](virtual-servers/deployment-methods/programmatically/README.md)
+  * [Programmatic deployment](virtual-servers/deployment-methods/programmatically/README.md)
+    * [Bash](virtual-servers/deployment-methods/programmatically/bash.md)
     * [Python](virtual-servers/deployment-methods/programmatically/python.md)
     * [NodeJS](virtual-servers/deployment-methods/programmatically/nodejs.md)
     * [Golang](virtual-servers/deployment-methods/programmatically/golang.md)
@@ -41,8 +47,15 @@
     * [Configuring a Linux image sourced from CoreWeave Cloud](virtual-servers/root-disk-lifecycle-management/using-packer-to-create-and-update-os-images/configuring-a-linux-image-sourced-from-coreweave-cloud.md)
     * [Configuring an externally sourced cloud Linux image](virtual-servers/root-disk-lifecycle-management/using-packer-to-create-and-update-os-images/configuring-an-externally-sourced-cloud-linux-image.md)
   * [Exporting images to QCOW2](virtual-servers/root-disk-lifecycle-management/exporting-images-to-qcow2.md)
+  * [Importing a QCOW2 image](virtual-servers/root-disk-lifecycle-management/importing-a-qcow2-image.md)
+  * [Clone a block volume between regions](virtual-servers/root-disk-lifecycle-management/clone-a-block-volume-between-regions.md)
+* [CoreWeave System Images](virtual-servers/coreweave-system-images/README.md)
+  * [Windows Images](virtual-servers/coreweave-system-images/windows-images.md)
+  * [Linux Images](virtual-servers/coreweave-system-images/linux-images.md)
 * [Examples](virtual-servers/examples/README.md)
-  * [Provision an Active Directory Domain Controller](virtual-servers/examples/provision-an-active-directory-domain-controller.md)
+  * [Active Directory Environment hosted on CoreWeave Cloud](virtual-servers/examples/active-directory-environment-hosted-on-coreweave-cloud/README.md)
+    * [Provision an Active Directory Domain](virtual-servers/examples/active-directory-environment-hosted-on-coreweave-cloud/provision-an-active-directory-domain-controller.md)
+    * [Highly Available Storage using Samba-AD and AD DFS](virtual-servers/examples/active-directory-environment-hosted-on-coreweave-cloud/highly-available-storage-using-samba-ad-and-ad-dfs.md)
 
 ## Inference <a href="#compass" id="compass"></a>
 
@@ -59,6 +72,7 @@
   * [PyTorch - GPT-2 AITextgen](compass/examples/custom-pytorch-aitextgen.md)
   * [PyTorch - FastAI Sentiment](compass/examples/custom-sentiment.md)
   * [Custom - BASNET](compass/examples/custom-basnet.md)
+* [Finetuning Machine Learning Models](compass/finetuning-machine-learning-models.md)
 
 ## Workflows
 
@@ -73,10 +87,13 @@
   * [On-Premise Integration](solutions/vfx/on-premise-integration/README.md)
     * [CloudLink on Linux](solutions/vfx/on-premise-integration/linux.md)
     * [Synology NAS](solutions/vfx/on-premise-integration/synology-nas.md)
-    * [Direct Connections](solutions/vfx/on-premise-integration/direct-connections.md)
   * [VFX Studio Components Guide](solutions/vfx/vfx-studio-components-guide.md)
   * [Cloud Studio Reference Guide](solutions/vfx/cloud-studio-reference-guide.md)
-* [Virtual Workstations](solutions/virtual-workstations.md)
+
+## Cloud Account Management
+
+* [Organizations](cloud-account-management/organizations.md)
+* [Billing Portal](cloud-account-management/billing-portal.md)
 
 ## Resources
 

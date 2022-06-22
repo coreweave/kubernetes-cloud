@@ -5,7 +5,7 @@
 
 #### References:
 
-{% file src="../../../.gitbook/assets/volume_clone.yaml" %}
+{% file src="../../.gitbook/assets/volume_clone.yaml" %}
 
 {% hint style="success" %}
 Be sure to review [Getting Started](../../coreweave-kubernetes/getting-started.md#obtain-access-credentials) and the [kubectl Virtual Server deployment method](../deployment-methods/kubectl.md#deploying-a-virtual-server) before starting this guide.
@@ -16,18 +16,16 @@ Be sure to review [Getting Started](../../coreweave-kubernetes/getting-started.m
 We start by identifying an image we wish to export and modify. To browse images from the CoreWeave store:
 
 {% tabs %}
-{% tab title="Bash" %}
-`k get pvc -n vd-images -l images.coreweave.cloud/latest=true,images.coreweave.cloud/private=false,images.coreweave.cloud/family=`**`windows`**` ``--sort-by=.spec.storageClassName`
-{% endtab %}
-
-{% tab title="PowerShell" %}
-`(kubectl get pvc -n vd-images -l images.coreweave.cloud/latest=true,images.coreweave.cloud/private=false,images.coreweave.cloud/family=`**`windows`**` ``--sort-by=.spec.storageClassName) -replace '\s{2,}',',' |convertfrom-csv |ft`
-{% endtab %}
-{% endtabs %}
+{% tab title="CLI" %}
+```
+kubectl get pvc -n vd-images -l images.coreweave.cloud/latest=true,images.coreweave.cloud/private=false,images.coreweave.cloud/family=windows --sort-by=.spec.storageClassName
+```
 
 {% hint style="info" %}
-_Valid OS family search term also includes **linux**_
+For more information on querying source images, see [Identifying Images](../coreweave-system-images/#identifying-images)
 {% endhint %}
+{% endtab %}
+{% endtabs %}
 
 In this example – we’ll be targeting the latest Windows Server 2019 Standard image presented from region **ORD1**:
 
@@ -35,11 +33,11 @@ In this example – we’ll be targeting the latest Windows Server 2019 Standard
 _Ensure your location is consistent throughout these examples – here we are using **ORD1** - valid locations also include **EWR1** and **LAS1**_
 {% endhint %}
 
-![](../../../.gitbook/assets/0.png)
+![](../../.gitbook/assets/0.png)
 
 ### Clone source image into namespace
 
-Now we need to clone the PVC from vd-images into our own namespace so that we can attach it to a worker VM. To do this we deploy **volume\_clone.yaml** with `k create -f volume_clone.yaml`
+Now we need to clone the PVC from vd-images into our own namespace so that we can attach it to a worker VM. To do this we deploy **volume\_clone.yaml** with `kubectl create -f volume_clone.yaml`
 
 {% tabs %}
 {% tab title="YAML" %}
@@ -78,6 +76,6 @@ Note storage size needs to be equal to or greater than the source disk capacity.
 {% endtab %}
 {% endtabs %}
 
-With `k get pvc`, we can see our newly cloned image existing in our own namespace:
+With `kubectl get pvc`, we can see our newly cloned image existing in our own namespace:
 
-![](../../../.gitbook/assets/2.png)
+![](../../.gitbook/assets/2.png)

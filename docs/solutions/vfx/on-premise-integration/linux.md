@@ -1,6 +1,6 @@
 # CloudLink on Linux
 
-Any Linux server or Virtual Machine that can run [Docker Containers](https://www.docker.com) can run  [CoreWeave CloudLink](./#cloud-link).&#x20;
+Any Linux server or Virtual Machine that can run [Docker Containers](https://www.docker.com) can run [CoreWeave CloudLink](./#cloud-link).
 
 #### Requirements
 
@@ -12,16 +12,15 @@ Any Linux server or Virtual Machine that can run [Docker Containers](https://www
 
 This guide will show you how to expose both **SMB/CIFS (Windows File Sharing)** and **NFS** to CoreWeave. You are likely already using one of the two, and will want to expose whichever protocol you are currently using. Depending on storage system, CIFS can sometimes provide better performance than NFS.
 
-1.Deploy the CloudLink Server in your CoreWeave namespace on [Apps](https://apps.coreweave.com). It is likely that your CoreWeave specialist has already done this for you, and this step can be skipped.\
+1.Deploy the CloudLink Server in your CoreWeave namespace on [Apps](https://apps.coreweave.com). It is likely that your CoreWeave specialist has already done this for you, and this step can be skipped.\\
 
-
-2\. Unless you already have Docker installed, install it by running the simple one-line install command&#x20;
+2\. Unless you already have Docker installed, install it by running the simple one-line install command
 
 ```
 curl -fsSL https://get.docker.com | sh
 ```
 
-3\. Unless already installed, install docker-compose&#x20;
+3\. Unless already installed, install docker-compose
 
 ```
 sudo curl -L "https://github.com/docker/compose/releases/download/1.29.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
@@ -56,20 +55,14 @@ services:
 | DEADLINE\_WEBSERVICE | If running the Deadline Repository locally, IP address of the server running the Deadline Webservice                |
 | DEADLINE\_RCS        | If running the Deadline Repository locally, IP address of the server running the Deadline RCS                       |
 
-5\. To launch the services, simply execute the command `docker-compose up -d` in the directory containing your docker-compose file.&#x20;
+5\. To launch the services, simply execute the command `docker-compose up -d` in the directory containing your docker-compose file.
 
-6\. Check to be sure that the containers are running correctly run `docker ps`. You should see `coreweave/cloud-link:0.0.3` listed, If the `STATUS` column simply lists an up time and no restarts then cloud-link is running correctly. If the container is restarting, it means that the CoreWeave CloudLink server cannot be reached. Validate the `FRP_SERVER` environment variable and that outbound connections on port `7000` to that IP address is allowed in your firewall.&#x20;
+6\. Check to be sure that the containers are running correctly run `docker ps`. You should see `coreweave/cloud-link:0.0.3` listed, If the `STATUS` column simply lists an up time and no restarts then cloud-link is running correctly. If the container is restarting, it means that the CoreWeave CloudLink server cannot be reached. Validate the `FRP_SERVER` environment variable and that outbound connections on port `7000` to that IP address is allowed in your firewall.
 
 7\. Contact your CoreWeave Specialist to test file access and finish setup. Note that there may be some additional considerations which you may want to take into account. Namely:
 
-* Ensure that NFS exports from your NFS file server are set to insecure to allow non-privileged source ports.&#x20;
+* Ensure that NFS exports from your NFS file server are set to insecure to allow non-privileged source ports.
 * Your NFS must allow the connection from the server / VM running CloudLink
 * If using **SMB (Windows File Sharing):** Create a specific User account for CoreWeave. Provide the username and password to your CoreWeave specialist. Give this user permissions on all Shared Folders that should be accessible from CoreWeave Cloud. Note down the share names and provide them to your CoreWeave specialist.
 
-\
-
-
-
-
-
-
+\\

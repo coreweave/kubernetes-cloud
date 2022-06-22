@@ -6,7 +6,7 @@ description: CoreWeave, Inc. Privacy Policy
 
 **Last updated: September 16, 2021**
 
-This Privacy Policy describes how CoreWeave and its affiliates ("CoreWeave," "we," "our" or "us") collect, use, and share information in connection with a customer’s use of our platforms, services, and solutions (collectively, the "Services").&#x20;
+This Privacy Policy describes how CoreWeave and its affiliates ("CoreWeave," "we," "our" or "us") collect, use, and share information in connection with a customer’s use of our platforms, services, and solutions (collectively, the "Services").
 
 **This Privacy Policy (the "Privacy Policy") does not apply to data our customers may process when using our Services.**
 
@@ -67,7 +67,7 @@ We may share the information we collect in various ways, including the following
 
 Our legal basis for collecting and using the personal information described above will depend on the personal information concerned and the specific context in which we collect it.
 
-However, we will normally collect personal information from you only (i) where we need the personal information to perform a contract with you such as a purchase order for either reserved compute instances or bulk credits; (ii) where the processing is in our legitimate interests and not overridden by your rights; or (iii) where we have your consent to do so.  We have a legitimate interest in operating our Services and communicating with you as necessary to provide these Services, for example when responding to your queries, improving our platform, undertaking marketing, or for the purposes of detecting or preventing illegal activities.
+However, we will normally collect personal information from you only (i) where we need the personal information to perform a contract with you such as a purchase order for either reserved compute instances or bulk credits; (ii) where the processing is in our legitimate interests and not overridden by your rights; or (iii) where we have your consent to do so. We have a legitimate interest in operating our Services and communicating with you as necessary to provide these Services, for example when responding to your queries, improving our platform, undertaking marketing, or for the purposes of detecting or preventing illegal activities.
 
 In some cases, we may also have a legal obligation to collect personal information from you or may otherwise need the personal information to protect your vital interests or those of another person.
 
@@ -100,7 +100,7 @@ If you are an individual and a resident of the EEA, you have the following data 
 * If you wish to access, correct, update, or request deletion of your personal information, you can do so at any time by emailing privacy@coreweavve.com.
 * In addition, you can object to the processing of your personal information, ask us to restrict the processing of your personal information, or request portability of your personal information. Again, you can exercise these rights by emailing privacy@coreweave.com.
 * You have the right to opt-out of marketing communications we send you at any time. You can exercise this right by clicking on the "unsubscribe" or "opt-out" link in the marketing emails we send you. To opt-out of other forms of marketing, please contact us by emailing privacy@coreweave.com.
-* Similarly, if we have collected and process your personal information with your consent, then you can withdraw your consent at any time.  Withdrawing your consent will not affect the lawfulness of any processing we conducted prior to your withdrawal, nor will it affect the processing of your personal information conducted in reliance on lawful processing grounds other than consent.
+* Similarly, if we have collected and process your personal information with your consent, then you can withdraw your consent at any time. Withdrawing your consent will not affect the lawfulness of any processing we conducted prior to your withdrawal, nor will it affect the processing of your personal information conducted in reliance on lawful processing grounds other than consent.
 * You have the right to complain to a data protection authority about our collection and use of your personal information. For more information, please contact your local data protection authority.
 * We respond to all requests we receive from individuals wishing to exercise their data protection rights in accordance with applicable data protection laws.
 
@@ -110,7 +110,7 @@ You can use some of the features of the Services without registering, thereby li
 
 You may unsubscribe from receiving certain promotional emails from us. If you wish to do so, simply follow the instructions found at the end of the email. Even if you unsubscribe, we may still contact you for informational, transactional, account-related, or similar purposes.
 
-Many browsers have an option for disabling cookies, which may prevent your browser from accepting new cookies or enable selective use of cookies. Please note that, if you choose not to accept cookies, some features and the personalization of our Services may no longer work for you.&#x20;
+Many browsers have an option for disabling cookies, which may prevent your browser from accepting new cookies or enable selective use of cookies. Please note that, if you choose not to accept cookies, some features and the personalization of our Services may no longer work for you.
 
 ### Children's Privacy
 
@@ -128,4 +128,4 @@ CoreWeave is a global business. We may transfer personal information to countrie
 
 If you have any questions or concerns about this Privacy Policy, please feel free to email us at privacy@coreweave.com.
 
-The data controller of your personal information is CoreWeave, Inc.\
+The data controller of your personal information is CoreWeave, Inc.\\
