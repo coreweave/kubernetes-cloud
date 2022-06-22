@@ -66,12 +66,6 @@ The Bash **** script defines and leverages the following functions to call the V
 * `get_vs()` - Prints formatted JSON details about the Virtual Server (requires `jq`)
 * `wait_until_vs_status()` - Loops until the expected condition of the Virtual Server (VS) is met
 
-{% hint style="info" %}
-**Note**
-
-The `wait_until_vs_status()` function utilizes the [Kubernetes `watch` feature](https://kubernetes.io/docs/reference/using-api/api-concepts/#efficient-detection-of-changes), because the Kubernetes API publishes a stream of updates when any object is changed that are best observed in real time using `watch`.
-{% endhint %}
-
 ### Functions calling the Kubevirt API
 
 The script defines and leverages the following functions to call to the Kubevirt API:
