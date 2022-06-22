@@ -41,8 +41,6 @@ The implementation consists of a few simple `curl` calls to two APIs:
 - `get_vs()` - prints formatted JSON details about the Virtual Server
 - `wait_until_vs_status()` - loops until the expected condition is met. 
 
-> ℹ️ The `wait_until_vs_status()` function utilizes the [Kubernetes `watch` feature](https://kubernetes.io/docs/reference/using-api/api-concepts/#efficient-detection-of-changes). The Kubernetes API publishes a stream of updates when any object changed, which are best observed in real time using `watch`.
-
 ## Kubevirt functions
 
 **VM**
