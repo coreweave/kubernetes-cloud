@@ -6,7 +6,7 @@
 ## Create Primary Domain Controller Virtual Server
 
 {% hint style="success" %}
-Be sure to review [Getting Started](../../../coreweave-kubernetes/getting-started.md#obtain-access-credentials) and the [kubectl Virtual Server deployment method](../../deployment-methods/kubectl.md#deploying-a-virtual-server) before starting this guide.
+Be sure to review [Getting Started](../../../../coreweave-kubernetes/getting-started.md#obtain-access-credentials) and the [kubectl Virtual Server deployment method](../../deployment-methods/kubectl.md#deploying-a-virtual-server) before starting this guide.
 {% endhint %}
 
 We'll start out using [this Virtual Server manifest](../../../../virtual-server/examples/kubectl/virtual-server-windows-internal-ip-only.yaml) to create a Windows Server 2022 Virtual Server in our Chicago datacenter:

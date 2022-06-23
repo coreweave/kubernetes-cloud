@@ -2,10 +2,10 @@
 
 ## Quick Links
 
-* [**Kubernetes**](coreweave-kubernetes/getting-started.md) - Run and scale your own services and workloads with access to thousands of GPUs, CPU cores and high throughput networking in a fully managed Kubernetes environment.
-* [**Inference**](compass/online-inference.md#introduction) - Production ML Model Deployment as a Service. Billed by the minute, with the industry's most responsive auto scale.
-* [**Workflows**](workflows/argo.md#introduction) - Spin up batch training, rendering or general computation jobs on thousands of GPUs in seconds. Hyper responsive, only pay for the time your computations are running.
-* [**Virtual Servers**](virtual-servers/getting-started.md) **-** Linux and Windows Virtual Servers with powerful GPUs, optionally pre-loaded with Teradici and Parsec remote desktop software.
+* [**Kubernetes**](../coreweave-kubernetes/getting-started.md) - Run and scale your own services and workloads with access to thousands of GPUs, CPU cores and high throughput networking in a fully managed Kubernetes environment.
+* [**Inference**](../compass/online-inference.md#introduction) - Production ML Model Deployment as a Service. Billed by the minute, with the industry's most responsive auto scale.
+* [**Workflows**](../workflows/argo.md#introduction) - Spin up batch training, rendering or general computation jobs on thousands of GPUs in seconds. Hyper responsive, only pay for the time your computations are running.
+* [**Virtual Servers**](../virtual-servers/getting-started.md) **-** Linux and Windows Virtual Servers with powerful GPUs, optionally pre-loaded with Teradici and Parsec remote desktop software.
 
 ## What is CoreWeave Cloud?
 
@@ -21,8 +21,8 @@ Unlike other cloud providers, your workloads execute on bare metal. When a conta
 
 ### **Fully Managed - No maintenance or no control-plane charges** :gear:****
 
-You access compute using the Cloud UI, Workflows or directly as a Kubernetes namespace via [traditional Kubernetes tools](coreweave-kubernetes/getting-started.md#install-kubernetes-command-line-tools). We manage the control-plane, node availability and scaling. You submit your Models, Jobs or Deployments, we handle the rest.
+You access compute using the Cloud UI, Workflows or directly as a Kubernetes namespace via [traditional Kubernetes tools](../coreweave-kubernetes/getting-started.md#install-kubernetes-command-line-tools). We manage the control-plane, node availability and scaling. You submit your Models, Jobs or Deployments, we handle the rest.
 
 ### Everything Else - The team and tools to make you successful :tada:
 
-In addition to GPUs, CoreWeave provides [CPU-only nodes](coreweave-kubernetes/node-types.md#cpu-availability), [high performance cloud native storage](coreweave-kubernetes/storage.md) as well as all the bandwidth you might need to transfer your training data, videos or host massive metaverse experiences. Our team is here to support you, readily available over E-Mail and Slack.
+In addition to GPUs, CoreWeave provides [CPU-only nodes](../coreweave-kubernetes/node-types.md#cpu-availability), [high performance cloud native storage](../coreweave-kubernetes/storage.md) as well as all the bandwidth you might need to transfer your training data, videos or host massive metaverse experiences. Our team is here to support you, readily available over E-Mail and Slack.

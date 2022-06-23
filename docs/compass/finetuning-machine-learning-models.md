@@ -6,7 +6,7 @@ Finetuning and training machine learning models can be computationally expensive
 
 The reference example utilizes GPT-type transformer models with the HuggingFace Transformers library, and assumes that the model's tokenization format is BPE. The reference example is not intended to be a production application; rather it is a guide to how to utilize CoreWeave resources to set up a pipeline.
 
-The base model being trained on can be provided directly in a [PVC (PersistentVolumeClaim)](../coreweave-kubernetes/storage.md), or a model identifier from [HuggingFace's model repository](https://huggingface.co/models). The dataset trained upon needs to be in the same PVC, and in pure text format. It is recommended that you partition your data into separate files for easy addition and removal of subsets.
+The base model being trained on can be provided directly in a [PVC (PersistentVolumeClaim)](../../coreweave-kubernetes/storage.md), or a model identifier from [HuggingFace's model repository](https://huggingface.co/models). The dataset trained upon needs to be in the same PVC, and in pure text format. It is recommended that you partition your data into separate files for easy addition and removal of subsets.
 
 Presently, the reference example uses the following container configuration to train models on:
 
@@ -14,7 +14,7 @@ Presently, the reference example uses the following container configuration to t
 * 128GB RAM
 * Nvidia A40/A6000 (48GB VRAM)
 
-The above configuration has been found to be pretty optimal for training a variety of GPT models from 155m to 6b parameter size on a single GPU. The above configuration is billed at $2.00/hr through CoreWeave's [resource based pricing](../resources/resource-based-pricing.md) model.
+The above configuration has been found to be pretty optimal for training a variety of GPT models from 155m to 6b parameter size on a single GPU. The above configuration is billed at $2.00/hr through CoreWeave's [resource based pricing](../../resources/resource-based-pricing.md) model.
 
 There is an optional test [Inference endpoint](broken-reference) that can be enabled and deployed automatically when the model completes finetuning. The Inference container defaults to the following configuration:
 
@@ -30,16 +30,16 @@ Check out the code on GitHub
 
 ## Setup
 
-**NOTE:** It is also assumed that you have [followed the process to get set up in the CoreWeave Kubernetes environment.](../coreweave-kubernetes/getting-started.md)
+**NOTE:** It is also assumed that you have [followed the process to get set up in the CoreWeave Kubernetes environment.](../../coreweave-kubernetes/getting-started.md)
 
 The following Kubernetes-based components are required to be setup:
 
 * [Argo Workflows](broken-reference)
   * You can deploy Argo Workflows using the [Application Catalog](https://apps.coreweave.com). Click on the `Catalog` tab, and find the `argo-workflows` application to deploy it.
 
-![Argo Workflows](<../.gitbook/assets/image (138).png>)
+![Argo Workflows](<../.gitbook/assets/image (82) (2).png>)
 
-* [PVC](../coreweave-kubernetes/storage.md)
+* [PVC](../../coreweave-kubernetes/storage.md)
   * You can create a `ReadWriteMany` PVC storage volume at [Storage](https://cloud.coreweave.com/storage).
   * `1TB` to `2TB` is recommended as the model checkpoints take up a lot of space! These PVCs can be shared between multiple finetune runs. We recommend using HDD type storage, as the finetuner does not require high random I/O performance.
   * It should be noted that it is easy to [increase the size](https://docs.coreweave.com/coreweave-kubernetes/storage#resizing) of a PVC as needed.
@@ -73,7 +73,7 @@ The following components are optional, but may make your interaction easier:
   * Simply select the `finetune-data` PVC that you created earlier. **Make sure that you actually add your PVC to the filebrowser list of mounts!**
   * Some people may prefer to use a Virtual Server and interact with their PVC via ssh or other mechanism. This flexibility is one of the key advantages of CoreWeave.
 
-![filebrowser application](<../.gitbook/assets/image (127).png>)
+![filebrowser application](<../.gitbook/assets/image (77) (2).png>)
 
 ## Dataset Setup
 
@@ -318,7 +318,7 @@ You can instnatly watch a submitted workflow by using `argo submit --watch` when
 
 * Access your Argo Workflow application via HTTPS to see all the finetuner jobs and check on the status.&#x20;
 
-![Argo Workflows HTTPS Request](<../.gitbook/assets/image (88).png>)
+![Argo Workflows HTTPS Request](<../.gitbook/assets/image (63) (1).png>)
 
 ## Workflow Options
 
