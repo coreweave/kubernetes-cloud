@@ -40,7 +40,7 @@ clone_block_volume() {
 	NAME=clone-${DST_PVC}
 	if [ ${#NAME} -gt 62 ]
 	then
-	  JOB_NAME=$(echo ${NAME:(-62)} | sed s/^-//)
+	  JOB_NAME=clone-$(echo -n ${NAME} | md5sum | awk '{ print $1 }')
 	else
 	  JOB_NAME=${NAME}
 	fi
@@ -50,6 +50,9 @@ clone_block_volume() {
 		  "apiVersion": "v1",
 		  "kind": "PersistentVolumeClaim",
 		  "metadata": {
+			"labels": {
+				"app.kubernetes.io/component": "clone-block-volume"
+			},
 			"name": "${DST_PVC}"
 		  },
 		  "spec": {
@@ -72,10 +75,18 @@ clone_block_volume() {
 		  "apiVersion": "batch/v1",
 		  "kind": "Job",
 		  "metadata": {
+			"labels": {
+				"app.kubernetes.io/component": "clone-block-volume"
+			},
 			"name": "${JOB_NAME}"
 		  },
 		  "spec": {
 			"template": {
+			  "metadata": {
+			    "labels": {
+			      "app.kubernetes.io/component": "clone-block-volume"
+			    }
+			  },
 			  "spec": {
 				"affinity": {
 				  "nodeAffinity": {
@@ -175,8 +186,8 @@ clone_block_volume() {
 	do sleep 1
 	done
 	
-    kubectl -n ${NS} wait --for=condition=ContainersReady --timeout=120s pod/$(kubectl get pods -n ${NS}  --sort-by=.metadata.creationTimestamp --selector=job-name=${JOB_NAME} --output=jsonpath='{.items[-1].metadata.name}')
+    kubectl -n ${NS} wait pod --for=condition=ContainersReady --timeout=300s --selector=job-name=${JOB_NAME}
     kubectl -n ${NS} wait --for=condition=Complete --timeout=-1s job/${JOB_NAME}
-    kubectl -n ${NS} logs pod/$(kubectl get pods -n ${NS} --sort-by=.metadata.creationTimestamp --selector=job-name=${JOB_NAME} --output=jsonpath='{.items[-1].metadata.name}')
+    kubectl -n ${NS} logs --selector=job-name=${JOB_NAME}
     kubectl -n ${NS} delete job/${JOB_NAME}
 }
