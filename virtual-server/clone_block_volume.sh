@@ -182,9 +182,7 @@ clone_block_volume() {
 		}
 	EOF
 
-	until kubectl get pods -n ${NS} --selector=job-name=${JOB_NAME}
-	do sleep 1
-	done
+	until [[ $(kubectl get pods -n ${NS} --selector=job-name=${JOB_NAME} -o jsonpath='{.items[*].metadata.name}') != '' ]]; do sleep 1; done
 	
     kubectl -n ${NS} wait pod --for=condition=ContainersReady --timeout=300s --selector=job-name=${JOB_NAME}
     kubectl -n ${NS} wait --for=condition=Complete --timeout=-1s job/${JOB_NAME}
