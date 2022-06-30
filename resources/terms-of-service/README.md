@@ -4,7 +4,7 @@ description: CoreWeave Terms of Service (TOS)
 
 # Terms of Service
 
-**Last modified**: April 22, 2022
+**Last modified**: June 30, 2022
 
 This page contains CoreWeave’s key Terms of Service and is a binding contract between CoreWeave and the Customer as of the creation of the Customer’s account on the CoreWeave Cloud Platform as a Covered Service, which also includes all of CoreWeave’s websites, services, products and solutions (the “CoreWeave Services”).
 
@@ -30,6 +30,8 @@ CoreWeave provides the CoreWeave Cloud Platform as a Covered Service to the Cust
 | Instances in a Single Region  | >= 99%                    |
 
 If CoreWeave does not meet the SLO, and if Customer is otherwise in good standing and meeting its obligations, Customer will be eligible to receive the Financial Credits described below. This TOS states Customer’s sole and exclusive remedy for any failure by CoreWeave to meet the SLO. If CoreWeave authorizes the resale or supply of the CoreWeave Cloud Platform as a Covered Service under a CoreWeave Cloud partner or reseller program, then all references to Customer in this TOS shall mean Partner or Reseller (as applicable), and any Financial Credit(s) will only apply for impacted Partner or Reseller order(s).
+
+Pursuant to the notice of deprecation posted on [status.coreweave.com](http://status.coreweave.com/) and communicated via email on June 30, 2022, there are no Financial Credits available as of August 1, 2022 for SLO failures in our EWR1 data center.&#x20;
 
 ### **Definitions**
 
