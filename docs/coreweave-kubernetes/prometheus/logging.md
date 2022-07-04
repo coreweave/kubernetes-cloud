@@ -1,6 +1,6 @@
 # Logging
 
-CoreWeave uses Grafana Loki for log aggregation. We are able to forward your namespace’s logs directly to your own Loki instance or to any of the following targets by simply providing credentials and target information. Direct access to CoreWeave logs, without exporting to your own log collector is currently not supported. Deploying loki in your namespace is straightforward, and the logs stored in there can be explored using Grafana deployed via [CoreWeave Apps](https://apps.coreweave.com).\
+CoreWeave gives customers the ability to forward all logs from their namespace to an external log aggregator such as Datadog, or a collector deployed inside the customers namespace such as [Grafana Loki](https://grafana.com/oss/loki/). Log forwarding is setup by contacting support and providing the details for the log collection target, such as hostname and api token. CoreWeave leverages [Grafana Loki](https://grafana.com/oss/loki/) to collect and aggregate logs for all of our customers. Direct access to CoreWeave logs, without exporting to your own log collector is currently not supported. Deploying Loki in your namespace is straightforward, and the logs stored in there can be explored using Grafana deployed via [CoreWeave Apps](https://apps.coreweave.com).\
 
 
 ### Supported Log Export Targets
