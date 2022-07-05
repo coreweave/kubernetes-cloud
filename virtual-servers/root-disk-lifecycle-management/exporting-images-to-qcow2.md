@@ -5,7 +5,7 @@
 
 #### References:
 
-{% file src="../../docs/.gitbook/assets/clone_to_file.yaml" %}
+{% file src="../../docs/.gitbook/assets/clone-to-file.yaml" %}
 
 {% file src="../../docs/.gitbook/assets/shared_data.yaml" %}
 
@@ -62,43 +62,66 @@ Using `kubectl create -f clone-to-file.yaml`:
 apiVersion: batch/v1
 kind: Job
 metadata:
+  labels:
+    app.kubernetes.io/component: clone-to-file
   name: clone-to-file
 spec:
-  parallelism: 1
-  completions: 1
   template:
     metadata:
-      name: clone
+      labels:
+        app.kubernetes.io/component: clone-to-file
     spec:
-      nodeSelector:
-        node.coreweave.cloud/class: cpu
-        ethernet.coreweave.cloud/speed: 10G
-        topology.kubernetes.io/region: ORD1
-        cpu.coreweave.cloud/family: epyc
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: failure-domain.beta.kubernetes.io/region
+                    operator: In
+                    values:
+                      - ORD1
+                  - key: node.coreweave.cloud/class
+                    operator: In
+                    values:
+                      - cpu
+                  - key: ethernet.coreweave.cloud/speed
+                    operator: In
+                    values:
+                      - 10G
+                      - 40G
       containers:
-      - name: rsync
-        image: ubuntu:latest
-        command: ["bash", "-c", "apt update;DEBIAN_FRONTEND=noninteractive apt install -y qemu-utils; dd conv=sparse bs=4M if=/dev/xvda of=/tmp/disk.img;qemu-img convert -f raw -O qcow2 /tmp/disk.img /shared-data/disk.qcow2;rm /tmp/disk.*; echo 'Done'"]
-        volumeDevices:
-        - name: source
-          devicePath: /dev/xvda
-        volumeMounts:
-        - mountPath: /shared-data
-          name: shared-data
+        - name: clone-to-file
+          resources:
+            requests:
+              cpu: 1
+              memory: 2Gi
+          image: registry.gitlab.com/coreweave/utility-images/admin-shell:36f48c0d
+          command:
+            - sh
+            - '-c'
+            - 'qemu-img convert -f raw -O qcow2 /dev/xvda /shared-data/disk.qcow2 -c -p'
+          volumeMounts:
+            - name: shared-data
+              mountPath: /shared-data
+          volumeDevices:
+            - devicePath: /dev/xvda
+              name: source
       restartPolicy: OnFailure
       volumes:
-      - name: source
-        persistentVolumeClaim:
-          claimName: winserver2019std-clone-20210701-ord1
-          readOnly: true
-      - name: shared-data
-        persistentVolumeClaim:
-          claimName: shared-data
+        - name: shared-data
+          persistentVolumeClaim:
+            claimName: shared-data
+            readOnly: false
+        - name: source
+          persistentVolumeClaim:
+            claimName: winserver2019std-clone-20210701-ord1
+            readOnly: true
       tolerations:
-      - key: node.coreweave.cloud/hypervisor
-        operator: Exists
-      - key: is_cpu_compute
-        operator: Exists
+        - key: node.coreweave.cloud/hypervisor
+          operator: Exists
+        - key: is_cpu_compute
+          operator: Exists
+
 ```
 {% endcode %}
 
