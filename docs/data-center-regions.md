@@ -44,7 +44,7 @@ To schedule resources in a specific region using the Kubernetes API, simply add 
 
 ### Availability Matrix and Identifiers
 
-_**GPU Instance Regional Availability**_
+#### GPU Instance Regional Availability
 
 | Resource Name    |         LGA1         |         ORD1         |         LAS1         |
 | ---------------- | :------------------: | :------------------: | :------------------: |
@@ -59,7 +59,7 @@ _**GPU Instance Regional Availability**_
 | Quadro RTX 5000  | :white\_check\_mark: | :white\_check\_mark: | :white\_check\_mark: |
 | Quadro RTX 4000  | :white\_check\_mark: | :white\_check\_mark: | :white\_check\_mark: |
 
-_**CPU Instance Regional Availability**_
+#### CPU Instance Regional Availability
 
 | Resource Name       |         LGA1         |         ORD1         |         LAS1         |
 | ------------------- | :------------------: | :------------------: | :------------------: |
@@ -69,7 +69,7 @@ _**CPU Instance Regional Availability**_
 | intel-xeon-v4       | :white\_check\_mark: | :white\_check\_mark: | :white\_check\_mark: |
 | intel-xeon-v3       | :white\_check\_mark: | :white\_check\_mark: | :white\_check\_mark: |
 
-_**Storage Class Names**_
+#### Storage Class Names
 
 | Resource Name |       LGA1       |       ORD1       |       LAS1       |
 | ------------- | :--------------: | :--------------: | :--------------: |
@@ -78,7 +78,7 @@ _**Storage Class Names**_
 | Block HDD     |  block-hdd-lga1  |  block-hdd-ord1  |  block-hdd-las1  |
 | Shared HDD    |  shared-hdd-lga1 |  shared-hdd-ord1 |  shared-hdd-las1 |
 
-_**Public IP Space**_
+#### Public IP Space
 
 | IP Space Use    |       LGA1       |        ORD1       |        LAS1       |
 | --------------- | :--------------: | :---------------: | :---------------: |
