@@ -107,12 +107,12 @@ The root disk's size can be _increased_ later, and the operating system will aut
 
 ### System additions
 
-At the bottom of the **Operating System / Root Disk Storage** section, you will find sliders for additional system add-ons such as NVIDIA drivers, Teradici, Parsec, and more. These additions are applications that will be installed at the time of deployment automatically, so they can be ready to use as soon as the Virtual Server is available. Additions are installed on-demand on Windows, in Linux it's baked into the image.
+At the bottom of the **Operating System / Root Disk Storage** section, you will find sliders for additional system add-ons such as NVIDIA drivers, Teradici, Parsec, and more. These additions are applications that will be installed at the time of deployment automatically, so they can be ready to use as soon as the Virtual Server is available.
 
 {% hint style="info" %}
 **Note**
 
-Additions added to Windows-system based Virtual Servers&#x20;
+Additions are installed on-demand on Windows machines. On Linux machines, additions are baked into the image.
 {% endhint %}
 
 #### Linux system additions
