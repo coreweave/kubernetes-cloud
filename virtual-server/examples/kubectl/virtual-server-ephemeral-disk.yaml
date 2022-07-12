@@ -18,7 +18,7 @@ spec:
       source:
         pvc:
           namespace: vd-images
-          name: ubuntu2004-docker-master-20211208-ord1
+          name: ubuntu2004-docker-master-20220708-ord1
     additionalDisks:
       - name: ephemeral-disk
         spec:
