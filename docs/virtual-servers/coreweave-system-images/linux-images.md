@@ -32,7 +32,7 @@ Linux images provided by CoreWeave Cloud are available in three different flavor
 * Docker + NVIDIA Drivers + Teradici Graphics Agent
 
 {% hint style="info" %}
-Image flavors are tagged with the [metadata label](./#metadata-labels) `images.coreweave.cloud/features`
+Image flavors are tagged with the [metadata label](../../../virtual-servers/coreweave-system-images/#metadata-labels) `images.coreweave.cloud/features`
 {% endhint %}
 
 #### Docker

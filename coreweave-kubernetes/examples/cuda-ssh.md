@@ -20,8 +20,8 @@ The Kubenetes Control-Plane in the CoreWeave Cloud will ensure that the Deployme
 
 A [Service](https://kubernetes.io/docs/concepts/services-networking/service/) is included to show how to publish a Pod to the public Internet. The Service publishes the SSH server to the Internet.
 
-{% content-ref url="../../docs/coreweave-kubernetes/networking/exposing-applications.md" %}
-[exposing-applications.md](../../docs/coreweave-kubernetes/networking/exposing-applications.md)
+{% content-ref url="../networking/exposing-applications.md" %}
+[exposing-applications.md](../networking/exposing-applications.md)
 {% endcontent-ref %}
 
 ## Persistent Storage

@@ -2,7 +2,7 @@
 
 The billing portal for CoreWeave Cloud is a simple external portal that is provided for account creators to easily manage payment methods, invoices, and view aggregated usage.
 
-![Billing Portal View](<../.gitbook/assets/image (90) (1).png>)
+![Billing Portal View](<../.gitbook/assets/image (95).png>)
 
 ### Portal Invitation
 

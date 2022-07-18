@@ -145,7 +145,7 @@ For **Windows-based systems**, current available automatic add-ons include:
 
 ### Attach IP
 
-![The public IP selector.](<../../docs/.gitbook/assets/image (45).png>)
+![The public IP selector.](<../../.gitbook/assets/image (51).png>)
 
 From the **Attach IP** section, you can configure a **public** IP address for your Virtual Server to make it accessible to the Internet. The IP address, as well as a public **DNS name**, will be generated for you, and will be made visible from the status page once the Virtual Server is ready and running.
 
@@ -179,7 +179,7 @@ To deploy your new Virtual Server, click the **Deploy** button. This will instan
 
 Once your Virtual Server has begun deploying, you will be automatically redirected to the **status page**. From here, the Virtual Server can be **restarted**, **upgraded** (or changed), **deleted**, or **stopped**.
 
-![Virtual Server state controls.](<../../docs/.gitbook/assets/image (49).png>)
+![Virtual Server state controls.](<../../.gitbook/assets/image (55).png>)
 
 #### Virtual terminal
 
@@ -227,7 +227,7 @@ A basic diagnostic log of all actions involving the Virtual Server will be recor
 The events listed under the **Events** tab are short-lived, and should mostly be used for diagnostics or simply for tracing the status of the Virtual Server.
 {% endhint %}
 
-![Event history for a new Virtual Server.](<../../docs/.gitbook/assets/image (50).png>)
+![Event history for a new Virtual Server.](<../../.gitbook/assets/image (56).png>)
 
 **Learn more about methods for deploying Virtual Servers:**
 

@@ -30,7 +30,7 @@ Reach out to [sales@coreweave.com](mailto:sales@coreweave.com) today to reserve 
 
 ### View and Manage Storage Volumes :floppy\_disk:
 
-Managing cloud native storage has never been easier. **CoreWeave Cloud now provides an easy to use UI to manage your** [**Storage Volumes**](https://cloud.coreweave.com/storage). Expand and clone your volumes with the click of a button. [Learn more about CoreWeave Cloud Storage.](../coreweave-kubernetes/storage.md)
+Managing cloud native storage has never been easier. **CoreWeave Cloud now provides an easy to use UI to manage your** [**Storage Volumes**](https://cloud.coreweave.com/storage). Expand and clone your volumes with the click of a button. [Learn more about CoreWeave Cloud Storage.](coreweave-kubernetes/storage.md)
 
 ### Organization Management :people\_with\_bunny\_ears\_partying:
 
@@ -68,7 +68,7 @@ Looking to finetune your own ML model on CoreWeave? [Check out our new reference
 
 ### Kubernetes Log Forwarding :fast\_forward:
 
-Logs from all your containers to popular aggregation tools such as **Loki and DataDog**. [Click here to learn more.](coreweave-kubernetes/prometheus/logging.md)
+Logs from all your containers to popular aggregation tools such as **Loki and DataDog**. [Click here to learn more.](docs/coreweave-kubernetes/prometheus/logging.md)
 
 ### Better Track API Access Tokens :key2:
 

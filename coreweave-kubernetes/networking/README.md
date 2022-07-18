@@ -92,7 +92,7 @@ It is a common desire to connect private on-premise networks with CoreWeave Clou
 
 #### Site to Site VPN
 
-Site to Site VPNs are provided by instantiating a virtual firewall in a Layer 2 VPC. Each workload needing access to the Site to Site VPN should be placed into the VPC in addition to the regular CoreWeave networking. The IPSEC VPN has been benchmarked to over 5Gbps. Please note that most on-premise firewalls and cloud firewalls on other cloud-providers are rarely rated for over 1Gbps of IPSEC performance.
+Site to Site VPNs are provided by instantiating a Virtual VPN in a Layer 2 VPC. Each workload needing access to the Site to Site VPN should be placed into the VPC in addition to the regular CoreWeave networking. The IPSEC VPN has been benchmarked to over 4Gbps. Please note that most on-premise firewalls and cloud firewalls on other cloud-providers are rarely rated for over 1Gbps of IPSEC performance.
 
 #### [Direct Connect](./#direct-connect)
 
