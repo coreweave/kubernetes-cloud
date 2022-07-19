@@ -17,7 +17,6 @@
   * [Site-to-Site VPN](coreweave-kubernetes/networking/site-to-site-vpn/README.md)
     * [CoreWeave](coreweave-kubernetes/networking/site-to-site-vpn/coreweave.md)
     * [AWS](coreweave-kubernetes/networking/site-to-site-vpn/aws.md)
-    * [Benchmarks](coreweave-kubernetes/networking/site-to-site-vpn/benchmarks.md)
   * [Bring Your Own IP](coreweave-kubernetes/networking/bring-your-own-ip.md)
 * [Serverless](../coreweave-kubernetes/serverless.md)
 * [Metrics](../coreweave-kubernetes/prometheus/README.md)
