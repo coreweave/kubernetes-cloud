@@ -350,7 +350,7 @@ If all goes well then you should see a number of deadline specific pods in your 
 
 Once your deadline repository is in the running state you can connect to it. By default the deadline remote connection server is the simplest way to connect, and can be reached at rcs-\<Name Of Deadline Release>-\<Your Namespace Name>.coreweave.cloud, where \<Name of Deadline Release> is the name we used when deploying the deadline application.
 
-![](../../docs/.gitbook/assets/deadline-repo-settings.PNG)
+![](../../.gitbook/assets/deadline-repo-settings.PNG)
 
 We place that address in the "Remote Server" box in the Repository selection, by default the RCS uses port 4433. To retrieve your certificate to connect run `k cp $(kgp` `| grep rcs | grep "<Name of Deadline Release> | grep -o '^\S*'):/tmp/clientkey.pfx <local directory to store key>/key.pfx` and be sure to replace `<Name of Deadline Release>` and `<local directory to store key>` with their respective values. Select your downloaded certificate in the "Select Repository" dialogue and then enter the passphrase you specified in your setup YAML.
 

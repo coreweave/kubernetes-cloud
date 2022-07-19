@@ -18,6 +18,7 @@
     * [CoreWeave](coreweave-kubernetes/networking/site-to-site-vpn/coreweave.md)
     * [AWS](coreweave-kubernetes/networking/site-to-site-vpn/aws.md)
   * [Bring Your Own IP](coreweave-kubernetes/networking/bring-your-own-ip.md)
+  * [DHCP in VPC](coreweave-kubernetes/networking/dhcp-in-vpc.md)
 * [Serverless](../coreweave-kubernetes/serverless.md)
 * [Metrics](../coreweave-kubernetes/prometheus/README.md)
   * [Grafana](../coreweave-kubernetes/prometheus/grafana.md)

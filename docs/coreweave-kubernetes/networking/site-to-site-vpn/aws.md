@@ -1,111 +1,167 @@
 ---
-description: Configuration guide for the AWS end of the VPN tunnel.
+description: The configuration guide for the AWS end of the Site-to-Site VPN tunnel.
 ---
 
 # AWS
 
-### VPC
+## Introduction
 
-All needed configurations will be performed under the [**VPC Dashboard**](https://us-east-1.console.aws.amazon.com/vpc/home)**.**
+In order to complete the AWS side of the Site-to-Site VPN connection, you must first complete the following steps from [your AWS dashboard](https://aws.amazon.com/):
 
-| Table of Content                                                        |
-| ----------------------------------------------------------------------- |
-| ****[**Virtual Private Gateways**](aws.md#virtual-private-gateways)**** |
-| [Create VPN connection](aws.md#create-vpn-connection)                   |
+1. [Create a **virtual private gateway**](aws.md#create-a-virtual-private-gateway).
+2. [Initialize **the VPN connection**](aws.md#initial-vpn-setup).
+3. [Configure the **routing tables**](aws.md#configure-routes).
 
-#### **Virtual Private Gateways**
+{% hint style="info" %}
+**Additional Resources**
 
-**​**We first need to create a Virtual Private Gateway that will act as a VPN concentrator on the AWS side. You will not need to fill out any information when creating the Virtual Private Gateway.
+For more in-depth information on AWS Virtual Private Gateway configurations, refer to [the AWS documentation](https://docs.aws.amazon.com/directconnect/latest/UserGuide/virtualgateways.html).
+{% endhint %}
 
-![](<../../../.gitbook/assets/virtual-private-gateway (1).png>)
+The following describes precisely how to do each of these steps in such a way that the AWS side of the VPN connection will behave as expected.
 
-After the Virtual Private Gateway has been created it has to be attached to your VPC.
+## Creating a virtual private gateway
 
-![Step1](../../../.gitbook/assets/attach-to-vpc.png)
+First, you'll need to create a **virtual private gateway** and **attach it** to the existing AWS VPC. **** This gateway that will act as a VPN concentrator on the AWS side.
 
-![](../../../.gitbook/assets/attach-to-vpc-2.png)
+From the VPC creation screen in your AWS account, navigate to **Virtual private network (VPN)** -> **Virtual private gateways.**
 
-#### Create VPN connection
+![The "virtual private gateways" link.](<../../../.gitbook/assets/image (4).png>)
 
-See below screenshot below for settings.
+Select the orange **Create virtual private gateway** button in the upper right-hand corner to begin configuring the gateway. This will lead you to the configuration screen, as shown below.
 
-| **Target gateway type** | Specify Virtual private gateway and then choose your previously created Virtual private gateway in the dropdown. |
-| ----------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| **Customer gateway**    | New                                                                                                              |
-| IP address              | Specify the IP address of your CoreWeave VPN ([Please see note before proceeding](aws.md#notes))                 |
-| Routing options         | Static                                                                                                           |
-| Static IP prefixes      | Specify your CoreWeave VPC Network                                                                               |
+![The virtual private gateway creation screen.](<../../../.gitbook/assets/virtual-private-gateway (1).png>)
 
-![](../../../.gitbook/assets/vpn-connection.png)
+After the virtual private gateway has been created, attach the gateway to the VPC by selecting **Actions -> Attach to VPC.**
 
-See screenshot below for settings.
+![The "Attach to VPC" option in the "Actions" menu.](../../../.gitbook/assets/attach-to-vpc.png)
 
-| **Inside IPv4 CIDR for tunnel 1** | Choose a network to be used on the tunnel or let AWS choose one for you. Please note that the first usable IP address in the /30 will be the AWS side and the last usable IP address will be the CoreWeave side. |
-| --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Pre-sared key for tunnel1**     | 32-64 Alphanumeric random string. Please note that CoreWeave will not allow a PSK under 32 chars.                                                                                                                |
-| **Advanced options for tunnel 1** | Edit tunnel 1 options.                                                                                                                                                                                           |
-| **Phase 1 encryption algorithms** | Remove AES128 & AES256, leave AES-128-GCM-16 & AES-256-GCM-16.                                                                                                                                                   |
-| **Phase 2 encryption algorithms** | Remove AES128 & AES256, leave AES-128-GCM-16 & AES-256-GCM-16                                                                                                                                                    |
-| **Phase 1 integrity algorithms**  | Leave as is.                                                                                                                                                                                                     |
-| **Phase 2 integrity algorithms**  | Leave as is.                                                                                                                                                                                                     |
+Select the VPC to which you'd like the gateway to be attached. Then, click **Attach to VPC.**
 
-![](../../../.gitbook/assets/vpn-connection-2.png)
+![Second "Attach to VPC" configuration screen.](../../../.gitbook/assets/attach-to-vpc-2.png)
 
-See screenshot below for settings\
+## Initial VPN setup
+
+Next, using the inputs described below to configure the VPN, you'll need to initialize the **Site-to-Site VPN connection** on the AWS side.
+
+Navigate to **Virtual private network (VPN) -> Site-to-Site VPN Connections**.
+
+![The "Site-to-Site VPN Connections" option under "Virtual private network (VPN)".](<../../../.gitbook/assets/image (8).png>)
+
+Select the orange **Create VPN connection** button in the upper right hand corner of the screen. This will launch the configuration screen for the VPN connection.
+
+Options will be configured as shown in the screenshot and detailed in the table below.
+
+{% hint style="warning" %}
+**Important**
+
+Please review the [IP address details section](aws.md#ip-address) before completing configuration.
+{% endhint %}
+
+![The "Details" section of the new Site-to-Site VPN connection configuration menus.](<../../../.gitbook/assets/image (5).png>)
+
+### Configuration
+
+| Option name             | Instructions                                                                                                                     |
+| ----------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| **Target gateway type** | Select "**Virtual Private Gateway**,"  then choose the virtual private gateway you created earlier in the dropdown that follows. |
+| **Customer gateway**    | Select "New."                                                                                                                    |
+| **IP address**          | :warning:**See** [**details**](aws.md#ip-address) **below this table.**                                                          |
+| **Routing options**     | Select "Static."                                                                                                                 |
+| **Static IP fixes**     | Specify the CIDR IP of your CoreWeave VPC network, e.g. `10.100.100.0/24`.                                                       |
+
+### IP address
+
+This will be the IP address of your CoreWeave VPN, however configuring this is at the time of this guide's writing comes with a bit of a catch.
+
+At this time, **there is no way to get the AWS tunnel endpoint IP before going through all steps,** so the following workaround must be employed**.**
+
+1. A **random IP** must be added as the **IP address** for the first pass of these steps.
+2. After the VPN has been created and the provided [tunnel details](aws.md#tunnel-details) have been noted, **then** create the [CoreWeave VPN](coreweave.md).
+3. After the CoreWeave VPN has been created and you have taken note of the IP assigned to your CoreWeave VPN, create a **new** **AWS Customer Gateway** with the new CoreWeave VPN IP Address by navigating to **Virtual Private Network -> Customer Gateways**.
+4. After the new **Customer Gateway** is created, edit the previously created VPN by navigating to **Virtual Private Network -> Site-to-Site VPN Connections**.
+5. Select your VPN, then edit it by seleting **Actions -> Modify VPN connection.**
+6. Select your newly created Customer Gateway in the **Target customer gateway** dropdown.
+
+## Tunnel 1
+
+After completing the initial setup for the VPN, you'll need to configure further VPN settings for the tunnel under the **Tunnel 1 options** menu.
+
+These options should be configured following the instructions detailed in the following table.
+
+![](<../../../.gitbook/assets/image (7).png>)
+
+### Configuration
+
+| Option name                       | Instructions                                                                                                                                                                                                                                                                                                                            |
+| --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Inside IPv4 CIDR for tunnel 1** | <p>Choose a network to be used on the tunnel, or let AWS choose one for you.<br><span data-gb-custom-inline data-tag="emoji" data-code="2139">ℹ</span> <strong>The first usable IP address in the <code>/30</code> network address space will be on the AWS side. The last usable IP address will be on the CoreWeave side</strong></p> |
+| **Pre-shared key for Tunnel 1**   | <p>A 32- to 64-character Alphanumeric random string.<br><span data-gb-custom-inline data-tag="emoji" data-code="26a0">⚠</span> <strong>CoreWeave will not allow a pre-shared key under 32 characters.</strong></p>                                                                                                                      |
+| **Advanced options for Tunnel 1** | <p>Select the "<strong>Edit tunnel 1 options</strong>" radio button.<br><span data-gb-custom-inline data-tag="emoji" data-code="2139">ℹ</span> <strong>This will prompt the second set of options to appear.</strong></p>                                                                                                               |
+| **Phase 1 encryption algorithms** | <ul><li>Remove <code>AES128</code> and <code>AES256</code>.</li><li>Leave <code>AES-128-GCM-16</code> and <code>AES-256-GCM-16</code>.</li></ul>                                                                                                                                                                                        |
+| **Phase 2 encryption algorithms** | <ul><li>Remove <code>AES128</code> and <code>AES256</code>.</li><li>Leave <code>AES-128-GCM-16</code> and <code>AES-256-GCM-16</code>.</li></ul>                                                                                                                                                                                        |
+| **Phase 1 integrity algorithms**  | Leave as is; will include `SHA2-256`, `SHA2-384`, and `SHA2-512`.                                                                                                                                                                                                                                                                       |
+| **Phase 2 integrity algorithms**  | Leave as is, which will include `SHA2-256`, `SHA2-384`, and `SHA2-512`.                                                                                                                                                                                                                                                                 |
+| **Phase 1 DH group numbers**      | Leave as is; should include `2`, `14`, `15`, `16`, `17`, `18`, `19`, `20`, `21`, `22`, `23`, and `24`.                                                                                                                                                                                                                                  |
+| **Phase 2 DH group numbers**      | Leave as is; should include `2`, `5`, **** `14`, `15`, `16`, `17`, `18`, `19`, `20`, `21`, `22`, `23`, and `24`.                                                                                                                                                                                                                        |
+| **Phase 1 lifetime (seconds)**    | Leave as is; the default is `28,800`.                                                                                                                                                                                                                                                                                                   |
+| **Phase 2 lifetime (seconds)**    | Leave as is; the default is `3,600`.                                                                                                                                                                                                                                                                                                    |
+| **Rekey margin time (seconds)**   | Leave as is; the default is `540`.                                                                                                                                                                                                                                                                                                      |
+| **Rekey fuzz (percentage)**       | Leave as is; the default is `100`.                                                                                                                                                                                                                                                                                                      |
+| **IKE version**                   | <ul><li>Remove <code>ikev1</code>.</li><li>Keep <code>ikev2</code>.</li></ul>                                                                                                                                                                                                                                                           |
+| **Replay window size (packets)**  | Leave as is; the default is `1024`.                                                                                                                                                                                                                                                                                                     |
+| **DPD timeout (seconds)**         | Leave as is; the default is `30`.                                                                                                                                                                                                                                                                                                       |
+| **DPD timeout action**            | Select the "**Clear**" radio button.                                                                                                                                                                                                                                                                                                    |
+| **Startup action**                | Select the "**Add**" radio button.                                                                                                                                                                                                                                                                                                      |
+
+#### Advanced Tunnel 1 options
+
+The following table describes what the configurations for the advanced Tunnel 1 options should be.
+
+| Option name                       | Instructions                                                                                                                                     |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Phase 1 encryption algorithms** | <ul><li>Remove <code>AES128</code> and <code>AES256</code>.</li><li>Leave <code>AES-128-GCM-16</code> and <code>AES-256-GCM-16</code>.</li></ul> |
+| **Phase 2 encryption algorithms** | <ul><li>Remove <code>AES128</code> and <code>AES256</code>.</li><li>Leave <code>AES-128-GCM-16</code> and <code>AES-256-GCM-16</code>.</li></ul> |
+| **Phase 1 integrity algorithms**  | Leave as is; will include `SHA2-256`, `SHA2-384`, and `SHA2-512`.                                                                                |
+| **Phase 2 integrity algorithms**  | Leave as is, which will include `SHA2-256`, `SHA2-384`, and `SHA2-512`.                                                                          |
+| **Phase 1 DH group numbers**      | Leave as is; should include `2`, `14`, `15`, `16`, `17`, `18`, `19`, `20`, `21`, `22`, `23`, and `24`.                                           |
+| **Phase 2 DH group numbers**      | Leave as is; should include `2`, `5`, **** `14`, `15`, `16`, `17`, `18`, `19`, `20`, `21`, `22`, `23`, and `24`.                                 |
+| **Phase 1 lifetime (seconds)**    | Leave as is; the default is `28,800`.                                                                                                            |
+| **Phase 2 lifetime (seconds)**    | Leave as is; the default is `3,600`.                                                                                                             |
+| **Rekey margin time (seconds)**   | Leave as is; the default is `540`.                                                                                                               |
+| **Rekey fuzz (percentage)**       | Leave as is; the default is `100`.                                                                                                               |
+| **IKE version**                   | <ul><li>Remove <code>ikev1</code>.</li><li>Keep <code>ikev2</code>.</li></ul>                                                                    |
+| **Replay window size (packets)**  | Leave as is; the default is `1024`.                                                                                                              |
+| **DPD timeout (seconds)**         | Leave as is; the default is `30`.                                                                                                                |
+| **DPD timeout action**            | Select the "**Clear**" radio button.                                                                                                             |
+| **Startup action**                | Select the "**Add**" radio button.                                                                                                               |
 
 
-| **Phase 1 DH group numbers**    | Leave as is.              |
-| ------------------------------- | ------------------------- |
-| **Phase 2 DH group numbers**    | Leave as is.              |
-| **IKE Version**                 | Remove ikev1, keep ikev2. |
-| **Phase 1 lifetime (seconds)**  | Leave as is.              |
-| **Phase 2 lifetime (seconds)**  | Leave as is.              |
-| **Rekey margin time (seconds)** | Leave as is.              |
-| **Rekey fuzz (percentage)**     | Leave as is.              |
 
-![](../../../.gitbook/assets/vpn-connection-3.png)
+The following screenshot exemplifies what these configurations look like.
 
-See screenshot below for settings
+![Advanced Tunnel 1 options.](<../../../.gitbook/assets/image (12).png>)
 
-| **Replay window size (packets)** | Leave as is. |
-| -------------------------------- | ------------ |
-| **DPD timeout (seconds)**        | Leave as is. |
-| **DPD timeout action**           | Clear        |
-| **Startup action**               | Add          |
+## Configure Routes
 
-![Go ahead and Create VPN connection](../../../.gitbook/assets/vpn-connection-4.png)
+Once the AWS VPC has been created and the VPN connection has been configured, a route must be added back to the CoreWeave VPC network.\
 
-#### Routes
 
-You will now need to add a route back to the CoreWeave VPC network.\
-Your routing tables can be found under Virtual Private Cloud -> Route Tables.
+To do this, configure the routing tables found under **Virtual private cloud -> Route tables**.
 
-![](../../../.gitbook/assets/route-tables.png)
+![Route tables option menu under the virtual private cloud menu.](<../../../.gitbook/assets/image (13).png>)
 
-After clicking on the Route table ID you will be able to edit the routing table.\
-For Destination add your CoreWeave VPC network and for Target your AWS Virtual Private Gateway that was created earlier.
+Click the **route table ID** to open the configuration options for that table, and click the grey **Edit routes** button in the upper-right hand corner of the lower menu.
 
-![](../../../.gitbook/assets/edit-route.png)
+\
+In the **Edit routes** menu, configure **Destination** as the CoreWeave VPC network name, and for **Target**, configure the AWS virtual private gateway that was created at the beginning of this process.
 
-#### Tunnel details
+![Edit routes screenshot.](../../../.gitbook/assets/edit-route.png)
 
-Under Virtual Private Network -> Site-to-Site VPN Connections you will be able to find your newly created VPN. When clicking the VPN ID you can see details about your tunnel. Take note of the Tunnel 1, Outside IP address. This will be needed in the CoreWeave VPN setup.
+### Tunnel details
+
+The newly created VPN is now viewable by navigating to **Virtual Private Network -> Site-to-Site VPN Connections**. Click the **VPN ID** to see details about the tunnel.
+
+**Take note of the Tunnel 1 outside IP address. This will be needed in the CoreWeave VPN setup; review the** [**IP address details**](aws.md#ip-address) **for more information.**
 
 ![](../../../.gitbook/assets/tunnel.png)
-
-#### Notes
-
-At the current time as this guide was written, there is no way to get the AWS tunnel endpoint IP before going through all steps. Therefor a random IP can be added as the IP address.
-
-After the VPN has been created and the [Tunnel details](aws.md#tunnel-details) has been noted you can go ahead and create the [CoreWeave VPN](coreweave.md).
-
-When the CoreWeave VPN has been created and you have taken note of the IP assigned to your CoreWeave VPN. \
-You will need to create a new AWS Customer Gateway with this IP Address (Virtual Private Network -> Customer Gateways).
-
-When the new Customer Gateway has been created, you will need to edit the previously created VPN (Virtual Private Network -> Site-to-Site VPN Connections).
-
-Select your VPN and then edit it as shown in the screenshot below
-
-![](../../../.gitbook/assets/editvpn.png)
-
-Please select your newly created Customer Gateway in the Target customer gateway dropdown.

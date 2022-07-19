@@ -63,11 +63,11 @@ Note this instance exists in **LAS1** - subsequent instances should match this r
 
 We can monitor the Virtual Server spinning up with `kubectl get pods --watch`
 
-![Output of "kubectl get pods --watch"](<../../docs/.gitbook/assets/image (30).png>)
+![Output of "kubectl get pods --watch"](<../../.gitbook/assets/image (30).png>)
 
 Once our VS has reached "Running" status, we can get an External IP to connect to it with `kubectl get vs`
 
-![Output of "kubectl get vs"](<../../docs/.gitbook/assets/image (31) (1) (1).png>)
+![Output of "kubectl get vs"](<../../.gitbook/assets/image (31) (1) (1).png>)
 
 {% hint style="info" %}
 Allow \~5 minutes after "Running" status for the Virtual Server to complete initial start procedures.
@@ -77,15 +77,15 @@ Allow \~5 minutes after "Running" status for the Virtual Server to complete init
 
 Once the Virtual Server is ready, we can use the External IP to connect to it via RDP (`mstsc`):
 
-![Windows RDP Client](<../../docs/.gitbook/assets/image (37).png>)
+![Windows RDP Client](<../../.gitbook/assets/image (37).png>)
 
 Or via OpenSSH:
 
-![Connection prompt via SSH](<../../docs/.gitbook/assets/image (32).png>)
+![Connection prompt via SSH](<../../.gitbook/assets/image (32).png>)
 
 Or even via Console (useful for instances where a Public IP is not desired) using `virtctl console vs-windows10-source`:
 
-![Output of "virtctl console vs-windows10-source"](<../../docs/.gitbook/assets/image (36).png>)
+![Output of "virtctl console vs-windows10-source"](<../../.gitbook/assets/image (36).png>)
 
 {% hint style="info" %}
 Review [Remote Access and Control](../remote-access-and-control.md#installing-virtctl) for more information on `virtctl`
@@ -95,13 +95,13 @@ When customization of the instance is complete, stop it using `virtctl` (`virtct
 
 Using `kubectl get vs`, we can confirm `Started: False`:
 
-![Output of "kubectl get vs"](<../../docs/.gitbook/assets/image (35).png>)
+![Output of "kubectl get vs"](<../../.gitbook/assets/image (35).png>)
 
 ## Referencing source PVC in a new instance
 
 We can see that the PVC created along with our source Virtual Server persists with it shut off:
 
-![Output of "kubectl get pvc"](<../../docs/.gitbook/assets/image (34).png>)
+![Output of "kubectl get pvc"](<../../.gitbook/assets/image (34).png>)
 
 We will reference this PVC to create a new Virtual Server:
 
@@ -172,15 +172,15 @@ $ ./pvc-clone.sh vs-windows10-source windows10-base-disk
 This will clone a PVC within the same region in which it was created.
 {% endhint %}
 
-![Output of pvc-clone.sh](<../../docs/.gitbook/assets/image (39).png>)
+![Output of pvc-clone.sh](<../../.gitbook/assets/image (39).png>)
 
 We can now safely delete our Virtual Server with `k delete vs vs-windows10-source`:
 
-![Output of "kubectl delete vs"](<../../docs/.gitbook/assets/image (33).png>)
+![Output of "kubectl delete vs"](<../../.gitbook/assets/image (33).png>)
 
 With `k get pvc`, we can see our original Virtual Server PVC is now deleted, and only the clone remains:
 
-![Output of "kubectl get pvc"](<../../docs/.gitbook/assets/image (29).png>)
+![Output of "kubectl get pvc"](<../../.gitbook/assets/image (29).png>)
 
 We'll adjust our Virtual Server spec to suit:
 

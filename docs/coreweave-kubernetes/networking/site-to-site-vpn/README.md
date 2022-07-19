@@ -14,7 +14,7 @@ In cases where infrastructure is hosted across different Cloud platforms or on a
 On CoreWeave Cloud, Site-to-Site VPNs are provided by instantiating a Virtual VPN in a Layer 2 VPC. Each workload that needs access to the Site-to-Site VPN should be placed in the VPC in addition to the regular CoreWeave network.
 {% endhint %}
 
-CoreWeave provides guides for setup and usage both on CoreWeave Cloud as well as other Cloud platforms:
+CoreWeave provides guides for setup and usage both on **CoreWeave Cloud** as well as other Cloud platforms. **Configurations must be completed for both sides of the Site-to-Site VPN.**
 
 | Cloud                     |
 | ------------------------- |
