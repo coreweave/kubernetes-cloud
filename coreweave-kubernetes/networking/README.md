@@ -15,7 +15,7 @@ This building block handles connectivity to each individual workload. Be it a Ku
 The Load Balancing Service exposes one or multiple workloads behind a static public or private IP. This is the primary method of exposing services to the world, alongside Ingresses that are specifically used for HTTP based applications. Services load-balance and forward a specific set of ports to all instances of the workload curently running and in a healthy status. The workloads maintain their ephemeral private IPs. If unfamiliar with load balancing concepts, the traffic is forwarded similar to a "port forward" in a traditional NAT firewall.
 
 {% hint style="info" %}
-[How to create Load Balancer Services ->](exposing-applications.md#public-services)
+[How to create Load Balancer Services ->](../../docs/coreweave-kubernetes/networking/exposing-applications.md#public-services)
 {% endhint %}
 
 #### Direct Attach (Service)
@@ -23,7 +23,7 @@ The Load Balancing Service exposes one or multiple workloads behind a static pub
 A special condition where a static public or private IP from a Service is attached directly to a Workload. This setup is useful in cases where a wide range of ports would otherwise have to be load-balanced, or it is important for the Workload to see it's public IP as the IP on its virtual NIC. By nature of the direct attach, load balancing is no longer possible and it becomes a simple 1:1 mapping of workload to public IP. Unlike regular Workload Networking, servers on the internet will see connections initiated from the workload as originating from the Direct Attach IP.
 
 {% hint style="info" %}
-[How to Direct Attach an IP Address to Workloads ->](exposing-applications.md#attaching-service-ip-directly-to-pod)
+[How to Direct Attach an IP Address to Workloads ->](../../docs/coreweave-kubernetes/networking/exposing-applications.md#attaching-service-ip-directly-to-pod)
 {% endhint %}
 
 #### Ingress Controller

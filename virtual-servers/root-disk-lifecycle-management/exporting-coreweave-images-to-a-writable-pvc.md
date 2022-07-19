@@ -5,7 +5,7 @@
 
 #### References:
 
-{% file src="../../.gitbook/assets/volume_clone.yaml" %}
+{% file src="../../docs/.gitbook/assets/volume_clone.yaml" %}
 
 {% hint style="success" %}
 Be sure to review [Getting Started](../../coreweave-kubernetes/getting-started.md#obtain-access-credentials) and the [kubectl Virtual Server deployment method](../../docs/virtual-servers/deployment-methods/kubectl.md#deploying-a-virtual-server) before starting this guide.
@@ -22,7 +22,7 @@ kubectl get pvc -n vd-images -l images.coreweave.cloud/latest=true,images.corewe
 ```
 
 {% hint style="info" %}
-For more information on querying source images, see [Identifying Images](../coreweave-system-images/#identifying-images)
+For more information on querying source images, see [Identifying Images](../../docs/virtual-servers/coreweave-system-images/#identifying-images)
 {% endhint %}
 {% endtab %}
 {% endtabs %}
@@ -33,7 +33,7 @@ In this example – we’ll be targeting the latest Windows Server 2019 Standard
 _Ensure your location is consistent throughout these examples – here we are using **ORD1** - valid locations also include **EWR1** and **LAS1**_
 {% endhint %}
 
-![](../../.gitbook/assets/0.png)
+![](../../docs/.gitbook/assets/0.png)
 
 ### Clone source image into namespace
 
@@ -78,4 +78,4 @@ Note storage size needs to be equal to or greater than the source disk capacity.
 
 With `kubectl get pvc`, we can see our newly cloned image existing in our own namespace:
 
-![](../../.gitbook/assets/2.png)
+![](../../docs/.gitbook/assets/2.png)

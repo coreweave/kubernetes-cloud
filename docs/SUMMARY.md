@@ -2,7 +2,7 @@
 
 * [CoreWeave Cloud](README.md)
 * [Data Center Regions](data-center-regions.md)
-* [Release Notes](../release-notes.md)
+* [Release Notes](release-notes.md)
 
 ## CoreWeave Kubernetes
 
@@ -12,13 +12,13 @@
 * [Advanced Label Selectors](../coreweave-kubernetes/label-selectors.md)
 * [Storage](../coreweave-kubernetes/storage.md)
 * [Networking](../coreweave-kubernetes/networking/README.md)
-  * [Exposing Applications](../coreweave-kubernetes/networking/exposing-applications.md)
-  * [Direct Connect](../coreweave-kubernetes/networking/direct-connections.md)
+  * [Exposing Applications](coreweave-kubernetes/networking/exposing-applications.md)
+  * [Direct Connect](coreweave-kubernetes/networking/direct-connections.md)
   * [Site-to-Site VPN](coreweave-kubernetes/networking/site-to-site-vpn/README.md)
     * [CoreWeave](coreweave-kubernetes/networking/site-to-site-vpn/coreweave.md)
     * [AWS](coreweave-kubernetes/networking/site-to-site-vpn/aws.md)
     * [Benchmarks](coreweave-kubernetes/networking/site-to-site-vpn/benchmarks.md)
-  * [Bring Your Own IP](../coreweave-kubernetes/networking/bring-your-own-ip.md)
+  * [Bring Your Own IP](coreweave-kubernetes/networking/bring-your-own-ip.md)
 * [Serverless](../coreweave-kubernetes/serverless.md)
 * [Metrics](../coreweave-kubernetes/prometheus/README.md)
   * [Grafana](../coreweave-kubernetes/prometheus/grafana.md)
@@ -53,13 +53,13 @@
   * [Exporting images to QCOW2](../virtual-servers/root-disk-lifecycle-management/exporting-images-to-qcow2.md)
   * [Importing a QCOW2 image](virtual-servers/root-disk-lifecycle-management/importing-a-qcow2-image.md)
   * [Cloning block volumes](virtual-servers/root-disk-lifecycle-management/cloning-block-volumes.md)
-* [CoreWeave System Images](../virtual-servers/coreweave-system-images/README.md)
+* [CoreWeave System Images](virtual-servers/coreweave-system-images/README.md)
   * [Windows Images](virtual-servers/coreweave-system-images/windows-images.md)
   * [Linux Images](virtual-servers/coreweave-system-images/linux-images.md)
 * [Examples](../virtual-servers/examples/README.md)
-  * [Active Directory Environment hosted on CoreWeave Cloud](../virtual-servers/examples/active-directory-environment-hosted-on-coreweave-cloud/README.md)
+  * [Active Directory Environment hosted on CoreWeave Cloud](virtual-servers/examples/active-directory-environment-hosted-on-coreweave-cloud/README.md)
     * [Provision an Active Directory Domain](virtual-servers/examples/active-directory-environment-hosted-on-coreweave-cloud/provision-an-active-directory-domain-controller.md)
-    * [Highly Available Storage using Samba-AD and AD DFS](../virtual-servers/examples/active-directory-environment-hosted-on-coreweave-cloud/highly-available-storage-using-samba-ad-and-ad-dfs.md)
+    * [Highly Available Storage using Samba-AD and AD DFS](virtual-servers/examples/active-directory-environment-hosted-on-coreweave-cloud/highly-available-storage-using-samba-ad-and-ad-dfs.md)
 
 ## Inference <a href="#compass" id="compass"></a>
 
@@ -76,7 +76,7 @@
   * [PyTorch - GPT-2 AITextgen](../compass/examples/custom-pytorch-aitextgen.md)
   * [PyTorch - FastAI Sentiment](../compass/examples/custom-sentiment.md)
   * [Custom - BASNET](../compass/examples/custom-basnet.md)
-* [Finetuning Machine Learning Models](../compass/finetuning-machine-learning-models.md)
+* [Finetuning Machine Learning Models](compass/finetuning-machine-learning-models.md)
 
 ## Workflows
 
@@ -96,8 +96,8 @@
 
 ## Cloud Account Management
 
-* [Organizations](../cloud-account-management/organizations.md)
-* [Billing Portal](../cloud-account-management/billing-portal.md)
+* [Organizations](cloud-account-management/organizations.md)
+* [Billing Portal](cloud-account-management/billing-portal.md)
 
 ## Resources
 
