@@ -8,13 +8,14 @@ description: >-
 
 The Go example illustrates the following:
 
-1. Building up a Virtual Server ([VirtualServer](https://github.com/coreweave/virtual-server/blob/master/api/v1alpha1/virtualserver\_types.go#L68)) struct.
-2. Builds a Service and PVC to be used as a FloatingIP and Additional Filesystem respectively.
-3. Removal of an existing Virtual Server.
-4. Creation of a new Virtual Server. (The instance is started automatically).
+1. Building up a [Virtual Server struct (`VirtualServer`)](https://github.com/coreweave/virtual-server/blob/master/api/v1alpha1/virtualserver\_types.go#L68).
+2. Building a Service and PVC to be used as a FloatingIP and Additional Filesystem respectively.
+3. Removing an existing Virtual Server.
+4. Creating a new Virtual Server. (The instance is started automatically.)
 5. Waiting for Virtual Server ready status.
-6. Stopping the instance and waiting until it is completely stopped.
-7. Deletion of the Virtual Server.
+6. Creating a floating service when environment variable `FLOATING_SERVICE_NAME` is specified.
+7. Stopping the instance and waiting until it is completely stopped.
+8. Deleting of the Virtual Server.
 
 {% embed url="https://github.com/coreweave/kubernetes-cloud/tree/master/virtual-server/examples/go" %}
 
