@@ -1,0 +1,59 @@
+apiVersion: serving.kubeflow.org/v1beta1
+kind: InferenceService
+metadata:
+  name: bloom-175b
+spec:
+  predictor:
+    minReplicas: 1
+    maxReplicas: 1 
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+              - key: gpu.nvidia.com/class
+                operator: In
+                values:
+                  - A40
+        preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 10
+          preference:
+            matchExpressions:
+              - key: topology.kubernetes.io/region
+                operator: In
+                values:
+                  - LAS1
+    containers:
+      - name: kserve-container
+        image: tweldoncw/bloom-175b:a3c6d36
+        command:
+          - "python3"
+          - "/workspace/bloom.py"
+        env:
+          - name: MODEL_NAME
+            value: 'bigscience/bloom'
+          - name: STORAGE_URI # Kserve mounts the PVC at /mnt/pvc/
+            value: pvc://bloom-175b-model-cache/
+          - name: TRANSFORMERS_CACHE
+            value: /mnt/pvc/
+          - name: MIN_LENGTH
+            value: "50"
+          - name: MAX_LENGTH
+            value: "250"
+          - name: TEMPERATURE
+            value: "0.9"
+          - name: TOP_K
+            value: "50"
+          - name: TOP_P
+            value: "0.9"
+          - name: REPETITION_PENALTY
+            value: "1.125"
+        resources:
+          limits:
+            cpu: 32
+            memory: 384Gi
+            nvidia.com/gpu: 8
+          requests:
+            cpu: 32
+            memory: 384Gi
+            nvidia.com/gpu: 8

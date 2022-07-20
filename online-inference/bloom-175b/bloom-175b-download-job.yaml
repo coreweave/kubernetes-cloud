@@ -1,0 +1,43 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: bloom-175b-download
+spec:
+  template:
+    spec:
+      containers:
+      - name: model-downloader
+        image: tweldoncw/bloom-175b:a3c6d36
+        imagePullPolicy: IfNotPresent
+        command: ["bash", "-c"]
+        args:
+          - 'download_model bigscience/bloom'
+        volumeMounts:
+          - name: cache
+            mountPath: /mnt/pvc
+        env:
+          - name: TRANSFORMERS_CACHE
+            value: /mnt/pvc
+        resources:
+          requests:
+            cpu: 1
+            memory: 4Gi 
+          limits:
+            cpu: 1
+            memory: 4Gi 
+      volumes:
+        - name: cache
+          persistentVolumeClaim:
+            claimName: bloom-175b-model-cache
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 10
+            preference:
+              matchExpressions:
+                - key: topology.kubernetes.io/region
+                  operator: In
+                  values: 
+                  - LAS1
+      restartPolicy: Never
+  backoffLimit: 2

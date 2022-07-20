@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+MODEL=$1
+echo "Downloading model: $MODEL"
+echo "Transformers Cache: $TRANSFORMERS_CACHE"
+python3 -c "from transformers import AutoModel, AutoTokenizer; import torch; AutoModel.from_pretrained(\"$MODEL\", torch_dtype=torch.float16, use_cache=True, low_cpu_mem_usage=True); AutoTokenizer.from_pretrained(\"$MODEL\")"

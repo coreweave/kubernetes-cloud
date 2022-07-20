@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -ex 
+
+NAME=$name
+VERSION=$version
+IMAGE=$NAME:$VERSION
+COMMAND=$run_cmd
+
+docker run -d --rm $IMAGE $COMMAND
