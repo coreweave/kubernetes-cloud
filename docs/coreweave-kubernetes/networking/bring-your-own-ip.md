@@ -8,7 +8,7 @@ description: CoreWeave Requirements and Pricing for BYOIP
 
 These Requirements for BYOIP are incorporated in CoreWeave’s Terms of Service (TOS). By requesting BYOIP from CoreWeave, you agree to be bound by these Requirements and you acknowledge and agree to all of CoreWeave’s reservations of rights.
 
-CoreWeave AS Number: 33425&#x20;
+CoreWeave AS Number: **33425**&#x20;
 
 _CoreWeave only supports IPv4 addressing at this time_
 
