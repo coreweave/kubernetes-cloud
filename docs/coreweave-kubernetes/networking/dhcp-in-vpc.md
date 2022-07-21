@@ -16,13 +16,13 @@ The VPC **must be created** before the DHCP server is deployed
 
 To install the dhcp server, navigate to the Applications catalogue from the CoreWeave Cloud UI homepage, then find and select the dhcp-server **** application.
 
-![Screenshot of the dhcpd-server application in the CoreWeave application catalog.](<../../../.gitbook/assets/image (9).png>)
+![Screenshot of the dhcpd-server application in the CoreWeave application catalog.](<../../.gitbook/assets/image (9).png>)
 
 ### Configuration
 
 Selecting the application will expose the configuration options for the DHCP server, shown and detailed below.
 
-![DHCP configuration settings, exposed by clicking the DHCP server application.](<../../../.gitbook/assets/image (15).png>)
+![DHCP configuration settings, exposed by clicking the DHCP server application.](<../../.gitbook/assets/image (15).png>)
 
 #### Configuration options
 
@@ -38,7 +38,7 @@ Selecting the application will expose the configuration options for the DHCP ser
 
 At the bottom of the application's configuration screen are the **Network settings** for the DHCP server, in which you can adjust the settings for the server's VPC and network.
 
-![Network settings for DHCP server application.](<../../../.gitbook/assets/image (14).png>)
+![Network settings for DHCP server application.](<../../.gitbook/assets/image (14).png>)
 
 #### Configuration options
 

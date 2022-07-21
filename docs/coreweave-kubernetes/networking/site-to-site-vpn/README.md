@@ -36,16 +36,18 @@ After initial installation, VPN status and troubleshooting can be conducting by 
 
 To get the current status of your VPN tunnel, you will need to SSH into the VPN server on its VPC IP, or attach to the console.
 
-| Commands                         |                                                                                                                                                                                                                                                                                                                |
-| -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sudo ipsec statusall`           | Display information about your tunnel(s).                                                                                                                                                                                                                                                                      |
-| `sudo ipsec restart`             | Restart the IPSec service.                                                                                                                                                                                                                                                                                     |
-| `sudo python3 /mnt/vpnconfig.py` | <p>Reloads the VPN configurations after a restart.<br><br>If changes have been made to the config-map that contains the IPSec configuration, you will need to first restart the VPN server (the config-map is immutable).<br><br>After restarting, you can issue this command to reload the configuration.</p> |
-| `sudo swanctl --load-all`        | <p>Reloads the IPSec daemon.</p><p></p><p>After you have issued the <code>vpnconfig</code></p><p>command above, the IPSec daemon must be reloaded with the new configuration.</p>                                                                                                                              |
+| Commands               |                                           |
+| ---------------------- | ----------------------------------------- |
+| `sudo ipsec statusall` | Display information about your tunnel(s). |
+| `sudo ipsec restart`   | Restart the IPSec service.                |
 
-#### Updating Configuration
+#### Updating VPN configuration
 
-If changes have been made to the the IPSec configuration, you will need to restart the VPN gateway via the Virtual Server management page or `virtctl restart` on the command line.
+After changes have been made to your VPN configuration via the CoreWeave Cloud UI, the VPN server must be restarted for the new configuration to take effect.
+
+```
+virtctl restart vpn02
+```
 
 ### Troubleshooting
 

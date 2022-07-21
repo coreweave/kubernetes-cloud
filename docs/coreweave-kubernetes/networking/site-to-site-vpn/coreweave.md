@@ -1,16 +1,16 @@
 ---
-description: Configuration guide for the CoreWeave end of a VPN tunnel.
+description: Configuration guide for the CoreWeave end of the VPN tunnel.
 ---
 
 # Getting Started
 
 ## IPSec VPN setup
 
-Site-to-Site VPNs are configured through the [CoreWeave Cloud UI](../../../../virtual-servers/deployment-methods/coreweave-apps.md). The IPSec VPN gateway is provided through our application Catalog. To set up the IPSec VPN gateway, first navigate to the **Catalog** page from the CoreWeave Cloud UI main menu.
+Site-to-Site VPNs are configured through the [CoreWeave Cloud UI](../../../../virtual-servers/deployment-methods/coreweave-apps.md). The IPSec VPN Server is provided through our application catalogue. To set up the IPSec VPN server, first navigate to the **Catalog** page from the CoreWeave Cloud UI main menu.
 
 ### Installation
 
-Find and select the **vpn-ipsec-server** in the catalog.
+Find and select the **vpn-ipsec-server** in the Catalog:
 
 ![The applications page on CoreWeave Cloud, with a search filter for "vpn."](<../../../.gitbook/assets/image (2) (1).png>)
 
@@ -22,7 +22,7 @@ Selecting the VPN application from the catalog exposes its configuration options
 
 #### Configuration Options
 
-| **Proposals**      | First, select [a proposal](getting-started.md#proposals) that best suits your implementation. Broadly, `aes256gcm16-sha256-modp2048` is recommended for the highest performance.                                                                                                          |
+| **Proposals**      | First, select [a proposal](coreweave.md#proposals) that best suits your implementation. Broadly, `aes256gcm16-sha256-modp2048` is recommended for the highest performance.                                                                                                                |
 | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Pre Shared Key** | 32-64 alphanumeric random string                                                                                                                                                                                                                                                          |
 | **Peer IP**        | The remote VPN device IP or hostname                                                                                                                                                                                                                                                      |
