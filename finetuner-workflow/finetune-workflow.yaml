@@ -258,6 +258,7 @@ spec:
         - name: pad
         - name: output
         - name: boundary
+        - name: reorder
     retryStrategy:
       limit: 1
     container:
