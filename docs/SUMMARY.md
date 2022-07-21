@@ -12,6 +12,7 @@
 * [Advanced Label Selectors](../coreweave-kubernetes/label-selectors.md)
 * [Storage](../coreweave-kubernetes/storage.md)
 * [Networking](../coreweave-kubernetes/networking/README.md)
+  * [HPC Interconnect](coreweave-kubernetes/networking/hpc-interconnect.md)
   * [Exposing Applications](coreweave-kubernetes/networking/exposing-applications.md)
   * [Layer 2 VPC](coreweave-kubernetes/networking/layer-2-vpc/README.md)
     * [DHCP](coreweave-kubernetes/networking/dhcp-in-vpc.md)
