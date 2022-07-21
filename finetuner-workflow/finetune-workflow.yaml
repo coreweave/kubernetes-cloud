@@ -101,15 +101,15 @@ spec:
     - name: downloader_image
       value: 'ghcr.io/wbrown/gpt_bpe/model_downloader'
     - name: downloader_tag
-      value: 'b60025d'
+      value: '7ffb3ec'
     - name: tokenizer_image
       value: 'ghcr.io/wbrown/gpt_bpe/dataset_tokenizer'
     - name: tokenizer_tag
-      value: 'b60025d'
+      value: '7ffb3ec'
     - name: finetuner_image
       value: 'docker.io/gooseai/finetuner'
     - name: finetuner_tag
-      value: 'rc56'
+      value: 'rc57'
     - name: inference_image
       value: 'coreweave/ml-images'
     - name: inference_tag
