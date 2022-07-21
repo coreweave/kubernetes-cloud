@@ -22,6 +22,11 @@ spec:
     # NOT enable this if you are making multiple runs on the same dataset.
     - name: retokenize
       value: 'false'
+    # How should the tokenizer order the dataset inputs? Options available are:
+    # `size_ascending`, `size_descending`, `name_ascending`, `name_descending`,
+    # `random`, and `none`.
+    - name: reorder
+      value: 'none'
     # eot and pad tokens, it is suggested not to change this value, but usual
     # values are `<|padding|>` or `<|endoftext|>`
     - name: eot_token
@@ -145,6 +150,8 @@ spec:
             value: "{{workflow.parameters.pad_token}}"
           - name: boundary
             value: "{{workflow.parameters.boundary_token}}"
+          - name: reorder
+            value: "{{workflow.parameters.reorder}}"
         when: "{{workflow.parameters.inference_only}} == false"
 
     - - name: finetuner
@@ -263,6 +270,7 @@ spec:
              "-input", "{{inputs.parameters.input}}",
              "-output", "{{inputs.parameters.output}}",
              "-boundary", "{{inputs.parameters.boundary}}",
+             "-reorder", "{{inputs.parameters.reorder}}",
              "-sanitize"]
       resources:
         requests:
