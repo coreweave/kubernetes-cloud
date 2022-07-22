@@ -1,4 +1,6 @@
 import os
+import logging
+import time
 import re
 import kserve
 from typing import Dict
@@ -22,6 +24,9 @@ model_params = {
     'TOP_P': float(os.getenv('TOP_P', -2)),
     'REPETITION_PENALTY': float(os.getenv('REPETITION_PENALTY', 0.125)),
 }
+
+logging.basicConfig(level=kserve.constants.KSERVE_LOGLEVEL)
+logger = logging.getLogger(options['MODEL_NAME'])
 
 class Model(kserve.Model):
     def __init__(self, name: str):
@@ -66,7 +71,21 @@ class Model(kserve.Model):
             repetition_penalty=request_params['REPETITION_PENALTY'],
         )}
 
+    @staticmethod
+    def is_ready():
+        ready_path = os.path.join(options['MODEL_PATH'], '.ready.txt')
+        logger.info(f'Waiting for download to be ready ...')
+        interval_time = 10
+        intervals = options['MODEL_DOWNLOAD_TIMEOUT'] // interval_time
+        for i in range(intervals):
+            time.sleep(interval_time)
+            if os.path.exists(ready_path):
+                logger.info('Download ready')
+                return
+        raise Exception(f'Download timeout {interval_time * intervals}!')
+
 if __name__ == '__main__':
+    Model.is_ready()
     model = Model(options['MODEL_NAME'])
     model.load()
     kserve.ModelServer().start([model])

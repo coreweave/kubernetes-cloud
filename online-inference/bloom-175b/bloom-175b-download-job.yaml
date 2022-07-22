@@ -11,7 +11,7 @@ spec:
         imagePullPolicy: IfNotPresent
         command: ["bash", "-c"]
         args:
-          - 'download_model bigscience/bloom'
+          - 'download_model bloom /mnt/pvc'
         volumeMounts:
           - name: cache
             mountPath: /mnt/pvc
