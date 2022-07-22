@@ -32,10 +32,12 @@ spec:
         env:
           - name: MODEL_NAME
             value: 'bigscience/bloom'
+          # The following values are defaults which may be chaged as needed
           - name: STORAGE_URI # Kserve mounts the PVC at /mnt/pvc/
-            value: pvc://bloom-175b-model-cache/
+            value: pvc://bloom-175b-model-cache/ 
           - name: TRANSFORMERS_CACHE
-            value: /mnt/pvc/
+            value: /mnt/pvc/ 
+          # The following values are defaults which may be changed as needed here, as well in each predictor request. 
           - name: MIN_LENGTH
             value: "50"
           - name: MAX_LENGTH
