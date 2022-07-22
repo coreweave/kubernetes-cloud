@@ -1,3 +1,3 @@
-accelerate
+accelerate==0.11.0
 git+https://github.com/huggingface/transformers.git@ccc0897 # For device_map in pipelines() support
 kserve==0.8.0.2
