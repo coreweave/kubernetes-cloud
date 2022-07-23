@@ -7,7 +7,7 @@ spec:
     spec:
       containers:
       - name: model-downloader
-        image: tweldoncw/bloom-175b:301ccaa
+        image: tweldoncw/bloom-175b:d2c5667
         imagePullPolicy: IfNotPresent
         command: ["bash", "-c"]
         args:
@@ -28,7 +28,7 @@ spec:
       volumes:
         - name: cache
           persistentVolumeClaim:
-            claimName: bloom-175b-model-cache
+            claimName: model-cache
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
@@ -38,6 +38,6 @@ spec:
                 - key: topology.kubernetes.io/region
                   operator: In
                   values: 
-                  - LAS1
+                  - ORD1
       restartPolicy: Never
   backoffLimit: 2

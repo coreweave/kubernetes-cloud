@@ -22,10 +22,10 @@ spec:
               - key: topology.kubernetes.io/region
                 operator: In
                 values:
-                  - LAS1
+                  - ORD1 
     containers:
       - name: kserve-container
-        image: tweldoncw/bloom-175b:301ccaa
+        image: tweldoncw/bloom-175b:a3c6d36
         command:
           - "python3"
           - "/workspace/bloom.py"
@@ -34,12 +34,12 @@ spec:
             value: 'bigscience/bloom'
           # The following values are defaults which may be chaged as needed
           - name: STORAGE_URI # Kserve mounts the PVC at /mnt/pvc/
-            value: pvc://bloom-175b-model-cache/ 
+            value: pvc://model-cache/ 
           - name: TRANSFORMERS_CACHE
             value: /mnt/pvc/ 
           # The following values are defaults which may be changed as needed here, as well in each predictor request. 
           - name: MIN_LENGTH
-            value: "50"
+            value: "1"
           - name: MAX_LENGTH
             value: "250"
           - name: TEMPERATURE

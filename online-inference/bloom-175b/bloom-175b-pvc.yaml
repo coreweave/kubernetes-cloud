@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: bloom-175b-model-cache
+  name: model-cache
 spec:
-  storageClassName: shared-nvme-las1
+  storageClassName: shared-nvme-ord1
   accessModes:
     - ReadWriteMany
   resources:
