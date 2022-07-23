@@ -25,7 +25,7 @@ spec:
                   - LAS1
     containers:
       - name: kserve-container
-        image: tweldoncw/bloom-175b:a3c6d36
+        image: tweldoncw/bloom-175b:301ccaa
         command:
           - "python3"
           - "/workspace/bloom.py"

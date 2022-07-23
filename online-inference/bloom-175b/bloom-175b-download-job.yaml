@@ -7,7 +7,7 @@ spec:
     spec:
       containers:
       - name: model-downloader
-        image: tweldoncw/bloom-175b:a3c6d36
+        image: tweldoncw/bloom-175b:301ccaa
         imagePullPolicy: IfNotPresent
         command: ["bash", "-c"]
         args:

@@ -12,3 +12,6 @@ push:
 
 run:
 	scripts/run 
+
+update_image:
+	scripts/update_image
