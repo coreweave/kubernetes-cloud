@@ -5,5 +5,8 @@ export run_cmd=sleep infinity
 build:
 	scripts/build
 
+push:
+	scripts/push 
+
 run:
 	scripts/run 

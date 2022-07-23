@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -ex
+
+VERSION=$(git log -1 --format=%h)
+NAME=$name
+LATEST="$name:latest"
+
+docker push "$NAME" -a

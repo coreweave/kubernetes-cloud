@@ -45,7 +45,7 @@ spec:
           - name: TEMPERATURE
             value: "0.9"
           - name: TOP_K
-            value: "50"
+            value: "5"
           - name: TOP_P
             value: "0.9"
           - name: REPETITION_PENALTY
