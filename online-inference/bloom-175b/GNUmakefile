@@ -4,6 +4,8 @@ commit := $(shell /usr/bin/bash -c "git log -1 --format=%h")
 export version=$(commit)
 export run_cmd=sleep infinity
 
+docker: build push update_image
+
 build:
 	scripts/build
 

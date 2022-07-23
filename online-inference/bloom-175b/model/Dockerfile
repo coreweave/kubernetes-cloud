@@ -4,7 +4,7 @@ FROM pytorch/pytorch:1.12.0-cuda11.3-cudnn8-runtime AS pytorch-huggingface
 # Upgrade packages
 RUN apt update && apt upgrade -y
 
-RUN apt update && apt install -y curl git wget zip
+RUN apt update && apt install -y curl git wget zip tree
 
 ADD requirements.txt /tmp/
 RUN pip3 install -r /tmp/requirements.txt && \

@@ -8,20 +8,24 @@ from typing import Dict
 from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
 import torch
 
-model_id = os.getenv('MODEL_NAME', "bigscience/bloom")
+#dev_map = {'transformer.word_embeddings': 0, 'lm_head': 0, 'transformer.word_embeddings_layernorm': 0, 'transformer.h.0': 0, 'transformer.h.1': 0, 'transformer.h.2': 0, 'transformer.h.3': 0, 'transformer.h.4': 0, 'transformer.h.5': 1, 'transformer.h.6': 1, 'transformer.h.7': 1, 'transformer.h.8': 1, 'transformer.h.9': 1, 'transformer.h.10': 1, 'transformer.h.11': 1, 'transformer.h.12': 1, 'transformer.h.13': 1, 'transformer.h.14': 2, 'transformer.h.15': 2, 'transformer.h.16': 2, 'transformer.h.17': 2, 'transformer.h.18': 2, 'transformer.h.19': 2, 'transformer.h.20': 2, 'transformer.h.21': 2, 'transformer.h.22': 2, 'transformer.h.23': 3, 'transformer.h.24': 3, 'transformer.h.25': 3, 'transformer.h.26': 3, 'transformer.h.27': 3, 'transformer.h.28': 3, 'transformer.h.29': 3, 'transformer.h.30': 3, 'transformer.h.31': 3, 'transformer.h.32': 4, 'transformer.h.33': 4, 'transformer.h.34': 4, 'transformer.h.35': 4, 'transformer.h.36': 4, 'transformer.h.37': 4, 'transformer.h.38': 4, 'transformer.h.39': 4, 'transformer.h.40': 4, 'transformer.h.41': 5, 'transformer.h.42': 5, 'transformer.h.43': 5, 'transformer.h.44': 5, 'transformer.h.45': 5, 'transformer.h.46': 5, 'transformer.h.47': 5, 'transformer.h.48': 5, 'transformer.h.49': 5, 'transformer.h.50': 6, 'transformer.h.51': 6, 'transformer.h.52': 6, 'transformer.h.53': 6, 'transformer.h.54': 6, 'transformer.h.55': 6, 'transformer.h.56': 6, 'transformer.h.57': 6, 'transformer.h.58': 7, 'transformer.h.59': 7, 'transformer.h.60': 7, 'transformer.h.61': 7, 'transformer.h.62': 7, 'transformer.h.63': 7, 'transformer.h.64': 7, 'transformer.h.65': 7, 'transformer.h.66': 7, 'transformer.h.67': 0, 'transformer.h.68': 3, 'transformer.h.69': 5, 'transformer.ln_f': 7}
+
+model_id = os.getenv('MODEL_ID', "bigscience/bloom")
+
 options = {
-    'MODEL_ID': model_id,
+    'MODEL_PATH': os.getenv('MODEL_PATH', "/mnt/pvc/bloom"),
     'MODEL_NAME': re.sub(r'[^\w-]', '-', model_id).lower(),
     'MODEL_TYPE': os.getenv('MODEL_TYPE', 'text-generation'),
-    'DEVICE_MAP': os.getenv('DEVICE_MAP', "auto"),
+    #'DEVICE_MAP': os.getenv('DEVICE_MAP', "auto"),
+    'MODEL_DOWNLOAD_TIMEOUT': int(os.getenv('MODEL_DOWNLOAD_TIMEOUT', 300))
 }
 
 model_params = {
-    'MIN_LENGTH': int(os.getenv('MIN_LENGTH', -2)),
-    'MAX_LENGTH': int(os.getenv('MAX_LENGTH', -2)),
-    'TEMPERATURE': float(os.getenv('TEMPERATURE', -2)),
-    'TOP_K': int(os.getenv('TOP_K', -2)),
-    'TOP_P': float(os.getenv('TOP_P', -2)),
+    'MIN_LENGTH': int(os.getenv('MIN_LENGTH', 1)),
+    'MAX_LENGTH': int(os.getenv('MAX_LENGTH', 250)),
+    'TEMPERATURE': float(os.getenv('TEMPERATURE', 0.5)),
+    'TOP_K': int(os.getenv('TOP_K', 5)),
+    'TOP_P': float(os.getenv('TOP_P', 0.5)),
     'REPETITION_PENALTY': float(os.getenv('REPETITION_PENALTY', 0.125)),
 }
 
@@ -39,13 +43,14 @@ class Model(kserve.Model):
         self.model_name = options['MODEL_NAME']
 
     def load(self):
-        self.model = AutoModelForCausalLM.from_pretrained(options["MODEL_ID"], device_map=options["DEVICE_MAP"], torch_dtype=torch.bfloat16)
-        self.tokenizer = AutoTokenizer.from_pretrained(options["MODEL_ID"])
+        self.model = AutoModelForCausalLM.from_pretrained(options["MODEL_PATH"], device_map="auto", torch_dtype=torch.bfloat16, local_files_only=True)
+        self.model.bfloat16().eval()
+        self.tokenizer = AutoTokenizer.from_pretrained(options["MODEL_PATH"], local_files_only=True)
         self.generator = pipeline(
             options['MODEL_TYPE'],
             model=self.model,
             tokenizer=self.tokenizer,
-            device_map=options['DEVICE_MAP'],
+            device_map="auto",
         )
         self.ready = True
 
@@ -62,13 +67,13 @@ class Model(kserve.Model):
 
         return {'predictions': self.generator(
             request['instances'],
-            do_sample=True,
+            #do_sample=True,
             min_length=request_params['MIN_LENGTH'],
             max_length=request_params['MAX_LENGTH'],
             temperature=request_params['TEMPERATURE'],
             top_k=request_params['TOP_K'],
             top_p=request_params['TOP_P'],
-            repetition_penalty=request_params['REPETITION_PENALTY'],
+            repetition_penalty=request_params['REPETITION_PENALTY']
         )}
 
     @staticmethod
@@ -86,7 +91,8 @@ class Model(kserve.Model):
 
 if __name__ == '__main__':
     Model.is_ready()
-    model = Model(options['MODEL_NAME'])
-    model.load()
-    kserve.ModelServer().start([model])
-    
+    with torch.no_grad():
+        model = Model(options['MODEL_NAME'])
+        model.load()
+        kserve.ModelServer().start([model])
+   

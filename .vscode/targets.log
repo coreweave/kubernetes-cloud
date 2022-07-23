@@ -1,0 +1,350 @@
+make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+make: *** No rule to make target 'all'.  Stop.
+
+# GNU Make 4.3
+# Built for x86_64-pc-linux-gnu
+# Copyright (C) 1988-2020 Free Software Foundation, Inc.
+# License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+# This is free software: you are free to change and redistribute it.
+# There is NO WARRANTY, to the extent permitted by law.
+
+# Make data base, printed on Sat Jul 23 21:30:43 2022
+
+# Variables
+
+# environment
+GDK_BACKEND = x11
+# environment
+LC_ALL = C
+# environment
+GNOME_SHELL_SESSION_MODE = ubuntu
+# environment
+SSH_AGENT_LAUNCHER = gnome-keyring
+# environment
+SESSIONTYPE = ubuntu
+# environment
+STARSHIP_SESSION_KEY = 3243219741247592
+# environment
+GJS_DEBUG_OUTPUT = stderr
+# environment
+POETRY_VERSION = 1.1.6
+# environment
+MANDATORY_PATH = /usr/share/gconf/ubuntu.mandatory.path
+# environment
+VSCODE_CWD = /home/tweldon
+# environment
+GPG_TTY = 
+# environment
+LIBVIRT_DEFAULT_URI = qemu:///system
+# default
+MAKE_COMMAND := make
+# environment
+HISTFILE = /home/tweldon/.cache/zsh-history
+# environment
+QT_ACCESSIBILITY = 1
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# default
+.VARIABLES := 
+# environment
+DOTFILES_ZSH_DEBUG = 0
+# environment
+PWD = /home/tweldon/git/kubernetes-cloud
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# environment
+VAULT_SKIP_VERIFY = true
+# environment
+XDG_DATA_DIRS = /home/tweldon/.local/share:/usr/share/ubuntu:/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# automatic
+%F = $(notdir $%)
+# environment
+COREWEAVE_PLUGIN_ZSH_PATH = /home/tweldon/.cache/zsh/plugins/dev-shell
+# environment
+CONDA_PROMPT_MODIFIER = (base) 
+# environment
+VSCODE_CODE_CACHE_PATH = /home/tweldon/.config/Code/CachedData/b06ae3b2d2dbfe28bca3134cc6be65935cdfea6a
+# environment
+LANG = C
+# environment
+XAUTHORITY = /home/tweldon/.Xauthority
+# default
+.LOADED := 
+# default
+.INCLUDE_DIRS = /usr/local/include /usr/include /usr/include
+# environment
+MINIKUBE_KUBERNETES_VERSION = v1.19.16
+# makefile
+MAKEFLAGS = pqrR
+# environment
+NO_COLOR = 
+# environment
+BLUE = 
+# makefile
+CURDIR := /home/tweldon/git/kubernetes-cloud
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# environment
+MFLAGS = -pqrR
+# environment
+SSH_AUTH_SOCK = /run/user/1001/keyring/ssh
+# default
+.SHELLFLAGS := -c
+# environment
+HISTSIZE = 10000
+# environment
+XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# makefile
+MAKEFILE_LIST := 
+# environment
+CONDA_SHLVL = 1
+# automatic
+@F = $(notdir $@)
+# environment
+VSCODE_PID = 1370236
+# environment
+XDG_SESSION_TYPE = x11
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# environment
+CONDA_PYTHON_EXE = /home/tweldon/micromamba/bin/python
+# environment
+UNDERLINE = 
+# environment
+XDG_DATA_HOME = /home/tweldon/.local/share
+# environment
+SESSION_MANAGER = local/tweldon-1:@/tmp/.ICE-unix/1652,unix/tweldon-1:/tmp/.ICE-unix/1652
+# automatic
+*F = $(notdir $*)
+# environment
+CHROME_DESKTOP = code-url-handler.desktop
+# environment
+DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1001/bus
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# environment
+VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
+# default
+MAKE_HOST := x86_64-pc-linux-gnu
+# environment
+GNOME_DESKTOP_SESSION_ID = this-is-deprecated
+# environment
+COREWEAVE_PLUGIN_ZSH_VERSION = 0.0.1
+# environment
+CONDA_PREFIX = /home/tweldon/micromamba
+# makefile
+SHELL = /bin/sh
+# default
+MAKECMDGOALS := all
+# environment
+XMODIFIERS = @im=ibus
+# environment
+GJS_DEBUG_TOPICS = JS ERROR;JS LOG
+# environment
+SHLVL = 0
+# environment
+BOLD = 
+# environment
+FORCE = 1
+# environment
+MAKELEVEL := 0
+# default
+MAKE = $(MAKE_COMMAND)
+# environment
+PATH = /home/tweldon/micromamba/bin:/home/tweldon/micromamba/condabin:/home/tweldon/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/tweldon/.local/bin:~/.local/bin:/home/tweldon/.local/bin:/home/tweldon/.krew/bin
+# default
+MAKEFILES := 
+# environment
+KUBECTL_VERSION = 1.19.16
+# automatic
+^F = $(notdir $^)
+# environment
+YELLOW = 
+# environment
+KUBE_EDITOR = /usr/bin/code -w
+# environment
+INVOCATION_ID = 3bc85e65a614434c87416b8a07a93f1f
+# environment
+XDG_CONFIG_HOME = /home/tweldon/.config
+# environment
+MAGENTA = 
+# environment
+GREEN = 
+# environment
+DOTFILES_ZSH_CACHE = /home/tweldon/.cache/zsh
+# automatic
+?F = $(notdir $?)
+# environment
+VAULT_VERSION = 1.9.3
+# environment
+XDG_CURRENT_DESKTOP = Unity
+# automatic
++F = $(notdir $+)
+# environment
+DESKTOP_SESSION = ubuntu
+# environment
+ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
+# 'override' directive
+GNUMAKEFLAGS := 
+# environment
+CONDA_DEFAULT_ENV = base
+# environment
+LOGNAME = tweldon
+# environment
+CLICOLOR_FORCE = 1la
+# environment
+GIO_LAUNCHED_DESKTOP_FILE = /usr/share/applications/code.desktop
+# makefile
+.DEFAULT_GOAL := 
+# environment
+SYSTEMD_EXEC_PID = 1691
+# environment
+SAVEHIST = 10000
+# environment
+RED = 
+# environment
+EDITOR = /usr/bin/code
+# environment
+DISPLAY = :100
+# environment
+USER = tweldon
+# environment
+GTK_MODULES = gail:atk-bridge
+# environment
+DEFAULTS_PATH = /usr/share/gconf/ubuntu.default.path
+# default
+MAKE_VERSION := 4.3
+# environment
+MANAGERPID = 1468
+# environment
+VAULT_ADDR = https://vault.int.coreweave.com:8200
+# environment
+STARSHIP_SHELL = zsh
+# environment
+GIO_LAUNCHED_DESKTOP_FILE_PID = 1370236
+# environment
+PAGER = less -RF
+# environment
+_ = /usr/share/code/code
+# environment
+XDG_RUNTIME_DIR = /run/user/1001
+# environment
+GPG_AGENT_INFO = /run/user/1001/gnupg/S.gpg-agent:0:1
+# environment
+_CE_M = 
+# environment
+LIBRARY_LOG_TIMESTAMP = 1
+# environment
+JOURNAL_STREAM = 8:22143
+# environment
+XDG_SESSION_CLASS = user
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
+# environment
+HOME = /home/tweldon
+# environment
+QT_IM_MODULE = ibus
+# environment
+GOOSE_TOKEN = sk-xVBNKoJQJGEUABfhwPYNmgpgcHJvAxPCvNhn8rO1zxnbKKMW
+# environment
+ELECTRON_RUN_AS_NODE = 1
+# environment
+VSCODE_IPC_HOOK = /run/user/1001/vscode-5d316ed2-1.69.1-main.sock
+# default
+.RECIPEPREFIX := 
+# automatic
+<F = $(notdir $<)
+# default
+SUFFIXES := 
+# environment
+XDG_CACHE_HOME = /home/tweldon/.cache
+# environment
+KEYTIMEOUT = 1
+# environment
+GREY = 
+# default
+.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell nocomment grouped-target extra-prereqs archives jobserver output-sync check-symlink load
+# environment
+XDG_MENU_PREFIX = gnome-
+# environment
+CONDA_EXE = /home/tweldon/micromamba/bin/conda
+# environment
+_CE_CONDA = 
+# variable set hash-table stats:
+# Load=133/1024=13%, Rehash=0, Collisions=6/160=4%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# . (device 64513, inode 6193823): 23 files, no impossibilities.
+
+# 23 files, no impossibilities in 1 directories.
+
+# Implicit Rules
+
+# No implicit rules.
+
+# Files
+
+# Not a target:
+Makefile:
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Failed to be updated.
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+all:
+#  Command line target.
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has not been updated.
+
+# Not a target:
+makefile:
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Failed to be updated.
+
+# Not a target:
+GNUmakefile:
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Failed to be updated.
+
+# files hash-table stats:
+# Load=6/1024=1%, Rehash=0, Collisions=0/15=0%
+# VPATH Search Paths
+
+# No 'vpath' search paths.
+
+# No general ('VPATH' variable) search path.
+
+# strcache buffers: 1 (0) / strings = 31 / storage = 342 B / avg = 11 B
+# current buf: size = 8162 B / used = 342 B / count = 31 / avg = 11 B
+
+# strcache performance: lookups = 34 / hit rate = 8%
+# hash-table stats:
+# Load=31/8192=0%, Rehash=0, Collisions=0/34=0%
+# Finished Make data base on Sat Jul 23 21:30:43 2022
+
+ 

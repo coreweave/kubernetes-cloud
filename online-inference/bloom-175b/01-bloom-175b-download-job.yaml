@@ -7,7 +7,7 @@ spec:
     spec:
       containers:
       - name: model-downloader
-        image: tweldoncw/bloom-175b:d2c5667
+        image: tweldoncw/bloom-175b:786d9c0
         imagePullPolicy: IfNotPresent
         command: ["bash", "-c"]
         args:
@@ -15,9 +15,6 @@ spec:
         volumeMounts:
           - name: cache
             mountPath: /mnt/pvc
-        env:
-          - name: TRANSFORMERS_CACHE
-            value: /mnt/pvc
         resources:
           requests:
             cpu: 1
@@ -31,13 +28,12 @@ spec:
             claimName: model-cache
       affinity:
         nodeAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 10
-            preference:
-              matchExpressions:
-                - key: topology.kubernetes.io/region
-                  operator: In
-                  values: 
-                  - ORD1
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: topology.kubernetes.io/region
+                operator: In
+                values: 
+                - ORD1
       restartPolicy: Never
   backoffLimit: 2
