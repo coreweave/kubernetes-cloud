@@ -1,5 +1,7 @@
-export name=tweldoncw/bloom-175b
-export version=latest
+export user=tweldoncw
+export image_name=bloom-175b
+commit := $(shell /usr/bin/bash -c "git log -1 --format=%h")
+export version=$(commit)
 export run_cmd=sleep infinity
 
 build:

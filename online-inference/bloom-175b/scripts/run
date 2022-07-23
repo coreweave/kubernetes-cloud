@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 set -ex 
 
-NAME=$name
+IMAGE_NAME=$user/$image_name
 VERSION=$version
-IMAGE=$NAME:$VERSION
-COMMAND=$run_cmd
+TAG=$IMAGE_NAME:$VERSION
+LATEST=$IMAGE_NAME:latest
 
-docker run -d --rm $IMAGE $COMMAND
+docker run -d --rm $IMAGE_NAME:$VERSION $run_cmd

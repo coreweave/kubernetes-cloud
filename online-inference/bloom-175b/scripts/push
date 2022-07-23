@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 set -ex
 
-VERSION=$(git log -1 --format=%h)
-NAME=$name
-LATEST="$name:latest"
+IMAGE_NAME=$user/$image_name
+VERSION=$version
+TAG=$IMAGE_NAME:$VERSION
+LATEST=$IMAGE_NAME:latest
 
-docker push "$NAME" -a
+docker push "$TAG" && docker push "$LATEST"

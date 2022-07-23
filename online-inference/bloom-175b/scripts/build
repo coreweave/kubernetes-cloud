@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 set -ex
 
-VERSION=$(git log -1 --format=%h)
-NAME=$name
-LATEST="$name:latest"
+IMAGE_NAME=$user/$image_name
+VERSION=$version
+TAG=$IMAGE_NAME:$VERSION
+LATEST=$IMAGE_NAME:latest
 
 cd model
-docker build -t "$NAME:$VERSION" -t "$LATEST" .
+docker build -t "$TAG" -t "$LATEST" .
