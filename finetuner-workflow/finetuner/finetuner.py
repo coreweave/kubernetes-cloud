@@ -12,7 +12,7 @@ import struct
 import socket
 import math
 import torch
-from torch.utils.data import Dataset, random_split
+from torch.utils.data import Dataset, random_split, RandomSampler
 import argparse
 import pathlib
 from typing import Callable, Tuple
@@ -37,8 +37,14 @@ from transformers import AutoTokenizer, TrainingArguments, Trainer, \
     AutoModelForCausalLM, IntervalStrategy
 from transformers.modeling_utils import no_init_weights, PreTrainedModel
 
+try:
+    pynvml.nvmlInit()
+except pynvml.nvml.NVMLError_LibraryNotFound:
+    pynvml = None
 
-pynvml.nvmlInit()
+device = "cpu"
+if torch.cuda.is_available():
+    device = "cuda"
 
 parser = argparse.ArgumentParser(description='Simple Text Model Finetuner')
 parser.add_argument('--run_name', type=str, help='the run name to use',
@@ -88,8 +94,10 @@ parser.add_argument("--logs", type=str, help="log directory location",
                     default="./logs")
 parser.add_argument("--ds_config", type=str, help="DeepSpeed configuration",
                     default="./ds_config.json")
-parser.add_argument("--fp16", type=bool, default=False,
+parser.add_argument("--fp16", dest='fp16', default=False, action='store_true',
                     help="Force training in fp16.")
+parser.add_argument("--no_shuffle", dest='no_shuffle', default=False,
+                    action='store_true', help="Disable shuffling contexts")
 args = parser.parse_args()
 
 def no_init(loading_code: Callable[[], PreTrainedModel]) -> PreTrainedModel:
@@ -117,14 +125,16 @@ def estimate_batch_size(divisor: float = 1.0) -> int:
     :return: batch size to use
     """
     gc.collect()
-    torch.cuda.synchronize()
-    torch.cuda.empty_cache()
-    cudadev = torch.cuda.current_device()
-    nvml_device = pynvml.nvmlDeviceGetHandleByIndex(cudadev)
-    gpu_info = pynvml.nvmlDeviceGetMemoryInfo(nvml_device)
-    gpu_free = gpu_info.free
-    used_gpu = torch.cuda.memory_allocated()
-    new_bs = int(math.ceil(gpu_free / (used_gpu * divisor)))
+    new_bs = 1
+    if torch.cuda.is_available() and pynvml:
+        torch.cuda.synchronize()
+        torch.cuda.empty_cache()
+        cudadev = torch.cuda.current_device()
+        used_gpu = torch.cuda.memory_allocated()
+        nvml_device = pynvml.nvmlDeviceGetHandleByIndex(cudadev)
+        gpu_info = pynvml.nvmlDeviceGetMemoryInfo(nvml_device)
+        gpu_free = gpu_info.free
+        new_bs = int(math.ceil(gpu_free / (used_gpu * divisor)))
     print(get_gpu_ram())
     print(f"Setting batch size to {new_bs}")
     #if new_bs == 1:
@@ -138,26 +148,34 @@ def get_gpu_ram() -> str:
 
     :return:
     """
-    cudadev = torch.cuda.current_device()
-    nvml_device = pynvml.nvmlDeviceGetHandleByIndex(cudadev)
-    gpu_info = pynvml.nvmlDeviceGetMemoryInfo(nvml_device)
-    gpu_total = int(gpu_info.total / 1E6)
-    gpu_free = int(gpu_info.free / 1E6)
-    gpu_used = int(gpu_info.used / 1E6)
-    torch_reserved_gpu = int(torch.cuda.memory.memory_reserved() / 1E6)
-    torch_reserved_max = int(torch.cuda.memory.max_memory_reserved() / 1E6)
-    torch_used_gpu = int(torch.cuda.memory_allocated() / 1E6)
-    torch_max_used_gpu = int(torch.cuda.max_memory_allocated() / 1E6)
+    gpu_str = ""
+    torch_str = ""
+    try:
+        cudadev = torch.cuda.current_device()
+        nvml_device = pynvml.nvmlDeviceGetHandleByIndex(cudadev)
+        gpu_info = pynvml.nvmlDeviceGetMemoryInfo(nvml_device)
+        gpu_total = int(gpu_info.total / 1E6)
+        gpu_free = int(gpu_info.free / 1E6)
+        gpu_used = int(gpu_info.used / 1E6)
+        gpu_str = f"GPU: (U: {gpu_used:,}mb F: {gpu_free:,}mb " \
+                  f"T: {gpu_total:,}mb) "
+        torch_reserved_gpu = int(torch.cuda.memory.memory_reserved() / 1E6)
+        torch_reserved_max = int(torch.cuda.memory.max_memory_reserved() / 1E6)
+        torch_used_gpu = int(torch.cuda.memory_allocated() / 1E6)
+        torch_max_used_gpu = int(torch.cuda.max_memory_allocated() / 1E6)
+        torch_str = f"TORCH: (R: {torch_reserved_gpu:,}mb/"  \
+                    f"{torch_reserved_max:,}mb, " \
+                    f"A: {torch_used_gpu:,}mb/{torch_max_used_gpu:,}mb)"
+    except AssertionError:
+        pass
     cpu_maxrss = int(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1E3 +
                      resource.getrusage(
                          resource.RUSAGE_CHILDREN).ru_maxrss / 1E3)
     cpu_vmem = psutil.virtual_memory()
     cpu_free = int(cpu_vmem.free / 1E6)
     return f"CPU: (maxrss: {cpu_maxrss:,}mb F: {cpu_free:,}mb) " \
-           f"GPU: (U: {gpu_used:,}mb F: {gpu_free:,}mb T: {gpu_total:,}mb) " \
-           f"TORCH: (R: {torch_reserved_gpu:,}mb/{torch_reserved_max:,}mb, " \
-           f"A: {torch_used_gpu:,}mb/{torch_max_used_gpu:,}mb)"
-
+           f"{gpu_str}" \
+           f"{torch_str}"
 
 class ModifiedTrainer(Trainer):
     """
@@ -239,15 +257,21 @@ print("TORCH:", torch.__version__)
 print("TRANSFORMERS:", transformers.__version__)
 print(get_gpu_ram())
 print("MODEL:", args.model)
+print("SHUFFLE:", not args.no_shuffle)
 
 # Set up our dataset from our tokenized data files, and split into training
 # dataset and values dataset -- values dataset is used to test the outcome
 # and determine our loss rate.
 dataset = TokenizedDataset(args.dataset, context_length=args.context_size)
 train_size = int(args.train_ratio * float(len(dataset)))
-train_dataset, val_dataset = random_split(dataset,
-                                          [train_size,
-                                           len(dataset) - train_size])
+
+if args.no_shuffle:
+     train_dataset = dataset
+     val_dataset = RandomSampler(dataset, num_samples=len(dataset) - train_size)
+else:
+     train_dataset, val_dataset = random_split(dataset,
+                                               [train_size,
+                                                len(dataset) - train_size])
 print(f"TRAIN_DATASET: {len(train_dataset):,} examples")
 print(f"VALUE_DATASET: {len(val_dataset):,} examples")
 
@@ -301,9 +325,9 @@ else:
             cache_dir=args.cache,
             use_cache=False)  # Gradient checkpointing needs this off.
         if args.fp16:
-            model = no_init(lambda: model.half().cuda())
+            model = no_init(lambda: model.half().to(device))
         else:
-            model = no_init(lambda: model.cuda())
+            model = no_init(lambda: model.to(device))
         sys.stderr.flush()
         sys.stdout.flush()
     except Exception as e:
@@ -326,10 +350,19 @@ else:
     bs = args.bs
 
 # Rewrite our `ds_config` to match arguments passed in.
-ds_config = json.load(open(args.ds_config))
-if "zero_optimization" in ds_config and \
-        ds_config["zero_optimization"].get("stage", None) != args.zero_stage:
-    ds_config["zero_optimization"]["stage"] = args.zero_stage
+ds_args  = {}
+if device != "cpu":
+    ds_config = json.load(open(args.ds_config))
+    if "zero_optimization" in ds_config and \
+            ds_config["zero_optimization"].get("stage", None) != \
+            args.zero_stage:
+        ds_config["zero_optimization"]["stage"] = args.zero_stage
+    ds_args['deepspeed'] = ds_config
+else:
+    ds_args['no_cuda'] = True
+    ds_args['local_rank'] = -1
+    os.environ["LOCAL_RANK"] = "-1"
+
 
 # Change our current directory due to some packages assumptions.
 os.makedirs(args.output_path, exist_ok=True)
@@ -368,11 +401,11 @@ training_args = TrainingArguments(output_dir=output_dir,
                                   weight_decay=0.01,
                                   save_steps=args.save_steps,
                                   logging_dir=args.logs,
-                                  deepspeed=ds_config,
                                   report_to=report_to,
                                   run_name=args.run_name,
                                   gradient_checkpointing=True,
                                   disable_tqdm=False,
+                                  **ds_args,
                                   **fp16_arg)
 
 collector = lambda data: {'input_ids': torch.stack([f[0] for f in data]),
