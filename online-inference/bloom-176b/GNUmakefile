@@ -1,4 +1,4 @@
-export user=tweldoncw
+export user=coreweave
 export image_name=bloom-176b
 commit := $(shell /usr/bin/bash -c "git log -1 --format=%h")
 export version=$(commit)
