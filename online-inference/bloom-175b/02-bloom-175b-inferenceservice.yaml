@@ -21,7 +21,7 @@ spec:
               - ORD1 
     containers:
       - name: kserve-container
-        image: tweldoncw/bloom-175b:5f2f193
+        image: tweldoncw/bloom-175b:3dd76b0
         command:
           - "python3"
           - "/workspace/bloom.py"
