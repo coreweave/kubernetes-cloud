@@ -19,7 +19,6 @@ Depending upon where you've requested your workloads to run, public IP pools are
 | Region | Address Pool Label |
 | ------ | ------------------ |
 | ORD1   | public-ord1        |
-| EWR1   | public-ewr1        |
 | LGA1   | public-lga1        |
 | LAS1   | public-las1        |
 
