@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-CURRENT=$(grep 'image:' *.yaml | awk '{print $3}' | cut -d':' -f 2 | uniq)
-NEXT=$version
-
-sed -i "s/$CURRENT/$NEXT/" *.yaml 

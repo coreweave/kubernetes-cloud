@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-set -ex
-
-IMAGE_NAME=$user/$image_name
-VERSION=$version
-TAG=$IMAGE_NAME:$VERSION
-LATEST=$IMAGE_NAME:latest
-
-docker push "$TAG" && docker push "$LATEST"
