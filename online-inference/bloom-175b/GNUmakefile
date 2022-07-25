@@ -17,6 +17,3 @@ run:
 
 update_image:
 	scripts/update_image
-
-k8s:
-	scripts/k8s
