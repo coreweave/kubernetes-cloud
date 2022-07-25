@@ -2,27 +2,27 @@
 description: Configuration guide for the CoreWeave end of the VPN tunnel.
 ---
 
-# Getting Started
+# VPN Setup
 
 ## IPSec VPN setup
 
-Site-to-Site VPNs are configured through the [CoreWeave Cloud UI](../../../../virtual-servers/deployment-methods/coreweave-apps.md). The IPSec VPN Server is provided through our application catalogue. To set up the IPSec VPN server, first navigate to the **Catalog** page from the CoreWeave Cloud UI main menu.
+Site-to-Site VPNs are configured through the [CoreWeave Cloud UI](../../../../../virtual-servers/deployment-methods/coreweave-apps.md). The IPSec VPN Server is provided through our application catalogue. To set up the IPSec VPN server, first navigate to the **Catalog** page from the CoreWeave Cloud UI main menu.
 
 ### Installation
 
 Find and select the **vpn-ipsec-server** in the Catalog:
 
-![The applications page on CoreWeave Cloud, with a search filter for "vpn."](<../../../.gitbook/assets/image (2) (2).png>)
+![The applications page on CoreWeave Cloud, with a search filter for "vpn."](<../../../../.gitbook/assets/image (2) (1).png>)
 
 ### Configuration
 
 Selecting the VPN application from the catalog exposes its configuration options, shown and detailed below.
 
-![VPN Server configuration example.](<../../../.gitbook/assets/image (1) (2) (1).png>)
+![VPN Server configuration example.](<../../../../.gitbook/assets/image (1) (1).png>)
 
 #### Configuration Options
 
-| **Proposals**      | First, select [a proposal](coreweave.md#proposals) that best suits your implementation. Broadly, `aes256gcm16-sha256-modp2048` is recommended for the highest performance.                                                                                                                |
+| **Proposals**      | First, select [a proposal](vpn-setup.md#proposals) that best suits your implementation. Broadly, `aes256gcm16-sha256-modp2048` is recommended for the highest performance.                                                                                                                |
 | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Pre Shared Key** | 32-64 alphanumeric random string                                                                                                                                                                                                                                                          |
 | **Peer IP**        | The remote VPN device IP or hostname                                                                                                                                                                                                                                                      |
@@ -34,7 +34,7 @@ Selecting the VPN application from the catalog exposes its configuration options
 
 Under the **Network Settings** portion of the IPSec VPN setup page are the configuration fields for your VPC.
 
-![VPC configuration example.](<../../../.gitbook/assets/image (59).png>)
+![VPC configuration example.](<../../../../.gitbook/assets/image (2).png>)
 
 The fields provided are:
 

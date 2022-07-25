@@ -50,7 +50,7 @@ mounts:
 
 If you would like the service to be accessible from places over the internet, ensure you have "enable public IP" set to **true**.
 
-![samba-ad options](../../docs/.gitbook/assets/SharedScreenshot.jpg) ![samba options](../../docs/.gitbook/assets/SharedScreenshot\).jpg) ![](<../../.gitbook/assets/image (72).png>) ![Success! For those following along, your applications landing page should look similar.](<../../.gitbook/assets/image (94) (1).png>)
+![samba-ad options](../../.gitbook/assets/SharedScreenshot.jpg) ![samba options](../../.gitbook/assets/SharedScreenshot\).jpg) ![](<../../.gitbook/assets/image (72).png>) ![Success! For those following along, your applications landing page should look similar.](<../../.gitbook/assets/image (94) (1).png>)
 
 #### Connecting to Samba (WIN)
 
@@ -72,9 +72,9 @@ Select the mount, press ok, and enter credentials.
 
 To expose the same storage over NFS you can deploy the NFS application in the catalogue. The process is very similar to deploying samba, ensure that you deploy the application in the same region as the storage you created. One major difference between this deployment and those available with Samba is that our one-click NFS solution does not include any authentication, for that consider integrating with active directory directly or use network policies to ensure access to the NFS service is only accessible to the correct endpoints.
 
-![](../../docs/.gitbook/assets/nfs\_mount.jpg) ![Post Deployment. Note: Not ready state](<../../.gitbook/assets/Screenshot 2021-10-18 170019 (1).jpg>) ![Deployment is ready](<../../docs/.gitbook/assets/Screenshot 2021-10-18 170312.jpg>)
+![](../../.gitbook/assets/nfs\_mount.jpg) ![Post Deployment. Note: Not ready state](<../../.gitbook/assets/Screenshot 2021-10-18 170019 (1).jpg>) ![Deployment is ready](<../../.gitbook/assets/Screenshot 2021-10-18 170312.jpg>)
 
-![Updated Landing Page!](<../../docs/.gitbook/assets/Screenshot 2021-10-18 170110.jpg>)
+![Updated Landing Page!](<../../.gitbook/assets/Screenshot 2021-10-18 170110.jpg>)
 
 #### Filebrowser
 
@@ -82,7 +82,7 @@ A final option for accessing your cloud storage remotely is using the Filebrowse
 
 _**Important**_\*\* after your first login you must change the password of your filebrowser. Go to Settings > User Management and set up new users.\*\*
 
-![](../../docs/.gitbook/assets/filebrowser-screen.png)
+![](../../.gitbook/assets/filebrowser-screen.png)
 
 #### Media Shuttle (TEMP not available)
 

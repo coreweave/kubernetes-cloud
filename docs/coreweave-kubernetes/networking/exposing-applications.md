@@ -49,7 +49,7 @@ spec:
 To ensure optimal traffic routing, ensure that your workload is only scheduled to run in the region where a public IP is requested from. Use the [region label affinity](../../../coreweave-kubernetes/label-selectors.md) to limit scheduling of the workload to a single region.
 {% endhint %}
 
-### Attaching Service IP directly to Pod
+### Attaching a Service IP directly to a Pod
 
 The traditional Kubernetes pattern is one or many Pods with dynamic internal IPs exposed behind a Service or Ingress with a static IP. For certain use cases, where there would only be one Pod behind a service, it can make sense to attach the Service IP directly to the Pod. A Pod would then have a static public IP as it's Pod IP. All connections originating from the pod will have this IP as it's source, and the Pod will see this as it's local IP. This is a non standard approach for containers, and should be used only when the traditional Service / Pod pattern is not feasible. Directly attaching the Service IP is beneficial in the following scenarios:
 
