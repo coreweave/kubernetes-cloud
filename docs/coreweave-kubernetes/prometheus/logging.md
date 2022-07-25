@@ -57,4 +57,4 @@ CoreWeave gives customers the ability to forward all logs from their namespace t
 | <p> </p><p>xmpp</p><p> </p>                 | Posts events over XMPP                                                       |
 | <p> </p><p>zabbix</p><p> </p>               | Sends events to a Zabbix server                                              |
 
-To set up log forwarding, contact support at support@coreweave.com.
+To set up log forwarding, please [contact support](https://cloud.coreweave.com/contact).

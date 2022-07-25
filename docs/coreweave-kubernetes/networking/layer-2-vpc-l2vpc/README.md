@@ -89,5 +89,5 @@ The default configuration for a Direct Connect is a Layer 3 connection into a La
 {% hint style="success" %}
 **Tip**
 
-&#x20;Please contact support for more information and to enable L2VPC in your namespace.
+&#x20;Please [contact support](https://cloud.coreweave.com/contact) for more information and to enable L2VPC in your namespace.
 {% endhint %}

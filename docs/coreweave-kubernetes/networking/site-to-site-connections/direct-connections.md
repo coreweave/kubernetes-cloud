@@ -32,5 +32,5 @@ In addition to dedicated connections to our data centers, CoreWeave also offers 
 
 {% hint style="info" %}
 **Note**\
-Please contact **support.cloud@coreweave.com** for pricing, instructions, and LOAs required to cross-connect into our edge networks.
+Please [contact support](https://cloud.coreweave.com/contact) for pricing, instructions, and LOAs required to cross-connect into our edge networks.
 {% endhint %}

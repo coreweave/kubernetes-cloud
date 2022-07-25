@@ -31,7 +31,7 @@ After the invitation is accepted, the user could subsequently be deactivated and
 
 #### Post Invitation
 
-After a user accepts their invitation and completes the signup process they will be added to the organization and will show up as an accepted user. They will now have full access to your namespace and have the ability to allocate storage, create a deployment and provision a Virtual Server. To remove a user from your organization please contact support.
+After a user accepts their invitation and completes the signup process they will be added to the organization and will show up as an accepted user. They will now have full access to your namespace and have the ability to allocate storage, create a deployment and provision a Virtual Server. To remove a user from your organization please [contact support](https://cloud.coreweave.com/contact).
 
 #### User Permissions
 
