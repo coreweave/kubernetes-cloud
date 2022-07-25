@@ -59,7 +59,7 @@ From the Virtual Servers dashboard, you can configure a Virtual Server (VM) to y
 Not _every_ Virtual Server configuration option is exposed through the options displayed graphically on the configuration screen. For more fine-tuned control, or to save the Virtual Server configuration file to replicate additional Virtual Servers, you can view the generated YAML chart under the **YAML** tab.
 {% endhint %}
 
-![The Virtual Server configuration screen in the CoreWeave Cloud UI.](<../../docs/.gitbook/assets/image (69).png>)
+![The Virtual Server configuration screen in the CoreWeave Cloud UI.](<../../docs/.gitbook/assets/image (69) (1).png>)
 
 ### Virtual Server name
 
@@ -83,7 +83,7 @@ It is highly recommended to select the data center that is geographically closes
 
 CoreWeave offers a broad selection of GPU and CPU options for Virtual Servers. From the **Hardware Selection** section, you can select the desired GPU type and core count **or** the desired CPU type and core count, and the desired RAM for the Virtual Server.
 
-![The hardware selection screen.](<../../docs/.gitbook/assets/image (52).png>)
+![The hardware selection screen.](<../../docs/.gitbook/assets/image (52) (1).png>)
 
 {% hint style="info" %}
 **Note**
@@ -145,7 +145,7 @@ For **Windows-based systems**, current available automatic add-ons include:
 
 ### Attach IP
 
-![The public IP selector.](<../../.gitbook/assets/image (51).png>)
+![The public IP selector.](<../../docs/.gitbook/assets/image (45).png>)
 
 From the **Attach IP** section, you can configure a **public** IP address for your Virtual Server to make it accessible to the Internet. The IP address, as well as a public **DNS name**, will be generated for you, and will be made visible from the status page once the Virtual Server is ready and running.
 
@@ -167,7 +167,7 @@ The user account configured in the **Account** section of this screen will be us
 Users created on Virtual Servers are automatically given **administrative privileges (`sudo` access).**
 {% endhint %}
 
-![The user account creation menu.](<../../docs/.gitbook/assets/image (68).png>)
+![The user account creation menu.](<../../docs/.gitbook/assets/image (68) (1).png>)
 
 ## Deploying the Virtual Server
 
@@ -179,7 +179,7 @@ To deploy your new Virtual Server, click the **Deploy** button. This will instan
 
 Once your Virtual Server has begun deploying, you will be automatically redirected to the **status page**. From here, the Virtual Server can be **restarted**, **upgraded** (or changed), **deleted**, or **stopped**.
 
-![Virtual Server state controls.](<../../.gitbook/assets/image (55).png>)
+![Virtual Server state controls.](<../../docs/.gitbook/assets/image (49).png>)
 
 #### Virtual terminal
 
@@ -227,7 +227,7 @@ A basic diagnostic log of all actions involving the Virtual Server will be recor
 The events listed under the **Events** tab are short-lived, and should mostly be used for diagnostics or simply for tracing the status of the Virtual Server.
 {% endhint %}
 
-![Event history for a new Virtual Server.](<../../.gitbook/assets/image (56).png>)
+![Event history for a new Virtual Server.](<../../docs/.gitbook/assets/image (50).png>)
 
 **Learn more about methods for deploying Virtual Servers:**
 

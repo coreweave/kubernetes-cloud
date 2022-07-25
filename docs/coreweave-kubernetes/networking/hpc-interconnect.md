@@ -20,9 +20,9 @@ For certain workloads, such as training massive language models of over 100 Bill
 
 ![NVIDIA Mellanox Quantum leaf switches in the CoreWeave LAS1 datacenter](<../../.gitbook/assets/image (1) (2).png>)
 
-### &#x20;**Node Topology**
+### **Node Topology**
 
-![](<../../.gitbook/assets/image (11).png>)
+![](<../../.gitbook/assets/image (11) (2).png>)
 
 The A100 HGX nodes are each equipped with 8x NVIDIA A100 80GB GPUs. The GPUs connect to an [NVIDIA NVSWITCH](https://www.nvidia.com/en-us/data-center/nvlink/) baseboard for 600GB/s of intra-node interconnect. The GPUs are also connected to NVIDIA Mellanox CX-6 InfinBand HCAs for connection to the inter-node InfiniBand fabric. Each compute node is uplinked with 1.6Tbps of effective bandwidth with SHARP optimizations.
 
@@ -34,7 +34,7 @@ The InfiniBand fabric itself consists exclusively of [NVIDIA Quantum](https://ww
 
 Fabrics provide hundreds of terabits of aggregate bandwidth. Each high-performance link is carefully monitored and optimized using best of breed NVIDIA tooling.
 
-![Topology of typical CoreWeave HGX A100 Cluster](<../../.gitbook/assets/image (10).png>)
+![Topology of typical CoreWeave HGX A100 Cluster](<../../.gitbook/assets/image (10) (1).png>)
 
 ### NVIDIA Mellanox SHARP
 

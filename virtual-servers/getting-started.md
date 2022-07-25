@@ -30,7 +30,7 @@ Common use cases for CoreWeave Virtual Servers include:
 
 <details>
 
-<summary><strong>Running applications in a virtual environment with bare-metal performance</strong></summary>
+<summary><strong>Leverage the performance of CoreWeave's bare metal Cloud, even when running containerized Virtual Machines</strong></summary>
 
 CoreWeave Virtual Servers provide all the isolation and control benefits that come with running a workload on a real server. Leveraging GPU PCI pass-through **** means no GPU virtualization or shared resources on Virtual Servers.
 

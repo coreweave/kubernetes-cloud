@@ -8,15 +8,15 @@
 
 Before deploying our Samba-AD instance, we must first have storage volumes to present. Logging in to the [CoreWeave Cloud Dashboard](https://docs.coreweave.com/virtual-servers/deployment-methods/coreweave-apps#accessing-the-cloud-ui), navigate to the [Storage Volumes](https://cloud.coreweave.com/storage) management page to deploy a new volume:
 
-![](<../../../../.gitbook/assets/image (94).png>)
+![](<../../../.gitbook/assets/image (89).png>)
 
 Our Samba-AD instance uses Shared Filesystem volumes:
 
-![](<../../../../.gitbook/assets/image (88) (1).png>)
+![](<../../../.gitbook/assets/image (79) (1).png>)
 
 In this example, we have three volumes we'll be using for our Samba-AD instance:
 
-![](<../../../../.gitbook/assets/image (64).png>)
+![](<../../../.gitbook/assets/image (57).png>)
 
 ## Deploy Samba-AD Instances
 
@@ -24,23 +24,23 @@ With our storage volumes allocated, we can now present them with Samba-AD.
 
 Via the CoreWeave Cloud Dashboard, navigate to the catalog:
 
-![](<../../../../.gitbook/assets/image (90).png>)
+![](<../../../.gitbook/assets/image (81).png>)
 
 Locate the Samba-AD chart:
 
-![](<../../../../.gitbook/assets/image (87).png>)
+![](<../../../.gitbook/assets/image (75) (1).png>)
 
 Using the information from our [Configure Domain Services](provision-an-active-directory-domain-controller.md#install-and-configure-domain-services) example, fill out the form, including instance name. The volumes we created earlier are attached to our deployment example below:
 
-![](<../../../../.gitbook/assets/image (78).png>)
+![](<../../../.gitbook/assets/image (68) (2).png>)
 
 Once deployed, we're taken to a status page indicating our deployment is running:
 
-![](<../../../../.gitbook/assets/image (85).png>)
+![](<../../../.gitbook/assets/image (73) (1).png>)
 
 We will then follow the above steps to create another instance for high availability - called `smbad02`:
 
-![](<../../../../.gitbook/assets/image (86).png>)
+![](<../../../.gitbook/assets/image (74) (1).png>)
 
 {% hint style="info" %}
 Samba-AD includes `podAntiAffinity`, which prevents multiple instances from scheduling on the same compute node.
@@ -124,19 +124,19 @@ Repeat this step for each share your Samba-AD instance presents. In this example
 
 Navigating to `\\ad\Shares`, we can see each of our DFS Folder Targets:
 
-![](<../../../../.gitbook/assets/image (93).png>)
+![](<../../../.gitbook/assets/image (88).png>)
 
 Under properties, the DFS tab shows us `smbad02` is the current active file server:
 
-![](<../../../../.gitbook/assets/image (67).png>)
+![](<../../../.gitbook/assets/image (62) (2).png>)
 
 Copying a file to our DFS Root Folder path, we can see it's actually been copied to the shares presented by the Samba-AD instances:
 
-![](<../../../../.gitbook/assets/image (73).png>)
+![](<../../../.gitbook/assets/image (65) (2).png>)
 
-![](<../../../../.gitbook/assets/image (74).png>)
+![](<../../../.gitbook/assets/image (66) (2).png>)
 
-![](<../../../../.gitbook/assets/image (63).png>)
+![](<../../../.gitbook/assets/image (56) (1).png>)
 
 ### Adding a secondary DFS Namespace Server
 

@@ -4,25 +4,25 @@
 
 Workflows on CoreWeave run on [Argo Workflows](https://argoproj.github.io/argo/), which is a great tool to orchestrate parallel execution of GPU and CPU jobs. It manages retries and parallelism for you, and allows you to submit workflows via CLI, [Rest API](https://github.com/argoproj/argo/blob/master/examples/rest-examples.md) and the [Kubernetes API](https://github.com/argoproj/argo/blob/master/docs/rest-api.md).
 
-![Argo Web UI](../.gitbook/assets/screen-shot-2020-07-29-at-10.04.26-pm.png)
+![Argo Web UI](../docs/.gitbook/assets/screen-shot-2020-07-29-at-10.04.26-pm.png)
 
 ## Getting Started
 
 * After logging into [CoreWeave Cloud](https://cloud.coreweave.com), go to the CoreWeave Apps `Catalog`
 
-![](<../.gitbook/assets/image (17) (2) (2).png>)
+![](<../docs/.gitbook/assets/image (17) (2).png>)
 
 * A new window will open to CoreWeave Apps with the list of available applications. Find and select the **argo-workflows** application
 
-![](<../.gitbook/assets/image (14).png>)
+![](<../docs/.gitbook/assets/image (14).png>)
 
 * In the right upper corner, select the latest version of the helm chart and click `DEPLOY`\\
 
-![](<../.gitbook/assets/image (25).png>)
+![](<../docs/.gitbook/assets/image (25).png>)
 
 * The deployment form will prompt you to enter an application name. The remaining parameters have our suggested defaults, when ready click `DEPLOY` at the bottom of the page\\
 
-![](<../.gitbook/assets/image (20).png>)
+![](<../docs/.gitbook/assets/image (20).png>)
 
 {% hint style="warning" %}
 `server` authentication mode does not require credentials, we suggest using`client` mode instead for better security, for more information visit [https://argoproj.github.io/argo-workflows/argo-server-auth-mode](https://argoproj.github.io/argo-workflows/argo-server-auth-mode)
@@ -32,7 +32,7 @@ Workflows on CoreWeave run on [Argo Workflows](https://argoproj.github.io/argo/)
 
     Click the ingress link to open Argo Workflows UI in a new window
 
-![](<../.gitbook/assets/image (23).png>)
+![](<../docs/.gitbook/assets/image (23).png>)
 
 {% hint style="warning" %}
 On first visit, you may encounter get a TLS certificate error. It can take up to five minutes for the certificate to be issued, once issued the error should disappear.
