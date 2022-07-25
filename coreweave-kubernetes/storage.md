@@ -20,21 +20,17 @@ The All-NVMe CoreWeave Cloud storage tier offers the highest performance in both
 
 All-NVMe Cloud Storage Volumes can be provisioned using the storage class convention:
 
-```
-Block Volumes: block-nvme-<region>
-Shared File System: shared-nvme-<region>
-```
+**Block Volumes:** block-nvme-\<region>\
+**Shared File System:** shared-nvme-\<region>
 
 #### :arrow\_forward: HDD
 
 The HDD CoreWeave Cloud storage tier offers excellent throughput optimized performance at a lower cost. Great for large file storage with sequential IOPS access patterns, the HDD tier is backed by an NVMe caching layer to improve performance and scale throughput capacity.
 
-All HDD Cloud Storage Volumes can be provisioned using the storage class convention:
-
-```
-Block Volumes: block-hdd-<region>
-Shared File System: shared-hdd-<region>
-```
+All HDD Cloud Storage Volumes can be provisioned using the storage class convention:\
+\
+**Block Volumes:** block-hdd-\<region>\
+**Shared File System:** shared-hdd-\<region>
 
 ### Features
 
