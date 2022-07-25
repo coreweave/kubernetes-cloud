@@ -14,14 +14,14 @@ spec:
             - key: gpu.nvidia.com/class
               operator: In
               values:
-              - A40
+              - A100_PCIE_80GB
             - key: topology.kubernetes.io/region
               operator: In
               values:
               - ORD1 
     containers:
       - name: kserve-container
-        image: tweldoncw/bloom-175b:786d9c0
+        image: tweldoncw/bloom-175b:5f2f193
         command:
           - "python3"
           - "/workspace/bloom.py"
@@ -37,15 +37,15 @@ spec:
           - name: MIN_LENGTH
             value: "1"
           - name: MAX_LENGTH
-            value: "250"
+            value: "40"
           - name: TEMPERATURE
-            value: "0.5"
+            value: "1.0"
           - name: TOP_K
-            value: "5"
+            value: "50"
           - name: TOP_P
-            value: "0.5"
+            value: "1.0"
           - name: REPETITION_PENALTY
-            value: "0.125"
+            value: "1.125"
         resources:
           requests:
             cpu: 12
