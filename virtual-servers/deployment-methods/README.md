@@ -34,7 +34,7 @@ Virtual Servers can be deployed via the command line onto CoreWeave Cloud a few 
 
 #### [Using Kubernetes CLI](../../docs/virtual-servers/deployment-methods/kubectl.md)****
 
-![](<../../docs/.gitbook/assets/image (71) (1).png>)
+![](<../../docs/.gitbook/assets/image (108).png>)
 
 {% hint style="info" %}
 **Best if:** You are comfortable with Kubernetes principles and using `kubectl` on the command line.
