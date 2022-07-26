@@ -29,6 +29,7 @@ In addition to dedicated connections to our data centers, CoreWeave also offers 
 | ------------------- | ------------------------------------------------------------------------------ | ----------------- |
 | LAX1 (CoreSite LA2) | [https://www.coresite.com/carrier-list](https://www.coresite.com/carrier-list) | 1Gbps to 100Gbps  |
 | LAS1 (Megaport)     | [https://www.megaport.com/](https://www.megaport.com/)                         | 100Mbps to 10Gbps |
+| LGA1 (Megaport)     | [https://www.megaport.com/](https://www.megaport.com/)                         | 100Mbps to 10Gbps |
 
 {% hint style="info" %}
 **Note**\
