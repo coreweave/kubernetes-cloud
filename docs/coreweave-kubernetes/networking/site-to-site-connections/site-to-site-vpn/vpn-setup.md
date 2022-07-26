@@ -64,6 +64,12 @@ CoreWeave currently supports four different Proposals for **Phase 1** and **Phas
 | `aes128gcm16-sha256-ecp256`    | aes128gcm16 | sha2-256  | 19       |
 | `aes256gcm16-sha256-ecp256`    | aes256gcm16 | sha2-256  | 19       |
 
+{% hint style="success" %}
+**Tip**
+
+The most performant proposal has been benchmarked to be`aes128gcm16-sha256-modp2048`
+{% endhint %}
+
 ## Launching the VPN
 
 The final configuration option is for creating a user account on the VPN Gateway Virtual Server.

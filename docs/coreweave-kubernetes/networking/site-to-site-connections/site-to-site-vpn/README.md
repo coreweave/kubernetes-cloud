@@ -27,7 +27,7 @@ Learn more in our Cloud-specific endpoint configuration examples:
 {% hint style="success" %}
 **Tip**
 
-The IPSec VPN that CoreWeave uses has been benchmarked to over 4Gbps (with proposal `aes128gcm16-sha256-modp2048`). Most enterprise on-premise firewalls and Cloud firewalls on other Cloud providers are rarely rated over 1Gbps of IPSec performance!
+The IPSec VPN that CoreWeave uses has been benchmarked to over 4Gbps (with proposal`aes128gcm16-sha256-modp2048)`. Most enterprise on-premise firewalls and Cloud firewalls on other Cloud providers are rarely rated over 1Gbps of IPSec performance!
 {% endhint %}
 
 ## **Basic IPSec VPN u**sage
