@@ -6,26 +6,23 @@ description: Learn about configuring a DHCP server in a VPC on CoreWeave.
 
 ## Introduction
 
-For IP address assignment in a VPC, a DHCP server needs to be deployed. CoreWeave provides a DHCP Server application (**dhcpd-server**) that supports IP allocation, static assignment and distribution of routes. This is the recommended method for distributing IP addresses inside a VPC, unless a dedicated virtual firewall is used.
-
-In some deployments, users also choose to distribute VPC IPs from a Windows Domain Controller.
+For IP address assignment in a VPC a DHCP server needs to be deployed. CoreWeave provides a DHCP Server application that supports IP allocation, static assignment and distribution of routes. This is the recommended method for distributing IP addresses inside a VPC unless a dedicated virtual firewall is used. In some deployments, users also chose do distribute VPC IPs from a Windows Domain Controller.
 
 {% hint style="warning" %}
-**Important**\
-****The VPC **must be created** before the DHCP server is deployed.
+The VPC **must be created** before the DHCP server is deployed
 {% endhint %}
 
 ## Installation
 
-To install the DHCP server, navigate to the applications Catalog from the CoreWeave Cloud UI homepage, then find and select the **dhcpd-server** application:
+To install the dhcp server, navigate to the Applications catalogue from the CoreWeave Cloud UI homepage, then find and select the dhcp-server **** application.
 
-![The dhcpd-server application in the CoreWeave application catalog](<../../../.gitbook/assets/image (9).png>)
+![Screenshot of the dhcpd-server application in the CoreWeave application catalog.](<../../../.gitbook/assets/image (9).png>)
 
 ### Configuration
 
 Selecting the application will expose the configuration options for the DHCP server, shown and detailed below.
 
-![DHCP configuration settings, exposed by clicking the DHCP server application](<../../../.gitbook/assets/image (18).png>)
+![DHCP configuration settings, exposed by clicking the DHCP server application.](<../../../.gitbook/assets/image (18).png>)
 
 #### Configuration options
 
@@ -45,7 +42,7 @@ At the bottom of the application's configuration screen are the **Network settin
 
 #### Configuration options
 
-| **VPC Name**          | <p>The name of your VPC. <br><span data-gb-custom-inline data-tag="emoji" data-code="26a0">⚠</span> The VPC must be created <strong>before the DHCP service.</strong></p> |
-| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Static IP for VPC** | The static IP address of the DHCP server (e.g., `192.168.0.250/24`)                                                                                                       |
+| **VPC Name**          | The name of your VPC. **The VPC must be created before the DHCP service.** |
+| --------------------- | -------------------------------------------------------------------------- |
+| **Static IP for VPC** | The static IP address of the DHCP server (e.g., `192.168.0.250/24`)        |
 
