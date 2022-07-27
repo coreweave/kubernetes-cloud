@@ -12,7 +12,7 @@ Site-to-Site VPNs are configured through the [CoreWeave Cloud UI](../../../../..
 
 Find and select the **vpn-ipsec-server** in the Catalog:
 
-![The applications page on CoreWeave Cloud, with a search filter for "vpn."](<../../../../.gitbook/assets/image (2) (2).png>)
+![The applications page on CoreWeave Cloud, with a search filter for "vpn."](<../../../../.gitbook/assets/image (2) (1).png>)
 
 ### Configuration
 
@@ -34,7 +34,7 @@ Selecting the VPN application from the catalog exposes its configuration options
 
 Under the **Network Settings** portion of the IPSec VPN setup page are the configuration fields for your VPC.
 
-![VPC configuration example.](<../../../../.gitbook/assets/image (2) (1).png>)
+![VPC configuration example.](<../../../../.gitbook/assets/image (2).png>)
 
 The fields provided are:
 
