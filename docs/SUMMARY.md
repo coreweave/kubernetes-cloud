@@ -83,7 +83,7 @@
   * [PyTorch - FastAI Sentiment](../compass/examples/custom-sentiment.md)
   * [Custom - BASNET](../compass/examples/custom-basnet.md)
 * [Finetuning Machine Learning Models](compass/finetuning-machine-learning-models.md)
-* [GPT-NeoX](compass/gpt-neox.md)
+* [Finetuning GPT-NeoX 20B using Determined.A](compass/gpt-neox.md)
 
 ## Workflows
 
