@@ -19,7 +19,7 @@ In some deployments, users also choose to distribute VPC IPs from a Windows Doma
 
 To install the DHCP server, navigate to the applications Catalog from the CoreWeave Cloud UI homepage, then find and select the **dhcpd-server** application:
 
-![The dhcpd-server application in the CoreWeave application catalog](<../../../.gitbook/assets/image (9).png>)
+![](<../../../.gitbook/assets/dhcp (1).png>)
 
 ### Configuration
 
