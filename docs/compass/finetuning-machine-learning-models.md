@@ -60,7 +60,7 @@ The following Kubernetes-based components are required:
   * Create a `ReadWriteMany` PVC storage volume from the [Storage](https://cloud.coreweave.com/storage) menu.
   * `1TB` to `2TB` is the recommended size for the volume, as the model checkpoints take up a lot of space! These PVCs can be shared between multiple finetune runs. We recommend using HDD type storage, as the finetuner does not require high random I/O performance.
 
-![Configuring a PVC storage volume from the Cloud UI](<../.gitbook/assets/image (3) (1).png>)
+![Configuring a PVC storage volume from the Cloud UI](<../.gitbook/assets/image (3) (2).png>)
 
 {% hint style="info" %}
 **Note**\

@@ -5,4 +5,4 @@
 [BASNet Object Detector](custom-basnet.md) (Custom Public Predictor)\
 [FastAI Sentiment Analyzer](custom-sentiment.md) (Custom PyTorch Predictor)\
 [aitextgen GPT-2 Text Generation](custom-pytorch-aitextgen.md) (Custom PyTorch Predictor)\
-HuggingFace BigScience BLOOM (HuggingFace Transformer PyTorch Predictor)
+[Hugging Face BigScience BLOOM](../../docs/compass/examples/pytorch-huggingface-bigscience-bloom.md) (Hugging Face Transformer PyTorch Predictor)

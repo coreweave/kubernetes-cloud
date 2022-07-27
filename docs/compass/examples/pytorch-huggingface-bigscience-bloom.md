@@ -10,7 +10,7 @@ description: >-
 
 This example demonstrates how to deploy [BLOOM](https://huggingface.co/bigscience/bloom) as an [InferenceService](https://kserve.github.io/website/0.8/get\_started/first\_isvc/) to perform Text Generation.&#x20;
 
-![](<../../.gitbook/assets/image (3).png>)
+![](../../.gitbook/assets/image.png)
 
 ### What is BLOOM?
 
