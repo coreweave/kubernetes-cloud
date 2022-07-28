@@ -10,7 +10,9 @@ description: Learn about CoreWeave's Layer 2 VPC (L2VPC).
 
 The L2VPC is enabled on a workload by workload basis. A workload (a Pod or Virtual Machine) can have multiple interfaces - it can keep the regular CCNN interface, as well as add on one or multiple VPC interfaces, or it can attach to L2VPC only.
 
-### L2VPC use cases
+Multiple VPCs can also be allocated to simulate the multiple VLANs (network segments) found in a traditional on-premise network.
+
+### Use cases
 
 [CoreWeave Cloud Native Networking (CCNN)](../coreweave-cloud-native-networking-ccnn.md) is designed to be **the preferred choice for most use-cases**. L2VPC should **only** be considered if one or multiple of the following criteria is fulfilled:
 
@@ -20,13 +22,15 @@ The L2VPC is enabled on a workload by workload basis. A workload (a Pod or Virtu
 
 ## L2VPC Features
 
-### Multi-Region vs. Single-Region
+### :globe\_with\_meridians: Multi-Region or Single-Region
 
-L2VPCs can be either **Multi-Region**, spanning all CoreWeave data centers, or **Single-Region**, local to a single data center.
+L2VPCs can be either **Multi-Region** - spanning all CoreWeave data centers - or **Single-Region**, **** local to a single data center.
 
-A Single-Region VPC can be converted to a Multi-Region and vice versa, however this does require a restart of all workloads. A single workload can attach up to ten (10) L2VPCs at the same time, in addition to the regular CCNN network.
+A Single-Region VPC can be converted to a Multi-Region and vice versa, however this does require a restart of all workloads.
 
-### IP Addressing
+A single workload can attach up to ten (10 L2VPCs at the same time, in addition to the regular CCNN network.
+
+### :round\_pushpin:IP Addressing
 
 In L2VPC, IP addressing happens either by using traditional Static IPs, or by using DHCP.
 
@@ -38,7 +42,7 @@ CoreWeave provides an out-of-the-box DHCP server managed via CoreWeave Apps (**d
 Review our documentation on [DHCP in VPCs](dhcp.md) for more information.
 {% endhint %}
 
-### Routing
+### :map: Routing
 
 Each L2VPC is a flat, non-blocking Layer 2 network. There is no built-in routing capability. If the user desires to have routing between Layer 2 VPCs, or routing between Layer 2 VPCs and the Internet or CCNN, a virtual router (networking policies, firewall) will need to be deployed by the user.
 
@@ -48,17 +52,17 @@ Each L2VPC is a flat, non-blocking Layer 2 network. There is no built-in routing
 A virtual router (firewall) will act as a choke point by adding an extra hop to the networking path. When possible, it is recommended to keep a CCNN interface on the workload to use for Internet access instead of routing via a virtual router. This ensures the lowest possible latency and highest Internet throughput.
 {% endhint %}
 
-### Network Policies (Firewalls)
+### :fire: Network Policies (Firewalls)
 
 In L2VPC, the fabric-based firewall that exists around every workload in CCNN is **bypassed** in the L2VPC.
 
 Users are encouraged to setup firewall rules inside Virtual Servers so as to adhere to a zero-trust security policy. Virtual routers (firewalls) can be leveraged to provide firewalls between L2VPCs, and between L2VPCs and the Internet **if the L2VPC is used as the only egress.**
 
-### Performance
+### :muscle: Performance
 
 L2VPC is implemented using SR-IOV inside Virtual Machines and Kubernetes Pods. This provides full bare-metal performance with no additional software layers in the path. The L2VPC supports a MTU up to 9000, which can be beneficial for storage intensive applications.
 
-### Site-to-Site Connectivity
+### :electric\_plug:Site-to-Site Connectivity
 
 A common use case involves connecting between a private on-premise network and CoreWeave Cloud. CoreWeave offers two primary methods to achieve this goal.
 
