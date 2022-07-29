@@ -12,10 +12,14 @@ When instantiating Virtual Servers, it is often desired to have a customized tem
 [expanding-disks.md](expanding-disks.md)
 {% endcontent-ref %}
 
-**Manual Customization and Cloning**
+**Cloning and Manual Customization**
 
 {% content-ref url="creating-a-virtual-server-base-image.md" %}
 [creating-a-virtual-server-base-image.md](creating-a-virtual-server-base-image.md)
+{% endcontent-ref %}
+
+{% content-ref url="../../docs/virtual-servers/root-disk-lifecycle-management/cloning-block-volumes.md" %}
+[cloning-block-volumes.md](../../docs/virtual-servers/root-disk-lifecycle-management/cloning-block-volumes.md)
 {% endcontent-ref %}
 
 **Automatic provisioning and CI integration using Packer**
