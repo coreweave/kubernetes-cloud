@@ -8,3 +8,4 @@ ipywidgets
 tqdm
 kserve==0.8.0.2
 msrest
+huggingface_hub 

@@ -7,8 +7,7 @@ RUN apt update && apt upgrade -y
 
 RUN apt install -y python3 python3-pip git
 RUN mkdir -p /app
-ADD model/service.py /app
-ADD model/requirements.txt /app
+ADD model/ /app
 WORKDIR /app
 RUN pip3 install -r requirements.txt
 
