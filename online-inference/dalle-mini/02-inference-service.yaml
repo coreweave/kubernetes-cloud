@@ -1,7 +1,6 @@
 apiVersion: serving.kubeflow.org/v1beta1
 kind: InferenceService
 metadata:
-  #name: dalle-mini
   name: dalle-mega
 spec:
   predictor:
@@ -17,14 +16,13 @@ spec:
               operator: In
               values:
               - RTX_A6000
-              #- A100_PCIE_80GB
             - key: topology.kubernetes.io/region
               operator: In
               values:
               - ORD1 
     containers:
       - name: kserve-container
-        image: tweldoncw/dalle-mini:3
+        image: tweldoncw/dalle-mini:5
         command:
           - "python3"
           - "/app/service.py"
@@ -34,8 +32,17 @@ spec:
             #value: "dalle-mini/dalle-mini"
           - name: MODEL_CACHE
             value: "/mnt/models"
-          - name: STORAGE_URI # Kserve mounts the PVC at /mnt/pvc/
+          - name: STORAGE_URI # Kserve mounts the PVC at /mnt/models/
             value: pvc://dalle-mini-model-cache/
+            # The following env vars are the default model parameters, which can be changed as needed. 
+          - name: TOP_K
+            value: "50"
+          - name: TOP_P
+            value: "1.0"
+          - name: TEMPERATURE
+            value: "1.0" 
+          - name: CONDITION_SCALE
+            value: "10.0"
         resources:
           requests:
             cpu: 6

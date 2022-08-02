@@ -39,9 +39,9 @@ logger.info(f'Model Path: {MODEL_PATH}')
 
 model_options = {
 	#'N_PREDICTIONS': int(os.getenv('N_PREDICTIONS', default=1)),
-	'TOP_K': os.getenv('TOP_K', default=None),
-	'TOP_P': os.getenv('TOP_P', default=None),
-	'TEMPERATURE': os.getenv('TEMPERATURE', default=None),
+	'TOP_K': int(os.getenv('TOP_K', default=50)),
+	'TOP_P': float(os.getenv('TOP_P', default=1.0)),
+	'TEMPERATURE': float(os.getenv('TEMPERATURE', default=1.0)),
 	'CONDITION_SCALE': float(os.getenv('CONDITION_SCALE', default=10.0))
 }
 
