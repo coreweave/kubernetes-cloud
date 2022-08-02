@@ -5,7 +5,6 @@ import shutil
 from huggingface_hub import snapshot_download
 import os
 
-logging.basicConfig(level=INFO)
 logger = logging.getLogger("downloader")
 
 parser = argparse.ArgumentParser()
@@ -28,4 +27,10 @@ for file in os.listdir(model):
     logger.info(f'moving {src} to {dest}')
     shutil.move(src, dest)
 
+ready = os.path.join(model_dir, '.ready.txt')
+with open(ready, 'w') as ready_file:
+    pass
+
 tmpdir.cleanup()
+
+logger.info(f'Download complete')

@@ -1,18 +1,21 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: dalle-mini-download
+  #name: dalle-mini-download
+  name: dalle-mega-download
 spec:
   template:
     spec:
       containers:
       - name: model-downloader
-        image: tweldoncw/model-downloader:1
+        image: tweldoncw/model-downloader:6
         imagePullPolicy: IfNotPresent
-        command: ["bash", "-c"]
-        args:
-          #- 'python3 download.py dalle-mini/dalle-mega /mnt/pvc'
-          - 'python3 download.py dalle-mini/dalle-mini /mnt/pvc'
+        command: 
+          - "python3"
+          - "/app/download.py"
+          #- "--model-id=dalle-mini/dalle-mini"
+          - "--model-id=dalle-mini/dalle-mega"
+          - "--model-cache=/mnt/pvc"
         volumeMounts:
           - name: model-cache
             mountPath: /mnt/pvc
