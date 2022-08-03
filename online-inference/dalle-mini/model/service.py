@@ -154,7 +154,8 @@ class Model(kserve.Model):
 				payload = base64.b64encode(img_bytes)
 				payload = str(payload, 'utf-8')
 
-		return {'image': payload}
+		#return {'image': payload}
+		return img_file.getvalue()
 
 	@staticmethod
 	def is_ready():

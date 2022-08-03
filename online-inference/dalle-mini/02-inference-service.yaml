@@ -2,6 +2,7 @@ apiVersion: serving.kubeflow.org/v1beta1
 kind: InferenceService
 metadata:
   name: dalle-mega
+  #name: dalle-mini
 spec:
   predictor:
     containerConcurrency: 1
@@ -22,7 +23,7 @@ spec:
               - ORD1 
     containers:
       - name: kserve-container
-        image: tweldoncw/dalle-mini:5
+        image: tweldoncw/dalle-mini:7
         command:
           - "python3"
           - "/app/service.py"
