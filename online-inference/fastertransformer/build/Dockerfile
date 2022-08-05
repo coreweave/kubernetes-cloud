@@ -48,9 +48,12 @@ RUN CMAKE_VERSION=3.18 && \
 
 # backend build
 WORKDIR /workspace/build/triton-experiments
-ADD cmake cmake
-ADD src src
-ADD CMakeLists.txt CMakeLists.txt
+
+RUN git clone https://github.com/triton-inference-server/fastertransformer_backend.git 
+RUN mv /workspace/build/triton-experiments/fastertransformer_backend/cmake /workspace/build/triton-experiments
+RUN mv /workspace/build/triton-experiments/fastertransformer_backend/src /workspace/build/triton-experiments
+RUN mv /workspace/build/triton-experiments/fastertransformer_backend/CMakeLists.txt /workspace/build/triton-experiments
+
 ADD model_configs model_configs
 
 ARG FORCE_BACKEND_REBUILD=0
@@ -65,43 +68,6 @@ RUN mkdir build -p && \
       -D TRITON_BACKEND_REPO_TAG="r${NVIDIA_TRITON_SERVER_VERSION}" \
       .. && \
     make -j"$(grep -c ^processor /proc/cpuinfo)" install
-
-# Can change based on system configuration
-ARG NUM_GPUS=1
-
-# set workspace, src and triton model store locations
-ENV WORKSPACE /workspace
-
-# Need to create directories where the models and checkpoints are stored
-RUN mkdir -p ${WORKSPACE}/models
-ENV SRC_MODELS_DIR=${WORKSPACE}/models
-
-# This is where Triton looks to serve the models from fastertransformer backend
-RUN mkdir -p ${WORKSPACE}/triton-model-store
-ENV TRITON_MODELS_STORE=${WORKSPACE}/triton-model-store
-
-ENV MODEL_PATH=${TRITON_MODELS_STORE}/fastertransformer
-
-WORKDIR /workspace
-
-# Install pytorch
-RUN pip3 install torch==1.9.1+cu111 -f https://download.pytorch.org/whl/torch_stable.html
-RUN pip3 install --extra-index-url https://pypi.ngc.nvidia.com regex fire tritonclient[all]
-RUN pip3 install --upgrade jax jaxlib
-
-RUN git clone https://github.com/NVIDIA/FasterTransformer.git 
-RUN wget https://s3.amazonaws.com/models.huggingface.co/bert/gpt2-vocab.json -P models 
-RUN wget https://s3.amazonaws.com/models.huggingface.co/bert/gpt2-merges.txt -P models
-RUN wget https://mystic.the-eye.eu/public/AI/GPT-J-6B/step_383500_slim.tar.gz
-
-RUN tar -xzvf step_383500_slim.tar.gz -C ${SRC_MODELS_DIR}
-RUN mkdir ${MODEL_PATH}/1 -p 
-
-RUN python3 ${WORKSPACE}/FasterTransformer/examples/pytorch/gptj/utils/gptj_ckpt_convert.py --output-dir ${MODEL_PATH}/1 --ckpt-dir ${SRC_MODELS_DIR}/step_383500/ --n-inference-gpus ${NUM_GPUS}
-
-# ensure the structure matches Triton Model Specification 
-RUN mv ${MODEL_PATH}/1/${NUM_GPUS}-gpu/* ${MODEL_PATH}/1/
-RUN rm -rf ${MODEL_PATH}/1/${NUM_GPUS}-gpu
 
 # =================================
 #  Runner Image
@@ -118,7 +84,7 @@ COPY --from=server-builder /opt/tritonserver/backends/fastertransformer /opt/tri
 ENV WORKSPACE /workspace
 
 # This is where Triton looks to serve the models from fastertransformer backend
-RUN mkdir -p ${WORKSPACE}/triton-model-store
+RUN mkdir ${WORKSPACE}/triton-model-store -p
 ENV TRITON_MODELS_STORE=${WORKSPACE}/triton-model-store
 
 ENV MODEL_PATH=${TRITON_MODELS_STORE}/fastertransformer
@@ -126,6 +92,8 @@ RUN mkdir ${MODEL_PATH}/1 -p
 
 # Copy configs from server so that Triton understands how to reference the model
 COPY --from=server-builder /workspace/build/triton-experiments/model_configs/gptj-6B/config.pbtxt ${MODEL_PATH}/
+
+# Using PVC to load
 # COPY --from=server-builder ${MODEL_PATH}/1/ ${MODEL_PATH}/1/
 
 ADD . /workspace/triton-experiments

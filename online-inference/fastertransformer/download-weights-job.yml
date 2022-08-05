@@ -13,37 +13,36 @@ spec:
         - /bin/sh
         - -c
         - |
-          cd /workspace
+          cd /workspace;
           apt-get update && \
           apt-get install -y --no-install-recommends \
-          zip unzip wget build-essential autoconf autogen gdb \
-          openssh-server zsh tmux mosh locales-all clangd sudo \
-          python3.8 python3-pip python3-dev rapidjson-dev && \
+          zip unzip wget git python3.8 python3-pip && \ 
+          python3-dev rapidjson-dev && \
           apt-get clean && \
           rm -rf /var/lib/apt/lists/*;
           pip3 install torch==1.9.1+cu111 -f https://download.pytorch.org/whl/torch_stable.html;
           pip3 install --extra-index-url https://pypi.ngc.nvidia.com regex fire tritonclient[all];
           pip3 install --upgrade jax jaxlib;
-          git clone https://github.com/NVIDIA/FasterTransformer.git 
-          wget https://s3.amazonaws.com/models.huggingface.co/bert/gpt2-vocab.json -P models 
-          wget https://s3.amazonaws.com/models.huggingface.co/bert/gpt2-merges.txt -P models
-          wget https://mystic.the-eye.eu/public/AI/GPT-J-6B/step_383500_slim.tar.gz
-          tar -xzvf step_383500_slim.tar.gz -C /workspace/models
-          mkdir /workspace/triton-model-store/fastertransformer/1 -p 
-          python3 /workspace/FasterTransformer/examples/pytorch/gptj/utils/gptj_ckpt_convert.py --output-dir /workspace/triton-model-store/fastertransformer/1 --ckpt-dir /workspace/models/step_383500/ --n-inference-gpus 1
-          mv /workspace/triton-model-store/fastertransformer/1/1-gpu/* /workspace/triton-model-store/fastertransformer/1/
-          rm -rf /workspace/triton-model-store/fastertransformer/1/1-gpu
+          git clone https://github.com/NVIDIA/FasterTransformer.git; 
+          wget https://s3.amazonaws.com/models.huggingface.co/bert/gpt2-vocab.json -P models; 
+          wget https://s3.amazonaws.com/models.huggingface.co/bert/gpt2-merges.txt -P models;
+          wget https://mystic.the-eye.eu/public/AI/GPT-J-6B/step_383500_slim.tar.gz;
+          tar -xzvf step_383500_slim.tar.gz -C /workspace/models;
+          mkdir /workspace/triton-model-store/fastertransformer/1 -p; 
+          python3 /workspace/FasterTransformer/examples/pytorch/gptj/utils/gptj_ckpt_convert.py --output-dir /workspace/triton-model-store/fastertransformer/1 --ckpt-dir /workspace/models/step_383500/ --n-inference-gpus 1;
+          mv /workspace/triton-model-store/fastertransformer/1/1-gpu/* /workspace/triton-model-store/fastertransformer/1/;
+          rm -rf /workspace/triton-model-store/fastertransformer/1/1-gpu;
         volumeMounts:
           - name: cache
             mountPath: /workspace
         resources:
           requests:
-            cpu: 8
-            memory: 16Gi 
+            cpu: 16
+            memory: 64Gi 
             nvidia.com/gpu: 1
           limits:
-            cpu: 8
-            memory: 16Gi
+            cpu: 16
+            memory: 64Gi
             nvidia.com/gpu: 1
            
       volumes:
