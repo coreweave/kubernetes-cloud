@@ -8,7 +8,7 @@ description: >-
 
 ## Introduction
 
-This example demonstrates how to deploy [BLOOM](https://huggingface.co/bigscience/bloom) as an [InferenceService](https://kserve.github.io/website/0.8/get\_started/first\_isvc/) to perform Text Generation.&#x20;
+This example demonstrates how to deploy [BLOOM](https://huggingface.co/bigscience/bloom) as an [InferenceService](https://kserve.github.io/website/0.8/get\_started/first\_isvc/) with a simple HTTP API to perform Text Generation. The deployment will run on CoreWeave Cloud NVIDIA A100 GPUs with autoscaling and Scale To Zero.
 
 ![](../../.gitbook/assets/image.png)
 
