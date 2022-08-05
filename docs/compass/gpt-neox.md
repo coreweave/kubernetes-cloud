@@ -138,11 +138,11 @@ As an example, here is what a live experiment looks like when viewed from the We
 
 Navigating to the **Logs** tab will give you a full output of the experiment's logs:
 
-![Log output from the DeterminedAI Web UI](<../.gitbook/assets/image (5).png>)
+![Log output from the DeterminedAI Web UI](<../.gitbook/assets/image (19).png>)
 
 Navigating to **Overview** will give you access to a metrics visualization of the experiment and checkpoint reference.
 
-![Metrics visualization in the DeterminedAI Web UI](<../.gitbook/assets/image (19).png>)
+![Metrics visualization in the DeterminedAI Web UI](<../.gitbook/assets/image (16).png>)
 
 ## Training
 
@@ -196,7 +196,7 @@ Upload your data as a single JSONL file called `data.jsonl` to filebrowser under
 
 Using the filebrowser app, create a new folder called `gpt_finetune` under the `finetune-gpt-neox` folder.
 
-![Creating the gpt\_finetune directory in filebrowser](<../.gitbook/assets/image (18).png>)
+![Creating the gpt\_finetune directory in filebrowser](<../.gitbook/assets/image (5).png>)
 
 You can now pre-tokenize your data using `tools/preprocess_data.py`. The arguments for this utility are listed below.
 
