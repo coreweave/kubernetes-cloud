@@ -14,6 +14,31 @@ You can view **** the Virtual Server Terraform plan used in the following exampl
 
 ## Deploying a Virtual Server using Terraform
 
+The following table describes all fields exposed through the Terraform module.
+
+| Field name               | Field type | Description                                                                                                              |
+| ------------------------ | ---------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `kubeconfig_path`        | string     | System path to a kubeconfig file                                                                                         |
+| `user_namespace`         | string     | Namespace the virtualserver will be deployed to                                                                          |
+| `vs_name`                | string     | Hostname for the virtual server                                                                                          |
+| `vs_username`            | string     | Username for the virtual server                                                                                          |
+| `vs_generate_password`   | boolean    | Set to true to generate a strong password                                                                                |
+| `vs_password`            | string     | If `vs_generate_password` is set to false, provide a password for `vs_username`                                          |
+| `vs_memory`              | string     | Memory requested in Gi (i.e. 16Gi)                                                                                       |
+| `vs_root_storage`        | string     | Storage requested for root volume in Gi (i.e. 80Gi)                                                                      |
+| `vs_os_type`             | string     | Virtual Server OS variant (i.e. linux)                                                                                   |
+| `vs_image`               | string     | OS image deployed to virtual server                                                                                      |
+| `vs_gpu`                 | string     | GPU model name for virtual server                                                                                        |
+| `vs_gpu_enable`          | boolean    | Enable a GPU for this this virtual server                                                                                |
+| `vs_gpu_count`           | integer    | Number of GPUs requested                                                                                                 |
+| `vs_cpu_count`           | integer    | Number of CPUs requested                                                                                                 |
+| `vs_region`              | string     | Data center region in which to deploy the Virtual Server                                                                 |
+| `vs_running`             | boolean    | Whether or not to start the Virtual Server once deployed                                                                 |
+| `vs_public_networking`   | boolean    | Whether or not to enable public networking                                                                               |
+| `vs_attach_loadbalancer` | boolean    | Attach Service Load Balancer IP directly to Virtual Server (`vs_tcp_ports` and `vs_udp_ports` must be empty, if enabled) |
+| `vs_tcp_ports`           | list       | List of TCP ports to allow access to                                                                                     |
+| `vs_udp_ports`           | list       | List of UDP ports to allow access to                                                                                     |
+
 With the [Virtual Server module](https://github.com/coreweave/kubernetes-cloud/tree/master/virtual-server/examples/terraform) cloned and the configurations adjusted to your preferences, a Virtual Server can either be created by running the module directly:
 
 ```bash
