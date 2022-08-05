@@ -1,0 +1,45 @@
+apiVersion: serving.kubeflow.org/v1beta1
+kind: InferenceService
+metadata:
+  labels:
+    qos.coreweave.cloud/latency: low
+  name: fastertransformer-triton
+spec:
+  predictor:
+    maxReplicas: 10
+    minReplicas: 1
+    containerConcurrency: 1
+    containers:
+    - name: gptj-6b-1-gpu-rtx-a5000
+      image: registry.gitlab.com/coreweave/utility-images/fastertransformer:f48fc75a
+      command: ["/opt/tritonserver/bin/tritonserver"]
+      args: ["--model-repository=/workspace/triton-model-store"]
+      volumeMounts:
+      - mountPath: "/workspace"
+        name: cache
+      ports:
+        - containerPort: 8000
+          protocol: TCP
+      resources:
+        requests:
+          cpu: 16
+          memory: 64Gi
+          nvidia.com/gpu: 1
+        limits:
+          cpu: 16
+          memory: 64Gi
+          nvidia.com/gpu: 1
+    volumes:
+    - name: cache
+      persistentVolumeClaim:
+        claimName: model-storage
+      
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: gpu.nvidia.com/class
+              operator: In
+              values:
+                - RTX_A5000

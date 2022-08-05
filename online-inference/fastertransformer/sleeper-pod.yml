@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sleeper-pod-pvc
+spec:
+  containers:
+    - name: sleeper-pod-pvc-container
+      image: nginx
+      volumeMounts:
+      - mountPath: "/workspace"
+        name: cache
+  volumes:
+    - name: cache
+      persistentVolumeClaim:
+        claimName: model-storage
