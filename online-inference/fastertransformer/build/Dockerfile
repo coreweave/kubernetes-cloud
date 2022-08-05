@@ -94,7 +94,6 @@ RUN mkdir ${MODEL_PATH}/1 -p
 COPY --from=server-builder /workspace/build/triton-experiments/model_configs/gptj-6B/config.pbtxt ${MODEL_PATH}/
 
 # Using PVC to load
-# COPY --from=server-builder ${MODEL_PATH}/1/ ${MODEL_PATH}/1/
 
 ADD . /workspace/triton-experiments
 
