@@ -3,7 +3,7 @@ kind: InferenceService
 metadata:
   labels:
     qos.coreweave.cloud/latency: low
-  name: fastertransformer-triton
+  name: fastertransformer-triton-4
 spec:
   predictor:
     maxReplicas: 10
@@ -11,12 +11,12 @@ spec:
     containerConcurrency: 1
     containers:
     - name: gptj-6b-1-gpu-rtx-a5000
-      image: registry.gitlab.com/coreweave/utility-images/fastertransformer:f48fc75a
+      image: rtalaricw/gptj_ft:22.05
       command: ["/opt/tritonserver/bin/tritonserver"]
-      args: ["--model-repository=/workspace/triton-model-store"]
-      volumeMounts:
-      - mountPath: "/workspace"
-        name: cache
+      args: ["--model-repository=/mnt/pvc/triton-model-store"]
+      env:
+        - name: STORAGE_URI 
+          value: pvc://model-storage/
       ports:
         - containerPort: 8000
           protocol: TCP
@@ -29,11 +29,6 @@ spec:
           cpu: 16
           memory: 64Gi
           nvidia.com/gpu: 1
-    volumes:
-    - name: cache
-      persistentVolumeClaim:
-        claimName: model-storage
-      
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:

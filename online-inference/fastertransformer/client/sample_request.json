@@ -12,7 +12,7 @@
         },
         {
             "name": "request_output_len",
-            "data": [[24]],
+            "data": [[512]],
             "dtype": "uint32"
         },
         {

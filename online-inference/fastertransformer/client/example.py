@@ -16,9 +16,9 @@ cwd = ROOT_DIR.split("/online-inference", 1)[0]
 sys.path.append(cwd)
 
 # GPT_BPE Tokenizer
-import gpt_token_encoder as encoder
-merge_file = cwd + "/online-inference/fastertransformer/client/gpt2-merges.txt"
-vocab_file = cwd + "/online-inference/fastertransformer/client/gpt2-vocab.json"
+import gpt_bpe.gpt_token_encoder as encoder
+merge_file = cwd + "/online-inference/fastertransformer/client/gpt_bpe/gpt2-merges.txt"
+vocab_file = cwd + "/online-inference/fastertransformer/client/gpt_bpe/gpt2-vocab.json"
 enc = encoder.get_encoder(vocab_file, merge_file)
 
 

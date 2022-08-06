@@ -80,22 +80,4 @@ ENV NCCL_LAUNCH_MODE=PARALLEL
 
 COPY --from=server-builder /opt/tritonserver/backends/fastertransformer /opt/tritonserver/backends/fastertransformer
 
-# set workspace, src and triton model store locations
-ENV WORKSPACE /workspace
-
-# This is where Triton looks to serve the models from fastertransformer backend
-RUN mkdir ${WORKSPACE}/triton-model-store -p
-ENV TRITON_MODELS_STORE=${WORKSPACE}/triton-model-store
-
-ENV MODEL_PATH=${TRITON_MODELS_STORE}/fastertransformer
-RUN mkdir ${MODEL_PATH}/1 -p 
-
-# Copy configs from server so that Triton understands how to reference the model
-COPY --from=server-builder /workspace/build/triton-experiments/model_configs/gptj-6B/config.pbtxt ${MODEL_PATH}/
-
-# Using PVC to load
-
 ADD . /workspace/triton-experiments
-
-# Run the server with the model repository
-# ENTRYPOINT ["/opt/tritonserver/bin/tritonserver",  "--model-repository=/workspace/triton-model-store"]
