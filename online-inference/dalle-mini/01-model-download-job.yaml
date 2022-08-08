@@ -1,0 +1,43 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  #name: dalle-mini-download
+  name: dalle-mega-download
+spec:
+  template:
+    spec:
+      containers:
+      - name: model-downloader
+        image: tweldoncw/model-downloader:6
+        imagePullPolicy: IfNotPresent
+        command: 
+          - "python3"
+          - "/app/download.py"
+          #- "--model-id=dalle-mini/dalle-mini"
+          - "--model-id=dalle-mini/dalle-mega"
+          - "--model-cache=/mnt/pvc"
+        volumeMounts:
+          - name: model-cache
+            mountPath: /mnt/pvc
+        resources:
+          requests:
+            cpu: 1
+            memory: 4Gi 
+          limits:
+            cpu: 1
+            memory: 4Gi 
+      volumes:
+        - name: model-cache
+          persistentVolumeClaim:
+            claimName: dalle-mini-model-cache
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: topology.kubernetes.io/region
+                operator: In
+                values: 
+                - ORD1
+      restartPolicy: Never
+  backoffLimit: 2

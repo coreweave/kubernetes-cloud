@@ -1,0 +1,55 @@
+apiVersion: serving.kubeflow.org/v1beta1
+kind: InferenceService
+metadata:
+  name: dalle-mega
+  #name: dalle-mini
+spec:
+  predictor:
+    containerConcurrency: 1
+    minReplicas: 1
+    maxReplicas: 1 
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: gpu.nvidia.com/class
+              operator: In
+              values:
+              - RTX_A6000
+            - key: topology.kubernetes.io/region
+              operator: In
+              values:
+              - ORD1 
+    containers:
+      - name: kserve-container
+        image: tweldoncw/dalle-mini:7
+        command:
+          - "python3"
+          - "/app/service.py"
+        env:
+          - name: MODEL_ID
+            value: "dalle-mini/dalle-mega"
+            #value: "dalle-mini/dalle-mini"
+          - name: MODEL_CACHE
+            value: "/mnt/models"
+          - name: STORAGE_URI # Kserve mounts the PVC at /mnt/models/
+            value: pvc://dalle-mini-model-cache/
+            # The following env vars are the default model parameters, which can be changed as needed. 
+          - name: TOP_K
+            value: "50"
+          - name: TOP_P
+            value: "1.0"
+          - name: TEMPERATURE
+            value: "1.0" 
+          - name: CONDITION_SCALE
+            value: "10.0"
+        resources:
+          requests:
+            cpu: 6
+            memory: 48Gi
+            nvidia.com/gpu: 1
+          limits:
+            cpu: 6
+            memory: 48Gi
+            nvidia.com/gpu: 1
