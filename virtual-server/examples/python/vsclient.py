@@ -83,7 +83,7 @@ class VSClient:
         print(f'Waiting for virtual server to be {expected_state} ...')
         for event in w.stream(self.api.list_namespaced_custom_object,
                               VSClient.GROUP, VSClient.VERSION, namespace, VSClient.PLURAL, **kwargs):
-            status = event['object']['status']
+            status = event['object'].get('status', dict())
 
             # the virtual server was already deleted
             if event['type'] == 'DELETE':
