@@ -58,7 +58,7 @@ Options will be configured as shown in the screenshot and detailed in the table 
 Please review the [IP address details section](aws.md#ip-address) before completing configuration.
 {% endhint %}
 
-![The "Details" section of the new Site-to-Site VPN connection configuration menus.](<../../../../../.gitbook/assets/image (5) (1).png>)
+![The "Details" section of the new Site-to-Site VPN connection configuration menus.](<../../../../../.gitbook/assets/image (5) (1) (1).png>)
 
 ### Configuration
 

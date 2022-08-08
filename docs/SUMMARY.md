@@ -73,6 +73,7 @@
   * [GPT-J-6B](../compass/models/gpt-j-6b.md)
 * [Examples](../compass/examples/README.md)
   * [PyTorch - HuggingFace BigScience BLOOM](compass/examples/pytorch-huggingface-bigscience-bloom.md)
+  * [JAX - DALL-E Mini / Mega](compass/examples/jax-dall-e-mini-mega.md)
   * [TensorFlow - Open AI GPT-2](../compass/examples/gpt-2/README.md)
     * [Transformer](../compass/examples/gpt-2/transformer.md)
     * [Exporting with Jupyter](../compass/examples/gpt-2/jupyter-pvc.md)
