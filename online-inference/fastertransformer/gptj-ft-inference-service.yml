@@ -3,7 +3,7 @@ kind: InferenceService
 metadata:
   labels:
     qos.coreweave.cloud/latency: low
-  name: fastertransformer-triton-4
+  name: fastertransformer-triton
 spec:
   predictor:
     maxReplicas: 10
