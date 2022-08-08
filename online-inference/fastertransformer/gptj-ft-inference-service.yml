@@ -14,6 +14,9 @@ spec:
       image: rtalaricw/gptj_ft:22.05
       command: ["/opt/tritonserver/bin/tritonserver"]
       args: ["--model-repository=/mnt/pvc/triton-model-store"]
+      # command: 
+      # - "sleep"
+      # - "infinity"
       env:
         - name: STORAGE_URI 
           value: pvc://model-storage/
