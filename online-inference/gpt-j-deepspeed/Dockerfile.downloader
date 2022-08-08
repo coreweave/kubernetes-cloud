@@ -1,0 +1,7 @@
+FROM ubuntu:xenial
+ENV DEBIAN_FRONTEND=noninteractive 
+RUN apt update && \
+    apt -y upgrade && \
+    apt -y install tree curl && \
+    mkdir -p /app
+ADD downloader/download.sh /usr/local/bin/download_model

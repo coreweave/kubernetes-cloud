@@ -1,0 +1,40 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: gpt-j-6b-download
+spec:
+  template:
+    spec:
+      containers:
+      - name: model-downloader
+        image: tweldoncw/model-downloader:9
+        imagePullPolicy: IfNotPresent
+        command: 
+          - "download_model"
+          - "EleutherAI/gpt-j-6B"
+          - "/mnt/models"
+        volumeMounts:
+          - name: model-cache
+            mountPath: /mnt/models
+        resources:
+          requests:
+            cpu: 1
+            memory: 4Gi 
+          limits:
+            cpu: 1
+            memory: 4Gi 
+      volumes:
+        - name: model-cache
+          persistentVolumeClaim:
+            claimName: gpt-j-6b-model-cache
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: topology.kubernetes.io/region
+                operator: In
+                values: 
+                - ORD1
+      restartPolicy: Never
+  backoffLimit: 2
