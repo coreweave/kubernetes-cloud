@@ -20,9 +20,9 @@ CoreWeave provides guides for setup and usage both on **CoreWeave Cloud** as wel
 
 Learn more in our Cloud-specific endpoint configuration examples:
 
-| Examples                                                                                                                                                                   |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [AWS](https://app.gitbook.com/o/-M8EEYiNkaJsT8ISX0kX/s/-M83TghsCfsi8FCYs2DZ/\~/changes/Uy7xH1nABFQP3H059xgP/coreweave-kubernetes/networking/site-to-site-vpn/examples/aws) |
+| Examples                                                                                                                 |
+| ------------------------------------------------------------------------------------------------------------------------ |
+| [AWS](https://docs.coreweave.com/coreweave-kubernetes/networking/site-to-site-connections/site-to-site-vpn/examples/aws) |
 
 {% hint style="success" %}
 **Tip**
