@@ -43,7 +43,7 @@ spec:
 {% endtab %}
 {% endtabs %}
 
-Referencing [Creating a Packer Worker Virtual Server](https://app.gitbook.com/@coreweave/s/coreweave/\~/drafts/-MgqXuJGx7Fuy03tCSXb/virtual-servers/examples/using-packer-to-create-and-update-os-images#creating-a-packer-worker-virtual-server), we will edit our YAML to point to our newly created blank PVC:
+Referencing [Creating a Packer Worker Virtual Server](https://docs.coreweave.com/virtual-servers/root-disk-lifecycle-management/using-packer-to-create-and-update-os-images/creating-a-packer-worker-virtual-server), we will edit our YAML to point to our newly created blank PVC:
 
 {% tabs %}
 {% tab title="YAML" %}
