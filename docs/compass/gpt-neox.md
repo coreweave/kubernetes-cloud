@@ -196,7 +196,7 @@ Upload your data as a single JSONL file called `data.jsonl` to filebrowser under
 
 Using the filebrowser app, create a new folder called `gpt_finetune` under the `finetune-gpt-neox` folder.
 
-![Creating the gpt\_finetune directory in filebrowser](<../.gitbook/assets/image (5) (1).png>)
+![Creating the gpt\_finetune directory in filebrowser](<../.gitbook/assets/image (5) (2).png>)
 
 You can now pre-tokenize your data using `tools/preprocess_data.py`. The arguments for this utility are listed below.
 
