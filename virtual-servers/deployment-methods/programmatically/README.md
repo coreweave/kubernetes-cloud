@@ -30,7 +30,7 @@ Before you can interact with the CoreWeave Kubernetes API server, you must first
 
 Below are some language-specific examples of interacting with the Kubernetes REST API to deploy and manage Virtual Servers on CoreWeave Cloud.
 
-* [Bash](../../../docs/virtual-servers/deployment-methods/programmatically/bash.md) (using `curl` and `jq`)
+* [Bash](https://docs.coreweave.com/virtual-servers/deployment-methods/programmatically/bash) (using `curl` and `jq`)
 * [Python](python.md)
 * [NodeJS](nodejs.md)
 * [Golang](golang.md)
