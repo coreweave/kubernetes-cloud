@@ -5,8 +5,8 @@ metadata:
     qos.coreweave.cloud/latency: low
   name: fastertransformer-triton
 spec:
-  predictor:
-    maxReplicas: 10
+  predictor:c
+    maxReplicas: 1
     minReplicas: 1
     containerConcurrency: 1
     containers:
@@ -14,9 +14,6 @@ spec:
       image: rtalaricw/gptj_ft:22.05
       command: ["/opt/tritonserver/bin/tritonserver"]
       args: ["--model-repository=/mnt/pvc/triton-model-store"]
-      # command: 
-      # - "sleep"
-      # - "infinity"
       env:
         - name: STORAGE_URI 
           value: pvc://model-storage/

@@ -102,4 +102,3 @@ if __name__ == "__main__":
     args = parse_args()
     config, request = generate_parameters(args)
     main(config, request)
-    # tokenize_data(text="Hello, I am Jane. Nice to meet you!")
