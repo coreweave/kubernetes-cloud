@@ -4,11 +4,9 @@ description: Learn about CoreWeave's Layer 2 VPC (L2VPC).
 
 # Layer 2 VPC (L2VPC)
 
-## Introduction
-
 **CoreWeave's Layer 2 VPC (L2VPC)** is vastly different from the [CoreWeave Cloud Native Networking (CCNN)](../coreweave-cloud-native-networking-ccnn.md) fabric. Most notably, many of the extended networking features built in to CCNN - such as network policies and Kubernetes loadbalancing - are not present in an L2VPC, in order to provide more control to the user.
 
-The L2VPC is enabled on a workload by workload basis. A workload (a Pod or Virtual Server) can have multiple interfaces - it can keep the regular CCNN interface, as well as add on one or multiple VPC interfaces, or it can attach to L2VPC only.
+The L2VPC is enabled on a workload by workload basis. A workload (a Pod or Virtual Server) can have multiple interfaces - it can maintain a CCNN interface as well as one or multiple VPC interfaces, or it can attach to L2VPC exclusively.
 
 Multiple VPCs can also be allocated to simulate the multiple VLANs (network segments) found in a traditional on-premise network.
 
