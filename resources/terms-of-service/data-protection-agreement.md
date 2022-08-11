@@ -4,106 +4,163 @@ description: CoreWeave Data Processing Agreement (DPA)
 
 # Data Protection Agreement
 
-**Last updated: September 16, 2021**
+**Last updated August 11, 2022.**
 
-A DPA is required when a Controller (in this case, the Customer) engages a Processor (in this case, CoreWeave) and the Controller is required to comply with applicable Data Protection Laws.
+This Data Processing Addendum (“DPA”) is subject to, incorporated with, and part of, the CoreWeave Terms of Service (“TOS”) and is entered into between CoreWeave, Inc. (“CoreWeave”) and the customer identified in the TOS (“Customer”). CoreWeave and Customer shall be collectively referred to herein as “Parties” and individually as a “Party”.
 
-The Customer is responsible to determine and notify CoreWeave if the Customer is subject to any Data Protection Laws that would require the parties to effectuate this DPA.
+The parties agree as follows:
 
-This DPA is incorporated with, and part of, the CoreWeave Terms of Service (TOS) and is entered into between CoreWeave, Inc.(“CoreWeave,” “Processor,” or “Supplier”) and the Customer (the “Customer,” or “Controller”). This DPA includes and incorporates by reference the annexes and addenda referenced at the bottom of this document. All capitalized terms not defined in this DPA shall have the meanings set forth in the TOS. Customer enters into this DPA on behalf of itself and, to the extent required under Data Protection Laws, in the name and on behalf of its Authorized Affiliates (defined below).
+## 1. Definitions.
 
-**The parties agree as follows:**
+**“Authorized Affiliate”** means any of Customer’s affiliate(s) permitted to or otherwise receiving the benefit of CoreWeave Services pursuant to the TOS.
 
-### 1. Definitions
+**“Controller”** means an entity that determines the purposes and means of the Processing of Personal Data.
 
-“**Affiliate**” means an entity that directly or indirectly Controls, is Controlled by, or is under common Control with an entity.
+**“CoreWeave Services”** means any product or service provided by CoreWeave to Customer or its Authorized Affiliates pursuant to and as more particularly described in the TOS, including the CoreWeave Cloud Platform.
 
-“**Authorized Affiliate**” means any of Customer Affiliate(s) permitted to or otherwise receiving the benefit of CoreWeave Services pursuant to the TOS.
+**“Data Protection Laws”** means all applicable laws and regulations, including, without limitation, laws and regulations of the European Union; the European Economic Area and their member states; Switzerland; the United Kingdom; Canada and its provinces; the People's Republic of China; and the United States and its individual states; applicable to the Processing of Personal Data under this DPA, and include without limitation, the Regulation (EU) 2016/679 of the European Parliament and of the Council of 27 April 2016 on the protection of natural persons with regard to the processing of personal data and on the free movement of such data, and repealing Directive 95/46/EC (General Data Protection Regulation) (“GDPR”); the California Consumer Privacy Act of 2018, as amended from time to time, and including any implementing regulations (“CCPA”); the Personal Information Protection and Electronic Documents Act, S.C. 2000, c. 5 (“PIPEDA”); the Personal Information Protection Law of the People’s Republic of China, Adopted at the 30th meeting of the Standing Committee of the 13th National People's Congress on August 20, 2021.
 
-“**Control**” means an ownership, voting, or similar interest representing fifty percent (50%) or more of the total interests then outstanding of the entity in question. The term “Controlled” shall be construed accordingly.
+**“Data Subject”** means the identified or identifiable person to whom Personal Data relates.
 
-“**Controller**” means an entity that determines the purposes and means of the processing of Personal Data.
+**“Personal Data”** means any information CoreWeave Processes for Customer or its Authorized Affiliates that (i) identifies or relates to an individual who can be identified directly or indirectly from that data alone or in combination with other information in CoreWeave’s possession or control or that CoreWeave is likely to have access to, or any other information that is defined as “personal information” or “personal data” under any applicable Data Protection Laws.
 
-“**CoreWeave Services**” means any product or service provided by CoreWeave to Customer pursuant to and as more particularly described in the TOS, including the CoreWeave Cloud Platform as a Covered Service.
+**“Process”** or **“Processing”** means any operation or set of operations which is performed upon Personal Data, whether or not by automatic means, including collection, recording, organization, structuring, storage, adaptation or alteration, retrieval, consultation, use, disclosure by transmission, dissemination or any other activity that the relevant Data Protection Laws may otherwise include in the definition of processing.
 
-“**Customer Data**” means any data that CoreWeave and/or its Affiliates processes on behalf of Customer in the course of providing CoreWeave Services under the TOS.
+**“Processor”** means an entity that processes Personal Data on behalf of the Controller.
 
-“**Data Protection Laws**” means all data protection and privacy laws and regulations applicable to a Customer in connection with the processing of Personal Data under the TOS, including, where applicable, EU Data Protection Law.
+**“Security Incident”** means any act or omission that compromises the security, confidentiality or integrity of Personal Data or the physical, technical, administrative or organizational safeguards put in place to protect it that rises to the level of a security breach or incident under the applicable Data Protection Laws.
 
-“**EU Data Protection Law**” means (i) Regulation 2016/679 of the European Parliament and of the Council on the protection of natural persons with regard to the processing of Personal Data and on the free movement of such data (General Data Protection Regulation) (“GDPR”); and (ii) Directive 2002/58/EC concerning the processing of Personal Data and the protection of privacy in the electronic communications sector and applicable national implementations of it (in each case, as may be amended, superseded or replaced).
+**“Service Provider”** means a Processor Processing Personal Data as a “service provider” as defined under applicable Data Protection Laws.
 
-“**Personal Data**” means any Customer Data relating to an identified or identifiable natural person to the extent that such information is protected as personal data under applicable Data Protection Law.
+**“Standard Contractual Clauses”** means the Standard Contractual Clauses based on the Commission Decision C(2010)593 Standard Contractual Clauses (Model 2: controller to processor) found at https://ec.europa.eu/info/law/law-topic/data-protection/international-dimension-data-protection/standard-contractual-clauses-scc\_en, as set out in the Annex to Commission Decision (EU) 2021/914, which are incorporated herein by reference, and which a completed copy of the applicable Annexes are attached as Appendix B.
 
-“**Processor**” means an entity that processes Personal Data on behalf of the Controller.
+**“Sub-processor”** means any Processor engaged by CoreWeave or its affiliates to assist in fulfilling its obligations with respect to providing CoreWeave Services pursuant to the TOS or this DPA.
 
-“**Processing**” has the meaning given to it in the GDPR and “process”, “processes” and “processed” shall be interpreted accordingly.
+## 2. Applicability.&#x20;
 
-“**Security Incident**” means any unauthorized or unlawful breach of security that leads to the accidental or unlawful destruction, loss, alteration, unauthorized disclosure of or access to Personal Data.
+This DPA applies where and only to the extent that CoreWeave processes Personal Data on behalf of the Customer or its Authorized Affiliates in the course of providing CoreWeave Services that is subject to protection under Data Protection Laws. Appendix A describes the general Personal Data categories and Data Subject types CoreWeave may Process in connection with the providing the CoreWeave Services pursuant to the TOS.
 
-“**Sub-processor**” means any Processor engaged by CoreWeave or its Affiliates to assist in fulfilling its obligations with respect to providing CoreWeave Services pursuant to the TOS or this DPA. Sub-processors may include third parties or any CoreWeave Affiliate.
+## 3. Processing of Personal Data.
 
-### 2. Scope and Applicability of this DPA
+**Role of the Parties.** The Parties agree that in regard to the Processing of Personal Data under Data Protection Laws that define the Parties’ relationship as one between a Controller and a Processor (such as GDPR), Customer is the Controller and CoreWeave is the Processor. The Parties agree that in regard to the Processing of Personal Data under Data Protection Laws that define the Parties’ relationship as one between a business and a Service Provider, (such as CCPA and PIPEDA), CoreWeave is the Service Provider. The Parties agree that in regard to the Processing of Personal Data under Data Protection Laws that define the Parties’ relationship as one between a Personal Information Processor and an Entrusted Party, Customer is the Personal Information Processor and CoreWeave is the Entrusted Party. Nothing in this DPA or in the TOS shall be construed as to state or imply that CoreWeave has a direct relationship with the individual customers or users of Customer or its Authorized Affiliates or that CoreWeave is acting as a Controller under Data Protection Laws.
 
-2.1 This DPA applies where and only to the extent that CoreWeave processes Personal Data on behalf of the Customer in the course of providing CoreWeave Services and the Personal Data is subject to Data Protection Laws, including of the State of California and any other states that have enacted Data Protection Laws, the European Union, the European Economic Area and/or their member states, Switzerland and/or the United Kingdom that are in effect and as amended from time to time. Further, this DPA applies where and only to the extent that CoreWeave either encrypts the Personal Data that the Customer is authorizing CoreWeave to process or CoreWeave can access such Personal Data and use such Personal Data to identify an individual. The parties agree to comply with the terms and conditions of this DPA in connection with such Personal Data.
+**Customer Obligations.** Customer shall, in its use of the CoreWeave Services, Process Personal Data in accordance with, and in compliance with, all applicable laws, including, without limitation, Data Protection Laws. Customer shall have sole responsibility for the accuracy, quality and legality of Personal Data and the means by which Customer acquired any Personal Data, including, without limitation, receiving all necessary consents of each Data Subject and ensuring the accuracy of all Personal Data.
 
-2.2 Role of the Parties. As between CoreWeave and Customer, Customer is the Controller of Personal Data and CoreWeave shall process Personal Data only as a Processor on behalf of Customer. Nothing in the TOS or this DPA shall prevent CoreWeave from using or sharing any data that CoreWeave would otherwise collect and process independently of Customer's use of CoreWeave Services.
+**CoreWeave Processing of Personal Data.** CoreWeave agrees to Process Personal Data on behalf of and in accordance with Customer’s documented written instructions in connection with: (i) Processing in accordance with this DPA and the TOS; (ii) Processing in relation to the providing the CoreWeave Services; or (iii) Processing otherwise required pursuant to applicable Data Protections Laws. The Parties agree that this DPA and the TOS set out Customer’s complete and final instructions to CoreWeave in relation to the Processing of Personal Data and any processing outside the scope of such instructions (if any) shall require prior written agreement between Customer and CoreWeave.
 
-2.3 Customer Obligations. Customer agrees that (i) it shall comply with its obligations as a Controller under Data Protection Laws in respect of its processing of Personal Data and any processing instructions it issues to CoreWeave; and (ii) it has provided notice and obtained (or shall obtain) all consents and rights necessary under Data Protection Laws for CoreWeave to process Personal Data and provide CoreWeave Services pursuant to the TOS and this DPA.
+## 4. Sub-processing.
 
-2.4 CoreWeave Processing of Personal Data. As a Processor, CoreWeave shall process Personal Data only for the following purposes: (i) to perform CoreWeave Services in accordance with the TOS; (ii) to perform any steps necessary for the performance of the TOS; and (iii) to comply with other reasonable instructions provided by Customer to the extent they are consistent with the terms of this DPA and only in accordance with Customer’s documented lawful instructions. The parties agree that this DPA and the TOS set out the Customer’s complete and final instructions to CoreWeave in relation to the processing of Personal Data and processing outside the scope of these instructions (if any) shall require prior written agreement between Customer and CoreWeave.
+**Authorized Sub-processors.** Customer understands and agrees that CoreWeave may engage Sub-processors from time to time to process Personal Data on Customer's or its Authorized Affiliates’ behalf. Customer consents to the use of CoreWeave’s current Sub-processors, a list of which is located at \[LINK]. In the event that CoreWeave intends to engage a new Sub-processor with respect to the CoreWeave Services, CoreWeave will update this list and send notification to Customer.
 
-2.5 Nature of the Data. CoreWeave handles Customer Data provided by Customer. Such Customer Data may contain special categories of data depending on how CoreWeave Services are used by Customer. The Customer Data may be subject to the following process activities: (i) storage and other processing necessary to provide, maintain and improve the CoreWeave Services provided to Customer; (ii) to provide customer and technical support to Customer; and (iii) disclosures as required by law or otherwise set forth in the TOS.
+**Sub-processor Obligations.** When applicable, CoreWeave shall: (i) enter into a written agreement with the Sub-processor imposing data protection terms that require the Sub-processor to protect the Personal Data to the standard required by Data Protection Laws; and (ii) remain responsible for its compliance with the obligations of this DPA and for any acts or omissions of the Sub-processor that cause CoreWeave to breach any of its obligations under this DPA.
 
-2.6 CoreWeave Data. Notwithstanding anything to the contrary in the TOS (including this DPA), Customer acknowledges that CoreWeave shall have a right to use and disclose data relating to and/or obtained in connection with the operation, support and/or use of CoreWeave Services for its legitimate business purposes, such as configuration, billing, account management, technical support, product development and sales and marketing. To the extent any such data is considered Personal Data under Data Protection Laws, CoreWeave shall process such data in compliance with Data Protection Laws.
+**Objection to Sub-processors.** Customer may object in writing to CoreWeave’s appointment of a Sub-processor on reasonable grounds relating to data protection by notifying CoreWeave promptly in writing within five (5) calendar days of receipt of CoreWeave’s notice in accordance with this DPA. Such notice shall explain the reasonable grounds for the objection. In such event, the Parties shall discuss such concerns in good faith with a view to achieving commercially reasonable resolution. If this is not possible, either Party may terminate the applicable CoreWeave Services that cannot be provided by CoreWeave without the use of the objected-to-new Sub-processor.
 
-### 3. Subprocessing
+## 5. Security.
 
-3.1 Authorized Sub-processors. Customer understands and agrees that CoreWeave may engage Sub-processors from time to time to process Personal Data on Customer's behalf. CoreWeave will identify the Sub-processors engaged by CoreWeave and authorized by Customer, as needed.
+**Security Measures.** CoreWeave shall implement and maintain appropriate technical and organizational security measures to protect Personal Data from Security Incidents and to preserve the security and confidentiality of the Personal Data, in accordance with CoreWeave's security standards described here (“Security Measures”).
 
-3.2 Sub-processor Obligations. When appliable, CoreWeave shall: (i) enter into a written agreement with the Sub-processor imposing data protection terms that require the Sub-processor to protect the Personal Data to the standard required by Data Protection Laws; and (ii) remain responsible for its compliance with the obligations of this DPA and for any acts or omissions of the Sub-processor that cause CoreWeave to breach any of its obligations under this DPA.
+**Confidentiality of Processing.** CoreWeave shall ensure that any person who is authorized by CoreWeave to process Personal Data (including its staff, agents and subcontractors) shall be under an appropriate obligation of confidentiality (whether a contractual or statutory duty).
 
-3.3 Changes to Sub-processors. CoreWeave shall provide Customer reasonable advance notice (for which email shall suffice) if it adds or removes Sub-processors.
+**Security Incident Response.** Upon becoming aware of a Security Incident, CoreWeave shall notify Customer without undue delay and shall provide timely information relating to the Security Incident as it becomes known or as is reasonably requested by Customer.
 
-3.4 Objection to Sub-processors. Customer may object in writing to CoreWeave’s appointment of a Sub-processor on reasonable grounds relating to data protection by notifying CoreWeave promptly in writing within five (5) calendar days of receipt of CoreWeave’s notice in accordance with Section 3.3. Such notice shall explain the reasonable grounds for the objection. In such event, the parties shall discuss such concerns in good faith with a view to achieving commercially reasonable resolution. If this is not possible, either party may terminate the applicable CoreWeave Services that cannot be provided by CoreWeave without the use of the objected-to-new Sub-processor.
+**Updates to Security Measures.** Customer acknowledges that the Security Measures are subject to technical progress and development and that CoreWeave may update or modify the Security Measures from time to time.
 
-### 4. Security
+## 6. Security Reports and Audits.&#x20;
 
-4.1 Security Measures. CoreWeave shall implement and maintain appropriate technical and organizational security measures to protect Personal Data from Security Incidents and to preserve the security and confidentiality of the Personal Data, in accordance with CoreWeave's security standards described here (“Security Measures”).
+Upon Customer's written request, CoreWeave shall provide (on a confidential basis) copies of relevant external certifications, audit report summaries and/or other documentation reasonably required by Customer to verify CoreWeave's compliance with this DPA. CoreWeave shall further provide written responses (on a confidential basis) to all reasonable requests for information made by Customer, including responses to information security and audit questionnaires, that Customer (acting reasonably) considers necessary to confirm CoreWeave's compliance with this DPA, provided that Customer shall not exercise this right more than once per year.
 
-4.2 Confidentiality of Processing. CoreWeave shall ensure that any person who is authorized by CoreWeave to process Personal Data (including its staff, agents and subcontractors) shall be under an appropriate obligation of confidentiality (whether a contractual or statutory duty).
+## 7. International Transfers.&#x20;
 
-4.3 Security Incident Response. Upon becoming aware of a Security Incident, CoreWeave shall notify Customer without undue delay and shall provide timely information relating to the Security Incident as it becomes known or as is reasonably requested by Customer.
+If Data Protection Laws restrict cross-border Personal Data transfers, Customer will, and will cause its Authorized Affiliates so, only transfer that Personal Data to CoreWeave under the following conditions: (i) CoreWeave, either through its location or participation in a valid cross-border transfer mechanism under Data Protection Laws, as identified in Appendix A, may legally receive that Personal Data, or (ii) the transfer otherwise complies with Data Protection Laws for the reasons set forth in Appendix A. If any Personal Data transfer between Customer and CoreWeave requires execution of Standard Contractual Clauses in order to comply with Data Protection Laws, the Parties agree the Standard Contractual Clauses will thereby be deemed incorporated herein, and will complete all relevant details in, and execute, the annexes to the Standard Contractual Clauses contained in Appendix B, and take all other actions required to legitimize the transfer. In the event of a conflict or inconsistency between this DPA and the Standard Contractual Clauses, the Standard Contractual Clauses shall prevail.
 
-4.4 Updates to Security Measures. Customer acknowledges that the Security Measures are subject to technical progress and development and that CoreWeave may update or modify the Security Measures from time to time.
+## 8. Return or Deletion of Data.&#x20;
 
-### 5. Security Reports and Audits
+Upon deactivation of CoreWeave Services, all Personal Data shall be deleted pursuant to CoreWeave’s retention and deletion policies. Notwithstanding the foregoing, CoreWeave reserves the right to retain relevant data and information when required by applicable law; when under court order, subpoena, or other legal order; or when preserving evidence following or in anticipation of a civil or criminal lawsuit.
 
-5.1 CoreWeave shall maintain records of its security standards. Upon Customer's written request, CoreWeave shall provide (on a confidential basis) copies of relevant external ISMS certifications, audit report summaries and/or other documentation reasonably required by Customer to verify CoreWeave's compliance with this DPA. CoreWeave shall further provide written responses (on a confidential basis) to all reasonable requests for information made by Customer, including responses to information security and audit questionnaires, that Customer (acting reasonably) considers necessary to confirm CoreWeave's compliance with this DPA, provided that Customer shall not exercise this right more than once per year.
+## 9. Cooperation.
 
-5.2 To the extent the Standard Contractual Clauses apply and the Customer reasonably argues and establishes that the above documentation and/or other third party audit reports are not sufficient to demonstrate compliance with the obligations established in this DPA, the Customer may execute an audit as outlined under Clause 5 lit.f) of the Standard Contractual Clauses accordingly, provided that in such an event, the parties agree: (a) Customer is responsible for all costs and fees relating to such audit (including for time, cost and materials expended by CoreWeave); (b) a third party auditor must be mutually agreed upon between the parties to follow industry standard and appropriate audit procedures; (c) such audit must not unreasonably interfere with CoreWeave’s business activities and must be reasonable in time and scope; and (d) the parties must agree to a specific audit plan prior to any such audit, which must be negotiated in good faith between the parties. For avoidance of doubt, nothing in this Section 5.2 modifies or varies the Standard Contractual Clauses, and to the extent a competent authority finds otherwise or any portion of Section 5.2 is otherwise prohibited, unenforceable or inappropriate in view of the Standard Contractual Clauses, the relevant portion shall be severed and the remaining provisions hereof shall not be affected.
+**Cooperation.** CoreWeave shall (at Customer's expense), taking into account the nature of the processing, provide reasonable cooperation to assist Customer in responding to a Data Subject request made under applicable Data Protection Laws relating to the processing of Personal Data under the TOS. In the event that any such Data Subject request is made directly to CoreWeave, CoreWeave shall not respond to such request directly without Customer's prior authorization, unless legally compelled to do so (as determine in CoreWeave’s good faith discretion). If CoreWeave is required to respond to a Data Subject request, CoreWeave shall promptly notify Customer and provide Customer with a copy of such Data Subject Request (to the extent legally permitted).
 
-### 6. International Transfers
+**Data Impact Assessment.** To the extent CoreWeave is required under applicable Data Protection Laws, CoreWeave shall (at Customer's expense) provide reasonably requested information regarding CoreWeave's Processing of Personal Data under the TOS to enable Customer to carry out data protection impact assessments or prior consultations with data protection authorities as required by law.
 
-6.1 Processing Locations. CoreWeave may transfer and process Customer Data in the United States and anywhere in the world where CoreWeave, its Affiliates and/or its Sub-processors maintain data processing operations. CoreWeave shall implement appropriate safeguards to protect the Personal Data, wherever it is processed, in accordance with the requirements of Data Protection Laws.
+## 10. Sale of Personal Data.&#x20;
 
-6.2 Transfer Mechanism: Notwithstanding Section 6.1, to the extent CoreWeave processes or transfers (directly or via onward transfer) Personal Data under this DPA from the European Union, the European Economic Area and/or their member states and Switzerland (“EU Data”) in or to countries which do not ensure an adequate level of data protection within the meaning of applicable Data Protection Laws of the foregoing territories, the parties agree that CoreWeave shall be deemed to provide appropriate safeguards for such data by virtue of: (a) CoreWeave having reasonably provided other appropriate safeguards under the Data Protection Laws of the foregoing territories; or (b) only if and to the extent 6.2(a) is sufficiently appropriate under the Data Protection Laws of the foregoing territories, CoreWeave adhering to the Standard Contractual Clauses issued pursuant to the European Commission Decision of February 5, 2010 on standard contractual clauses for the transfer of personal data to processors established in third countries under Directive 95/46/EC. Customer hereby authorizes any transfer of EU Data to, or access to EU Data from, such destinations outside the EU subject to any of these measures having been taken. Notwithstanding the foregoing, the Standard Contractual Clauses shall not apply and have no legal effect if CoreWeave adopts an alternative appropriate safeguard or means for the transfer of EU Data described in this section during the term of this DPA.
+CoreWeave shall: (a) not sell the Personal Data (including to the extent of the definition of “sell” as defined in the CCPA); (b) not retain, use or disclose Personal Data for any purpose other than for performing the CoreWeave Services, in compliance with the TOS, or as otherwise permitted by applicable Data Protection Laws; (c) not retain, use or disclose the Personal Data for a commercial purpose (including to the extent of the definition of “commercial purpose” as defined in the CCPA) other than the agreed purposes set forth in the TOS; and (d) not retain, use, or disclose Personal Data outside of the direct business relationship between CoreWeave and Customer, except as may otherwise be provided in this DPA. CoreWeave hereby certifies that it understands and is willing to abide by the restrictions in this Section.
 
-### 7. Return or Deletion of Data
+## 11. Miscellaneous.
 
-7.1 Upon deactivation of CoreWeave Services, all Personal Data shall be deleted, save that this requirement shall not apply to the extent CoreWeave is required by applicable law to retain some or all of the Personal Data, or to Personal Data it has archived on its standard back-up systems, which such Personal Data CoreWeave shall securely isolate and protect from any further processing, except to the extent required by applicable law.
+**Notice Requirements.** Any notices required to be delivered by CoreWeave to Customer shall be sent to \[EMAIL]. Any notices required to be delivered by Customer to CoreWeave hereunder shall be sent to support@coreweave.com.
 
-### 8. Cooperation
+**Term.** CoreWeave will Process Personal Data for the duration of the DPA, unless otherwise agreed in writing.
 
-8.1 To the extent that Customer is unable to independently access the relevant Personal Data within the CoreWeave Cloud Platform as a Covered Service, CoreWeave shall (at Customer's expense) taking into account the nature of the processing, provide reasonable cooperation to assist Customer by appropriate technical and organizational measures, in so far as is possible, to respond to any requests from individuals or applicable data protection authorities relating to the processing of Personal Data under the TOS. In the event that any such request is made directly to CoreWeave, CoreWeave shall not respond to such communication directly without Customer's prior authorization, unless legally compelled (as determine in CoreWeave’s good faith discretion) to do so. If CoreWeave is required to respond to such a request, CoreWeave shall promptly notify Customer and provide it with a copy of the request unless legally prohibited from doing so.
+**Severability.** If one or more provisions of this DPA are held to be unenforceable under applicable law, the Parties agree to renegotiate such provision in good faith. In the event that such provision was not required by the Data Protection Laws and the Parties cannot reach a mutually agreeable and enforceable replacement, then (a) such provision shall be excluded from this DPA, (b) the balance of this DPA shall be interpreted as if such provision were so excluded, and (c) the balance of this DPA shall be enforceable in accordance with its terms.
 
-8.2 To the extent CoreWeave is required under any applicable Data Protection Laws, CoreWeave shall (at Customer's expense) provide reasonably requested information regarding CoreWeave's processing of Personal Data under the Agreement to enable the Customer to carry out data protection impact assessments or prior consultations with data protection authorities as required by law.
+**Limitation of Liability.** Each Party’s liability arising out of or related to this DPA, whether in contract, tort or under any other theory of liability, is subject to those limitations of liability set forth in the TOS and any reference in the TOS limiting a Party’s liability means the aggregate liability of that Party under the TOS and this DPA.
 
-### 9. Miscellaneous
+**Governing Law.** Apart from the specific provisions and requirements governed by Data Protection Laws, this DPA and all acts and transactions pursuant hereto and the rights and obligations of the Parties hereto shall be governed, construed and interpreted in accordance with the laws of the State of New York, USA, without giving effect to principles of conflicts of law. The Standard Contractual Clauses shall be governed by the law of one of the EU Member States, provided such law allows for third-party beneficiary rights. The Parties agree that this shall be the law of Ireland. Any dispute arising from the Standard Contractual Clauses shall be resolved by the courts of an EU Member State. The Parties agree that those shall be the courts of Dublin, Ireland.
 
-9.1 Except for the changes made by this DPA, the TOS remains unchanged and in full force and effect. If there is any conflict between this DPA and the TOS, this DPA shall govern.
+## APPENDIX A
 
-9.2 This DPA is a part of and incorporated into the TOS.
+### **PERSONAL DATA PROCESSING PURPOSES AND DETAILS**
 
-9.3 In no event shall any party limit its liability with respect to any individual's data protection rights under this DPA or otherwise.
+Business Purposes: Performance of CoreWeave’s Services pursuant to the TOS.
 
-9.4 This DPA shall be governed by and construed in accordance with governing law and jurisdiction provisions in the TOS, unless required otherwise by Data Protection Laws.\\
+Personal Data Categories:
+
+Data Subject Types:
+
+Approved Sub-processors:
+
+Refer to the list located at \[LINK]
+
+Identify Counterparty’s legal basis for receiving Personal Data with cross-border transfer restrictions (select one):
+
+* Located in an EEA Member State or in a country with a current determination of adequacy (list country): \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_&#x20;
+* Binding Corporate Rules&#x20;
+* Standard Contractual Clauses&#x20;
+* Other (describe in detail):\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+## APPENDIX B
+
+### **STANDARD CONTRACTUAL CLAUSES**
+
+#### **ANNEX I**
+
+#### **A. LIST OF PARTIES**
+
+**Data exporter(s)**: \[Identity and contact details of the data exporter(s) and, where applicable, of its/their data protection officer and/or representative in the European Union]
+
+1. Name: … Address: … Contact person’s name, position and contact details: … Activities relevant to the data transferred under these Clauses: … Signature and date: … Role (controller/processor): …
+
+**Data importer(s)**: \[Identity and contact details of the data importer(s), including any contact person with responsibility for data protection]
+
+1. Name: … Address: … Contact person’s name, position and contact details: … Activities relevant to the data transferred under these Clauses: … Signature and date: … Role (controller/processor): …
+
+#### B. DESCRIPTION OF TRANSFER
+
+Categories of data subjects whose personal data is transferred ………………………..
+
+Categories of personal data transferred ………………………..
+
+Sensitive data transferred (if applicable) and applied restrictions or safeguards that fully take into consideration the nature of the data and the risks involved, such as for instance strict purpose limitation, access restrictions (including access only for staff having followed specialized training), keeping a record of access to the data, restrictions for onward transfers or additional security measures.………………………..
+
+The frequency of the transfer (e.g. whether the data is transferred on a one-off or continuous basis).…………………………
+
+Nature of the processing…………………………
+
+Purpose(s) of the data transfer and further processing………………………..
+
+The period for which the personal data will be retained, or, if that is not possible, the criteria used to determine that period ……………………..
+
+#### C. COMPETENT SUPERVISORY AUTHORITY
+
+Identify the competent supervisory authority/ies in accordance with Clause 13 ………………………….
+
+ANNEX II - TECHNICAL AND ORGANIZATIONAL MEASURES INCLUDING TECHNICAL AND ORGANIZATIONAL MEASURES TO ENSURE THE SECURITY OF THE DATA
+
+Description of the technical and organizational measures implemented by the data importer(s) (including any relevant certifications) to ensure an appropriate level of security, taking into account the nature, scope, context and purpose of the processing, and the risks for the rights and freedoms of natural persons:
+
+ANNEX II - LIST OF SUB-PROCESSORS
+
+Refer to the list located at \[LINK].
