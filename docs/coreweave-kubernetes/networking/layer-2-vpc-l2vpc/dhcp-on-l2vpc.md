@@ -39,7 +39,7 @@ Selecting the application will expose the configuration options for the DHCP ser
 
 At the bottom of the application's configuration screen are the **Network settings** for the DHCP server, in which you can adjust the settings for the server's VPC and network.
 
-![Network settings for DHCP server application.](<../../../.gitbook/assets/image (14).png>)
+![Network settings for DHCP server application.](<../../../.gitbook/assets/image (14) (1).png>)
 
 #### Configuration options
 

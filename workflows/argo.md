@@ -239,7 +239,11 @@ Generate the token to be used with the Service Account:
 ​$ export SECRET=$(kubectl get sa argo-sa -o=jsonpath='{.secrets[0].name}') export ARGO_TOKEN="Bearer $(kubectl get secret $SECRET -o=jsonpath='{.data.token}' | base64 --decode)" echo $ARGO_TOKEN
 ```
 
-Then, copy and paste the token into the Argo UI.
+Then, inside the box for **client authentication**, copy and paste the newly generated token into the Argo UI:
+
+![The Argo Workflow UI with a Bearer token pasted into the client authentication box](<../docs/.gitbook/assets/image (5).png>)
+
+Finally, to log in, click the **Login** button after adding the token.
 
 ## Recommendations
 
