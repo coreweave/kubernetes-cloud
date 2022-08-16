@@ -20,7 +20,7 @@ Workflows on CoreWeave run on [Argo Workflows](https://argoproj.github.io/argo/)
 
 ![](<../.gitbook/assets/image (25).png>)
 
-* The deployment form will prompt you to enter an application name. The remaining parameters have our suggested defaults, when ready click `DEPLOY` at the bottom of the page\\
+* The deployment form will prompt you to enter an application name. The remaining parameters have our suggested defaults, when ready click `DEPLOY` at the bottom of the page
 
 ![](<../.gitbook/assets/image (20).png>)
 
@@ -154,6 +154,92 @@ spec:
     echo(1:Is)(0):    |-------------------------------+----------------------+----------------------+
     ...
     ```
+
+## Security
+
+The following are steps based on [Argo's access token creation](https://argoproj.github.io/argo-workflows/access-token/#token-creation). ​
+
+{% hint style="danger" %}
+**Warning**
+
+`server` auth mode is strongly discouraged**,** as it opens up Argo Workflows to public access and is therefore a security risk. ​
+{% endhint %}
+
+### Tailored permissions
+
+Here, we create a role with minimal permissions:
+
+```bash
+$ kubectl create role argo-role --verb=list,update --resource=workflows.argoproj.io
+```
+
+​ To get full list of resources, issue the `api-resources` command:
+
+```bash
+$ kubectl api-resources --api-group=argoproj.io --namespaced=true -o wide
+```
+
+&#x20;with the following parameters:
+
+| Name                  | Shortnames | Kind                 | Verbs                                                         |
+| --------------------- | ---------- | -------------------- | ------------------------------------------------------------- |
+| cronworkflows         | cwf,cronwf | CronWorkflow         | \[delete deletecollection get list patch create update watch] |
+| workfloweventbindings | wfeb       | WorkflowEventBinding | \[delete deletecollection get list patch create update watch] |
+| workflows             | wf         | Workflow             | \[delete deletecollection get list patch create update watch] |
+| workflowtaskresults   |            | WorkflowTaskResult   | \[delete deletecollection get list patch create update watch] |
+| workflowtasksets      | wfts       | WorkflowTaskSet      | \[delete deletecollection get list patch create update watch] |
+| workflowtemplates     | wftmpl     | WorkflowTemplate     | \[delete deletecollection get list patch create update watch] |
+
+Using the command line to create a tailored role with the many resources and verbs can be inefficient. Alternatively, you can use a YAML manifest instead:
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: argo-role
+  rules:
+  - apiGroups:
+    - argoproj.io
+    resources:
+      - workflows
+    verbs:
+      - list
+      - update
+```
+
+Then, apply the manifest using `kubectl apply`:
+
+```bash
+$ kubectl apply -f <manifest_roles.yaml>
+```
+
+### **Service account** ​
+
+To create a unique Service Account, use `kubectl create sa`.
+
+For example, here we create a Service Account with the name `argo-sa`:
+
+```bash
+$ kubectl create sa argo-sa
+```
+
+Then, create a rolebinding for the new Service Account, bound to the argo-role created:
+
+```bash
+$ kubectl create rolebinding argo-role-binding --role=argo-role --serviceaccount=<namespace>:argo-sa 
+```
+
+​ ​where `namespace` is the namespace in which Argo is running.
+
+### **Generate the token**&#x20;
+
+Generate the token to be used with the Service Account:
+
+```bash
+​$ export SECRET=$(kubectl get sa argo-sa -o=jsonpath='{.secrets[0].name}') export ARGO_TOKEN="Bearer $(kubectl get secret $SECRET -o=jsonpath='{.data.token}' | base64 --decode)" echo $ARGO_TOKEN
+```
+
+Then, copy and paste the token into the Argo UI.
 
 ## Recommendations
 
