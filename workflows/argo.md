@@ -157,7 +157,7 @@ spec:
 
 ## Security
 
-The following are steps based on [Argo's access token creation](https://argoproj.github.io/argo-workflows/access-token/#token-creation). ​
+Argo requires a Service Account token for authentication. The following steps are best practices based on [Argo's access token creation](https://argoproj.github.io/argo-workflows/access-token/#token-creation).
 
 {% hint style="danger" %}
 **Warning**
@@ -167,7 +167,7 @@ The following are steps based on [Argo's access token creation](https://argoproj
 
 ### Tailored permissions
 
-Here, we create a role with minimal permissions:
+First, we create a role with minimal permissions:
 
 ```bash
 $ kubectl create role argo-role --verb=list,update --resource=workflows.argoproj.io
@@ -179,16 +179,16 @@ $ kubectl create role argo-role --verb=list,update --resource=workflows.argoproj
 $ kubectl api-resources --api-group=argoproj.io --namespaced=true -o wide
 ```
 
-&#x20;with the following parameters:
+with the following parameters:
 
-| Name                  | Shortnames | Kind                 | Verbs                                                         |
-| --------------------- | ---------- | -------------------- | ------------------------------------------------------------- |
-| cronworkflows         | cwf,cronwf | CronWorkflow         | \[delete deletecollection get list patch create update watch] |
-| workfloweventbindings | wfeb       | WorkflowEventBinding | \[delete deletecollection get list patch create update watch] |
-| workflows             | wf         | Workflow             | \[delete deletecollection get list patch create update watch] |
-| workflowtaskresults   |            | WorkflowTaskResult   | \[delete deletecollection get list patch create update watch] |
-| workflowtasksets      | wfts       | WorkflowTaskSet      | \[delete deletecollection get list patch create update watch] |
-| workflowtemplates     | wftmpl     | WorkflowTemplate     | \[delete deletecollection get list patch create update watch] |
+| Name                    | Shortnames   | Kind                 | Verbs                                                          |
+| ----------------------- | ------------ | -------------------- | -------------------------------------------------------------- |
+| `cronworkflows`         | `cwf,cronwf` | CronWorkflow         | `[delete deletecollection get list patch create update watch]` |
+| `workfloweventbindings` | `wfeb`       | WorkflowEventBinding | \[delete deletecollection get list patch create update watch]  |
+| `workflows`             | `wf`         | Workflow             | \[delete deletecollection get list patch create update watch]  |
+| `workflowtaskresults`   |              | WorkflowTaskResult   | \[delete deletecollection get list patch create update watch]  |
+| `workflowtasksets`      | `wfts`       | WorkflowTaskSet      | \[delete deletecollection get list patch create update watch]  |
+| `workflowtemplates`     | `wftmpl`     | WorkflowTemplate     | \[delete deletecollection get list patch create update watch]  |
 
 Using the command line to create a tailored role with the many resources and verbs can be inefficient. Alternatively, you can use a YAML manifest instead:
 
