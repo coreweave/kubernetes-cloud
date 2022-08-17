@@ -1,51 +1,65 @@
 # Getting Started
 
-## Introduction
-
-Workflows on CoreWeave run on [Argo Workflows](https://argoproj.github.io/argo/), which is a great tool to orchestrate parallel execution of GPU and CPU jobs. It manages retries and parallelism for you, and allows you to submit workflows via CLI, [Rest API](https://github.com/argoproj/argo/blob/master/examples/rest-examples.md) and the [Kubernetes API](https://github.com/argoproj/argo/blob/master/docs/rest-api.md).
+Workflows on CoreWeave Cloud run on [Argo Workflows](https://argoproj.github.io/argo/), which is a great tool to orchestrate parallel execution of GPU and CPU jobs. With Workflows, you can manage retries and parallelism automatically. Workflows can also be submitted via CLI, [Rest API](https://github.com/argoproj/argo/blob/master/examples/rest-examples.md) and the [Kubernetes API](https://github.com/argoproj/argo/blob/master/docs/rest-api.md).
 
 ![Argo Web UI](../.gitbook/assets/screen-shot-2020-07-29-at-10.04.26-pm.png)
 
 ## Getting Started
 
-* After logging into [CoreWeave Cloud](https://cloud.coreweave.com), go to the CoreWeave Apps `Catalog`
+After logging into [CoreWeave Cloud](https://cloud.coreweave.com), go to the CoreWeave application **Catalog**.
 
-![](<../.gitbook/assets/image (17) (2) (2).png>)
+![The Catalog link on the Cloud UI](<../.gitbook/assets/image (17) (2) (2).png>)
 
-* A new window will open to CoreWeave Apps with the list of available applications. Find and select the **argo-workflows** application
+A new window will open onto the CoreWeave application Catalog, where you can browse all available applications. In the search field, type **argo-workflows**. Then, select the **argo-workflows** application once it appears.
 
 ![](<../.gitbook/assets/image (14).png>)
 
-* In the right upper corner, select the latest version of the helm chart and click `DEPLOY`\\
+In the upper right-hand corner of the next screen, select the latest version of the Helm chart under **Chart Version**, then click the **Deploy** button.
 
 ![](<../.gitbook/assets/image (25).png>)
 
-* The deployment form will prompt you to enter an application name. The remaining parameters have our suggested defaults, when ready click `DEPLOY` at the bottom of the page
-
-![](<../.gitbook/assets/image (20).png>)
+The following deployment form will prompt you to enter a name for the application. The remaining parameters will be set to CoreWeave's suggested defaults, but can be changed to suit your requirements. When ready to deploy, click the **Deploy** button at the bottom of the page.
 
 {% hint style="warning" %}
-`server` authentication mode does not require credentials, we suggest using`client` mode instead for better security, for more information visit [https://argoproj.github.io/argo-workflows/argo-server-auth-mode](https://argoproj.github.io/argo-workflows/argo-server-auth-mode)
+**Important**
+
+`The server` authentication mode does not require credentials and is **strongly discouraged**. We suggest using [the`client` mode](https://argoproj.github.io/argo-workflows/argo-server-auth-mode) for better security.
+
+[See the **Security** section below for more information](argo.md#security).
 {% endhint %}
 
-*   After a few minutes, the deployment will be ready. If you selected `Expose UI via public Ingress`, Argo Workflows will be accessible outside the cluster. \\
+![The Argo Workflows configuration screen](<../.gitbook/assets/image (20).png>)
 
-    Click the ingress link to open Argo Workflows UI in a new window
+After a few minutes, the deployment will be ready. If you selected `Expose UI via public Ingress`, Argo Workflows will be accessible outside the cluster.
+
+Click the **ingress** link to open the Argo Workflows UI in a new window.
 
 ![](<../.gitbook/assets/image (23).png>)
 
 {% hint style="warning" %}
-On first visit, you may encounter get a TLS certificate error. It can take up to five minutes for the certificate to be issued, once issued the error should disappear.
+**Important**
+
+It can take up to five minutes for a TLS certificate to be issued. Prior to this, you may encounter a TLS certificate error, but once the certificate is issued, this error should disappear on its own.
 {% endhint %}
 
-* To run a sample workflow, click `+SUBMIT NEW WORKFLOW` and then `Edit using workflow options`\
-  This shows 'Argo says' workflow, click `+CREATE`, after a few minutes, on success, the workflow will change to green.
+To run a sample workflow:
 
-## Argo CLI
+1. Click **+SUBMIT NEW WORKFLOW**, then **Edit using workflow options.**
+2. Click **+CREATE**. After a few minutes, once successful, the workflow indication color will change to green.
 
-After installing `kubectl` and adding your CoreWeave Cloud access credentials, install Argo CLI from [https://github.com/argoproj/argo-workflows/releases](https://github.com/argoproj/argo-workflows/releases)
+## Installing Argo CLI
 
-1. Save an example workflow into the file `gpu-say-workflow.yaml`
+{% hint style="info" %}
+**Note**
+
+The following assumes you have already obtained CoreWeave Cloud access credentials and [set up your kubeconfig file](../coreweave-kubernetes/getting-started.md#setup-kubernetes-config).
+{% endhint %}
+
+The Argo CLI tool can be obtained from[ the Argo Project GitHub](https://github.com/argoproj/argo-workflows/releases).
+
+To run an example workflow, save an example workflow into the file `gpu-say-workflow.yaml`.
+
+**Example**
 
 ```yaml
 apiVersion: argoproj.io/v1alpha1
@@ -67,7 +81,7 @@ spec:
   templates:
   - name: main
     steps:
-    - - name: echo
+      - name: echo
         template: gpu-echo
         arguments:
           parameters:
@@ -107,53 +121,56 @@ spec:
                     - "16"
 ```
 
-1.  Submit the workflow, `gpu-say-workflow.yaml` . The workflow takes a JSON Array and spins up one Pod with one GPU allocated for each, in parallel. `nvidia-smi` output, as well as the parameter entry assigned for that Pod, is printed to the log.
+Submit the new workflow **** file (`gpu-say-workflow.yaml` ). According to the specifications above, this workflow takes a JSON array to spin up Pods with one GPU allocated for each, in parallel. The `nvidia-smi` output, as well as the parameter entry assigned for that Pod, is outputted to the log:
 
-    ```
-    $ argo submit --watch gpu-say-workflow.yaml -p messages='["Argo", "Is", "Awesome"]'
-      Name:                gpu-sayzfwxc
-      Namespace:           tenant-test
-      ServiceAccount:      default
-      Status:              Running
-      Created:             Mon Feb 10 19:31:17 -0500 (15 seconds ago)
-      Started:             Mon Feb 10 19:31:17 -0500 (15 seconds ago)
-      Duration:            15 seconds
-      Parameters:
-        messages:          ["Argo", "Is", "Awesome"]
+```
+$ argo submit --watch gpu-say-workflow.yaml -p messages='["Argo", "Is", "Awesome"]'
 
-      STEP                                  PODNAME                  DURATION  MESSAGE
-       ● gpu-sayzfwxc (main)
-       └-·-✔ echo(0:Argo)(0) (gpu-echo)     gpu-sayzfwxc-391007373   10s
-         ├-● echo(1:Is)(0) (gpu-echo)       gpu-sayzfwxc-3501791705  15s
-         └-✔ echo(2:Awesome)(0) (gpu-echo)  gpu-sayzfwxc-3986963301  12s
-    ```
-2.  Get the log output from all parallel containers
+  Name:                gpu-sayzfwxc
+  Namespace:           tenant-test
+  ServiceAccount:      default
+  Status:              Running
+  Created:             Mon Feb 10 19:31:17 -0500 (15 seconds ago)
+  Started:             Mon Feb 10 19:31:17 -0500 (15 seconds ago)
+  Duration:            15 seconds
+  Parameters:
+    messages:          ["Argo", "Is", "Awesome"]
 
-    ```
-    $ argo logs -w gpu-sayrbr6z
-    echo(0:Argo)(0):    Tue Feb 11 00:25:30 2020
-    echo(0:Argo)(0):    +-----------------------------------------------------------------------------+
-    echo(0:Argo)(0):    | NVIDIA-SMI 440.44       Driver Version: 440.44       CUDA Version: 10.2     |
-    echo(0:Argo)(0):    |-------------------------------+----------------------+----------------------+
-    echo(0:Argo)(0):    | GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
-    echo(0:Argo)(0):    | Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
-    echo(0:Argo)(0):    |===============================+======================+======================|
-    echo(0:Argo)(0):    |   0  NVIDIA Graphics...  Off  | 00000000:08:00.0 Off |                  N/A |
-    echo(0:Argo)(0):    | 28%   51C    P5    16W / 180W |     18MiB /  8119MiB |      0%      Default |
-    echo(0:Argo)(0):    +-------------------------------+----------------------+----------------------+
-    echo(0:Argo)(0):
-    echo(0:Argo)(0):    +-----------------------------------------------------------------------------+
-    echo(0:Argo)(0):    | Processes:                                                       GPU Memory |
-    echo(0:Argo)(0):    |  GPU       PID   Type   Process name                             Usage      |
-    echo(0:Argo)(0):    |=============================================================================|
-    echo(0:Argo)(0):    +-----------------------------------------------------------------------------+
-    echo(0:Argo)(0):    Input was: Argo
-    echo(1:Is)(0):    Tue Feb 11 00:25:30 2020
-    echo(1:Is)(0):    +-----------------------------------------------------------------------------+
-    echo(1:Is)(0):    | NVIDIA-SMI 440.44       Driver Version: 440.44       CUDA Version: 10.2     |
-    echo(1:Is)(0):    |-------------------------------+----------------------+----------------------+
-    ...
-    ```
+  STEP                                  PODNAME                  DURATION  MESSAGE
+   ● gpu-sayzfwxc (main)
+   └-·-✔ echo(0:Argo)(0) (gpu-echo)     gpu-sayzfwxc-391007373   10s
+     ├-● echo(1:Is)(0) (gpu-echo)       gpu-sayzfwxc-3501791705  15s
+     └-✔ echo(2:Awesome)(0) (gpu-echo)  gpu-sayzfwxc-3986963301  12s
+```
+
+To print the log output from all parallel containers, use the `logs` command:
+
+```
+$ argo logs -w gpu-sayrbr6z
+
+echo(0:Argo)(0):    Tue Feb 11 00:25:30 2020
+echo(0:Argo)(0):    +-----------------------------------------------------------------------------+
+echo(0:Argo)(0):    | NVIDIA-SMI 440.44       Driver Version: 440.44       CUDA Version: 10.2     |
+echo(0:Argo)(0):    |-------------------------------+----------------------+----------------------+
+echo(0:Argo)(0):    | GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+echo(0:Argo)(0):    | Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+echo(0:Argo)(0):    |===============================+======================+======================|
+echo(0:Argo)(0):    |   0  NVIDIA Graphics...  Off  | 00000000:08:00.0 Off |                  N/A |
+echo(0:Argo)(0):    | 28%   51C    P5    16W / 180W |     18MiB /  8119MiB |      0%      Default |
+echo(0:Argo)(0):    +-------------------------------+----------------------+----------------------+
+echo(0:Argo)(0):
+echo(0:Argo)(0):    +-----------------------------------------------------------------------------+
+echo(0:Argo)(0):    | Processes:                                                       GPU Memory |
+echo(0:Argo)(0):    |  GPU       PID   Type   Process name                             Usage      |
+echo(0:Argo)(0):    |=============================================================================|
+echo(0:Argo)(0):    +-----------------------------------------------------------------------------+
+echo(0:Argo)(0):    Input was: Argo
+echo(1:Is)(0):    Tue Feb 11 00:25:30 2020
+echo(1:Is)(0):    +-----------------------------------------------------------------------------+
+echo(1:Is)(0):    | NVIDIA-SMI 440.44       Driver Version: 440.44       CUDA Version: 10.2     |
+echo(1:Is)(0):    |-------------------------------+----------------------+----------------------+
+...
+```
 
 ## Security
 
