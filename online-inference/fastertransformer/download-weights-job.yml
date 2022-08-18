@@ -269,7 +269,7 @@ spec:
           parameters {
             key: "model_checkpoint_path"
             value: {
-              string_value: "/workspace/triton-model-store/fastertransformer/1/"
+              string_value: "/mnt/pvc/triton-model-store/fastertransformer/1/"
             }
           }
           parameters {
