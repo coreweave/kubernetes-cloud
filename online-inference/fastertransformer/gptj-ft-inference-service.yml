@@ -5,7 +5,7 @@ metadata:
     qos.coreweave.cloud/latency: low
   name: fastertransformer-triton
 spec:
-  predictor:c
+  predictor:
     maxReplicas: 1
     minReplicas: 1
     containerConcurrency: 1
@@ -38,3 +38,7 @@ spec:
               operator: In
               values:
                 - RTX_A5000
+            - key: topology.kubernetes.io/region
+              operator: In
+              values:
+                - LAS1

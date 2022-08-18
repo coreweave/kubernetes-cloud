@@ -79,5 +79,3 @@ FROM ${BASE_IMAGE} as server
 ENV NCCL_LAUNCH_MODE=PARALLEL
 
 COPY --from=server-builder /opt/tritonserver/backends/fastertransformer /opt/tritonserver/backends/fastertransformer
-
-ADD . /workspace/triton-experiments
