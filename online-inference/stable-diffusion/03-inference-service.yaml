@@ -1,0 +1,58 @@
+apiVersion: serving.kubeflow.org/v1beta1
+kind: InferenceService
+metadata:
+  name: stable-diffusion
+spec:
+  predictor:
+    containerConcurrency: 1
+    minReplicas: 1
+    maxReplicas: 1 
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: gpu.nvidia.com/class
+              operator: In
+              values:
+              - RTX_A4000
+            - key: topology.kubernetes.io/region
+              operator: In
+              values:
+              - ORD1 
+    containers:
+      - name: kserve-container
+        image: tweldoncw/stable-diffusion:1
+        command:
+          - "python3"
+          - "/app/service.py"
+          - "--model-id=CompVis/stable-diffusion-v1-3-diffusers"
+          - "--hf-home=/mnt/models/hub"
+          # The following arguments are defaults which can be changed here and per request
+          - "--guidance-scale=7.0" # How well image generation adheres to the prompt. With very large numbers the images might look good, but will be less diverse. 
+          - "--num-inference-steps=50" # Results are better the more steps you use but will take longer.
+          - "--seed=42" # Every time you use the same seed you'll have the same image result. Use random numbers for different results with the same prompt.
+          # Generated image dimensions
+          # Note: Beyond a width and/or height of 768 you may need to use a GPU with VRAM > 16Gi
+          - "--width=512" 
+          - "--height=512"
+        env:
+          - name: HUGGING_FACE_HUB_TOKEN # Once the model is released publicly, this variable can be removed
+            valueFrom:
+              secretKeyRef:
+                name: huggingface-hub-token
+                key: token
+          - name: HF_HOME # Huggingface Hub cache directory
+            value: "/mnt/models"
+          - name: STORAGE_URI # Kserve mounts the PVC at /mnt/models/
+            value: pvc://stable-diffusion-model-cache/
+            # The following env vars are the default model parameters, which can be changed as needed. 
+        resources:
+          requests:
+            cpu: 6
+            memory: 32Gi
+            nvidia.com/gpu: 1
+          limits:
+            cpu: 6
+            memory: 32Gi
+            nvidia.com/gpu: 1
