@@ -60,7 +60,7 @@ Once you have pushed to a tag, do not push to that tag again. Below, we use simp
 ****In the following commands, be sure to replace the example `username` with your Docker Hub `username`.
 {% endhint %}
 
-From the `kubernetes-cloud/online-inference/bloom-175b/model` directory, run the following commands:
+From the `kubernetes-cloud/online-inference/bloom-176b/model` directory, run the following commands:
 
 ```bash
 $ docker login
@@ -82,11 +82,11 @@ This example assumes a public docker registry. To use a private registry, an [im
 **Note**\
 Before continuing, you may either point the `image:` in the following manifests to the image we just built in the previous steps, or you may use the publicly-available image found in the following manifests:
 
-* `bloom-175b-download-job.yaml`
-* `bloom-175b-inferenceservice.yaml`
+* `bloom-176b-download-job.yaml`
+* `bloom-176b-inferenceservice.yaml`
 {% endhint %}
 
-To create a PVC to store the model, from the `kubernetes-cloud/online-inference/bloom-175b/` directory, run:
+To create a PVC to store the model, from the `kubernetes-cloud/online-inference/bloom-176b/` directory, run:
 
 ```bash
 $ kubectl apply -f 00-bloom-176b-pvc.yaml
@@ -94,7 +94,7 @@ $ kubectl apply -f 00-bloom-176b-pvc.yaml
 
 #### Model job download
 
-To deploy the job to download the model to the PVC, from the `kubernetes-cloud/online-inference/bloom-175b/` directory, run:
+To deploy the job to download the model to the PVC, from the `kubernetes-cloud/online-inference/bloom-176b/` directory, run:
 
 ```
 $ kubectl apply -f 01-bloom-176b-download-job.yaml
@@ -131,7 +131,7 @@ kubectl apply -f 02-bloom-176b-inferenceservice.yaml
 Due to the size of the model, loading into GPU memory can take around 5 minutes. To monitor the progress of this, you can wait to see the KServe workers start in the pod logs by invoking:
 
 ```
-kubectl logs -f -l serving.kubeflow.org/inferenceservice=bloom-175b kfserving-container
+kubectl logs -f -l serving.kubeflow.org/inferenceservice=bloom-176b kfserving-container
 ```
 
 Alternatively, you can wait for the `InferenceService` to show that `READY` is `True`, and that it has a URL:
@@ -140,7 +140,7 @@ Alternatively, you can wait for the `InferenceService` to show that `READY` is `
 $ kubectl get inferenceservices
                 
 NAME         URL                                                                        READY   PREV   LATEST   PREVROLLEDOUTREVISION   LATESTREADYREVISION                  AGE
-bloom-175b   http://bloom-176b.tenant-sta-tweldon-workbench.knative.chi.coreweave.com   True           100                              bloom-175b-predictor-default-00001   9m2s
+bloom-176b   http://bloom-176b.tenant-sta-tweldon-workbench.knative.chi.coreweave.com   True           100                              bloom-176b-predictor-default-00001   9m2s
 ```
 
 Using the provided URL, you can make an HTTP request via your preferred means.
