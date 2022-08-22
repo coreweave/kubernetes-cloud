@@ -15,7 +15,7 @@ spec:
             - key: gpu.nvidia.com/class
               operator: In
               values:
-              - RTX_A4000
+              - A40
             - key: topology.kubernetes.io/region
               operator: In
               values:
