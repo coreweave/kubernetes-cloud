@@ -12,18 +12,26 @@ from torch import autocast
 from diffusers import StableDiffusionPipeline, LMSDiscreteScheduler
 
 parser = ArgumentParser()
-parser.add_argument('--model-id', default='CompVis/stable-diffusion-v1-3-diffusers', type=str)
+parser.add_argument('--model-id', default='CompVis/stable-diffusion-v1-4', type=str)
 parser.add_argument('--hf-home', default='/mnt/models/hub', type=str)
+parser.add_argument('--precision', choices=['float16', 'float32'], default="float16", type=str)
 parser.add_argument('--guidance-scale', default=7.0, type=float)
 parser.add_argument('--num-inference-steps', default=50, type=int)
 parser.add_argument('--seed', default=42, type=int)
 parser.add_argument('--width', default=512, type=int)
 parser.add_argument('--height', default=512, type=int)
+parser.add_argument('--beta-start', default=0.00085, type=float)
+parser.add_argument('--beta-end', default=0.012, type=float)
+parser.add_argument('--num-train-timesteps', default=1000, type=int)
 args = parser.parse_args()
 
 options = {
 	'MODEL_ID': os.getenv('MODEL_ID', default=args.model_id),
-	'MODEL_CACHE': os.getenv('HF_HOME', default=args.hf_home)
+	'MODEL_CACHE': os.getenv('HF_HOME', default=args.hf_home),
+	'PRECISION': str(os.getenv('PRECISION', default=args.precision)),
+	'BETA_START': float(os.getenv('BETA_START', default=args.beta_start)),
+	'BETA_END': float(os.getenv('BETA_END', default=args.beta_end)),
+	'NUM_TRAIN_TIMESTEPS': int(os.getenv('NUM_TRAIN_TIMESTEPS', default=args.num_train_timesteps))
 }
 
 MODEL_NAME = options['MODEL_ID'].split("/")[1]
@@ -53,14 +61,16 @@ class Model(kserve.Model):
 	def load(self):
 		logger.info(f'Loading {MODEL_NAME}')
 		lms = LMSDiscreteScheduler(
-			beta_start=0.00085, 
-			beta_end=0.012, 
-			beta_schedule="scaled_linear"
+			beta_start=options['BETA_START'], 
+			beta_end=options['BETA_END'], 
+			beta_schedule="scaled_linear",
+			num_train_timesteps=options['NUM_TRAIN_TIMESTEPS']
 		)
 
 		self.pipeline = StableDiffusionPipeline.from_pretrained(
 			options['MODEL_ID'], 
 			cache_dir=options['MODEL_CACHE'],
+			torch_dtype=getattr(torch, options['PRECISION']),
 			scheduler=lms,
 			local_files_only=True
 		)

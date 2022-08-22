@@ -22,13 +22,14 @@ spec:
               - ORD1 
     containers:
       - name: kserve-container
-        image: tweldoncw/stable-diffusion:3
+        image: tweldoncw/stable-diffusion:4
         command:
           - "python3"
           - "/app/service.py"
           - "--model-id=CompVis/stable-diffusion-v1-4"
           - "--hf-home=/mnt/models/hub"
           # The following arguments are defaults which can be changed here and per request
+          - "--precision=float16" # PyTorch dtype/model precision(one of float16 or float32)
           - "--guidance-scale=7.0" # How well image generation adheres to the prompt. With very large numbers the images might look good, but will be less diverse. 
           - "--num-inference-steps=50" # Results are better the more steps you use but will take longer.
           - "--seed=42" # Every time you use the same seed you'll have the same image result. Use random numbers for different results with the same prompt.
@@ -36,6 +37,10 @@ spec:
           # Note: Beyond a width and/or height of 768 you may need to use a GPU with VRAM > 16Gi
           - "--width=512" 
           - "--height=512"
+          # K-LMS Scheduler Arguments
+          - "--beta-start=0.00085"
+          - "--beta-end=0.012"
+          - "--num-train-timesteps=1000"
         env:
           - name: HUGGING_FACE_HUB_TOKEN # Once the model is released publicly, this variable can be removed
             valueFrom:
