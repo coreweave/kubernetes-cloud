@@ -51,7 +51,7 @@ parameters = {
     "NUM_INFERENCE_STEPS": int(
         os.getenv("NUM_INFERENCE_STEPS", default=args.num_inference_steps)
     ),
-    "SEED": int(os.getenv("SEED", default=args.seed)),
+    "SEED": os.getenv("SEED", default=args.seed),
     "WIDTH": int(os.getenv("WIDTH", default=args.width)),
     "HEIGHT": int(os.getenv("HEIGHT", default=args.height)),
 }
