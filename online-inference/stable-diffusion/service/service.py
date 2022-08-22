@@ -17,7 +17,7 @@ parser.add_argument('--hf-home', default='/mnt/models/hub', type=str)
 parser.add_argument('--precision', choices=['float16', 'float32'], default="float16", type=str)
 parser.add_argument('--guidance-scale', default=7.0, type=float)
 parser.add_argument('--num-inference-steps', default=50, type=int)
-parser.add_argument('--seed', default=42, type=int)
+parser.add_argument('--seed', default=None, type=int)
 parser.add_argument('--width', default=512, type=int)
 parser.add_argument('--height', default=512, type=int)
 parser.add_argument('--beta-start', default=0.00085, type=float)
@@ -99,7 +99,9 @@ class Model(kserve.Model):
 			request_parameters = self.configure_request(request, request_parameters)
 			logger.debug(f'Request configured')
 
-		generator = torch.Generator("cuda").manual_seed(request_parameters['SEED'])
+		generator = None
+		if request_parameters['SEED'] is not None:
+			generator = torch.Generator("cuda").manual_seed(request_parameters['SEED'])
 
 		logger.debug(f'Generating image')
 		image = self.pipeline(
