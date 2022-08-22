@@ -4,3 +4,4 @@ torch==1.12.1+cu116
 diffusers==0.2.2
 transformers==4.21.1
 scipy==1.9.0
+ftfy==0.2.5
