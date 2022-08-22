@@ -12,7 +12,7 @@ spec:
         command: 
           - "python3"
           - "/app/download.py"
-          - "--model-id=CompVis/stable-diffusion-v1-3-diffusers"
+          - "--model-id=CompVis/stable-diffusion-v1-4"
         env:
         - name: HF_HOME
           value: /mnt/models/

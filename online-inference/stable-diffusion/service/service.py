@@ -33,7 +33,6 @@ logger = logging.getLogger(MODEL_NAME)
 logger.info(f'Model Name: {MODEL_NAME}')
 logger.info(f'Model ID: {options["MODEL_ID"]}')
 logger.info(f'Model Cache: {options["MODEL_CACHE"]}')
-logger.info(f'Model Download Timeout: {options["MODEL_DOWNLOAD_TIMEOUT"]}')
 
 parameters = {
 	'GUIDANCE_SCALE': float(os.getenv('CONDITION_SCALE', default=args.guidance_scale)),
@@ -68,13 +67,7 @@ class Model(kserve.Model):
 		logger.info(f'Loaded {MODEL_NAME}')
 
 		logger.info(f'Loading {MODEL_NAME} to accelerator')
-		'''
-			The diffusers lib does not yet include functionality to load to an accelerator.
-			As a temporary workaround we will run a single step of inference below.
-		'''
-		prompt = "warming up"
-		with autocast("cuda"):
-			image = self.pipeline(prompt, num_inference_steps=1)["sample"][0] 
+		self.pipeline.to("cuda")
 		logger.info(f'Accelerator loaded')
 
 		self.ready=True
