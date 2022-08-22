@@ -91,6 +91,7 @@ spec:
   region: ORD1
   os:
     type: linux
+    enableUEFIBoot: false
   resources:
     cpu:
       # Reference CPU instance label selectors here:
@@ -120,6 +121,10 @@ spec:
         - 22
 ```
 {% endcode %}
+
+{% hint style="info" %}
+When importing an image configured for `EFI` boot, set `spec.os.enableUEFIBoot` to `true`.&#x20;
+{% endhint %}
 
 ```bash
 $ kubectl apply -f example-vs.yaml                  
