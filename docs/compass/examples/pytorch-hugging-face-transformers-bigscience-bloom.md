@@ -4,7 +4,7 @@ description: >-
   Bloom 176B parameter model
 ---
 
-# PyTorch - HuggingFace BigScience BLOOM
+# PyTorch Hugging Face Transformers-  BigScience BLOOM
 
 ## Introduction
 
@@ -35,11 +35,11 @@ The following pieces must be installed and configured prior to running the examp
 
 &#x20;No modifications are needed to any of the files to follow along. The general procedure for this example is:
 
-1. [Build and push the Docker image](pytorch-huggingface-bigscience-bloom.md#docker-image) to a container registry, in this case [Docker Hub](https://hub.docker.com/).
-2. [Deploy the Kubernetes resources](pytorch-huggingface-bigscience-bloom.md#kubernetes-resources):
-   1. [A PVC](pytorch-huggingface-bigscience-bloom.md#undefined) in which to store the model.
-   2. A [Batch Job to download the model](pytorch-huggingface-bigscience-bloom.md#undefined). **The model is quite large at roughly 329Gi, and will take around 30 minutes to complete the download.**
-   3. Deploy the [CoreWeave InferenceService](pytorch-huggingface-bigscience-bloom.md#undefined).
+1. [Build and push the Docker image](pytorch-hugging-face-transformers-bigscience-bloom.md#docker-image) to a container registry, in this case [Docker Hub](https://hub.docker.com/).
+2. [Deploy the Kubernetes resources](pytorch-hugging-face-transformers-bigscience-bloom.md#kubernetes-resources):
+   1. [A PVC](pytorch-hugging-face-transformers-bigscience-bloom.md#undefined) in which to store the model.
+   2. A [Batch Job to download the model](pytorch-hugging-face-transformers-bigscience-bloom.md#undefined). **The model is quite large at roughly 329Gi, and will take around 30 minutes to complete the download.**
+   3. Deploy the [CoreWeave InferenceService](pytorch-hugging-face-transformers-bigscience-bloom.md#undefined).
 3. Perform Text Generation using the model by sending HTTP requests to the InferenceService.
 
 ## Procedure
