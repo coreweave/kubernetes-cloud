@@ -1,0 +1,7 @@
+FROM python:3.9.13-alpine3.16
+RUN mkdir /app
+ADD downloader/ /app/
+WORKDIR /app
+RUN pip3 install --upgrade pip
+RUN pip3 install -r requirements.txt
+CMD ["python3", "/app/download.py"]

@@ -1,0 +1,43 @@
+apiVersion: serving.kubeflow.org/v1beta1
+kind: InferenceService
+metadata:
+  name: stable-diffusion
+spec:
+  predictor:
+    containerConcurrency: 1
+    minReplicas: 1
+    maxReplicas: 1 
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: gpu.nvidia.com/class
+              operator: In
+              values:
+              - A40
+            - key: topology.kubernetes.io/region
+              operator: In
+              values:
+              - ORD1 
+    containers:
+      - name: kserve-container
+        image: tweldoncw/stable-diffusion:7
+        env:
+          - name: HUGGING_FACE_HUB_TOKEN # Once the model is released publicly, this variable can be removed
+            valueFrom:
+              secretKeyRef:
+                name: huggingface-hub-token
+                key: token
+          - name: STORAGE_URI # Kserve mounts the PVC at /mnt/models/
+            value: pvc://stable-diffusion-model-cache/
+            # The following env vars are the default model parameters, which can be changed as needed. 
+        resources:
+          requests:
+            cpu: 6
+            memory: 32Gi
+            nvidia.com/gpu: 1
+          limits:
+            cpu: 6
+            memory: 32Gi
+            nvidia.com/gpu: 1
