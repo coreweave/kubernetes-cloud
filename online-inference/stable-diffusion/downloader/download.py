@@ -4,7 +4,7 @@ import argparse
 import huggingface_hub as hf
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--model-id', default="CompVis/stable-diffusion-v1-3-diffusers")
+parser.add_argument('--model-id', default="CompVis/stable-diffusion-v1-4")
 args = parser.parse_args()
 
 HUGGING_FACE_HUB_TOKEN = os.getenv('HUGGING_FACE_HUB_TOKEN', default=False)
