@@ -190,7 +190,7 @@ This example is set to one A40 for production of higher resolution images. Infer
 
 GPUs with less VRAM will also work depending on use-case, down to 8GB GPUs such as the Quadro RTX 4000, however output resolution will be limited by memory to 512x512.
 
-<figure><img src="../../.gitbook/assets/Screen Shot 2022-08-23 at 3.31.44 PM.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/Screen Shot 2022-08-23 at 3.38.50 PM.png" alt=""><figcaption><p>512x512 Image generation at 50 steps</p></figcaption></figure>
 
 {% hint style="info" %}
 **Additional Resources**

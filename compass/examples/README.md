@@ -8,7 +8,7 @@ Each of the pages listed below contains a description and a link to the example'
 
 | Example title                                                                                                      | Description                                  |
 | ------------------------------------------------------------------------------------------------------------------ | -------------------------------------------- |
-| Stable Diffusion                                                                                                   | Hugging Face Diffusers PyTorch text to image |
+| [Stable Diffusion](../../docs/compass/examples/pytorch-hugging-face-diffusers-stable-diffusion-text-to-image.md)   | Hugging Face Diffusers PyTorch text to image |
 | [Hugging Face BigScience BLOOM](../../docs/compass/examples/pytorch-hugging-face-transformers-bigscience-bloom.md) | Hugging Face Transformers PyTorch Predictor  |
 | [JAX DALL-E Mini / Mega](../../docs/compass/examples/jax-dall-e-mini-mega.md)                                      | DALL-E Mini / Mega text to image in JAX      |
 | [OpenAI GPT-2 Text Generation](gpt-2/)                                                                             | TensorFlow 1                                 |
