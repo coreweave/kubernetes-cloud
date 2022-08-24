@@ -6,40 +6,19 @@ description: Deploying and managing Virtual Servers with Terraform
 
 Virtual Servers are a [Kubernetes Custom Resource](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/) on CoreWeave Cloud, which means the [Kubernetes Terraform provider](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs) can be used to create and modify Virtual Servers as Custom Resources.
 
+## Getting Started
+
+**Before you can access CoreWeave Cloud, you must first** [**request an account**](https://cloud.coreweave.com/request-account)**.**
+
+To use the Terraform module as your deployment method, you will **** first need to obtain valid access credentials in the form of a `kubeconfig` file.
+
 {% hint style="info" %}
 **Note**
 
-You can view **** the Virtual Server Terraform plan used in the following example, and learn more about the Terraform configurations, in [the examples section](https://github.com/coreweave/kubernetes-cloud/tree/master/virtual-server/examples/terraform) of the CoreWeave Cloud repository.
+See [Obtain Access Credentials](../../coreweave-kubernetes/getting-started.md#obtain-access-credentials) for more information.
 {% endhint %}
 
-## Deploying a Virtual Server using Terraform
-
-The following table describes all fields exposed through the Terraform module.
-
-| Field name               | Field type | Description                                                                                                              |
-| ------------------------ | ---------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `kubeconfig_path`        | string     | System path to a kubeconfig file                                                                                         |
-| `user_namespace`         | string     | Namespace the virtualserver will be deployed to                                                                          |
-| `vs_name`                | string     | Hostname for the virtual server                                                                                          |
-| `vs_username`            | string     | Username for the virtual server                                                                                          |
-| `vs_generate_password`   | boolean    | Set to true to generate a strong password                                                                                |
-| `vs_password`            | string     | If `vs_generate_password` is set to false, provide a password for `vs_username`                                          |
-| `vs_memory`              | string     | Memory requested in Gi (i.e. 16Gi)                                                                                       |
-| `vs_root_storage`        | string     | Storage requested for root volume in Gi (i.e. 80Gi)                                                                      |
-| `vs_os_type`             | string     | Virtual Server OS variant (i.e. linux)                                                                                   |
-| `vs_image`               | string     | OS image deployed to virtual server                                                                                      |
-| `vs_gpu`                 | string     | GPU model name for virtual server                                                                                        |
-| `vs_gpu_enable`          | boolean    | Enable a GPU for this this virtual server                                                                                |
-| `vs_gpu_count`           | integer    | Number of GPUs requested                                                                                                 |
-| `vs_cpu_count`           | integer    | Number of CPUs requested                                                                                                 |
-| `vs_region`              | string     | Data center region in which to deploy the Virtual Server                                                                 |
-| `vs_running`             | boolean    | Whether or not to start the Virtual Server once deployed                                                                 |
-| `vs_public_networking`   | boolean    | Whether or not to enable public networking                                                                               |
-| `vs_attach_loadbalancer` | boolean    | Attach Service Load Balancer IP directly to Virtual Server (`vs_tcp_ports` and `vs_udp_ports` must be empty, if enabled) |
-| `vs_tcp_ports`           | list       | List of TCP ports to allow access to                                                                                     |
-| `vs_udp_ports`           | list       | List of UDP ports to allow access to                                                                                     |
-
-With the [Virtual Server module](https://github.com/coreweave/kubernetes-cloud/tree/master/virtual-server/examples/terraform) cloned and the configurations adjusted to your preferences, a Virtual Server can either be created by running the module directly:
+With the [Virtual Server module](https://github.com/coreweave/kubernetes-cloud/tree/master/virtual-server/examples/terraform) cloned, and all [configuration options](../../docs/virtual-servers/virtual-server-configuration-options/) adjusted to your preferences, a Virtual Server can either be created by running the module directly:
 
 ```bash
 $ terraform init
@@ -111,3 +90,36 @@ output "vs_password" {
   value = module.virtualserver_1.vs_password
 }
 ```
+
+## Examples
+
+CoreWeave provides [an example plan on GitHub](https://github.com/coreweave/kubernetes-cloud/tree/master/virtual-server/examples/terraform).
+
+## Configuration quick reference
+
+The table below is intended as a quick-reference guide for all available configuration options using the Kubernetes CLI deployment method. Learn more about each configuration option in their respective pages under [Virtual Server Configuration Options](../../docs/virtual-servers/virtual-server-configuration-options/).
+
+
+
+| Variable name            | Type   | Description                                                                                                                    |
+| ------------------------ | ------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| kubeconfig\_path         | string | The system path to the kubeconfig file to use                                                                                  |
+| user\_namespace          | string | The namespace into which the Virtual Server will be deployed. **Does not have a default value; must be set**                   |
+| vs\_name                 | string | The hostname for the Virtual Server                                                                                            |
+| vs\_username             | string | Username for the virtual server **Does not have a default value; must be set**                                                 |
+| vs\_generate\_password   | bool   | When set to `true`,  a strong password is generated                                                                            |
+| vs\_password             | string | With vs\_generate\_password set to false, provide a password for vs\_username                                                  |
+| vs\_memory               | string | Memory requested in Gi (i.e. 16Gi)                                                                                             |
+| vs\_root\_storage        | string | The amount of storage requested for the root volume in Gi (i.e. `80Gi`)                                                        |
+| vs\_os\_type             | string | Virtual Server OS variant (i.e. linux)                                                                                         |
+| vs\_image                | string | The name of the OS image to deploy to the Virtual Server                                                                       |
+| vs\_gpu                  | string | The GPU model name for Virtual Server                                                                                          |
+| vs\_gpu\_enable          | bool   | Enables a GPU for this Virtual Server                                                                                          |
+| vs\_gpu\_count           | int    | The number of GPUs requested                                                                                                   |
+| vs\_cpu\_count           | int    | The number of CPUs requested                                                                                                   |
+| vs\_region               | string | The data center region in which to deploy the Virtual Server                                                                   |
+| vs\_running              | bool   | Start the Virtual Server once deployed                                                                                         |
+| vs\_public\_networking   | bool   | Enable public networking                                                                                                       |
+| vs\_attach\_loadbalancer | bool   | Attach a Service Load Balancer IP directly to the Virtual Server (`vs_tcp_ports` and `vs_udp_ports` must be empty, if enabled) |
+| vs\_tcp\_ports           | list   | A list of TCP ports to allow access to                                                                                         |
+| vs\_udp\_ports           | list   | A list of UDP ports to allow access to                                                                                         |

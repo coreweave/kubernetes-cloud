@@ -7,7 +7,7 @@
 
 {% file src="../../docs/.gitbook/assets/clone-to-file.yaml" %}
 
-{% file src="../../.gitbook/assets/shared_data.yaml" %}
+{% file src="../../docs/.gitbook/assets/shared_data.yaml" %}
 
 ## Create a shared filesystem
 
@@ -43,7 +43,7 @@ Note we've created our shared filesystem in the **ORD** region. If our source di
 
 Using `kubectl get pvc`, we'll identify a PVC in our namespace that we wish to export:
 
-![](<../../.gitbook/assets/image (3).png>)
+![](<../../docs/.gitbook/assets/image (3) (1).png>)
 
 {% hint style="info" %}
 Note our source image exists in the **ORD1** region - matching our shared data filesystem.
@@ -133,7 +133,7 @@ Note that while our shared filesystem can be mounted to multiple pods/Virtual Se
 
 Progress can be monitored with `kubectl get pods --watch`:
 
-![](<../../.gitbook/assets/image (2).png>)
+![](<../../docs/.gitbook/assets/image (2) (2).png>)
 
 Once the job status shows Completed, the job can be deleted with `kubectl delete job clone-to-file`.
 

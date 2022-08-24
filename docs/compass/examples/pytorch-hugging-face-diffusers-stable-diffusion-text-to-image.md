@@ -90,7 +90,7 @@ $ kubectl apply -f 00-model-pvc.yaml
 
 If you have not already done so, create a [HuggingFace](https://huggingface.co/) account and [API Token.](https://huggingface.co/settings/tokens)
 
-Once you have a token, copy and base64 encode it:
+Once you have a token, copy and Base64 encode it:
 
 ```bash
 $  echo -n "TOKEN_HERE" | base64

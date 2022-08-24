@@ -6,7 +6,7 @@ description: >-
 
 # NodeJS
 
-### Implementation Breakdown
+## Implementation
 
 The example is broken down into two parts, the [client](../../../virtual-server/examples/nodejs/client.js), which is glue code layered on top of the godaddy implementation of a [kubernetes-client](https://github.com/godaddy/kubernetes-client), and the [application](../../../virtual-server/examples/nodejs/main.js); both of which are described below.
 
@@ -14,56 +14,34 @@ The example is broken down into two parts, the [client](../../../virtual-server/
 
 ### Client
 
-The client ([client.js](../../../virtual-server/examples/nodejs/client.js)) provides an interface to create a kubernetes client using your kubernetes credentials (token). Client.js may be dropped into any application and used to interface with the Virtual Server resource. A set of functions specific to creating, modifying, and checking the status of a Virtual Server are additionally provided and operate as follows:
+The client ([`client.js`](../../../virtual-server/examples/nodejs/client.js)) provides an interface to create a Kubernetes client using your Kubernetes credentials (token). `client.js` may be dropped into any application and used to interface with the Virtual Server resource.
 
-`init()`: Initialize the client
+A set of functions specific to creating, modifying, and checking the status of a Virtual Server are additionally provided, which operate as follows:
 
-> _init must be called prior to using the Client._
-
-`virtualServer.get({namespace, name})`: Retrieves a Virtual Server
-
-* `namespace`: Namespace wherein the Virtual Server is deployed
-* `name`: Name of the Virtual Server
-
-`virtualServer.list({namespace})`: List all Virtual Servers
-
-* `namespace`: Namespace wherein the Virtual Servers are deployed
-
-`virtualServer.create(manifest)`: Creates a Virtual Server
-
-*   `manifest`: A Virtual Server manifest (JSON/Object)
-
-    > Example manifests detailed in Example Manifest section
-
-`virtualServer.delete({namespace, name})`: Delete a Virtual Server
-
-* `namespace`: Namespace wherein the Virtual Server is deployed
-* `name`: Name of the Virtual Server
-
-`virtualServer.update(manifest)`: Update an existing Virtual Server
-
-* `manifest`: An updated Virtual Server (JSON/Object)
-
-`virtualServer.ready({namespace, name})`: Stopping function that waits for the VirtualMachineReady status condition of a Virtual Server
-
-* `namespace`: Namespace wherein the Virtual Server is deployed
-* `name`: Name of the Virtual Server
-
-`virtualServer.start({namespace, name})`: Start a stopped Virtual Server
-
-* `namespace`: Namespace wherein the Virtual Server is deployed
-* `name`: Name of the Virtual Server
-
-`virtualServer.stop({namespace, name})`: Stop a running Virtual Server
-
-* `namespace`: Namespace wherein the Virtual Server is deployed
-* `name`: Name of the Virtual Server
+| Function name                             | Description                                                                                                                                                                                                       |
+| ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `init()`                                  | <p>Initializes the client</p><p><em><strong></strong></em><span data-gb-custom-inline data-tag="emoji" data-code="26a0">⚠</span><strong><code>init()</code> must be called prior to using the client</strong></p> |
+| `namespace`                               | Namespace in which the Virtual Server is deployed                                                                                                                                                                 |
+| `name`                                    | Name of the Virtual Server                                                                                                                                                                                        |
+| `virtualServer.start({namespace, name})`  | Starts a stopped Virtual Server                                                                                                                                                                                   |
+| `virtualServer.stop({namespace, name})`   | Stops a running Virtual Server                                                                                                                                                                                    |
+| `virtualServer.get({namespace, name})`    | Retrieves a Virtual Server                                                                                                                                                                                        |
+| `virtualServer.ready({namespace, name})`  | Stopping function that waits for the `VirtualMachineReady` status condition of a Virtual Server                                                                                                                   |
+| `virtualServer.delete({namespace, name})` | Deletes a Virtual Server                                                                                                                                                                                          |
+| `manifest`                                | A Virtual Server manifest (JSON/Object) - _See_ [_Examples_](nodejs.md#example-manifest)``                                                                                                                        |
+| `virtualServer.list({namespace})`         | Lists all Virtual Servers                                                                                                                                                                                         |
+| `virtualServer.create(manifest)`          | Creates a Virtual Server                                                                                                                                                                                          |
+| `virtualServer.update(manifest)`          | Update an existing Virtual Server                                                                                                                                                                                 |
 
 ### Application
 
-The application ([main.js](../../../virtual-server/examples/nodejs/main.js)) implements client.js in order to create, watch, get, and update an example Virtual Server. The application serves as an example of how to implement client.js. Additionally, the application illustrates how one might retrieve status information from a running Virtual Server, retrieving its run state and network information. Finally, the example shows how to simply interface with the kubevirt \_\_ subresource api in order to start and stop a Virtual Server.
+The application ([`main.js`](../../../virtual-server/examples/nodejs/main.js)) implements `client.js` in order to create, watch, get, and update an example Virtual Server.
 
-### Example Manifest
+The example application serves as an example of how to implement `client.js`. Additionally, the example application illustrates how one might retrieve status information from a running Virtual Server, retrieving its run state and network information.
+
+Finally, the example shows how to simply interface with the `kubevirt __ subresource` API in order to start and stop a Virtual Server.
+
+### Example
 
 ```
 {

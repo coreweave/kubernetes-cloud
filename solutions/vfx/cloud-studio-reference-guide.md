@@ -208,7 +208,7 @@ cloudInit:
 
 For the final machine we are going to follow the same steps except here we can simply select the Teradici toggle along with the NVIDIA drivers toggle.
 
-![Note: these options will only be available when selecting a Linux distro as your OS](<../../.gitbook/assets/Screen Shot 2021-11-08 at 3.37.58 PM.png>)
+![Note: these options will only be available when selecting a Linux distro as your OS](<../../docs/.gitbook/assets/Screen Shot 2021-11-08 at 3.37.58 PM.png>)
 
 For our Linux based workstation we will also want to mount in our storage via virtio-fs. To do this switch to the YAML editor and edit the filesystem value with:
 
@@ -224,7 +224,7 @@ filesystems:
 
 Administrators and support staff often times do not need the same resources as artists for their work. Besides the networking and security aspects of this statement which we will cover shortly, allocating different amounts of compute resources to administrators is easy. You may choose, for example, to utilize Windows 10 VMs without GPUs and low cpu allocations.
 
-![](<../../.gitbook/assets/Screen Shot 2021-11-08 at 3.46.02 PM.png>)
+![](<../../docs/.gitbook/assets/Screen Shot 2021-11-08 at 3.46.02 PM.png>)
 
 Note that Windows machines will not be accessible via Teradici without a NVIDIA graphics card. In that scenario you may opt to use RDP or Parsec for administrator remote access.
 
