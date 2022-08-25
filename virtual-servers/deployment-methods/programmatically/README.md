@@ -24,9 +24,9 @@ See [Obtain Access Credentials](../../../coreweave-kubernetes/getting-started.md
 
 ## Examples
 
-| Language                                                                                    |
-| ------------------------------------------------------------------------------------------- |
-| [Bash](https://docs.coreweave.com/virtual-servers/deployment-methods/programmatically/bash) |
-| [Python](python.md)                                                                         |
-| [NodeJS](nodejs.md)                                                                         |
-| [Golang](golang.md)                                                                         |
+| Language                                                                          |
+| --------------------------------------------------------------------------------- |
+| [Bash](../../../docs/virtual-servers/deployment-methods/programmatically/bash.md) |
+| [Python](python.md)                                                               |
+| [NodeJS](nodejs.md)                                                               |
+| [Golang](golang.md)                                                               |
