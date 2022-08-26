@@ -83,7 +83,7 @@
   * [GPT-J-6B](../compass/models/gpt-j-6b.md)
 * [Examples](../compass/examples/README.md)
   * [PyTorch Hugging Face Diffusers - Stable Diffusion Text to Image](compass/examples/pytorch-hugging-face-diffusers-stable-diffusion-text-to-image.md)
-  * [PyTorch Hugging Face Transformers-  BigScience BLOOM](compass/examples/pytorch-hugging-face-transformers-bigscience-bloom.md)
+  * [PyTorch Hugging Face Transformers -  BigScience BLOOM](compass/examples/pytorch-hugging-face-transformers-bigscience-bloom.md)
   * [JAX - DALL-E Mini / Mega](compass/examples/jax-dall-e-mini-mega.md)
   * [TensorFlow - Open AI GPT-2](../compass/examples/gpt-2/README.md)
     * [Transformer](../compass/examples/gpt-2/transformer.md)
