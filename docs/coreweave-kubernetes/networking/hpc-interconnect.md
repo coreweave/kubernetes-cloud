@@ -6,7 +6,7 @@ description: Learn more about HPC Interconnect on CoreWeave Cloud.
 
 ## Introduction
 
-**HPC Workloads** are a first-class tenant on CoreWeave Cloud. Customers leverage the wide range of GPU availability and seamless access to scale to run parallel jobs, with thousands to tens of thousands of GPUs working together in areas such as Neural Net Training, Rendering and Simulation.
+**HPC Workloads** are first-class tenants on CoreWeave Cloud. Customers leverage the wide range of GPU availability and seamless access to scale to run parallel jobs, with thousands to tens of thousands of GPUs working together in areas such as Neural Net Training, Rendering and Simulation.
 
 In these applications, connectivity between compute hardware as well as storage play a major role in overall system performance. CoreWeave provides highly optimized IP-over-Ethernet connectivity across all GPUs and an industry-leading, non-blocking InfiniBand fabric for our top-of-the-line A100 NVLINK GPU fleet.
 
