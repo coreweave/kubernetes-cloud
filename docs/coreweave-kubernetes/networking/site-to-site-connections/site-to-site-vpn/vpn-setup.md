@@ -10,15 +10,15 @@ Site-to-Site VPNs are configured through the [CoreWeave Cloud UI](../../../../..
 
 ### Installation
 
-Find and select the **vpn-ipsec-server** in the Catalog:
+Find and select the **vpn-ipsec-server** in the applications Catalog:
 
-![The applications page on CoreWeave Cloud, with a search filter for "vpn."](<../../../../.gitbook/assets/image (2) (1).png>)
+![The applications page on CoreWeave Cloud, with a search filter for "vpn"](<../../../../.gitbook/assets/image (2) (1) (1).png>)
 
 ### Configuration
 
 Selecting the VPN application from the catalog exposes its configuration options, shown and detailed below.
 
-![VPN Server configuration example.](<../../../../.gitbook/assets/image (1) (1).png>)
+![VPN Server configuration example](<../../../../.gitbook/assets/image (1) (1) (1).png>)
 
 #### Configuration Options
 
@@ -34,7 +34,7 @@ Selecting the VPN application from the catalog exposes its configuration options
 
 Under the **Network Settings** portion of the IPSec VPN setup page are the configuration fields for your VPC.
 
-![VPC configuration example.](<../../../../.gitbook/assets/image (105).png>)
+![VPC configuration example](<../../../../.gitbook/assets/image (2) (2).png>)
 
 The fields provided are:
 
@@ -48,26 +48,26 @@ CoreWeave currently supports four different Proposals for **Phase 1** and **Phas
 
 **Phase 1**
 
-| Proposal                       | Encryption  | Integrity | DH-Group |
-| ------------------------------ | ----------- | --------- | -------- |
-| `aes128gcm16-sha256-modp2048​` | aes128gcm16 | sha2-256  | 14       |
-| `aes256gcm16-sha256-modp2048`  | aes256gcm16 | sha2-256  | 14       |
-| `aes128gcm16-sha256-ecp256`    | aes128gcm16 | sha2-256  | 19       |
-| `aes256gcm16-sha256-ecp256`    | aes256gcm16 | sha2-256  | 19       |
+| Proposal                       | Encryption  | Integrity      | DH-Group |
+| ------------------------------ | ----------- | -------------- | -------- |
+| `aes128gcm16-sha256-modp2048​` | aes128gcm16 | sha2-256 (prf) | 14       |
+| `aes256gcm16-sha256-modp2048`  | aes256gcm16 | sha2-256 (prf) | 14       |
+| `aes128gcm16-sha256-ecp256`    | aes128gcm16 | sha2-256 (prf) | 19       |
+| `aes256gcm16-sha256-ecp256`    | aes256gcm16 | sha2-256 (prf) | 19       |
 
 **Phase 2**
 
 | Proposal                       | Encryption  | Integrity | DH-Group |
 | ------------------------------ | ----------- | --------- | -------- |
-| `aes128gcm16-sha256-modp2048​` | aes128gcm16 | sha2-256  | 14       |
-| `aes256gcm16-sha256-modp2048`  | aes256gcm16 | sha2-256  | 14       |
-| `aes128gcm16-sha256-ecp256`    | aes128gcm16 | sha2-256  | 19       |
-| `aes256gcm16-sha256-ecp256`    | aes256gcm16 | sha2-256  | 19       |
+| `aes128gcm16-sha256-modp2048​` | aes128gcm16 | -         | 14       |
+| `aes256gcm16-sha256-modp2048`  | aes256gcm16 | -         | 14       |
+| `aes128gcm16-sha256-ecp256`    | aes128gcm16 | -         | 19       |
+| `aes256gcm16-sha256-ecp256`    | aes256gcm16 | -         | 19       |
 
 {% hint style="success" %}
 **Tip**
 
-The most performant proposal has been benchmarked to be`aes128gcm16-sha256-modp2048`
+The most performant proposal has been benchmarked to be`aes128gcm16-sha256-modp2048`.
 {% endhint %}
 
 ## Launching the VPN

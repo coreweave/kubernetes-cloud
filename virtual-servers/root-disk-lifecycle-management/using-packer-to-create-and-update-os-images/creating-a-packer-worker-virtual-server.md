@@ -5,9 +5,9 @@
 
 #### References:
 
-{% file src="../../../docs/.gitbook/assets/packer_vs.yaml" %}
+{% file src="../../../.gitbook/assets/packer_vs.yaml" %}
 
-{% file src="../../../docs/.gitbook/assets/configure_packer_docker.sh" %}
+{% file src="../../../.gitbook/assets/configure_packer_docker.sh" %}
 
 ## Deploying Virtual Server
 
@@ -64,13 +64,13 @@ Note our region matches the region used when creating the [cloned volume](../exp
 
 `kubectl get vs` will show us our Virtual Server has been deployed, along with an IP we can use to SSH into:
 
-![](../../../docs/.gitbook/assets/4.png)
+![](../../../.gitbook/assets/4.png)
 
 ### Configuring Packer Environment
 
 Using the external IP noted from `kubectl get vs`, connect to your Virtual Server via SSH. If you followed [Copying CoreWeave Images to a Writable PVC](../exporting-coreweave-images-to-a-writable-pvc.md), you’ll notice our root disk is mounted to **/dev/vda**, and our cloned PVC is mounted to **/dev/vdb**:
 
-![](../../../docs/.gitbook/assets/5.png)
+![](../../../.gitbook/assets/5.png)
 
 Since our Virtual Server was created using **ubuntu2004-docker-master-20210629-ord1**, Docker is already installed. Running **configure\_packer\_docker.sh** will build a container to provide a consistent environment for using Packer, with all the dependencies installed.
 
@@ -108,4 +108,4 @@ EOF
 {% endtab %}
 {% endtabs %}
 
-![](../../../docs/.gitbook/assets/7.png)
+![](../../../.gitbook/assets/7.png)

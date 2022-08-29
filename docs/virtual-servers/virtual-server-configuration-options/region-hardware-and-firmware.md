@@ -128,13 +128,13 @@ Select how many **CPU** **cores** you'd like the Virtual Server to have using th
 
 Select how many **GPUs** you'd like the Virtual Server to have using the **GPU Count** slider.
 
-![](<../../.gitbook/assets/image (52).png>)
+![](<../../.gitbook/assets/image (52) (1).png>)
 
 #### Memory
 
 Determine the amount of **memory** (in Gebibytes) the Virtual Server will have using the **Memory** slider.
 
-![](<../../.gitbook/assets/image (10).png>)
+![](<../../.gitbook/assets/image (10) (3).png>)
 
 ### Definition
 
@@ -275,7 +275,7 @@ You can read more about virtual hardware firmware configuration in [the Kubevirt
 **Example**\
 ****
 
-![Example of firmware configuration in the YAML manifest tab of the Cloud UI.](<../../.gitbook/assets/image (9).png>)
+![Example of firmware configuration in the YAML manifest tab of the Cloud UI.](<../../.gitbook/assets/image (9) (1).png>)
 {% endtab %}
 
 {% tab title="CLI" %}

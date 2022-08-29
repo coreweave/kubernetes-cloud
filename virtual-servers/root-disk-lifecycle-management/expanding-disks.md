@@ -2,7 +2,7 @@
 
 A Virtual Server root or additional block disk can be instantly expanded from [cloud.coreweave.com](https://cloud.coreweave.com) in the Virtual Server upgrade page, from the volume namangement page and using the CLI with `kubectl`. Expansion of volumes are instant, however the VM needs to be restarted to detect the larger disk size. A shared filesystem volume can be expanded without restart.
 
-![Expand root disk with Virtual Server Upgrade](<../../docs/.gitbook/assets/Screen Shot 2022-05-25 at 4.32.05 PM.png>)
+![Expand root disk with Virtual Server Upgrade](<../../.gitbook/assets/Screen Shot 2022-05-25 at 4.32.05 PM.png>)
 
 #### Expand with kubectl
 

@@ -50,7 +50,7 @@ All HDD Cloud Storage Volumes can be provisioned using the storage class convent
 
 The CoreWeave Cloud UI has an easy to use Storage Volume management page:
 
-![](<../docs/.gitbook/assets/image (53) (1).png>)
+![](<../.gitbook/assets/image (62).png>)
 
 Storage can also be managed via the Kubernetes API natively via kubectl. Below are example resource manifests.
 
@@ -108,7 +108,7 @@ Storage is billed per gigabyte of allocated (requested) space as an average over
 
 Volumes can be expanded by simply increasing the `storage` request and reapplying the manifest. Shared File System Volumes are resized online without disruption the workload. For Block Volumes you will need to stop or restart all workloads that are attaching the volume for the resize to take effect. **Please note that volumes cannot be shrunk after they are expanded.** Storage volumes can be resized in the[ CoreWeave Cloud UI](https://cloud.coreweave.com) or via kubectl.
 
-![](<../docs/.gitbook/assets/Screen Shot 2022-05-25 at 4.33.13 PM (1).png>)
+![](<../.gitbook/assets/Screen Shot 2022-05-25 at 4.33.13 PM (1).png>)
 
 One-line example to grow a storage volume: `kubectl patch pvc <myvolume> -p '{"spec":{"resources":{"requests":{"storage": "500Gi"}}}}'`
 

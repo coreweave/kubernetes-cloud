@@ -24,7 +24,7 @@ You can also configure the size of the **root disk** of the Virtual Server from 
 
 
 
-![The Operating System and Root Disk Size configuration section.](<../../.gitbook/assets/image (56) (2).png>)
+![The Operating System and Root Disk Size configuration section.](<../../.gitbook/assets/image (56) (1).png>)
 
 
 
