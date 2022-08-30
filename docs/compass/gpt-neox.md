@@ -6,8 +6,6 @@ description: >-
 
 # Finetuning GPT-NeoX 20B using DeterminedAI
 
-## Introduction
-
 [GPT-NeoX](https://blog.eleuther.ai/announcing-20b/) is a 20B parameter autoregressive model trained on [the Pile dataset](https://arxiv.org/abs/2101.00027).
 
 It generates text based on context or unconditionally for use cases such as story generation, chat bots, summarization, and so on.
@@ -22,7 +20,7 @@ This model is trained on CoreWeave infrastructure and the [weights](https://gith
 
 This guide will use [the DeterminedAI MLOps platform](https://www.determined.ai/blog/determined-algorithmia-integration) to run distributed finetuning jobs on the model.
 
-## Setup
+## Procedure
 
 {% hint style="info" %}
 **Note**
@@ -57,7 +55,7 @@ The values used for this demo are as follows:
 ****If needed, it is easy to [increase the size](https://docs.coreweave.com/coreweave-kubernetes/storage#resizing) of a storage volume later.
 {% endhint %}
 
-### &#x20;**Install the Filebrowser application**
+### **Install the Filebrowser application**
 
 The **filebrowser** application, available through the [application Catalog](https://apps.coreweave.com/), allows you to access your storage volumes via a Web interface that allows you to upload and download files and folders.
 
