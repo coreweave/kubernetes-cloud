@@ -35,13 +35,13 @@ If a workload requests more peripheral compute resources (vCPU, RAM) than offere
 
 CPU Only nodes are available for tasks such as control-plane services, databases, ingresses and CPU rendering.
 
-| CPU Model           | RAM per vCPU | Max CPU per Workload | Label               |
-| ------------------- | ------------ | -------------------- | ------------------- |
-| Intel Xeon v3       | 4 GB         | 71                   | intel-xeon-v3       |
-| Intel Xeon v4       | 4 GB         | 71                   | intel-xeon-v4       |
-| Intel Xeon Scalable | 4 GB         | 31                   | intel-xeon-scalable |
-| AMD Epyc Rome       | 4 GB         | 46                   | amd-epyc-rome       |
-| AMD Epyc Milan      | 4 GB         | 46                   | amd-epyc-milan      |
+| CPU Model           | Max RAM per vCPU | Max vCPU per Workload | Label               |
+| ------------------- | ---------------- | --------------------- | ------------------- |
+| Intel Xeon v3       | 4 GB             | 71                    | intel-xeon-v3       |
+| Intel Xeon v4       | 4 GB             | 71                    | intel-xeon-v4       |
+| Intel Xeon Scalable | 4 GB             | 94                    | intel-xeon-scalable |
+| AMD Epyc Rome       | 4 GB             | 46                    | amd-epyc-rome       |
+| AMD Epyc Milan      | 4 GB             | 46                    | amd-epyc-milan      |
 
 {% hint style="info" %}
 Workloads without GPU requests are always scheduled on CPU nodes.
