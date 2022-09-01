@@ -37,8 +37,8 @@ CPU Only nodes are available for tasks such as control-plane services, databases
 
 | CPU Model           | Max RAM per vCPU | Max vCPU per Workload | Label               |
 | ------------------- | ---------------- | --------------------- | ------------------- |
-| Intel Xeon v3       | 4 GB             | 71                    | intel-xeon-v3       |
-| Intel Xeon v4       | 4 GB             | 71                    | intel-xeon-v4       |
+| Intel Xeon v3       | 4 GB             | 70                    | intel-xeon-v3       |
+| Intel Xeon v4       | 4 GB             | 70                    | intel-xeon-v4       |
 | Intel Xeon Scalable | 4 GB             | 94                    | intel-xeon-scalable |
 | AMD Epyc Rome       | 4 GB             | 46                    | amd-epyc-rome       |
 | AMD Epyc Milan      | 4 GB             | 46                    | amd-epyc-milan      |

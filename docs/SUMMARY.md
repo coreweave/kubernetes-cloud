@@ -102,7 +102,7 @@
 
 * [Getting Started](../workflows/argo.md)
 * [Examples](workflows/examples/README.md)
-  * [CGI Rendering](../workflows/examples/cgi-rendering.md)
+  * [CGI Rendering Using Workflows](../workflows/examples/cgi-rendering.md)
 
 ## Solutions
 
