@@ -54,6 +54,9 @@ CoreWeave currently supports four different Proposals for **Phase 1** and **Phas
 | `aes256gcm16-sha256-modp2048`  | aes256gcm16 | sha2-256 (prf) | 14       |
 | `aes128gcm16-sha256-ecp256`    | aes128gcm16 | sha2-256 (prf) | 19       |
 | `aes256gcm16-sha256-ecp256`    | aes256gcm16 | sha2-256 (prf) | 19       |
+| `aes256gcm16-sha384-ecp384`    | aes256gcm16 | sha2-384 (prf) | 20       |
+| `aes128-sha256-modp2048`       | aes128      | sha2-256       | 14       |
+| `aes256-sha256-modp2048`       | aes256      | sha2-256       | 14       |
 
 **Phase 2**
 
@@ -63,6 +66,9 @@ CoreWeave currently supports four different Proposals for **Phase 1** and **Phas
 | `aes256gcm16-sha256-modp2048`  | aes256gcm16 | -         | 14       |
 | `aes128gcm16-sha256-ecp256`    | aes128gcm16 | -         | 19       |
 | `aes256gcm16-sha256-ecp256`    | aes256gcm16 | -         | 19       |
+| `aes256gcm16-sha384-ecp384`    | aes256gcm16 | -         | 20       |
+| `aes128-sha256-modp2048`       | aes128      | sha2-256  | 14       |
+| `aes256-sha256-modp2048`       | aes256      | sha2-256  | 14       |
 
 {% hint style="success" %}
 **Tip**
