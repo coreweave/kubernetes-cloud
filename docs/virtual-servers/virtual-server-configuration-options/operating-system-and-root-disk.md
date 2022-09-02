@@ -24,7 +24,7 @@ You can also configure the size of the **root disk** of the Virtual Server from 
 
 
 
-![The Operating System and Root Disk Size configuration section.](<../../.gitbook/assets/image (56) (1).png>)
+![The Operating System and Root Disk Size configuration section.](<../../.gitbook/assets/image (56).png>)
 
 
 
@@ -38,7 +38,7 @@ This option can be configured in the `os.uefi` field in the YAML manifest under 
 
 #### **Example**
 
-![The os.uefi option configured under the YAML tab in the configuration screen.](<../../.gitbook/assets/image (56).png>)
+![The os.uefi option configured under the YAML tab in the configuration screen.](<../../.gitbook/assets/image (56) (1).png>)
 
 
 

@@ -8,7 +8,7 @@ This example walks through the setup of a complete Cloud rendering solution for 
 
 If you are following along with this example, by the end of it you will have a Web-based file management solution for uploading assets and downloading render output, as well as a highly parallel workflow template with which to launch your render jobs.
 
-<figure><img src="../../docs/.gitbook/assets/image (23).png" alt=""><figcaption><p>Image of a CGI-rendered car</p></figcaption></figure>
+<figure><img src="../../docs/.gitbook/assets/image (23) (1).png" alt=""><figcaption><p>Image of a CGI-rendered car</p></figcaption></figure>
 
 ## Procedure
 

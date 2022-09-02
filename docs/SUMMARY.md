@@ -10,35 +10,33 @@
 * [Useful Commands](../coreweave-kubernetes/useful-commands.md)
 * [Node Types](../coreweave-kubernetes/node-types.md)
 * [Advanced Label Selectors](../coreweave-kubernetes/label-selectors.md)
-* [Storage](coreweave-kubernetes/storage/README.md)
-  * [Object Storage](coreweave-kubernetes/storage/object-storage.md)
-* [Networking](coreweave-kubernetes/networking.md)
+* [Networking](../coreweave-kubernetes/networking/README.md)
 * [Serverless](../coreweave-kubernetes/serverless.md)
 * [Metrics](../coreweave-kubernetes/prometheus/README.md)
-  * [Grafana](coreweave-kubernetes/prometheus/grafana/README.md)
-    * [L2VPC Usage](coreweave-kubernetes/prometheus/grafana/l2vpc-usage.md)
+  * [Grafana](../coreweave-kubernetes/prometheus/grafana.md)
+    * [L2VPC Usage](coreweave-kubernetes/networking/layer-2-vpc-l2vpc/l2vpc-usage.md)
   * [Useful Metrics](../coreweave-kubernetes/prometheus/useful-metrics.md)
   * [Logging](coreweave-kubernetes/prometheus/logging.md)
 * [Examples](../coreweave-kubernetes/examples/README.md)
   * [Jupyter Notebook with TensorFlow](../coreweave-kubernetes/examples/tensorflow-jupyter.md)
-  * [SSH Server with CUDA](coreweave-kubernetes/examples/cuda-ssh/README.md)
-    * [Fortinet](coreweave-kubernetes/examples/cuda-ssh/fortinet.md)
+  * [SSH Server with CUDA](../coreweave-kubernetes/examples/cuda-ssh.md)
+    * [Fortinet](coreweave-kubernetes/networking/site-to-site-connections/site-to-site-vpn/examples/fortinet.md)
 
 ## Networking
 
 * [Getting Started with Networking](networking/getting-started-with-networking.md)
-* [CoreWeave Cloud Native Networking (CCNN)](networking/coreweave-cloud-native-networking-ccnn.md)
-* [Layer 2 VPC (L2VPC)](networking/layer-2-vpc-l2vpc/README.md)
-  * [DHCP on L2VPC](networking/layer-2-vpc-l2vpc/dhcp-on-l2vpc.md)
-* [Site-to-Site Connections](networking/site-to-site-connections/README.md)
-  * [Site-to-Site VPN](networking/site-to-site-connections/site-to-site-vpn/README.md)
-    * [VPN Setup](networking/site-to-site-connections/site-to-site-vpn/vpn-setup.md)
-    * [Examples](networking/site-to-site-connections/site-to-site-vpn/examples/README.md)
-      * [AWS](networking/site-to-site-connections/site-to-site-vpn/examples/aws.md)
-  * [Direct Connect](networking/site-to-site-connections/direct-connections.md)
-* [Exposing Applications](networking/exposing-applications.md)
-* [HPC Interconnect](networking/hpc-interconnect.md)
-* [Bring Your Own IP](networking/bring-your-own-ip.md)
+* [CoreWeave Cloud Native Networking (CCNN)](coreweave-kubernetes/networking/coreweave-cloud-native-networking-ccnn.md)
+* [Layer 2 VPC (L2VPC)](coreweave-kubernetes/networking/layer-2-vpc-l2vpc/README.md)
+  * [DHCP on L2VPC](coreweave-kubernetes/networking/layer-2-vpc-l2vpc/dhcp-on-l2vpc.md)
+* [Site-to-Site Connections](coreweave-kubernetes/networking/site-to-site-connections/README.md)
+  * [Site-to-Site VPN](coreweave-kubernetes/networking/site-to-site-connections/site-to-site-vpn/README.md)
+    * [VPN Setup](coreweave-kubernetes/networking/site-to-site-connections/site-to-site-vpn/vpn-setup.md)
+    * [Examples](coreweave-kubernetes/networking/site-to-site-connections/site-to-site-vpn/examples/README.md)
+      * [AWS](coreweave-kubernetes/networking/site-to-site-connections/site-to-site-vpn/examples/aws.md)
+  * [Direct Connect](coreweave-kubernetes/networking/site-to-site-connections/direct-connections.md)
+* [Exposing Applications](coreweave-kubernetes/networking/exposing-applications.md)
+* [HPC Interconnect](coreweave-kubernetes/networking/hpc-interconnect.md)
+* [Bring Your Own IP](coreweave-kubernetes/networking/bring-your-own-ip.md)
 
 ## Virtual Servers
 
@@ -81,6 +79,11 @@
   * [Active Directory Environment hosted on CoreWeave Cloud](virtual-servers/examples/active-directory-environment-hosted-on-coreweave-cloud/README.md)
     * [Provision an Active Directory Domain](virtual-servers/examples/active-directory-environment-hosted-on-coreweave-cloud/provision-an-active-directory-domain-controller.md)
     * [Highly Available Storage using Samba-AD and AD DFS](virtual-servers/examples/active-directory-environment-hosted-on-coreweave-cloud/highly-available-storage-using-samba-ad-and-ad-dfs.md)
+
+## Storage
+
+* [Getting Started with Storage](storage/storage.md)
+* [Object Storage](storage/object-storage.md)
 
 ## Inference <a href="#compass" id="compass"></a>
 

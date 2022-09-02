@@ -28,7 +28,7 @@ The following deployment form will prompt you to enter a name for the applicatio
 [See the **Security** section below for more information](argo.md#security).
 {% endhint %}
 
-![The Argo Workflows configuration screen](<../docs/.gitbook/assets/image (1) (1).png>)
+![The Argo Workflows configuration screen](<../docs/.gitbook/assets/image (1) (3).png>)
 
 After a few minutes, the deployment will be ready. If you selected `Expose UI via public Ingress`, Argo Workflows will be accessible outside the cluster.
 
@@ -258,7 +258,7 @@ Generate the token to be used with the Service Account:
 
 Then, inside the box for **client authentication**, copy and paste the newly generated token into the Argo UI:
 
-![The Argo Workflow UI with a Bearer token pasted into the client authentication box](<../docs/.gitbook/assets/image (5) (2).png>)
+![The Argo Workflow UI with a Bearer token pasted into the client authentication box](<../docs/.gitbook/assets/image (5) (1).png>)
 
 Finally, to log in, click the **Login** button after adding the token.
 

@@ -8,7 +8,7 @@ description: Learn about networking options on CoreWeave.
 
 CoreWeave offers three primary networking solutions, often used in combination.
 
-### [CoreWeave Cloud Native Networking (CCNN)](coreweave-cloud-native-networking-ccnn.md)
+### [CoreWeave Cloud Native Networking (CCNN)](../coreweave-kubernetes/networking/coreweave-cloud-native-networking-ccnn.md)
 
 <mark style="background-color:green;">****</mark>:white\_check\_mark: **Ideal for most use cases.**
 
@@ -20,21 +20,21 @@ These are all handled by the network layer, and concepts such as Services and Ne
 
 {% hint style="info" %}
 **Additional Resources**\
-****[Read more in our CoreWeave Cloud Native Networking (CCNN) documentation.](coreweave-cloud-native-networking-ccnn.md)
+****[Read more in our CoreWeave Cloud Native Networking (CCNN) documentation.](../coreweave-kubernetes/networking/coreweave-cloud-native-networking-ccnn.md)
 {% endhint %}
 
-### [CoreWeave Layer 2 VPC (L2VPC)](layer-2-vpc-l2vpc/)
+### [CoreWeave Layer 2 VPC (L2VPC)](../coreweave-kubernetes/networking/layer-2-vpc-l2vpc/)
 
 ****:bulb: **Ideal for:**
 
-* Connecting to an on-premises environment via a [Site-to-Site VPN](getting-started-with-networking.md#site-to-site-vpn) or [Direct Connect](site-to-site-connections/direct-connections.md).
+* Connecting to an on-premises environment via a [Site-to-Site VPN](getting-started-with-networking.md#site-to-site-vpn) or [Direct Connect](../coreweave-kubernetes/networking/site-to-site-connections/direct-connections.md).
 * Deploying Telco applications in the Cloud.
 * Other niche networking use cases.
 
 {% hint style="info" %}
 **Additional Resources**
 
-Read more in [our L2VPC documentation](layer-2-vpc-l2vpc/).
+Read more in [our L2VPC documentation](../coreweave-kubernetes/networking/layer-2-vpc-l2vpc/).
 {% endhint %}
 
 ### ****[**HPC Interconnect**](getting-started-with-networking.md#undefined)****

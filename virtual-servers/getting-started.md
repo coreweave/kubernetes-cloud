@@ -16,7 +16,7 @@ description: >-
 * :earth\_americas: Available in all of CoreWeave's [**Data Center Regions**](../docs/data-center-regions.md) for geographic diversity.
 * ****:gear: **Bare-metal performance via GPU PCI pass-through.** No GPU virtualization or shared resources.
 * :minidisc: Available with pre-built [**Linux distributions**](https://docs.coreweave.com/virtual-servers/coreweave-system-images/linux-images)**,** [**Windows versions**](https://docs.coreweave.com/virtual-servers/coreweave-system-images/windows-images)**, or** [**bring your own image**](../docs/virtual-servers/root-disk-lifecycle-management/importing-a-qcow2-image.md)**.** Need additional control? [Use cloud-init for customization at startup.](https://docs.coreweave.com/virtual-servers/coreweave-system-images/linux-images)
-* :floppy\_disk: Leverage **high-performance** [**CoreWeave Cloud Storage**](../docs/coreweave-kubernetes/storage/) for both the Virtual Server root disk and any shared file system volumes to connect to centralized asset storage.
+* :floppy\_disk: Leverage **high-performance** [**CoreWeave Cloud Storage**](../docs/storage/storage.md) for both the Virtual Server root disk and any shared file system volumes to connect to centralized asset storage.
 * :rocket: Up to **100Gbps internal and external networking speed** per instance, for blazing fast data transfers.
 * ****:bulb: **** [**Directly attach public IP addresses**](https://docs.coreweave.com/coreweave-kubernetes/networking) to a Virtual Server network interface, or leverage [Load Balancer IPs](https://docs.coreweave.com/coreweave-kubernetes/networking) to control internal and external service access.
 

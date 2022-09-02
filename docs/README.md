@@ -25,4 +25,4 @@ You access compute using the Cloud UI, Workflows or directly as a Kubernetes nam
 
 ### Everything Else - The team and tools to make you successful :tada:
 
-In addition to GPUs, CoreWeave provides [CPU-only nodes](../coreweave-kubernetes/node-types.md#cpu-availability), [high performance cloud native storage](coreweave-kubernetes/storage/) as well as all the bandwidth you might need to transfer your training data, videos or host massive metaverse experiences. Our team is here to support you, readily available over E-Mail and Slack.
+In addition to GPUs, CoreWeave provides [CPU-only nodes](../coreweave-kubernetes/node-types.md#cpu-availability), [high performance cloud native storage](storage/storage.md) as well as all the bandwidth you might need to transfer your training data, videos or host massive metaverse experiences. Our team is here to support you, readily available over E-Mail and Slack.

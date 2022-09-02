@@ -175,7 +175,7 @@ users:
 
 #### `storage.filesystems[]`
 
-Adding [File System](../../coreweave-kubernetes/storage/#shared-file-system-volumes) mounts to a Virtual Server manifest populates cloud-init metadata for the [mounts module](https://cloudinit.readthedocs.io/en/latest/topics/modules.html#mounts).
+Adding [File System](../../storage/storage.md#shared-file-system-volumes) mounts to a Virtual Server manifest populates cloud-init metadata for the [mounts module](https://cloudinit.readthedocs.io/en/latest/topics/modules.html#mounts).
 
 The resultant metadata generated looks like this:
 

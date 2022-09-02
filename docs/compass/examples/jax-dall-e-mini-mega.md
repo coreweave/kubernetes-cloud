@@ -33,7 +33,7 @@ The following tools must be installed and configured prior to running the exampl
 
 We require two images:
 
-1. **The Downloader image.** This will download the model to a [shared storage volume](../../coreweave-kubernetes/storage/), the individual inference Pods will load the model from this storage instead of downloading it over internet every time they scale up.&#x20;
+1. **The Downloader image.** This will download the model to a [shared storage volume](../../storage/storage.md), the individual inference Pods will load the model from this storage instead of downloading it over internet every time they scale up.&#x20;
 2. **The Model Image.** This is what will run DALL-E Mini/Mega.
 
 {% hint style="warning" %}
