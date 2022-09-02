@@ -20,8 +20,8 @@ A [Service](https://kubernetes.io/docs/concepts/services-networking/service/) is
 
 A [Persistent Volume](https://kubernetes.io/docs/concepts/storage/persistent-volumes/) is allocated to persist user uploaded Notebooks. The allocation is done via a [Persistent Volume Claim](https://github.com/atlantic-crypto/kubernetes-cloud-examples/blob/master/cuda-ssh/sshd-pvc.yaml) requesting the storage size and backing storage type (SSD, HDD). This volule claim is then mounted to the `/tf/notebooks` directory in the Pod definition. Utilizing a persistent volume ensures that files persist even if the node currently running the Pod fails.
 
-{% content-ref url="../storage.md" %}
-[storage.md](../storage.md)
+{% content-ref url="../../docs/coreweave-kubernetes/storage/" %}
+[storage](../../docs/coreweave-kubernetes/storage/)
 {% endcontent-ref %}
 
 ### Getting Started

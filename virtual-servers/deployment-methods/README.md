@@ -49,7 +49,7 @@ The CoreWeave Cloud UI is an easy-to-use Web interface to deploy, visualize, and
 
 ## [Terraform](terraform.md)
 
-****![](<../../docs/.gitbook/assets/image (4) (2).png>)****
+****![](<../../docs/.gitbook/assets/image (4) (2) (1).png>)****
 
 CoreWeave offers [an open source Terraform module](https://github.com/coreweave/kubernetes-cloud/tree/5632d497da5883be07a1535a67cad69b97ea5050/virtual-server/examples/terraform) for deploying Virtual Servers, which can also be customized by extending the module yourself.
 

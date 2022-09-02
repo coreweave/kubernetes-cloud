@@ -28,8 +28,8 @@ A [Service](https://kubernetes.io/docs/concepts/services-networking/service/) is
 
 A [Persistent Volume](https://kubernetes.io/docs/concepts/storage/persistent-volumes/) is allocated to the Pods root directories. The allocation is done via a [Persistent Volume Claim](https://github.com/atlantic-crypto/kubernetes-cloud-examples/blob/master/cuda-ssh/sshd-pvc.yaml) requesting a 200GB storage size and SSD backing. This volule claim is then mounted to the the different root directories in the Deployment definition. A separate, HDD backed 500GB Volume Claim is mounted under `/mnt/data` for data storage. Utilizing a persistent volume ensures that files persist even if the node currently running the Pod fails.
 
-{% content-ref url="../../../../coreweave-kubernetes/storage.md" %}
-[storage.md](../../../../coreweave-kubernetes/storage.md)
+{% content-ref url="../../storage/" %}
+[storage](../../storage/)
 {% endcontent-ref %}
 
 ### Getting Started

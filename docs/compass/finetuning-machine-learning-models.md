@@ -14,7 +14,7 @@ The reference example utilizes GPT-type transformer models with the [Hugging Fac
 This reference example is not intended to be a production application; rather, it is a guide on how to utilize CoreWeave resources to set up a pipeline.
 {% endhint %}
 
-The base model being trained on can be provided directly in a [PVC (PersistentVolumeClaim)](../../coreweave-kubernetes/storage.md), or in a model identifier from [Hugging Face's model repository](https://huggingface.co/models). The dataset trained upon needs to be in the same PVC, and in pure text format.
+The base model being trained on can be provided directly in a [PVC (PersistentVolumeClaim)](../coreweave-kubernetes/storage/), or in a model identifier from [Hugging Face's model repository](https://huggingface.co/models). The dataset trained upon needs to be in the same PVC, and in pure text format.
 
 {% hint style="info" %}
 **Note**
@@ -56,7 +56,7 @@ The following Kubernetes-based components are required:
 
 ![Argo Workflows](<../../.gitbook/assets/image (91).png>)
 
-* [PVC](../../coreweave-kubernetes/storage.md)
+* [PVC](../coreweave-kubernetes/storage/)
   * Create a `ReadWriteMany` PVC storage volume from the [Storage](https://cloud.coreweave.com/storage) menu.
   * `1TB` to `2TB` is the recommended size for the volume, as the model checkpoints take up a lot of space! These PVCs can be shared between multiple finetune runs. We recommend using HDD type storage, as the finetuner does not require high random I/O performance.
 

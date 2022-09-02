@@ -30,7 +30,7 @@ Reach out to [sales@coreweave.com](mailto:sales@coreweave.com) today to reserve 
 
 ### View and Manage Storage Volumes :floppy\_disk:
 
-Managing cloud native storage has never been easier. **CoreWeave Cloud now provides an easy to use UI to manage your** [**Storage Volumes**](https://cloud.coreweave.com/storage). Expand and clone your volumes with the click of a button. [Learn more about CoreWeave Cloud Storage.](../coreweave-kubernetes/storage.md)
+Managing cloud native storage has never been easier. **CoreWeave Cloud now provides an easy to use UI to manage your** [**Storage Volumes**](https://cloud.coreweave.com/storage). Expand and clone your volumes with the click of a button. [Learn more about CoreWeave Cloud Storage.](coreweave-kubernetes/storage/)
 
 ### Organization Management :people\_with\_bunny\_ears\_partying:
 
