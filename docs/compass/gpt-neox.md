@@ -128,7 +128,7 @@ As shown above, for this tutorial we are attaching the `finetune-gpt-neox` volum
 
 After deploying the DeterminedAI application, a URL to the Web UI will be provided to you. You can use this UI to monitor experiments and check logs.
 
-![The DeterminedAI Web UI](<../.gitbook/assets/image (17).png>)
+![The DeterminedAI Web UI](<../.gitbook/assets/image (17) (1).png>)
 
 As an example, here is what a live experiment looks like when viewed from the Web UI:
 
