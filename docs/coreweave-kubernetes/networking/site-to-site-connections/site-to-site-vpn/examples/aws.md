@@ -146,7 +146,7 @@ Once the AWS VPC has been created and the VPN connection has been configured, a 
 
 To do this, configure the routing tables found under **Virtual private cloud -> Route tables**.
 
-![Route tables option menu under the virtual private cloud menu.](<../../../../../.gitbook/assets/image (13) (1) (1) (1).png>)
+![Route tables option menu under the virtual private cloud menu.](<../../../../../.gitbook/assets/image (13) (1) (1) (1) (1).png>)
 
 Click the **route table ID** to open the configuration options for that table, and click the grey **Edit routes** button in the upper-right hand corner of the lower menu.
 

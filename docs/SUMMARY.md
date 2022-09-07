@@ -94,6 +94,7 @@
   * [PyTorch Hugging Face Diffusers - Stable Diffusion Text to Image](compass/examples/pytorch-hugging-face-diffusers-stable-diffusion-text-to-image.md)
   * [PyTorch Hugging Face Transformers - BigScience BLOOM](compass/examples/pytorch-hugging-face-transformers-bigscience-bloom.md)
   * [JAX - DALL-E Mini / Mega](compass/examples/jax-dall-e-mini-mega.md)
+  * [Triton Inference Server - FasterTransformer GPT-J](compass/examples/triton-inference-server-fastertransformer.md)
   * [TensorFlow - Open AI GPT-2](../compass/examples/gpt-2/README.md)
     * [Transformer](../compass/examples/gpt-2/transformer.md)
     * [Exporting with Jupyter](../compass/examples/gpt-2/jupyter-pvc.md)
@@ -103,7 +104,6 @@
   * [PyTorch - GPT-2 AITextgen](../compass/examples/custom-pytorch-aitextgen.md)
   * [PyTorch - FastAI Sentiment](../compass/examples/custom-sentiment.md)
   * [Custom - BASNET](../compass/examples/custom-basnet.md)
-  * [Triton Inference Server - FasterTransformer](compass/examples/triton-inference-server-fastertransformer.md)
 * [Finetuning Machine Learning Models](compass/finetuning-machine-learning-models.md)
 * [Finetuning GPT-NeoX 20B using DeterminedAI](compass/gpt-neox.md)
 

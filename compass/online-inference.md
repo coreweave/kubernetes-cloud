@@ -8,6 +8,8 @@ CoreWeave Cloud allows for easy serving of machine learning models. The models c
 
 Well supported Open Source tools back the inference stack. [Knative Serving](https://knative.dev/docs/serving/) acts as the serverless runtime, managing auto scaling, revision control and canary deployments. [KServe](https://www.kubeflow.org/docs/components/serving/kfserving/) provides an easy to use interface, via Kubernetes resource definitions to deploy models without having to worry about correctly configuring the underlying framework (ie. Tensorflow). The examples in our documentation are tailored specifically for common use cases, and there are many more examples in the [KServe repostiory](https://github.com/kubeflow/kfserving/tree/master/docs/samples) that can be used directly in your namespace.
 
+An extensive set of step by step guides are provided in the [Examples](examples/) section to show deployment of popular models such as GPT-J and Stable Diffusion.
+
 ## Autoscaling
 
 Autoscaling is enabled by default for all Inference Services. The autoscaling parameters have been pre-configured for GPU based workloads, where a large dataset usually needs to be loaded into GPU VRAM before serving can begin. Autoscaling is enabled any time `minReplicas` differ from `maxReplicas` in the `InferenceService` spec.

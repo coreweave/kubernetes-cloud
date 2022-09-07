@@ -8,7 +8,7 @@ Workflows on CoreWeave Cloud run on [Argo Workflows](https://argoproj.github.io/
 
 After logging into [CoreWeave Cloud](https://cloud.coreweave.com), go to the CoreWeave application **Catalog**.
 
-![The Catalog link on the Cloud UI](<../docs/.gitbook/assets/image (17) (2) (1) (2).png>)
+![The Catalog link on the Cloud UI](<../docs/.gitbook/assets/image (17) (2) (1) (1).png>)
 
 A new window will open onto the CoreWeave application Catalog, where you can browse all available applications. In the search field, type **argo-workflows**. Then, select the **argo-workflows** application once it appears.
 
@@ -28,7 +28,7 @@ The following deployment form will prompt you to enter a name for the applicatio
 [See the **Security** section below for more information](argo.md#security).
 {% endhint %}
 
-![The Argo Workflows configuration screen](<../docs/.gitbook/assets/image (1) (3) (1) (2).png>)
+![The Argo Workflows configuration screen](<../docs/.gitbook/assets/image (1) (3) (1) (3).png>)
 
 After a few minutes, the deployment will be ready. If you selected `Expose UI via public Ingress`, Argo Workflows will be accessible outside the cluster.
 

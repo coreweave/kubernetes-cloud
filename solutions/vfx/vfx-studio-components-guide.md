@@ -72,7 +72,7 @@ Select the mount, press ok, and enter credentials.
 
 To expose the same storage over NFS you can deploy the NFS application in the catalogue. The process is very similar to deploying samba, ensure that you deploy the application in the same region as the storage you created. One major difference between this deployment and those available with Samba is that our one-click NFS solution does not include any authentication, for that consider integrating with active directory directly or use network policies to ensure access to the NFS service is only accessible to the correct endpoints.
 
-![](../../docs/.gitbook/assets/nfs\_mount.jpg) ![Post Deployment. Note: Not ready state](<../../docs/.gitbook/assets/Screenshot 2021-10-18 170019 (1) (1).jpg>) ![Deployment is ready](<../../docs/.gitbook/assets/Screenshot 2021-10-18 170312.jpg>)
+![](../../docs/.gitbook/assets/nfs\_mount.jpg) ![Post Deployment. Note: Not ready state](<../../docs/.gitbook/assets/Screenshot 2021-10-18 170019 (1).jpg>) ![Deployment is ready](<../../docs/.gitbook/assets/Screenshot 2021-10-18 170312.jpg>)
 
 ![Updated Landing Page!](<../../docs/.gitbook/assets/Screenshot 2021-10-18 170110.jpg>)
 
@@ -92,7 +92,7 @@ _**Important**_\*\* after your first login you must change the password of your 
 
 The first step is to gather your Media Shuttle registration key.
 
-![](<../../docs/.gitbook/assets/image (145) (1).png>)
+![](<../../docs/.gitbook/assets/image (145).png>)
 
 Press "Add" (above) and the checkbox (below). Then copy the registration key.
 
