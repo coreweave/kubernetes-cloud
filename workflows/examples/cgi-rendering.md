@@ -79,13 +79,13 @@ It is **strongly recommended** to change the default login credentials for FileB
 
 In the **Access URLs** box on the status page, you will find an Ingress URL (such as `https://filebrowser-name.tenant-sta-coreweave-clientname.ord1.ingress.coreweave.cloud/`). This Ingress URL may be used to access the FileBrowser application in a browser.
 
-![The FileBrowser login screen](<../../.gitbook/assets/image (3) (1) (1) (1).png>)
+![The FileBrowser login screen](<../../docs/.gitbook/assets/image (3) (1) (1) (1) (1).png>)
 
 #### **Rendering example**
 
 For this example, we want to render something that quickly in order to showcase the power of CoreWeave Cloud, so we're going to take one of the typical Blender benchmarks, [BMW\_27](https://download.blender.org/demo/test/BMW27\_2.blend.zip), and upload the unpacked file `bmw27_gpu.blend` to our root path in the FileBrowser application.
 
-![The FileBrowser UI, displaying the uploaded bmw27\_gpu.blend file](<../../.gitbook/assets/image (2) (1) (1).png>)
+![The FileBrowser UI, displaying the uploaded bmw27\_gpu.blend file](<../../.gitbook/assets/image (2) (1).png>)
 
 ### Create the render workflow
 
@@ -295,6 +295,6 @@ STEP                                                   PODNAME                  
 
 This output shows the status of the 10 frames you've specified being rendered on 10 different GPU instances with `4x NV_Pascal GPUs` each. You can now browse to your FileBrowser site via the Ingress URL provided in the application status page, where you should see a new folder named `outputs` with a sub-directory - in this example named `bmw27_gpu`. This directory should now contain the 10 newly rendered frames!
 
-![](<../../.gitbook/assets/image (1) (1).png>)
+![](<../../.gitbook/assets/image (1).png>)
 
 With just some small changes to the Argo workflow we just built and used, you can now run your Blender GPU rendering on thousands of GPUs simultaneously!

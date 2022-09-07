@@ -22,7 +22,7 @@ FasterTransformer provides up to 40% faster GPT-J inference over a vanilla Huggi
 
 #### View the example code on GitHub:
 
-\[Insert Link once Merged]
+{% embed url="https://github.com/coreweave/kubernetes-cloud/tree/master/online-inference/fastertransformer" %}
 
 ## Pre-requisites
 

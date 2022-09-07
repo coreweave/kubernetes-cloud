@@ -21,7 +21,7 @@ You can connect to Prometheus from your own Grafana instance. A Grafana instance
 * Set the second value (**Value**) to `Bearer <TOKEN>` replace "\<TOKEN>" with your Access Token.
 * Click "**Save & Test**" button to verify and save the new Datasource.
 
-![](../../.gitbook/assets/cw-grafana-ds.png)
+![](../../docs/.gitbook/assets/cw-grafana-ds.png)
 
 You can now choose the new `CoreWeave` Datasource in a dashboard to visualize Prometheus metrics hosted on CoreWeave.&#x20;
 
