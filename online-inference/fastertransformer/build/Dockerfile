@@ -26,9 +26,10 @@ RUN export this_distro="$(cat /etc/os-release | grep '^ID=' | awk -F'=' '{print 
 # Run updates and install packages for build
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-    zip unzip wget build-essential autoconf autogen gdb \
     openssh-server zsh tmux mosh locales-all clangd sudo \
-    python3.8 python3-pip python3-dev rapidjson-dev && \
+    zip unzip wget build-essential autoconf autogen gdb \ 
+    python3.8 python3-pip python3-dev rapidjson-dev \
+    xz-utils zstd libz-dev && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -53,8 +54,6 @@ RUN git clone https://github.com/triton-inference-server/fastertransformer_backe
 RUN mv /workspace/build/triton-experiments/fastertransformer_backend/cmake /workspace/build/triton-experiments
 RUN mv /workspace/build/triton-experiments/fastertransformer_backend/src /workspace/build/triton-experiments
 RUN mv /workspace/build/triton-experiments/fastertransformer_backend/CMakeLists.txt /workspace/build/triton-experiments
-
-ADD model_configs model_configs
 
 ARG FORCE_BACKEND_REBUILD=0
 RUN mkdir build -p && \

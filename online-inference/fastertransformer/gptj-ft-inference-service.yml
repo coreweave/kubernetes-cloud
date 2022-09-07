@@ -11,7 +11,7 @@ spec:
     containerConcurrency: 1
     containers:
     - name: gptj-6b-1-gpu-rtx-a5000
-      image: rtalaricw/gptj_ft:22.05
+      image: rtalaricw/gptj_ft:v1.2
       command: ["/opt/tritonserver/bin/tritonserver"]
       args: ["--model-repository=/mnt/pvc/triton-model-store"]
       env:

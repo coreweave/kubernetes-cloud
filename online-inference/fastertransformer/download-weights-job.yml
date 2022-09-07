@@ -61,6 +61,11 @@ spec:
           backend: "fastertransformer"
           default_model_filename: "gpt-j-6b"
           max_batch_size: 1024
+          
+          model_transaction_policy {
+            decoupled: False
+          }
+
           input [
             {
               name: "input_ids"
@@ -154,6 +159,14 @@ spec:
               optional: true
             }
           ]
+
+          instance_group [
+            {
+              count: 1
+              kind: KIND_CPU
+            }
+          ]
+
           output [
             {
               name: "output_ids"
