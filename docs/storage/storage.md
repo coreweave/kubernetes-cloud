@@ -88,11 +88,11 @@ From the upper right-hand corner, click the **New Volume** button. This will lau
 
 
 
-![The New Volume button](<../.gitbook/assets/image (3).png>)
+![The New Volume button](<../.gitbook/assets/image (16).png>)
 
 
 
-![The volume configuration modal](<../../.gitbook/assets/image (62).png>)
+![The volume configuration modal](<../.gitbook/assets/image (53) (1).png>)
 
 On this modal, configure your desired Volume settings. Finally, click **Create** to deploy the storage volume.
 {% endtab %}

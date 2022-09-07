@@ -27,6 +27,7 @@ The following tools must be installed and configured prior to running the exampl
 * A CoreWeave Cloud account ([with Kubectl configured to use your CoreWeave kubeconfig](https://docs.coreweave.com/coreweave-kubernetes/getting-started#obtain-access-credentials))
 * A [Docker Hub](https://hub.docker.com/) account
 * A [HuggingFace](https://huggingface.co/) account with an [API Token](https://huggingface.co/settings/tokens)
+* Register to use the model by clicking `Access Repository` [here](https://huggingface.co/CompVis/stable-diffusion-v1-4)
 
 ## Procedure
 
@@ -86,9 +87,17 @@ To create a PVC in which to store the model, run the following command from the 
 $ kubectl apply -f 00-model-pvc.yaml
 ```
 
+#### Model Repository Registration
+
+Due to the generative power of this model, it is necessary to register your contact information via HuggingFace before the model can be used.
+
+While logged in, [visit the HuggingFace Model Repository page](https://huggingface.co/CompVis/stable-diffusion-v1-4), review the terms, and click the `Access Repository` button at the bottom of the page.
+
+<figure><img src="../../.gitbook/assets/2022-09-07-145024_934x814_scrot.png" alt=""><figcaption><p>Stable Diffusion HuggingFace repository registration</p></figcaption></figure>
+
 #### Secret
 
-If you have not already done so, create a [HuggingFace](https://huggingface.co/) account and [API Token.](https://huggingface.co/settings/tokens)
+If you have not already done so, create a [HuggingFace](https://huggingface.co/) account and [API Token.](https://huggingface.co/settings/tokens)&#x20;
 
 Once you have a token, copy and Base64 encode it:
 
