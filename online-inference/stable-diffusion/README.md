@@ -1,5 +1,5 @@
 # Stable Diffusion
-Please refer to [CoreWeave Docs](https://docs.coreweave.com/compass/examples/pytorch-stable-diffusion-text-to-image) for a deployment tutorial. 
+Please refer to [CoreWeave Docs](https://docs.coreweave.com/compass/examples/pytorch-hugging-face-diffusers-stable-diffusion-text-to-image) for a deployment tutorial. 
 
 ## Example:
 ![stable diffusion, digital art, trending, HD](stable-diffusion.png)

@@ -113,14 +113,15 @@ class Model(kserve.Model):
             generator = torch.Generator("cuda").manual_seed(request_parameters["SEED"])
 
         logger.debug(f"Generating image")
-        image = self.pipeline(
-            request["prompt"],
-            height=request_parameters["HEIGHT"],
-            width=request_parameters["WIDTH"],
-            guidance_scale=request_parameters["GUIDANCE_SCALE"],
-            num_inference_steps=request_parameters["NUM_INFERENCE_STEPS"],
-            generator=generator,
-        )["sample"][0]
+        with autocast("cuda"):
+            image = self.pipeline(
+                request["prompt"],
+                height=request_parameters["HEIGHT"],
+                width=request_parameters["WIDTH"],
+                guidance_scale=request_parameters["GUIDANCE_SCALE"],
+                num_inference_steps=request_parameters["NUM_INFERENCE_STEPS"],
+                generator=generator,
+            )["sample"][0]
         logger.debug(f"Image generated")
 
         image_file = BytesIO()
