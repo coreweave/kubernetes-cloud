@@ -4,7 +4,7 @@
 
 [Sign up for CoreWeave Cloud](https://cloud.coreweave.com/request-account) and generate a `kubeconfig` from the [API Access ](https://cloud.coreweave.com/api-access)page. Every time an Access Token is generated, by default the corresponding `kubeconfig` will automatically download. This `kubeconfig` file allows you to interact with our Kubernetes cluster using kubectl and other Kubernetes applications.
 
-![](../docs/.gitbook/assets/cw-access-token.png)
+![](../.gitbook/assets/cw-access-token.png)
 
 On CoreWeave's Access Token page click "Generate your first token" (or "Generate another token" if you have already generated a kubeconfig) and optionally give the token a recognizable name. Once you create it, a new kubeconfig will be generated that embeds the access token. By \_\_ default your corresponding kubeconfig will automatically download. The browser might ask where to save the file `cw-kubeconfig`.
 

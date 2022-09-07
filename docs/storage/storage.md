@@ -80,7 +80,7 @@ To access it, first log in to your CoreWeave Cloud account. Then, from the left-
 
 
 
-![The storage volumes link on the left-hand menu of the Cloud UI](<../.gitbook/assets/image (1).png>)
+![The storage volumes link on the left-hand menu of the Cloud UI](<../.gitbook/assets/image (1) (4).png>)
 
 
 
@@ -88,11 +88,11 @@ From the upper right-hand corner, click the **New Volume** button. This will lau
 
 
 
-![The New Volume button](<../.gitbook/assets/image (16).png>)
+![The New Volume button](<../.gitbook/assets/image (3) (1).png>)
 
 
 
-![The volume configuration modal](<../.gitbook/assets/image (53) (1).png>)
+![The volume configuration modal](<../../.gitbook/assets/image (62).png>)
 
 On this modal, configure your desired Volume settings. Finally, click **Create** to deploy the storage volume.
 {% endtab %}
@@ -184,7 +184,7 @@ Filesystem attachments are specified under the **Attach Filesystems** menu while
 
 **Example**
 
-![The Attach Filesystems menu during Virtual Server creation](../.gitbook/assets/image.png)
+![The Attach Filesystems menu during Virtual Server creation](<../.gitbook/assets/image (2).png>)
 
 ****
 
@@ -342,7 +342,7 @@ From the Storage Volumes page in the Cloud UI, click the pencil associated with 
 
 
 
-![The storage volume list, featuring the pencil icon to the right](<../.gitbook/assets/image (2).png>)
+![The storage volume list, featuring the pencil icon to the right](<../.gitbook/assets/image (2) (5).png>)
 
 
 
