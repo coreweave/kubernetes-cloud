@@ -1,6 +1,8 @@
-# Object Storage
+---
+description: Learn about CoreWeave's S3 compatible Object Storage
+---
 
-## Object Storage
+# Object Storage
 
 Object storage allows unstructured data to be stored and referenced via metadata associated with the data.
 
@@ -42,35 +44,59 @@ Configuration file paths may also be passed to `s3cmd` using the `-config=` opti
 
 **Example config file**
 
-```
+```ini
 [default]
 access_key = 1K3R1P9903MEDQHZ71122
 secret_key = fdsoie9FmSoXX2kOf6Ud0OFCQGw9323455sdfdssdae
 
-host_base = s3.lga1.coreweave.com
-host_bucket = s3.lga1.coreweave.com
+host_base = object.lga1.coreweave.com
+host_bucket = object.lga1.coreweave.com
 
 # remove this if you configured SSL
 check_ssl_certificate = True
 check_ssl_hostname = True
 ```
 
-**Example `s3cmd` usage:**
+**Example `s3cmd` usage**
 
-```
+```bash
 $ s3cmd mb s3://my-new-bucket
 $ s3cmd put my-file.txt s3://my-new-bucket
 $ s3cmd --config=my-cfg-file mb s3://my-new-bucket
 $ s3cmd get s3://my-new-bucket/my-file.txt
 ```
 
-Users can use any regional object storage endpoint and create and use buckets as they wish, but each region comes with its own quota limit. The default quota limit is 1TB of data per region.
+Users can use any regional object storage endpoint and create and use buckets as they wish, but each region comes with its own quota limit. The default quota limit is 30TB of data per region.
 
 {% hint style="info" %}
 **Note**
 
 Should you require an increase in your quota limit, [please contact support](https://cloud.coreweave.com/contact).&#x20;
 {% endhint %}
+
+### Server Side Encryption
+
+**Server Side Encryption is implemented according to** [**AWS SSE-C standards**](https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html)**.**
+
+CoreWeave supports Server Side Encryption via customer-provided encryption keys. The client passes an encryption key along with each request to read or write encrypted data.
+
+No modifications to your bucket need to be made to enable Server Side Encryption (SSE-C) - simply specify the required encryption headers in your requests.&#x20;
+
+{% hint style="warning" %}
+**Important**
+
+It is the client’s responsibility to manage all keys, and to remember which key is used to encrypt each object.
+{% endhint %}
+
+### Specifying Server Side Encryption with customer-provided keys (SSE-C) <a href="#specifying-s3-c-encryption" id="specifying-s3-c-encryption"></a>
+
+The following headers are utilized to specify SSE-C customizations.
+
+| Name                                              | Description                                                                                                                                                                                                                                                                             |
+| ------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `x-amz-server-side-encryption-customer-algorithm` | Use this header to specify the encryption algorithm. The header value must be `AES256`.                                                                                                                                                                                                 |
+| `x-amz-server-side​-encryption​-customer-key`     | Use this header to provide the 256-bit, base64-encoded encryption key to encrypt or decrypt your data.                                                                                                                                                                                  |
+| `x-amz-server-side​-encryption​-customer-key-MD5` | Use this header to provide the base64-encoded, 128-bit MD5 digest of the encryption key according to [RFC 1321](http://tools.ietf.org/html/rfc1321). This header is used for a message integrity check to ensure that the encryption key was transmitted without error or interference. |
 
 ## Object Storage Pricing
 
