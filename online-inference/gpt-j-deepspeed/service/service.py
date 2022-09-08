@@ -1,4 +1,6 @@
 from typing import Dict
+import accelerate
+import argparse
 import logging
 import os
 import re
@@ -13,30 +15,48 @@ import torch
 
 model_name_origin = os.getenv("MODEL_NAME", "EleutherAI/gpt-j-6B")
 
+parser = argparse.ArgumentParser()
+parser.add_argument("--model-id", type=str, default="EleutherAI/gpt-j-6B")
+parser.add_argument("--model-cache", type=str, default="/mnt/models")
+parser.add_argument("--model-precision", type=str, default="float16")
+parser.add_argument("--model-type", type=str, default="text-generation")
+parser.add_argument("--model-device", type=int, default=0)
+parser.add_argument("--model-config", type=str, default="")
+parser.add_argument("--min-length", type=int, default=1)
+parser.add_argument("--max-length", type=int, default=1024)
+parser.add_argument("--temperature", type=float, default=1.0)
+parser.add_argument("--top-k", type=int, default=50)
+parser.add_argument("--top-p", type=float, default=0.9)
+parser.add_argument("--repetition-penalty", type=float, default=1.0)
+parser.add_argument("--benchmark-sequence-length", type=int, default=8)
+args = parser.parse_args()
+
 options = {
     "SERVER_NUM_WORKERS": int(os.getenv("SERVER_NUM_WORKERS", 1)),
     "SERVER_PORT": int(os.getenv("SERVER_PORT", 8080)),
-    "MODEL_PATH": os.getenv("MODEL_PATH", "/model-cache/"),
-    "MODEL_NAME": re.sub(r"[^\w-]", "-", model_name_origin).lower(),
-    "MODEL_TYPE": os.getenv("MODEL_TYPE", "text-generation"),
-    "MODEL_PRECISION": os.getenv("MODEL_PRECISION", "fp16").lower(),
-    "MODEL_DEVICE": int(os.getenv("MODEL_DEVICE", 0)),
-    "MODEL_CONFIG": os.getenv("MODEL_CONFIG", ""),
-    "BENCHMARK_WARMUP_ROUNDS": int(os.getenv("BENCHMARK_WARMUP_ROUNDS", 0)),
-    "BENCHMARK_SEQUENCE_ROUNDS": int(os.getenv("BENCHMARK_SEQUENCE_ROUNDS", 10)),
-    "BENCHMARK_BATCH_SIZE": int(os.getenv("BENCHMARK", 0)),
+    "MODEL_ID": os.getenv("MODEL_NAME", args.model_id),
+    "MODEL_CACHE": os.getenv("MODEL_CACHE", args.model_cache),
+    "MODEL_PATH": os.path.join(args.model_cache, args.model_id),
+    "MODEL_PRECISION": os.getenv("MODEL_PRECISION", args.model_precision).lower(),
+    "MODEL_TYPE": os.getenv("MODEL_TYPE", args.model_type),
+    "MODEL_NAME": re.sub(r"[^\w-]", "-", args.model_id).lower(),
+    "MODEL_DEVICE": int(os.getenv("MODEL_DEVICE", args.model_device)),
+    "MODEL_CONFIG": os.getenv("MODEL_CONFIG", args.model_config),
     "MODEL_DOWNLOAD_TIMEOUT": int(os.getenv("MODEL_DOWNLOAD_TIMEOUT", 300)),
 }
 
-options["MODEL_PATH"] = os.path.join(options["MODEL_PATH"], model_name_origin)
-
 model_params = {
-    "MIN_LENGTH": int(os.getenv("MIN_LENGTH", 1)),
-    "MAX_LENGTH": int(os.getenv("MAX_LENGTH", -1)),
-    "TEMPERATURE": float(os.getenv("TEMPERATURE", -1)),
-    "TOP_K": int(os.getenv("TOP_K", -1)),
-    "TOP_P": float(os.getenv("TOP_P", -1)),
-    "REPETITION_PENALTY": float(os.getenv("REPETITION_PENALTY", 1.125)),
+    "MIN_LENGTH": int(os.getenv("MIN_LENGTH", args.min_length)),
+    "MAX_LENGTH": int(os.getenv("MAX_LENGTH", args.max_length)),
+    "TEMPERATURE": float(os.getenv("TEMPERATURE", args.temperature)),
+    "TOP_K": int(os.getenv("TOP_K", args.top_k)),
+    "TOP_P": float(os.getenv("TOP_P", args.top_p)),
+    "REPETITION_PENALTY": float(
+        os.getenv("REPETITION_PENALTY", args.repetition_penalty)
+    ),
+    "BENCHMARK_SEQUENCE_LENGTH": os.getenv(
+        "BENCHMARK_SEQUENCE_LENGTH", args.benchmark_sequence_length
+    ),
 }
 
 logging.basicConfig(level=kserve.constants.KSERVE_LOGLEVEL)
@@ -55,7 +75,7 @@ class Model(kserve.Model):
         self.tokenizer = None
         self.model = None
         self.generator = None
-        self.wiki_corpus = None
+        self.dataset = None
 
     def load_config(self):
         logger.info(f'Loading config from {options["MODEL_PATH"]} ...')
@@ -88,7 +108,7 @@ class Model(kserve.Model):
         if options["MODEL_PRECISION"] == "bfloat16":
             self.model.bfloat16().eval().cuda()
             logger.info("Model uses bfloat16.")
-        if options["MODEL_PRECISION"] == "fp16":
+        if options["MODEL_PRECISION"] == "float16":
             logger.info("Model uses mixed precision (FP16).")
             self.model.half().eval().cuda()
         else:
@@ -130,6 +150,7 @@ class Model(kserve.Model):
             options["MODEL_PATH"],
             config=self.config,
             torch_dtype=torch.float16,
+            low_cpu_mem_usage=True,
             local_files_only=True,
         )
         self.optimize()
@@ -159,7 +180,7 @@ class Model(kserve.Model):
         )
         self.ready = True
 
-    def predict(self, request: Dict) -> Dict:
+    def configure_request(self, request):
         request_params = model_params.copy()
 
         if "parameters" in request:
@@ -172,9 +193,21 @@ class Model(kserve.Model):
                     )
                     request_params[pk] = pv
 
+        if "benchmark" in request:
+            request_params["BENCHMARK"] = True
+            request_params["MIN_LENGTH"] = request_params["MAX_LENGTH"]
+        else:
+            request_params["BENCHMARK"] = False
+
+        if "instances" in request:
+            request_params["INSTANCES"] = request["instances"]
+
+        return request_params
+
+    def _predict(self, request_params):
         return {
             "predictions": self.generator(
-                request["instances"],
+                request_params["INSTANCES"][0],
                 do_sample=False,
                 min_length=request_params["MIN_LENGTH"],
                 max_length=request_params["MAX_LENGTH"],
@@ -182,82 +215,58 @@ class Model(kserve.Model):
                 top_k=request_params["TOP_K"],
                 top_p=request_params["TOP_P"],
                 repetition_penalty=request_params["REPETITION_PENALTY"],
+                pad_token_id=self.tokenizer.eos_token_id,
             )
         }
 
-    def warmup(self):
-        logger.info(f'Warmup model {options["MODEL_NAME"]}')
-        logger.info(
-            f'Device {options["MODEL_DEVICE"]}:{torch.cuda.get_device_name(options["MODEL_DEVICE"])}'
-        )
-        for i in range(1, options["BENCHMARK_WARMUP_ROUNDS"]):
-            seq_len = random.randrange(128, 1920)
-            self.wiki_corpus.reset()
-            text = self.wiki_corpus.get(seq_len)
-            input_ids = (
-                self.tokenizer(text, return_tensors="pt").input_ids.long().cuda()
-            )
-            min_len = seq_len + 40
-            max_len = random.randrange(min_len, 2048)
-            self.model.generate(
-                input_ids,
-                do_sample=True,
-                min_length=min_len,
-                max_length=max_len,
-                pad_token_id=self.tokenizer.eos_token_id,
-            )
-            logger.info("Warming up ...")
-        logger.info(f"Warmup done")
+    def predict(self, request: Dict) -> Dict:
+        request_params = self.configure_request(request)
+        if request_params["BENCHMARK"] is True:
+            return self.benchmark(request_params)
+        else:
+            return self._predict(request_params)
 
-    def benchmark(self):
-        self.wiki_corpus = WikiCorpus("wiki_corpus.txt")
-        self.wiki_corpus.load()
-        self.wiki_corpus.sort()
+    def load_dataset(self):
+        data = open("the-time-machine.txt", "r").read()
+        tokens = self.tokenizer.encode(data)
+        sequence_start = random.randrange(len(tokens) - 2048)
+        sequence_end = sequence_start + 2048
+        return tokens[sequence_start:sequence_end]
 
-        if options["BENCHMARK_WARMUP_ROUNDS"] > 0:
-            self.warmup()
+    def benchmark(self, request_params):
+        if self.dataset is None:
+            self.dataset = self.load_dataset()
 
-        benchmark_start_time = time.perf_counter()
-        logger.info(f'Benchmarking model {options["MODEL_NAME"]}')
-        logger.info(
-            f'Device {options["MODEL_DEVICE"]}:{torch.cuda.get_device_name(options["MODEL_DEVICE"])}'
+        assert (
+            request_params["BENCHMARK_SEQUENCE_LENGTH"] < request_params["MAX_LENGTH"]
         )
-        logger.info(
-            "{:<10} {:<10} {:<10} {:<10}".format(
-                "Batch size", "Seq len", "Max len", "time"
-            )
+
+        sequence_start = random.randrange(
+            len(self.dataset) - request_params["BENCHMARK_SEQUENCE_LENGTH"]
         )
-        max_batch_size = options["BENCHMARK_BATCH_SIZE"]
-        for batch_size in range(1, max_batch_size + 1):
-            self.wiki_corpus.reset()
-            for seq_len in range(128, 2049, 128):
-                text = self.wiki_corpus.get(seq_len)
-                input_ids = (
-                    self.tokenizer(text, return_tensors="pt").input_ids.long().cuda()
-                )
-                max_length = min(2049, seq_len + 40)
-                benchmark_time = 0
-                for i in range(options["BENCHMARK_SEQUENCE_ROUNDS"]):
-                    current_time = time.perf_counter()
-                    self.model.generate(
-                        input_ids,
-                        do_sample=True,
-                        min_length=max_length,
-                        max_length=max_length,
-                        pad_token_id=self.tokenizer.eos_token_id,
-                    )
-                    benchmark_time += time.perf_counter() - current_time
-                logger.info(
-                    "{:>10} {:<10} {:<10} {:<10}".format(
-                        batch_size,
-                        seq_len,
-                        max_length,
-                        round(benchmark_time / options["BENCHMARK_SEQUENCE_ROUNDS"], 2),
-                    )
-                )
+        sequence_end = sequence_start + request_params["BENCHMARK_SEQUENCE_LENGTH"]
+        random_sequence_encoded = self.dataset[sequence_start:sequence_end]
+        random_sequence = self.tokenizer.decode(random_sequence_encoded)
+
+        request_params["INSTANCES"] = [random_sequence]
+
+        start = time.time()
+        predicitions = self._predict(request_params)
+        end = time.time()
+        generation_time = end - start
+
         logger.info(
-            f"Total benchmark time {round(time.perf_counter() - benchmark_start_time, 2)}s"
+            f'Tokens In: {request_params["BENCHMARK_SEQUENCE_LENGTH"]}, New Tokens: {request_params["MAX_LENGTH"]- request_params["BENCHMARK_SEQUENCE_LENGTH"]}, Generation Time: {generation_time}'
         )
+
+        return {
+            "benchmark_results": {
+                "input_sequence_length": request_params["BENCHMARK_SEQUENCE_LENGTH"],
+                "generated_tokens": request_params["MAX_LENGTH"]
+                - request_params["BENCHMARK_SEQUENCE_LENGTH"],
+                "time": generation_time,
+            }
+        }
 
     @staticmethod
     def is_ready():

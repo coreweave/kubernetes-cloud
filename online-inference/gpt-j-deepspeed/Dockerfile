@@ -1,8 +1,7 @@
-#FROM pytorch/pytorch:1.9.0-cuda11.1-cudnn8-runtime AS base
 ARG CUDA_RELEASE=11.6.2-cudnn8-devel-ubuntu20.04
 FROM nvidia/cuda:${CUDA_RELEASE} 
 ENV DEBIAN_FRONTEND=noninteractive
-ADD model/ /app
+ADD service/ /app
 WORKDIR /app
 RUN apt update && apt upgrade -y && \
     apt update && apt install -y curl git wget zip python3 python3-pip libopenmpi-dev && \
