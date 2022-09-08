@@ -71,7 +71,8 @@ spec:
           PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
           sed -i 's/growpart,\ always/growpart,\ once-per-instance/g' /etc/cloud/cloud.cfg
           sed -i 's/resizefs,\ always/resizefs,\ once-per-instance/g' /etc/cloud/cloud.cfg
-          rm /etc/cloud/cloud-init.disabled
+          rm -rf /var/lib/cloud/instances/*/scripts/runcmd
+          rm -f /etc/cloud/cloud-init.disabled
    
           sgdisk -e /dev/vda
           partprobe /dev/vda
@@ -247,7 +248,8 @@ Cloud-init is re-enabled for subsequent reboots, after disabling the `growpart` 
 ```bash
 sed -i 's/growpart,\ always/growpart,\ once-per-instance/g' /etc/cloud/cloud.cfg
 sed -i 's/resizefs,\ always/resizefs,\ once-per-instance/g' /etc/cloud/cloud.cfg
-rm /etc/cloud/cloud-init.disabled
+rm -rf /var/lib/cloud/instances/*/scripts/runcmd
+rm -f /etc/cloud/cloud-init.disabled
 ```
 
 The GPT header is moved to the expanded end of disk, and a new partition is created with the new unallocated space:
