@@ -79,7 +79,7 @@ It is **strongly recommended** to change the default login credentials for FileB
 
 In the **Access URLs** box on the status page, you will find an Ingress URL (such as `https://filebrowser-name.tenant-sta-coreweave-clientname.ord1.ingress.coreweave.cloud/`). This Ingress URL may be used to access the FileBrowser application in a browser.
 
-![The FileBrowser login screen](<../../docs/.gitbook/assets/image (3) (1) (1) (1).png>)
+![The FileBrowser login screen](<../../.gitbook/assets/image (3) (1) (1).png>)
 
 #### **Rendering example**
 

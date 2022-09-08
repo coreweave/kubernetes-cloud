@@ -29,7 +29,7 @@ CoreWeave has partnered with NVIDIA in its design of interconnect for A100 HGX t
 
 GPUDirect allows GPUs to communicate directly with other GPUs across an InfiniBand fabric, without passing through the host system CPU and operating system kernel, which significantly lowers synchronization latency.
 
-![NVIDIA Mellanox Quantum leaf switches in the CoreWeave LAS1 datacenter](<../../.gitbook/assets/image (1) (1) (2) (1) (1).png>)
+![NVIDIA Mellanox Quantum leaf switches in the CoreWeave LAS1 datacenter](<../../.gitbook/assets/image (1) (1) (2) (1).png>)
 
 ## **Node Topology**
 

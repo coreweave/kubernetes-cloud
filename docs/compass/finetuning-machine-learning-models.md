@@ -105,7 +105,7 @@ Simply select the `finetune-data` PVC that you created earlier. **Make sure that
 Some people may prefer to use a [Virtual Server](broken-reference) to interact with their PVC via `ssh` or another mechanism. This flexibility is one of the key advantages of CoreWeave.
 {% endhint %}
 
-![The filebrowser application](<../.gitbook/assets/image (127) (2).png>)
+![The filebrowser application](<../../.gitbook/assets/image (60) (2).png>)
 
 ## Dataset Setup
 
