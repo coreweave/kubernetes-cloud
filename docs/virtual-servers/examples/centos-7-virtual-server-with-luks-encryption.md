@@ -143,9 +143,9 @@ With the manifest properly configured, it can be deployed using `kubectl`:
 $ kubectl apply -f centos-7-luks-part.yaml
 ```
 
-The `cloudInit` directive given will power off the Virtual Server initialization is completed so that the disk can be expanded for the encrypted partition.
+The `cloudInit` directive will power-off the Virtual Server after it completes initialization, so the disk can be expanded for the encrypted partition.
 
-]We can monitor its progress by invoking `kubectl --watch`:
+We can monitor its progress by invoking `kubectl --watch`:
 
 ```powershell
 PS C:\> kubectl apply -f centos7-luks.yaml
@@ -208,9 +208,9 @@ tmpfs                     1.6G     0  1.6G   0% /run/user/1000
 
 ## How cloud-init is used in these steps
 
-Preparing the Virtual Server for an encrypted partition requires some pre-requisite steps, which are handled along with the encryption configuration by [cloud-init](../coreweave-system-images/linux-images.md#cloud-init).
+Preparing the Virtual Server for an encrypted partition requires some pre-requisite steps. This, along with the encryption configuration, is handled by [cloud-init](../coreweave-system-images/linux-images.md#cloud-init).
 
-The following breaks down how cloud-init is used to configure an encrypted partition in this example.
+The following breaks down how cloud-init is used in this example.
 
 ### GPT Configuration
 
@@ -238,7 +238,7 @@ Since the Virtual Server needs to be powered off to expand its disk, we need to 
 - [bash, -c, shutdown -h +1 ]
 ```
 
-### Configuring the startup script
+### Configuration Startup Script
 
 After expanding the root disk and starting the Virtual Server back up, `encrypt_init.sh` , injected via `write_files`, completes the configuration.
 
