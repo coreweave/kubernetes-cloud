@@ -6,7 +6,7 @@ description: An example detailing a CentOS 7 Virtual Server deployed with LUKS e
 
 ## Deploying the encrypted root disk partition
 
-The following example demonstrates how to deploy a Virtual Server running CentOS 7 with an encrypted partition on the root disk. This process encompasses deploying a Virtual Server with [cloud-init directives](centos-7-virtual-server-with-luks-encryption.md#using-cloud-init) used to encrypt unallocated space on the root disk.
+The following example demonstrates how to deploy a Virtual Server running CentOS 7 with an encrypted partition on the root disk. This process encompasses deploying a Virtual Server with [cloud-init directives](centos-7-virtual-server-with-luks-encryption.md#how-cloud-init-is-used-in-these-steps) used to encrypt unallocated space on the root disk.
 
 {% hint style="info" %}
 **Note**
