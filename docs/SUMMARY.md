@@ -38,6 +38,11 @@
 * [HPC Interconnect](coreweave-kubernetes/networking/hpc-interconnect.md)
 * [Bring Your Own IP](coreweave-kubernetes/networking/bring-your-own-ip.md)
 
+## Storage
+
+* [Getting Started with Storage](storage/storage.md)
+* [Object Storage](storage/object-storage.md)
+
 ## Virtual Servers
 
 * [Getting Started with Virtual Servers](../virtual-servers/getting-started.md)
@@ -80,11 +85,6 @@
     * [Provision an Active Directory Domain](virtual-servers/examples/active-directory-environment-hosted-on-coreweave-cloud/provision-an-active-directory-domain-controller.md)
     * [Highly Available Storage using Samba-AD and AD DFS](virtual-servers/examples/active-directory-environment-hosted-on-coreweave-cloud/highly-available-storage-using-samba-ad-and-ad-dfs.md)
   * [CentOS 7 Virtual Server with LUKS Encryption](virtual-servers/examples/centos-7-virtual-server-with-luks-encryption.md)
-
-## Storage
-
-* [Getting Started with Storage](storage/storage.md)
-* [Object Storage](storage/object-storage.md)
 
 ## Inference <a href="#compass" id="compass"></a>
 
