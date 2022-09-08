@@ -10,7 +10,11 @@ Available in both [all-NVMe](storage.md#all-nvme-volumes) and [HDD tiers](storag
 
 CoreWeave Cloud Storage Volumes are built on top of [Ceph](https://docs.ceph.com/), a software defined scale-out enterprise grade storage platform. Built with triple replication, the CoreWeave Cloud Storage platform is built to provide high-availability, performant storage for your most demanding Cloud-native workloads.
 
-## Features
+#### Object Storage
+
+In addition to traditional storage volumes, CoreWeave also offers [S3-compliant Object Storage](object-storage.md).
+
+## Storage Volume Features
 
 :handshake: Storage Volumes are accessible by both containerized and hypervisor workloads&#x20;
 
@@ -23,12 +27,6 @@ CoreWeave Cloud Storage Volumes are built on top of [Ceph](https://docs.ceph.com
 :checkered\_flag: Clone your Block Storage Volumes to instantiate Virtual Servers from a template&#x20;
 
 :fire: Run automated backups of your Shared File System Volumes to BackBlaze via [CoreWeave Apps](https://apps.coreweave.com)
-
-{% hint style="info" %}
-**Additional Resources**
-
-To learn more about Storage on CoreWeave Cloud, see [Getting Started](broken-reference).
-{% endhint %}
 
 ## Volume Types
 
