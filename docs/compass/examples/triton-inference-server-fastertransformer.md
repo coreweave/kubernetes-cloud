@@ -4,7 +4,7 @@ description: >-
   backend
 ---
 
-# Triton Inference Server - FasterTransformer
+# Triton Inference Server - FasterTransformer GPT-J
 
 ### Introduction
 
@@ -12,7 +12,7 @@ This example demonstrates how to deploy [NVIDIA Triton Inference Server](https:/
 
 ![](<../../.gitbook/assets/Screen Shot 2022-08-10 at 2.25.16 PM.png>)
 
-### What is Fastertransformer?
+### What is FasterTransformer?
 
 > In NLP, encoder and decoder are two important components, with the transformer layer becoming a popular architecture for both components. FasterTransformer implements a highly optimized transformer layer for both the encoder and decoder for inference. On Volta, Turing and Ampere GPUs, the computing power of Tensor Cores are used automatically when the precision of the data and weights are FP16.
 >
