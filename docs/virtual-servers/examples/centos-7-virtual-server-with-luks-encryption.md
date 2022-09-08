@@ -180,7 +180,7 @@ $ kubectl patch vs centos7-luks -p '{"spec":{"storage":{"root":{"size": "5040Gi"
 With our root disk now expanded, we can restart the Virtual Server:
 
 ```powershell
-PS C:\> kubectl patch vs centos7-luks -p '{"spec":{"storage":{"root":{"size": "5000Gi"}}}}'  --type=merge
+PS C:\> kubectl patch vs centos7-luks -p '{"spec":{"storage":{"root":{"size": "5040Gi"}}}}'  --type=merge
 
 virtualserver.virtualservers.coreweave.com/centos7-luks patched
 
