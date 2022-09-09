@@ -12,24 +12,24 @@ This example deploys a Kubernetes Deployment with a Linux container including th
 
 The Kubenetes Control-Plane in the CoreWeave Cloud will ensure that the Deployment is continuously running. The Control-Plane will reserve GPU, CPU and RAM on CoreWeaves compute nodes. The example Deployment does showcase some node affinity rules. These are purely for demonstration purposes, and the entire affinity section can be removed without breaking the example.
 
-{% content-ref url="../node-types.md" %}
-[node-types.md](../node-types.md)
+{% content-ref url="../../../coreweave-kubernetes/node-types.md" %}
+[node-types.md](../../../coreweave-kubernetes/node-types.md)
 {% endcontent-ref %}
 
 ### Service
 
 A [Service](https://kubernetes.io/docs/concepts/services-networking/service/) is included to show how to publish a Pod to the public Internet. The Service publishes the SSH server to the Internet.
 
-{% content-ref url="../../docs/coreweave-kubernetes/networking/exposing-applications.md" %}
-[exposing-applications.md](../../docs/coreweave-kubernetes/networking/exposing-applications.md)
+{% content-ref url="../networking/exposing-applications.md" %}
+[exposing-applications.md](../networking/exposing-applications.md)
 {% endcontent-ref %}
 
 ## Persistent Storage
 
 A [Persistent Volume](https://kubernetes.io/docs/concepts/storage/persistent-volumes/) is allocated to the Pods root directories. The allocation is done via a [Persistent Volume Claim](https://github.com/atlantic-crypto/kubernetes-cloud-examples/blob/master/cuda-ssh/sshd-pvc.yaml) requesting a 200GB storage size and SSD backing. This volule claim is then mounted to the the different root directories in the Deployment definition. A separate, HDD backed 500GB Volume Claim is mounted under `/mnt/data` for data storage. Utilizing a persistent volume ensures that files persist even if the node currently running the Pod fails.
 
-{% content-ref url="../../docs/storage/storage.md" %}
-[storage.md](../../docs/storage/storage.md)
+{% content-ref url="../../storage/storage.md" %}
+[storage.md](../../storage/storage.md)
 {% endcontent-ref %}
 
 ### Getting Started
