@@ -19,7 +19,7 @@
   * [Logging](coreweave-kubernetes/prometheus/logging.md)
 * [Examples](../coreweave-kubernetes/examples/README.md)
   * [Jupyter Notebook with TensorFlow](../coreweave-kubernetes/examples/tensorflow-jupyter.md)
-  * [SSH Server with CUDA](coreweave-kubernetes/examples/cuda-ssh.md)
+  * [SSH Server with CUDA](../coreweave-kubernetes/examples/cuda-ssh.md)
 
 ## Networking
 
@@ -32,7 +32,7 @@
     * [VPN Setup](coreweave-kubernetes/networking/site-to-site-connections/site-to-site-vpn/vpn-setup.md)
     * [Examples](coreweave-kubernetes/networking/site-to-site-connections/site-to-site-vpn/examples/README.md)
       * [AWS](coreweave-kubernetes/networking/site-to-site-connections/site-to-site-vpn/examples/aws.md)
-      * [Fortinet](networking/site-to-site-connections/site-to-site-vpn/examples/fortinet.md)
+      * [Fortinet](coreweave-kubernetes/networking/site-to-site-connections/site-to-site-vpn/examples/fortinet.md)
   * [Direct Connect](coreweave-kubernetes/networking/site-to-site-connections/direct-connections.md)
 * [Exposing Applications](coreweave-kubernetes/networking/exposing-applications.md)
 * [HPC Interconnect](coreweave-kubernetes/networking/hpc-interconnect.md)

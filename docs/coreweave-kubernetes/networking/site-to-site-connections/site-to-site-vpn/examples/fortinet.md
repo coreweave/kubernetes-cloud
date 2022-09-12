@@ -25,11 +25,11 @@ From the Fortinet dashboard, navigate to the **IPsec Tunnels** menu from the **V
 
 Select **Create New**, then **IPsec Tunnel** from the drop-down.
 
-<figure><img src="../../../../.gitbook/assets/ipsec_tunnel.png" alt=""><figcaption><p>The IPsec tunnels configuration page from the VPN submenu</p></figcaption></figure>
+<figure><img src="../../../../../.gitbook/assets/ipsec_tunnel.png" alt=""><figcaption><p>The IPsec tunnels configuration page from the VPN submenu</p></figcaption></figure>
 
 This will open the VPN Creation Wizard. Select **Custom**, then input a name for the tunnel (e.g., `coreweave`), then click **Next**.
 
-<figure><img src="../../../../.gitbook/assets/step1.png" alt=""><figcaption><p>The VPN configuration screen</p></figcaption></figure>
+<figure><img src="../../../../../.gitbook/assets/step1.png" alt=""><figcaption><p>The VPN configuration screen</p></figcaption></figure>
 
 This will open the main configuration screen for the IPSec tunnel.
 
@@ -54,7 +54,7 @@ Please note that some settings will be left as their default settings, and are t
 | Diffie-Hellman Group          | `14 (modp2048)`                                                                                                                                                                                                  |
 | Key Lifetime                  | `28800`                                                                                                                                                                                                          |
 
-<figure><img src="../../../../.gitbook/assets/phase1 (1).png" alt=""><figcaption><p>Phase 1 selectors menu</p></figcaption></figure>
+<figure><img src="../../../../../.gitbook/assets/phase1 (1).png" alt=""><figcaption><p>Phase 1 selectors menu</p></figcaption></figure>
 
 ### Phase 2 selectors
 
@@ -72,7 +72,7 @@ Please note that some settings will be left as their default settings, and are t
 | Phase 2 Proposal - Diffie-Hellman Group | `14 (modp2048)` |
 | Key Lifetime Seconds                    | `3600`          |
 
-<figure><img src="../../../../.gitbook/assets/phase2.png" alt=""><figcaption><p>Phase 2 selectors menu</p></figcaption></figure>
+<figure><img src="../../../../../.gitbook/assets/phase2.png" alt=""><figcaption><p>Phase 2 selectors menu</p></figcaption></figure>
 
 Once the Phase 1 and Phase 2 selectors have been configured as described above, click **OK** to create the tunnel. This will return you to the **IPSec Tunnels** dashboard.
 
@@ -82,7 +82,7 @@ Without a **Security Policy** attached, the VPN tunnel will not appear.
 
 To configure a Security Policy for the new tunnel, navigate to the **Firewall Policy** page from the **Policy & Objects** submenu. From here, configure the Security Policy as is appropriate for your environment. Be sure that the new policy is **Enabled** using the slider at the bottom of the page.
 
-<figure><img src="../../../../.gitbook/assets/policy.png" alt=""><figcaption><p>The Security Policy configuration menu</p></figcaption></figure>
+<figure><img src="../../../../../.gitbook/assets/policy.png" alt=""><figcaption><p>The Security Policy configuration menu</p></figcaption></figure>
 
 ## Create a static route
 
@@ -93,7 +93,7 @@ To configure a static route for your tunnel, navigate to the **Static Routes** p
 | Destination | The CoreWeave VPC subnet           |
 | Interface   | The newly created tunnel interface |
 
-<figure><img src="../../../../.gitbook/assets/route.png" alt=""><figcaption><p>Static Route configuration options</p></figcaption></figure>
+<figure><img src="../../../../../.gitbook/assets/route.png" alt=""><figcaption><p>Static Route configuration options</p></figcaption></figure>
 
 ## Assign an IP address to the tunnel interface
 
@@ -103,7 +103,7 @@ The new tunnel interface will be listed under the **Physical Interface** you sel
 
 Select the **Tunnel Interface**, then click **Edit**.
 
-<figure><img src="../../../../.gitbook/assets/interface1.png" alt=""><figcaption><p>The network interfaces configuration menu</p></figcaption></figure>
+<figure><img src="../../../../../.gitbook/assets/interface1.png" alt=""><figcaption><p>The network interfaces configuration menu</p></figcaption></figure>
 
 Clicking **Edit** will open the **Edit Interface** menu. To configure the interface, refer to the table as well as the screenshots below.
 
@@ -113,6 +113,6 @@ Clicking **Edit** will open the **Edit Interface** menu. To configure the interf
 | Remote IP/Netmask     | The IP for the CoreWeave end of the tunnel, including the netmask (usually `/30`)                                                                    |
 | Administrative Access | <p>Select <code>PING</code><br><code></code>(This will allow you to <code>ping</code> the tunnel interface from the CoreWeave end of the tunnel)</p> |
 
-<figure><img src="../../../../.gitbook/assets/interface2.png" alt=""><figcaption><p>The interface configuration menu</p></figcaption></figure>
+<figure><img src="../../../../../.gitbook/assets/interface2.png" alt=""><figcaption><p>The interface configuration menu</p></figcaption></figure>
 
 Once your Tunnel Interface has been correctly configured, the tunnel should be ready to use!

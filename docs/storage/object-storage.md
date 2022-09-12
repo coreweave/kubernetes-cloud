@@ -4,9 +4,7 @@ description: Learn about CoreWeave's S3 compatible Object Storage
 
 # Object Storage
 
-Object storage allows unstructured data to be stored and referenced via metadata associated with the data.
-
-CoreWeave object storage is S3 compatible, and existing SDKs and libraries object for object storage are compatible. CoreWeave's object storage region is named `default`.
+CoreWeave's Object Storage allows unstructured data to be stored and referenced via metadata associated with the data. Object Storage is S3 compatible, and existing SDKs and libraries object for Object Storage are also compatible.
 
 {% hint style="info" %}
 **Note**
@@ -14,7 +12,7 @@ CoreWeave object storage is S3 compatible, and existing SDKs and libraries objec
 When using AWS SDKs, the variable `AWS_REGION` is defined within the V4 signature headers. The object storage region for CoreWeave is named `default`.
 {% endhint %}
 
-### Storage Classes
+### Storage classes
 
 {% hint style="warning" %}
 **Important**
@@ -66,7 +64,7 @@ $ s3cmd --config=my-cfg-file mb s3://my-new-bucket
 $ s3cmd get s3://my-new-bucket/my-file.txt
 ```
 
-Users can use any regional object storage endpoint and create and use buckets as they wish, but each region comes with its own quota limit. The default quota limit is 30TB of data per region.
+Users may use any regional Object Storage endpoint and create and use buckets as they wish, but each region comes with its own quota limit. The default quota limit is `30TB` of data per region.
 
 {% hint style="info" %}
 **Note**
@@ -88,7 +86,7 @@ No modifications to your bucket need to be made to enable Server Side Encryption
 It is the client’s responsibility to manage all keys, and to remember which key is used to encrypt each object.
 {% endhint %}
 
-### Specifying Server Side Encryption with customer-provided keys (SSE-C) <a href="#specifying-s3-c-encryption" id="specifying-s3-c-encryption"></a>
+### Using Server Side Encryption with customer-provided keys (SSE-C) <a href="#specifying-s3-c-encryption" id="specifying-s3-c-encryption"></a>
 
 The following headers are utilized to specify SSE-C customizations.
 
@@ -98,6 +96,46 @@ The following headers are utilized to specify SSE-C customizations.
 | `x-amz-server-side​-encryption​-customer-key`     | Use this header to provide the 256-bit, base64-encoded encryption key to encrypt or decrypt your data.                                                                                                                                                                                  |
 | `x-amz-server-side​-encryption​-customer-key-MD5` | Use this header to provide the base64-encoded, 128-bit MD5 digest of the encryption key according to [RFC 1321](http://tools.ietf.org/html/rfc1321). This header is used for a message integrity check to ensure that the encryption key was transmitted without error or interference. |
 
-## Object Storage Pricing
+#### Server Side Encryption Example
+
+The following example demonstrates using an S3 tool to configure Server Side Encryption for Object Storage.
+
+{% hint style="info" %}
+**Note**
+
+Because SSE with static keys is not supported by `s3cmd`at this time, [the AWS CLI tool](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) is used for this example. For a full explanation of the parameters used with the `s3api` tool in this example, review [the AWS `s3api` documentation](https://docs.aws.amazon.com/cli/latest/reference/s3api/index.html#cli-aws-s3api).
+{% endhint %}
+
+First, run `aws configure` to set up access and to configure your Secret Keys.
+
+```bash
+$ aws configure
+```
+
+Separately, generate a key using your preferred method. In this case, we use OpenSSL to print a new key to the file `sse.key`.
+
+```bash
+$ openssl rand 256 > sse.key
+```
+
+Once the process of `aws configure` is complete and your new key has been configured for use, run the following `s3` commands to upload a file with Server Side Encryption.
+
+```bash
+$ aws s3 --endpoint-url=https://object.las1.coreweave.com \
+    cp your-file.txt s3://your-bucket/your-file.txt \
+    --sse-c-key=fileb://sse.key \
+    --sse-c AES256
+```
+
+Finally, to retrieve the file, pass the path of the encryption key used (`sse-customer-key`) to `aws s3` to decrypt the file:
+
+```bash
+$ aws s3 --endpoint-url=https://object.las1.coreweave.com \
+    cp s3://your-bucket/your-file.txt your-file.txt  \
+    --sse-c-key=fileb://sse.key \
+    --sse-c AES256
+```
+
+## Object Storage pricing
 
 The current price for object storage is `$0.03` per GB per month.

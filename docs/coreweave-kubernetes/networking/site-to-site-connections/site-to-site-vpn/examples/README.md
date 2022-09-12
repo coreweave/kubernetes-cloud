@@ -23,6 +23,6 @@ Select a platform from the list below to review its implementation example.
 [aws.md](aws.md)
 {% endcontent-ref %}
 
-{% content-ref url="../../../../../networking/site-to-site-connections/site-to-site-vpn/examples/fortinet.md" %}
-[fortinet.md](../../../../../networking/site-to-site-connections/site-to-site-vpn/examples/fortinet.md)
+{% content-ref url="fortinet.md" %}
+[fortinet.md](fortinet.md)
 {% endcontent-ref %}
