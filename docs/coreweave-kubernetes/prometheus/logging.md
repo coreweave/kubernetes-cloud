@@ -11,6 +11,7 @@ CoreWeave gives customers the ability to forward all logs from their namespace t
 | <p> </p><p>circonus</p><p> </p>             | Sends annotations to Circonus based on Logstash events                       |
 | <p> </p><p>cloudwatch</p><p> </p>           | Aggregates and sends metric data to AWS CloudWatch                           |
 | <p> </p><p>datadog</p><p> </p>              | Sends events to DataDogHQ based on Logstash events                           |
+| datadog\_logs                               | Sends logs to DataDogHQ via the logging API                                  |
 | <p> </p><p>datadog_metrics</p><p> </p>      | Sends metrics to DataDogHQ based on Logstash events                          |
 | <p> </p><p>dynatrace</p><p> </p>            | Sends events to Dynatrace based on Logstash events                           |
 | <p> </p><p>elasticsearch</p><p> </p>        | Stores logs in Elasticsearch                                                 |
