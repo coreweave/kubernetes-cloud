@@ -27,7 +27,7 @@ These are all handled by the network layer, and concepts such as Services and Ne
 
 ****:bulb: **Ideal for:**
 
-* Connecting to an on-premises environment via a [Site-to-Site VPN](getting-started-with-networking.md#site-to-site-vpn) or [Direct Connect](../coreweave-kubernetes/networking/site-to-site-connections/direct-connections.md).
+* Connecting to an on-premise environment via a [Site-to-Site VPN](getting-started-with-networking.md#site-to-site-vpn) or [Direct Connect](../coreweave-kubernetes/networking/site-to-site-connections/direct-connections.md).
 * Deploying Telco applications in the Cloud.
 * Other niche networking use cases.
 

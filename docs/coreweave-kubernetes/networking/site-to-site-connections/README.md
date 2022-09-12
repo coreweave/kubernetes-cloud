@@ -23,4 +23,4 @@ Create a Virtual Private Network (VPN) between CoreWeave and the other site. Cor
 
 ### ****[**Direct Connect**](direct-connections.md)
 
-Connect directly between a CoreWeave data center and an on-premises site.
+Connect directly between a CoreWeave data center and an on-premise site.

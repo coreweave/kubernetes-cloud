@@ -35,6 +35,19 @@ Selecting the application will expose the configuration options for the DHCP ser
 | **Routes**                                  | <p>Allows Virtual Servers and Kubernetes Pods to receive specific routes, such as in the case where there is a site to site VPN or virtual firewall deployed</p><p><br><span data-gb-custom-inline data-tag="emoji" data-code="26a0">⚠</span><strong>Note:</strong> Should be formatted as <code>&#x3C;remotenetwork>/&#x3C;cidr>=&#x3C;gateway>.</code> </p><p><strong></strong><br><strong>Example:</strong></p><p><code>10.0.0.0/16=192.168.0.254</code>.</p> |
 | **Default gateway to be assigned via DHCP** | This will set a default gateway address via DHCP. Please note that this should not be used if your Virtual Servers and Kubernetes Pods are connected to the regular CoreWeave Cloud Network                                                                                                                                                                                                                                                                      |
 
+### Advanced Configuration
+
+Via the YAML interface we do support more dhcp options than the ones seen in the UI.
+
+<figure><img src="../../../.gitbook/assets/options.png" alt=""><figcaption></figcaption></figure>
+
+#### Configuration options
+
+| **additionalOptions** | <p>Need to be formated as:<br>additionalOptions: |<br>  option first-option x.x.x.x;<br>  option second-option y.y.y.y;</p> |
+| --------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+
+More documentation on dhcp options can be found [here](https://kb.isc.org/docs/isc-dhcp-44-manual-pages-dhcp-options#standard-dhcpv4-options).
+
 ### VPC and Network settings
 
 At the bottom of the application's configuration screen are the **Network settings** for the DHCP server, in which you can adjust the settings for the server's VPC and network.
