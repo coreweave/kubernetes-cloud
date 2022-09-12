@@ -103,7 +103,7 @@ The following example demonstrates using an S3 tool to configure Server Side Enc
 {% hint style="info" %}
 **Note**
 
-Because SSE with static keys is not supported by `s3cmd`at this time, [the AWS CLI tool](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) is used for this example. For a full explanation of the parameters used with the `s3api` tool in this example, review [the AWS `s3api` documentation](https://docs.aws.amazon.com/cli/latest/reference/s3api/index.html#cli-aws-s3api).
+Because SSE with static keys is not supported by `s3cmd`at this time, [the AWS CLI tool](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) is used for this example. For a full explanation of the parameters used with the `s3` tool in this example, review [the AWS CLI `s3` documentation](https://docs.aws.amazon.com/cli/latest/userguide/cli-services-s3.html).
 {% endhint %}
 
 First, run `aws configure` to set up access and to configure your Secret Keys.
@@ -115,8 +115,14 @@ $ aws configure
 Separately, generate a key using your preferred method. In this case, we use OpenSSL to print a new key to the file `sse.key`.
 
 ```bash
-$ openssl rand 256 > sse.key
+$ openssl rand 32 > sse.key
 ```
+
+{% hint style="warning" %}
+**Important**
+
+The generated key must be 32 bytes in length.
+{% endhint %}
 
 Once the process of `aws configure` is complete and your new key has been configured for use, run the following `s3` commands to upload a file with Server Side Encryption.
 
