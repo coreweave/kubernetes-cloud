@@ -69,7 +69,8 @@ metadata:
 spec:
   entrypoint: main
   activeDeadlineSeconds: 300 # Cancel operation if not finished in 5 minutes
-  ttlSecondsAfterFinished: 86400 # Clean out old workflows after a day
+  ttlStrategy:
+    secondsAfterCompletion: 86400 # Clean out old workflows after a day
   # Parameters can be passed/overridden via the argo CLI.
   # To override the printed message, run `argo submit` with the -p option:
   # $ argo submit examples/arguments-parameters.yaml -p messages='["CoreWeave", "Is", "Fun"]'
@@ -81,13 +82,13 @@ spec:
   templates:
   - name: main
     steps:
-      - name: echo
-        template: gpu-echo
-        arguments:
-          parameters:
-          - name: message
-            value: "{{item}}"
-        withParam: "{{workflow.parameters.messages}}"
+      - - name: echo
+          template: gpu-echo
+          arguments:
+            parameters:
+            - name: message
+              value: "{{item}}"
+          withParam: "{{workflow.parameters.messages}}"
 
   - name: gpu-echo
     inputs:
