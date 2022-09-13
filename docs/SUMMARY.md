@@ -26,7 +26,10 @@
 * [Getting Started with Networking](networking/getting-started-with-networking.md)
 * [CoreWeave Cloud Native Networking (CCNN)](coreweave-kubernetes/networking/coreweave-cloud-native-networking-ccnn.md)
 * [Layer 2 VPC (L2VPC)](coreweave-kubernetes/networking/layer-2-vpc-l2vpc/README.md)
+  * [Exposing Applications](networking/layer-2-vpc-l2vpc/exposing-applications.md)
   * [DHCP on L2VPC](coreweave-kubernetes/networking/layer-2-vpc-l2vpc/dhcp-on-l2vpc.md)
+  * [Virtual Firewalls](networking/layer-2-vpc-l2vpc/virtual-firewalls/README.md)
+    * [Fortinet](networking/layer-2-vpc-l2vpc/virtual-firewalls/fortinet.md)
 * [Site-to-Site Connections](coreweave-kubernetes/networking/site-to-site-connections/README.md)
   * [Site-to-Site VPN](coreweave-kubernetes/networking/site-to-site-connections/site-to-site-vpn/README.md)
     * [VPN Setup](coreweave-kubernetes/networking/site-to-site-connections/site-to-site-vpn/vpn-setup.md)
@@ -34,7 +37,6 @@
       * [AWS](coreweave-kubernetes/networking/site-to-site-connections/site-to-site-vpn/examples/aws.md)
       * [Fortinet](coreweave-kubernetes/networking/site-to-site-connections/site-to-site-vpn/examples/fortinet.md)
   * [Direct Connect](coreweave-kubernetes/networking/site-to-site-connections/direct-connections.md)
-* [Exposing Applications](coreweave-kubernetes/networking/exposing-applications.md)
 * [HPC Interconnect](coreweave-kubernetes/networking/hpc-interconnect.md)
 * [Bring Your Own IP](coreweave-kubernetes/networking/bring-your-own-ip.md)
 

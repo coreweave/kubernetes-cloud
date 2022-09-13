@@ -34,7 +34,7 @@ Selecting the VPN application from the catalog exposes its configuration options
 
 Under the **Network Settings** portion of the IPSec VPN setup page are the configuration fields for your VPC.
 
-![VPC configuration example](<../../../../.gitbook/assets/image (2) (4).png>)
+![VPC configuration example](<../../../../.gitbook/assets/image (105).png>)
 
 The fields provided are:
 

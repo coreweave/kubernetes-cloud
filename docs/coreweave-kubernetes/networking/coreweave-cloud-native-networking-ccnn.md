@@ -33,7 +33,7 @@ Workload connections will appear to originate from a pool of NAT IP addresses, w
 {% hint style="info" %}
 **Additional Resources**
 
-Learn how to create a Load Balancing Service in [Exposing Applications: Public Services](exposing-applications.md#public-services).
+Learn how to create a Load Balancing Service in [Exposing Applications: Public Services](../../networking/layer-2-vpc-l2vpc/exposing-applications.md#public-services).
 {% endhint %}
 
 The **Load Balancing Service** exposes one or multiple Workloads behind a static IP, either public or private. At the same time, workloads maintain their ephemeral private IPs.
