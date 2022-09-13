@@ -42,13 +42,17 @@ Download the Fortigate image from [the Fortinet Firmware Images and Software Rel
 
 Select the version you would like to download. In the example shown here, we have selected version `7.2.1`. Scroll down until you find an image file named `FGT_VM64_KVM-v7.2.1.F-build1254-FORTINET.out.kvm.zip`.
 
-Once the image is downloaded, import the image to your namespace using the following manifest. Below is an example manifest for importing a Fortigate image in a given namespace.
+Once the image is downloaded, you will need to unzip it and upload it to a publicly accessible URL. This can be a CoreWeave Object Storage public bucket. Import the image to your namespace using the following manifest. Below is an example manifest for importing a Fortigate image in a given namespace.
 
 | Option Name            | Instructions                                                  |
 | ---------------------- | ------------------------------------------------------------- |
 | `metadata.name`        | The name to assign to the DataVolume containing the FGT image |
 | `metadata.namespace`   | Your namespace.                                               |
 | `spec.source.http.url` | The source for the unpacked qcow2 image.                      |
+
+{% hint style="info" %}
+Read the guide on[ Importing External Images](../../../virtual-servers/root-disk-lifecycle-management/importing-a-qcow2-image.md) for more information.
+{% endhint %}
 
 #### **Example manifest**
 
@@ -80,7 +84,7 @@ Below is an example manifest for deploying a Fortigate instance into a given nam
 | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `metadata.name`                     | The name to assign to the Fortigate Firewall                                                                                                                                                                                                                                                     |
 | `spec.network.vpcs.name`            | <p>The name of your VPC(s)<br><strong>Note:</strong> Multiple VPCs can be specified by adding additional <code>- name: vpc</code> items to the <code>vpcs.name</code> list</p>                                                                                                                   |
-| `spec.public`                       | Specifies whether or not the Kubernetes networking IP should be publicly accessible                                                                                                                                                                                                              |
+| `spec.public`                       | Specifies whether or not the CoreWeave networking IP should be publicly accessible. You will likely want this to be true                                                                                                                                                                         |
 | `resources`                         | This correlates to the license you have purchased; refer to [Fortinet's FortiGate-VM virtual licenses and resources guide](https://docs.fortinet.com/document/fortigate-private-cloud/7.2.0/kvm-administration-guide/367417/fortigate-vm-virtual-licenses-and-resources) for further information |
 | `storage.root.source.pvc.name`      | The DataVolume that was created previously                                                                                                                                                                                                                                                       |
 | `storage.root.source.pvc.namespace` | Your namespace                                                                                                                                                                                                                                                                                   |
