@@ -13,7 +13,7 @@
 * [Networking](../coreweave-kubernetes/networking/README.md)
 * [Serverless](../coreweave-kubernetes/serverless.md)
 * [Metrics](../coreweave-kubernetes/prometheus/README.md)
-  * [Grafana](coreweave-kubernetes/prometheus/grafana.md)
+  * [Grafana](../coreweave-kubernetes/prometheus/grafana.md)
   * [Useful Metrics](../coreweave-kubernetes/prometheus/useful-metrics.md)
   * [Logging](coreweave-kubernetes/prometheus/logging.md)
 * [Examples](../coreweave-kubernetes/examples/README.md)

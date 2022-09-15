@@ -67,7 +67,7 @@ We can monitor the Virtual Server spinning up with `kubectl get pods --watch`
 
 Once our VS has reached "Running" status, we can get an External IP to connect to it with `kubectl get vs`
 
-![Output of "kubectl get vs"](<../../.gitbook/assets/image (31) (1).png>)
+![Output of "kubectl get vs"](<../../docs/.gitbook/assets/image (31) (1) (1).png>)
 
 {% hint style="info" %}
 Allow \~5 minutes after "Running" status for the Virtual Server to complete initial start procedures.
@@ -77,7 +77,7 @@ Allow \~5 minutes after "Running" status for the Virtual Server to complete init
 
 Once the Virtual Server is ready, we can use the External IP to connect to it via RDP (`mstsc`):
 
-![Windows RDP Client](<../../docs/.gitbook/assets/image (37) (1).png>)
+![Windows RDP Client](<../../docs/.gitbook/assets/image (37).png>)
 
 Or via OpenSSH:
 
@@ -85,7 +85,7 @@ Or via OpenSSH:
 
 Or even via Console (useful for instances where a Public IP is not desired) using `virtctl console vs-windows10-source`:
 
-![Output of "virtctl console vs-windows10-source"](<../../docs/.gitbook/assets/image (36) (1).png>)
+![Output of "virtctl console vs-windows10-source"](<../../docs/.gitbook/assets/image (36).png>)
 
 {% hint style="info" %}
 Review [Remote Access and Control](../remote-access-and-control.md#installing-virtctl) for more information on `virtctl`

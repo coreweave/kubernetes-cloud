@@ -85,7 +85,7 @@ This example uses `ORD1` as our region - this should be adjusted depending on wh
 
 We can monitor the Virtual Server spinning up with `kubectl get pods --watch`
 
-![Output of kubectl get pods --watch](<../../../../.gitbook/assets/image (7).png>)
+![Output of kubectl get pods --watch](<../../../.gitbook/assets/image (7) (2).png>)
 
 Once our VS has reached "Running" status, we can get an External IP to connect to it with `k get vs`
 
@@ -132,7 +132,7 @@ Install-ADDSForest `
 
 We'll add the script to our server:
 
-![Pasting cw\_adds\_setup.ps1 in over SSH](<../../../../.gitbook/assets/image (6).png>)
+![Pasting cw\_adds\_setup.ps1 in over SSH](<../../../.gitbook/assets/image (6).png>)
 
 Once executed, follow the prompts. You'll be asked to provide:
 
@@ -144,7 +144,7 @@ Once executed, follow the prompts. You'll be asked to provide:
 * **SafeModeAdministratorPassword**
   * Used for Directory Services Restore Mode
 
-![](<../../../../.gitbook/assets/image (9).png>)
+![](<../../../.gitbook/assets/image (9) (3).png>)
 
 {% hint style="info" %}
 After executing the script, the server will automatically reboot as part of the ADDS deployment.
@@ -187,7 +187,7 @@ After rebooting, your Windows Virtual Server will now be joined to your Active D
 
 Confirm connectivity by performing a policy update:
 
-![Group Policy update](<../../../.gitbook/assets/image (12) (2).png>)
+![Group Policy update](<../../../.gitbook/assets/image (12).png>)
 
 ## Adding a secondary Domain Controller
 
@@ -235,7 +235,7 @@ Install-ADDSDomainController `
 
 Add the script to your VS:
 
-![Pasting cw\_addc\_setup.ps1 in over SSH](<../../../../.gitbook/assets/image (11).png>)
+![Pasting cw\_addc\_setup.ps1 in over SSH](<../../../.gitbook/assets/image (11).png>)
 
 Once executed, follow the prompts. You'll be asked to provide:‌
 
@@ -255,4 +255,4 @@ After executing the script, the server will automatically reboot as part of the 
 
 After rebooting, confirm your Domain Controller status with `Get-ADDomainController:`
 
-![Output of Get-AdDomainController](<../../../../.gitbook/assets/image (10).png>)
+![Output of Get-AdDomainController](<../../../.gitbook/assets/image (10).png>)

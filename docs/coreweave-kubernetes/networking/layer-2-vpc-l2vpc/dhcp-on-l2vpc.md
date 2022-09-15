@@ -52,7 +52,7 @@ More documentation on dhcp options can be found [here](https://kb.isc.org/docs/i
 
 At the bottom of the application's configuration screen are the **Network settings** for the DHCP server, in which you can adjust the settings for the server's VPC and network.
 
-![Network settings for DHCP server application.](<../../../.gitbook/assets/image (14) (3).png>)
+![Network settings for DHCP server application.](<../../../.gitbook/assets/image (14).png>)
 
 #### Configuration options
 
