@@ -3,14 +3,14 @@ kind: InferenceService
 metadata:
   labels:
     qos.coreweave.cloud/latency: low
-  name: fastertransformer-triton
+  name: fastertransformer-triton-gptj
 spec:
   predictor:
     maxReplicas: 1
     minReplicas: 1
     containerConcurrency: 1
     containers:
-    - name: gptj-6b-1-gpu-rtx-a5000
+    - name: gptj-ft
       image: rtalaricw/gptj_ft:v1.2
       command: ["/opt/tritonserver/bin/tritonserver"]
       args: ["--model-repository=/mnt/pvc/triton-model-store"]
@@ -37,7 +37,7 @@ spec:
             - key: gpu.nvidia.com/class
               operator: In
               values:
-                - RTX_A5000
+                - A40
             - key: topology.kubernetes.io/region
               operator: In
               values:

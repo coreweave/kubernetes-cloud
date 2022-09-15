@@ -14,6 +14,7 @@ spec:
         - -c
         - |
           cd /mnt/pvc;
+          mkdir -p /mnt/pvc/gptj-store;
           apt-get update && \
           apt-get install -y --no-install-recommends \
           zip unzip wget git python3.8 python3-pip && \ 
@@ -27,11 +28,11 @@ spec:
           wget https://s3.amazonaws.com/models.huggingface.co/bert/gpt2-vocab.json -P models; 
           wget https://s3.amazonaws.com/models.huggingface.co/bert/gpt2-merges.txt -P models;
           wget https://mystic.the-eye.eu/public/AI/GPT-J-6B/step_383500_slim.tar.gz;
-          tar -xzvf step_383500_slim.tar.gz -C /mnt/pvc/models;
-          mkdir /mnt/pvc/triton-model-store/fastertransformer/1 -p; 
-          python3 /mnt/pvc/FasterTransformer/examples/pytorch/gptj/utils/gptj_ckpt_convert.py --output-dir /mnt/pvc/triton-model-store/fastertransformer/1 --ckpt-dir /mnt/pvc/models/step_383500/ --n-inference-gpus 1;
-          mv /mnt/pvc/triton-model-store/fastertransformer/1/1-gpu/* /mnt/pvc/triton-model-store/fastertransformer/1/;
-          touch /mnt/pvc/triton-model-store/fastertransformer/config.pbtxt
+          tar -xzvf step_383500_slim.tar.gz -C /mnt/pvc/gptj-store/models;
+          mkdir /mnt/pvc/gptj-store/triton-model-store/fastertransformer/1 -p; 
+          python3 /mnt/pvc/gptj-store/FasterTransformer/examples/pytorch/gptj/utils/gptj_ckpt_convert.py --output-dir /mnt/pvc/gptj-store/triton-model-store/fastertransformer/1 --ckpt-dir /mnt/pvc/gptj-store/models/step_383500/ --n-inference-gpus 1;
+          mv /mnt/pvc/gptj-store/triton-model-store/fastertransformer/1/1-gpu/* /mnt/pvc/gptj-store/triton-model-store/fastertransformer/1/;
+          touch /mnt/pvc/gptj-store/triton-model-store/fastertransformer/config.pbtxt
           echo '# Copyright (c) 2022, NVIDIA CORPORATION. All rights reserved.
           # Redistribution and use in source and binary forms, with or without
           # modification, are permitted provided that the following conditions
@@ -61,9 +62,9 @@ spec:
           backend: "fastertransformer"
           default_model_filename: "gpt-j-6b"
           max_batch_size: 1024
-          
+
           model_transaction_policy {
-            decoupled: False
+          decoupled: False
           }
 
           input [
@@ -159,14 +160,6 @@ spec:
               optional: true
             }
           ]
-
-          instance_group [
-            {
-              count: 1
-              kind: KIND_CPU
-            }
-          ]
-
           output [
             {
               name: "output_ids"
@@ -282,7 +275,7 @@ spec:
           parameters {
             key: "model_checkpoint_path"
             value: {
-              string_value: "/mnt/pvc/triton-model-store/fastertransformer/1/"
+              string_value: "/mnt/pvc/gptj-store/triton-model-store/fastertransformer/1"
             }
           }
           parameters {
@@ -290,8 +283,8 @@ spec:
             value: {
               string_value: "0"
             }
-          }' >> /mnt/pvc/triton-model-store/fastertransformer/config.pbtxt
-          rm -rf /mnt/pvc/triton-model-store/fastertransformer/1/1-gpu;
+          }' >> /mnt/pvc/gptj-store/triton-model-store/fastertransformer/config.pbtxt
+          rm -rf /mnt/pvc/gptj-store/triton-model-store/fastertransformer/1/1-gpu;
         volumeMounts:
           - name: cache
             mountPath: /mnt/pvc
