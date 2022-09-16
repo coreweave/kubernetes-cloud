@@ -8,7 +8,13 @@ To generate your access credentials, first [sign up for CoreWeave Cloud](https:/
 
 <figure><img src="../docs/.gitbook/assets/image (1).png" alt="The Cloud UI API Access page"><figcaption><p>The Cloud UI API Access page</p></figcaption></figure>
 
-From the [Cloud UI API Access page](https://cloud.coreweave.com/api-access), click the **New Token & Kubeconfig** button at the top right. When prompted, you can optionally give the token a recognizable name, then click the **Generate** button.
+{% hint style="danger" %}
+**Warning**
+
+The Kubeconfig and Access Token is shown and given **only once**! Be sure to save this file and the token in a secure location. If you lose your Access Token, it can be found inside your Kubeconfig file.
+{% endhint %}
+
+From the [Cloud UI API Access page](https://cloud.coreweave.com/api-access), click the **New Token & Kubeconfig** button at the top right. When prompted, give the token a recognizable name, then click the **Generate** button. Generating the new token will also create a Kubeconfig file in which that token will be embedded, which will download automatically.
 
 {% hint style="info" %}
 **Note**
@@ -16,21 +22,13 @@ From the [Cloud UI API Access page](https://cloud.coreweave.com/api-access), cli
 If you would like to prevent the Kubeconfig file from downloading automatically, un-check the **Automatically download Kubeconfig** checkbox.
 {% endhint %}
 
-Generating the new token will also create a Kubeconfig file in which that token will be embedded.
-
-{% hint style="danger" %}
-**Warning**
-
-The Kubeconfig and Access Token is shown and given **only once**! Be sure to save this file and the token in a secure location. If you lose your Access Token, it can be found inside your Kubeconfig file.
-{% endhint %}
-
 <figure><img src="../docs/.gitbook/assets/image (2).png" alt="Create a new access token dialog box"><figcaption><p><strong>Create a new access token</strong> dialog box</p></figcaption></figure>
 
 ## Installing the Kubernetes Command Line Tools
 
-Once you have obtained your access credentials, all you have to do is put them in place and download the Kubernetes command line tools.
+Once you have obtained your Access Credentials, all you have to do is put them in the right place and download the Kubernetes command line tools.
 
-No other setup is necessary; once you have installed the command line tools as described below, you are instantly ready to deploy your workloads and containers!
+No other setup is necessary; once you install the command line tools as described below, you will be ready to deploy your workloads and containers!
 
 {% hint style="info" %}
 **Additional Resources**
