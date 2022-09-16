@@ -77,8 +77,8 @@ This example assumes a public docker registry. To use a private registry, an [im
 **Note**\
 Before continuing, you may either point the `image:` in the following manifests to the image we just built in the previous steps, or you may use the publicly-available image found in the following manifests:
 
-* [02-model-download-job.yaml](https://github.com/coreweave/kubernetes-cloud/blob/tweldon/stable-diffusion/online-inference/stable-diffusion/02-model-download-job.yaml#L10)
-* [03-inference-service.yaml](https://github.com/coreweave/kubernetes-cloud/blob/tweldon/stable-diffusion/online-inference/stable-diffusion/03-inference-service.yaml#L25)
+* [02-model-download-job.yaml](../../../online-inference/stable-diffusion/02-model-download-job.yaml)
+* [03-inference-service.yaml](../../../online-inference/stable-diffusion/03-inference-service.yaml)
 {% endhint %}
 
 To create a PVC in which to store the model, run the following command from the `kubernetes-cloud/online-inference/stable-diffusion` directory:
@@ -199,7 +199,9 @@ This example is set to one A40 for production of higher resolution images. Infer
 
 GPUs with less VRAM will also work depending on use-case, down to 8GB GPUs such as the Quadro RTX 4000, however output resolution will be limited by memory to 512x512.
 
-<figure><img src="../../.gitbook/assets/Screen Shot 2022-08-23 at 3.38.50 PM.png" alt=""><figcaption><p>512x512 Image generation at 50 steps</p></figcaption></figure>
+#### Stable Diffusion GPU comparison (in seconds)
+
+<figure><img src="../../.gitbook/assets/image.png" alt="A graph showing Stable Diffusion GPU comparison (in seconds)"><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 **Additional Resources**

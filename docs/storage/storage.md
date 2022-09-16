@@ -340,7 +340,7 @@ From the Storage Volumes page in the Cloud UI, click the pencil associated with 
 
 
 
-![The storage volume list, featuring the pencil icon to the right](<../.gitbook/assets/image (2).png>)
+![The storage volume list, featuring the pencil icon to the right](<../.gitbook/assets/image (2) (4).png>)
 
 
 
