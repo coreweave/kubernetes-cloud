@@ -43,7 +43,7 @@ Note we've created our shared filesystem in the **ORD** region. If our source di
 
 Using `kubectl get pvc`, we'll identify a PVC in our namespace that we wish to export:
 
-![](<../../docs/.gitbook/assets/image (3) (1).png>)
+![](<../../docs/.gitbook/assets/image (3) (1) (2).png>)
 
 {% hint style="info" %}
 Note our source image exists in the **ORD1** region - matching our shared data filesystem.

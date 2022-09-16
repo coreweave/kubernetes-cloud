@@ -1,137 +1,197 @@
 # Getting Started
 
-### Obtain Access Credentials
+## Obtaining CoreWeave Access Credentials
 
-[Sign up for CoreWeave Cloud](https://cloud.coreweave.com/request-account) and generate a `kubeconfig` from the [API Access ](https://cloud.coreweave.com/api-access)page. Every time an Access Token is generated, by default the corresponding `kubeconfig` will automatically download. This `kubeconfig` file allows you to interact with our Kubernetes cluster using kubectl and other Kubernetes applications.
+On CoreWeave, **Kubeconfig** files are used to interact with our Kubernetes cluster by using clients such as `kubectl`, and **API Access Tokens** are used for programmatic access to CoreWeave Cloud applications such as [Prometheus](prometheus/).
 
-![](../docs/.gitbook/assets/cw-access-token.png)
+To generate your access credentials, first [sign up for CoreWeave Cloud](https://cloud.coreweave.com/request-account). Once you have an account, [log in to the Cloud UI](https://cloud.coreweave.com), then navigate to [the **API & Kubeconfig** page](https://cloud.coreweave.com/api-access) from the left-hand side menu.
 
-On CoreWeave's Access Token page click "Generate your first token" (or "Generate another token" if you have already generated a kubeconfig) and optionally give the token a recognizable name. Once you create it, a new kubeconfig will be generated that embeds the access token. By \_\_ default your corresponding kubeconfig will automatically download. The browser might ask where to save the file `cw-kubeconfig`.
+<figure><img src="../docs/.gitbook/assets/image (1).png" alt="The Cloud UI API Access page"><figcaption><p>The Cloud UI API Access page</p></figcaption></figure>
 
-* The generated **kubeconfig** file is used to interact with our Kubernetes cluster using clients like kubectl, etc.
-* **Access Tokens** are used for programmatic access to CoreWeave Cloud applications like [Prometheus](prometheus/)
+From the [Cloud UI API Access page](https://cloud.coreweave.com/api-access), click the **New Token & Kubeconfig** button at the top right. When prompted, you can optionally give the token a recognizable name, then click the **Generate** button.
 
-{% hint style="danger" %}
-The kubeconfig and Access Token is shown & given one time! Be sure to save in a secure location. You can find your access token embedded inside your kubeconfig file if misplaced.
+{% hint style="info" %}
+**Note**
+
+If you would like to prevent the Kubeconfig file from downloading automatically, un-check the **Automatically download Kubeconfig** checkbox.
 {% endhint %}
 
-### Install Kubernetes Command Line Tools
+Generating the new token will also create a Kubeconfig file in which that token will be embedded.
 
-Once you have obtained your credentials, all you have to do is put them in place and download the command line tools. No other setup is necessary, you are instantly ready to deploy your workloads and containers. Cut-and-paste instructions are below. For more detail please reference the [official documentation](https://kubernetes.io/docs/tasks/tools/install-kubectl/).
+{% hint style="danger" %}
+**Warning**
+
+The Kubeconfig and Access Token is shown and given **only once**! Be sure to save this file and the token in a secure location. If you lose your Access Token, it can be found inside your Kubeconfig file.
+{% endhint %}
+
+<figure><img src="../docs/.gitbook/assets/image (2).png" alt="Create a new access token dialog box"><figcaption><p><strong>Create a new access token</strong> dialog box</p></figcaption></figure>
+
+## Installing the Kubernetes Command Line Tools
+
+Once you have obtained your access credentials, all you have to do is put them in place and download the Kubernetes command line tools.
+
+No other setup is necessary; once you have installed the command line tools as described below, you are instantly ready to deploy your workloads and containers!
+
+{% hint style="info" %}
+**Additional Resources**
+
+For more information on Kubernetes installation and configuration, please reference the [official Kubernetes documentation](https://kubernetes.io/docs/tasks/tools/install-kubectl/).
+{% endhint %}
 
 {% tabs %}
 {% tab title="Linux" %}
-The following command will install `kubectl` on your Linux system.
+### Installing `kubectl` on a Linux system
+
+#### Downloading and installing the binary
+
+The following command is a simple way to install `kubectl` on your Linux system by downloading the binary.
 
 ```
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 ```
 
-Once you have kubectl downloaded, you can install it by moving the file into the system bin folder.
+Once you have the `kubectl` binary downloaded, install it by first making the binary executable:
 
+```bash
+$ chmod +x ./kubectl
 ```
-chmod +x ./kubectl
-sudo mv ./kubectl /usr/local/bin/kubectl
+
+Then, move the file into the system `bin` directory:
+
+```bash
+$ sudo mv ./kubectl /usr/local/bin/kubectl
 ```
 
-If you prefer to installing using the native package manager, please view Kubernetes guide on [Installing using Native Package Manager](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/#install-using-native-package-management).
 
-**Verify kubectl Binary**
 
-If you'd like to verify kubectl, you can verify it by running:
+{% hint style="info" %}
+**Note**
 
-```
+If you would prefer to install Kubernetes using a Native Package Manager, please view [the Kubernetes guide on Installing using Native Package Manager](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/#install-using-native-package-management).
+{% endhint %}
+
+****\
+**Verifying the kubectl binary**
+
+If you'd like to verify kubectl, you can verify it by running a checksum operation on the downloaded file prior to installing it, such as:
+
+```bash
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 echo "$(<kubectl.sha256) kubectl" | sha256sum --check
 ```
 
-This should return `kubectl: OK` to confirm it is indeed valid. If this returns an error, please review the [kubectl installation guide](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/) from Kubernetes.
+This should return `kubectl: OK` to confirm the file is indeed valid. If this returns an error, please review the [official `kubectl` installation guide](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/).
 {% endtab %}
 
-{% tab title="Mac OSX" %}
-Most Mac users use [brew](https://brew.sh) to install packages, to install `kubectl` run the command below:
+{% tab title="macOS" %}
+### Installing `kubectl` on a Linux system
 
-```
-brew install kubectl
-```
+#### Installing using Homebrew
 
-If you don't have brew installed, follow the [Brew Installation](https://brew.sh) guide.
+Most Mac users use [Homebrew](https://brew.sh) to install packages.
+
+If you do not already have Homebrew installed, follow the [Brew Installation](https://brew.sh) guide to do so, then install `kubectl` using Homebrew by running the following command:
+
+```bash
+$ brew install kubectl
+```
 {% endtab %}
 
 {% tab title="Windows" %}
-#### Install Using PowerShell
+### Installing `kubectl` on a Windows system
 
-If you use PowerShell, install `kubectl` using the following the command:
+#### Installing using PowerShell
 
-```
+Using PowerShell, `kubectl` can be installed by using the following the command:
+
+```powershell
 & $([scriptblock]::Create((New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/coreweave/kubernetes-cloud/master/getting-started/k8ctl_setup.ps1')))
 ```
 
+
+
 {% hint style="info" %}
-Add `-Silent` to the end of this string for a non-interactive setup.
+**Note**
+
+Add the `-Silent` flag to the end of this string for a non-interactive setup.
 {% endhint %}
 
-#### Install using Package Manager
+####
 
-You can also install `kubectl` on Windows using either [Chocolatey](https://chocolatey.org) or [Scoop](https://scoop.sh) using the following commands:
+#### Installing using a Package Manager
+
+You can also install `kubectl` on Windows using a package manager such as [Chocolatey](https://chocolatey.org) or [Scoop](https://scoop.sh).
 
 Using [Chocolatey](https://chocolatey.org):
 
-```
-choco install kubernetes-cli
+```powershell
+$ choco install kubernetes-cli
 ```
 
 Using [Scoop](https://scoop.sh):
 
-```
-scoop install kubectl
+```powershell
+$ scoop install kubectl
 ```
 
-If you prefer to download the `kubectl` exe file directly, [download the latest version](https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/#install-kubectl-binary-with-curl-on-windows).
+If you would prefer to download the `kubectl` executable directly, [follow the official Kubernetes instructions to download the latest version](https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/#install-kubectl-binary-with-curl-on-windows).
 {% endtab %}
 {% endtabs %}
 
-### Setup Kubernetes Config
+## Configuring Kubernetes
 
-Once you have `kubectl` installed and the `kubeconfig` file generated and downloaded you can begin to use CoreWeave's Kubernetes infrastructure! To copy/merge with kubectl you can run the following commands:
+Once you have `kubectl` installed and the Kubeconfig file is generated and downloaded, you can begin to use CoreWeave's Kubernetes infrastructure! To copy and merge the Kubeconfig file, you can run the following commands using `kubectl`:
+
+First, create a backup copy of the Kubeconfig file:
 
 ```shell
-# create a backup of current kubeconfig
-cp ~/.kube/config ~/.kube/config.bak
-
-# install CoreWeave Kubernetes credentials
-KUBECONFIG=~/.kube/config:~/Downloads/cw-kubeconfig \
-  kubectl config view --merge --flatten > ~/.kube/config
+$ cp ~/.kube/config ~/.kube/config.bak
 ```
 
-{% hint style="info" %}
-Be sure to replace \~/Downloads directory with the location of your generated kubeconfig.
-{% endhint %}
+Next, install the CoreWeave Kubernetes credentials by merging the config file into `~/.kube/config`, which is the default Linux filepath that Kubernetes uses to source configuration settings.
 
-The command above will create a backup of your kubeconfig at `~/.kube/config.bak`
-
-#### Default kubectl Directory
-
-* Linux path: `~/.kube/config`
-* MacOSX path: `/Users/<username>/.kube/config`
-* Windows Path: `%USERPROFILE%\.kube\config`
-
-#### Verify Kubernetes Credentials
-
-Since your new account will not have any resources, listing the secrets is a good start to ensure proper communication with the cluster. To verify your CoreWeave Kubernetes configs using kubectl you can run the following commands:
-
-```
-kubectl config set-context coreweave
-kubectl get secret
+```bash
+$ KUBECONFIG=~/.kube/config:~/Downloads/cw-kubeconfig \
+kubectl config view --merge --flatten > ~/.kube/config
 ```
 
-The command above should return your default secrets like so,
+If you are working on a different kind of system, replace `~/.kube/config` with one of the following, and be sure to replace the `~/Downloads` path in this example with the actual location of your downloaded Kubeconfig file, and the default path with the one applicable to your system.
+
+#### Default Kubernetes configuration directories by OS
+
+| Operating System | Default path                     |
+| ---------------- | -------------------------------- |
+| Linux            | `~/.kube/config`                 |
+| macOS X          | `/Users/<username>/.kube/config` |
+| Windows          | `%USERPROFILE%\.kube\config`     |
+
+#### Verify Kubernetes credentials
+
+Since your new account will not yet have any resources, listing your [cluster `secrets`](https://kubernetes.io/docs/concepts/configuration/secret/) is a good way to test that proper communication with the cluster is in place. To verify your CoreWeave Kubernetes configuration using `kubectl`, invoke the following commands.
+
+First, set [the Kubernetes context](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/#context) to `coreweave`:
+
+```bash
+$ kubectl config set-context coreweave
+```
+
+Next, request [the `secret` objects](https://kubernetes.io/docs/concepts/configuration/secret/):
+
+```bash
+$ kubectl get secret
+```
+
+This should return your default `secrets`, such as:
 
 ```
 NAME                           TYPE                                  DATA   AGE
 default-token-frqgm            kubernetes.io/service-account-token   3      3h
 ```
 
-### Congratulations! :tada: You're ready to use CoreWeave Cloud!
+## Congratulations! :tada:&#x20;
 
-Your system is ready to deploy all types of services on CoreWeave's Kubernetes infrastructure. Checkout some of the examples by heading over to Examples.Your file is as secret as your password! **Keep it safe, and do not share.**
+You are now ready to use CoreWeave Cloud!
+
+Your system is ready to deploy all types of services on CoreWeave's Kubernetes infrastructure.&#x20;
+
+* [Check out some examples of what you can do](examples/).

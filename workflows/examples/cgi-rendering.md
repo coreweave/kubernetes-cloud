@@ -85,7 +85,7 @@ In the **Access URLs** box on the status page, you will find an Ingress URL (suc
 
 For this example, we want to render something that quickly in order to showcase the power of CoreWeave Cloud, so we're going to take one of the typical Blender benchmarks, [BMW\_27](https://download.blender.org/demo/test/BMW27\_2.blend.zip), and upload the unpacked file `bmw27_gpu.blend` to our root path in the FileBrowser application.
 
-![The FileBrowser UI, displaying the uploaded bmw27\_gpu.blend file](<../../docs/.gitbook/assets/image (2) (1).png>)
+![The FileBrowser UI, displaying the uploaded bmw27\_gpu.blend file](<../../docs/.gitbook/assets/image (2) (1) (3).png>)
 
 ### Create the render workflow
 
