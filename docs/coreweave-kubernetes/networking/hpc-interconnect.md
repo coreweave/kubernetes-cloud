@@ -12,7 +12,7 @@ In these applications, connectivity between compute hardware as well as storage 
 
 ## HPC over IP / Ethernet
 
-[CoreWeave Cloud Native Networking (CCNN)](../../networking/coreweave-cloud-native-networking-ccnn/) and [Layer 2 VPC (L2VPC)](layer-2-vpc-l2vpc/) are both optimized for high throughput and low latency.
+[CoreWeave Cloud Native Networking (CCNN)](coreweave-cloud-native-networking-ccnn.md) and [Layer 2 VPC (L2VPC)](layer-2-vpc-l2vpc/) are both optimized for high throughput and low latency.
 
 The CoreWeave Ethernet fabrics employ a cut-through design with sub-microsecond switching. Many HPC workloads perform well over vanilla networking, with no further optimizations or configuration necessary. Many customers successfully train and finetune Large Language Models (LLMs) using the standard Cloud Native Networking to underpin their distributed training, running [NVIDIA NCCL ](https://developer.nvidia.com/nccl)over IP transport. NCCL is supported across all CoreWeave GPUs.
 
