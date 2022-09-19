@@ -201,7 +201,7 @@ GPUs with less VRAM will also work depending on use-case, down to 8GB GPUs such 
 
 #### Stable Diffusion GPU comparison (in seconds)
 
-<figure><img src="../../.gitbook/assets/image.png" alt="A graph showing Stable Diffusion GPU comparison (in seconds)"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5).png" alt="A graph showing Stable Diffusion GPU comparison (in seconds)"><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 **Additional Resources**

@@ -56,7 +56,7 @@ To learn about configure your Virtual Server, see [Virtual Server Configuration 
 
 Once your Virtual Server has begun deploying, you will be automatically redirected to the **status page**. From here, the Virtual Server can be **restarted**, **upgraded** (or changed), **deleted**, or **stopped**.
 
-![Virtual Server state controls](<../../docs/.gitbook/assets/image (49).png>)
+![Virtual Server state controls](<../../docs/.gitbook/assets/image (49) (1).png>)
 
 ### Virtual terminal
 

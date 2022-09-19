@@ -12,7 +12,7 @@ CoreWeave's Object Storage allows unstructured data to be stored and referenced 
 When using AWS SDKs, the variable `AWS_REGION` is defined within the V4 signature headers. The object storage region for CoreWeave is named `default`.
 {% endhint %}
 
-### Storage classes
+## Storage classes
 
 {% hint style="warning" %}
 **Important**
@@ -22,11 +22,11 @@ Object storage is currently in beta. To configure object storage, [please contac
 
 There are three designated storage classes for object storage formats, which correspond to regional object storage endpoints:
 
-| Storage class          | Object storage endpoint   |
-| ---------------------- | ------------------------- |
-| `object-standard-ord1` | object.ord1.coreweave.com |
-| `object-standard-las1` | object.las1.coreweave.com |
-| `object-standard-lga1` | object.lga1.coreweave.com |
+| Storage class          | Object storage endpoint     |
+| ---------------------- | --------------------------- |
+| `object-standard-ord1` | `object.ord1.coreweave.com` |
+| `object-standard-las1` | `object.las1.coreweave.com` |
+| `object-standard-lga1` | `object.lga1.coreweave.com` |
 
 Each endpoint represents an independent, exclusive object store. This means that objects stored in `ORD1`buckets are not accessible from the `LAS1` region, and so on.
 
@@ -72,7 +72,7 @@ Users may use any regional Object Storage endpoint and create and use buckets as
 Should you require an increase in your quota limit, [please contact support](https://cloud.coreweave.com/contact).&#x20;
 {% endhint %}
 
-### Server Side Encryption
+## Server Side Encryption
 
 **Server Side Encryption is implemented according to** [**AWS SSE-C standards**](https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html)**.**
 
@@ -141,6 +141,177 @@ $ aws s3 --endpoint-url=https://object.las1.coreweave.com \
     --sse-c-key=fileb://sse.key \
     --sse-c AES256
 ```
+
+## Identity And Access Management (IAM)
+
+When an initial key pair is created for object storage access, that key pair is considered a **Full User** with access to read, write, and modify policies of the buckets which it owns.
+
+The categories of access that can be granted are:
+
+1. **Read** - Gives access to only read from buckets you own and have created.
+2. **Write** - Gives access to only write to buckets you own and have created.
+3. **Write/Read** - Grants access to both read and write to buckets you own and have created.&#x20;
+4. **Full control** - Grant Write/Read access, as well as admin access to create buckets and apply policies to buckets.
+
+Each key pair is considered an individual user for access, and can be used to provide granular access to applications or users.
+
+### IAM Actions
+
+Currently, CoreWeave Cloud supports the following IAM bucket policy actions.&#x20;
+
+<details>
+
+<summary>Click to expand - Supported IAM Actions</summary>
+
+* `s3:AbortMultipartUpload`
+* `s3:CreateBucket`
+* `s3:DeleteBucketPolicy`
+* `s3:DeleteBucket`
+* `s3:DeleteBucketWebsite`
+* `s3:DeleteObject`
+* `s3:DeleteObjectVersion`
+* `s3:DeleteReplicationConfiguration`
+* `s3:GetAccelerateConfiguration`
+* `s3:GetBucketACL`
+* `s3:GetBucketCORS`
+* `s3:GetBucketLocation`
+* `s3:GetBucketLogging`
+* `s3:GetBucketNotification`
+* `s3:GetBucketPolicy`
+* `s3:GetBucketRequestPayment`
+* `s3:GetBucketTagging`
+* `s3:GetBucketVersioning`
+* `s3:GetBucketWebsite`
+* `s3:GetLifecycleConfiguration`
+* `s3:GetObjectAcl`
+* `s3:GetObject`
+* `s3:GetObjectTorrent`
+* `s3:GetObjectVersionAcl`
+* `s3:GetObjectVersion`
+* `s3:GetObjectVersionTorrent`
+* `s3:GetReplicationConfiguration`
+* `s3:ListAllMyBuckets`
+* `s3:ListBucketMultipartUploads`
+* `s3:ListBucket`
+* `s3:ListBucketVersions`
+* `s3:ListMultipartUploadParts`
+* `s3:PutAccelerateConfiguration`
+* `s3:PutBucketAcl`
+* `s3:PutBucketCORS`
+* `s3:PutBucketLogging`
+* `s3:PutBucketNotification`
+* `s3:PutBucketPolicy`
+* `s3:PutBucketRequestPayment`
+* `s3:PutBucketTagging`
+* `s3:PutBucketVersioning`
+* `s3:PutBucketWebsite`
+* `s3:PutLifecycleConfiguration`
+* `s3:PutObjectAcl`
+* `s3:PutObject`
+* `s3:PutObjectVersionAcl`
+* `s3:PutReplicationConfiguration`
+* `s3:RestoreObject`
+
+</details>
+
+{% hint style="warning" %}
+**Important**
+
+CoreWeave Cloud does not yet support setting policies on users, groups, or roles. Currently, account owners need to grant access directly to individual users. Granting an account access to a bucket grants access to all users in that account.
+{% endhint %}
+
+For all requests, the condition keys CoreWeave currently supports are:
+
+* `aws:CurrentTime`
+* `aws:EpochTime`
+* `aws:PrincipalType`
+* `aws:Referer`
+* `aws:SecureTransport`
+* `aws:SourceIpaws:UserAgent`
+* `aws:username`
+
+Certain S3 condition keys for bucket and object requests are also supported. In the following tables, `<perm>` may be replaced with either
+
+* `read`
+* `write/read-acp`
+* or `write-acp/full-control`
+
+for read, write/read, or full control access, respectively.
+
+#### **Supported S3 Bucket Operations**
+
+| `s3:createBucket`       | `s3:x-amz-acl`, `s3:x-amz-grant-<perm>` |
+| ----------------------- | --------------------------------------- |
+| `s3:ListBucket`         | `s3:<prefix>`                           |
+| `s3:ListBucketVersions` | N/A                                     |
+| `s3:delimiter`          | N/A                                     |
+| `s3:max-keys`           | N/A                                     |
+| `s3:PutBucketAcl`       | `s3:x-amz-acl s3:x-amz-grant-<perm>`    |
+
+#### Supported S3 Object Operations
+
+| `s3:PutObject`                                   | `s3:x-amz-acl` and `s3:x-amz-grant-<perm>`                                              |
+| ------------------------------------------------ | --------------------------------------------------------------------------------------- |
+| `s3:x-amz-copy-source`                           | N/A                                                                                     |
+| `s3:x-amz-server-side-encryption`                | N/A                                                                                     |
+| `s3:x-amz-server-side-encryption-aws-kms-key-id` | N/A                                                                                     |
+| `s3:x-amz-metadata-directive`                    | Use `PUT` and `COPY` to overwrite or preserve metadata in `COPY` requests, respectively |
+| `s3:RequestObjectTag/<tag-key>`                  | N/A                                                                                     |
+| `s3:PutObjectAcl`                                | `s3:x-amz-acl` and `s3-amz-grant-<perm>`                                                |
+| `s3:PutObjectVersionAcl`                         | `s3:x-amz-acl` and `s3-amz-grant-<perm>`                                                |
+| `s3:ExistingObjectTag/<tag-key>`                 | N/A                                                                                     |
+| `s3:PutObjectTagging`                            | `s3:RequestObjectTag/<tag-key>`                                                         |
+| `s3:PutObjectVersionTagging`                     | `s3:RequestObjectTag/<tag-key>`                                                         |
+| `s3:ExistingObjectTag/<tag-key>`                 | N/A                                                                                     |
+| `s3:GetObject`                                   | `s3:ExistingObjectTag/<tag-key>`                                                        |
+| `s3:GetObjectVersion`                            | `s3:ExistingObjectTag/<tag-key>`                                                        |
+| `s3:GetObjectAcl`                                | `s3:ExistingObjectTag/<tag-key>`                                                        |
+| `s3:GetObjectVersionAcl`                         | `s3:ExistingObjectTag/<tag-key>`                                                        |
+| `s3:GetObjectTagging`                            | `s3:ExistingObjectTag/<tag-key>`                                                        |
+| `s3:GetObjectVersionTagging`                     | `s3:ExistingObjectTag/<tag-key>`                                                        |
+| `s3:DeleteObjectTagging`                         | `s3:ExistingObjectTag/<tag-key>`                                                        |
+| `s3:DeleteObjectVersionTagging`                  | `s3:ExistingObjectTag/<tag-key>`                                                        |
+
+### Bucket policies
+
+Another access control mechanism is [bucket policies](https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-policies.html), which are managed through standard S3 operations.
+
+For example, a bucket policy may be set or deleted using  `s3cmd` as shown below.\
+\
+Here, the example policy is first created:&#x20;
+
+```bash
+$ cat > examplepol
+{
+  "Version": "2012-10-17",
+  "Statement": [{
+    "Effect": "Allow",
+    "Principal": {"AWS": ["arn:aws:iam:::user/fred:subuser"]},
+    "Action": "s3:PutObjectAcl",
+    "Resource": [
+      "arn:aws:s3:::happybucket/*"
+    ]
+  }]
+}
+```
+
+Then, the policy is applied using `setpolicy`:
+
+```bash
+$ s3cmd setpolicy examplepol s3://happybucket
+```
+
+Finally, the policy is deleted using `delpolicy`:
+
+```bash
+$ s3cmd delpolicy s3://happybucket
+```
+
+{% hint style="info" %}
+**Note**
+
+Bucket policies do not yet support string interpolation.
+{% endhint %}
 
 ## Object Storage pricing
 

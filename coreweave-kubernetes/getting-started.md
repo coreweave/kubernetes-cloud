@@ -22,7 +22,7 @@ From the [Cloud UI API Access page](https://cloud.coreweave.com/api-access), cli
 If you would like to prevent the Kubeconfig file from downloading automatically, un-check the **Automatically download Kubeconfig** checkbox.
 {% endhint %}
 
-<figure><img src="../docs/.gitbook/assets/image (2).png" alt="Create a new access token dialog box"><figcaption><p><strong>Create a new access token</strong> dialog box</p></figcaption></figure>
+<figure><img src="../docs/.gitbook/assets/image (2) (1).png" alt="Create a new access token dialog box"><figcaption><p><strong>Create a new access token</strong> dialog box</p></figcaption></figure>
 
 ## Installing the Kubernetes Command Line Tools
 

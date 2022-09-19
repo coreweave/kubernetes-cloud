@@ -8,15 +8,15 @@ Workflows on CoreWeave Cloud run on [Argo Workflows](https://argoproj.github.io/
 
 After logging into [CoreWeave Cloud](https://cloud.coreweave.com), go to the CoreWeave application **Catalog**.
 
-![The Catalog link on the Cloud UI](<../docs/.gitbook/assets/image (17) (2).png>)
+![The Catalog link on the Cloud UI](<../.gitbook/assets/image (17) (2) (1).png>)
 
 A new window will open onto the CoreWeave application Catalog, where you can browse all available applications. In the search field, type **argo-workflows**. Then, select the **argo-workflows** application once it appears.
 
-![](<../docs/.gitbook/assets/image (14) (2).png>)
+![](<../.gitbook/assets/image (14).png>)
 
 In the upper right-hand corner of the next screen, select the latest version of the Helm chart under **Chart Version**, then click the **Deploy** button.
 
-![](<../docs/.gitbook/assets/image (25).png>)
+![](<../.gitbook/assets/image (25).png>)
 
 The following deployment form will prompt you to enter a name for the application. The remaining parameters will be set to CoreWeave's suggested defaults, but can be changed to suit your requirements. When ready to deploy, click the **Deploy** button at the bottom of the page.
 
@@ -34,7 +34,7 @@ After a few minutes, the deployment will be ready. If you selected `Expose UI vi
 
 Click the **ingress** link to open the Argo Workflows UI in a new window.
 
-![](<../docs/.gitbook/assets/image (23).png>)
+![](<../.gitbook/assets/image (23).png>)
 
 {% hint style="warning" %}
 **Important**

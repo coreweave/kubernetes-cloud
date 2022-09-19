@@ -78,7 +78,7 @@ To access it, first log in to your CoreWeave Cloud account. Then, from the left-
 
 
 
-![The storage volumes link on the left-hand menu of the Cloud UI](<../.gitbook/assets/image (1) (7).png>)
+![The storage volumes link on the left-hand menu of the Cloud UI](<../.gitbook/assets/image (1) (1).png>)
 
 
 
@@ -182,7 +182,7 @@ Filesystem attachments are specified under the **Attach Filesystems** menu while
 
 **Example**
 
-![The Attach Filesystems menu during Virtual Server creation](<../.gitbook/assets/image (4) (5).png>)
+![The Attach Filesystems menu during Virtual Server creation](../.gitbook/assets/image.png)
 
 ****
 
@@ -340,7 +340,7 @@ From the Storage Volumes page in the Cloud UI, click the pencil associated with 
 
 
 
-![The storage volume list, featuring the pencil icon to the right](<../.gitbook/assets/image (2) (4).png>)
+![The storage volume list, featuring the pencil icon to the right](<../.gitbook/assets/image (2).png>)
 
 
 
@@ -348,7 +348,7 @@ From this modal, make the desired changes, then click **Save** to apply the chan
 
 
 
-![The volume edit modal](<../.gitbook/assets/image (10) (1).png>)
+![The volume edit modal](<../.gitbook/assets/image (10).png>)
 {% endtab %}
 
 {% tab title="CLI" %}

@@ -33,7 +33,7 @@ GPUDirect allows GPUs to communicate directly with other GPUs across an InfiniBa
 
 ## **Node Topology**
 
-![](<../../.gitbook/assets/image (4) (2).png>)
+![](<../../.gitbook/assets/image (4) (1).png>)
 
 The A100 HGX nodes are each equipped with 8x NVIDIA A100 80GB GPUs. These GPUs connect to an [NVIDIA NVSWITCH](https://www.nvidia.com/en-us/data-center/nvlink/) baseboard for 600GB/s of intra-node interconnect. The GPUs are also connected to NVIDIA Mellanox CX-6 InfinBand HCAs for connection to the inter-node InfiniBand fabric. Each compute node is uplinked with 1.6Tbps of effective bandwidth with SHARP optimizations.
 
