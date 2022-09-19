@@ -23,10 +23,10 @@
 ## Networking
 
 * [Getting Started with Networking](networking/getting-started-with-networking.md)
-* [CoreWeave Cloud Native Networking (CCNN)](coreweave-kubernetes/networking/coreweave-cloud-native-networking-ccnn.md)
+* [CoreWeave Cloud Native Networking (CCNN)](networking/coreweave-cloud-native-networking-ccnn/README.md)
+  * [Exposing Applications](networking/coreweave-cloud-native-networking-ccnn/exposing-applications.md)
 * [Layer 2 VPC (L2VPC)](coreweave-kubernetes/networking/layer-2-vpc-l2vpc/README.md)
   * [L2VPC Usage](networking/layer-2-vpc-l2vpc/l2vpc-usage.md)
-  * [Exposing Applications](networking/layer-2-vpc-l2vpc/exposing-applications.md)
   * [DHCP on L2VPC](coreweave-kubernetes/networking/layer-2-vpc-l2vpc/dhcp-on-l2vpc.md)
   * [Virtual Firewalls](networking/layer-2-vpc-l2vpc/virtual-firewalls/README.md)
     * [Fortinet](networking/layer-2-vpc-l2vpc/virtual-firewalls/fortinet.md)

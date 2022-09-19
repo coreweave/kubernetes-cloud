@@ -8,7 +8,7 @@ description: Learn about networking options on CoreWeave.
 
 CoreWeave offers three primary networking solutions, often used in combination.
 
-### [CoreWeave Cloud Native Networking (CCNN)](../coreweave-kubernetes/networking/coreweave-cloud-native-networking-ccnn.md)
+### [CoreWeave Cloud Native Networking (CCNN)](coreweave-cloud-native-networking-ccnn/)
 
 <mark style="background-color:green;">****</mark>:white\_check\_mark: **Ideal for most use cases.**
 
@@ -20,7 +20,7 @@ These are all handled by the network layer, and concepts such as Services and Ne
 
 {% hint style="info" %}
 **Additional Resources**\
-****[Read more in our CoreWeave Cloud Native Networking (CCNN) documentation.](../coreweave-kubernetes/networking/coreweave-cloud-native-networking-ccnn.md)
+****[Read more in our CoreWeave Cloud Native Networking (CCNN) documentation.](coreweave-cloud-native-networking-ccnn/)
 {% endhint %}
 
 ### [CoreWeave Layer 2 VPC (L2VPC)](../coreweave-kubernetes/networking/layer-2-vpc-l2vpc/)
