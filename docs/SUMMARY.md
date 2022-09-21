@@ -90,10 +90,12 @@
 
 ## Inference <a href="#compass" id="compass"></a>
 
-* [Online Inference Serving](../compass/online-inference.md)
-* [One Click Models](../compass/models/README.md)
+* [Inference on the Cloud](../compass/online-inference.md)
+* [One-Click Models](../compass/models/README.md)
   * [GPT-J-6B](../compass/models/gpt-j-6b.md)
-* [Examples](../compass/examples/README.md)
+* [Finetuning Machine Learning Models](compass/finetuning-machine-learning-models.md)
+* [Finetuning GPT-NeoX 20B using DeterminedAI](compass/gpt-neox.md)
+* [Inference Examples](../compass/examples/README.md)
   * [PyTorch Hugging Face Diffusers - Stable Diffusion Text to Image](compass/examples/pytorch-hugging-face-diffusers-stable-diffusion-text-to-image.md)
   * [PyTorch Hugging Face Transformers - BigScience BLOOM](compass/examples/pytorch-hugging-face-transformers-bigscience-bloom.md)
   * [JAX - DALL-E Mini / Mega](compass/examples/jax-dall-e-mini-mega.md)
@@ -107,8 +109,6 @@
   * [PyTorch - GPT-2 AITextgen](../compass/examples/custom-pytorch-aitextgen.md)
   * [PyTorch - FastAI Sentiment](../compass/examples/custom-sentiment.md)
   * [Custom - BASNET](../compass/examples/custom-basnet.md)
-* [Finetuning Machine Learning Models](compass/finetuning-machine-learning-models.md)
-* [Finetuning GPT-NeoX 20B using DeterminedAI](compass/gpt-neox.md)
 
 ## Workflows
 
