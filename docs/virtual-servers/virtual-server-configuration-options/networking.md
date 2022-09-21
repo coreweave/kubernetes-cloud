@@ -137,12 +137,6 @@ floatingIPs: [240.141.77.141, 82.110.59.244]
 
 Learn more about [Floating IPs](additional-features.md#floating-ips).
 {% endhint %}
-
-
-
-#### Layer 2 VPC (L2VPC)
-
-For information on configuring Layer 2 VPCs for Virtual Server networking, see **the L2VPC Setup page**.
 {% endtab %}
 
 {% tab title="CLI" %}
@@ -248,3 +242,77 @@ variable "vs_udp_ports" {
 {% endtab %}
 {% endtabs %}
 
+## Attaching a Layer 2 VPC
+
+A Virtual Server can be attached to one or multiple VPCs, as well as the regular [CoreWeave Cloud Native Kubernetes](../../coreweave-kubernetes/networking/coreweave-cloud-native-networking-ccnn.md) (CCNN) network. Each VPC will be represented as a separate Network Interface Card (NIC) inside the Virtual Server, in addition to the regular CoreWeave network (CCNN). The NICs inside a Virtual Server will be in the same order as the VPCs are specified; the order is deterministic to ensure that a NIC inside the Virtual Server always connects to the same VPC, even through reboots and migrations.
+
+{% hint style="info" %}
+**Additional Resources**
+
+[Learn more about CoreWeave Layer 2 VPCs](../../coreweave-kubernetes/networking/layer-2-vpc-l2vpc/).
+{% endhint %}
+
+By default, [CoreWeave Cloud Native Networking](../../coreweave-kubernetes/networking/coreweave-cloud-native-networking-ccnn.md) is **enabled**. To disable CoreWeave networking, set `disableK8sNetworking` to `true`.
+
+{% hint style="danger" %}
+**Warning**
+
+CoreWeave Cloud Native Networking is designed with low latency and high isolation in mind. Even when a VPC is in use, it is recommended to leave the regular networking attached for Internet access while leveraging the VPC interface for things like on-premise connectivity.
+
+Additionally, disabling CoreWeave Cloud Native Networking means loss of all regular Kubernetes networking functionality, such as Services, Load Balancers and internet access. The Pod will only be able to communicate on the specified VPCs. For internet access, a virtual firewall can be deployed bridging a VPC and a regular CCNN interface. For most Kubernetes use cases, it is not recommended to disable the standard network.
+
+Also note that if disableK8sNetworking is set to `true` and a VPC is designated, no k8s (paravirtual) NIC will be attached - only the VPC will be attached.
+
+****[**CoreWeave support**](https://cloud.coreweave.com/contact) **is available to help with any network design questions.**
+{% endhint %}
+
+[Layer 2 VPCs](../../coreweave-kubernetes/networking/layer-2-vpc-l2vpc/) can be attached to Virtual Servers using the following methods.
+
+{% tabs %}
+{% tab title="Cloud UI" %}
+**Deployment method:** <mark style="background-color:blue;">CoreWeave Cloud UI</mark>
+
+VPCs that are deployed in the client namespace are associated with Virtual Servers by configuring their addresses within the YAML spec of the Virtual Server to be associated.
+
+VPC names are configured inside the `network.vpcs` stanza inside this manifest:
+
+
+
+<figure><img src="../../.gitbook/assets/image.png" alt="The networking.vpcs stanza in the Cloud UI YAML manifest editor"><figcaption><p>The <code>networking.vpcs</code> stanza in the Cloud UI YAML manifest editor</p></figcaption></figure>
+
+
+
+The plain text representation of this configuration is:
+
+```yaml
+network:
+  vpcs: []
+    - name: vpc0
+    - name: vpc1
+  # If disableK8sNetworking is set to `true` and a VPC is defined, no k8s (paravirtual) NIC will be attatched
+  disableK8sNetworking: false
+```
+{% endtab %}
+
+{% tab title="CLI" %}
+**Deployment method:** <mark style="background-color:green;">Kubernetes CLI</mark>
+
+Using Kubernetes, Virtual Server Layer 2 VPC connections are configured inside the `spec.network.vpcs` stanza in the Virtual Server spec.
+
+**Example**
+
+```yaml
+apiVersion: virtualservers.coreweave.com/v1alpha1
+kind: VirtualServer
+metadata:
+  name: my-vs-in-a-vpc
+  namespace: tenant-coreweave-example
+spec:
+  network:
+    disableK8sNetworking: false
+    vpcs:
+    - name: your-vpc-name
+    - name: optional-second-vc
+```
+{% endtab %}
+{% endtabs %}
