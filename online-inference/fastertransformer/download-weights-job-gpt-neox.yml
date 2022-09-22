@@ -13,8 +13,8 @@ spec:
         - /bin/sh
         - -c
         - |
-          cd /mnt/pvc;
           mkdir -p /mnt/pvc/gpt-neox;
+          cd /mnt/pvc/gpt-neox;
           apt-get update && \
           apt-get install -y --no-install-recommends \
           zip unzip wget git python3.8 python3-pip && \ 
@@ -144,7 +144,7 @@ spec:
             },
             {
               name: "random_seed"
-              data_type: TYPE_UINT64
+              data_type: TYPE_UINT32
               dims: [ 1 ]
               reshape: { shape: [ ] }
               optional: true
@@ -250,7 +250,7 @@ spec:
           parameters {
             key: "model_checkpoint_path"
             value: {
-              string_value: "/mnt/pvc/gpt-neox/triton-model-store/fastertransformer/1/"
+              string_value: "/mnt/pvc/gpt-neox/triton-model-store/fastertransformer/1"
             }
           }
           parameters {

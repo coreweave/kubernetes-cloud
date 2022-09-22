@@ -12,7 +12,7 @@
         },
         {
             "name": "request_output_len",
-            "data": [[32]],
+            "data": [[64]],
             "dtype": "uint32"
         },
         {
@@ -38,7 +38,7 @@
         {
             "name": "random_seed",
             "data": [[0]],
-            "dtype": "int32"
+            "dtype": "uint32"
         },
         {
             "name": "is_return_log_probs",

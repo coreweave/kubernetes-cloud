@@ -13,7 +13,7 @@ spec:
     - name: gpt-neox-ft
       image: rtalaricw/gptj_ft:v1.2-22.04
       command: ["/opt/tritonserver/bin/tritonserver"]
-      args: ["--model-repository=/mnt/pvc/triton-model-store"]
+      args: ["--model-repository=/mnt/pvc/gpt-neox/triton-model-store"]
       env:
         - name: STORAGE_URI 
           value: pvc://model-storage/
@@ -23,11 +23,11 @@ spec:
       resources:
         requests:
           cpu: 4
-          memory: 8Gi
+          memory: 64Gi
           nvidia.com/gpu: 2
         limits:
           cpu: 4
-          memory: 8Gi
+          memory: 64Gi
           nvidia.com/gpu: 2
     affinity:
       nodeAffinity:

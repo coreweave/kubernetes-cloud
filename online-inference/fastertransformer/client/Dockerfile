@@ -34,6 +34,7 @@ RUN apt-get update && \
 WORKDIR /workspace
 
 ADD gpt_bpe gpt_bpe
+ADD hf_tokenizer hf_tokenizer
 ADD example.py example.py
 ADD sample_request.json sample_request.json
 ADD requirements.txt requirements.txt
