@@ -4,9 +4,9 @@ description: Introduction to using Virtual Firewalls on CoreWeave Cloud
 
 # Virtual Firewalls
 
-To access resources hosted outside of a VPC, the recommended method is to attach a regular CoreWeave Cloud Native NIC to a Pod or [Virtual Server](broken-reference).
+The recommended method for accessing resources hosted outside of a VPC is to attach a regular CoreWeave Cloud Native NIC to a Pod or to a [Virtual Server](broken-reference).
 
-However, certain users may want to deploy and mange their own Virtual Firewalls to bridge a VPC to the outside world instead.
+However, certain users may want to deploy and manage their own Virtual Firewalls to bridge a VPC to the outside world instead.
 
 {% hint style="info" %}
 **Note**
@@ -25,7 +25,7 @@ If these criteria are satisfied, the firewall or virtual appliance can be deploy
 
 ## Setup guides
 
-For your convenience, CoreWeave provides the following setup guides for Virtual Firewalls:
+For your convenience, CoreWeave provides the following setup guides for popular Virtual Firewalls:
 
 | Virtual Firewalls       |
 | ----------------------- |
