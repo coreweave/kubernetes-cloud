@@ -1,0 +1,8 @@
+torch
+torchvision
+torchaudio
+--extra-index-url https://download.pytorch.org/whl/cu116
+transformers==4.21.3
+accelerate
+deepspeed>=0.7.3
+kserve
