@@ -5,4 +5,8 @@ torchaudio
 transformers==4.21.3
 accelerate
 deepspeed>=0.7.3
-kserve
+flask 
+flask_api 
+gunicorn 
+pydantic 
+huggingface_hub>=0.9.0 

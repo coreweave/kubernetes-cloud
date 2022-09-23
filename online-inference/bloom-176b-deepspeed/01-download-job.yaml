@@ -1,0 +1,44 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: microsoft-bloom-deepspeed-inference-fp16-download
+spec:
+  template:
+    spec:
+      containers:
+      - name: model-downloader
+        image: tweldoncw/huggingface-hub-downloader:2
+        imagePullPolicy: IfNotPresent
+        command:
+          - "python3"
+          - "/app/download.py"
+          - "--model-id=microsoft/bloom-deepspeed-inference-fp16"
+          - "--revision=main"
+        env: 
+          - name: HF_HOME
+            value: /mnt/models
+        volumeMounts:
+          - name: model-cache
+            mountPath: /mnt/models
+        resources:
+          requests:
+            cpu: 1
+            memory: 4Gi 
+          limits:
+            cpu: 1
+            memory: 4Gi 
+      volumes:
+        - name: model-cache
+          persistentVolumeClaim:
+            claimName: microsoft-bloom-deepspeed-inference-fp16
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: topology.kubernetes.io/region
+                operator: In
+                values: 
+                - LAS1
+      restartPolicy: Never
+  backoffLimit: 2
