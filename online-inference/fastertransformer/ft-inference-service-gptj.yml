@@ -13,7 +13,7 @@ spec:
     - name: gptj-ft
       image: rtalaricw/gptj_ft:v1.2
       command: ["/opt/tritonserver/bin/tritonserver"]
-      args: ["--model-repository=/mnt/pvc/triton-model-store"]
+      args: ["--model-repository=/mnt/pvc/gptj-store/triton-model-store"]
       env:
         - name: STORAGE_URI 
           value: pvc://model-storage/
@@ -37,7 +37,7 @@ spec:
             - key: gpu.nvidia.com/class
               operator: In
               values:
-                - A40
+                - RTX_A5000
             - key: topology.kubernetes.io/region
               operator: In
               values:
