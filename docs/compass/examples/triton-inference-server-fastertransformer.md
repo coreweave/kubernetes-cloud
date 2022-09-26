@@ -115,7 +115,7 @@ This job performs the following:
 
 To check if the model has finished downloading, wait for the job to be in a `Completed` state:
 
-```
+```bash
 $ kubectl get jobs
 
 NAME                        COMPLETIONS   DURATION      AGE
@@ -124,7 +124,7 @@ gptj-download                 1/1            24m        1h
 
 Or, follow the job logs to monitor progress:
 
-```
+```bash
 kubectl logs -l job-name=gptj-download --follow
 ```
 
@@ -132,13 +132,13 @@ kubectl logs -l job-name=gptj-download --follow
 
 Once the model is downloaded, the `InferenceService` can be deployed by invoking:
 
-```
+```bash
 kubectl apply -f gptj-ft-inference-service.yml
 ```
 
 Due to the size of the model, loading into GPU memory can take around 5-10 minutes. To monitor the progress of this, you can wait to see the KServe workers start in the pod logs by invoking:
 
-```
+```bash
 kubectl logs -f -l serving.kubeflow.org/inferenceservice=fastertransformer-triton kfserving-container
 ```
 
@@ -169,13 +169,13 @@ Once you build and push your image above, you should be able to query the Infere
 `$ kubectl get isvc` (will give you the URL required for the below `SERVICE` variable). Note that you should NOT pass `http://`, just the URL like below. ``&#x20;
 {% endhint %}
 
-<pre><code><strong>cd client/;
+<pre class="language-bash"><code class="lang-bash"><strong>cd client/
 </strong>export SERVICE=fastertransformer-triton.tenant-sta-coreweavertalari-rahultalaridev.knative.chi.coreweave.com
 docker run $DOCKER_USER/fastertransformer-client:1 --url=$SERVICE  --prompt="Mary has a little lamb."</code></pre>
 
 You should see output like below:
 
-```
+```bash
 $ docker run $DOCKER_USER/fastertransformer-client:1 --url=$SERVICE --prompt="Mary has a little lamb."      
 Ouput: Mary has a little lamb. Its fleece is white as snow, and everywhere that Mary walks, the lamb is sure to be sure-footed behind her. It loves the little lambs
 ```

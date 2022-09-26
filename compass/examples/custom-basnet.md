@@ -10,7 +10,7 @@ To follow along, clone the manifests from [GitHub](https://github.com/coreweave/
 ![input](../../docs/.gitbook/assets/test.png)
 
 **Output**\
-![output](../../online-inference/custom-basnet/client/expected\_output.png)
+![output](../../docs/.gitbook/assets/expected\_output.png)
 
 ## Getting Started
 

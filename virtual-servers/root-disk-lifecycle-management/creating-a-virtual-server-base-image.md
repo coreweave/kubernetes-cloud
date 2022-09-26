@@ -67,7 +67,7 @@ We can monitor the Virtual Server spinning up with `kubectl get pods --watch`
 
 Once our VS has reached "Running" status, we can get an External IP to connect to it with `kubectl get vs`
 
-![Output of "kubectl get vs"](<../../.gitbook/assets/image (31) (1).png>)
+![Output of "kubectl get vs"](<../../docs/.gitbook/assets/image (31) (1) (1) (1).png>)
 
 {% hint style="info" %}
 Allow \~5 minutes after "Running" status for the Virtual Server to complete initial start procedures.
