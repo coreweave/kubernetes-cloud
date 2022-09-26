@@ -6,7 +6,7 @@ To follow along, please clone the [GitHub repository](https://github.com/corewea
 
 ### Introduction
 
-This example leverages a [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) to always maintain one instances of [Tensorflow](https://www.tensorflow.org) with Jupyter. Tensorflow is a highly popular deep learning framework that is greatly accelerated by GPUs. Each instance, in Kubernetes terminology called a [Pod](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/) is allocated 2 GPUs.
+This example leverages a [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) to always maintain one instance of [Tensorflow](https://www.tensorflow.org) with Jupyter. Tensorflow is a highly popular deep learning framework that is greatly accelerated by GPUs. Each instance, in Kubernetes terminology called a [Pod](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/) is allocated 2 GPUs.
 
 The Kubenetes Control-Plane in the CoreWeave Cloud will ensure that there are one instance ([Pods](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/)) of Tensorflow Jupyter running at all times. The Control-Plane will reserve GPU, CPU and RAM on CoreWeaves compute nodes. Pods in the same deployment can be scheduled on the same or multiple physical nodes, depending on resource availability. If co-location of Pods is required for some reason, ie. shared ephemeral or block storage, this can be controlled with [affinity rules](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity).
 
