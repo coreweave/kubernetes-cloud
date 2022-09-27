@@ -197,7 +197,7 @@ Many applications on Windows require a display connected to GPU in order to rend
 {% hint style="warning" %}
 When the Virtual Display is enabled, Windows will only output to the attached GPU, making the built-in VNC terminal inaccessible. Connecting via `virtctl vnc` will result in one of the blank screens below:
 
-![](../../.gitbook/assets/vnc-1.png)<img src="../../.gitbook/assets/vnc-2 (1).png" alt="" data-size="original">
+![](../../.gitbook/assets/vnc-1.png)<img src="../../../.gitbook/assets/vnc-2.png" alt="" data-size="original">
 
 For serial console access (Windows Special Admin Console), use `virtctl console` instead.
 {% endhint %}

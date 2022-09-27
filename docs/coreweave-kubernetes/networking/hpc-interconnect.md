@@ -29,11 +29,11 @@ CoreWeave has partnered with NVIDIA in its design of interconnect for A100 HGX t
 
 GPUDirect allows GPUs to communicate directly with other GPUs across an InfiniBand fabric, without passing through the host system CPU and operating system kernel, which significantly lowers synchronization latency.
 
-![NVIDIA Mellanox Quantum leaf switches in the CoreWeave LAS1 datacenter](<../../.gitbook/assets/image (1) (1) (2) (1).png>)
+![NVIDIA Mellanox Quantum leaf switches in the CoreWeave LAS1 datacenter](<../../.gitbook/assets/image (1) (1) (2).png>)
 
 ## **Node Topology**
 
-![](<../../.gitbook/assets/image (4).png>)
+![](<../../.gitbook/assets/image (4) (1).png>)
 
 The A100 HGX nodes are each equipped with 8x NVIDIA A100 80GB GPUs. These GPUs connect to an [NVIDIA NVSWITCH](https://www.nvidia.com/en-us/data-center/nvlink/) baseboard for 600GB/s of intra-node interconnect. The GPUs are also connected to NVIDIA Mellanox CX-6 InfinBand HCAs for connection to the inter-node InfiniBand fabric. Each compute node is uplinked with 1.6Tbps of effective bandwidth with SHARP optimizations.
 
@@ -45,7 +45,7 @@ The InfiniBand fabric itself consists exclusively of [NVIDIA Quantum](https://ww
 
 Fabrics provide hundreds of terabits of aggregate bandwidth. Each high-performance link is carefully monitored and optimized using best of breed NVIDIA tooling.
 
-![Topology of typical CoreWeave HGX A100 Cluster](<../../.gitbook/assets/image (10) (1) (1) (1) (1).png>)
+![Topology of typical CoreWeave HGX A100 Cluster](<../../.gitbook/assets/image (10) (1) (1).png>)
 
 ## NVIDIA Mellanox SHARP
 
