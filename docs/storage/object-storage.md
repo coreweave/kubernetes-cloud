@@ -4,7 +4,9 @@ description: Learn about CoreWeave's S3 compatible Object Storage
 
 # Object Storage
 
-CoreWeave's Object Storage allows unstructured data to be stored and referenced via metadata associated with the data. Object Storage is S3 compatible, and existing SDKs and libraries object for Object Storage are also compatible.
+Coreweave Object Storage is an S3-compatible storage system that allows data to be stored and retrieved in a flexible and efficient way. CoreWeave Object Storage also supports multiple regions, allowing you to utilize regionally optimized clusters for your needs. Additionally, because Object Storage works over HTTP, any compatible S3 CLI tool or SDK integration may be used in tandem with Object Storage.
+
+To get started with Object Storage, simply generate a key pair, download your credentials, and start managing your data!
 
 {% hint style="info" %}
 **Note**
