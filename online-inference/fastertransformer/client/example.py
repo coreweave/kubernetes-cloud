@@ -91,7 +91,7 @@ def prepare_tensor(client, name, input):
 
 def main(config, request):
     client_type = httpclient if config['protocol'] == 'http' else grpcclient
-    with client_type.InferenceServerClient(config['url'], verbose=config['verbose'], concurrency=1, connection_timeout=1000.0, network_timeout=1000.0,) as cl:
+    with client_type.InferenceServerClient(config['url'], verbose=config['verbose'], concurrency=1, connection_timeout=100.0, network_timeout=100.0,) as cl:
         payload = [prepare_tensor(client_type, field['name'], field['data'])
             for field in request]
 

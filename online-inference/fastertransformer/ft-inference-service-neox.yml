@@ -24,11 +24,11 @@ spec:
         requests:
           cpu: 4
           memory: 64Gi
-          nvidia.com/gpu: 2
+          nvidia.com/gpu: 1
         limits:
           cpu: 4
           memory: 64Gi
-          nvidia.com/gpu: 2
+          nvidia.com/gpu: 1
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:

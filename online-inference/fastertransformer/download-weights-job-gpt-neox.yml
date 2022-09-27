@@ -32,8 +32,8 @@ spec:
           python3 /mnt/pvc/gpt-neox/FasterTransformer/examples/pytorch/gptneox/utils/eleutherai_gpt_neox_convert.py \
           /mnt/pvc/gpt-neox/EleutherAI/ \
           /mnt/pvc/gpt-neox/triton-model-store/fastertransformer/1 \
-          --tensor-parallelism 2
-          mv /mnt/pvc/gpt-neox/triton-model-store/fastertransformer/1/2-gpu/* /mnt/pvc/triton-model-store/fastertransformer/1/;
+          --tensor-parallelism 1
+          mv /mnt/pvc/gpt-neox/triton-model-store/fastertransformer/1/1-gpu/* /mnt/pvc/triton-model-store/fastertransformer/1/;
           touch /mnt/pvc/gpt-neox/triton-model-store/fastertransformer/config.pbtxt
           echo '# Copyright (c) 2022, NVIDIA CORPORATION. All rights reserved.
           # Redistribution and use in source and binary forms, with or without
@@ -214,7 +214,7 @@ spec:
           parameters {
             key: "tensor_para_size"
             value: {
-              string_value: "2"
+              string_value: "1"
             }
           }
           parameters {
@@ -238,7 +238,7 @@ spec:
           parameters {
             key: "data_type"
             value: {
-              string_value: "fp32"
+              string_value: "fp16"
             }
           }
           parameters {
@@ -259,7 +259,7 @@ spec:
               string_value: "0"
             }
           }' > /mnt/pvc/gpt-neox/triton-model-store/fastertransformer/config.pbtxt
-          rm -rf /mnt/pvc/gpt-neox/triton-model-store/fastertransformer/1/2-gpu;
+          rm -rf /mnt/pvc/gpt-neox/triton-model-store/fastertransformer/1/1-gpu;
         volumeMounts:
           - name: cache
             mountPath: /mnt/pvc
