@@ -70,37 +70,37 @@ spec:
           input [
             {
               name: "input_ids"
-              data_type: TYPE_UINT32
+              data_type: TYPE_INT32
               dims: [ -1 ]
             },
             {
               name: "start_id"
-              data_type: TYPE_UINT32
+              data_type: TYPE_INT32
               dims: [ 1 ]
               reshape: { shape: [ ] }
               optional: true
             },
             {
               name: "end_id"
-              data_type: TYPE_UINT32
+              data_type: TYPE_INT32
               dims: [ 1 ]
               reshape: { shape: [ ] }
               optional: true
             },
             {
               name: "input_lengths"
-              data_type: TYPE_UINT32
+              data_type: TYPE_INT32
               dims: [ 1 ]
               reshape: { shape: [ ] }
             },
             {
               name: "request_output_len"
-              data_type: TYPE_UINT32
+              data_type: TYPE_INT32
               dims: [ -1 ]
             },
             {
               name: "runtime_top_k"
-              data_type: TYPE_UINT32
+              data_type: TYPE_INT32
               dims: [ 1 ]
               reshape: { shape: [ ] }
               optional: true
@@ -142,7 +142,7 @@ spec:
             },
             {
               name: "random_seed"
-              data_type: TYPE_UINT32
+              data_type: TYPE_INT32
               dims: [ 1 ]
               reshape: { shape: [ ] }
               optional: true
@@ -156,7 +156,7 @@ spec:
             },
             {
               name: "beam_width"
-              data_type: TYPE_UINT32
+              data_type: TYPE_INT32
               dims: [ 1 ]
               reshape: { shape: [ ] }
               optional: true
@@ -175,7 +175,7 @@ spec:
             },
             {
               name: "prompt_learning_task_name_ids"
-              data_type: TYPE_UINT32
+              data_type: TYPE_INT32
               dims: [ 1 ]
               reshape: { shape: [ ] }
               optional: true
@@ -184,12 +184,12 @@ spec:
           output [
             {
               name: "output_ids"
-              data_type: TYPE_UINT32
+              data_type: TYPE_INT32
               dims: [ -1, -1 ]
             },
             {
               name: "sequence_length"
-              data_type: TYPE_UINT32
+              data_type: TYPE_INT32
               dims: [ -1 ]
             },
             {
