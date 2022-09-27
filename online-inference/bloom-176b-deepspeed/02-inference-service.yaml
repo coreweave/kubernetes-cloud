@@ -1,0 +1,45 @@
+apiVersion: serving.kubeflow.org/v1beta1
+kind: InferenceService
+metadata:
+  name: microsoft-bloom-deepspeed-inference-fp16
+spec:
+  predictor:
+    containerConcurrency: 1
+    minReplicas: 1
+    maxReplicas: 1
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: topology.kubernetes.io/region
+              operator: In
+              values:
+              - LAS1
+            - key: gpu.nvidia.com/class
+              operator: In
+              values:
+              - A100_NVLINK_80GB
+    containers:
+    - name: kfserving-container
+      image: tweldoncw/microsoft-bloom-deepspeed-inference-fp16:7
+      command:
+        - "/usr/bin/bash"
+        - "server.sh"
+      ports:
+      - containerPort: 5000
+        protocol: TCP
+      env: 
+        - name: STORAGE_URI # Kserve mounts the PVC at /mnt/pvc/
+          value: pvc://microsoft-bloom-deepspeed-inference-fp16/
+        - name: HF_HOME
+          value: /mnt/models
+      resources:
+        limits:
+          cpu: 12
+          memory: 64Gi
+          nvidia.com/gpu: 8
+        requests:
+          cpu: 12
+          memory: 64Gi
+          nvidia.com/gpu: 8
