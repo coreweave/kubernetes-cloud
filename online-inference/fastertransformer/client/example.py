@@ -37,7 +37,7 @@ def deep_update(source, overrides):
             source[key] = overrides[key]
     return source
 
-def encode_data(text="Hello, I am Jane. Nice to meet you!", model):
+def encode_data(model, text):
     if model == "gptj":
         all_ids = [torch.IntTensor(enc.encode(text))]
     elif model == "gpt-neox":
@@ -71,7 +71,7 @@ def generate_parameters(args):
 
     for index, value in enumerate(params['request']):
         if value['name'] == 'input_ids':
-            value['data'] = [encode_data(text=args.prompt, model=args.model)] 
+            value['data'] = [encode_data(model=args.model, text=args.prompt)] 
         if value['name'] == 'input_lengths':
             value['data'] = [[input_lengths]]
         params['request'][index] = {
