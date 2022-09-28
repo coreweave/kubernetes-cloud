@@ -91,25 +91,25 @@
 ## Inference <a href="#compass" id="compass"></a>
 
 * [Inference on the Cloud](../compass/online-inference.md)
-* [One-Click Models](../compass/models/README.md)
-  * [GPT-J-6B](../compass/models/gpt-j-6b.md)
-* [Finetuning Machine Learning Models](compass/finetuning-machine-learning-models.md)
-* [Finetuning GPT-NeoX 20B using DeterminedAI](compass/gpt-neox.md)
 * [Inference Examples](../compass/examples/README.md)
   * [PyTorch Hugging Face Diffusers - Stable Diffusion Text to Image](compass/examples/pytorch-hugging-face-diffusers-stable-diffusion-text-to-image.md)
   * [PyTorch Hugging Face Transformers Accelerate - BigScience BLOOM](compass/examples/pytorch-hugging-face-transformers-bigscience-bloom.md)
-  * [PyTorch Hugging Face Transformers DeepSpeed - BigScience BLOOM](compass/examples/pytorch-hugging-face-transformers-bigscience-bloom-1.md)
   * [JAX - DALL-E Mini / Mega](compass/examples/jax-dall-e-mini-mega.md)
   * [Triton Inference Server - FasterTransformer GPT-J and GPT-NeoX 20B](compass/examples/triton-inference-server-fastertransformer.md)
   * [TensorFlow - Open AI GPT-2](../compass/examples/gpt-2/README.md)
     * [Transformer](../compass/examples/gpt-2/transformer.md)
-    * [Exporting with Jupyter](../compass/examples/gpt-2/jupyter-pvc.md)
-    * [S3 Model Serving](../compass/examples/gpt-2/service-s3.md)
-    * [PVC Model Serving](../compass/examples/gpt-2/service-pvc.md)
+  * [PyTorch Hugging Face Transformers DeepSpeed - BigScience BLOOM](compass/examples/pytorch-hugging-face-transformers-bigscience-bloom-1/README.md)
+    * [Exporting with Jupyter](compass/examples/pytorch-hugging-face-transformers-bigscience-bloom-1/jupyter-pvc.md)
+    * [S3 Model Serving](compass/examples/pytorch-hugging-face-transformers-bigscience-bloom-1/service-s3.md)
+    * [PVC Model Serving](compass/examples/pytorch-hugging-face-transformers-bigscience-bloom-1/service-pvc.md)
   * [TensorFlow2 - Image Classifier](../compass/examples/tensorflow2-image-classifier.md)
   * [PyTorch - GPT-2 AITextgen](../compass/examples/custom-pytorch-aitextgen.md)
   * [PyTorch - FastAI Sentiment](../compass/examples/custom-sentiment.md)
   * [Custom - BASNET](../compass/examples/custom-basnet.md)
+* [One-Click Models](../compass/models/README.md)
+  * [GPT-J-6B](../compass/models/gpt-j-6b.md)
+* [Finetuning Machine Learning Models](compass/finetuning-machine-learning-models.md)
+* [Finetuning GPT-NeoX 20B using DeterminedAI](compass/gpt-neox.md)
 
 ## Workflows
 
