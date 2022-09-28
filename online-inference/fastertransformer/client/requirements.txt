@@ -18,6 +18,7 @@ python-rapidjson==1.8
 regex==2022.7.25
 six==1.16.0
 tritonclient==2.24.0
+tokenizers==0.12.1
 typing_extensions==4.3.0
 yarl==1.8.1
 zope.event==4.5.0

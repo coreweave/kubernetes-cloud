@@ -3,17 +3,17 @@
         {
             "name": "input_ids",
             "data": [],
-            "dtype": "uint32"
+            "dtype": "int32"
         },
         {
             "name": "input_lengths",
             "data": [],
-            "dtype": "uint32"
+            "dtype": "int32"
         },
         {
             "name": "request_output_len",
-            "data": [[32]],
-            "dtype": "uint32"
+            "data": [[64]],
+            "dtype": "int32"
         },
         {
             "name": "beam_search_diversity_rate",
@@ -48,12 +48,12 @@
         {
             "name": "beam_width",
             "data": [[1]],
-            "dtype": "uint32"
+            "dtype": "int32"
         },
         {
             "name": "runtime_top_k",
             "data": [[10]],
-            "dtype": "uint32"
+            "dtype": "int32"
         },
         {
             "name": "runtime_top_p",

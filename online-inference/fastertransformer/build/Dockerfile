@@ -13,7 +13,7 @@
 # limitations under the License.
 
 # Base Image
-ARG TRITON_VERSION=22.05
+ARG TRITON_VERSION=22.04
 ARG BASE_IMAGE=nvcr.io/nvidia/tritonserver:${TRITON_VERSION}-py3
 FROM ${BASE_IMAGE} as server-builder
 
