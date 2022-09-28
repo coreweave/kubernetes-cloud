@@ -6,7 +6,7 @@ description: Feature Updates and Release Notes for CoreWeave Cloud
 
 ## September 2022 :maple\_leaf:
 
-New in CoreWeave Cloud:
+New on CoreWeave Cloud:
 
 ### Self-serve signup for CoreWeave Cloud :writing\_hand:
 
