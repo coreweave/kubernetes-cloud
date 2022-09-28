@@ -100,7 +100,7 @@
   * [PyTorch Hugging Face Transformers Accelerate - BigScience BLOOM](compass/examples/pytorch-hugging-face-transformers-bigscience-bloom.md)
   * [PyTorch Hugging Face Transformers DeepSpeed - BigScience BLOOM](compass/examples/pytorch-hugging-face-transformers-bigscience-bloom-1.md)
   * [JAX - DALL-E Mini / Mega](compass/examples/jax-dall-e-mini-mega.md)
-  * [Triton Inference Server - FasterTransformer GPT-J](compass/examples/triton-inference-server-fastertransformer.md)
+  * [Triton Inference Server - FasterTransformer GPT-J and GPT-NeoX 20B](compass/examples/triton-inference-server-fastertransformer.md)
   * [TensorFlow - Open AI GPT-2](../compass/examples/gpt-2/README.md)
     * [Transformer](../compass/examples/gpt-2/transformer.md)
     * [Exporting with Jupyter](../compass/examples/gpt-2/jupyter-pvc.md)

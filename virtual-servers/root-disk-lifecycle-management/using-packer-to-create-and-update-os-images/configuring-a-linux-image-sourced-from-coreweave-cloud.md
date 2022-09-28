@@ -11,7 +11,7 @@
 
 Following the example in [Copying CoreWeave Images to a Writeable PVC](../exporting-coreweave-images-to-a-writable-pvc.md), we will search for the latest CentOS image in the vd-images namespace:
 
-![](<../../../.gitbook/assets/image (5).png>)
+![](<../../../docs/.gitbook/assets/image (5) (1) (1).png>)
 
 We will then clone this image into our namespace:
 
