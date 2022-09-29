@@ -15,7 +15,7 @@ This example demonstrates how to deploy [BLOOM](https://huggingface.co/bigscienc
 Please [contact CoreWeave Support](https://cloud.coreweave.com/contact) to access NVIDIA A100 80GB GPUs.
 {% endhint %}
 
-![To follow along, please clone the manifests from GitHub](<../../../.gitbook/assets/image (1) (2) (1).png>)
+![To follow along, please clone the manifests from GitHub](<../../.gitbook/assets/image (1) (2) (1).png>)
 
 ### What is BLOOM?
 
@@ -50,11 +50,11 @@ The following pieces must be installed and configured prior to running the examp
 
 No modifications are needed to any of the files to follow along with this demo. The general procedure for this example is:
 
-1. [Build and push the Docker images](./#docker-image) to a container registry, in this case [Docker Hub](https://hub.docker.com/).
-2. [Deploy the Kubernetes resources](./#kubernetes-resources):
-   1. [A PVC](./#undefined) in which to store the model.
-   2. A [Batch Job to download the model](./#undefined). **The model is quite large at roughly 329Gi, and will take around 30 minutes to complete the download.**
-   3. Deploy the [CoreWeave InferenceService](./#undefined).
+1. [Build and push the Docker images](pytorch-hugging-face-transformers-bigscience-bloom-1.md#docker-image) to a container registry, in this case [Docker Hub](https://hub.docker.com/).
+2. [Deploy the Kubernetes resources](pytorch-hugging-face-transformers-bigscience-bloom-1.md#kubernetes-resources):
+   1. [A PVC](pytorch-hugging-face-transformers-bigscience-bloom-1.md#undefined) in which to store the model.
+   2. A [Batch Job to download the model](pytorch-hugging-face-transformers-bigscience-bloom-1.md#undefined). **The model is quite large at roughly 329Gi, and will take around 30 minutes to complete the download.**
+   3. Deploy the [CoreWeave InferenceService](pytorch-hugging-face-transformers-bigscience-bloom-1.md#undefined).
 3. Perform Text Generation using the model by sending HTTP requests to the InferenceService.
 
 ## Procedure
