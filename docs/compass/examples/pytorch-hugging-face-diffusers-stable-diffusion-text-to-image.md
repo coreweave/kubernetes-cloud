@@ -195,13 +195,30 @@ $ curl http://stable-diffusion.tenant-example-example.knative.chi.coreweave.com/
 
 ### Hardware and Performance
 
-This example is set to one A40 for production of higher resolution images. Inference times are around 4.5 seconds for a default resolution of 512x512 with 50 steps. Larger resolutions take longer, e.g. a resolution of 1024x768 takes around 47 seconds. Multi GPU Inference is not supported.
+This example is set to one A40 for production of higher resolution images. Inference times are around `4.78` seconds for a default resolution of `512x512` with 50 steps. Larger resolutions take longer - for example, a resolution of `1024x768` takes around `47` seconds.
 
-GPUs with less VRAM will also work depending on use-case, down to 8GB GPUs such as the Quadro RTX 4000, however output resolution will be limited by memory to 512x512.
+{% hint style="info" %}
+**Note**
 
-#### Stable Diffusion GPU comparison (in seconds)
+Multi-GPU Inference is not supported.
+{% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (5) (1).png" alt="A graph showing Stable Diffusion GPU comparison (in seconds)"><figcaption></figcaption></figure>
+Depending on use case, GPUs with less VRAM will also work down to 8GB GPUs, such as the Quadro RTX 4000, however output resolution will be limited by memory to `512x512`.
+
+The graph and table below compare recent GPU benchmark inference speeds for Stable Diffusion processing on different GPUs:
+
+<figure><img src="../../.gitbook/assets/image (7).png" alt="A graph displaying a comparison of benchmark inference times for Stable Diffusion on different GPUs"><figcaption></figcaption></figure>
+
+| GPU              | Seconds |
+| ---------------- | ------- |
+| Quadro RTX 4000  | 9.91    |
+| Quadro RTX 5000  | 7.94    |
+| A6000            | 4.45    |
+| A40              | 4.78    |
+| A100 40GB PCIE   | 3.35    |
+| A100 40GB NVLINK | 3.29    |
+| A100 80GB NVLINK | 3.19    |
+| AWS A100 40GB    | 4.10    |
 
 {% hint style="info" %}
 **Additional Resources**
