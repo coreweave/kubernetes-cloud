@@ -51,7 +51,7 @@ To schedule resources in a specific region using the Kubernetes API, simply add 
 
 | Resource Name    |         LGA1         |         ORD1         |         LAS1         |
 | ---------------- | :------------------: | :------------------: | :------------------: |
-| A100 80GB NVLINK |      :no\_entry:     |      :no\_entry:     |        :soon:        |
+| A100 80GB NVLINK |      :no\_entry:     |      :no\_entry:     | :white\_check\_mark: |
 | A100 40GB NVLINK |      :no\_entry:     | :white\_check\_mark: |      :no\_entry:     |
 | A100 80GB PCIe   |      :no\_entry:     | :white\_check\_mark: |      :no\_entry:     |
 | A100 40GB PCIe   |      :no\_entry:     | :white\_check\_mark: |      :no\_entry:     |
