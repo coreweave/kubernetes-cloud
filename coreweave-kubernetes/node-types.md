@@ -32,7 +32,7 @@ When custom configuring your instances on CoreWeave Cloud, the following table o
 If a workload requests more peripheral compute resources (vCPU, RAM) than offered in a standard instance size, [additional costs will incur](../resources/resource-based-pricing.md).
 {% endhint %}
 
-### CPU Availability
+## CPU Availability
 
 CPU Only nodes are available for tasks such as control-plane services, databases, ingresses and CPU rendering.
 
