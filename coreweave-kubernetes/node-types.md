@@ -16,7 +16,7 @@ When custom configuring your instances on CoreWeave Cloud, the following table o
 
 | Class             | Generation | VRAM  | Max per Instance | Label                | Vendor | CUDA Cores |
 | ----------------- | ---------- | ----- | ---------------- | -------------------- | ------ | ---------- |
-| A00 NVLINK        | Ampere     | 80 GB | 8                | A100\_NVLINK_\__80GB |        |            |
+| A100 NVLINK       | Ampere     | 80 GB | 8                | A100\_NVLINK_\__80GB |        |            |
 | A100 NVLINK       | Ampere     | 40 GB | 8                | A100\_NVLINK         | NVIDIA | 6,912      |
 | A100 PCIe         | Ampere     | 40 GB | 8                | A100\_PCIE\_40GB     | NVIDIA | 6,912      |
 | A100 PCIe         | Ampere     | 80 GB | 8                | A100\_PCIE\_80GB     | NVIDIA | 6,912      |
