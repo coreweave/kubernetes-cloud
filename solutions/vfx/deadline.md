@@ -27,7 +27,7 @@ There are two ways of deploying Deadline on CoreWeave.
 
 To Get started deploying your deadline repository and workers on CoreWeave login to your cloud dashboard and navigate to the apps interface from the menu on the left. From there, ensure you are within the "catalogue" tab and find Deadline from the list of available applications. Select Deadline and then hit deploy in the upper right. You should now see something like this (NOTE: your App version and Package Version may be different):
 
-![](<../../docs/.gitbook/assets/image (156).png>)
+![](<../../.gitbook/assets/image (95) (1) (1).png>)
 
 Inside this box you can see the default values for deploying the Deadline chart. If you're interested in seeing what configuration options are available to you give this a look over. However, for our purposes we can **select everything in this box and delete it**! We will then put in values which only adjust the properties we want change from default.
 
@@ -350,7 +350,7 @@ If all goes well then you should see a number of deadline specific pods in your 
 
 Once your deadline repository is in the running state you can connect to it. By default the deadline remote connection server is the simplest way to connect, and can be reached at rcs-\<Name Of Deadline Release>-\<Your Namespace Name>.coreweave.cloud, where \<Name of Deadline Release> is the name we used when deploying the deadline application.
 
-![](../../docs/.gitbook/assets/deadline-repo-settings.PNG)
+![](../../.gitbook/assets/deadline-repo-settings.PNG)
 
 We place that address in the "Remote Server" box in the Repository selection, by default the RCS uses port 4433. To retrieve your certificate to connect run `k cp $(kgp` `| grep rcs | grep "<Name of Deadline Release> | grep -o '^\S*'):/tmp/clientkey.pfx <local directory to store key>/key.pfx` and be sure to replace `<Name of Deadline Release>` and `<local directory to store key>` with their respective values. Select your downloaded certificate in the "Select Repository" dialogue and then enter the passphrase you specified in your setup YAML.
 

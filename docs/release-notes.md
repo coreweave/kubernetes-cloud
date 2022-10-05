@@ -101,7 +101,7 @@ Accelerated object storage provides local caching for frequently accessed object
 
 ### **Introducing The Workload Activity Tracker dashboard** :chart\_with\_upwards\_trend:****
 
-<figure><img src=".gitbook/assets/image (2).png" alt="Screenshot of the Workload Activity Tracker in action - vertical columns displaying information on Pods, such as their CPU usage and idle status"><figcaption><p>The Workload Activity Tracker in action</p></figcaption></figure>
+<figure><img src=".gitbook/assets/image (2) (3).png" alt="Screenshot of the Workload Activity Tracker in action - vertical columns displaying information on Pods, such as their CPU usage and idle status"><figcaption><p>The Workload Activity Tracker in action</p></figcaption></figure>
 
 It's an all too common experience to let idle research shells or experiments idle in your namespace after you're done working with them, only to later come back and realize you've been eating resources unnecessarily. Now, with the Workload Activity Tracker dashboard for Grafana, answering "is everything deployed in my namespace doing something?" is never a question you have to worry about.
 

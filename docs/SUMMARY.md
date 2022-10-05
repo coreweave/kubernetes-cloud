@@ -98,7 +98,7 @@
   * [JAX - DALL-E Mini / Mega](compass/examples/jax-dall-e-mini-mega.md)
   * [Triton Inference Server - FasterTransformer GPT-J and GPT-NeoX 20B](compass/examples/triton-inference-server-fastertransformer.md)
   * [TensorFlow - Open AI GPT-2](../compass/examples/gpt-2/README.md)
-    * [Exporting with Jupyter](compass/examples/gpt-2/jupyter-pvc.md)
+    * [Exporting with Jupyter](compass/examples/pytorch-hugging-face-transformers-bigscience-bloom-1/jupyter-pvc.md)
     * [PVC Model Serving](compass/examples/gpt-2/service-pvc.md)
     * [Transformer](../compass/examples/gpt-2/transformer.md)
     * [S3 Model Serving](compass/examples/gpt-2/service-s3.md)

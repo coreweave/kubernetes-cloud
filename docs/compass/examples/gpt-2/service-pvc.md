@@ -6,7 +6,7 @@ This example is virtually the same as the [S3 based one](service-s3.md), instead
 
 ## Getting Started
 
-1. Follow the guide to [export the model through Jupyter](jupyter-pvc.md) first. The model can be placed into a CoreWeave filesystem through many other methods, such as via an SSH or rsync container. Please note that this repository does not include the PVC definition, as it is [defined in the Jupyter repository](https://github.com/coreweave/kubernetes-cloud/tree/ed7ecb3d5786e960506bc20bb1e2d044ad914555/online-inference/gpt-2/jupyter-pvc/model-storage-pvc.yaml).
+1. Follow the guide to [export the model through Jupyter](../pytorch-hugging-face-transformers-bigscience-bloom-1/jupyter-pvc.md) first. The model can be placed into a CoreWeave filesystem through many other methods, such as via an SSH or rsync container. Please note that this repository does not include the PVC definition, as it is [defined in the Jupyter repository](https://github.com/coreweave/kubernetes-cloud/tree/ed7ecb3d5786e960506bc20bb1e2d044ad914555/online-inference/gpt-2/jupyter-pvc/model-storage-pvc.yaml).
 2.  Apply the resources. This can be used to both create and update existing manifests
 
     ```bash
