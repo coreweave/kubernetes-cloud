@@ -259,7 +259,7 @@ Generate the token to be used with the Service Account:
 
 Then, inside the box for **client authentication**, copy and paste the newly generated token into the Argo UI:
 
-![The Argo Workflow UI with a Bearer token pasted into the client authentication box](<../docs/.gitbook/assets/image (2) (2) (1).png>)
+![The Argo Workflow UI with a Bearer token pasted into the client authentication box](<../docs/.gitbook/assets/image (5).png>)
 
 Finally, to log in, click the **Login** button after adding the token.
 

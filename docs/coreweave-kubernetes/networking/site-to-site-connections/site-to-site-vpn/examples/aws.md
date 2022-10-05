@@ -26,7 +26,7 @@ First, you'll need to create a **virtual private gateway** and **attach it** to 
 
 From the VPC creation screen in your AWS account, navigate to **Virtual private network (VPN)** -> **Virtual private gateways.**
 
-![The "virtual private gateways" link.](<../../../../../.gitbook/assets/image (4) (1).png>)
+![The "virtual private gateways" link.](<../../../../../.gitbook/assets/image (4) (1) (1).png>)
 
 Select the orange **Create virtual private gateway** button in the upper right-hand corner to begin configuring the gateway. This will lead you to the configuration screen, as shown below.
 
@@ -89,7 +89,7 @@ After completing the initial setup for the VPN, you'll need to configure further
 
 These options should be configured following the instructions detailed in the following table.
 
-![](<../../../../../.gitbook/assets/image (7) (1) (1).png>)
+![](<../../../../../.gitbook/assets/image (7) (1).png>)
 
 ### Configuration
 

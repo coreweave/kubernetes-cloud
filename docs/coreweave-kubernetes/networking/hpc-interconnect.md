@@ -43,7 +43,7 @@ The InfiniBand fabric itself consists exclusively of [NVIDIA Quantum](https://ww
 
 Fabrics provide hundreds of terabits of aggregate bandwidth. Each high-performance link is carefully monitored and optimized using best of breed NVIDIA tooling.
 
-![Topology of typical CoreWeave HGX A100 Cluster](<../../.gitbook/assets/image (10) (1) (1).png>)
+![Topology of typical CoreWeave HGX A100 Cluster](<../../.gitbook/assets/image (10) (1).png>)
 
 ## NVIDIA Mellanox SHARP
 

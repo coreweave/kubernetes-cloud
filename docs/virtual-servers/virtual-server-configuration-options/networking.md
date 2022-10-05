@@ -26,7 +26,7 @@ Attaching a public IP to the Virtual Server will allow it to be accessible throu
 
 <mark style="background-color:blue;"></mark>
 
-!["Attach IP" option in the Cloud UI.](<../../.gitbook/assets/image (2) (1) (1) (1).png>)
+!["Attach IP" option in the Cloud UI.](<../../.gitbook/assets/image (2) (1) (1).png>)
 
 
 
