@@ -137,15 +137,13 @@ The example below demonstrates an Ingress called `my-app`, exposed via an Ingres
 
 #### Example manifest
 
-```yaml
-apiVersion: networking.k8s.io/v1beta1
-kind: Ingress
+<pre class="language-yaml"><code class="lang-yaml"><strong>---
+</strong><strong>apiVersion: networking.k8s.io/v1beta1
+</strong>kind: Ingress
 metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
-    ingress.kubernetes.io/force-ssl-redirect: "true"
-    ingress.kubernetes.io/ssl-redirect: "true"
-    traefik.ingress.kubernetes.io/redirect-entry-point: https
+    traefik.ingress.kubernetes.io/router.middlewares: tenant-test-default-redirect-secure@kubernetescrd
   labels:
     app.kubernetes.io/name: my-app
   name: my-app
@@ -163,7 +161,18 @@ spec:
   - hosts:
     - my-app.tenant-test-default.ord1.ingress.coreweave.cloud
     secretName: my-app-tls # This secret is automatically created for you
-```
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: redirect-secure
+  namespace: tenant-test-default
+spec:
+  redirectScheme:
+    permanent: true
+    scheme: https</code></pre>
+
+###
 
 ### Using External DNS
 

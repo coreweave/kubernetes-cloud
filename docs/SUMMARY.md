@@ -101,7 +101,7 @@
     * [Exporting with Jupyter](compass/examples/gpt-2/jupyter-pvc.md)
     * [PVC Model Serving](compass/examples/gpt-2/service-pvc.md)
     * [Transformer](../compass/examples/gpt-2/transformer.md)
-    * [S3 Model Serving](compass/examples/gpt-2/service-s3.md)
+    * [S3 Model Serving](../compass/examples/gpt-2/service-s3.md)
   * [TensorFlow2 - Image Classifier](../compass/examples/tensorflow2-image-classifier.md)
   * [PyTorch - GPT-2 AITextgen](../compass/examples/custom-pytorch-aitextgen.md)
   * [PyTorch - FastAI Sentiment](../compass/examples/custom-sentiment.md)
