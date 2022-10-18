@@ -37,7 +37,7 @@ These are all handled by the network layer, and concepts such as Services and Ne
 Read more in [our L2VPC documentation](../coreweave-kubernetes/networking/layer-2-vpc-l2vpc/).
 {% endhint %}
 
-### ****[**HPC Interconnect**](getting-started-with-networking.md#undefined)****
+### ****[**HPC Interconnect**](getting-started-with-networking.md#hpc-interconnect)****
 
 :bulb: **Ideal for:**
 
