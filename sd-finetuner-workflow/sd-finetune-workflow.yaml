@@ -1,0 +1,232 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: "sd-finetune-"
+spec:
+  entrypoint: main
+  arguments:
+    parameters:
+    # run_name should be unique on a per-run basis, especially if reporting
+    # to wandb or sharing PVCs between runs.
+    - name: run_name
+    - name: pvc
+      value: 'sd-finetune-data'
+    # Training parameters. Model IDs are hugging face IDs to pull down, or
+    # a path to your model relative to the PVC root.
+    - name: model
+      value: 'CompVis/stable-diffusion-v1-4'
+    # The directory to read your dataset in.
+    - name: dataset
+      value: 'dataset'
+    # The learning rate to use.
+    - name: lr
+      value: '5e-6'
+    # The amount of epochs to use.
+    - name: epochs
+      value: '10'
+    # Batch size
+    - name: batch_size
+      value: '1'
+    # Whether or not to use EMA (Exponential Moving Average) for the model during training.
+    - name: use_ema
+      value: 'false'
+    # Percentage chance of dropping out the text condition per batch. Ranges from 0.0 to 1.0 where 1.0 means 100% text condition dropout.
+    - name: ucg
+      value: '0.1'
+    # Whether or not to use Gradient Checkpointing. This is a memory optimization that trades off compute for memory.
+    - name: gradient_checkpointing
+      value: 'false'
+    # 8-bit Adam Optimizer - Only works on certain GPUs.
+    - name: use_8bit_adam
+      value: 'false'
+    # Adam beta 1
+    - name: adam_beta1
+      value: '0.9'
+    # Adam beta 2
+    - name: adam_beta2
+      value: '0.999'
+    # Adam weight decay
+    - name: adam_weight_decay
+      value: '1e-2'
+    # Adam epsilon
+    - name: adam_epsilon
+      value: '1e-8'
+    # Seed for reproducibility
+    - name: seed
+      value: '42'
+    # Checkpointing steps to save the model at.
+    - name: save_steps
+      value: '500'
+    # Image resolution to train at
+    - name: resolution
+      value: '512'
+    # Whether or not to resize the images during training.
+    - name: resize
+      value: 'false'
+    # Center crop the images during training.
+    - name: center_crop
+      value: 'false'
+    # Resizing interpolation method.
+    - name: resize_interp
+      value: 'lanczos'
+    # Whether or not to shuffle the dataset.
+    - name: shuffle
+      value: 'true'
+    # Huggingface Token to download CompVis models.
+    - name: hf_token
+    # Project ID to report to wandb.
+    - name: project_id
+      value: 'sd-finetune'
+    # CoreWeave region to default to; ORD1 has most of the GPUs.
+    - name: region
+      value: 'ORD1'
+    # Training GPU - A40, 48gb VRAM
+    - name: trainer_gpu
+      value: 'RTX_A40'
+    # Container images -- generally, don't alter this.
+    - name: finetuner_image
+      value: 'harubaru1/sd-finetuner'
+    - name: finetuner_tag
+      value: 'r1'
+
+  templates:
+  - name: main
+    steps:
+    - - name: finetuner
+        template: model-finetuner
+        arguments:
+          parameters:
+          - name: run_name
+            value: "{{workflow.parameters.run_name}}"
+          - name: model
+            value: "{{workflow.parameters.model}}"
+          - name: dataset
+            value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.dataset}}-{{=sprig.replace('/', '_', sprig.replace('.','_', sprig.replace('-','_', workflow.parameters.model)))}}-{{workflow.parameters.context}}-{{workflow.parameters.tokenizer_tag}}.tokens"
+          - name: lr
+            value: "{{workflow.parameters.lr}}"
+          - name: epochs
+            value: "{{workflow.parameters.epochs}}"
+          - name: batch_size
+            value: "{{workflow.parameters.batch_size}}"
+          - name: use_ema
+            value: "{{workflow.parameters.use_ema}}"
+          - name: ucg
+            value: "{{workflow.parameters.ucg}}"
+          - name: gradient_checkpointing
+            value: "{{workflow.parameters.gradient_checkpointing}}"
+          - name: use_8bit_adam
+            value: "{{workflow.parameters.use_8bit_adam}}"
+          - name: adam_beta1
+            value: "{{workflow.parameters.adam_beta1}}"
+          - name: adam_beta2
+            value: "{{workflow.parameters.adam_beta2}}"
+          - name: adam_weight_decay
+            value: "{{workflow.parameters.adam_weight_decay}}"
+          - name: adam_epsilon
+            value: "{{workflow.parameters.adam_epsilon}}"
+          - name: seed
+            value: "{{workflow.parameters.seed}}"
+          - name: save_steps
+            value: "{{workflow.parameters.save_steps}}"
+          - name: resolution
+            value: "{{workflow.parameters.resolution}}"
+          - name: resize
+            value: "{{workflow.parameters.resize}}"
+          - name: center_crop
+            value: "{{workflow.parameters.center_crop}}"
+          - name: resize_interp
+            value: "{{workflow.parameters.resize_interp}}"
+          - name: shuffle
+            value: "{{workflow.parameters.shuffle}}"
+          - name: hf_token
+            value: "{{workflow.parameters.hf_token}}"
+          - name: project_id
+            value: "{{workflow.parameters.project_id}}"
+        when: "{{workflow.parameters.inference_only}} == false"
+
+  - name: model-finetuner
+    inputs:
+      parameters:
+        - name: run_name
+        - name: model
+        - name: dataset
+        - name: lr
+        - name: epochs
+        - name: batch_size
+        - name: use_ema
+        - name: ucg
+        - name: gradient_checkpointing
+        - name: use_8bit_adam
+        - name: adam_beta1
+        - name: adam_beta2
+        - name: adam_weight_decay
+        - name: adam_epsilon
+        - name: seed
+        - name: save_steps
+        - name: resolution
+        - name: resize
+        - name: center_crop
+        - name: resize_interp
+        - name: shuffle
+        - name: hf_token
+        - name: project_id
+    container:
+      image: "{{workflow.parameters.finetuner_image}}:{{workflow.parameters.finetuner_tag}}"
+      command: [ "/usr/bin/python3", "/app/finetuner.py" ]
+      args: ["--run_name", "{{inputs.parameters.run_name}}",
+              "--model", "{{inputs.parameters.model}}",
+              "--dataset", "{{inputs.parameters.dataset}}",
+              "--lr", "{{inputs.parameters.lr}}",
+              "--epochs", "{{inputs.parameters.epochs}}",
+              "--batch_size", "{{inputs.parameters.batch_size}}",
+              "--use_ema", "{{inputs.parameters.use_ema}}",
+              "--ucg", "{{inputs.parameters.ucg}}",
+              "--gradient_checkpointing", "{{inputs.parameters.gradient_checkpointing}}",
+              "--use_8bit_adam", "{{inputs.parameters.use_8bit_adam}}",
+              "--adam_beta1", "{{inputs.parameters.adam_beta1}}",
+              "--adam_beta2", "{{inputs.parameters.adam_beta2}}",
+              "--adam_weight_decay", "{{inputs.parameters.adam_weight_decay}}",
+              "--adam_epsilon", "{{inputs.parameters.adam_epsilon}}",
+              "--seed", "{{inputs.parameters.seed}}",
+              "--save_steps", "{{inputs.parameters.save_steps}}",
+              "--resolution", "{{inputs.parameters.resolution}}",
+              "--resize", "{{inputs.parameters.resize}}",
+              "--center_crop", "{{inputs.parameters.center_crop}}",
+              "--resize_interp", "{{inputs.parameters.resize_interp}}",
+              "--shuffle", "{{inputs.parameters.shuffle}}",
+              "--hf_token", "{{inputs.parameters.hf_token}}",
+              "--project_id", "{{inputs.parameters.project_id}}"]
+      tty: true
+      env:
+      - name: WANDB_API_KEY
+        value: "{{inputs.parameters.wandb_key}}"
+      - name: PYTHONUNBUFFERED
+        value: "1"
+      resources:
+        requests:
+          memory: 128Gi
+          cpu: "8"
+        limits:
+          memory: 192Gi
+          cpu: "8"
+          nvidia.com/gpu: 1
+      volumeMounts:
+        - mountPath: "/{{workflow.parameters.pvc}}"
+          name: "{{workflow.parameters.pvc}}"
+    volumes:
+      - name: "{{workflow.parameters.pvc}}"
+        persistentVolumeClaim:
+           claimName: "{{workflow.parameters.pvc}}"
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: gpu.nvidia.com/class
+                  operator: In
+                  values:
+                    - "{{workflow.parameters.trainer_gpu}}"
+                - key: topology.kubernetes.io/region
+                  operator: In
+                  values:
+                    - "{{workflow.parameters.region}}"
