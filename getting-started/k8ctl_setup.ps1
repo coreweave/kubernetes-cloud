@@ -26,8 +26,8 @@ Function Install-k8sctl
                 $UseLatest
             )
 
-        $k8ver = 'v1.19.16'
-        $virtver = 'v0.38.1'
+        $k8ver = 'v1.20.15'
+        $virtver = 'v0.51.0'
 
         if(!(test-path $env:ProgramData\k8s -ErrorAction SilentlyContinue)){New-Item -Path $env:ProgramData -Name k8s -ItemType Directory -Force | out-null}
         $ProgressPreference = 'SilentlyContinue'
