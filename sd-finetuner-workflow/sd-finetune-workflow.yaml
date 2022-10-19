@@ -85,7 +85,7 @@ spec:
       value: 'RTX_A40'
     # Container images -- generally, don't alter this.
     - name: finetuner_image
-      value: 'harubaru1/sd-finetuner'
+      value: 'docker.io/harubaru1/sd-finetuner'
     - name: finetuner_tag
       value: 'r1'
 
@@ -101,7 +101,7 @@ spec:
           - name: model
             value: "{{workflow.parameters.model}}"
           - name: dataset
-            value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.dataset}}-{{=sprig.replace('/', '_', sprig.replace('.','_', sprig.replace('-','_', workflow.parameters.model)))}}-{{workflow.parameters.context}}-{{workflow.parameters.tokenizer_tag}}.tokens"
+            value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.dataset}}"
           - name: lr
             value: "{{workflow.parameters.lr}}"
           - name: epochs
@@ -126,6 +126,8 @@ spec:
             value: "{{workflow.parameters.adam_epsilon}}"
           - name: seed
             value: "{{workflow.parameters.seed}}"
+          - name: output_path
+            value: "/{{workflow.parameters.pvc}}/finetunes/"
           - name: save_steps
             value: "{{workflow.parameters.save_steps}}"
           - name: resolution
@@ -142,7 +144,6 @@ spec:
             value: "{{workflow.parameters.hf_token}}"
           - name: project_id
             value: "{{workflow.parameters.project_id}}"
-        when: "{{workflow.parameters.inference_only}} == false"
 
   - name: model-finetuner
     inputs:
@@ -162,6 +163,7 @@ spec:
         - name: adam_weight_decay
         - name: adam_epsilon
         - name: seed
+        - name: output_path
         - name: save_steps
         - name: resolution
         - name: resize
@@ -188,6 +190,7 @@ spec:
               "--adam_weight_decay", "{{inputs.parameters.adam_weight_decay}}",
               "--adam_epsilon", "{{inputs.parameters.adam_epsilon}}",
               "--seed", "{{inputs.parameters.seed}}",
+              "--output_path", "{{inputs.parameters.output_path}}",
               "--save_steps", "{{inputs.parameters.save_steps}}",
               "--resolution", "{{inputs.parameters.resolution}}",
               "--resize", "{{inputs.parameters.resize}}",
@@ -198,8 +201,6 @@ spec:
               "--project_id", "{{inputs.parameters.project_id}}"]
       tty: true
       env:
-      - name: WANDB_API_KEY
-        value: "{{inputs.parameters.wandb_key}}"
       - name: PYTHONUNBUFFERED
         value: "1"
       resources:
