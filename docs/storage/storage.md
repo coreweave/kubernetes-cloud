@@ -80,7 +80,7 @@ To access it, first log in to your CoreWeave Cloud account. Then, from the left-
 
 From the upper right-hand corner, click the **New Volume** button. This will launch the volume configuration modal.
 
-![The New Volume button](<../.gitbook/assets/image (16).png>)
+![The New Volume button](<../.gitbook/assets/image (3).png>)
 
 ![The volume configuration modal](<../.gitbook/assets/image (53) (1).png>)
 
@@ -168,7 +168,7 @@ Filesystem attachments are specified under the **Attach Filesystems** menu while
 
 **Example**
 
-![The Attach Filesystems menu during Virtual Server creation](../.gitbook/assets/image.png)
+![The Attach Filesystems menu during Virtual Server creation](<../.gitbook/assets/image (1).png>)
 
 ***
 

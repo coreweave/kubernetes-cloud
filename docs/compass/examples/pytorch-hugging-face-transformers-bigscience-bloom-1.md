@@ -7,7 +7,7 @@ description: >-
 
 # PyTorch Hugging Face Transformers DeepSpeed - BigScience BLOOM
 
-This example demonstrates how to deploy [BLOOM](https://huggingface.co/bigscience/bloom) as an [InferenceService](https://kserve.github.io/website/0.8/get\_started/first\_isvc/) with a simple HTTP API to perform Text Generation. The deployment will run a DeepSpeed optimized, pre-sharded version of the model on CoreWeave Cloud NVIDIA A100 80GB GPUs networked by NVLink with autoscaling and Scale To Zero. This example uses the [Hugging Face BLOOL Inference Serve](https://github.com/huggingface/transformers-bloom-inference)r under the hood, wrapping it as a Inference Service on CoreWeave.&#x20;
+This example demonstrates how to deploy [BLOOM](https://huggingface.co/bigscience/bloom) as an [InferenceService](https://kserve.github.io/website/0.8/get\_started/first\_isvc/) with a simple HTTP API to perform Text Generation. The deployment will run a DeepSpeed optimized, pre-sharded version of the model on CoreWeave Cloud NVIDIA A100 80GB GPUs networked by NVLink with autoscaling and Scale To Zero. This example uses the [Hugging Face BLOOL Inference Serve](https://github.com/huggingface/transformers-bloom-inference)r under the hood, wrapping it as a Inference Service on CoreWeave.
 
 {% hint style="info" %}
 **Note**
@@ -15,7 +15,7 @@ This example demonstrates how to deploy [BLOOM](https://huggingface.co/bigscienc
 Please [contact CoreWeave Support](https://cloud.coreweave.com/contact) to access NVIDIA A100 80GB GPUs.
 {% endhint %}
 
-![To follow along, please clone the manifests from GitHub](<../../.gitbook/assets/image (1) (2).png>)
+![To follow along, please clone the manifests from GitHub](<../../.gitbook/assets/image (1) (5).png>)
 
 ### What is BLOOM?
 
@@ -72,7 +72,7 @@ Once you have pushed to a tag, do not push to that tag again. Below, we use simp
 
 {% hint style="info" %}
 **Note**\
-****In the following commands, be sure to replace the example `username` with your Docker Hub `username`.
+\*\*\*\*In the following commands, be sure to replace the example `username` with your Docker Hub `username`.
 {% endhint %}
 
 From the `kubernetes-cloud/online-inference/bloom-deepspeed` directory, run the following commands:
@@ -119,14 +119,16 @@ $ kubectl apply -f 01-download-job.yaml
 
 {% hint style="info" %}
 **Note**\
-****The model is quite large at 329Gi, and may take around 30 minutes for the download job to complete.
+\*\*\*\*The model is quite large at 329Gi, and may take around 30 minutes for the download job to complete.
 {% endhint %}
 
 To check if the model has finished downloading, wait for the job to be in a `Completed` state:
 
-<pre><code><strong>$ kubectl get po -l job-name=microsoft-bloom-deepspeed-inference-fp16-download                                                                                                                                   
-</strong>NAME                                                      READY   STATUS    RESTARTS   AGE                                                                                                                        
-microsoft-bloom-deepspeed-inference-fp16-download-5mdd2   0/1     Pending   0          48s        </code></pre>
+```
+$ kubectl get po -l job-name=microsoft-bloom-deepspeed-inference-fp16-download                                                                                                                                   
+NAME                                                      READY   STATUS    RESTARTS   AGE                                                                                                                        
+microsoft-bloom-deepspeed-inference-fp16-download-5mdd2   0/1     Pending   0          48s        
+```
 
 Or, follow the job logs to monitor progress:
 
@@ -224,8 +226,8 @@ Start to finish: 128.628 secs
 
 <pre class="language-bash"><code class="lang-bash">*** Running benchmark
 <strong>
-</strong><strong>*** Performance stats:
-</strong>Throughput per token including tokenize: 318.38 msecs
+</strong>*** Performance stats:
+Throughput per token including tokenize: 318.38 msecs
 Start to ready to generate: 338.782 secs
 Tokenize and generate 500 (bs=1) tokens: 39.511 secs
 Start to finish: 378.292 secs

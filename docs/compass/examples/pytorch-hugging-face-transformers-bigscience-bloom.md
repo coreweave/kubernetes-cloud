@@ -10,7 +10,7 @@ description: >-
 
 This example demonstrates how to deploy [BLOOM](https://huggingface.co/bigscience/bloom) as an [InferenceService](https://kserve.github.io/website/0.8/get\_started/first\_isvc/) with a simple HTTP API to perform Text Generation. The deployment will run on CoreWeave Cloud NVIDIA A100 GPUs with autoscaling and Scale To Zero.
 
-![](<../../.gitbook/assets/image (1) (2).png>)
+![](<../../.gitbook/assets/image (1) (5).png>)
 
 ### What is BLOOM?
 
@@ -33,7 +33,7 @@ The following pieces must be installed and configured prior to running the examp
 
 ## Overview
 
-&#x20;No modifications are needed to any of the files to follow along. The general procedure for this example is:
+No modifications are needed to any of the files to follow along. The general procedure for this example is:
 
 1. [Build and push the Docker image](pytorch-hugging-face-transformers-bigscience-bloom.md#docker-image) to a container registry, in this case [Docker Hub](https://hub.docker.com/).
 2. [Deploy the Kubernetes resources](pytorch-hugging-face-transformers-bigscience-bloom.md#kubernetes-resources):
@@ -57,7 +57,7 @@ Once you have pushed to a tag, do not push to that tag again. Below, we use simp
 
 {% hint style="info" %}
 **Note**\
-****In the following commands, be sure to replace the example `username` with your Docker Hub `username`.
+\*\*\*\*In the following commands, be sure to replace the example `username` with your Docker Hub `username`.
 {% endhint %}
 
 From the `kubernetes-cloud/online-inference/bloom-176b/model` directory, run the following commands:
@@ -102,7 +102,7 @@ $ kubectl apply -f 01-bloom-176b-download-job.yaml
 
 {% hint style="info" %}
 **Note**\
-****The model is quite large at 329Gi, and may take around 30 minutes for the download job to complete.
+\*\*\*\*The model is quite large at 329Gi, and may take around 30 minutes for the download job to complete.
 {% endhint %}
 
 To check if the model has finished downloading, wait for the job to be in a `Completed` state:

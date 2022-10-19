@@ -52,7 +52,7 @@ The values used for this demo are as follows:
 
 {% hint style="info" %}
 **Note**\
-****If needed, it is easy to [increase the size](https://docs.coreweave.com/coreweave-kubernetes/storage#resizing) of a storage volume later.
+\*\*\*\*If needed, it is easy to [increase the size](https://docs.coreweave.com/coreweave-kubernetes/storage#resizing) of a storage volume later.
 {% endhint %}
 
 ### **Install the Filebrowser application**
@@ -118,7 +118,7 @@ You will acquire the `ACCESS_KEY` and `SECRET_KEY` once object storage has been 
 
 #### Attaching the volume
 
-Click  `+` to attach the `finetune-gpt-neox` volume.
+Click `+` to attach the `finetune-gpt-neox` volume.
 
 ![The attachment configuration screen for the DeterminedAI application](<../.gitbook/assets/Screen Shot 2022-07-26 at 4.26.14 PM.png>)
 
@@ -168,7 +168,7 @@ det cmd run 'wget https://s3.amazonaws.com/models.huggingface.co/bert/gpt2-merge
 -O /mnt/finetune-gpt-neox/gpt2-merges.txt'
 ```
 
-### Dataset Format&#x20;
+### Dataset Format
 
 Datasets for GPT-NeoX should be one large document in [**JSONL format**](https://jsonlines.org/). To prepare your own dataset for training with custom data, format it as one large JSONL-formatted file, where each item in the list of dictionaries is a separate document.
 
@@ -183,7 +183,7 @@ The document text should be grouped under one JSON key, i.e `"text"`.
 ```
 
 {% hint style="info" %}
-There are [several standard datasets](https://github.com/EleutherAI/gpt-neox/blob/e7a2fd25e4133fe570c7a8648c7b12b60c415a4b/tools/corpora.py#L298-L319) that you can leverage for testing.&#x20;
+There are [several standard datasets](https://github.com/EleutherAI/gpt-neox/blob/e7a2fd25e4133fe570c7a8648c7b12b60c415a4b/tools/corpora.py#L298-L319) that you can leverage for testing.
 {% endhint %}
 
 ### Pre-processing your dataset
@@ -194,7 +194,7 @@ Upload your data as a single JSONL file called `data.jsonl` to filebrowser under
 
 Using the filebrowser app, create a new folder called `gpt_finetune` under the `finetune-gpt-neox` folder.
 
-![Creating the gpt\_finetune directory in filebrowser](<../.gitbook/assets/image (5) (3).png>)
+![Creating the gpt\_finetune directory in filebrowser](<../.gitbook/assets/image (5) (3) (1).png>)
 
 You can now pre-tokenize your data using `tools/preprocess_data.py`. The arguments for this utility are listed below.
 
@@ -252,7 +252,7 @@ python tools/preprocess_data.py \
             --append-eod
 ```
 
-&#x20;**Run** this command to pre-process and tokenize your data:
+**Run** this command to pre-process and tokenize your data:
 
 ```shell
 det cmd run 'apt-get -y install libopenmpi-dev; pip install -r /mnt/finetune-gpt-neox/gpt-neox/requirements/requirements.txt; pip install protobuf==3.20; python /mnt/finetune-gpt-neox/gpt-neox/tools/preprocess_data.py --input /mnt/finetune-gpt-neox/data.jsonl --output-prefix /mnt/finetune-gpt-neox/gpt_finetune/mydataset --vocab /mnt/finetune-gpt-neox/gpt2-vocab.json --merge-file /mnt/finetune-gpt-neox/gpt2-merges.txt --dataset-impl mmap --tokenizer-type GPT2BPETokenizer --append-eod'
@@ -485,7 +485,6 @@ entrypoint:
   - determined.launch.deepspeed
   - --trial
   - gpt2_trial:GPT2Trial
-
 ```
 
 </details>
@@ -520,7 +519,7 @@ Once training is completed, you will have access to the checkpoint in your S3 bu
 
 [Weights & Biases AI](https://wandb.ai/site) (Wandb.ai) can be installed and configured to visualize training graphs.
 
-Pass in the  `<WANDB_GROUP>` and `<WANDB_TEAM>` variables to your configuration file.
+Pass in the `<WANDB_GROUP>` and `<WANDB_TEAM>` variables to your configuration file.
 
 ```yaml
 name: gpt-neox-zero1-3d-parallel
@@ -566,7 +565,7 @@ entrypoint:
 {% hint style="info" %}
 **Additional Resources**
 
-* [GPT-NeoX ](https://github.com/EleutherAI/gpt-neox#using-custom-data)
+* [GPT-NeoX](https://github.com/EleutherAI/gpt-neox#using-custom-data)
 * [Determined.ai Documentation](https://docs.determined.ai/latest/)
 * [Determined.ai Github](https://github.com/determined-ai/determined)
 {% endhint %}

@@ -8,7 +8,7 @@ Workflows on CoreWeave Cloud run on [Argo Workflows](https://argoproj.github.io/
 
 After logging into [CoreWeave Cloud](https://cloud.coreweave.com), go to the CoreWeave application **Catalog**.
 
-![The Catalog link on the Cloud UI](<../.gitbook/assets/image (17) (2) (1).png>)
+![The Catalog link on the Cloud UI](<../.gitbook/assets/image (17) (2) (1) (1).png>)
 
 A new window will open onto the CoreWeave application Catalog, where you can browse all available applications. In the search field, type **argo-workflows**. Then, select the **argo-workflows** application once it appears.
 
@@ -16,7 +16,7 @@ A new window will open onto the CoreWeave application Catalog, where you can bro
 
 In the upper right-hand corner of the next screen, select the latest version of the Helm chart under **Chart Version**, then click the **Deploy** button.
 
-![](<../.gitbook/assets/image (25).png>)
+![](<../.gitbook/assets/image (25) (1).png>)
 
 The following deployment form will prompt you to enter a name for the application. The remaining parameters will be set to CoreWeave's suggested defaults, but can be changed to suit your requirements. When ready to deploy, click the **Deploy** button at the bottom of the page.
 
@@ -28,7 +28,7 @@ The following deployment form will prompt you to enter a name for the applicatio
 [See the **Security** section below for more information](argo.md#security).
 {% endhint %}
 
-![The Argo Workflows configuration screen](<../docs/.gitbook/assets/image (1) (6).png>)
+![The Argo Workflows configuration screen](<../docs/.gitbook/assets/image (1) (6) (1).png>)
 
 After a few minutes, the deployment will be ready. If you selected `Expose UI via public Ingress`, Argo Workflows will be accessible outside the cluster.
 
@@ -122,7 +122,7 @@ spec:
                     - "16"
 ```
 
-Submit the new workflow **** file (`gpu-say-workflow.yaml` ). According to the specifications above, this workflow takes a JSON array to spin up Pods with one GPU allocated for each, in parallel. The `nvidia-smi` output, as well as the parameter entry assigned for that Pod, is outputted to the log:
+Submit the new workflow \*\*\*\* file (`gpu-say-workflow.yaml` ). According to the specifications above, this workflow takes a JSON array to spin up Pods with one GPU allocated for each, in parallel. The `nvidia-smi` output, as well as the parameter entry assigned for that Pod, is outputted to the log:
 
 ```
 $ argo submit --watch gpu-say-workflow.yaml -p messages='["Argo", "Is", "Awesome"]'
@@ -180,7 +180,7 @@ Argo requires a Service Account token for authentication. The following steps ar
 {% hint style="danger" %}
 **Warning**
 
-`server` auth mode is strongly discouraged**,** as it opens up Argo Workflows to public access and is therefore a security risk. ​
+`server` auth mode is strongly discouraged\*\*,\*\* as it opens up Argo Workflows to public access and is therefore a security risk. ​
 {% endhint %}
 
 ### Tailored permissions
@@ -249,7 +249,7 @@ $ kubectl create rolebinding argo-role-binding --role=argo-role --serviceaccount
 
 ​ ​where `namespace` is the namespace in which Argo is running.
 
-### **Generate the token**&#x20;
+### **Generate the token**
 
 Generate the token to be used with the Service Account:
 
@@ -259,7 +259,7 @@ Generate the token to be used with the Service Account:
 
 Then, inside the box for **client authentication**, copy and paste the newly generated token into the Argo UI:
 
-![The Argo Workflow UI with a Bearer token pasted into the client authentication box](<../docs/.gitbook/assets/image (2) (2).png>)
+![The Argo Workflow UI with a Bearer token pasted into the client authentication box](<../docs/.gitbook/assets/image (2) (2) (1).png>)
 
 Finally, to log in, click the **Login** button after adding the token.
 

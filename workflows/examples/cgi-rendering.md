@@ -52,7 +52,7 @@ Because we are attempting to create an easy-to-use service to render our Blender
 
 To install and configure the FileBrowser application:
 
-1. Navigate to the application Catalog through the CoreWeave Cloud UI, then search for `filebrowser`.&#x20;
+1. Navigate to the application Catalog through the CoreWeave Cloud UI, then search for `filebrowser`.
 2. Select the application, which will open the first configuration screen.
 3. Under **Node Selection**, select your datacenter region.
 4. As we want our new PVC to act as the storage for FileBrowser, under the "Attach existing volumes to your FileBrowser" list, select the newly created PVC (in this case, `shared-data-pvc`) by clicking the small blue plus sign to the right of the Volume name:
@@ -79,7 +79,7 @@ It is **strongly recommended** to change the default login credentials for FileB
 
 In the **Access URLs** box on the status page, you will find an Ingress URL (such as `https://filebrowser-name.tenant-sta-coreweave-clientname.ord1.ingress.coreweave.cloud/`). This Ingress URL may be used to access the FileBrowser application in a browser.
 
-![The FileBrowser login screen](<../../.gitbook/assets/image (3) (1) (1).png>)
+![The FileBrowser login screen](<../../.gitbook/assets/image (3) (1) (1) (1).png>)
 
 #### **Rendering example**
 
@@ -92,7 +92,7 @@ For this example, we want to render something that quickly in order to showcase 
 {% hint style="info" %}
 **Note**
 
-This portion of the example assumes that you've already set up [Argo CLI tools](broken-reference) on CoreWeave Cloud**.**
+This portion of the example assumes that you've already set up [Argo CLI tools](broken-reference/) on CoreWeave Cloud\*\*.\*\*
 {% endhint %}
 
 The following [Argo workflow file](https://argoproj.github.io/argo-workflows/workflow-concepts/) allows us to:

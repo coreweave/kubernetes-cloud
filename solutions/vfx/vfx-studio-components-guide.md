@@ -38,7 +38,7 @@ CoreWeave provides many methods out of the box for exposing your PVCs to externa
 
 #### Samba
 
-![](<../../.gitbook/assets/image (62) (1) (1).png>) ![](<../../docs/.gitbook/assets/image (133).png>)
+![](<../../.gitbook/assets/image (62) (1) (1) (1).png>) ![](<../../docs/.gitbook/assets/image (133).png>)
 
 You can deploy both standard and active directory flavors of samba using the apps catalog accessible from your cloud dashboard. After selecting Samba from the catalog and hitting deploy select the same region you deployed your filesystem volume in (NOTE: while it is possible to deploy the samba server in a region different from the PVC it is not recommended due to storage latency and you will see degraded performance). Create a user for this share, if you require more advanced access permissions consider pairing our samba-ad option with your on prem active directory domain services. In the "Mounts" section you should specify the name of the pvc you created in the previous step. Sometimes it may be easier to edit the application using the raw YAML manifest accessible using the tabs under the name entry box such as:
 
@@ -72,7 +72,7 @@ Select the mount, press ok, and enter credentials.
 
 To expose the same storage over NFS you can deploy the NFS application in the catalogue. The process is very similar to deploying samba, ensure that you deploy the application in the same region as the storage you created. One major difference between this deployment and those available with Samba is that our one-click NFS solution does not include any authentication, for that consider integrating with active directory directly or use network policies to ensure access to the NFS service is only accessible to the correct endpoints.
 
-![](../../docs/.gitbook/assets/nfs\_mount.jpg) ![Post Deployment. Note: Not ready state](<../../.gitbook/assets/Screenshot 2021-10-18 170019.jpg>) ![Deployment is ready](<../../docs/.gitbook/assets/Screenshot 2021-10-18 170312.jpg>)
+![](../../docs/.gitbook/assets/nfs\_mount.jpg) ![Post Deployment. Note: Not ready state](<../../.gitbook/assets/Screenshot 2021-10-18 170019 (1).jpg>) ![Deployment is ready](<../../docs/.gitbook/assets/Screenshot 2021-10-18 170312.jpg>)
 
 ![Updated Landing Page!](<../../docs/.gitbook/assets/Screenshot 2021-10-18 170110.jpg>)
 

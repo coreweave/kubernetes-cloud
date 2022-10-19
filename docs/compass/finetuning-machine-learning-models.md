@@ -1,10 +1,8 @@
 # Finetuning Machine Learning Models
 
-## Introduction
-
 Finetuning and training machine learning models can be computationally expensive. CoreWeave Cloud allows for easy, on-demand compute resources to train models, along with the infrastructure to support it.
 
-This guide is intended to be a reference example of [how to use Argo Workflows](broken-reference/) to set up a machine learning pipeline on CoreWeave.
+This guide is intended to be a reference example of [how to use Argo Workflows](broken-reference/) to set up a machine learning pipeline on CoreWeave. While the following barely scratches the surface of finetuning, this is a great place to start.
 
 The reference example utilizes GPT-type transformer models with the [Hugging Face Transformers](https://huggingface.co/docs/transformers/index) library, and assumes that the model's tokenization format is BPE.
 
@@ -45,20 +43,24 @@ Check out the code on GitHub
 ## Setup
 
 {% hint style="info" %}
-**Note**\
-\*\*\*\*It is also assumed that you have [followed the process to get set up in the CoreWeave Kubernetes environment.](../../coreweave-kubernetes/getting-started.md)
+**Note**
+
+This guide assumes that you have already followed the process to set up the CoreWeave Kubernetes environment. If you have not done so already, [follow our Getting Started guide](../../coreweave-kubernetes/getting-started.md) before proceeding with this guide.
 {% endhint %}
 
 The following Kubernetes-based components are required:
 
-* [Argo Workflows](broken-reference/)
-  * You can deploy Argo Workflows using the [application Catalog](https://apps.coreweave.com). From the application deployment menu, click on the **Catalog** tab, then search for `argo-workflows` to find and deploy the application.
+### [Argo Workflows](broken-reference/)
+
+You can deploy Argo Workflows using the [application Catalog](https://apps.coreweave.com). From the application deployment menu, click on the **Catalog** tab, then search for `argo-workflows` to find and deploy the application.
 
 ![Argo Workflows](<../.gitbook/assets/image (138).png>)
 
-* [PVC](../storage/storage.md)
-  * Create a `ReadWriteMany` PVC storage volume from the [Storage](https://cloud.coreweave.com/storage) menu.
-  * `1TB` to `2TB` is the recommended size for the volume, as the model checkpoints take up a lot of space! These PVCs can be shared between multiple finetune runs. We recommend using HDD type storage, as the finetuner does not require high random I/O performance.
+### [PVC](../storage/storage.md)
+
+Create a `ReadWriteMany` [PVC storage volume](../storage/storage.md#volume-types) from the [Storage](https://cloud.coreweave.com/storage) menu.
+
+`1TB` to `2TB` is the recommended size for the volume, as the model checkpoints take up a lot of space! These PVCs can be shared between multiple finetune runs. We recommend using HDD type storage, as the finetuner does not require high random I/O performance.
 
 ![Configuring a PVC storage volume from the Cloud UI](<../.gitbook/assets/image (3) (2) (1).png>)
 
@@ -67,9 +69,7 @@ The following Kubernetes-based components are required:
 It is easy to [increase the size](https://docs.coreweave.com/coreweave-kubernetes/storage#resizing) of a PVC as needed.
 {% endhint %}
 
-* This workflow expects a default PVC name of `finetune-data`. This name can be changed once you are more comfortable with the workflow and configure it.
-
-If you prefer, the PVC can also be deployed using the YAML snippet below, applied using `kubectl apply -f`:
+This workflow expects a default PVC name of `finetune-data`. This name can be changed once you are more comfortable with the workflow and configure it. If you prefer, the PVC can also be deployed using the YAML snippet below, applied using `kubectl apply -f`:
 
 {% code title="finetune-data.yaml" %}
 ```yaml
@@ -192,7 +192,9 @@ Assuming that you have pulled a copy of `finetune-workflow.yaml`, the Argo Workf
 $ argo submit finetune-workflow.yaml \
         -p run_name=example-gpt-j-6b \
         -p dataset=dataset \
+        -p reorder=random \
         -p run_inference=true \
+        -p inference_only=false\
         -p model=EleutherAI/gpt-j-6B \
         --serviceaccount inference
 ```
@@ -200,20 +202,25 @@ $ argo submit finetune-workflow.yaml \
 
 The parameters included in the above are:
 
-* `run_name` - **The only absolutely required parameter.** It is **strongly recommended** that it be unique, as it is what is used to name the `InferenceService`. Consequently, the `run_name` must meet DNS standards.
-* `dataset` - The name of the dataset directory on the PVC.
-* `run_inference` - This parameter explicitly tells the Workflow that we want to run a test inference service when this is done. It is not intended to be a production service, but to provide an end-to-end demonstration, allowing you to test the finetuned model.
-* `model` - This example uses a Hugging Face model identifier to pull down `gpt-j-6B`. This will be cached on subsequent runs on your PVC, under `cache`.
-* `--serviceaccount inference` - Required for `run_inference` to work correctly.
+| Parameter name               | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `run_name`                   | <p><strong>The only absolutely required parameter.</strong><br><strong></strong><br><strong></strong>It is strongly recommended that the value of this parameter be unique, as it is what is used to name the <code>InferenceService</code>. Consequently, the <code>run_name</code> must meet DNS standards. Keep this parameter short in length.<br></p><p>Note also that the results of this exercise should be output to a folder in your PVC called <code>results-&#x3C;run_name></code>.</p> |
+| `dataset`                    | The name of the dataset directory on the PVC.                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `reorder`                    | Where in the dataset tokens are pulled from.                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `run_inference`              | This parameter explicitly tells the Workflow that we want to run a test inference service when this exercise is done. It is not intended to be a production service, but to provide an end-to-end demonstration, allowing you to test the finetuned model.                                                                                                                                                                                                                                         |
+| `--serviceaccount inference` | Required for `run_inference` to work correctly.                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| `inference_only`             | <p>This parameter tells the Workflow whether or not you want to skip the finetuning portion of the training.<br><br>Set this to <code>false</code> in the first run, then to <code>true</code> in following runs once you have generated a model.</p>                                                                                                                                                                                                                                              |
+| `model`                      | This example uses a [Hugging Face model](https://github.com/huggingface) identifier to pull down the model `gpt-j-6B`. This model will be cached on subsequent runs on your PVC, under `cache`.                                                                                                                                                                                                                                                                                                    |
 
 {% hint style="info" %}
-**Note**\
-There are easier ways to parameterize your jobs than the command line such as:
+**Note**
 
-* An [Argo parameters file](https://argoproj.github.io/argo-workflows/walk-through/parameters/) (applied using `argo submit -f.` Use `-p` to customize further.)
+Other methods of passing parameters to your jobs may be preferred to inline definitions. These methods include:
+
+* An [Argo parameters file](https://argoproj.github.io/argo-workflows/walk-through/parameters/) applied using `argo submit -f`, or, the `-p` option may be used to configure additional customizations
 * Templating using [Helm Charts](https://helm.sh)
-* Programmatically, using the [Argo Workflows API](https://argoproj.github.io/argo-workflows/swagger/)
-* Using the Argo Web UI
+* Programmatically using the [Argo Workflows API](https://argoproj.github.io/argo-workflows/swagger/)
+* Using the [Argo Web UI](finetuning-machine-learning-models.md#argo-workflows)
 {% endhint %}
 
 Once the job is submitted, you should see output that looks very much like the following:
@@ -322,11 +329,12 @@ STEP                 TEMPLATE         PODNAME                    DURATION  MESSA
 
 #### `argo logs`
 
-Invoking `argo logs -f finetune-wtd2k` watches the logs in real time.
+Invoking `argo logs -f finetune-wtd2k kfserving-container` watches the logs in real time.
 
 {% hint style="warning" %}
-**Important**\
-\*\*\*\*If it appears to hang on `Loading the model`, this is due to a bug in the terminal display code when it downloads and caches the model for the first time. You can simply kill the pod in question or the job, then resubmit it, and it will display progress correctly.
+**Important**
+
+If this process appears to hang while outputting the message `Loading the model`, this is due to a bug in the terminal display code which is exposed during initial model download and caching. To fix this, kill the relevant pod or job, then resubmit it. This should result in the proper progress display.
 {% endhint %}
 
 #### Example output
@@ -419,8 +427,9 @@ inference-western-predictor-default               http://inference-western-predi
 We can run `curl` to do a test query:
 
 {% hint style="info" %}
-**Note**\
-\*\*\*\*This assumes [`jq`](https://stedolan.github.io/jq/) is installed.
+**Note**
+
+This assumes [`jq`](https://stedolan.github.io/jq/) is installed.
 {% endhint %}
 
 ```shell
