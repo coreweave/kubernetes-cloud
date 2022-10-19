@@ -10,7 +10,7 @@ In some deployments, users may also choose to distribute VPC IPs from a Windows 
 
 {% hint style="warning" %}
 **Important**\
-****The VPC **must be created** before the DHCP server is deployed.
+\*\*\*\*The VPC **must be created** before the DHCP server is deployed.
 {% endhint %}
 
 ## Installation
@@ -23,17 +23,17 @@ To install the DHCP server, navigate to the applications Catalog from the CoreWe
 
 Selecting the application will expose the configuration options for the DHCP server, shown and detailed below.
 
-![DHCP configuration settings, exposed by clicking the DHCP server application](<../../../.gitbook/assets/image (15) (1).png>)
+![DHCP configuration settings, exposed by clicking the DHCP server application](<../../../.gitbook/assets/image (15).png>)
 
 #### Configuration options
 
-| **Subnet**                                  | <p>The VPC subnet where dynamic IP addresses will be assigned<br><br><span data-gb-custom-inline data-tag="emoji" data-code="26a0">⚠</span><strong>Note:</strong> This should be the net identifier of the subnet (e.g., for a <code>/24</code> network, the address would be <code>192.168.0.0</code>. For a <code>/25</code> network, either <code>192.168.0.0</code> or <code>192.168.0.128</code>).</p>                                                      |
-| ------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Subnet Mask**                             | The netmask of the VPC subnet                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| **Range**                                   | <p>The range in the subnet to use dynamic IP assignment<br><br><span data-gb-custom-inline data-tag="emoji" data-code="26a0">⚠</span><strong>Note:</strong> This should be formatted as:<br><code>&#x3C;first usable address> &#x3C;space> &#x3C;last usable address></code>.</p>                                                                                                                                                                                |
-| **Fixed IP assignment via DHCP**            | A comma-separated list of fixed IP addresses that will bind to the client ID of a Pod                                                                                                                                                                                                                                                                                                                                                                            |
-| **Routes**                                  | <p>Allows Virtual Servers and Kubernetes Pods to receive specific routes, such as in the case where there is a site to site VPN or virtual firewall deployed</p><p><br><span data-gb-custom-inline data-tag="emoji" data-code="26a0">⚠</span><strong>Note:</strong> Should be formatted as <code>&#x3C;remotenetwork>/&#x3C;cidr>=&#x3C;gateway>.</code> </p><p><strong></strong><br><strong>Example:</strong></p><p><code>10.0.0.0/16=192.168.0.254</code>.</p> |
-| **Default gateway to be assigned via DHCP** | This will set a default gateway address via DHCP. Please note that this should not be used if your Virtual Servers and Kubernetes Pods are connected to the regular CoreWeave Cloud Network                                                                                                                                                                                                                                                                      |
+| **Subnet**                                  | <p>The VPC subnet where dynamic IP addresses will be assigned<br><br><span data-gb-custom-inline data-tag="emoji" data-code="26a0">⚠</span><strong>Note:</strong> This should be the net identifier of the subnet (e.g., for a <code>/24</code> network, the address would be <code>192.168.0.0</code>. For a <code>/25</code> network, either <code>192.168.0.0</code> or <code>192.168.0.128</code>).</p>                                    |
+| ------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Subnet Mask**                             | The netmask of the VPC subnet                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| **Range**                                   | <p>The range in the subnet to use dynamic IP assignment<br><br><span data-gb-custom-inline data-tag="emoji" data-code="26a0">⚠</span><strong>Note:</strong> This should be formatted as:<br><code>&#x3C;first usable address> &#x3C;space> &#x3C;last usable address></code>.</p>                                                                                                                                                              |
+| **Fixed IP assignment via DHCP**            | A comma-separated list of fixed IP addresses that will bind to the client ID of a Pod                                                                                                                                                                                                                                                                                                                                                          |
+| **Routes**                                  | <p>Allows Virtual Servers and Kubernetes Pods to receive specific routes, such as in the case where there is a site to site VPN or virtual firewall deployed</p><p><br><span data-gb-custom-inline data-tag="emoji" data-code="26a0">⚠</span><strong>Note:</strong> Should be formatted as <code>&#x3C;remotenetwork>/&#x3C;cidr>=&#x3C;gateway>.</code></p><p><br><strong>Example:</strong></p><p><code>10.0.0.0/16=192.168.0.254</code>.</p> |
+| **Default gateway to be assigned via DHCP** | This will set a default gateway address via DHCP. Please note that this should not be used if your Virtual Servers and Kubernetes Pods are connected to the regular CoreWeave Cloud Network                                                                                                                                                                                                                                                    |
 
 ### Advanced Configuration
 
@@ -43,8 +43,14 @@ Via the YAML interface we do support more dhcp options than the ones seen in the
 
 #### Configuration options
 
-| **additionalOptions** | <p>Need to be formated as:<br>additionalOptions: |<br>  option first-option x.x.x.x;<br>  option second-option y.y.y.y;</p> |
-| --------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+\| **additionalOptions** |
+
+Need to be formated as:\
+additionalOptions: |\
+option first-option x.x.x.x;\
+option second-option y.y.y.y;
+
+\| | --------------------- | --------------------------------------------------------------------------------------------------------------------------- |
 
 More documentation on dhcp options can be found [here](https://kb.isc.org/docs/isc-dhcp-44-manual-pages-dhcp-options#standard-dhcpv4-options).
 
@@ -52,13 +58,13 @@ More documentation on dhcp options can be found [here](https://kb.isc.org/docs/i
 
 At the bottom of the application's configuration screen are the **Network settings** for the DHCP server, in which you can adjust the settings for the server's VPC and network.
 
-![Network settings for DHCP server application.](<../../../.gitbook/assets/image (14) (3).png>)
+![Network settings for DHCP server application.](<../../../.gitbook/assets/image (14).png>)
 
 #### Configuration options
 
-| **VPC Name**          | <p>The name of your VPC. <br><span data-gb-custom-inline data-tag="emoji" data-code="26a0">⚠</span> The VPC must be created <strong>before the DHCP service.</strong></p> |
-| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Static IP for VPC** | The static IP address of the DHCP server (e.g., `192.168.0.250/24`)                                                                                                       |
+| **VPC Name**          | <p>The name of your VPC.<br><span data-gb-custom-inline data-tag="emoji" data-code="26a0">⚠</span> The VPC must be created <strong>before the DHCP service.</strong></p> |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Static IP for VPC** | The static IP address of the DHCP server (e.g., `192.168.0.250/24`)                                                                                                      |
 
 ### Fixed IP assignment
 

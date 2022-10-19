@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This example is virtually the same as the [S3 based one](../../../../compass/examples/gpt-2/service-s3.md), instead of repeating all steps please read that example first as this is an abbreviated version.
+This example is virtually the same as the [S3 based one](service-s3.md), instead of repeating all steps please read that example first as this is an abbreviated version.
 
 ## Getting Started
 

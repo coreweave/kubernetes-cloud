@@ -2,7 +2,7 @@
 
 The billing portal for CoreWeave Cloud is a simple external portal that is provided for account creators to easily manage payment methods, invoices, and view aggregated usage.
 
-![Billing Portal View](<../.gitbook/assets/image (153).png>)
+![Billing Portal View](<../../.gitbook/assets/image (95).png>)
 
 ### Portal Invitation
 
@@ -15,7 +15,5 @@ The Billing Portal account is completely separate from your CoreWeave Cloud acco
 ### Security and Compliance
 
 CoreWeave Cloud values user security and privacy. Our billing portal is provided and hosted by a software company called [Chargify](https://www.chargify.com/). Chargify is PCI DSS Level 1 compliant and has undergone a SOC 1 Type II audit, more information can be found on [their website](https://www.chargify.com/security/).
-
-
 
 Addition information regarding the Billing Portal can be found [here](https://chargify.zendesk.com/hc/en-us/articles/4407649191195#subscription-overview). If you have any question related to billing or portal management you can also reach out to support.

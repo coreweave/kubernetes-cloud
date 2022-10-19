@@ -70,7 +70,7 @@ spec:
 {% endcode %}
 
 {% hint style="info" %}
-`podAntiAffinity` ensures that if we spin up another domain controller, it will not schedule on the same node.&#x20;
+`podAntiAffinity` ensures that if we spin up another domain controller, it will not schedule on the same node.
 {% endhint %}
 
 {% hint style="info" %}
@@ -89,7 +89,7 @@ We can monitor the Virtual Server spinning up with `kubectl get pods --watch`
 
 Once our VS has reached "Running" status, we can get an External IP to connect to it with `k get vs`
 
-![Output of kubectl get vs](<../../../.gitbook/assets/image (8) (2).png>)
+![Output of kubectl get vs](<../../../../.gitbook/assets/image (8).png>)
 
 {% hint style="info" %}
 Allow \~5 minutes after "Running" status for the Virtual Server to complete initial start procedures.
@@ -187,7 +187,7 @@ After rebooting, your Windows Virtual Server will now be joined to your Active D
 
 Confirm connectivity by performing a policy update:
 
-![Group Policy update](<../../../.gitbook/assets/image (12) (2).png>)
+![Group Policy update](<../../../../.gitbook/assets/image (12).png>)
 
 ## Adding a secondary Domain Controller
 

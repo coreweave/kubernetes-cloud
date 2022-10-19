@@ -56,7 +56,7 @@ To learn about configure your Virtual Server, see [Virtual Server Configuration 
 
 Once your Virtual Server has begun deploying, you will be automatically redirected to the **status page**. From here, the Virtual Server can be **restarted**, **upgraded** (or changed), **deleted**, or **stopped**.
 
-![Virtual Server state controls](<../../docs/.gitbook/assets/image (49) (1).png>)
+![Virtual Server state controls](<../../.gitbook/assets/image (55).png>)
 
 ### Virtual terminal
 
@@ -94,7 +94,7 @@ This YAML manifest also exposes additional configurations, which may be adjusted
 
 ### Virtual Server events
 
-A basic diagnostic log of all actions involving the Virtual Server will be recorded in a list under the **Events** tab.&#x20;
+A basic diagnostic log of all actions involving the Virtual Server will be recorded in a list under the **Events** tab.
 
 {% hint style="info" %}
 **Note**
@@ -102,4 +102,4 @@ A basic diagnostic log of all actions involving the Virtual Server will be recor
 The events listed under the **Events** tab are short-lived, and should mostly be used for diagnostics or simply for tracing the status of the Virtual Server.
 {% endhint %}
 
-![Event history for a new Virtual Server](<../../docs/.gitbook/assets/image (50).png>)
+![Event history for a new Virtual Server](<../../.gitbook/assets/image (56).png>)

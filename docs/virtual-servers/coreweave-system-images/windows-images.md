@@ -15,9 +15,9 @@ By default, we enable the following plugins (executed sequentially):
 
 ### Adding Custom Userdata
 
-When creating a new Virtual Server on CoreWeave cloud, instance specific information such as user account information and SSH keys are automatically passed through as Cloud-Init Userdata. When deploying a new Virtual Server, one has the ability to add additional information via Userdata as well.&#x20;
+When creating a new Virtual Server on CoreWeave cloud, instance specific information such as user account information and SSH keys are automatically passed through as Cloud-Init Userdata. When deploying a new Virtual Server, one has the ability to add additional information via Userdata as well.
 
-#### Via `kubectl` [YAML](https://github.com/coreweave/kubernetes-cloud/blob/17c3bbe10f8ded84835f07118521dcc42af297af/virtual-server/examples/kubectl/virtual-server-cloudinit.yaml#L45):&#x20;
+#### Via `kubectl` [YAML](https://github.com/coreweave/kubernetes-cloud/blob/17c3bbe10f8ded84835f07118521dcc42af297af/virtual-server/examples/kubectl/virtual-server-cloudinit.yaml#L45):
 
 ```yaml
   cloudInit: |
@@ -30,15 +30,15 @@ When creating a new Virtual Server on CoreWeave cloud, instance specific informa
       - 'Powershell.exe -File C:\test.ps1'
 ```
 
-#### Via the [CoreWeave Apps Web UI](../../../virtual-servers/deployment-methods/coreweave-apps.md):&#x20;
+#### Via the [CoreWeave Apps Web UI](../../../virtual-servers/deployment-methods/coreweave-apps.md):
 
 Within the Virtual Server deployment form, switch to the YAML tab:
 
-![](<../../.gitbook/assets/image (59) (1) (1).png>)
+![](<../../../.gitbook/assets/image (64) (1).png>)
 
 Towards the bottom of the page, a commented out cloudInit section will be pre-populated. Uncomment to add custom user data:
 
-![](<../../.gitbook/assets/image (61) (1).png>)
+![](<../../../.gitbook/assets/image (66).png>)
 
 {% hint style="info" %}
 For more information on what be added via native cloudInit Userdata, view the Cloudbase Solutions documentation [here](https://cloudbase-init.readthedocs.io/en/latest/userdata.html#userdata).
@@ -46,7 +46,7 @@ For more information on what be added via native cloudInit Userdata, view the Cl
 
 ### CoreWeave Userdata Features
 
-There are several CoreWeave init scripts included in our base Windows image, that can be enabled via cloudInit Userdata.&#x20;
+There are several CoreWeave init scripts included in our base Windows image, that can be enabled via cloudInit Userdata.
 
 #### Add SMB Mounts
 
@@ -54,7 +54,7 @@ Samba shares (Or any SMB/CIFS compliant share) can be added via cloudInit, to be
 
 Using an example from a Samba instance hosted via CoreWeave Cloud Apps, we can derive the following information:
 
-![](<../../.gitbook/assets/image (144).png>)
+![](<../../../.gitbook/assets/image (92) (1).png>)
 
 Using our share information, we can populate the cloudInit `key: value` pairs:
 
@@ -72,14 +72,14 @@ Using our share information, we can populate the cloudInit `key: value` pairs:
 ```
 
 {% hint style="info" %}
-By default, available drive letters are randomized and the first available one is selected per share. \
+By default, available drive letters are randomized and the first available one is selected per share.\
 \
 Drive letters can be manually specified by adding, E.G: `Drive: Z`
 {% endhint %}
 
 #### Enroll a Parsec Teams Machine
 
-CoreWeave Windows images support [Parsec Teams](https://parsec.app/teams). To enroll a Parsec Teams machine, add the following when deploying a VS:&#x20;
+CoreWeave Windows images support [Parsec Teams](https://parsec.app/teams). To enroll a Parsec Teams machine, add the following when deploying a VS:
 
 ```yaml
   cloudInit: |
@@ -106,7 +106,7 @@ When enrolling a Parsec Teams machine, Boolean values `Parsec: true` and `EDID: 
 
 #### Install Additional Software
 
-All CoreWeave Windows images are pre-loaded with [Chocolatey](https://community.chocolatey.org/packages) package manager. On non Server editions of Windows, [WinGet](https://winget.run/) is included as well.&#x20;
+All CoreWeave Windows images are pre-loaded with [Chocolatey](https://community.chocolatey.org/packages) package manager. On non Server editions of Windows, [WinGet](https://winget.run/) is included as well.
 
 Software specified via cloudInit will be installed automatically at initial user logon:
 
@@ -149,16 +149,16 @@ cloudInit: |
 ```
 
 {% hint style="info" %}
-Note `readinessProbePort` must also be set in the YAML section of the Virtual Server deployment, outside of the cloudInit block. \
+Note `readinessProbePort` must also be set in the YAML section of the Virtual Server deployment, outside of the cloudInit block.\
 \
 Setting `readinessProbePort` in the cloudInit block to 0 will disable the listener in Windows.
 {% endhint %}
 
 #### Display Requests Override
 
-Certain applications in Windows, like Parsec, can disrupt idle an inactivity timers. This can mean that despite setting a lock screen or screensaver timer, they never engage when a Parsec session (or other application) is active.&#x20;
+Certain applications in Windows, like Parsec, can disrupt idle an inactivity timers. This can mean that despite setting a lock screen or screensaver timer, they never engage when a Parsec session (or other application) is active.
 
-This behavior can be overridden via cloudInit. For Parsec or Teradici, only the application name is required. For other applications, specify the executable name:&#x20;
+This behavior can be overridden via cloudInit. For Parsec or Teradici, only the application name is required. For other applications, specify the executable name:
 
 ```yaml
   cloudInit: |
@@ -170,7 +170,7 @@ This behavior can be overridden via cloudInit. For Parsec or Teradici, only the 
 
 ### Boolean Userdata Features
 
-Some Userdata features can be enabled with Boolean values `true` or `false`.&#x20;
+Some Userdata features can be enabled with Boolean values `true` or `false`.
 
 #### Teradici PCoIP Graphics Agent for Windows
 
@@ -197,7 +197,7 @@ Many applications on Windows require a display connected to GPU in order to rend
 {% hint style="warning" %}
 When the Virtual Display is enabled, Windows will only output to the attached GPU, making the built-in VNC terminal inaccessible. Connecting via `virtctl vnc` will result in one of the blank screens below:
 
-![](../../.gitbook/assets/vnc-1.png)<img src="../../../.gitbook/assets/vnc-2.png" alt="" data-size="original">
+<img src="../../../.gitbook/assets/vnc-1.png" alt="" data-size="original"><img src="../../../.gitbook/assets/vnc-2.png" alt="" data-size="original">
 
 For serial console access (Windows Special Admin Console), use `virtctl console` instead.
 {% endhint %}
@@ -231,29 +231,29 @@ There are several modifications made to a vanilla Windows instance in order to o
 
 #### CoreWeave Resize Disk
 
-By default, when the root disk of a Windows image is expanded, Windows will automatically expand the root disk partition to use all of the available space. Additionally, any new block volumes mounted to a Windows instance will automatically be initialized and partitioned as GPT, and formatted as NTFS.&#x20;
+By default, when the root disk of a Windows image is expanded, Windows will automatically expand the root disk partition to use all of the available space. Additionally, any new block volumes mounted to a Windows instance will automatically be initialized and partitioned as GPT, and formatted as NTFS.
 
 Via Windows Apps and Features, the default behavior can be modified:
 
-![](<../../.gitbook/assets/image (54) (1).png>)
+![](<../../../.gitbook/assets/image (62) (1).png>)
 
 Selecting "Modify" will prompt for an action to perform when it is detected that the root disk can be expanded. The default action of `ReSize` will expand the root disk. `NewPartition` will create a new partition with the unallocated space, and automatically assign a drive letter. Entering no value will disable any automatic action.
 
-![Changing the default action to "NewPartition"](<../../.gitbook/assets/image (129).png>)
+![Changing the default action to "NewPartition"](<../../../.gitbook/assets/image (87) (1).png>)
 
 After selecting the desired re-size disk option, an additional prompt appears to set an action for newly detected RAW disks. Automatic formatting can be enabled or disabled with `true` or `false`.
 
-![Disabling auto RAW disk format](<../../.gitbook/assets/image (118).png>)
+![Disabling auto RAW disk format](<../../../.gitbook/assets/image (83).png>)
 
 #### CoreWeave Auto Shutdown
 
-Instance power-off based on interactive user input can be configured via [cloudInit](windows-images.md#coreweave-userdata-features) when an instance is initially deployed. Once an instance has already been deployed, this feature is also configurable via Windows Apps and Features:&#x20;
+Instance power-off based on interactive user input can be configured via [cloudInit](windows-images.md#coreweave-userdata-features) when an instance is initially deployed. Once an instance has already been deployed, this feature is also configurable via Windows Apps and Features:
 
-![](<../../.gitbook/assets/image (71) (2).png>)
+![](<../../../.gitbook/assets/image (81).png>)
 
 Modifying will prompt for an integer value in minutes to configure auto-shutoff, or set to 0 to disable:
 
-![](<../../.gitbook/assets/image (157).png>)
+![](<../../../.gitbook/assets/image (96).png>)
 
 #### CoreWeave Windows Update
 
@@ -263,21 +263,21 @@ In order to ensure system stability and predictability, native Windows Update is
   * These are silent and do not require reboots
 * On the second Wednesday of the month (one day after [Patch Tuesday](https://en.wikipedia.org/wiki/Patch\_Tuesday)), at 3AM UTC, or as soon as possible if missed:
   * PSWindowsUpdate module is updated
-  * On non-Server OS, WinGet is updated (if applicable)&#x20;
+  * On non-Server OS, WinGet is updated (if applicable)
   * All Windows Updates are applied silently, without forcing reboot
   * If there is a pending reboot and no user is logged in, the system is rebooted to finish applying patches
   * If there is a pending reboot and a user logged in, the user is presented with a GUI prompt notifying them of pending system patches requiring a reboot
-* Each day at 3AM UTC, the system is again checked for pending reboots. If there is a user logged in, they are notified and asked to reboot. If there is no user logged in, the system will be automatically rebooted.&#x20;
+* Each day at 3AM UTC, the system is again checked for pending reboots. If there is a user logged in, they are notified and asked to reboot. If there is no user logged in, the system will be automatically rebooted.
 
 There are no user configurable options for CoreWeave Windows Update. To revert to the default Windows Update behavior, simply uninstall from Windows Apps and Features:
 
-![](<../../.gitbook/assets/image (60) (1).png>)
+![](<../../../.gitbook/assets/image (65).png>)
 
 #### CoreWeave PowerShell Profile
 
 When launching a new PowerShell session, users are presented with some helpful system stats:
 
-![](<../../.gitbook/assets/image (69) (2).png>)
+![](<../../../.gitbook/assets/image (78) (1).png>)
 
 To disable this functionality, simply delete the profile:
 
@@ -287,11 +287,11 @@ rm "$env:SystemRoot\System32\WindowsPowerShell\v1.0\Microsoft.PowerShell_profile
 
 ### CoreWeave PowerShell Module
 
-Included in CoreWeave Windows Images is a PowerShell module that provides functions for useful tasks and automation; moreover, some of the Cloud-Init Userdata features rely on the CoreWeave PowerShell module.&#x20;
+Included in CoreWeave Windows Images is a PowerShell module that provides functions for useful tasks and automation; moreover, some of the Cloud-Init Userdata features rely on the CoreWeave PowerShell module.
 
 #### Using the CoreWeave PowerShell Module
 
-The CoreWeave PowerShell Module is a system-wide module - as all Windows Images on CoreWeave Cloud use at minimum PowerShell version 5.1, the module will be automatically imported when any of its functions are called.&#x20;
+The CoreWeave PowerShell Module is a system-wide module - as all Windows Images on CoreWeave Cloud use at minimum PowerShell version 5.1, the module will be automatically imported when any of its functions are called.
 
 To manually import the CoreWeave Module:
 
@@ -398,7 +398,7 @@ Synopsis
 
 #### Invoke-SilentMSI
 
-This function automates silently installing a provided [Windows Installer](https://docs.microsoft.com/en-us/windows/win32/msi/windows-installer-portal) file.&#x20;
+This function automates silently installing a provided [Windows Installer](https://docs.microsoft.com/en-us/windows/win32/msi/windows-installer-portal) file.
 
 ```powershell
 Synopsis

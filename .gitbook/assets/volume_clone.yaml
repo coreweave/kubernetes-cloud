@@ -1,0 +1,20 @@
+apiVersion: cdi.kubevirt.io/v1beta1
+kind: DataVolume
+metadata:
+  annotations:
+  labels:
+  name: winserver2019std-clone-20210701-ord1
+  namespace: tenant-<name>
+spec:
+  pvc:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 79Gi
+    storageClassName: block-nvme-ord1
+    volumeMode: Block
+  source:
+    pvc:
+      name: winserver2019std-master-20210722-ord1
+      namespace: vd-images

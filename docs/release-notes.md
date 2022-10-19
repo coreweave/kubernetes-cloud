@@ -20,7 +20,7 @@ Some features are only available through an upgrade request. To increase your qu
 
 ### NVIDIA A100 80GB NVLINK with InfiniBand and SHARP:zap:
 
-<figure><img src=".gitbook/assets/image (3) (4).png" alt="NVIDIA Mellanox Quantum leaf switches in the CoreWeave LAS1 datacenter"><figcaption><p>NVIDIA Mellanox Quantum leaf switches in the CoreWeave LAS1 datacenter</p></figcaption></figure>
+<figure><img src=".gitbook/assets/image (3).png" alt="NVIDIA Mellanox Quantum leaf switches in the CoreWeave LAS1 datacenter"><figcaption><p>NVIDIA Mellanox Quantum leaf switches in the CoreWeave LAS1 datacenter</p></figcaption></figure>
 
 **A100 80GB NVLINK SXM4** GPUs are now available in the **LAS1** region. These GPUs are provisioned in large clusters, intended for distributed training and inference of LLMs such as [BLOOM 176B](compass/examples/pytorch-hugging-face-transformers-bigscience-bloom-1.md#what-is-bloom).
 
@@ -46,17 +46,15 @@ As usual with CoreWeave services, there is no charge except for the storage used
 
 ### Rocky Linux is now supported on CoreWeave Cloud :mountain:
 
-****[**Rocky Linux**](https://rockylinux.org/) is a premiere, open-source enterprise Operating System, designed to be completely compatible with Red Hat Enterprise Linux®. Tipped to replace CentOS 7 as the leading VFX workstation of choice by [the Visual Effects Society survey](https://www.vesglobal.org/technology-committee-activities/#61e6987e16a546a91), Rocky Linux provides a stable platform with a 10-year upstream support lifecycle.
+\*\*\*\*[**Rocky Linux**](https://rockylinux.org/) is a premiere, open-source enterprise Operating System, designed to be completely compatible with Red Hat Enterprise Linux®. Tipped to replace CentOS 7 as the leading VFX workstation of choice by [the Visual Effects Society survey](https://www.vesglobal.org/technology-committee-activities/#61e6987e16a546a91), Rocky Linux provides a stable platform with a 10-year upstream support lifecycle.
 
 ### Determined AI is now available in the Applications Catalog :brain:
-
-
 
 <figure><img src=".gitbook/assets/determined-logo.png" alt="The Determined AI logo"><figcaption></figcaption></figure>
 
 [Determined AI](https://www.determined.ai/) is an open-source deep learning training platform that makes building models fast and easy. Determined AI can now be deployed directly onto CoreWeave Cloud by deploying the application from [the application Catalog](https://apps.coreweave.com). With Determined AI, you can launch Jupyter notebooks, interactive shells with VSCode support, and distributed training experiments right from the Web UI and CLI tools. Deploying Determined AI from the CoreWeave applications Catalog makes spinning up an instance fast and easy, and when running, the platform consumes minimal resources and incurs minimal cost.
 
-> ****[**Find Determined AI in the apps Catalog**](https://apps.coreweave.com) **to learn more about it or deploy an instance to your namespace!**
+> \*\*\*\*[**Find Determined AI in the apps Catalog**](https://apps.coreweave.com) **to learn more about it or deploy an instance to your namespace!**
 
 ### vCluster is now available in the Applications Catalog :sailboat:
 
@@ -68,18 +66,13 @@ For those of you who require or desire more custom control over your Kubernetes 
 
 ### New machine learning walkthroughs on CoreWeave Cloud :test\_tube:
 
-It's never been easier to deploy, train, and finetune machine learning models on the Cloud for some incredible results, and with our [new walkthroughs and examples](broken-reference) demonstrating just some of the ways CoreWeave's state-of-the-art compute power can be leveraged for model training, you can start today!:
+It's never been easier to deploy, train, and finetune machine learning models on the Cloud for some incredible results, and with our [new walkthroughs and examples](broken-reference/) demonstrating just some of the ways CoreWeave's state-of-the-art compute power can be leveraged for model training, you can start today!:
 
-* ****[**PyTorch Hugging Face Diffusers - Stable Diffusion Text to Image**](compass/examples/pytorch-hugging-face-diffusers-stable-diffusion-text-to-image.md)**:** Generating high-quality images with photorealistic qualities from nothing but a text prompt used to be the stuff of science fiction. But now, using the open source model built by our friends at [Stability.AI](https://stability.ai/), you can leverage CoreWeave Cloud's compute power to do precisely that with just a few clicks and commands in [our latest walkthrough of this cutting-edge AI technology](https://docs.coreweave.com/compass/examples/pytorch-hugging-face-diffusers-stable-diffusion-text-to-image).\
-
-* ****[**PyTorch Hugging Face Transformers BigScience BLOOM:** ](compass/examples/pytorch-hugging-face-transformers-bigscience-bloom.md)In the[ PyTorch Hugging Face Transformers BigScience BLOOM](compass/examples/pytorch-hugging-face-transformers-bigscience-bloom-1.md) walkthrough, you'll learn how to use the autoregressive Large Language Model (LLM) trained to continue text from a prompt on vast amounts of text data using industrial-scale computational resources. BLOOM is able to output coherent text in 46 languages - and 13 programming languages - whose structure is hardly distinguishable from text written by humans. BLOOM can even be instructed to perform text tasks it hasn't been explicitly trained for by casting them as text generation tasks.\
-
-* ****[**Triton Inference Server for GPT-J with FasterTransformer:**](compass/examples/triton-inference-server-fastertransformer.md) GPT-J is one of the most popular Open Source NLP model. It's size and performance makes it a perfect fit for cost sensitive NLP use cases. In our [Triton Inference Server for GPT-J FasterTransformer walkthrough](https://huggingface.co/EleutherAI/gpt-j-6B), you'll learn how to leverage [FasterTransformer ](https://github.com/NVIDIA/FasterTransformer)for up to 40% faster GPT-J inference over a vanilla Hugging Face Transformers based implementation.\
-
-* ****[**Triton Inference Server for GPT-NeoX 20B with FasterTransformer**](compass/examples/triton-inference-server-fastertransformer.md)**:** Together with EleutherAI, CoreWeave trained and released the Open Source GPT-NeoX 20B model in January. We are now taking self-hosted inference of this Large Language Model to the next level by offering a NVIDIA FasterTransformer-based inference option. In our [Triton Inference Server for GPT-NeoX 20B walkthrough](https://huggingface.co/EleutherAI/gpt-j-6B), you'll learn how to leverage [FasterTransformer ](https://github.com/NVIDIA/FasterTransformer)for up to 40% faster GPT-NeoX inference over a vanilla Hugging Face Transformers based implementation.\
-
-* ****[**GPT-NeoX finetuning**](compass/gpt-neox.md)**:** In our new [GPT-NeoX finetuning walkthrough](compass/gpt-neox.md), using [the DeterminedAI MLOps platform](https://www.determined.ai/blog/determined-algorithmia-integration) to run distributed finetuning jobs, you'll learn how to finetune a 20B parameter autoregressive model trained on [the Pile dataset](https://arxiv.org/abs/2101.00027) to generate text based on context or unconditionally for use cases such as story generation, chat bots, summarization, and more.\
-
+* \*\*\*\*[**PyTorch Hugging Face Diffusers - Stable Diffusion Text to Image**](compass/examples/pytorch-hugging-face-diffusers-stable-diffusion-text-to-image.md)**:** Generating high-quality images with photorealistic qualities from nothing but a text prompt used to be the stuff of science fiction. But now, using the open source model built by our friends at [Stability.AI](https://stability.ai/), you can leverage CoreWeave Cloud's compute power to do precisely that with just a few clicks and commands in [our latest walkthrough of this cutting-edge AI technology](https://docs.coreweave.com/compass/examples/pytorch-hugging-face-diffusers-stable-diffusion-text-to-image).\\
+* \*\*\*\*[**PyTorch Hugging Face Transformers BigScience BLOOM:** ](compass/examples/pytorch-hugging-face-transformers-bigscience-bloom.md)In the[ PyTorch Hugging Face Transformers BigScience BLOOM](compass/examples/pytorch-hugging-face-transformers-bigscience-bloom-1.md) walkthrough, you'll learn how to use the autoregressive Large Language Model (LLM) trained to continue text from a prompt on vast amounts of text data using industrial-scale computational resources. BLOOM is able to output coherent text in 46 languages - and 13 programming languages - whose structure is hardly distinguishable from text written by humans. BLOOM can even be instructed to perform text tasks it hasn't been explicitly trained for by casting them as text generation tasks.\\
+* \*\*\*\*[**Triton Inference Server for GPT-J with FasterTransformer:**](compass/examples/triton-inference-server-fastertransformer.md) GPT-J is one of the most popular Open Source NLP model. It's size and performance makes it a perfect fit for cost sensitive NLP use cases. In our [Triton Inference Server for GPT-J FasterTransformer walkthrough](https://huggingface.co/EleutherAI/gpt-j-6B), you'll learn how to leverage [FasterTransformer ](https://github.com/NVIDIA/FasterTransformer)for up to 40% faster GPT-J inference over a vanilla Hugging Face Transformers based implementation.\\
+* \*\*\*\*[**Triton Inference Server for GPT-NeoX 20B with FasterTransformer**](compass/examples/triton-inference-server-fastertransformer.md)**:** Together with EleutherAI, CoreWeave trained and released the Open Source GPT-NeoX 20B model in January. We are now taking self-hosted inference of this Large Language Model to the next level by offering a NVIDIA FasterTransformer-based inference option. In our [Triton Inference Server for GPT-NeoX 20B walkthrough](https://huggingface.co/EleutherAI/gpt-j-6B), you'll learn how to leverage [FasterTransformer ](https://github.com/NVIDIA/FasterTransformer)for up to 40% faster GPT-NeoX inference over a vanilla Hugging Face Transformers based implementation.\\
+* \*\*\*\*[**GPT-NeoX finetuning**](compass/gpt-neox.md)**:** In our new [GPT-NeoX finetuning walkthrough](compass/gpt-neox.md), using [the DeterminedAI MLOps platform](https://www.determined.ai/blog/determined-algorithmia-integration) to run distributed finetuning jobs, you'll learn how to finetune a 20B parameter autoregressive model trained on [the Pile dataset](https://arxiv.org/abs/2101.00027) to generate text based on context or unconditionally for use cases such as story generation, chat bots, summarization, and more.\\
 
 ### Introducing Layer 2 VPC :cloud:
 
@@ -89,19 +82,19 @@ L2VPC provides fine-grained customization by relinquishing all control over [DHC
 
 L2VPC is built on top of SR-IOV hardware virtualization technology, retaining the high performance and low latency customers have come to expect from CoreWeave Cloud.
 
-> ****[**Learn more about Layer 2 VPC on CoreWeave Cloud**](coreweave-kubernetes/networking/layer-2-vpc-l2vpc/)**!**
+> \*\*\*\*[**Learn more about Layer 2 VPC on CoreWeave Cloud**](coreweave-kubernetes/networking/layer-2-vpc-l2vpc/)**!**
 
 ### CoreWeave Object Storage is now in beta :sparkles:
 
 [Object Storage](storage/object-storage.md) is coming to CoreWeave! CoreWeave's S3-compatible Object Storage allows for an easy place to store and reference things like Docker images, machine learning models, and any other kinds of objects right within CoreWeave Cloud, streamlining your project workflows! Object storage is priced at only $0.03/GB/mo with no access and egress fees!
 
-Accelerated object storage provides local caching for frequently accessed objects across all CoreWeave datacenters. Accelerated object storage is especially useful for large scale multi region rendering or inference auto-scaling where the same data needs to be loaded by hundreds or thousands of compute-nodes.&#x20;
+Accelerated object storage provides local caching for frequently accessed objects across all CoreWeave datacenters. Accelerated object storage is especially useful for large scale multi region rendering or inference auto-scaling where the same data needs to be loaded by hundreds or thousands of compute-nodes.
 
 > **This feature is currently in beta, but you can** [**learn more now**](storage/object-storage.md)**, and contact your CoreWeave Support Specialist to try it out!**
 
-### **Introducing The Workload Activity Tracker dashboard** :chart\_with\_upwards\_trend:****
+### **Introducing The Workload Activity Tracker dashboard** :chart\_with\_upwards\_trend:\*\*\*\*
 
-<figure><img src=".gitbook/assets/image (2) (3) (1).png" alt="Screenshot of the Workload Activity Tracker in action - vertical columns displaying information on Pods, such as their CPU usage and idle status"><figcaption><p>The Workload Activity Tracker in action</p></figcaption></figure>
+<figure><img src=".gitbook/assets/image (2) (3).png" alt="Screenshot of the Workload Activity Tracker in action - vertical columns displaying information on Pods, such as their CPU usage and idle status"><figcaption><p>The Workload Activity Tracker in action</p></figcaption></figure>
 
 It's an all too common experience to let idle research shells or experiments idle in your namespace after you're done working with them, only to later come back and realize you've been eating resources unnecessarily. Now, with the Workload Activity Tracker dashboard for Grafana, answering "is everything deployed in my namespace doing something?" is never a question you have to worry about.
 
@@ -113,7 +106,7 @@ The Workload Activity Tracker displays which of your Workloads have had activity
 
 The Release Notes for May 2022 are inclusive of many new features launched since January 2022.
 
-### Say Hello to LGA1 :tada:&#x20;
+### Say Hello to LGA1 :tada:
 
 We are pleased to announce the general availability of the CoreWeave LGA1 data center, **providing extremely low latency, high performance cloud compute resources to the broader New York City market**. Richly connected into the global Tier 1 internet backbone, LGA1 is built for low latency compute intensive use cases that require ultimate reliability and security.
 
@@ -128,7 +121,7 @@ LGA1 is housed in an ISO 27001 certified, SSAE 18 SOC 2 compliant, Energy Star C
 CoreWeave now offers the **NVIDIA A100 80GB PCIe**, which delivers unprecedented acceleration to power the world’s highest-performing AI, data analytics, and HPC applications. The NVIDIA A100 80GB PCIe accelerator is **now available for Kubernetes deployments in ORD1** using the `gpu.nvidia.com/model` label selector `A100_PCIE_80GB`.
 
 {% hint style="info" %}
-_**Coming Soon:**_ CoreWeave is bringing NVIDIA A100 80GB support to the **LAS1** region with a deployment of **NVIDIA HGX A100 80GB NVLINK servers, built with GPUDirect Infiniband RDMA connectivity for blazing fast GPU to GPU communication**.&#x20;
+_**Coming Soon:**_ CoreWeave is bringing NVIDIA A100 80GB support to the **LAS1** region with a deployment of **NVIDIA HGX A100 80GB NVLINK servers, built with GPUDirect Infiniband RDMA connectivity for blazing fast GPU to GPU communication**.
 
 Reach out to [sales@coreweave.com](mailto:sales@coreweave.com) today to reserve space on our newest distributed training infrastructure!
 {% endhint %}
@@ -143,11 +136,11 @@ By popular demand, **we’ve added support for multiple users per organization a
 
 ![](https://lh3.googleusercontent.com/b\_rsG4Tz1ttqERXQGrGFxUSJfr8cU1r6bYPat9fa-m9r\_VWi3-nE17dhBIu\_dlUSLxnjYM71RF1pXcqmrgpE\_6xhjLm-Jr1ImP4aFzxUkT3L1SIHJ8Io39-vbkgm7xm0DwvR7eTr1gFELkXEng)
 
-Since the start of the year, we've added:&#x20;
+Since the start of the year, we've added:
 
 👫 **Multi-User Support:** Invite and manage users to your Organization.
 
-🔢 **Resource Quotas:** See how many pods, the number of GPUs, and storage capacity allocated at any time.&#x20;
+🔢 **Resource Quotas:** See how many pods, the number of GPUs, and storage capacity allocated at any time.
 
 Features coming soon:
 
@@ -157,11 +150,11 @@ Features coming soon:
 
 ### Apps Catalog Additions :clipboard:
 
-🕹️ **Scalable Pixel Streaming:** Stream your Unreal Engine projects to the masses quickly and easily.&#x20;
+🕹️ **Scalable Pixel Streaming:** Stream your Unreal Engine projects to the masses quickly and easily.
 
-🌐 **Traefik:** Custom ingresses, for use with your own domains.&#x20;
+🌐 **Traefik:** Custom ingresses, for use with your own domains.
 
-🚚 **ArgoCD:** Access to a declarative, GitOps continuous delivery tool for Kubernetes.&#x20;
+🚚 **ArgoCD:** Access to a declarative, GitOps continuous delivery tool for Kubernetes.
 
 🔥 **Backblaze:** Automate your volume backups to safeguard your data.
 
@@ -179,14 +172,14 @@ Logs from all your containers to popular aggregation tools such as **Loki and Da
 
 Need to organize your access tokens by user or track what they are being used for? You can now label them at creation from the CoreWeave Cloud UI.
 
-### **Virtual Server Enhancements** :computer:****
+### **Virtual Server Enhancements** :computer:\*\*\*\*
 
 With CloudInit, you can **choose your preferred settings in advance** and they'll be set up during your instance launch. Plus, we now offer Static MAC Addresses and Serial Number support.
 
 ### Upgrades to Global Connectivity :earth\_americas:
 
-We’ve invested heavily in networking to start 2022, with upgrades to **200Gbps+ Tier 1 transit in each region**.&#x20;
+We’ve invested heavily in networking to start 2022, with upgrades to **200Gbps+ Tier 1 transit in each region**.
 
-Direct connects **up to 100Gbps** are now available at all of our data centers, and we’ve installed a **CoreWeave Cloud On Ramp** in downtown Los Angeles at CoreSite LA2 to accept cross connects back to LAS1.&#x20;
+Direct connects **up to 100Gbps** are now available at all of our data centers, and we’ve installed a **CoreWeave Cloud On Ramp** in downtown Los Angeles at CoreSite LA2 to accept cross connects back to LAS1.
 
 We’ve also joined the **Megaport** network **at LAS1 and LGA1** for direct, quick software defined connectivity to CoreWeave Cloud.

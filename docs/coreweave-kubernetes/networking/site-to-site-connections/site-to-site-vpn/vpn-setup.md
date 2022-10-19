@@ -12,7 +12,7 @@ Site-to-Site VPNs are configured through the [CoreWeave Cloud UI](../../../../..
 
 Find and select the **vpn-ipsec-server** in the applications Catalog:
 
-![The applications page on CoreWeave Cloud, with a search filter for "vpn"](<../../../../.gitbook/assets/image (2) (1) (2).png>)
+![The applications page on CoreWeave Cloud, with a search filter for "vpn"](<../../../../.gitbook/assets/image (2) (1) (4).png>)
 
 ### Configuration
 
@@ -28,13 +28,13 @@ Selecting the VPN application from the catalog exposes its configuration options
 | **Peer IP**        | The remote VPN device IP or hostname                                                                                                                                                                                                                                                      |
 | **Peer network**   | <p>The remote network(s) that you need to reach from your VPC network.<br><br>This can be a single network, specified as a single address, e.g.: <code>10.0.0.0/16</code>, or multiple networks, specified as a comma separated list, e.g.: <code>10.0.0.0/16, 192.168.0.0/24</code>.</p> |
 | **Tunnel IP**      | The local-side IP address of the VPN tunnel                                                                                                                                                                                                                                               |
-| **IKE version**    | :warning:**Non-configurable** - **** CoreWeave only supports IKE Version 2                                                                                                                                                                                                                |
+| **IKE version**    | :warning:**Non-configurable** - \*\*\*\* CoreWeave only supports IKE Version 2                                                                                                                                                                                                            |
 
 ### VPC configuration
 
 Under the **Network Settings** portion of the IPSec VPN setup page are the configuration fields for your VPC.
 
-![VPC configuration example](<../../../../.gitbook/assets/image (105).png>)
+![VPC configuration example](<../../../../.gitbook/assets/image (2) (1).png>)
 
 The fields provided are:
 

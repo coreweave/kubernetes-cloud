@@ -17,6 +17,6 @@ $ curl -d '{"instances": ["That was easy"]}' http://gpt-s3-transformer-default.t
     Serves the model exported from Jupyter from the storage volume.
 * [Transformer](transformer.md)
 * A simple transformer for encoding/decoding text. It is not necesary to build this yourself to try the examples, a public image is available in Docker Hub
-*   [S3 Model Serving](service-s3.md) (alternative)
+*   [S3 Model Serving](../../../docs/compass/examples/gpt-2/service-s3.md) (alternative)
 
     Serves a model stored in Amazon S3, including a transformer to encode/decode inputs and outputs to clear text

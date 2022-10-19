@@ -8,15 +8,15 @@
 
 Before deploying our Samba-AD instance, we must first have storage volumes to present. Logging in to the [CoreWeave Cloud Dashboard](https://docs.coreweave.com/virtual-servers/deployment-methods/coreweave-apps#accessing-the-cloud-ui), navigate to the [Storage Volumes](https://cloud.coreweave.com/storage) management page to deploy a new volume:
 
-![](<../../../.gitbook/assets/image (148).png>)
+![](<../../../../.gitbook/assets/image (94).png>)
 
 Our Samba-AD instance uses Shared Filesystem volumes:
 
-![](<../../../.gitbook/assets/image (130).png>)
+![](<../../../../.gitbook/assets/image (88) (1).png>)
 
 In this example, we have three volumes we'll be using for our Samba-AD instance:
 
-![](<../../../.gitbook/assets/image (57).png>)
+![](<../../../../.gitbook/assets/image (64).png>)
 
 ## Deploy Samba-AD Instances
 
@@ -24,23 +24,23 @@ With our storage volumes allocated, we can now present them with Samba-AD.
 
 Via the CoreWeave Cloud Dashboard, navigate to the catalog:
 
-![](<../../../.gitbook/assets/image (135).png>)
+![](<../../../../.gitbook/assets/image (90).png>)
 
 Locate the Samba-AD chart:
 
-![](<../../../.gitbook/assets/image (123).png>)
+![](<../../../../.gitbook/assets/image (87).png>)
 
 Using the information from our [Configure Domain Services](provision-an-active-directory-domain-controller.md#install-and-configure-domain-services) example, fill out the form, including instance name. The volumes we created earlier are attached to our deployment example below:
 
-![](<../../../.gitbook/assets/image (68) (2).png>)
+![](<../../../../.gitbook/assets/image (78).png>)
 
 Once deployed, we're taken to a status page indicating our deployment is running:
 
-![](<../../../.gitbook/assets/image (121).png>)
+![](<../../../../.gitbook/assets/image (85).png>)
 
 We will then follow the above steps to create another instance for high availability - called `smbad02`:
 
-![](<../../../.gitbook/assets/image (122).png>)
+![](<../../../../.gitbook/assets/image (86).png>)
 
 {% hint style="info" %}
 Samba-AD includes `podAntiAffinity`, which prevents multiple instances from scheduling on the same compute node.
@@ -48,9 +48,9 @@ Samba-AD includes `podAntiAffinity`, which prevents multiple instances from sche
 
 ## Configure Distributed File System
 
-With our instances deployed, we can set up our DFS namespace.&#x20;
+With our instances deployed, we can set up our DFS namespace.
 
-With an authenticated administrative Domain Account, start a new PowerShell session on your desired DFS namespace server. Usually, this is your Primary Domain Controller.&#x20;
+With an authenticated administrative Domain Account, start a new PowerShell session on your desired DFS namespace server. Usually, this is your Primary Domain Controller.
 
 #### Install the DFS Namespace Role
 
@@ -124,23 +124,23 @@ Repeat this step for each share your Samba-AD instance presents. In this example
 
 Navigating to `\\ad\Shares`, we can see each of our DFS Folder Targets:
 
-![](<../../../.gitbook/assets/image (147).png>)
+![](<../../../../.gitbook/assets/image (93).png>)
 
 Under properties, the DFS tab shows us `smbad02` is the current active file server:
 
-![](<../../../.gitbook/assets/image (62) (2).png>)
+![](<../../../../.gitbook/assets/image (67).png>)
 
 Copying a file to our DFS Root Folder path, we can see it's actually been copied to the shares presented by the Samba-AD instances:
 
-![](<../../../.gitbook/assets/image (65) (2).png>)
+![](<../../../../.gitbook/assets/image (73).png>)
 
-![](<../../../.gitbook/assets/image (66) (2).png>)
+![](<../../../../.gitbook/assets/image (74).png>)
 
 ![](<../../../../.gitbook/assets/image (63).png>)
 
 ### Adding a secondary DFS Namespace Server
 
-To mitigate points of failure, we will use our [secondary domain controller](provision-an-active-directory-domain-controller.md#adding-a-secondary-domain-controller) as an additional DFS Server.&#x20;
+To mitigate points of failure, we will use our [secondary domain controller](provision-an-active-directory-domain-controller.md#adding-a-secondary-domain-controller) as an additional DFS Server.
 
 We will follow the above steps on our `vs-dc2` server:
 

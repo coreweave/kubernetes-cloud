@@ -21,9 +21,9 @@ You can connect to Prometheus from your own Grafana instance. A Grafana instance
 * Set the second value (**Value**) to `Bearer <TOKEN>` replace "\<TOKEN>" with your Access Token.
 * Click "**Save & Test**" button to verify and save the new Datasource.
 
-![](../../docs/.gitbook/assets/cw-grafana-ds.png)
+![](../../.gitbook/assets/cw-grafana-ds.png)
 
-You can now choose the new `CoreWeave` Datasource in a dashboard to visualize Prometheus metrics hosted on CoreWeave.&#x20;
+You can now choose the new `CoreWeave` Datasource in a dashboard to visualize Prometheus metrics hosted on CoreWeave.
 
 {% hint style="success" %}
 There's no need to filter the `namespace` label to your namespace for any metric. It will be automatically inserted on all queries received.

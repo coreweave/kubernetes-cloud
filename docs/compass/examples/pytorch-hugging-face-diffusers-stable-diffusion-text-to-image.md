@@ -35,7 +35,7 @@ The following tools must be installed and configured prior to running the exampl
 
 We require two images:
 
-1. **The Downloader image.** This will download the model to a [shared storage volume](../../storage/storage.md), the individual inference Pods will load the model from this storage instead of downloading it over internet every time they scale up.&#x20;
+1. **The Downloader image.** This will download the model to a [shared storage volume](../../storage/storage.md), the individual inference Pods will load the model from this storage instead of downloading it over internet every time they scale up.
 2. **The Model Image.** This is what will run CompVis/stable-diffusion-v1-4
 
 {% hint style="warning" %}
@@ -97,7 +97,7 @@ While logged in, [visit the HuggingFace Model Repository page](https://huggingfa
 
 #### Secret
 
-If you have not already done so, create a [HuggingFace](https://huggingface.co/) account and [API Token.](https://huggingface.co/settings/tokens)&#x20;
+If you have not already done so, create a [HuggingFace](https://huggingface.co/) account and [API Token.](https://huggingface.co/settings/tokens)
 
 Once you have a token, copy and Base64 encode it:
 
@@ -134,7 +134,6 @@ To check if the model has finished downloading, wait for the job to be in a `Com
 $ kubectl get pods
 NAME                              READY   STATUS      RESTARTS   AGE
 stable-diffusion-download-vsznr   0/1     Completed   0          3h14m
-
 ```
 
 Or, follow the job logs to monitor progress:
@@ -147,18 +146,23 @@ $ kubectl logs -l job-name=stable-diffusion-download --follow
 
 Once the model is downloaded, the `InferenceService` can be deployed by invoking:
 
-<pre class="language-bash"><code class="lang-bash"><strong>$ kubectl apply -f 03-inference-service.yaml</strong></code></pre>
+```bash
+$ kubectl apply -f 03-inference-service.yaml
+```
 
 Loading up the model into GPU memory may take a couple of minutes. To monitor the progress of this, you can wait to see the KServe workers start in the pod logs by invoking:
 
-<pre class="language-bash"><code class="lang-bash"><strong>$ kubectl logs -l serving.kubeflow.org/inferenceservice=stable-diffusion --container kfserving-container</strong></code></pre>
+```bash
+$ kubectl logs -l serving.kubeflow.org/inferenceservice=stable-diffusion --container kfserving-container
+```
 
 Alternatively, you can wait for the `InferenceService` to show that `READY` is `True`, and that it has a URL:
 
-<pre class="language-bash"><code class="lang-bash"><strong>$ kubectl get isvc stable-diffusion                                                                     
-</strong>NAME               URL                                                                              READY   PREV   LATEST   PREVROLLEDOUTREVISION   LATESTREADYREVISION                        AGE
+```bash
+$ kubectl get isvc stable-diffusion                                                                     
+NAME               URL                                                                              READY   PREV   LATEST   PREVROLLEDOUTREVISION   LATESTREADYREVISION                        AGE
 stable-diffusion   http://stable-diffusion.tenant-example-example.knative.chi.coreweave.com   True           100                              stable-diffusion-predictor-default-00001   64m
-</code></pre>
+```
 
 Using the provided URL, you can make an HTTP request via your preferred means.
 
@@ -207,7 +211,7 @@ Depending on use case, GPUs with less VRAM will also work down to 8GB GPUs, such
 
 The graph and table below compare recent GPU benchmark inference speeds for Stable Diffusion processing on different GPUs:
 
-<figure><img src="../../.gitbook/assets/image (7) (1).png" alt="A graph displaying a comparison of benchmark inference times for Stable Diffusion on different GPUs"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (7).png" alt="A graph displaying a comparison of benchmark inference times for Stable Diffusion on different GPUs"><figcaption></figcaption></figure>
 
 | GPU              | Seconds |
 | ---------------- | ------- |
