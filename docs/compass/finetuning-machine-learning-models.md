@@ -4,7 +4,7 @@
 
 Finetuning and training machine learning models can be computationally expensive. CoreWeave Cloud allows for easy, on-demand compute resources to train models, along with the infrastructure to support it.
 
-This guide is intended to be a reference example of [how to use Argo Workflows](broken-reference) to set up a machine learning pipeline on CoreWeave.
+This guide is intended to be a reference example of [how to use Argo Workflows](broken-reference/) to set up a machine learning pipeline on CoreWeave.
 
 The reference example utilizes GPT-type transformer models with the [Hugging Face Transformers](https://huggingface.co/docs/transformers/index) library, and assumes that the model's tokenization format is BPE.
 
@@ -30,11 +30,11 @@ Presently, the reference example uses the following container configuration to t
 
 The above configuration has been found to be optimal for training a variety of GPT models from a 155m to a 6b parameter size on a single GPU. The above configuration is billed at $2.00/hr through CoreWeave's [resource based pricing](../../resources/resource-based-pricing.md) model.
 
-There is an optional test [Inference endpoint](broken-reference) that can be enabled and deployed automatically when the model completes finetuning. This Inference container defaults to the following configuration:
+There is an optional test [Inference endpoint](broken-reference/) that can be enabled and deployed automatically when the model completes finetuning. This Inference container defaults to the following configuration:
 
 * 4 vCPU
 * 8GB RAM
-* Nvidia RTX A5000 (24GB VRAM)&#x20;
+* Nvidia RTX A5000 (24GB VRAM)
 
 This configuration is able to do 6b models comfortably, and is less expensive than the finetuner, as it requires less resources at $0.85/hr.
 
@@ -46,12 +46,12 @@ Check out the code on GitHub
 
 {% hint style="info" %}
 **Note**\
-****It is also assumed that you have [followed the process to get set up in the CoreWeave Kubernetes environment.](../../coreweave-kubernetes/getting-started.md)
+\*\*\*\*It is also assumed that you have [followed the process to get set up in the CoreWeave Kubernetes environment.](../../coreweave-kubernetes/getting-started.md)
 {% endhint %}
 
 The following Kubernetes-based components are required:
 
-* [Argo Workflows](broken-reference)
+* [Argo Workflows](broken-reference/)
   * You can deploy Argo Workflows using the [application Catalog](https://apps.coreweave.com). From the application deployment menu, click on the **Catalog** tab, then search for `argo-workflows` to find and deploy the application.
 
 ![Argo Workflows](<../.gitbook/assets/image (138).png>)
@@ -93,7 +93,7 @@ The following components are **optional**, but may make your interaction easier:
 
 #### filebrowser
 
-This application allows you to share out and access your PVC using an easy application that lets you upload and download files and folders. You can find and deploy the filebrowser over at the same[ application Catalog](https://apps.coreweave.com/) that you used to deploy Argo Workflows.&#x20;
+This application allows you to share out and access your PVC using an easy application that lets you upload and download files and folders. You can find and deploy the filebrowser over at the same[ application Catalog](https://apps.coreweave.com/) that you used to deploy Argo Workflows.
 
 It is recommended that the name you give the filebrowser application be very short, or you will run into SSL CNAME issues. We recommend using the name `finetune`.
 
@@ -102,7 +102,7 @@ Simply select the `finetune-data` PVC that you created earlier. **Make sure that
 {% hint style="success" %}
 **Tip**
 
-Some people may prefer to use a [Virtual Server](broken-reference) to interact with their PVC via `ssh` or another mechanism. This flexibility is one of the key advantages of CoreWeave.
+Some people may prefer to use a [Virtual Server](broken-reference/) to interact with their PVC via `ssh` or another mechanism. This flexibility is one of the key advantages of CoreWeave.
 {% endhint %}
 
 ![The filebrowser application](<../../.gitbook/assets/image (60).png>)
@@ -326,7 +326,7 @@ Invoking `argo logs -f finetune-wtd2k` watches the logs in real time.
 
 {% hint style="warning" %}
 **Important**\
-****If it appears to hang on `Loading the model`, this is due to a bug in the terminal display code when it downloads and caches the model for the first time. You can simply kill the pod in question or the job, then resubmit it, and it will display progress correctly.
+\*\*\*\*If it appears to hang on `Loading the model`, this is due to a bug in the terminal display code when it downloads and caches the model for the first time. You can simply kill the pod in question or the job, then resubmit it, and it will display progress correctly.
 {% endhint %}
 
 #### Example output
@@ -376,7 +376,7 @@ You can instantly watch a submitted workflow by using the `--watch` option when 
 
 #### Web UI
 
-You can access your Argo Workflow application via HTTPS to see all the finetuner jobs, and to check their statuses.&#x20;
+You can access your Argo Workflow application via HTTPS to see all the finetuner jobs, and to check their statuses.
 
 ![Argo Workflows HTTPS request, via the Web UI](<../../.gitbook/assets/image (68).png>)
 
@@ -384,20 +384,20 @@ You can access your Argo Workflow application via HTTPS to see all the finetuner
 
 The following section outlines some useful workflow parameters. This is not intended to be a complete or exhaustive reference on all exposed parameters.
 
-| Parameter        | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Default Value                        |
-| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
-| `run_name`       | The run name used to name artifacts and report metrics. Should be unique.                                                                                                                                                                                                                                                                                                                                                                                                                                                     | The only required option; no default |
-| `pvc`            | The PVC to use for dataset and model artifacts                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | `finetune-data`                      |
-| `region`         | The region to run the Argo jobs in. Generally, this should be `ORD1`.                                                                                                                                                                                                                                                                                                                                                                                                                                                         | `ORD1`                               |
-| `dataset`        | The dataset folder relative to the `pvc` root.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | `dataset`                            |
-| `model`          | The model to train on. It can be a relative path to the `pvc` root; if it can't be found, the finetuner will attempt to download the model from Huggingface.                                                                                                                                                                                                                                                                                                                                                                  | `EleutherAI/gpt-neo-2.7B`            |
-| `context`        | Training context size in tokens. Affects the tokenization proces as well.                                                                                                                                                                                                                                                                                                                                                                                                                                                     | `2048`                               |
-| `reorder`        | <p>Sort the input text files provided to the tokenizer according to one of the following selected criteria:<br>* <code>size_ascending</code><br>* <code>size_descending</code><br>* <code>name_ascending</code><br>* <code>name_descending</code><br><code></code>* <code>random</code><br><br>This is different from the trainer shuffling, which selects contexts randomly. If you use one of the above options, you will most likely want to disable this behavior by passing <code>-no_shuffle</code> to the trainer.</p> | Not set                              |
-| `epochs`         | The number of times the finetuner should train on the dataset.                                                                                                                                                                                                                                                                                                                                                                                                                                                                | `1`                                  |
-| `learn_rate`     | How quickly the model should learn the finetune data. Too high a learn rate can be counterproductive and replace the base model's training.                                                                                                                                                                                                                                                                                                                                                                                   | `5e-5`                               |
-| `wandb_key`      | Strongly recommended. Use an API key from [http://wandb.ai](http://wandb.ai) to report on finetuning metrics with nice charts.                                                                                                                                                                                                                                                                                                                                                                                                |                                      |
-| `run_inference`  | Whether to run the example `InferenceService` on the finetuned model.                                                                                                                                                                                                                                                                                                                                                                                                                                                         | `false`                              |
-| `inference_only` | When `false`, do **not** run the tokenization or finetune. Intended to quickly run only the `InferenceService` on a previously trained model.                                                                                                                                                                                                                                                                                                                                                                                 | `false`                              |
+| Parameter        | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | Default Value                        |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
+| `run_name`       | The run name used to name artifacts and report metrics. Should be unique.                                                                                                                                                                                                                                                                                                                                                                                                                                        | The only required option; no default |
+| `pvc`            | The PVC to use for dataset and model artifacts                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | `finetune-data`                      |
+| `region`         | The region to run the Argo jobs in. Generally, this should be `ORD1`.                                                                                                                                                                                                                                                                                                                                                                                                                                            | `ORD1`                               |
+| `dataset`        | The dataset folder relative to the `pvc` root.                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | `dataset`                            |
+| `model`          | The model to train on. It can be a relative path to the `pvc` root; if it can't be found, the finetuner will attempt to download the model from Huggingface.                                                                                                                                                                                                                                                                                                                                                     | `EleutherAI/gpt-neo-2.7B`            |
+| `context`        | Training context size in tokens. Affects the tokenization proces as well.                                                                                                                                                                                                                                                                                                                                                                                                                                        | `2048`                               |
+| `reorder`        | <p>Sort the input text files provided to the tokenizer according to one of the following selected criteria:<br>* <code>size_ascending</code><br>* <code>size_descending</code><br>* <code>name_ascending</code><br>* <code>name_descending</code><br>* <code>random</code><br><br>This is different from the trainer shuffling, which selects contexts randomly. If you use one of the above options, you will most likely want to disable this behavior by passing <code>-no_shuffle</code> to the trainer.</p> | Not set                              |
+| `epochs`         | The number of times the finetuner should train on the dataset.                                                                                                                                                                                                                                                                                                                                                                                                                                                   | `1`                                  |
+| `learn_rate`     | How quickly the model should learn the finetune data. Too high a learn rate can be counterproductive and replace the base model's training.                                                                                                                                                                                                                                                                                                                                                                      | `5e-5`                               |
+| `wandb_key`      | Strongly recommended. Use an API key from [http://wandb.ai](http://wandb.ai) to report on finetuning metrics with nice charts.                                                                                                                                                                                                                                                                                                                                                                                   |                                      |
+| `run_inference`  | Whether to run the example `InferenceService` on the finetuned model.                                                                                                                                                                                                                                                                                                                                                                                                                                            | `false`                              |
+| `inference_only` | When `true`, do **not** run the tokenization or finetune. Intended to quickly run only the `InferenceService` on a previously trained model.                                                                                                                                                                                                                                                                                                                                                                     | `false`                              |
 
 ## Artifacts and Inference
 
@@ -420,7 +420,7 @@ We can run `curl` to do a test query:
 
 {% hint style="info" %}
 **Note**\
-****This assumes [`jq`](https://stedolan.github.io/jq/) is installed.
+\*\*\*\*This assumes [`jq`](https://stedolan.github.io/jq/) is installed.
 {% endhint %}
 
 ```shell

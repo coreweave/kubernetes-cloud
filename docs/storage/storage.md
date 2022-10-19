@@ -4,7 +4,7 @@ description: Learn about CoreWeave Storage options
 
 # Getting Started with Storage
 
-**High-performance, network-attached storage volumes** for both containerized workloads and [Virtual Servers](broken-reference) are easy to provision and manage on CoreWeave Cloud.
+**High-performance, network-attached storage volumes** for both containerized workloads and [Virtual Servers](broken-reference/) are easy to provision and manage on CoreWeave Cloud.
 
 Available in both [all-NVMe](storage.md#all-nvme-volumes) and [HDD tiers](storage.md#hdd-storage-volumes), Storage Volumes can be created as [Block Volumes](storage.md#block-storage-volumes) or [Shared File System Volumes](storage.md#block-storage-volumes-1), and can be resized at any time. Storage is managed separately from compute, and can be moved between instances and hardware types.
 
@@ -16,15 +16,15 @@ In addition to traditional storage volumes, CoreWeave also offers [S3-compliant 
 
 ## Storage Volume Features
 
-:handshake: Storage Volumes are accessible by both containerized and hypervisor workloads&#x20;
+:handshake: Storage Volumes are accessible by both containerized and hypervisor workloads
 
-:chart\_with\_upwards\_trend: Easily resized to add more capacity at any time&#x20;
+:chart\_with\_upwards\_trend: Easily resized to add more capacity at any time
 
 :exploding\_head: Single Storage Volumes can be scaled to the multiple Petabyte level
 
 :white\_check\_mark: Create and manage your Cloud Storage Volumes from the Storage Volumes UI, or via `kubectl`
 
-:checkered\_flag: Clone your Block Storage Volumes to instantiate Virtual Servers from a template&#x20;
+:checkered\_flag: Clone your Block Storage Volumes to instantiate Virtual Servers from a template
 
 :fire: Run automated backups of your Shared File System Volumes to BackBlaze via [CoreWeave Apps](https://apps.coreweave.com)
 
@@ -60,7 +60,7 @@ All HDD Cloud Storage Volumes can be provisioned using the following storage cla
 **Block Volumes:** `block-hdd-<region>`\
 **Shared File System:** `shared-hdd-<region>`
 
-## Billing&#x20;
+## Billing
 
 Storage is billed per gigabyte of allocated (requested) space as an average over a billing month.
 
@@ -76,19 +76,11 @@ Storage Volumes can be configured and deployed using either the [CoreWeave Cloud
 
 To access it, first log in to your CoreWeave Cloud account. Then, from the left-hand menu, navigate to **Storage Volumes**.
 
-
-
 ![The storage volumes link on the left-hand menu of the Cloud UI](<../.gitbook/assets/image (1) (1).png>)
-
-
 
 From the upper right-hand corner, click the **New Volume** button. This will launch the volume configuration modal.
 
-
-
 ![The New Volume button](<../.gitbook/assets/image (16).png>)
-
-
 
 ![The volume configuration modal](<../.gitbook/assets/image (53) (1).png>)
 
@@ -100,8 +92,6 @@ On this modal, configure your desired Volume settings. Finally, click **Create**
 
 Storage can also be managed via the Kubernetes API natively using `kubectl`. Below are some example manifests to do this, as well as descriptions of the fields used.
 
-
-
 | Field name         | Field type | Description                                                                                                         |
 | ------------------ | ---------- | ------------------------------------------------------------------------------------------------------------------- |
 | `storageClassName` | string     | Sets the storage class name for the volume's PVC; determines which kind of storage class the volume will be         |
@@ -110,9 +100,7 @@ Storage can also be managed via the Kubernetes API natively using `kubectl`. Bel
 | `requests`         | array      | Defines the resource requests to create the volume                                                                  |
 | `storage`          | string     | Determines the size of the volume, in Gi                                                                            |
 
-
-
-### **All-NVMe volumes**
+#### **All-NVMe volumes**
 
 **All-NVMe** Cloud Storage Volumes can be provisioned using the following storage class convention:
 
@@ -137,9 +125,7 @@ spec:
 ```
 {% endcode %}
 
-
-
-### HDD storage volumes
+#### HDD storage volumes
 
 All HDD Cloud Storage Volumes can be provisioned using the following storage class convention:
 
@@ -176,7 +162,7 @@ The volumes must first be created and provisioned **before** they can be attache
 {% tab title="Cloud UI" %}
 **Deployment method:** <mark style="background-color:blue;">CoreWeave Cloud UI</mark>
 
-### Filesystem attachments
+#### Filesystem attachments
 
 Filesystem attachments are specified under the **Attach Filesystems** menu while [creating a Virtual Server](../../virtual-servers/deployment-methods/). To attach a filesystem, select the volume you wish to attach from the **Available Volumes** menu. The selected volumes will appear under the **Attach Volume** column. Finally, configure the mount point under the **Mount As** column.
 
@@ -184,9 +170,9 @@ Filesystem attachments are specified under the **Attach Filesystems** menu while
 
 ![The Attach Filesystems menu during Virtual Server creation](../.gitbook/assets/image.png)
 
-****
+***
 
-### **Block device attachments**
+#### **Block device attachments**
 
 {% hint style="info" %}
 **Note**
@@ -198,24 +184,20 @@ Attaching block device storage is not currently achievable via the Cloud UI. [Pl
 {% tab title="CLI" %}
 **Deployment method:** <mark style="background-color:green;">Kubernetes CLI</mark>
 
-
-
 Select instructions for Pods or Virtual Servers below.
 
-| Attach to:                          |
-| ----------------------------------- |
-| [Pods](storage.md#pods)             |
-| [Virtual Servers](broken-reference) |
+| Attach to:                           |
+| ------------------------------------ |
+| [Pods](storage.md#pods)              |
+| [Virtual Servers](broken-reference/) |
 
-## **Pods**
+### **Pods**
 
-### **Filesystem attachments**
+#### **Filesystem attachments**
 
-To attach filesystem storage to a Pod, specify the  `mountPath` and `name` under the `volumeMounts` stanza.
+To attach filesystem storage to a Pod, specify the `mountPath` and `name` under the `volumeMounts` stanza.
 
 Then, specify the `volumes.name` and the `persistentVolumeClaim.claimName`.
-
-
 
 **Example**
 
@@ -235,13 +217,11 @@ spec:
     persistentVolumeClaim:
       claimName: filesystem-storage-pvc</code></pre>
 
-****
+***
 
-### **Block storage attachments**
+#### **Block storage attachments**
 
 As a kind of device, block storage is attached to a Pod by providing the `devicePath` under `volumeDevices`, in addition to the `volumes.name` and `persistentVolumeClaim.claimName` values.
-
-
 
 **Example**
 
@@ -263,15 +243,13 @@ spec:
       claimName: block-storage-pvc
 ```
 
+### Virtual Servers
 
+#### Filesystem attachments
 
-## Virtual Servers
+The filesystem attachment information for Virtual Servers is provided in the `storage.filesystems` stanza of the spec. Here, specifying values for `filesystems.name`, `filesystems.mountPoint`, and `persistentVolumeClaim.name`.
 
-### Filesystem attachments
-
-The filesystem attachment information for Virtual Servers is provided in the `storage.filesystems` stanza of the spec. Here, specifying values for `filesystems.name`, `filesystems.mountPoint`,  and `persistentVolumeClaim.name`.
-
-****
+***
 
 **Example**
 
@@ -291,13 +269,13 @@ spec:
           name: filesystem-storage-pvc
 ```
 
-###
+####
 
-### Block storage attachments
+#### Block storage attachments
 
 To attach a block storage device to a Virtual Server, specify the block device's values in the `storage.additionalDisks` stanza.
 
-****
+***
 
 **Example**
 
@@ -320,12 +298,12 @@ spec:
 
 ## **Resizing Volumes**
 
-Volumes can be expanded by simply increasing the `storage` request, then reapplying the manifest.  Storage Volumes can be resized in the CoreWeave Cloud UI, or via kubectl.
+Volumes can be expanded by simply increasing the `storage` request, then reapplying the manifest. Storage Volumes can be resized in the CoreWeave Cloud UI, or via kubectl.
 
 {% hint style="warning" %}
 **Important**
 
-**Shared File System Volumes** are resized online without disruption the workload.&#x20;
+**Shared File System Volumes** are resized online without disruption the workload.
 
 Resizing **Block Volumes** requires stopping or restarting all workloads that are attaching the volume for the resize to take effect.
 
@@ -338,15 +316,9 @@ Resizing **Block Volumes** requires stopping or restarting all workloads that ar
 
 From the Storage Volumes page in the Cloud UI, click the pencil associated with the listed storage volume you'd like to resize. This will open the Persistent Volume Claim modal.
 
-
-
 ![The storage volume list, featuring the pencil icon to the right](<../.gitbook/assets/image (2).png>)
 
-
-
 From this modal, make the desired changes, then click **Save** to apply the changes.
-
-
 
 ![The volume edit modal](<../.gitbook/assets/image (10).png>)
 {% endtab %}
@@ -386,12 +358,12 @@ spec:
 {% hint style="warning" %}
 **Important**
 
-For the vast majority of use cases, workloads should run in the same region as the storage **** block they are accessing. Use the [region label affinity](../../coreweave-kubernetes/label-selectors.md) to limit scheduling workloads to a single region.
+For the vast majority of use cases, workloads should run in the same region as the storage \*\*\*\* block they are accessing. Use the [region label affinity](../../coreweave-kubernetes/label-selectors.md) to limit scheduling workloads to a single region.
 
 There are certain exceptions to this rule of thumb, which are mainly relevant for shared volumes, such as:
 
 * Batch workloads where IOPS are not a concern but accessing compute capacity from multiple regions might give scaling benefits
 * When data is strictly read during startup of a process, such as when reading a ML model from storage into system and GPU memory for inference
 
-In general, **block volumes** should always be **used in the same region in which they are allocated**.&#x20;
+In general, **block volumes** should always be **used in the same region in which they are allocated**.
 {% endhint %}

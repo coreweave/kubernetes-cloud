@@ -22,7 +22,7 @@ Below are descriptions of some of the deployment possibilities CoreWeave offers,
 
 **To learn about configuration options for Virtual Servers, proceed to** [**Virtual Server Configuration Options**](../../docs/virtual-servers/virtual-server-configuration-options/)**.**
 
-## [The CoreWeave Cloud UI](coreweave-apps.md)****
+## [The CoreWeave Cloud UI](coreweave-apps.md)\*\*\*\*
 
 The CoreWeave Cloud UI is an easy-to-use Web interface to deploy, visualize, and manage Virtual Servers, while still providing access to deployment configuration files, server event details, and even a virtual terminal for quick access to your Virtual Servers right from the Cloud UI.
 
@@ -32,9 +32,9 @@ The CoreWeave Cloud UI is an easy-to-use Web interface to deploy, visualize, and
 
 ![](<../../docs/.gitbook/assets/image (6) (1).png>)
 
-## [Kubernetes CLI](../../docs/virtual-servers/deployment-methods/kubectl.md)****
+## [Kubernetes CLI](../../docs/virtual-servers/deployment-methods/kubectl.md)\*\*\*\*
 
-****![](<../../docs/.gitbook/assets/image (71) (1).png>)****
+![](<../../docs/.gitbook/assets/image (71) (1).png>)
 
 [Virtual Servers are a Kubernetes Custom Defined Resource (CRD)](https://github.com/coreweave/kubernetes-cloud/blob/5632d497da5883be07a1535a67cad69b97ea5050/docs/virtual-servers/deployment-methods/kubectl.md), which may be directly deployed on CoreWeave Cloud using the `kubectl` command line tool.
 
@@ -49,7 +49,7 @@ The CoreWeave Cloud UI is an easy-to-use Web interface to deploy, visualize, and
 
 ## [Terraform](terraform.md)
 
-****![](<../../docs/.gitbook/assets/image (4) (2) (1).png>)****
+![](<../../docs/.gitbook/assets/image (4) (2) (1).png>)
 
 CoreWeave offers [an open source Terraform module](https://github.com/coreweave/kubernetes-cloud/tree/5632d497da5883be07a1535a67cad69b97ea5050/virtual-server/examples/terraform) for deploying Virtual Servers, which can also be customized by extending the module yourself.
 
@@ -64,16 +64,16 @@ CoreWeave offers [an open source Terraform module](https://github.com/coreweave/
 
 ## :desktop: [Programmatic API interface options](programmatically/)
 
-CoreWeave offers several methods for interfacing with the Kubernetes REST API programmatically to deploy Virtual Servers into CoreWeave Cloud. Additionally, any Kubernetes standards-compliant SDK may be used**.**
+CoreWeave offers several methods for interfacing with the Kubernetes REST API programmatically to deploy Virtual Servers into CoreWeave Cloud. Additionally, any Kubernetes standards-compliant SDK may be used\*\*.\*\*
 
 CoreWeave provides interface examples in the following languages:
 
-| Language                                                                                                                                                                                       |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Bash](https://app.gitbook.com/o/-M8EEYiNkaJsT8ISX0kX/s/-M83TghsCfsi8FCYs2DZ/\~/changes/FZAhwuANE9ksdqEBqsD6/virtual-servers/deployment-methods/programmatically/bash) (using `curl` and `jq`) |
-| [Golang](programmatically/golang.md)                                                                                                                                                           |
-| [Python](programmatically/python.md)                                                                                                                                                           |
-| [NodeJS](programmatically/nodejs.md)                                                                                                                                                           |
+| Language                                                                                               |
+| ------------------------------------------------------------------------------------------------------ |
+| [Bash](../../docs/virtual-servers/deployment-methods/programmatically/bash.md) (using `curl` and `jq`) |
+| [Golang](programmatically/golang.md)                                                                   |
+| [Python](programmatically/python.md)                                                                   |
+| [NodeJS](programmatically/nodejs.md)                                                                   |
 
 **This method is best if you are:**
 

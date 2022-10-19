@@ -38,9 +38,9 @@ For more information on Kubernetes installation and configuration, please refere
 
 {% tabs %}
 {% tab title="Linux" %}
-### Installing `kubectl` on a Linux system
+#### Installing `kubectl` on a Linux system
 
-#### Downloading and installing the binary
+**Downloading and installing the binary**
 
 The following command is a simple way to install `kubectl` on your Linux system by downloading the binary.
 
@@ -60,15 +60,13 @@ Then, move the file into the system `bin` directory:
 $ sudo mv ./kubectl /usr/local/bin/kubectl
 ```
 
-
-
 {% hint style="info" %}
 **Note**
 
 If you would prefer to install Kubernetes using a Native Package Manager, please view [the Kubernetes guide on Installing using Native Package Manager](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/#install-using-native-package-management).
 {% endhint %}
 
-****\
+\*\*\*\*\
 **Verifying the kubectl binary**
 
 If you'd like to verify kubectl, you can verify it by running a checksum operation on the downloaded file prior to installing it, such as:
@@ -82,9 +80,9 @@ This should return `kubectl: OK` to confirm the file is indeed valid. If this re
 {% endtab %}
 
 {% tab title="macOS" %}
-### Installing `kubectl` on a Linux system
+#### Installing `kubectl` on a Linux system
 
-#### Installing using Homebrew
+**Installing using Homebrew**
 
 Most Mac users use [Homebrew](https://brew.sh) to install packages.
 
@@ -96,9 +94,9 @@ $ brew install kubectl
 {% endtab %}
 
 {% tab title="Windows" %}
-### Installing `kubectl` on a Windows system
+#### Installing `kubectl` on a Windows system
 
-#### Installing using PowerShell
+**Installing using PowerShell**
 
 Using PowerShell, `kubectl` can be installed by using the following the command:
 
@@ -106,17 +104,15 @@ Using PowerShell, `kubectl` can be installed by using the following the command:
 & $([scriptblock]::Create((New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/coreweave/kubernetes-cloud/master/getting-started/k8ctl_setup.ps1')))
 ```
 
-
-
 {% hint style="info" %}
 **Note**
 
 Add the `-Silent` flag to the end of this string for a non-interactive setup.
 {% endhint %}
 
-####
 
-#### Installing using a Package Manager
+
+**Installing using a Package Manager**
 
 You can also install `kubectl` on Windows using a package manager such as [Chocolatey](https://chocolatey.org) or [Scoop](https://scoop.sh).
 
@@ -186,10 +182,10 @@ NAME                           TYPE                                  DATA   AGE
 default-token-frqgm            kubernetes.io/service-account-token   3      3h
 ```
 
-## Congratulations! :tada:&#x20;
+## Congratulations! :tada:
 
 You are now ready to use CoreWeave Cloud!
 
-Your system is ready to deploy all types of services on CoreWeave's Kubernetes infrastructure.&#x20;
+Your system is ready to deploy all types of services on CoreWeave's Kubernetes infrastructure.
 
 * [Check out some examples of what you can do](examples/).

@@ -276,34 +276,40 @@ for read, write/read, or full control access, respectively.
 
 ### Bucket policies
 
-Another access control mechanism is [bucket policies](https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-policies.html), which are managed through standard S3 operations.
-
-For example, a bucket policy may be set or deleted using  `s3cmd` as shown below.\
+Another access control mechanism is [bucket policies](https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-policies.html), which are managed through standard S3 operations. A bucket policy may be set or deleted by using `s3cmd`, as shown below.\
 \
-Here, the example policy is first created:&#x20;
+In this example, a bucket policy is created to make the bucket downloads public:&#x20;
 
 ```bash
 $ cat > examplepol
 {
   "Version": "2012-10-17",
-  "Statement": [{
-    "Effect": "Allow",
-    "Principal": {"AWS": ["arn:aws:iam:::user/fred:subuser"]},
-    "Action": "s3:PutObjectAcl",
-    "Resource": [
-      "arn:aws:s3:::happybucket/*"
-    ]
-  }]
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": [
+        "arn:aws:s3:::happybucket/*"
+      ]
+    }
+  ]
 }
 ```
 
-Then, the policy is applied using `setpolicy`:
+The policy is then applied using `s3cmd setpolicy`:
 
 ```bash
 $ s3cmd setpolicy examplepol s3://happybucket
 ```
 
-Finally, the policy is deleted using `delpolicy`:
+Once the policy is applied, the data in your bucket may be accessed without credentials, for example, by using `curl`:
+
+```
+curl -v https://happybucket.object.las1.coreweave.com/my-new-file.txt
+```
+
+Finally, the policy is deleted using `s3cmd delpolicy`:
 
 ```bash
 $ s3cmd delpolicy s3://happybucket
