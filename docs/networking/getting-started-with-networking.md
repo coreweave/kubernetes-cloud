@@ -43,3 +43,9 @@ Read more in [our L2VPC documentation](../coreweave-kubernetes/networking/layer-
 
 * Multi-node distributed Deep Neural Network Training
 * Multi-node HPC applications
+
+{% hint style="info" %}
+**Additional Resources**
+
+Read more in our [HPC Interconnect documentation](../coreweave-kubernetes/networking/hpc-interconnect.md).
+{% endhint %}
