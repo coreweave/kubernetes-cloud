@@ -87,7 +87,7 @@ spec:
     - name: finetuner_image
       value: 'docker.io/harubaru1/sd-finetuner'
     - name: finetuner_tag
-      value: 'r4'
+      value: 'r5'
 
   templates:
   - name: main
