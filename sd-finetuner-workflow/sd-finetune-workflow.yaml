@@ -84,6 +84,10 @@ spec:
     - name: trainer_gpu
       value: 'RTX_A6000'
     # Container images -- generally, don't alter this.
+    - name: downloader_image
+      value: 'ghcr.io/wbrown/gpt_bpe/model_downloader'
+    - name: downloader_tag
+      value: '797b903'
     - name: finetuner_image
       value: 'docker.io/harubaru1/sd-finetuner'
     - name: finetuner_tag
@@ -92,6 +96,17 @@ spec:
   templates:
   - name: main
     steps:
+    - - name: downloader
+        template: model-downloader
+        arguments:
+          parameters:
+            - name: model
+              value: "{{workflow.parameters.model}}"
+            - name: dest
+              value: "/{{workflow.parameters.pvc}}/models/{{workflow.parameters.model}}"
+            - name: type
+              value: "diffusers"
+
     - - name: finetuner
         template: model-finetuner
         arguments:
@@ -99,7 +114,7 @@ spec:
           - name: run_name
             value: "{{workflow.parameters.run_name}}"
           - name: model
-            value: "{{workflow.parameters.model}}"
+            value: "/{{workflow.parameters.pvc}}/models/{{workflow.parameters.model}}"
           - name: dataset
             value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.dataset}}"
           - name: lr
@@ -144,6 +159,47 @@ spec:
             value: "{{workflow.parameters.hf_token}}"
           - name: project_id
             value: "{{workflow.parameters.project_id}}"
+
+  - name: model-downloader
+    inputs:
+      parameters:
+        - name: model
+        - name: dest
+        - name: type
+    retryStrategy:
+      limit: 1
+    container:
+      image: "{{workflow.parameters.downloader_image}}:{{workflow.parameters.downloader_tag}}"
+      command: ["/ko-app/model_downloader"]
+      args: ["--model", "{{inputs.parameters.model}}",
+             "--dest", "{{inputs.parameters.dest}}",
+             "--type", "{{inputs.parameters.type}}"]
+      env:
+        - name: HF_API_TOKEN
+          value: "{{workflow.parameters.hf_token}}"
+      resources:
+        requests:
+          memory: 512Mi
+          cpu: "2"
+        limits:
+          memory: 512Mi
+          cpu: "2"
+      volumeMounts:
+        - mountPath: "/{{workflow.parameters.pvc}}"
+          name: "{{workflow.parameters.pvc}}"
+    volumes:
+      - name: "{{workflow.parameters.pvc}}"
+        persistentVolumeClaim:
+           claimName: "{{workflow.parameters.pvc}}"
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: topology.kubernetes.io/region
+              operator: In
+              values:
+              - "{{workflow.parameters.region}}"
 
   - name: model-finetuner
     inputs:
