@@ -78,9 +78,9 @@ parser.add_argument('--seed', type=int, help="Random seed value",
                     default=42)
 parser.add_argument('--output_path', type=str, help="Root path of all output",
                     default="./")
-parser.add_argument('--no_resume', type=bool, default=False,
+parser.add_argument('--no_resume', type=str, default='False',
                     help="Do not resume from last checkpoint")
-parser.set_defaults(no_resume=False)
+parser.set_defaults(no_resume='False')
 parser.add_argument("--cache", type=str, help="Huggingface cache location",
                     default="/tmp")
 parser.add_argument("--save_steps", type=int,
@@ -278,6 +278,16 @@ print(f"VALUE_DATASET: {len(val_dataset):,} examples")
 # Where we write our training checkpoints and final model.
 output_dir = os.path.abspath(
     os.path.join(args.output_path, "results-" + args.run_name))
+
+
+# Properly type-cast the param (str to bool)
+FALSE = [
+    "False",
+    "false",
+    "f",
+    "0",
+]
+args.no_resume = args.no_resume not in FALSE
 
 # Discover if we have any checkpoints to resume from.
 if not args.no_resume:
