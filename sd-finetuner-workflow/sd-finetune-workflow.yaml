@@ -74,15 +74,26 @@ spec:
       value: 'True'
     # Huggingface Token to download CompVis models.
     - name: hf_token
+    # Wandb API key to report to wandb.
+    - name: wandb_api_key
     # Project ID to report to wandb.
     - name: project_id
       value: 'sd-finetune'
+    # Inference service configuration.
+    - name: run_inference
+      value: 'False'
+    # Skip training and only run inference.
+    - name: inference_only
+      value: 'False'
     # CoreWeave region to default to; ORD1 has most of the GPUs.
     - name: region
       value: 'ORD1'
     # Training GPU - A6000, 48gb VRAM
     - name: trainer_gpu
       value: 'RTX_A6000'
+    # Inference GPU - Quadro RTX 5000, 16gb VRAM
+    - name: inference_gpu
+      value: 'Quadro_RTX_5000'
     # Container images -- generally, don't alter this.
     - name: downloader_image
       value: 'ghcr.io/wbrown/gpt_bpe/model_downloader'
@@ -91,7 +102,11 @@ spec:
     - name: finetuner_image
       value: 'docker.io/harubaru1/sd-finetuner'
     - name: finetuner_tag
-      value: 'r5'
+      value: 'r6'
+    - name: inference_image
+      value: 'docker.io/harubaru1/stable-diffusion'
+    - name: inference_tag
+      value: '5'
 
   templates:
   - name: main
@@ -142,7 +157,7 @@ spec:
           - name: seed
             value: "{{workflow.parameters.seed}}"
           - name: output_path
-            value: "/{{workflow.parameters.pvc}}/finetunes/"
+            value: "/{{workflow.parameters.pvc}}/finetunes/{{workflow.parameters.run_name}}"
           - name: save_steps
             value: "{{workflow.parameters.save_steps}}"
           - name: resolution
@@ -159,6 +174,15 @@ spec:
             value: "{{workflow.parameters.hf_token}}"
           - name: project_id
             value: "{{workflow.parameters.project_id}}"
+        when: "{{workflow.parameters.inference_only}} == 'False'"
+      
+    - - name: inference
+        template: model-inference-service
+        arguments:
+          parameters:
+            - name: model_name
+              value: "/mnt/pvc/finetunes/{{workflow.parameters.run_name}}"
+        when: "{{workflow.parameters.run_inference}} == 'True'"
 
   - name: model-downloader
     inputs:
@@ -259,6 +283,8 @@ spec:
       env:
       - name: PYTHONUNBUFFERED
         value: "1"
+      - name: WANDB_API_KEY
+        value: "{{workflow.parameters.wandb_api_key}}"
       resources:
         requests:
           memory: 32Gi
@@ -287,3 +313,55 @@ spec:
                   operator: In
                   values:
                     - "{{workflow.parameters.region}}"
+  
+  - name: model-inference-service
+    inputs:
+      parameters:
+        - name: model_name
+    resource:
+      action: apply
+      manifest: |
+        apiVersion: serving.kubeflow.org/v1beta1
+        kind: InferenceService
+        metadata:
+          name: inference-{{ workflow.parameters.run_name }}
+          annotations:
+            autoscaling.knative.dev/scaleToZeroPodRetentionPeriod: 20m
+        spec:
+          predictor:
+            minReplicas: 0
+            maxReplicas: 1
+            affinity:
+              nodeAffinity:
+                requiredDuringSchedulingIgnoredDuringExecution:
+                  nodeSelectorTerms:
+                    - matchExpressions:
+                        - key: gpu.nvidia.com/class
+                          operator: In
+                          values:
+                            - "{{workflow.parameters.inference_gpu}}"
+                        - key: topology.kubernetes.io/region
+                          operator: In
+                          values:
+                            - "{{workflow.parameters.region}}"
+            containers:
+              - name: kfserving-container
+                image: "{{workflow.parameters.inference_image}}:{{workflow.parameters.inference_tag}}"
+                imagePullPolicy: IfNotPresent
+                command:
+                  - "python3"
+                  - "/app/service.py"
+                env:
+                  - name: STORAGE_URI
+                    value: pvc://{{ workflow.parameters.pvc }}/
+                  - name: MODEL_NAME
+                    value: "{{ inputs.parameters.model_name }}"
+                resources:
+                  requests:
+                    nvidia.com/gpu: 1
+                    cpu: 4
+                    memory: 8Gi
+                  limits:
+                    nvidia.com/gpu: 1
+                    cpu: 12
+                    memory: 60Gi

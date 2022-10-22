@@ -14,6 +14,8 @@ import resource
 import psutil
 import pynvml
 import sys
+import wandb
+import gc
 
 try:
     pynvml.nvmlInit()
@@ -55,8 +57,15 @@ parser.add_argument('--shuffle', dest='shuffle', type=bool, default=True, help='
 parser.add_argument('--hf_token', type=str, default=None, required=False, help='A HuggingFace token is needed to download private models for training.')
 parser.add_argument('--project_id', type=str, default='diffusers', help='Project ID for reporting to WandB')
 parser.add_argument('--fp16', dest='fp16', type=bool, default=False, help='Train in mixed precision')
+parser.add_argument('--image_log_steps', type=int, default=10, help='Number of steps to log images at.')
+parser.add_argument('--image_log_amount', type=int, default=4, help='Number of images to log every image_log_steps')
 args = parser.parse_args()
 
+os.makedirs(args.output_path, exist_ok=True)
+
+# remove hf_token from args so sneaky people don't steal it from the wandb logs
+sanitized_args = {k: v for k, v in vars(args).items() if k not in ['hf_token']}
+run = wandb.init(project=args.project_id, name=args.run_name, config=sanitized_args, dir=args.output_path+'/wandb')
 
 # Inform the user of host, and various versions -- useful for debugging isseus.
 print("RUN_NAME:", args.run_name)
@@ -427,9 +436,37 @@ def main():
                 "epoch": epoch
             }
             progress_bar.set_postfix(logs)
+            run.log(logs)
 
             if global_step % args.save_steps == 0:
                 save_checkpoint()
+            
+            if global_step % args.image_log_steps == 0:
+                # get prompt from random batch
+                prompt = tokenizer.decode(batch['input_ids'][random.randint(0, len(batch['input_ids'])-1)].tolist())
+                pipeline = StableDiffusionPipeline(
+                    text_encoder=text_encoder,
+                    vae=vae,
+                    unet=unet,
+                    tokenizer=tokenizer,
+                    scheduler=PNDMScheduler(
+                        beta_start=0.00085, beta_end=0.012, beta_schedule="scaled_linear", skip_prk_steps=True
+                    ),
+                    safety_checker=None, # display safety checker to save memory
+                    feature_extractor=CLIPFeatureExtractor.from_pretrained("openai/clip-vit-base-patch32"),
+                ).to(device)
+                # inference
+                images = []
+                with torch.no_grad():
+                    with torch.autocast('cuda', enabled=args.fp16):
+                        for _ in range(args.image_log_amount):
+                            images.append(wandb.Image(pipeline(prompt).images[0], caption=prompt))
+                # log images under single caption
+                run.log({'images': images})
+
+                # cleanup so we don't run out of memory
+                del pipeline
+                gc.collect()
     
     save_checkpoint()
 
