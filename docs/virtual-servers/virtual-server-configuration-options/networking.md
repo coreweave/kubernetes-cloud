@@ -9,7 +9,7 @@ Networking for Virtual Servers can be as simplistic or as fine-grained as your u
 {% hint style="info" %}
 **Additional Resources**
 
-To learn more about general networking on CoreWeave cloud, see [Networking](../../../coreweave-kubernetes/networking/).
+To learn more about general networking on CoreWeave cloud, see [Networking](broken-reference).
 {% endhint %}
 
 {% tabs %}

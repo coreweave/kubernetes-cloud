@@ -10,7 +10,6 @@
 * [Useful Commands](../coreweave-kubernetes/useful-commands.md)
 * [Node Types](../coreweave-kubernetes/node-types.md)
 * [Advanced Label Selectors](../coreweave-kubernetes/label-selectors.md)
-* [Networking](../coreweave-kubernetes/networking/README.md)
 * [Serverless](../coreweave-kubernetes/serverless.md)
 * [Metrics](../coreweave-kubernetes/prometheus/README.md)
   * [Grafana](../coreweave-kubernetes/prometheus/grafana.md)
