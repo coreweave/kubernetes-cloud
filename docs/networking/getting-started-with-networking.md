@@ -39,7 +39,7 @@ These are all handled by the network layer, and concepts such as Services and Ne
 
 :white\_check\_mark: **Ideal for the following use cases:**
 
-* Connecting to an on-premise environment via a [Site-to-Site VPN](getting-started-with-networking.md#site-to-site-vpn) or [Direct Connect](../coreweave-kubernetes/networking/site-to-site-connections/direct-connections.md)
+* Connecting to an on-premise environment via a [Site-to-Site VPN](../coreweave-kubernetes/networking/site-to-site-connections/site-to-site-vpn/) or [Direct Connect](../coreweave-kubernetes/networking/site-to-site-connections/direct-connections.md)
 * Deploying Telco applications in the Cloud
 * Other niche networking use cases
 
