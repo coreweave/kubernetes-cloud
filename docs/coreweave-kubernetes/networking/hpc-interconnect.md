@@ -16,7 +16,7 @@ The CoreWeave Ethernet fabrics employ a cut-through design with sub-microsecond 
 
 {% hint style="info" %}
 **Additional Resources**\
-Read a case study about [training a 20 Billion parameter NLP model on 96 NVIDIA A40 GPUs with Ethernet interconnect](https://blog.coreweave.com/coreweave-and-bit192-inc.-help-gpt-neox-20b-reach-japan).
+Read a case study about [training a 20 Billion parameter NLP model on 96 NVIDIA A40 GPUs with Ethernet interconnect](https://www.coreweave.com/blog/coreweave-and-bit192-inc-help-gpt-neox-20b-reach-japan).
 {% endhint %}
 
 ## HPC over RDMA / InfiniBand
