@@ -108,6 +108,7 @@
 * [One-Click Models](../compass/models/README.md)
   * [GPT-J-6B](../compass/models/gpt-j-6b.md)
 * [Finetuning Machine Learning Models](compass/finetuning-machine-learning-models.md)
+* [Finetuning Image Generation Models](compass/finetuning-image-generation-models.md)
 * [Finetuning GPT-NeoX 20B using DeterminedAI](compass/gpt-neox.md)
 
 ## Workflows
