@@ -72,6 +72,12 @@ spec:
     # Whether or not to shuffle the dataset.
     - name: shuffle
       value: 'True'
+    # Image logging steps to log images at.
+    - name: image_log_steps
+      value: '500'
+    # Amount of images to log at every image logging step.
+    - name: image_log_amount
+      value: '4'
     # Huggingface Token to download CompVis models.
     - name: hf_token
     # Wandb API key to report to wandb.
@@ -170,6 +176,10 @@ spec:
             value: "{{workflow.parameters.resize_interp}}"
           - name: shuffle
             value: "{{workflow.parameters.shuffle}}"
+          - name: image_log_steps
+            value: "{{workflow.parameters.image_log_steps}}"
+          - name: image_log_amount
+            value: "{{workflow.parameters.image_log_amount}}"
           - name: hf_token
             value: "{{workflow.parameters.hf_token}}"
           - name: project_id
@@ -250,6 +260,8 @@ spec:
         - name: center_crop
         - name: resize_interp
         - name: shuffle
+        - name: image_log_steps
+        - name: image_log_amount
         - name: hf_token
         - name: project_id
     container:
@@ -277,6 +289,8 @@ spec:
               "--center_crop", "{{inputs.parameters.center_crop}}",
               "--resize_interp", "{{inputs.parameters.resize_interp}}",
               "--shuffle", "{{inputs.parameters.shuffle}}",
+              "--image_log_steps", "{{inputs.parameters.image_log_steps}}",
+              "--image_log_amount", "{{inputs.parameters.image_log_amount}}",
               "--hf_token", "{{inputs.parameters.hf_token}}",
               "--project_id", "{{inputs.parameters.project_id}}"]
       tty: true
