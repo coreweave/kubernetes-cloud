@@ -324,3 +324,33 @@ Bucket policies do not yet support string interpolation.
 ## Object Storage pricing
 
 The current price for object storage is `$0.03` per GB per month.
+
+## Custom Resources
+
+CoreWeave provides Kubernetes Custom Resource Definitions (CRDs) for programmatic and automated methods of generating access to Object Storage clusters. In most cases, a single user can be used, but if you wish to have separate access credentials per system or user in your account, it is possible to generate multiple users who have read and write permissions granted, and then lock down storage buckets further by using a full access user.
+
+### Permissions levels
+
+* `full` - Grants full access to all buckets, including modification permissions for bucket policies
+* `readwrite` - Grants read- and write-only access to all buckets
+* `read` - Grants read-only access to all buckets
+* `write` - Grants write access to all buckets
+
+The following snippet creates a full-access user, however these permissions may be specified using the `readwrite`, `read`, and `write` options respectively.
+
+```yaml
+apiVersion: objectstorage.coreweave.com/v1alpha1
+kind: User
+metadata:
+  name: user-name
+  namespace: your-namespace
+spec:
+  owner: your-namespace
+  access: full # Options are full, readwrite, read, or write
+```
+
+### User CRD
+
+The user CRD generates access to the object storage clusters. Each user is given both an access key and secret key, which are stored inside of a [secret](https://kubernetes.io/docs/concepts/configuration/secret/) in your namespace. Each secret is associated with the user, and is deleted when the user is deleted.
+
+``
