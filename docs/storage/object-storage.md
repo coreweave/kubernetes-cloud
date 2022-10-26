@@ -327,7 +327,7 @@ The current price for object storage is `$0.03` per GB per month.
 
 ## Custom Resources
 
-CoreWeave provides Kubernetes Custom Resource Definitions (CRDs) for programmatic and automated methods of generating access to Object Storage clusters. In most cases, a single user can be used, but if you wish to have separate access credentials per system or user in your account, it is possible to generate multiple users who have read and write permissions granted, and then lock down storage buckets further by using a full access user.
+CoreWeave provides [Kubernetes Custom Resource Definitions (CRDs)](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/) for programmatic and automated methods of generating access to Object Storage clusters. In most cases, a single user can be used, but if you wish to have separate access credentials per system or user in your account, it is possible to generate multiple users who have read and write permissions granted, and then lock down storage buckets further by using a full access user.
 
 ### Permissions levels
 
