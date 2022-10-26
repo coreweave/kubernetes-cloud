@@ -338,6 +338,10 @@ CoreWeave provides Kubernetes Custom Resource Definitions (CRDs) for programmati
 
 The following snippet creates a full-access user, however these permissions may be specified using the `readwrite`, `read`, and `write` options respectively.
 
+### User CRD
+
+The user CRD generates access to the object storage clusters. Each user is given both an access key and secret key, which are stored inside of a [secret](https://kubernetes.io/docs/concepts/configuration/secret/) in your namespace. Each secret is associated with the user, and is deleted when the user is deleted.
+
 ```yaml
 apiVersion: objectstorage.coreweave.com/v1alpha1
 kind: User
@@ -348,9 +352,3 @@ spec:
   owner: your-namespace
   access: full # Options are full, readwrite, read, or write
 ```
-
-### User CRD
-
-The user CRD generates access to the object storage clusters. Each user is given both an access key and secret key, which are stored inside of a [secret](https://kubernetes.io/docs/concepts/configuration/secret/) in your namespace. Each secret is associated with the user, and is deleted when the user is deleted.
-
-``
