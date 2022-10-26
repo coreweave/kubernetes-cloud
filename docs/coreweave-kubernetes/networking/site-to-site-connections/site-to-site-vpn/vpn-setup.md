@@ -76,8 +76,18 @@ CoreWeave currently supports four different Proposals for **Phase 1** and **Phas
 The most performant proposal has been benchmarked to be`aes128gcm16-sha256-modp2048`.
 {% endhint %}
 
+Finally, create a user account on the VPN Gateway Virtual Server in the final fields of the configuration screen.
+
 ## Launching the VPN
 
-The final configuration option is for creating a user account on the VPN Gateway Virtual Server.
+Once the settings for your VPN have been configured, click the **Deploy** button at the bottom of the screen to deploy the VPN server to your cluster!
 
-Once your configurations have been set, select the **Deploy** button at the bottom of the screen to deploy the VPN server to your cluster!
+## Configure routes
+
+After the VPN is set up, you will need to configure routing for the subnet that you want to reach on the other end of the tunnel. The easiest way to configure this is to use the [DHCP on L2VPC](../../layer-2-vpc-l2vpc/dhcp-on-l2vpc.md), available in the Application Catalog.
+
+{% hint style="info" %}
+**Note**
+
+If you are running your own DHCP server you will need to implement [RFC3442](https://datatracker.ietf.org/doc/html/rfc3442) (classless static routes) in your DHCP server's configuration.
+{% endhint %}
