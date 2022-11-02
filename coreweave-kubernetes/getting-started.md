@@ -1,6 +1,10 @@
-# Getting Started
+---
+description: Learn how to configure your CoreWeave Kubernetes setup to access the Cloud.
+---
 
-## Obtaining CoreWeave Access Credentials
+# Get Started with CoreWeave
+
+## Obtaining CoreWeave access credentials
 
 On CoreWeave, **Kubeconfig** files are used to interact with our Kubernetes cluster by using clients such as `kubectl`, and **API Access Tokens** are used for programmatic access to CoreWeave Cloud applications such as [Prometheus](prometheus/).
 
@@ -24,7 +28,7 @@ If you would like to prevent the Kubeconfig file from downloading automatically,
 
 <figure><img src="../docs/.gitbook/assets/image (2) (1) (3).png" alt="Create a new access token dialog box"><figcaption><p><strong>Create a new access token</strong> dialog box</p></figcaption></figure>
 
-## Installing the Kubernetes Command Line Tools
+## Installing the Kubernetes command line tools
 
 Once you have obtained your Access Credentials, all you have to do is put them in the right place and download the Kubernetes command line tools.
 

@@ -6,7 +6,7 @@
 
 ## CoreWeave Kubernetes
 
-* [Getting Started](../coreweave-kubernetes/getting-started.md)
+* [Get Started with CoreWeave](../coreweave-kubernetes/getting-started.md)
 * [Useful Commands](../coreweave-kubernetes/useful-commands.md)
 * [Node Types](../coreweave-kubernetes/node-types.md)
 * [Advanced Label Selectors](../coreweave-kubernetes/label-selectors.md)
@@ -21,7 +21,7 @@
 
 ## Networking
 
-* [Getting Started with Networking](networking/getting-started-with-networking.md)
+* [Get Started with Networking](networking/getting-started-with-networking.md)
 * [CoreWeave Cloud Native Networking (CCNN)](coreweave-kubernetes/networking/coreweave-cloud-native-networking-ccnn.md)
   * [Exposing Applications](networking/layer-2-vpc-l2vpc/exposing-applications.md)
 * [Layer 2 VPC (L2VPC)](coreweave-kubernetes/networking/layer-2-vpc-l2vpc/README.md)
@@ -46,8 +46,8 @@
 
 ## Virtual Servers
 
-* [Getting Started with Virtual Servers](../virtual-servers/getting-started.md)
-* [Virtual Server Deployment Methods](../virtual-servers/deployment-methods/README.md)
+* [Get Started with Virtual Servers](../virtual-servers/getting-started.md)
+* [Deployment Methods](../virtual-servers/deployment-methods/README.md)
   * [CoreWeave Cloud UI](../virtual-servers/deployment-methods/coreweave-apps.md)
   * [Kubernetes CLI](virtual-servers/deployment-methods/kubectl.md)
   * [Terraform](../virtual-servers/deployment-methods/terraform.md)
@@ -56,7 +56,7 @@
     * [Python](../virtual-servers/deployment-methods/programmatically/python.md)
     * [NodeJS](../virtual-servers/deployment-methods/programmatically/nodejs.md)
     * [Golang](../virtual-servers/deployment-methods/programmatically/golang.md)
-* [Virtual Server Configuration Options](virtual-servers/virtual-server-configuration-options/README.md)
+* [Configuration Options](virtual-servers/virtual-server-configuration-options/README.md)
   * [Region, Hardware & Firmware](virtual-servers/virtual-server-configuration-options/region-hardware-and-firmware.md)
   * [Operating System & Root Disk](virtual-servers/virtual-server-configuration-options/operating-system-and-root-disk.md)
   * [Storage](virtual-servers/virtual-server-configuration-options/storage.md)
@@ -89,7 +89,7 @@
 
 ## Inference <a href="#compass" id="compass"></a>
 
-* [Inference on the Cloud](../compass/online-inference.md)
+* [Get Started with Inference](../compass/online-inference.md)
 * [Inference Examples](../compass/examples/README.md)
   * [PyTorch Hugging Face Diffusers - Stable Diffusion Text to Image](compass/examples/pytorch-hugging-face-diffusers-stable-diffusion-text-to-image.md)
   * [PyTorch Hugging Face Transformers Accelerate - BigScience BLOOM](compass/examples/pytorch-hugging-face-transformers-bigscience-bloom.md)
@@ -113,13 +113,13 @@
 
 ## Workflows
 
-* [Getting Started](../workflows/argo.md)
+* [Get Started with Workflows](../workflows/argo.md)
 * [Examples](workflows/examples/README.md)
   * [CGI Rendering Using Workflows](../workflows/examples/cgi-rendering.md)
 
 ## Solutions
 
-* [VFX](../solutions/vfx/README.md)
+* [Get Started with VFX](../solutions/vfx/README.md)
   * [Deploying Managed Deadline](../solutions/vfx/deadline.md)
   * [On-Premise Integration](../solutions/vfx/on-premise-integration/README.md)
     * [CloudLink on Linux](../solutions/vfx/on-premise-integration/linux.md)

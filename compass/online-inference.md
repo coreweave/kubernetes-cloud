@@ -1,6 +1,4 @@
-# Inference on the Cloud
-
-## Introduction
+# Get Started with Inference
 
 ![diagram](../.gitbook/assets/overview.png)
 
