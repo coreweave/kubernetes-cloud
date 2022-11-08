@@ -27,7 +27,7 @@ spec:
           git clone https://github.com/NVIDIA/FasterTransformer.git; 
           wget https://s3.amazonaws.com/models.huggingface.co/bert/gpt2-vocab.json -P models; 
           wget https://s3.amazonaws.com/models.huggingface.co/bert/gpt2-merges.txt -P models;
-          wget --cut-dirs=5 -nH -r --no-parent --reject "index.html*" https://mystic.the-eye.eu/public/AI/models/GPT-NeoX-20B/slim_weights/ -P EleutherAI;
+          wget --cut-dirs=5 -nH -r --no-parent --reject "index.html*" https://the-eye.eu/public/AI/models/GPT-NeoX-20B/slim_weights/ -P EleutherAI;
           mkdir /mnt/pvc/gpt-neox/triton-model-store/fastertransformer/1 -p; 
           python3 /mnt/pvc/gpt-neox/FasterTransformer/examples/pytorch/gptneox/utils/eleutherai_gpt_neox_convert.py \
           /mnt/pvc/gpt-neox/EleutherAI/ \

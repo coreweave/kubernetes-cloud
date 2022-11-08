@@ -229,7 +229,7 @@ $ kubectl apply -f ft-inference-service-neox.yml
 Due to the size of the model, loading into GPU memory can take around 5-10 minutes. To monitor the progress of this, you can wait to see the KServe workers start in the pod logs by invoking:
 
 ```bash
-$ kubectl logs -f -l serving.kubeflow.org/inferenceservice=fastertransformer-triton-neox kfserving-container
+$ kubectl logs -f -l serving.kubeflow.org/inferenceservice=fastertransformer-triton-neox -c kfserving-container
 ```
 
 \
