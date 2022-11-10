@@ -4,7 +4,7 @@ description: >-
   CoreWeave Cloud.
 ---
 
-# Virtual Server Deployment Methods
+# Deployment Methods
 
 {% hint style="success" %}
 **What is a Virtual Server?**
@@ -34,7 +34,7 @@ The CoreWeave Cloud UI is an easy-to-use Web interface to deploy, visualize, and
 
 ## [Kubernetes CLI](../../docs/virtual-servers/deployment-methods/kubectl.md)\*\*\*\*
 
-![](<../../docs/.gitbook/assets/image (71) (1).png>)
+![](<../../docs/.gitbook/assets/image (113) (1) (1) (1) (3).png>)
 
 [Virtual Servers are a Kubernetes Custom Defined Resource (CRD)](https://github.com/coreweave/kubernetes-cloud/blob/5632d497da5883be07a1535a67cad69b97ea5050/docs/virtual-servers/deployment-methods/kubectl.md), which may be directly deployed on CoreWeave Cloud using the `kubectl` command line tool.
 
@@ -49,7 +49,7 @@ The CoreWeave Cloud UI is an easy-to-use Web interface to deploy, visualize, and
 
 ## [Terraform](terraform.md)
 
-![](<../../docs/.gitbook/assets/image (4) (2) (1).png>)
+![](<../../docs/.gitbook/assets/image (4) (2) (1) (1) (1) (1) (2).png>)
 
 CoreWeave offers [an open source Terraform module](https://github.com/coreweave/kubernetes-cloud/tree/5632d497da5883be07a1535a67cad69b97ea5050/virtual-server/examples/terraform) for deploying Virtual Servers, which can also be customized by extending the module yourself.
 

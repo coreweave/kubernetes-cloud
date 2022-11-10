@@ -4,7 +4,7 @@ description: >-
   them.
 ---
 
-# Virtual Server Configuration Options
+# Configuration Options
 
 Virtual Servers are highly customizable, and can be configured for deployment a few different ways.
 
@@ -34,7 +34,7 @@ If you are using the Cloud UI to deploy your Virtual Servers but require more fi
 {% endhint %}
 
 ![YAML manifest, selectable from the Virtual Server configuration screen.
-](<../../.gitbook/assets/image (108).png>)
+](<../../.gitbook/assets/image (104).png>)
 
 {% hint style="success" %}
 **Tip**

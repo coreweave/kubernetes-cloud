@@ -14,19 +14,7 @@ For more information about the à la carte pricing of compute components on Core
 
 When custom configuring your instances on CoreWeave Cloud, the following table outlines the physical limitation of how many GPUs are available per instance.
 
-| Class             | Generation | VRAM  | Max per Instance | Label                | Vendor | CUDA Cores |
-| ----------------- | ---------- | ----- | ---------------- | -------------------- | ------ | ---------- |
-| A100 NVLINK       | Ampere     | 80 GB | 8                | A100\_NVLINK_\__80GB |        |            |
-| A100 NVLINK       | Ampere     | 40 GB | 8                | A100\_NVLINK         | NVIDIA | 6,912      |
-| A100 PCIe         | Ampere     | 40 GB | 8                | A100\_PCIE\_40GB     | NVIDIA | 6,912      |
-| A100 PCIe         | Ampere     | 80 GB | 8                | A100\_PCIE\_80GB     | NVIDIA | 6,912      |
-| A40               | Ampere     | 48 GB | 8                | A40                  | NVIDIA | 10,752     |
-| A6000             | Ampere     | 48 GB | 8                | RTX\_A6000           | NVIDIA | 10,752     |
-| RTX A5000         | Ampere     | 24 GB | 8                | RTX\_A5000           | NVIDIA | 8,192      |
-| RTX A4000         | Ampere     | 16 GB | 7                | RTX\_A4000           | NVIDIA | 6,144      |
-| Tesla V100 NVLINK | Volta      | 16 GB | 8                | Tesla\_V100\_NVLINK  | NVIDIA | 5,120      |
-| RTX 5000          | Turing     | 16 GB | 4                | Quadro\_RTX\_5000    | NVIDIA | 3,072      |
-| RTX 4000          | Turing     | 8 GB  | 7                | Quadro\_RTX\_4000    | NVIDIA | 2,304      |
+<table><thead><tr><th>Class</th><th>Generation</th><th>VRAM</th><th>Max per Instance</th><th>Label</th><th data-hidden>Vendor</th><th data-hidden>CUDA Cores</th></tr></thead><tbody><tr><td>A100 NVLINK</td><td>Ampere</td><td>80 GB</td><td>8</td><td>A100_NVLINK<em>_</em>80GB</td><td></td><td></td></tr><tr><td>A100 NVLINK</td><td>Ampere</td><td>40 GB</td><td>8</td><td>A100_NVLINK</td><td>NVIDIA</td><td>6,912</td></tr><tr><td>A100 PCIe</td><td>Ampere</td><td>40 GB</td><td>8</td><td>A100_PCIE_40GB</td><td>NVIDIA</td><td>6,912</td></tr><tr><td>A100 PCIe</td><td>Ampere</td><td>80 GB</td><td>8</td><td>A100_PCIE_80GB</td><td>NVIDIA</td><td>6,912</td></tr><tr><td>A40</td><td>Ampere</td><td>48 GB</td><td>8</td><td>A40</td><td>NVIDIA</td><td>10,752</td></tr><tr><td>A6000</td><td>Ampere</td><td>48 GB</td><td>8</td><td>RTX_A6000</td><td>NVIDIA</td><td>10,752</td></tr><tr><td>RTX A5000</td><td>Ampere</td><td>24 GB</td><td>8</td><td>RTX_A5000</td><td>NVIDIA</td><td>8,192</td></tr><tr><td>RTX A4000</td><td>Ampere</td><td>16 GB</td><td>7</td><td>RTX_A4000</td><td>NVIDIA</td><td>6,144</td></tr><tr><td>Tesla V100 NVLINK</td><td>Volta</td><td>16 GB</td><td>8</td><td>Tesla_V100_NVLINK</td><td>NVIDIA</td><td>5,120</td></tr><tr><td>RTX 5000</td><td>Turing</td><td>16 GB</td><td>4</td><td>Quadro_RTX_5000</td><td>NVIDIA</td><td>3,072</td></tr><tr><td>RTX 4000</td><td>Turing</td><td>8 GB</td><td>7</td><td>Quadro_RTX_4000</td><td>NVIDIA</td><td>2,304</td></tr></tbody></table>
 
 {% hint style="warning" %}
 If a workload requests more peripheral compute resources (vCPU, RAM) than offered in a standard instance size, [additional costs will incur](../resources/resource-based-pricing.md).

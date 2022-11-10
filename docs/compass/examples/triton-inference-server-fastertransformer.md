@@ -100,7 +100,7 @@ $ kubectl apply -f model-storage-pvc.yml
 
 {% tabs %}
 {% tab title="GPT-J" %}
-### Model job download
+#### Model job download
 
 To deploy the job to download the model to the PVC, navigate to the `kubernetes-cloud/online-inference/fastertransformer/` directory, then run:
 
@@ -108,23 +108,18 @@ To deploy the job to download the model to the PVC, navigate to the `kubernetes-
 $ kubectl apply -f download-weights-job-gptj.yml
 ```
 
-
-
 This job performs the following:
 
 * downloads the GPT-J weights into the PVC at `/mnt/pvc/models/gptj-store`
 * installs the required packages to convert them to FasterTransformer format
 * converts the packages to the FasterTransformer format, then stores them in the PVC at `/mnt/pvc/gptj-store/triton-model-store/fastertransformer/1/`
-* passes the `config.pbtxt` file to set important parameters such as `tensor_para_size=1`, `pipeline_para_size=1, (1 GPU x 1 Pod)` and `model_transaction_policy { decoupled: False }`, which allows for streaming if set to `True`.\
-
+* passes the `config.pbtxt` file to set important parameters such as `tensor_para_size=1`, `pipeline_para_size=1, (1 GPU x 1 Pod)` and `model_transaction_policy { decoupled: False }`, which allows for streaming if set to `True`.\\
 
 {% hint style="info" %}
 **Note**
 
 The model is quite large at \~23Gi, and may take around 15-20 minutes for the download job to complete.
 {% endhint %}
-
-
 
 To check if the model has finished downloading, wait for the job to be in a `Completed` state:
 
@@ -135,17 +130,13 @@ NAME                        COMPLETIONS   DURATION      AGE
 gptj-download                 1/1            24m        1h
 ```
 
-
-
 Or, follow the job logs to monitor progress:
 
 ```bash
 kubectl logs -l job-name=gptj-download --follow
 ```
 
-
-
-### InferenceService
+#### InferenceService
 
 Once the model is downloaded, the `InferenceService` can be deployed by invoking:
 
@@ -172,7 +163,7 @@ fastertransformer-triton-gptj     http://fastertransformer-triton-gptj.tenant-de
 {% endtab %}
 
 {% tab title="GPT-NeoX" %}
-### Model job download
+#### Model job download
 
 To deploy the job to download the model to the PVC, navigate to the `kubernetes-cloud/online-inference/fastertransformer/` directory, then run:
 
@@ -188,15 +179,11 @@ This job performs the following:
 * converts the packages to the FasterTransformer format, then stores them in the PVC at `/mnt/pvc/gptj-store/triton-model-store/fastertransformer/1/`
 * passes the `config.pbtxt` file to set important parameters such as `tensor_para_size=1`, `pipeline_para_size=1, (1 GPU x 1 Pod)` and `model_transaction_policy { decoupled: False }`, which allows for streaming if set to `True`.
 
-
-
 {% hint style="info" %}
 **Note**
 
 The model is quite large at \~39Gi (mirror to pull from Europe), and may take around 3-5 hours for the download and conversion job to complete.
 {% endhint %}
-
-
 
 To check if the model has finished downloading, wait for the job to be in a `Completed` state:
 
@@ -207,17 +194,13 @@ NAME                           COMPLETIONS   DURATION      AGE
 gpt-neox-download                 1/1            24m        1h
 ```
 
-
-
 Or, follow the job logs to monitor progress:
 
 ```bash
 $ kubectl logs -l job-name=gpt-neox-download --follow
 ```
 
-
-
-### InferenceService
+#### InferenceService
 
 Once the model is downloaded, the `InferenceService` can be deployed by invoking:
 

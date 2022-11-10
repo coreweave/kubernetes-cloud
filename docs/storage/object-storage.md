@@ -352,3 +352,18 @@ spec:
   owner: your-namespace
   access: full # Options are full, readwrite, read, or write
 ```
+
+### Accelerated Object Storage
+
+CoreWeave also offers Accelerated Object Storage, a series of Anycasted NVMe-backed storage caches that provide blazing fast download speeds. Accelerated Object Storage is best suited for frequently accessed data that doesn't change often, such as model weights and training data.&#x20;
+
+One of the biggest advantages of Anycasted Object Storage Caches is that data can be pulled from across data center regions, then be cached in the data center in which your workloads are located. For example, if your models are hosted in `ORD1` (Chicago), but have a deployment scale to all regions (`ORD1`, `LAS1`, `LGA1`), our accelerated caching solution will route to the nearest cache, then determine to pull the data from `ORD1` so that it is located in the same region as your workloads. This drastically reduces spin up times for workloads where scaling is a concern.
+
+Use of CoreWeave's Accelerated Object Storage is completely free. To use Accelerated Object Storage, simply modify your Object Storage endpoint to one of the addresses that corresponds to your Data Center region.
+
+| Region | Endpoint                          |
+| ------ | --------------------------------- |
+| LAS1   | `accel-object.las1.coreweave.com` |
+| LGA1   | `accel-object.lga1.corewaeve.com` |
+| ORD1   | `accel-object.ord1.coreweave.com` |
+
