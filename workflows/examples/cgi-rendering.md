@@ -92,7 +92,7 @@ For this example, we want to render something that quickly in order to showcase 
 {% hint style="info" %}
 **Note**
 
-This portion of the example assumes that you've already set up [Argo CLI tools](broken-reference/) on CoreWeave Cloud\*\*.\*\*
+This portion of the example assumes that you've already set up [Argo CLI tools](../argo.md) on CoreWeave Cloud.
 {% endhint %}
 
 The following [Argo workflow file](https://argoproj.github.io/argo-workflows/workflow-concepts/) allows us to:
