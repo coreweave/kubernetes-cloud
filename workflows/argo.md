@@ -1,3 +1,7 @@
+---
+description: Use Argo Workflows to run jobs in parallel
+---
+
 # Get Started with Workflows
 
 Workflows on CoreWeave Cloud run on [Argo Workflows](https://argoproj.github.io/argo/), which is a great tool to orchestrate parallel execution of GPU and CPU jobs. With Workflows, you can manage retries and parallelism automatically. Workflows can also be submitted via CLI, [Rest API](https://github.com/argoproj/argo/blob/master/examples/rest-examples.md) and the [Kubernetes API](https://github.com/argoproj/argo/blob/master/docs/rest-api.md).

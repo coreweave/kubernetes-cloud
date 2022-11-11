@@ -10,9 +10,7 @@ If you are following along with this example, by the end of it you will have a W
 
 <figure><img src="../../docs/.gitbook/assets/image (23) (1).png" alt=""><figcaption><p>Image of a CGI-rendered car</p></figcaption></figure>
 
-## Procedure
-
-### Configure the Persistent Volume Claim
+## Configure the Persistent Volume Claim
 
 First, we will need a place for all of our render assets and outputs to reside that is accessible to multiple workers and other services in our namespace. To do this, we will create a shared filesystem [Persistent Volume Claim](https://docs.coreweave.com/coreweave-kubernetes/storage#shared-filesystem).
 
@@ -44,7 +42,7 @@ persistentvolumeclaim/shared-data-pvc created
 
 We now have a shared filesystem of `100GB`, named `shared-data-pvc`, which we can utilize throughout this rendering example.
 
-### Install the FileBrowser application
+## Install the FileBrowser application
 
 Because we are attempting to create an easy-to-use service to render our Blender animation, we will also quickly setup a Web-based file management platform to upload and download any assets and render output we have. To accomplish this, we will be using the open-source utility [FileBrowser](http://www.filebrowser.xyz), available through [the CoreWeave Cloud application Catalog](https://apps.coreweave.com) as **filebrowser**.
 
@@ -87,7 +85,7 @@ For this example, we want to render something that quickly in order to showcase 
 
 ![The FileBrowser UI, displaying the uploaded bmw27\_gpu.blend file](<../../.gitbook/assets/image (2) (1) (1).png>)
 
-### Create the render workflow
+## Create the render workflow
 
 {% hint style="info" %}
 **Note**
