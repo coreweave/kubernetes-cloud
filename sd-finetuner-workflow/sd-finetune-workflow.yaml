@@ -12,7 +12,7 @@ spec:
     - name: pvc
       value: 'sd-finetune-data'
     # Training parameters. Model IDs are hugging face IDs to pull down, or
-    # a path to your model relative to the PVC root.
+    # a path to your Diffusers model relative to the PVC root.
     - name: model
       value: 'CompVis/stable-diffusion-v1-4'
     # The directory to read your dataset in.
