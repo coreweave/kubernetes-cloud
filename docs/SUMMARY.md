@@ -41,7 +41,7 @@
 
 ## Storage
 
-* [Getting Started with Storage](storage/storage.md)
+* [Get Started with Storage](storage/storage.md)
 * [Object Storage](storage/object-storage.md)
 
 ## Virtual Servers
