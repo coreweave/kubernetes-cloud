@@ -3,7 +3,7 @@ kind: InferenceService
 metadata:
   labels:
     qos.coreweave.cloud/latency: low
-  name: fastertransformer-triton-gptj
+  name: fastertransformer-triton-gptj-grpc-http
 spec:
   predictor:
     maxReplicas: 1
@@ -11,13 +11,17 @@ spec:
     containerConcurrency: 1
     containers:
     - name: gptj-ft
-      image: rtalaricw/gptj_ft:v1.2-22.04
+      image: rtalaricw/gptj_ft:v1.2-22.04-new
       command: ["/opt/tritonserver/bin/tritonserver"]
       args: ["--model-repository=/mnt/pvc/gptj-store/triton-model-store"]
       env:
         - name: STORAGE_URI 
           value: pvc://model-storage/
       ports:
+        # Uncomment to use GRPC
+        # - containerPort: 8001
+        #   name: h2c
+        #   protocol: TCP
         - containerPort: 8000
           protocol: TCP
       resources:
