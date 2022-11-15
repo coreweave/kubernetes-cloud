@@ -109,6 +109,7 @@
   * [GPT-J-6B](../compass/models/gpt-j-6b.md)
 * [Finetuning Machine Learning Models](compass/finetuning-machine-learning-models.md)
 * [Finetuning Image Generation Models](compass/finetuning-image-generation-models.md)
+* [Launching GPT DeepSpeed Models using DeterminedAI](compass/launching-gpt-deepspeed-models-using-determinedai.md)
 * [Finetuning GPT-NeoX 20B using DeterminedAI](compass/gpt-neox.md)
 
 ## Workflows

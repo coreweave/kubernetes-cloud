@@ -1,7 +1,7 @@
 ---
 description: >-
-  This page details the setup and process to train or fine-tune a GPT-NeoX 20B
-  parameter model on CoreWeave cloud.
+  Learn how to train or finetune a GPT-NeoX 20B parameter model on CoreWeave
+  Cloud
 ---
 
 # Finetuning GPT-NeoX 20B using DeterminedAI
@@ -51,8 +51,9 @@ The values used for this demo are as follows:
 | **Size (Gi)**    | 1,000             |
 
 {% hint style="info" %}
-**Note**\
-\*\*\*\*If needed, it is easy to [increase the size](https://docs.coreweave.com/coreweave-kubernetes/storage#resizing) of a storage volume later.
+**Note**
+
+If needed, it is easy to [increase the size](https://docs.coreweave.com/coreweave-kubernetes/storage#resizing) of a storage volume later.
 {% endhint %}
 
 ### **Install the Filebrowser application**

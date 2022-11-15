@@ -46,7 +46,7 @@ Next, using the inputs described below to configure the VPN, you'll need to init
 
 Navigate to **Virtual private network (VPN) -> Site-to-Site VPN Connections**.
 
-![The "Site-to-Site VPN Connections" option under "Virtual private network (VPN)".](<../../../../../.gitbook/assets/image (8) (1).png>)
+![The "Site-to-Site VPN Connections" option under "Virtual private network (VPN)".](<../../../../../.gitbook/assets/image (8).png>)
 
 Select the orange **Create VPN connection** button in the upper right hand corner of the screen. This will launch the configuration screen for the VPN connection.
 

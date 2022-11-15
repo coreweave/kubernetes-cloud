@@ -36,11 +36,11 @@ Using the CoreWeave Cloud UI, an Object Storage configuration file can be genera
 
 To access Object Storage using the [CoreWeave Cloud UI](../../virtual-servers/deployment-methods/coreweave-apps.md), first log in to your CoreWeave Cloud account, then navigate to the [API Access page](https://cloud.coreweave.com/api-access). From there, click on the **Object Storage** tab at the top of the screen to open [the Object Storage screen](https://cloud.coreweave.com/api-access#object-storage).
 
-<figure><img src="../.gitbook/assets/image.png" alt="Screenshot: The API Access page link can be found on the right-hand navigation menu, and the Object Storage tab can be found at the top of that screen"><figcaption><p>The API Access page link can be found on the right-hand navigation menu, and the Object Storage tab can be found at the top of that screen</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (9).png" alt="Screenshot: The API Access page link can be found on the right-hand navigation menu, and the Object Storage tab can be found at the top of that screen"><figcaption><p>The API Access page link can be found on the right-hand navigation menu, and the Object Storage tab can be found at the top of that screen</p></figcaption></figure>
 
 To create a new token, click the button labelled **Create a New Token**. This will bring up the **New Storage Token** options. You will be prompted to assign a name to the token, which is required. You may also select a default Object Storage region from the drop-down list. This region may be changed at any time.
 
-<figure><img src="../.gitbook/assets/image (1).png" alt="Screenshot: Generate a new Object Storage token by assigning a token name and selecting a default storage region"><figcaption><p>Generate a new Object Storage token by assigning a token name and selecting a default storage region</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (4).png" alt="Screenshot: Generate a new Object Storage token by assigning a token name and selecting a default storage region"><figcaption><p>Generate a new Object Storage token by assigning a token name and selecting a default storage region</p></figcaption></figure>
 
 Finally, clicking the **Generate** button will generate a token configuration file, which will look like the following:
 
