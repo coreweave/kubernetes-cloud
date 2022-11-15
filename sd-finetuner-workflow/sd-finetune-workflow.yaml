@@ -14,7 +14,7 @@ spec:
     # Training parameters. Model IDs are hugging face IDs to pull down, or
     # a path to your Diffusers model relative to the PVC root.
     - name: model
-      value: 'CompVis/stable-diffusion-v1-4'
+      value: 'runwayml/stable-diffusion-v1-5'
     # The directory to read your dataset in.
     - name: dataset
       value: 'dataset'
@@ -106,9 +106,9 @@ spec:
     - name: downloader_tag
       value: '797b903'
     - name: finetuner_image
-      value: 'docker.io/harubaru1/sd-finetuner'
+      value: 'ghcr.io/coreweave/ml-containers/sd-finetuner'
     - name: finetuner_tag
-      value: 'r6'
+      value: '47e37cd'
     - name: inference_image
       value: 'docker.io/harubaru1/stable-diffusion'
     - name: inference_tag
