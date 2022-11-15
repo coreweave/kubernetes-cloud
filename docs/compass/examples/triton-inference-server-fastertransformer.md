@@ -100,7 +100,17 @@ $ kubectl apply -f model-storage-pvc.yml
 
 {% tabs %}
 {% tab title="GPT-J" %}
-#### Model job download
+{% hint style="warning" %}
+**Important**
+
+To use GRPC instead of HTTP, set\
+`model_transaction_policy { decoupled: True }`\
+``in the `download-weights-job-gpt-neox.yml` configuration file.
+{% endhint %}
+
+
+
+## Model job download
 
 To deploy the job to download the model to the PVC, navigate to the `kubernetes-cloud/online-inference/fastertransformer/` directory, then run:
 
@@ -108,18 +118,25 @@ To deploy the job to download the model to the PVC, navigate to the `kubernetes-
 $ kubectl apply -f download-weights-job-gptj.yml
 ```
 
-This job performs the following:
+\
+This job:
 
 * downloads the GPT-J weights into the PVC at `/mnt/pvc/models/gptj-store`
-* installs the required packages to convert them to FasterTransformer format
-* converts the packages to the FasterTransformer format, then stores them in the PVC at `/mnt/pvc/gptj-store/triton-model-store/fastertransformer/1/`
-* passes the `config.pbtxt` file to set important parameters such as `tensor_para_size=1`, `pipeline_para_size=1, (1 GPU x 1 Pod)` and `model_transaction_policy { decoupled: False }`, which allows for streaming if set to `True`.\\
+* installs the required packages to convert them to the FasterTransformer format
+* converts the packages to the FasterTransformer format, then stores them in the PVC at `/mnt/pvc/gptj-store/triton-model-store/fastertransformer/1/`, and
+* passes the `config.pbtxt` file to set important parameters, such as:
+  * `tensor_para_size=1`
+  * `pipeline_para_size=1`(1 GPU per 1 Pod), and
+  * `model_transaction_policy { decoupled: False }`, which allows for streaming if set to `True`.\
+
 
 {% hint style="info" %}
 **Note**
 
-The model is quite large at \~23Gi, and may take around 15-20 minutes for the download job to complete.
+The model is quite large at \~`23Gi`. It may take around 15-20 minutes for the download job to complete.
 {% endhint %}
+
+
 
 To check if the model has finished downloading, wait for the job to be in a `Completed` state:
 
@@ -130,13 +147,25 @@ NAME                        COMPLETIONS   DURATION      AGE
 gptj-download                 1/1            24m        1h
 ```
 
+
+
 Or, follow the job logs to monitor progress:
 
 ```bash
 kubectl logs -l job-name=gptj-download --follow
 ```
 
-#### InferenceService
+####
+
+### Inference Service
+
+{% hint style="warning" %}
+**Important**
+
+To use GRPC or HTTP, ensure that the port is configured correctly in the file `ft-inference-service-gptj.yml`. Please uncomment the port you would like to use. **Use only one port.**
+{% endhint %}
+
+
 
 Once the model is downloaded, the `InferenceService` can be deployed by invoking:
 
@@ -152,18 +181,28 @@ $ kubectl logs -f -l serving.kubeflow.org/inferenceservice=fastertransformer-tri
 ```
 
 \
-Alternatively, you can wait for the `InferenceService` to show that `READY` is `True`, and that it has a URL:
+Alternatively, you can wait for the `InferenceService` to show that `READY` is `True`, and that it has a URL, such as in this example:
 
 ```bash
 $ kubectl get isvc
 
-NAME                             URL                                                                                                          READY   PREV   LATEST   PREVROLLEDOUTREVISION   LATESTREADYREVISION                                      AGE
-fastertransformer-triton-gptj     http://fastertransformer-triton-gptj.tenant-demo.knative.chi.coreweave.com     True           100                              fastertransformer-triton-gptj-predictor-default-00001     2d5h
+NAME                             URL                                                                                                          READY   PREV   LATEST   PREVROLLEDOUTREVISION   LATESTREADYREVISION                                        AGE
+fastertransformer-triton-gptj     http://fastertransformer-triton-gptj.tenant-demo.knative.chi.coreweave.com                                  True           100                              fastertransformer-triton-gptj-predictor-default-00001      2d5h
 ```
 {% endtab %}
 
 {% tab title="GPT-NeoX" %}
-#### Model job download
+{% hint style="warning" %}
+**Important**
+
+To use GRPC instead of HTTP, set\
+`model_transaction_policy { decoupled: True }`\
+``in the `download-weights-job-gpt-neox.yml` configuration file.
+{% endhint %}
+
+
+
+## Model job download
 
 To deploy the job to download the model to the PVC, navigate to the `kubernetes-cloud/online-inference/fastertransformer/` directory, then run:
 
@@ -172,18 +211,25 @@ $ kubectl apply -f download-weights-job-gpt-neox.yml
 ```
 
 \
-This job performs the following:
+This job:
 
 * downloads the GPT-NeoX weights into the PVC at `/mnt/pvc/models/gpt-neox`
-* installs the required packages to convert them to FasterTransformer format
-* converts the packages to the FasterTransformer format, then stores them in the PVC at `/mnt/pvc/gptj-store/triton-model-store/fastertransformer/1/`
-* passes the `config.pbtxt` file to set important parameters such as `tensor_para_size=1`, `pipeline_para_size=1, (1 GPU x 1 Pod)` and `model_transaction_policy { decoupled: False }`, which allows for streaming if set to `True`.
+* installs the required packages to convert them to the FasterTransformer format
+* converts the packages to the FasterTransformer format, then stores them in the PVC at `/mnt/pvc/gptj-store/triton-model-store/fastertransformer/1/`, and
+* passes the `config.pbtxt` file to set important parameters, such as:
+  * `tensor_para_size=1`
+  * `pipeline_para_size=1`(1 GPU per 1 Pod), and
+  * `model_transaction_policy { decoupled: False }`, which allows for streaming if set to `True`.
+
+
 
 {% hint style="info" %}
 **Note**
 
 The model is quite large at \~39Gi (mirror to pull from Europe), and may take around 3-5 hours for the download and conversion job to complete.
 {% endhint %}
+
+
 
 To check if the model has finished downloading, wait for the job to be in a `Completed` state:
 
@@ -194,13 +240,25 @@ NAME                           COMPLETIONS   DURATION      AGE
 gpt-neox-download                 1/1            24m        1h
 ```
 
+
+
 Or, follow the job logs to monitor progress:
 
 ```bash
 $ kubectl logs -l job-name=gpt-neox-download --follow
 ```
 
-#### InferenceService
+####
+
+### Inference Service
+
+{% hint style="warning" %}
+**Important**
+
+To use GRPC or HTTP, ensure that the port is configured correctly in the file `ft-inference-service-neox.yml`. Please uncomment the port you would like to use. **Use one port.**
+{% endhint %}
+
+
 
 Once the model is downloaded, the `InferenceService` can be deployed by invoking:
 
@@ -237,40 +295,61 @@ From the `kubernetes-cloud/online-inference/fastertransformer/client` directory,
 $ docker build -t $DOCKER_USER/fastertransformer-triton-client:1
 ```
 
-Set the value for the `SERVICE` variable:
+Set the value for the `SERVICE` variable. When setting parameters:
 
-{% hint style="info" %}
-**Note:**
+* **DO NOT** append `http://` to the `SERVICE` parameter below.
+* Use either the URL for the GPTJ or the URL for the GPT-Neox Inference Service for `--url`
+* Use either the value `gptj or gpt-neox` for the `--model` parameter
+* Use either the value`http` OR `grpc` for the `--protocol` parameter
 
-* **DO NOT** append `http://` to `SERVICE` below.
-* Use either GPTJ (or) GPT-Neox Inference Service URL for `--url`
-* Use `gptj or gpt-neox` for `--model`
-{% endhint %}
+For example:
 
+{% code overflow="wrap" %}
 ```bash
 $ export SERVICE=fastertransformer-triton-gptj.tenant-demo.knative.chi.coreweave.com
 ```
+{% endcode %}
 
-Then `run` the image:
+### Run the image using HTTP
+
+To `run` the image using `--protocol=http`, invoke:
 
 ```bash
-$ docker run $DOCKER_USER/fastertransformer-client:1 --url=$SERVICE --model=gptj (or) gpt-neox  --prompt="Mary has a little lamb."
+$ docker run $DOCKER_USER/fastertransformer-client:1 --url=$SERVICE --model=gptj (or) gpt-neox --protocol=http  --prompt="Mary has a little lamb."
 ```
 
-The resulting output should resemble the following:
+### Run the image using GRPC
+
+To `run` the image using `--protocol=grpc`, invoke:
 
 ```bash
-$ docker run $DOCKER_USER/fastertransformer-client:1 --url=$SERVICE --model=gptj --prompt="Mary has a little lamb."
+docker run $DOCKER_USER/fastertransformer-client:1 --url=$SERVICE --model=gptj (or) gpt-neox --protocol=grpc  --prompt="Mary has a little lamb."
+```
 
+### Output
+
+The invocation shown below should produce output that resembles the following (in this example, GRPC is used as the networking protocol):
+
+{% code overflow="wrap" %}
+```bash
+$ docker run $DOCKER_USER/fastertransformer-client:1 --url=$SERVICE --model=gptj --protocol=grpc --prompt="Mary has a little lamb."
+```
+{% endcode %}
+
+This command produces the output:
+
+{% code overflow="wrap" %}
+```
 Mary has a little lamb. Its fleece is white as snow, and everywhere that Mary walks, the lamb is sure to be sure-footed behind her. It loves the little lambs.
 ```
+{% endcode %}
 
 {% hint style="info" %}
 **Note**
 
 To set and change parameters, view the `sample_request.json` file.
 
-`example.py` provides simple methods to use the Python Triton client with FasterTransformer via HTTP.
+`example.py` provides simple methods to use the Python Triton client with FasterTransformer via HTTP or GRPC.
 {% endhint %}
 
 ## Hardware and performance
