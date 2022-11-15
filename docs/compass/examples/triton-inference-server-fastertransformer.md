@@ -74,7 +74,7 @@ $ docker push $DOCKER_USER/fastertransformer-triton:1
 {% hint style="info" %}
 **Note**
 
-This example assumes a public docker registry. To use a private registry, an [imagePullSecret ](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/)needs to be defined.
+This example assumes a public Docker registry. To use a private registry, an [imagePullSecret ](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/)needs to be defined.
 
 Be sure to configure any usernames in the following examples with your actual Docker Hub username.
 {% endhint %}
