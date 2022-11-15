@@ -1,61 +1,65 @@
 ---
-description: Learn about CoreWeave's S3 compatible Object Storage
+description: >-
+  Use CoreWeave's S3-compatible Object Storage for flexible and efficient data
+  storage
 ---
 
 # Object Storage
 
-Coreweave Object Storage is an S3-compatible storage system that allows data to be stored and retrieved in a flexible and efficient way. CoreWeave Object Storage also supports multiple regions, allowing you to utilize regionally optimized clusters for your needs. Additionally, because Object Storage works over HTTP, any compatible S3 CLI tool or SDK integration may be used in tandem with Object Storage.
+Coreweave Object Storage is an S3-compatible storage system that allows data to be stored and retrieved in a flexible and efficient way.
 
-To get started with Object Storage, simply generate a key pair, download your credentials, and start managing your data!
+CoreWeave's Object Storage features include:
+
+<table data-view="cards"><thead><tr><th></th><th></th><th></th></tr></thead><tbody><tr><td><p><span data-gb-custom-inline data-tag="emoji" data-code="1f30e">🌎</span> <strong>Multi-region support</strong></p><p><strong></strong></p><p>CoreWeave Object Storage also supports multiple regions, allowing you to utilize regionally optimized clusters for your needs.</p></td><td></td><td></td></tr><tr><td><p><span data-gb-custom-inline data-tag="emoji" data-code="2699">⚙</span> <strong>Easy SDK integrations</strong></p><p></p><p>Because Object Storage works over HTTP, any compatible S3 CLI tool or SDK integration may be used in tandem with Object Storage.</p></td><td></td><td></td></tr><tr><td><p><span data-gb-custom-inline data-tag="emoji" data-code="2728">✨</span> <strong>Simple setup</strong></p><p></p><p>To get started with Object Storage, simply generate a key pair, download your credentials, and start managing your data! </p></td><td></td><td></td></tr></tbody></table>
 
 {% hint style="info" %}
 **Note**
 
-When using AWS SDKs, the variable `AWS_REGION` is defined within the V4 signature headers. The object storage region for CoreWeave is named `default`.
+Object Storage is currently in beta.
 {% endhint %}
 
-## Storage classes
+## Get started
+
+Currently, Object Storage is configured and accessed either by:
+
+<table data-card-size="large" data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><p><strong>User CRDs</strong></p><p><strong></strong></p><p>Use CoreWeave's Kubernetes <a href="object-storage.md#user-crd">Custom Resource Definitions (CRD) for Users </a>to create a Custom Resource with the appropriate permissions.</p></td><td></td><td></td><td><a href="object-storage.md#user-crd">#user-crd</a></td></tr><tr><td><p><strong>Cloud UI</strong></p><p></p><p>Use the <a href="object-storage.md#generating-object-storage-tokens-via-cloud-ui">CoreWeave Cloud UI </a>to generate a config file, which is then manually passed to <code>s3cmd</code> to authenticate to Object Storage.</p></td><td></td><td></td><td><a href="object-storage.md#generating-an-object-storage-token-via-the-cloud-ui">#generating-an-object-storage-token-via-the-cloud-ui</a></td></tr></tbody></table>
+
+## Using the Cloud UI and s3cmd
 
 {% hint style="warning" %}
 **Important**
 
-Object storage is currently in beta. To configure object storage, [please contact support](https://cloud.coreweave.com/contact).
+Currently, tokens generated via the Cloud UI are **full access tokens**, meaning they are granted [full permissions](object-storage.md#permissions-levels). Permission customization via the Cloud UI is coming soon.
 {% endhint %}
 
-There are three designated storage classes for object storage formats, which correspond to regional object storage endpoints:
+Using the CoreWeave Cloud UI, an Object Storage configuration file can be generated to authenticate to Object Storage using s3cmd
 
-| Storage class          | Object storage endpoint     |
-| ---------------------- | --------------------------- |
-| `object-standard-ord1` | `object.ord1.coreweave.com` |
-| `object-standard-las1` | `object.las1.coreweave.com` |
-| `object-standard-lga1` | `object.lga1.coreweave.com` |
+To access Object Storage using the [CoreWeave Cloud UI](../../virtual-servers/deployment-methods/coreweave-apps.md), first log in to your CoreWeave Cloud account, then navigate to the [API Access page](https://cloud.coreweave.com/api-access). From there, click on the **Object Storage** tab at the top of the screen to open [the Object Storage screen](https://cloud.coreweave.com/api-access#object-storage).
 
-Each endpoint represents an independent, exclusive object store. This means that objects stored in `ORD1`buckets are not accessible from the `LAS1` region, and so on.
+<figure><img src="../.gitbook/assets/image.png" alt="Screenshot: The API Access page link can be found on the right-hand navigation menu, and the Object Storage tab can be found at the top of that screen"><figcaption><p>The API Access page link can be found on the right-hand navigation menu, and the Object Storage tab can be found at the top of that screen</p></figcaption></figure>
 
-Once access has been granted to your account by the CoreWeave support team, you will receive configuration files such as the example file shown below. These config files are used to authenticate to object storage by using [the free `s3cmd` CLI tool](https://s3tools.org/s3cmd).
+To create a new token, click the button labelled **Create a New Token**. This will bring up the **New Storage Token** options. You will be prompted to assign a name to the token, which is required. You may also select a default Object Storage region from the drop-down list. This region may be changed at any time.
 
-After `s3cmd` is installed, the configuration file can be placed in the home directory with the filename `.s3cfg` (e.g., `/home/.s3cfg`).
+<figure><img src="../.gitbook/assets/image (1).png" alt="Screenshot: Generate a new Object Storage token by assigning a token name and selecting a default storage region"><figcaption><p>Generate a new Object Storage token by assigning a token name and selecting a default storage region</p></figcaption></figure>
 
-{% hint style="info" %}
-**Note**
-
-Configuration file paths may also be passed to `s3cmd` using the `-config=` option.
-{% endhint %}
-
-**Example config file**
+Finally, clicking the **Generate** button will generate a token configuration file, which will look like the following:
 
 ```ini
 [default]
-access_key = 1K3R1P9903MEDQHZ71122
-secret_key = fdsoie9FmSoXX2kOf6Ud0OFCQGw9323455sdfdssdae
-
+access_key = <redacted>
+secret_key = <redacted>
+# The region for the host_bucket and host_base must be the same.
 host_base = object.lga1.coreweave.com
-host_bucket = object.lga1.coreweave.com
-
-# remove this if you configured SSL
+host_bucket = %(bucket)s.object.lga1.coreweave.com
 check_ssl_certificate = True
 check_ssl_hostname = True
 ```
+
+### Authentication
+
+The generated config file is used to authenticate to Object Storage by using [the free `s3cmd` CLI tool](https://s3tools.org/s3cmd).
+
+After the `s3cmd` tool is installed, place the configuration file in the home directory with the filename `.s3cfg` (for example: `/home/.s3cfg`). The `s3cmd` tool look for the config file at this path by default, but other filepaths may alternatively be passed directly to `s3cmd` using the `-config=` option.
 
 **Example `s3cmd` usage**
 
@@ -65,6 +69,47 @@ $ s3cmd put my-file.txt s3://my-new-bucket
 $ s3cmd --config=my-cfg-file mb s3://my-new-bucket
 $ s3cmd get s3://my-new-bucket/my-file.txt
 ```
+
+{% hint style="info" %}
+**Note**
+
+When using AWS SDKs, the variable `AWS_REGION` is defined within the V4 signature headers. The object storage region for CoreWeave is named `default`.
+{% endhint %}
+
+## Using Custom Resource Definitions
+
+CoreWeave provides [Kubernetes Custom Resource Definitions (CRDs)](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/) for programmatic and automated methods of generating access to Object Storage clusters.
+
+In most cases, a single user can be used, but if you wish to have separate access credentials per system or user in your account, it is possible to generate multiple users who have read and write permissions granted, then lock down storage buckets further by using a full access user.
+
+### The user CRD
+
+The user CRD generates access to the Object Storage clusters. Each user is given both an **access key** and a **secret key**, which are stored inside of a [Kubernetes secret](https://kubernetes.io/docs/concepts/configuration/secret/) in your namespace. Each secret is associated with the user, and is deleted when the user is deleted.
+
+Here is an example CRD for creating a user with the permission level `full`:
+
+```yaml
+apiVersion: objectstorage.coreweave.com/v1alpha1
+kind: User
+metadata:
+  name: user-name
+  namespace: your-namespace
+spec:
+  owner: your-namespace
+  access: full # Possible options are: full, readwrite, read, or write
+```
+
+## Storage classes
+
+There are three designated storage classes for Object Storage formats, which correspond to regional Object Storage endpoints:
+
+| Storage class          | Object Storage endpoint     |
+| ---------------------- | --------------------------- |
+| `object-standard-ord1` | `object.ord1.coreweave.com` |
+| `object-standard-las1` | `object.las1.coreweave.com` |
+| `object-standard-lga1` | `object.lga1.coreweave.com` |
+
+Each endpoint represents an independent, exclusive object store. This means that objects stored in `ORD1`buckets are not accessible from the `LAS1` region, and so on.
 
 Users may use any regional Object Storage endpoint and create and use buckets as they wish, but each region comes with its own quota limit. The default quota limit is `30TB` of data per region.
 
@@ -76,11 +121,13 @@ Should you require an increase in your quota limit, [please contact support](htt
 
 ## Server Side Encryption
 
-**Server Side Encryption is implemented according to** [**AWS SSE-C standards**](https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html)**.**
+{% hint style="info" %}
+**Note**
 
-CoreWeave supports Server Side Encryption via customer-provided encryption keys. The client passes an encryption key along with each request to read or write encrypted data.
+Server Side Encryption is implemented according to [AWS SSE-C standards](https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html).
+{% endhint %}
 
-No modifications to your bucket need to be made to enable Server Side Encryption (SSE-C) - simply specify the required encryption headers in your requests.&#x20;
+CoreWeave supports Server Side Encryption via customer-provided encryption keys. The client passes an encryption key along with each request to read or write encrypted data. No modifications to your bucket need to be made to enable Server Side Encryption (SSE-C); **** simply specify [the required encryption headers](object-storage.md#specifying-s3-c-encryption) in your requests.
 
 {% hint style="warning" %}
 **Important**
@@ -88,7 +135,7 @@ No modifications to your bucket need to be made to enable Server Side Encryption
 It is the client’s responsibility to manage all keys, and to remember which key is used to encrypt each object.
 {% endhint %}
 
-### Using Server Side Encryption with customer-provided keys (SSE-C) <a href="#specifying-s3-c-encryption" id="specifying-s3-c-encryption"></a>
+### SSE with customer-provided keys (SSE-C) <a href="#specifying-s3-c-encryption" id="specifying-s3-c-encryption"></a>
 
 The following headers are utilized to specify SSE-C customizations.
 
@@ -98,7 +145,7 @@ The following headers are utilized to specify SSE-C customizations.
 | `x-amz-server-side​-encryption​-customer-key`     | Use this header to provide the 256-bit, base64-encoded encryption key to encrypt or decrypt your data.                                                                                                                                                                                  |
 | `x-amz-server-side​-encryption​-customer-key-MD5` | Use this header to provide the base64-encoded, 128-bit MD5 digest of the encryption key according to [RFC 1321](http://tools.ietf.org/html/rfc1321). This header is used for a message integrity check to ensure that the encryption key was transmitted without error or interference. |
 
-#### Server Side Encryption Example
+#### Server Side Encryption example
 
 The following example demonstrates using an S3 tool to configure Server Side Encryption for Object Storage.
 
@@ -144,20 +191,22 @@ $ aws s3 --endpoint-url=https://object.las1.coreweave.com \
     --sse-c AES256
 ```
 
-## Identity And Access Management (IAM)
+## Identity and Access Management (IAM)
 
-When an initial key pair is created for object storage access, that key pair is considered a **Full User** with access to read, write, and modify policies of the buckets which it owns.
+When an initial key pair is created for Object Storage access, that key pair is considered a **Full User** with access to read, write, and modify policies of the buckets which it owns. Each key pair is considered an individual user for access, and can be used to provide granular access to applications or users.
 
-The categories of access that can be granted are:
+When using CRDs for Object Storage access, the user's permission levels are defined using the corresponding key in the CRD's `spec.access` field.
 
-1. **Read** - Gives access to only read from buckets you own and have created.
-2. **Write** - Gives access to only write to buckets you own and have created.
-3. **Write/Read** - Grants access to both read and write to buckets you own and have created.&#x20;
-4. **Full control** - Grant Write/Read access, as well as admin access to create buckets and apply policies to buckets.
+Permission levels that may be granted are:
 
-Each key pair is considered an individual user for access, and can be used to provide granular access to applications or users.
+| Permission level | CRD key     | Description                                                                                      |
+| ---------------- | ----------- | ------------------------------------------------------------------------------------------------ |
+| Read             | `read`      | Gives access to only read from buckets you own and have created                                  |
+| Write            | `write`     | Gives access to only write to buckets you own and have created                                   |
+| Read/Write       | `readwrite` | Grants access to both read and write to buckets you own and have created                         |
+| Full             | `full`      | Grant Write/Read access, as well as admin access to create buckets and apply policies to buckets |
 
-### IAM Actions
+### IAM actions
 
 Currently, CoreWeave Cloud supports the following IAM bucket policy actions.&#x20;
 
@@ -232,7 +281,7 @@ For all requests, the condition keys CoreWeave currently supports are:
 * `aws:SourceIpaws:UserAgent`
 * `aws:username`
 
-Certain S3 condition keys for bucket and object requests are also supported. In the following tables, `<perm>` may be replaced with either
+Certain S3 condition keys for bucket and object requests are also supported. In the following tables, `<perm>` may be replaced with
 
 * `read`
 * `write/read-acp`
@@ -321,49 +370,20 @@ $ s3cmd delpolicy s3://happybucket
 Bucket policies do not yet support string interpolation.
 {% endhint %}
 
-## Object Storage pricing
+### Pricing
 
-The current price for object storage is `$0.03` per GB per month.
+The current price for Object Storage is `$0.03` per GB per month.
 
-## Custom Resources
-
-CoreWeave provides [Kubernetes Custom Resource Definitions (CRDs)](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/) for programmatic and automated methods of generating access to Object Storage clusters. In most cases, a single user can be used, but if you wish to have separate access credentials per system or user in your account, it is possible to generate multiple users who have read and write permissions granted, and then lock down storage buckets further by using a full access user.
-
-### Permissions levels
-
-* `full` - Grants full access to all buckets, including modification permissions for bucket policies
-* `readwrite` - Grants read- and write-only access to all buckets
-* `read` - Grants read-only access to all buckets
-* `write` - Grants write access to all buckets
-
-The following snippet creates a full-access user, however these permissions may be specified using the `readwrite`, `read`, and `write` options respectively.
-
-### User CRD
-
-The user CRD generates access to the object storage clusters. Each user is given both an access key and secret key, which are stored inside of a [secret](https://kubernetes.io/docs/concepts/configuration/secret/) in your namespace. Each secret is associated with the user, and is deleted when the user is deleted.
-
-```yaml
-apiVersion: objectstorage.coreweave.com/v1alpha1
-kind: User
-metadata:
-  name: user-name
-  namespace: your-namespace
-spec:
-  owner: your-namespace
-  access: full # Options are full, readwrite, read, or write
-```
-
-### Accelerated Object Storage
+## Accelerated Object Storage
 
 CoreWeave also offers Accelerated Object Storage, a series of Anycasted NVMe-backed storage caches that provide blazing fast download speeds. Accelerated Object Storage is best suited for frequently accessed data that doesn't change often, such as model weights and training data.&#x20;
 
 One of the biggest advantages of Anycasted Object Storage Caches is that data can be pulled from across data center regions, then be cached in the data center in which your workloads are located. For example, if your models are hosted in `ORD1` (Chicago), but have a deployment scale to all regions (`ORD1`, `LAS1`, `LGA1`), our accelerated caching solution will route to the nearest cache, then determine to pull the data from `ORD1` so that it is located in the same region as your workloads. This drastically reduces spin up times for workloads where scaling is a concern.
 
-Use of CoreWeave's Accelerated Object Storage is completely free. To use Accelerated Object Storage, simply modify your Object Storage endpoint to one of the addresses that corresponds to your Data Center region.
+**Use of CoreWeave's Accelerated Object Storage is completely free.** To use Accelerated Object Storage, simply modify your Object Storage endpoint to one of the addresses that corresponds to your Data Center region.
 
 | Region | Endpoint                          |
 | ------ | --------------------------------- |
 | LAS1   | `accel-object.las1.coreweave.com` |
 | LGA1   | `accel-object.lga1.corewaeve.com` |
 | ORD1   | `accel-object.ord1.coreweave.com` |
-
