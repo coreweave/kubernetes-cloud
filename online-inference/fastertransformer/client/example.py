@@ -111,13 +111,6 @@ def stream_consumer(queue):
         google.protobuf.json_format.Parse(json.dumps(result), message)
         result = grpcclient.InferResult(message)
 
-        print(f"result GRPC : {result}")
-        idx = result.as_numpy("sequence_length")[0, 0]
-        tokens = result.as_numpy("output_ids")[0, 0, :idx]
-        prob = result.as_numpy("cum_log_probs")[0, 0]
-        print("[After {:.2f}s] Partial result (probability {:.2e}):\n{}\n".format(
-            time.perf_counter() - start_time, np.exp(prob), tokens))
-
         for output in result.get_response().outputs:
             if output.name == "output_ids":
                 print(f"Ouput: {decode_data(list(result.as_numpy(output.name)[0][0]), model=args.model)}")
@@ -140,7 +133,6 @@ def main_grpc(config, request):
         payload = [prepare_tensor(grpcclient, field['name'], field['data'])
             for field in request]
         
-        print(f"payload : {payload}")
         cl.start_stream(callback=partial(stream_callback, result_queue))
         result_queue.put(time.perf_counter())
         cl.async_stream_infer(config['model_name'], payload)
