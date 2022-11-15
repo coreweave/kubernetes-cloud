@@ -1,5 +1,5 @@
 ---
-description: Learn about configuring a DHCP server in a VPC on CoreWeave.
+description: Configure a DHCP server in a VPC on CoreWeave Cloud
 ---
 
 # DHCP on L2VPC
@@ -9,8 +9,9 @@ For IP address assignment in a VPC, a DHCP server needs to be deployed. CoreWeav
 In some deployments, users may also choose to distribute VPC IPs from a Windows Domain Controller.
 
 {% hint style="warning" %}
-**Important**\
-\*\*\*\*The VPC **must be created** before the DHCP server is deployed.
+**Important**
+
+The VPC **must be created** before the DHCP server is deployed.
 {% endhint %}
 
 ## Installation
@@ -27,34 +28,35 @@ Selecting the application will expose the configuration options for the DHCP ser
 
 #### Configuration options
 
-| **Subnet**                                  | <p>The VPC subnet where dynamic IP addresses will be assigned<br><br><span data-gb-custom-inline data-tag="emoji" data-code="26a0">⚠</span><strong>Note:</strong> This should be the net identifier of the subnet (e.g., for a <code>/24</code> network, the address would be <code>192.168.0.0</code>. For a <code>/25</code> network, either <code>192.168.0.0</code> or <code>192.168.0.128</code>).</p>                                    |
-| ------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Subnet Mask**                             | The netmask of the VPC subnet                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| **Range**                                   | <p>The range in the subnet to use dynamic IP assignment<br><br><span data-gb-custom-inline data-tag="emoji" data-code="26a0">⚠</span><strong>Note:</strong> This should be formatted as:<br><code>&#x3C;first usable address> &#x3C;space> &#x3C;last usable address></code>.</p>                                                                                                                                                              |
-| **Fixed IP assignment via DHCP**            | A comma-separated list of fixed IP addresses that will bind to the client ID of a Pod                                                                                                                                                                                                                                                                                                                                                          |
-| **Routes**                                  | <p>Allows Virtual Servers and Kubernetes Pods to receive specific routes, such as in the case where there is a site to site VPN or virtual firewall deployed</p><p><br><span data-gb-custom-inline data-tag="emoji" data-code="26a0">⚠</span><strong>Note:</strong> Should be formatted as <code>&#x3C;remotenetwork>/&#x3C;cidr>=&#x3C;gateway>.</code></p><p><br><strong>Example:</strong></p><p><code>10.0.0.0/16=192.168.0.254</code>.</p> |
-| **Default gateway to be assigned via DHCP** | This will set a default gateway address via DHCP. Please note that this should not be used if your Virtual Servers and Kubernetes Pods are connected to the regular CoreWeave Cloud Network                                                                                                                                                                                                                                                    |
+| **Subnet**                                  | <p>The VPC subnet where dynamic IP addresses will be assigned<br><br><span data-gb-custom-inline data-tag="emoji" data-code="26a0">⚠</span><strong>Note:</strong> This should be the net identifier of the subnet (e.g., for a <code>/24</code> network, the address would be <code>192.168.0.0</code>. For a <code>/25</code> network, either <code>192.168.0.0</code> or <code>192.168.0.128</code>)</p>                                          |
+| ------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Subnet Mask**                             | The netmask of the VPC subnet                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| **Range**                                   | <p>The range in the subnet to use dynamic IP assignment<br><br><span data-gb-custom-inline data-tag="emoji" data-code="26a0">⚠</span><strong>Note:</strong> This should be formatted as:<br><code>&#x3C;first usable address> &#x3C;space> &#x3C;last usable address></code></p>                                                                                                                                                                    |
+| **Fixed IP assignment via DHCP**            | A comma-separated list of fixed IP addresses that will bind to the client ID of a Pod or Virtual Server                                                                                                                                                                                                                                                                                                                                             |
+| **Routes**                                  | <p>Allows Virtual Servers and Kubernetes Pods to receive specific routes, such as in the case where there is a site to site VPN or virtual firewall deployed</p><p><br><span data-gb-custom-inline data-tag="emoji" data-code="26a0">⚠</span><strong>Note:</strong> This should be formatted as: <code>&#x3C;remotenetwork>/&#x3C;cidr>=&#x3C;gateway>.</code></p><p><br><strong>Example:</strong></p><p><code>10.0.0.0/16=192.168.0.254</code></p> |
+| **Default gateway to be assigned via DHCP** | <p>This will set a default gateway address via DHCP<br><br><span data-gb-custom-inline data-tag="emoji" data-code="26a0">⚠</span><strong>Note:</strong> This should not be used if your Virtual Servers and Kubernetes Pods are connected to the regular CoreWeave Cloud Network (CCNN)</p>                                                                                                                                                         |
 
-### Advanced Configuration
+### Advanced **c**onfiguration
 
-Via the YAML interface we do support more dhcp options than the ones seen in the UI.
+Advanced configuration for DHCP options are available via the YAML interface, which can be specified within  the `additionalOptions` block. To open the YAML editor, click the **YAML** tab.
 
-<figure><img src="../../../.gitbook/assets/options.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/options.png" alt="Screenshot of a DHCP YAML manifest"><figcaption><p>A DHCP YAML manifest</p></figcaption></figure>
 
-#### Configuration options
+Advanced configurations under the `additionalOptions` block need to be formatted as a mutli-line literal block, such as:
 
-\| **additionalOptions** |
+```yaml
+additionalOptions: |
+  option first-option x.x.x.x;
+  option second-option y.y.y.y;
+```
 
-Need to be formated as:\
-additionalOptions: |\
-option first-option x.x.x.x;\
-option second-option y.y.y.y;
+{% hint style="info" %}
+**Additional Resources**
 
-\| | --------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+Learn more about general DHCP configuration options on [the ISC website](https://kb.isc.org/docs/isc-dhcp-44-manual-pages-dhcp-options#standard-dhcpv4-options).
+{% endhint %}
 
-More documentation on dhcp options can be found [here](https://kb.isc.org/docs/isc-dhcp-44-manual-pages-dhcp-options#standard-dhcpv4-options).
-
-### VPC and Network settings
+## VPC and network settings
 
 At the bottom of the application's configuration screen are the **Network settings** for the DHCP server, in which you can adjust the settings for the server's VPC and network.
 
@@ -66,13 +68,13 @@ At the bottom of the application's configuration screen are the **Network settin
 | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | **Static IP for VPC** | The static IP address of the DHCP server (e.g., `192.168.0.250/24`)                                                                                                      |
 
-### Fixed IP assignment
+## Fixed IP assignment
 
 In order to configure a fixed IP for the Pod or Virtual Server, the client ID of the Pod or Virtual Server must first be set.
 
 By default, some DHCP clients use the hostname, i.e. the Virtual Server name, as the client ID. This makes configuring the DHCP server easy, by allowing you to set a fixed IP for the Virtual Server by name. If this is not the case for your DHCP server, consult the documentation for your DHCP client on how to discover or configure the client ID.
 
-#### Pods
+### Pods
 
 To set the client ID for a Pod, add the following annotation to the manifest:
 
@@ -80,6 +82,6 @@ To set the client ID for a Pod, add the following annotation to the manifest:
 vpc.coreweave.cloud/client-id: <client-id>
 ```
 
-#### Virtual Servers
+### Virtual Servers
 
-The client IDs for Virtual Servers will be the name of the Virtual Server, or, it can be configured in the [DHCP client configuration](dhcp-on-l2vpc.md) within the Virtual Server.
+The client IDs for Virtual Servers will be the name of the Virtual Server. Otherwise, the client ID can be configured in the [DHCP client configuration](dhcp-on-l2vpc.md) within the Virtual Server.

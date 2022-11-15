@@ -2,7 +2,7 @@
 description: Learn about CoreWeave Storage options
 ---
 
-# Getting Started with Storage
+# Get Started with Storage
 
 **High-performance, network-attached storage volumes** for both containerized workloads and [Virtual Servers](broken-reference/) are easy to provision and manage on CoreWeave Cloud.
 
@@ -168,7 +168,7 @@ Filesystem attachments are specified under the **Attach Filesystems** menu while
 
 **Example**
 
-![The Attach Filesystems menu during Virtual Server creation](../.gitbook/assets/image.png)
+![The Attach Filesystems menu during Virtual Server creation](<../.gitbook/assets/image (8).png>)
 
 ***
 
