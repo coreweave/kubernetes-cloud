@@ -24,6 +24,12 @@ vocab_file = "/workspace/gpt_bpe/gpt2-vocab.json"
 
 enc = encoder.get_encoder(vocab_file, merge_file)
 
+# HFTokenizer
+from hf_tokenizer.hf_tokenize import HFTokenizer 
+
+hf_encoder_vocab_file = "/workspace/hf_tokenizer/20B_tokenizer.json"
+hf_enc = HFTokenizer(vocab_file=hf_encoder_vocab_file)
+
 def deep_update(source, overrides):
     """
     Update a nested dictionary or similar mapping.
@@ -37,14 +43,22 @@ def deep_update(source, overrides):
             source[key] = overrides[key]
     return source
 
-def encode_data(text="Hello, I am Jane. Nice to meet you!"):
-    all_ids = [torch.IntTensor(enc.encode(text))]
+
+def encode_data(model, text):
+    if model == "gptj":
+        all_ids = [torch.IntTensor(enc.encode(text))]
+    elif model == "gpt-neox":
+        all_ids = [torch.IntTensor(hf_enc.tokenize(text))]
     return all_ids[0].numpy()
 
 
-def decode_data(array):
-    sentence = enc.decode(array)
+def decode_data(array, model):
+    if model == "gptj":
+        sentence = enc.decode(array)
+    elif model == "gpt-neox":
+        sentence = hf_enc.detokenize(array)
     return sentence
+
 
 def generate_parameters(args):
     DEFAULT_CONFIG = {
@@ -61,11 +75,11 @@ def generate_parameters(args):
 
     deep_update(params, file_params)
 
-    input_lengths = len(encode_data(text=args.prompt))
+    input_lengths = len(encode_data(model=args.model, text=args.prompt))
 
     for index, value in enumerate(params['request']):
         if value['name'] == 'input_ids':
-            value['data'] = [encode_data(text=args.prompt)] 
+            value['data'] = [encode_data(model=args.model, text=args.prompt)] 
         if value['name'] == 'input_lengths':
             value['data'] = [[input_lengths]]
         params['request'][index] = {
@@ -106,7 +120,8 @@ def stream_consumer(queue):
 
         for output in result.get_response().outputs:
             if output.name == "output_ids":
-                print(f"Ouput: {decode_data(list(result.as_numpy(output.name)[0][0]))}")
+                print(f"Ouput: {decode_data(list(result.as_numpy(output.name)[0][0]), model=args.model)}")
+
 
 def stream_callback(queue, result, error):
     if error:
@@ -134,7 +149,7 @@ def main_grpc(config, request):
 
 def main_http(config, request):
     client_type = httpclient if config['protocol'] == 'http' else grpcclient
-    with client_type.InferenceServerClient(config['url'], verbose=config['verbose']) as cl:
+    with client_type.InferenceServerClient(config['url'], verbose=config['verbose'], concurrency=1, connection_timeout=100.0, network_timeout=100.0) as cl:
         payload = [prepare_tensor(client_type, field['name'], field['data'])
             for field in request]
 
@@ -142,12 +157,13 @@ def main_http(config, request):
 
     for output in result.get_response()['outputs']:
         if output['name'] == "output_ids":
-            print(f"Ouput: {decode_data(list(result.as_numpy(output['name'])[0][0]))}")
+            print(f"Ouput: {decode_data(list(result.as_numpy(output['name'])[0][0]), model=args.model)}")
 
 def parse_args():
     parser = ArgumentParser()
     parser.add_argument("--url", help="InferenceService URL for Fastertransfomer", required=True)
     parser.add_argument("--prompt", help="Prompt to generate based of.", required=True)
+    parser.add_argument("--model", help="gptj or gpt-neox", required=True)
     parser.add_argument("--protocol", help="Prompt to generate based of.", required=True)
     
     args = parser.parse_args()
