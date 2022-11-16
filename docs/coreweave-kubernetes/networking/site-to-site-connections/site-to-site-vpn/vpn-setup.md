@@ -8,6 +8,12 @@ description: Configuration guide for the CoreWeave end of the VPN tunnel.
 
 Site-to-Site VPNs are configured through the [CoreWeave Cloud UI](../../../../../virtual-servers/deployment-methods/coreweave-apps.md). The IPSec VPN Server is provided through our application catalogue. To set up the IPSec VPN server, first navigate to the **Catalog** page from the CoreWeave Cloud UI main menu.
 
+{% hint style="warning" %}
+**Important**
+
+The VPC **must be created** before the VPN is deployed.
+{% endhint %}
+
 ### Installation
 
 Find and select the **vpn-ipsec-server** in the applications Catalog:
