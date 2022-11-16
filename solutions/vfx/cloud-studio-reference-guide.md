@@ -40,15 +40,15 @@ This may be a great first step when setting up your cloud studio but you can als
 
 Begin by logging into your cloud account and navigating to apps. Clicking on the Catalog tab you should see a range of applications that you can deploy. Find the application "filesystem-volume."
 
-![](<../../.gitbook/assets/image (84).png>)
+![](<../../docs/.gitbook/assets/image (120).png>)
 
 Selecting this, click deploy in the upper right and then select in the creation dialogue the name, region, storage type, and storage size for your PVC object. The available storage types are our NVMe and HDD tiers. (NOTE: this application will create a shared filesystem, if you require block storage volumes please see our documentation [here](cloud-studio-reference-guide.md#storage) on provisioning storage using YAML manifests and kubectl).
 
-![](<../../.gitbook/assets/image (85) (2).png>)
+![](<../../docs/.gitbook/assets/image (125).png>)
 
 We are going to create a filesystem-volume for render outputs, that way all of our virtual desktops can access the same shared storage as our render nodes. When rendering on CoreWeave cloud, ensuring that applications don't attempt to write over the internet to on prem storage is essential. Typically large amounts of data that is accessed infrequently such as render outputs belongs on our HDD tier. We will be provisioning everything in our Chicago datacenter (ORD) but feel free to provision resources in the datacenter closest to you.
 
-![Storage Options](<../../.gitbook/assets/image (66) (1).png>) ![Deployment](<../../.gitbook/assets/image (60) (1).png>) ![Success](<../../.gitbook/assets/image (76).png>)
+![Storage Options](<../../.gitbook/assets/image (66) (1).png>) ![Deployment](<../../.gitbook/assets/image (58).png>) ![Success](<../../.gitbook/assets/image (76).png>)
 
 Once you hit Deploy you should see the following message and an instance of the filesystem-volume application in the "Applications" tab.
 
@@ -208,7 +208,7 @@ cloudInit:
 
 For the final machine we are going to follow the same steps except here we can simply select the Teradici toggle along with the NVIDIA drivers toggle.
 
-![Note: these options will only be available when selecting a Linux distro as your OS](<../../.gitbook/assets/Screen Shot 2021-11-08 at 3.37.58 PM.png>)
+![Note: these options will only be available when selecting a Linux distro as your OS](<../../docs/.gitbook/assets/Screen Shot 2021-11-08 at 3.37.58 PM.png>)
 
 For our Linux based workstation we will also want to mount in our storage via virtio-fs. To do this switch to the YAML editor and edit the filesystem value with:
 
@@ -224,7 +224,7 @@ filesystems:
 
 Administrators and support staff often times do not need the same resources as artists for their work. Besides the networking and security aspects of this statement which we will cover shortly, allocating different amounts of compute resources to administrators is easy. You may choose, for example, to utilize Windows 10 VMs without GPUs and low cpu allocations.
 
-![](<../../.gitbook/assets/Screen Shot 2021-11-08 at 3.46.02 PM.png>)
+![](<../../docs/.gitbook/assets/Screen Shot 2021-11-08 at 3.46.02 PM.png>)
 
 Note that Windows machines will not be accessible via Teradici without a NVIDIA graphics card. In that scenario you may opt to use RDP or Parsec for administrator remote access.
 

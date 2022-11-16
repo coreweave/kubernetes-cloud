@@ -1,5 +1,5 @@
 ---
-description: Learn how to configure your CoreWeave Kubernetes setup to access the Cloud.
+description: Learn how to configure your CoreWeave Kubernetes setup to access the Cloud
 ---
 
 # Get Started with CoreWeave
@@ -10,7 +10,7 @@ On CoreWeave, **Kubeconfig** files are used to interact with our Kubernetes clus
 
 To generate your access credentials, first [sign up for CoreWeave Cloud](https://cloud.coreweave.com/request-account). Once you have an account, [log in to the Cloud UI](https://cloud.coreweave.com), then navigate to [the **API & Kubeconfig** page](https://cloud.coreweave.com/api-access) from the left-hand side menu.
 
-<figure><img src="../docs/.gitbook/assets/image (1) (4).png" alt="The Cloud UI API Access page"><figcaption><p>The Cloud UI API Access page</p></figcaption></figure>
+<figure><img src="../docs/.gitbook/assets/image (1).png" alt="The Cloud UI API Access page"><figcaption><p>The Cloud UI API Access page</p></figcaption></figure>
 
 {% hint style="danger" %}
 **Warning**
@@ -26,7 +26,7 @@ From the [Cloud UI API Access page](https://cloud.coreweave.com/api-access), cli
 If you would like to prevent the Kubeconfig file from downloading automatically, un-check the **Automatically download Kubeconfig** checkbox.
 {% endhint %}
 
-<figure><img src="../docs/.gitbook/assets/image (2) (1) (3).png" alt="Create a new access token dialog box"><figcaption><p><strong>Create a new access token</strong> dialog box</p></figcaption></figure>
+<figure><img src="../docs/.gitbook/assets/image (2) (1).png" alt="Create a new access token dialog box"><figcaption><p><strong>Create a new access token</strong> dialog box</p></figcaption></figure>
 
 ## Installing the Kubernetes command line tools
 

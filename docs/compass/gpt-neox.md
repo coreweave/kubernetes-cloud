@@ -129,7 +129,7 @@ As shown above, for this tutorial we are attaching the `finetune-gpt-neox` volum
 
 After deploying the DeterminedAI application, a URL to the Web UI will be provided to you. You can use this UI to monitor experiments and check logs.
 
-![The DeterminedAI Web UI](<../.gitbook/assets/image (17).png>)
+![The DeterminedAI Web UI](<../.gitbook/assets/image (17) (1).png>)
 
 As an example, here is what a live experiment looks like when viewed from the Web UI:
 
@@ -137,7 +137,7 @@ As an example, here is what a live experiment looks like when viewed from the We
 
 Navigating to the **Logs** tab will give you a full output of the experiment's logs:
 
-![Log output from the DeterminedAI Web UI](<../.gitbook/assets/image (19).png>)
+![Log output from the DeterminedAI Web UI](<../.gitbook/assets/image (19) (1).png>)
 
 Navigating to **Overview** will give you access to a metrics visualization of the experiment and checkpoint reference.
 
@@ -195,7 +195,7 @@ Upload your data as a single JSONL file called `data.jsonl` to filebrowser under
 
 Using the filebrowser app, create a new folder called `gpt_finetune` under the `finetune-gpt-neox` folder.
 
-![Creating the gpt\_finetune directory in filebrowser](<../.gitbook/assets/image (5) (3).png>)
+![Creating the gpt\_finetune directory in filebrowser](<../.gitbook/assets/image (5) (3) (1).png>)
 
 You can now pre-tokenize your data using `tools/preprocess_data.py`. The arguments for this utility are listed below.
 
@@ -510,7 +510,7 @@ You should see an "Active" status for your experiment:
 
 You can visualize and monitor logs:
 
-![](<../.gitbook/assets/Screen Shot 2022-08-01 at 12.46.41 PM (1).png>)
+![](<../.gitbook/assets/Screen Shot 2022-08-01 at 12.46.41 PM.png>)
 
 Once training is completed, you will have access to the checkpoint in your S3 bucket for downstream tasks such as inference, transfer learning or model ensembles.
 

@@ -26,11 +26,11 @@ First, you'll need to create a **virtual private gateway** and **attach it** to 
 
 From the VPC creation screen in your AWS account, navigate to **Virtual private network (VPN)** -> **Virtual private gateways.**
 
-![The "virtual private gateways" link.](<../../../../../.gitbook/assets/image (4) (1) (1).png>)
+![The "virtual private gateways" link.](<../../../../../.gitbook/assets/image (4) (1) (1) (1).png>)
 
 Select the orange **Create virtual private gateway** button in the upper right-hand corner to begin configuring the gateway. This will lead you to the configuration screen, as shown below.
 
-![The virtual private gateway creation screen.](../../../../../.gitbook/assets/virtual-private-gateway.png)
+![The virtual private gateway creation screen.](<../../../../../.gitbook/assets/virtual-private-gateway (1).png>)
 
 After the virtual private gateway has been created, attach the gateway to the VPC by selecting **Actions -> Attach to VPC.**
 
@@ -46,7 +46,7 @@ Next, using the inputs described below to configure the VPN, you'll need to init
 
 Navigate to **Virtual private network (VPN) -> Site-to-Site VPN Connections**.
 
-![The "Site-to-Site VPN Connections" option under "Virtual private network (VPN)".](<../../../../../.gitbook/assets/image (8) (1).png>)
+![The "Site-to-Site VPN Connections" option under "Virtual private network (VPN)".](<../../../../../.gitbook/assets/image (8).png>)
 
 Select the orange **Create VPN connection** button in the upper right hand corner of the screen. This will launch the configuration screen for the VPN connection.
 
@@ -89,7 +89,7 @@ After completing the initial setup for the VPN, you'll need to configure further
 
 These options should be configured following the instructions detailed in the following table.
 
-![](<../../../../../.gitbook/assets/image (7) (1).png>)
+![](<../../../../../.gitbook/assets/image (7) (1) (1).png>)
 
 ### Configuration
 
@@ -138,7 +138,7 @@ The following table describes what the configurations for the advanced Tunnel 1 
 
 The following screenshot exemplifies what these configurations look like.
 
-![Advanced Tunnel 1 options.](<../../../../../.gitbook/assets/image (12).png>)
+![Advanced Tunnel 1 options.](<../../../../../.gitbook/assets/image (12) (1).png>)
 
 ## Configure Routes
 
