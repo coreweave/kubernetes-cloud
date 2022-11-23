@@ -112,7 +112,7 @@ spec:
     - name: inference_image
       value: 'docker.io/harubaru1/stable-diffusion'
     - name: inference_tag
-      value: '5'
+      value: '6'
 
   templates:
   - name: main
@@ -190,8 +190,10 @@ spec:
         template: model-inference-service
         arguments:
           parameters:
-            - name: model_name
+            - name: model_id
               value: "/mnt/pvc/finetunes/{{workflow.parameters.run_name}}"
+            - name: hf_home
+              value: ""
         when: "{{workflow.parameters.run_inference}} == 'True'"
 
   - name: model-downloader
@@ -331,7 +333,8 @@ spec:
   - name: model-inference-service
     inputs:
       parameters:
-        - name: model_name
+        - name: model_id
+        - name: hf_home
     resource:
       action: apply
       manifest: |
@@ -368,8 +371,10 @@ spec:
                 env:
                   - name: STORAGE_URI
                     value: pvc://{{ workflow.parameters.pvc }}/
-                  - name: MODEL_NAME
-                    value: "{{ inputs.parameters.model_name }}"
+                  - name: MODEL_ID
+                    value: "{{ inputs.parameters.model_id }}"
+                  - name: HF_HOME
+                    value: "{{ inputs.parameters.hf_home }}"
                 resources:
                   requests:
                     nvidia.com/gpu: 1
