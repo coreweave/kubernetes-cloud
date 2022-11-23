@@ -154,8 +154,8 @@ spec:
             value: "{{workflow.parameters.reorder}}"
         when: "{{workflow.parameters.inference_only}} == false"
 
-    - - name: finetuner
-        template: model-finetuner
+    - - name: finetuner-full
+        template: model-finetuner-full
         arguments:
           parameters:
           - name: run_name
@@ -164,8 +164,6 @@ spec:
             value: "/{{workflow.parameters.pvc}}/models/{{workflow.parameters.model}}"
           - name: dataset
             value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.dataset}}-{{=sprig.replace('/', '_', sprig.replace('.','_', sprig.replace('-','_', workflow.parameters.model)))}}-{{workflow.parameters.context}}-{{workflow.parameters.tokenizer_tag}}.tokens"
-          - name: force_fp16
-            value: "{{workflow.parameters.force_fp16}}"
           - name: learn_rate
             value: "{{workflow.parameters.learn_rate}}"
           - name: epochs
@@ -202,7 +200,55 @@ spec:
             value: "{{workflow.parameters.project_id}}"
           - name: context
             value: "{{workflow.parameters.context}}"
-        when: "{{workflow.parameters.inference_only}} == false"
+        when: "{{workflow.parameters.inference_only}} == false && {{workflow.parameters.force_fp16}} == false"
+
+    - - name: finetuner-fp16
+        template: model-finetuner-fp16
+        arguments:
+          parameters:
+          - name: run_name
+            value: "{{workflow.parameters.run_name}}"
+          - name: model
+            value: "/{{workflow.parameters.pvc}}/models/{{workflow.parameters.model}}"
+          - name: dataset
+            value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.dataset}}-{{=sprig.replace('/', '_', sprig.replace('.','_', sprig.replace('-','_', workflow.parameters.model)))}}-{{workflow.parameters.context}}-{{workflow.parameters.tokenizer_tag}}.tokens"
+          - name: learn_rate
+            value: "{{workflow.parameters.learn_rate}}"
+          - name: epochs
+            value: "{{workflow.parameters.epochs}}"
+          - name: train_ratio
+            value: "{{workflow.parameters.train_ratio}}"
+          - name: eot
+            value: "{{workflow.parameters.eot_token}}"
+          - name: pad
+            value: "{{workflow.parameters.pad_token}}"
+          - name: bs
+            value: "{{workflow.parameters.batch_size}}"
+          - name: bs_divisor
+            value: "{{workflow.parameters.batch_size_divisor}}"
+          - name: seed
+            value: "{{workflow.parameters.random_seed}}"
+          - name: output_path
+            value: "/{{workflow.parameters.pvc}}/finetunes/"
+          - name: cache
+            value: "/{{workflow.parameters.pvc}}/cache/"
+          - name: torch_cache
+            value: "/{{workflow.parameters.pvc}}/torch/"
+          - name: no_resume
+            value: "{{workflow.parameters.no_resume}}"
+          - name: logs
+            value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.logs}}"
+          - name: wandb_key
+            value: "{{workflow.parameters.wandb_key}}"
+          - name: gradients
+            value: "{{workflow.parameters.gradients}}"
+          - name: zero_stage
+            value: "{{workflow.parameters.zero_stage}}"
+          - name: project_id
+            value: "{{workflow.parameters.project_id}}"
+          - name: context
+            value: "{{workflow.parameters.context}}"
+        when: "{{workflow.parameters.inference_only}} == false && {{workflow.parameters.force_fp16}} == true"
 
     - - name: inference-service
         template: model-inference-service
@@ -298,7 +344,7 @@ spec:
               - "{{workflow.parameters.region}}"
 
 
-  - name: model-finetuner
+  - name: model-finetuner-full
     inputs:
       parameters:
         - name: run_name
@@ -321,7 +367,6 @@ spec:
         - name: project_id
         - name: gradients
         - name: zero_stage
-        - name: force_fp16
         - name: context
     container:
       image: "{{workflow.parameters.finetuner_image}}:{{workflow.parameters.finetuner_tag}}"
@@ -344,8 +389,91 @@ spec:
              "--no_resume", "{{inputs.parameters.no_resume}}",
              "--project_id", "{{inputs.parameters.project_id}}",
              "--epochs", "{{inputs.parameters.epochs}}",
-             "--fp16", "{{inputs.parameters.force_fp16}}",
              "--context_size", "{{inputs.parameters.context}}"]
+      tty: true
+      env:
+      - name: WANDB_API_KEY
+        value: "{{inputs.parameters.wandb_key}}"
+      - name: PYTHONUNBUFFERED
+        value: "1"
+      - name: TORCH_EXTENSIONS_DIR
+        value: "{{inputs.parameters.torch_cache}}"
+      resources:
+        requests:
+          memory: 128Gi
+          cpu: "8"
+        limits:
+          memory: 192Gi
+          cpu: "8"
+          nvidia.com/gpu: 1
+      volumeMounts:
+        - mountPath: "/{{workflow.parameters.pvc}}"
+          name: "{{workflow.parameters.pvc}}"
+    volumes:
+      - name: "{{workflow.parameters.pvc}}"
+        persistentVolumeClaim:
+           claimName: "{{workflow.parameters.pvc}}"
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: gpu.nvidia.com/class
+                  operator: In
+                  values:
+                    - "{{workflow.parameters.trainer_gpu}}"
+                - key: topology.kubernetes.io/region
+                  operator: In
+                  values:
+                    - "{{workflow.parameters.region}}"
+
+  - name: model-finetuner-fp16
+    inputs:
+      parameters:
+        - name: run_name
+        - name: model
+        - name: dataset
+        - name: learn_rate
+        - name: epochs
+        - name: train_ratio
+        - name: eot
+        - name: pad
+        - name: bs
+        - name: bs_divisor
+        - name: seed
+        - name: output_path
+        - name: cache
+        - name: logs
+        - name: torch_cache
+        - name: no_resume
+        - name: wandb_key
+        - name: project_id
+        - name: gradients
+        - name: zero_stage
+        - name: context
+    container:
+      image: "{{workflow.parameters.finetuner_image}}:{{workflow.parameters.finetuner_tag}}"
+      command: [ "/usr/bin/python3", "/app/finetuner.py" ]
+      args: ["--run_name", "{{inputs.parameters.run_name}}",
+             "--model", "{{inputs.parameters.model}}",
+             "--dataset", "{{inputs.parameters.dataset}}",
+             "--eot", "{{inputs.parameters.eot}}",
+             "--pad", "{{inputs.parameters.pad}}",
+             "--bs", "{{inputs.parameters.bs}}",
+             "--seed", "{{inputs.parameters.seed}}",
+             "--lr", "{{inputs.parameters.learn_rate}}",
+             "--tr", "{{inputs.parameters.train_ratio}}",
+             "--output", "{{inputs.parameters.output_path}}",
+             "--cache", "{{inputs.parameters.cache}}",
+             "--logs", "{{inputs.parameters.logs}}",
+             "--bs_divisor", "{{inputs.parameters.bs_divisor}}",
+             "--gradients", "{{inputs.parameters.gradients}}",
+             "--zero_stage", "{{inputs.parameters.zero_stage}}",
+             "--no_resume", "{{inputs.parameters.no_resume}}",
+             "--project_id", "{{inputs.parameters.project_id}}",
+             "--epochs", "{{inputs.parameters.epochs}}",
+             "--context_size", "{{inputs.parameters.context}}",
+             "--fp16"]
       tty: true
       env:
       - name: WANDB_API_KEY
