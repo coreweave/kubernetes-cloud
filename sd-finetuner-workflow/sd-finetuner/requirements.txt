@@ -1,0 +1,13 @@
+diffusers==0.5.1
+numpy==1.23.4
+wandb==0.13.4
+torch
+torchvision
+transformers>=4.21.0
+huggingface-hub>=0.10.0
+Pillow==9.2.0
+tqdm==4.64.1
+ftfy==6.1.1
+bitsandbytes
+pynvml~=11.4.1
+psutil~=5.9.0

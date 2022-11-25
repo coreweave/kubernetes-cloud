@@ -5,8 +5,6 @@ from typing import Dict
 from argparse import ArgumentParser
 from io import BytesIO
 
-import transformers
-import scipy
 import torch
 from torch import autocast
 from diffusers import StableDiffusionPipeline, LMSDiscreteScheduler
@@ -38,7 +36,10 @@ options = {
     ),
 }
 
-MODEL_NAME = options["MODEL_ID"].split("/")[1]
+try:
+    MODEL_NAME = options["MODEL_ID"].split("/")[-1]
+except:
+    MODEL_NAME = options["MODEL_ID"]
 
 logging.basicConfig(level=kserve.constants.KSERVE_LOGLEVEL)
 logger = logging.getLogger(MODEL_NAME)
