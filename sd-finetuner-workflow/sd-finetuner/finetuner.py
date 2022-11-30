@@ -481,11 +481,9 @@ class StableDiffusionTrainer:
             vae=self.vae,
             unet=self.unet,
             tokenizer=self.tokenizer,
-            scheduler=PNDMScheduler(
-                beta_start=0.00085,
-                beta_end=0.012,
-                beta_schedule="scaled_linear",
-                skip_prk_steps=True,
+            scheduler=PNDMScheduler.from_pretrained(
+                self.args.model,
+                subfolder="scheduler",
             ),
             safety_checker=StableDiffusionSafetyChecker.from_pretrained(
                 "CompVis/stable-diffusion-safety-checker"
@@ -503,11 +501,9 @@ class StableDiffusionTrainer:
             vae=self.vae,
             unet=self.unet,
             tokenizer=self.tokenizer,
-            scheduler=PNDMScheduler(
-                beta_start=0.00085,
-                beta_end=0.012,
-                beta_schedule="scaled_linear",
-                skip_prk_steps=True,
+            scheduler=PNDMScheduler.from_pretrained(
+                self.args.model,
+                subfolder="scheduler",
             ),
             safety_checker=None,  # display safety checker to save memory
             feature_extractor=CLIPFeatureExtractor.from_pretrained(
@@ -564,9 +560,16 @@ class StableDiffusionTrainer:
             noise_pred = self.unet(
                 noisy_latents, timesteps, encoder_hidden_states
             ).sample
+        
+        if self.noise_scheduler.config.prediction_type == "epsilon":
+            target = noise
+        elif noise_scheduler.config.prediction_type == "v_prediction":
+            target = noise_scheduler.get_velocity(latents, noise, timesteps)
+        else:
+            raise ValueError(f"Invalid prediction type: {noise_scheduler.config.prediction_type}")
 
         loss = torch.nn.functional.mse_loss(
-            noise_pred.float(), noise.float(), reduction="mean"
+            noise_pred.float(), target.float(), reduction="mean"
         )
 
         # Backprop
