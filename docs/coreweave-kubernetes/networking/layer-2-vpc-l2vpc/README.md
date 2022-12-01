@@ -4,7 +4,7 @@ description: Learn about CoreWeave's Layer 2 VPC (L2VPC).
 
 # Layer 2 VPC (L2VPC)
 
-**CoreWeave's Layer 2 VPC (L2VPC)** is vastly different from the [CoreWeave Cloud Native Networking (CCNN)](../coreweave-cloud-native-networking-ccnn.md) fabric. Most notably, many of the extended networking features built in to CCNN - such as network policies and Kubernetes loadbalancing - are not present in an L2VPC, in order to provide more control to the user.
+**CoreWeave's Layer 2 VPC (L2VPC)** is vastly different from the [CoreWeave Cloud Native Networking (CCNN)](../../../networking/coreweave-cloud-native-networking-ccnn.md) fabric. Most notably, many of the extended networking features built in to CCNN - such as network policies and Kubernetes loadbalancing - are not present in an L2VPC, in order to provide more control to the user.
 
 The L2VPC is enabled on a workload by workload basis. A workload (a Pod or Virtual Server) can have multiple interfaces - it can maintain a CCNN interface as well as one or multiple VPC interfaces, or it can attach to L2VPC exclusively.
 
@@ -12,7 +12,7 @@ Multiple VPCs can also be allocated to simulate the multiple VLANs (network segm
 
 ### Use cases
 
-[CoreWeave Cloud Native Networking (CCNN)](../coreweave-cloud-native-networking-ccnn.md) is designed to be **the preferred choice for most use-cases**. L2VPC should **only** be considered if one or multiple of the following criteria is fulfilled:
+[CoreWeave Cloud Native Networking (CCNN)](../../../networking/coreweave-cloud-native-networking-ccnn.md) is designed to be **the preferred choice for most use-cases**. L2VPC should **only** be considered if one or multiple of the following criteria is fulfilled:
 
 * A Site to Site connection is needed to an on-premise environment, and that on-premise environment is a private network with custom private IP addressing.
 * There are specific firewall or routing requirements that can not be achieved any other way, such as via a Web-filtering proxy or Network Policies.&#x20;

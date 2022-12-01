@@ -2,7 +2,7 @@
 description: Learn about networking options on CoreWeave.
 ---
 
-# Getting Started with Networking
+# Get Started with Networking
 
 ## Exposing applications
 
@@ -13,14 +13,14 @@ A Service allocates a dedicated IP address for the exposed application, whereas 
 {% hint style="info" %}
 **Additional Resources**
 
-Learn more about how to expose your applications using Kubernetes Ingresses and Services in [our Exposing Applications guide](layer-2-vpc-l2vpc/exposing-applications.md).
+Learn more about how to expose your applications using Kubernetes Ingresses and Services in [our Exposing Applications guide](../coreweave-kubernetes/exposing-applications.md).
 {% endhint %}
 
 ## Networking solutions
 
 CoreWeave offers three primary networking solutions, which are often used in combination:
 
-### [CCNN: CoreWeave Cloud Native Networking](../coreweave-kubernetes/networking/coreweave-cloud-native-networking-ccnn.md)
+### [CCNN: CoreWeave Cloud Native Networking](coreweave-cloud-native-networking-ccnn.md)
 
 :white\_check\_mark: **Ideal for most use cases.**
 
@@ -32,7 +32,7 @@ These are all handled by the network layer, and concepts such as Services and Ne
 
 {% hint style="info" %}
 **Additional Resources**\
-****[Read more in our CoreWeave Cloud Native Networking (CCNN) documentation.](../coreweave-kubernetes/networking/coreweave-cloud-native-networking-ccnn.md)
+****[Read more in our CoreWeave Cloud Native Networking (CCNN) documentation.](coreweave-cloud-native-networking-ccnn.md)
 {% endhint %}
 
 ### [L2VPC: CoreWeave Layer 2 VPC](../coreweave-kubernetes/networking/layer-2-vpc-l2vpc/)
@@ -43,7 +43,7 @@ These are all handled by the network layer, and concepts such as Services and Ne
 * Deploying Telco applications in the Cloud
 * Other niche networking use cases
 
-**CoreWeave's Layer 2 VPC (L2VPC)** is vastly different from the [CoreWeave Cloud Native Networking (CCNN)](../coreweave-kubernetes/networking/coreweave-cloud-native-networking-ccnn.md) fabric. Most notably, many of the extended networking features built in to CCNN - such as network policies and Kubernetes loadbalancing - are not present in an L2VPC, in order to provide more control to the user.
+**CoreWeave's Layer 2 VPC (L2VPC)** is vastly different from the [CoreWeave Cloud Native Networking (CCNN)](coreweave-cloud-native-networking-ccnn.md) fabric. Most notably, many of the extended networking features built in to CCNN - such as network policies and Kubernetes loadbalancing - are not present in an L2VPC, in order to provide more control to the user.
 
 The L2VPC is enabled on a workload by workload basis. A workload (a Pod or Virtual Server) can have multiple interfaces - it can maintain a CCNN interface as well as one or multiple VPC interfaces, or it can attach to L2VPC exclusively.
 

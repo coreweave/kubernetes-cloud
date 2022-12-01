@@ -244,7 +244,7 @@ variable "vs_udp_ports" {
 
 ## Attaching a Layer 2 VPC
 
-A Virtual Server can be attached to one or multiple VPCs, as well as the regular [CoreWeave Cloud Native Kubernetes](../../coreweave-kubernetes/networking/coreweave-cloud-native-networking-ccnn.md) (CCNN) network. Each VPC will be represented as a separate Network Interface Card (NIC) inside the Virtual Server, in addition to the regular CoreWeave network (CCNN). The NICs inside a Virtual Server will be in the same order as the VPCs are specified; the order is deterministic to ensure that a NIC inside the Virtual Server always connects to the same VPC, even through reboots and migrations.
+A Virtual Server can be attached to one or multiple VPCs, as well as the regular [CoreWeave Cloud Native Kubernetes](../../networking/coreweave-cloud-native-networking-ccnn.md) (CCNN) network. Each VPC will be represented as a separate Network Interface Card (NIC) inside the Virtual Server, in addition to the regular CoreWeave network (CCNN). The NICs inside a Virtual Server will be in the same order as the VPCs are specified; the order is deterministic to ensure that a NIC inside the Virtual Server always connects to the same VPC, even through reboots and migrations.
 
 {% hint style="info" %}
 **Additional Resources**
@@ -252,7 +252,7 @@ A Virtual Server can be attached to one or multiple VPCs, as well as the regular
 [Learn more about CoreWeave Layer 2 VPCs](../../coreweave-kubernetes/networking/layer-2-vpc-l2vpc/).
 {% endhint %}
 
-By default, [CoreWeave Cloud Native Networking](../../coreweave-kubernetes/networking/coreweave-cloud-native-networking-ccnn.md) is **enabled**. To disable CoreWeave networking, set `disableK8sNetworking` to `true`.
+By default, [CoreWeave Cloud Native Networking](../../networking/coreweave-cloud-native-networking-ccnn.md) is **enabled**. To disable CoreWeave networking, set `disableK8sNetworking` to `true`.
 
 {% hint style="danger" %}
 **Warning**

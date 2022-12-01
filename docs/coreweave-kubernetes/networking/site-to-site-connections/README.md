@@ -6,7 +6,7 @@ In cases where infrastructure hosted on another Cloud provider or an on-premise 
 
 {% hint style="warning" %}
 **Important**\
-All Site-to-Site connections are **only possible when using** [**an L2VPC**](../layer-2-vpc-l2vpc/). They cannot be created using [CCNN](../coreweave-cloud-native-networking-ccnn.md) alone.
+All Site-to-Site connections are **only possible when using** [**an L2VPC**](../layer-2-vpc-l2vpc/). They cannot be created using [CCNN](../../../networking/coreweave-cloud-native-networking-ccnn.md) alone.
 {% endhint %}
 
 ## Options

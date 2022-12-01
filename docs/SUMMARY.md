@@ -7,6 +7,7 @@
 ## CoreWeave Kubernetes
 
 * [Get Started with CoreWeave](../coreweave-kubernetes/getting-started.md)
+* [Exposing Applications](coreweave-kubernetes/exposing-applications.md)
 * [Useful Commands](../coreweave-kubernetes/useful-commands.md)
 * [Node Types](../coreweave-kubernetes/node-types.md)
 * [Advanced Label Selectors](../coreweave-kubernetes/label-selectors.md)
@@ -22,8 +23,7 @@
 ## Networking
 
 * [Get Started with Networking](networking/getting-started-with-networking.md)
-* [CoreWeave Cloud Native Networking (CCNN)](coreweave-kubernetes/networking/coreweave-cloud-native-networking-ccnn.md)
-  * [Exposing Applications](networking/layer-2-vpc-l2vpc/exposing-applications.md)
+* [CoreWeave Cloud Native Networking (CCNN)](networking/coreweave-cloud-native-networking-ccnn.md)
 * [Layer 2 VPC (L2VPC)](coreweave-kubernetes/networking/layer-2-vpc-l2vpc/README.md)
   * [L2VPC Usage](networking/layer-2-vpc-l2vpc/l2vpc-usage.md)
   * [DHCP on L2VPC](coreweave-kubernetes/networking/layer-2-vpc-l2vpc/dhcp-on-l2vpc.md)
