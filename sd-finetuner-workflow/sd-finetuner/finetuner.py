@@ -563,10 +563,10 @@ class StableDiffusionTrainer:
         
         if self.noise_scheduler.config.prediction_type == "epsilon":
             target = noise
-        elif noise_scheduler.config.prediction_type == "v_prediction":
-            target = noise_scheduler.get_velocity(latents, noise, timesteps)
+        elif self.noise_scheduler.config.prediction_type == "v_prediction":
+            target = self.noise_scheduler.get_velocity(latents, noise, timesteps)
         else:
-            raise ValueError(f"Invalid prediction type: {noise_scheduler.config.prediction_type}")
+            raise ValueError(f"Invalid prediction type: {self.noise_scheduler.config.prediction_type}")
 
         loss = torch.nn.functional.mse_loss(
             noise_pred.float(), target.float(), reduction="mean"
