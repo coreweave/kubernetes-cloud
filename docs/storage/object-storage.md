@@ -10,13 +10,7 @@ Coreweave Object Storage is an S3-compatible storage system that allows data to 
 
 CoreWeave's Object Storage features include:
 
-<table data-view="cards"><thead><tr><th></th><th></th><th></th></tr></thead><tbody><tr><td><p><span data-gb-custom-inline data-tag="emoji" data-code="1f30e">🌎</span> <strong>Multi-region support</strong></p><p><strong></strong></p><p>CoreWeave Object Storage also supports multiple regions, allowing you to utilize regionally optimized clusters for your needs.</p></td><td></td><td></td></tr><tr><td><p><span data-gb-custom-inline data-tag="emoji" data-code="2699">⚙</span> <strong>Easy SDK integrations</strong></p><p></p><p>Because Object Storage works over HTTP, any compatible S3 CLI tool or SDK integration may be used in tandem with Object Storage.</p></td><td></td><td></td></tr><tr><td><p><span data-gb-custom-inline data-tag="emoji" data-code="2728">✨</span> <strong>Simple setup</strong></p><p></p><p>To get started with Object Storage, simply generate a key pair, download your credentials, and start managing your data! </p></td><td></td><td></td></tr></tbody></table>
-
-{% hint style="info" %}
-**Note**
-
-Object Storage is currently in beta.
-{% endhint %}
+<table data-card-size="large" data-view="cards"><thead><tr><th></th><th></th><th></th></tr></thead><tbody><tr><td><p><span data-gb-custom-inline data-tag="emoji" data-code="1f30e">🌎</span> <strong>Multi-region support</strong></p><p><strong></strong></p><p>CoreWeave Object Storage also supports multiple regions, allowing you to utilize regionally optimized clusters for your needs.</p></td><td></td><td></td></tr><tr><td><p><span data-gb-custom-inline data-tag="emoji" data-code="2699">⚙</span> <strong>Easy SDK integrations</strong></p><p></p><p>Because Object Storage works over HTTP, any compatible S3 CLI tool or SDK integration may be used in tandem with Object Storage.</p></td><td></td><td></td></tr><tr><td><p><span data-gb-custom-inline data-tag="emoji" data-code="2728">✨</span> <strong>Simple setup</strong></p><p></p><p>To get started with Object Storage, simply generate a key pair, download your credentials, and start managing your data! </p></td><td></td><td></td></tr><tr><td><span data-gb-custom-inline data-tag="emoji" data-code="26a1">⚡</span> <a href="object-storage.md#accelerated-object-storage"><strong>Accelerated Object Storage</strong></a><strong></strong></td><td>Accelerated Object Storage offers a series of anycasted NVMe-backed storage caches that provide blazing fast download speeds. Best suited for data such as model weights and training data.</td><td></td></tr></tbody></table>
 
 ## Get started
 
@@ -29,14 +23,14 @@ Currently, Object Storage is configured and accessed either by:
 {% hint style="warning" %}
 **Important**
 
-Currently, tokens generated via the Cloud UI are **full access tokens**, meaning they are granted [full permissions](object-storage.md#permissions-levels). Permission customization via the Cloud UI is coming soon.
+Currently, tokens generated via the Cloud UI are **full access tokens**, meaning they are granted [full permissions](object-storage.md#permissions-levels). Permission customization via the Cloud UI will be available soon.
 {% endhint %}
 
-Using the CoreWeave Cloud UI, an Object Storage configuration file can be generated to authenticate to Object Storage using s3cmd
+Using the CoreWeave Cloud UI, an Object Storage configuration file can be generated to authenticate to Object Storage using `s3cmd`.
 
-To access Object Storage using the [CoreWeave Cloud UI](../../virtual-servers/deployment-methods/coreweave-apps.md), first log in to your CoreWeave Cloud account, then navigate to the [API Access page](https://cloud.coreweave.com/api-access). From there, click on the **Object Storage** tab at the top of the screen to open [the Object Storage screen](https://cloud.coreweave.com/api-access#object-storage).
+To access Object Storage using the [CoreWeave Cloud UI](../../virtual-servers/deployment-methods/coreweave-apps.md), log in to your CoreWeave Cloud account, then navigate to the Object Storage page.
 
-<figure><img src="../.gitbook/assets/image (4).png" alt="Screenshot: The API Access page link can be found on the right-hand navigation menu, and the Object Storage tab can be found at the top of that screen"><figcaption><p>The API Access page link can be found on the right-hand navigation menu, and the Object Storage tab can be found at the top of that screen</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (9).png" alt="Screenshot of the Object Storage link on the side nav of the Cloud UI"><figcaption><p>The Object Storage link on the side nav of the Cloud UI</p></figcaption></figure>
 
 To create a new token, click the button labelled **Create a New Token**. This will bring up the **New Storage Token** options. You will be prompted to assign a name to the token, which is required. You may also select a default Object Storage region from the drop-down list. This region may be changed at any time.
 
