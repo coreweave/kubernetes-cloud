@@ -257,9 +257,11 @@ $ kubectl create rolebinding argo-role-binding --role=argo-role --serviceaccount
 
 Generate the token to be used with the Service Account:
 
+{% code overflow="wrap" %}
 ```bash
-​$ export SECRET=$(kubectl get sa argo-sa -o=jsonpath='{.secrets[0].name}') export ARGO_TOKEN="Bearer $(kubectl get secret $SECRET -o=jsonpath='{.data.token}' | base64 --decode)" echo $ARGO_TOKEN
+$ export SECRET=$(kubectl get sa argo-sa -o=jsonpath='{.secrets[0].name}') && export ARGO_TOKEN="Bearer $(kubectl get secret $SECRET -o=jsonpath='{.data.token}' | base64 --decode)" && echo $ARGO_TOKEN
 ```
+{% endcode %}
 
 Then, inside the box for **client authentication**, copy and paste the newly generated token into the Argo UI:
 
