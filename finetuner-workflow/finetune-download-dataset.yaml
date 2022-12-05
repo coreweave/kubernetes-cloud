@@ -1,0 +1,37 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: dataset-download
+spec:
+  template:
+    spec:
+      containers:
+      - name: dataset-downloader
+        image: navarrepratt/smashwords-dataset-downloader:7
+        imagePullPolicy: IfNotPresent
+        args: ["--data_dir", "/mnt/pvc/dataset"]
+        volumeMounts:
+          - name: dataset-cache
+            mountPath: /mnt/pvc
+        resources:
+          requests:
+            cpu: "1"
+            memory: 4Gi 
+          limits:
+            cpu: "1"
+            memory: 4Gi 
+      volumes:
+        - name: dataset-cache
+          persistentVolumeClaim:
+            claimName: finetune-data
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: topology.kubernetes.io/region
+                operator: In
+                values: 
+                - ORD1
+      restartPolicy: Never
+  backoffLimit: 2
