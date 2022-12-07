@@ -215,7 +215,8 @@ spec:
   volumes:
   - name: filesystem-storage
     persistentVolumeClaim:
-      claimName: filesystem-storage-pvc</code></pre>
+      claimName: filesystem-storage-pvc
+</code></pre>
 
 ***
 
@@ -337,11 +338,11 @@ kubectl patch pvc <myvolume> -p \
 
 ## Ephemeral Storage
 
-**All physical nodes are equipped with SSD or NVMe ephemeral (local) storage.** Ephemeral storage available ranges between 512GB to 2TB, depending upon node type.
+**All physical nodes are equipped with SSD or NVMe ephemeral (local) storage.** Ephemeral storage available ranges between `512GB` to `2TB`, depending upon node type.
 
 No volume claims are needed to allocate ephemeral storage - simply write anywhere in the container file system.
 
-If a larger amount (above 20GB) of ephemeral storage is used, it is recommended to include ephemeral storage in the workloads resource request:
+If a larger amount (above `20Gi`) of ephemeral storage is used, it is recommended to include ephemeral storage in the workloads resource request. For example:
 
 ```yaml
 spec:
@@ -358,7 +359,7 @@ spec:
 {% hint style="warning" %}
 **Important**
 
-For the vast majority of use cases, workloads should run in the same region as the storage \*\*\*\* block they are accessing. Use the [region label affinity](../../coreweave-kubernetes/label-selectors.md) to limit scheduling workloads to a single region.
+For the vast majority of use cases, workloads should run in the same region as the storage block they are accessing. Use the [region label affinity](../../coreweave-kubernetes/label-selectors.md) to limit scheduling workloads to a single region.
 
 There are certain exceptions to this rule of thumb, which are mainly relevant for shared volumes, such as:
 
