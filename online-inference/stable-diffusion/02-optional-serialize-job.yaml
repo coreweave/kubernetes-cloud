@@ -1,0 +1,49 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: stable-diffusion-serializer
+spec:
+  template:
+    spec:
+      containers:
+      - name: model-serializer
+        image: harubaru1/model-serializer:2
+        imagePullPolicy: IfNotPresent
+        command: 
+          - "python3"
+          - "/app/serialize.py"
+          - "--model-id=CompVis/stable-diffusion-v1-4"
+          - "--save-path=/mnt/models/stable-diffusion-v1-4"
+        env:
+        - name: HF_HOME
+          value: /mnt/models/
+        - name: HUGGING_FACE_HUB_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: huggingface-hub-token
+              key: token
+        volumeMounts:
+          - name: model-cache
+            mountPath: /mnt/models
+        resources:
+          requests:
+            cpu: 1
+            memory: 12Gi 
+          limits:
+            cpu: 1
+            memory: 12Gi 
+      volumes:
+        - name: model-cache
+          persistentVolumeClaim:
+            claimName: stable-diffusion-model-cache
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: topology.kubernetes.io/region
+                operator: In
+                values: 
+                - ORD1
+      restartPolicy: Never
+  backoffLimit: 2

@@ -1,0 +1,10 @@
+FROM python:3.9
+RUN mkdir /app
+ADD serializer/ /app/
+WORKDIR /app
+RUN pip3 install --upgrade pip
+RUN pip3 install -r requirements.txt
+RUN git clone https://github.com/coreweave/tensorizer && \
+    mv tensorizer/tensorizer.py . && \
+    rm -rf tensorizer
+CMD ["python3", "/app/serialize.py"]
