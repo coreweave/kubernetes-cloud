@@ -1,4 +1,4 @@
-git+https://github.com/huggingface/diffusers.git@6c56f05097f7d3c561f02dc1c27e3dd7e9f88ce1#egg=diffusers
+diffusers==0.10.0
 numpy==1.23.4
 wandb==0.13.4
 torch
