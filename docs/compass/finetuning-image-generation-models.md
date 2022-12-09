@@ -417,6 +417,22 @@ You can instantly watch a submitted workflow by using the `--watch` option when 
 `argo submit --watch`
 {% endhint %}
 
+#### WandB Logging
+
+Logs for the finetuning workflow can be tracked and visualized using [Weights & Biases (WandB)](https://wandb.ai/). To use WandB, pass your WandB API key into the workflow's `wandb_api_key` parameter using `-p wand_api_key=<Add your WandB key here>`
+
+<figure><img src="../.gitbook/assets/UsbKtmS.png" alt=""><figcaption><p>Generated samples during finetuning</p></figcaption></figure>
+
+The Media tab is where you can see images being generated during the finetuning process for every `image_log_steps` amount of steps. This can also be adjusted depending on how often you want to sample from the model during finetuning.&#x20;
+
+<figure><img src="../.gitbook/assets/eP1wSTg.png" alt=""><figcaption><p>Performance metrics</p></figcaption></figure>
+
+In the performance tab you will see how fast the GPU is performing in a metric of samples per second.
+
+<figure><img src="../.gitbook/assets/i0oCpjf (2).png" alt=""><figcaption><p>Finetuning metrics</p></figcaption></figure>
+
+For the training tab, a multitude of finetuning metrics are recorded which indicates whether or not the workflow is making progress by reducing loss over time. These metrics can be very useful in determining whether or not the model has reached convergence.
+
 #### Web UI
 
 You can access your Argo Workflow application via HTTPS to see all the finetuner jobs, and to check their statuses.
