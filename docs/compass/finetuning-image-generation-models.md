@@ -272,7 +272,7 @@ Parameters:
   downloader_image:  ghcr.io/wbrown/gpt_bpe/model_downloader
   downloader_tag:    797b903
   finetuner_image:   ghcr.io/coreweave/ml-containers/sd-finetuner
-  finetuner_tag:     47e37cd
+  finetuner_tag:     1924bc5
   inference_image:   ghcr.io/coreweave/ml-containers/sd-inference
   inference_tag:     01320dd
 ```
@@ -344,7 +344,7 @@ Parameters:
   downloader_image:  ghcr.io/wbrown/gpt_bpe/model_downloader
   downloader_tag:    797b903
   finetuner_image:   ghcr.io/coreweave/ml-containers/sd-finetuner
-  finetuner_tag:     47e37cd
+  finetuner_tag:     1924bc5
   inference_image:   ghcr.io/coreweave/ml-containers/sd-inference
   inference_tag:     01320dd
 
