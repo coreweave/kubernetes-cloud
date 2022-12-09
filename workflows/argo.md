@@ -4,23 +4,23 @@ description: Use Argo Workflows to run jobs in parallel
 
 # Get Started with Workflows
 
-Workflows on CoreWeave Cloud run on [Argo Workflows](https://argoproj.github.io/argo/), which is a great tool to orchestrate parallel execution of GPU and CPU jobs. With Workflows, you can manage retries and parallelism automatically. Workflows can also be submitted via CLI, [Rest API](https://github.com/argoproj/argo/blob/master/examples/rest-examples.md) and the [Kubernetes API](https://github.com/argoproj/argo/blob/master/docs/rest-api.md).
+Workflows on CoreWeave Cloud run on [Argo Workflows](https://argoproj.github.io/workflows), which is a great tool to orchestrate parallel execution of GPU and CPU jobs. With Workflows, you can manage retries and parallelism automatically. Workflows can also be submitted via CLI, [Rest API](https://argoproj.github.io/argo-workflows/rest-api/) and the [Kubernetes API](https://argoproj.github.io/argo-workflows/walk-through/kubernetes-resources/).
 
-![Argo Web UI](../docs/.gitbook/assets/screen-shot-2020-07-29-at-10.04.26-pm.png)
+<figure><img src="../docs/.gitbook/assets/screen-shot-2020-07-29-at-10.04.26-pm.png" alt="Screenshot showing the Argo Web UI"><figcaption><p>A view of the Argo Web UI</p></figcaption></figure>
 
-## Getting Started
+## Get Started
 
-After logging into [CoreWeave Cloud](https://cloud.coreweave.com), go to the CoreWeave application **Catalog**.
+After logging into [CoreWeave Cloud](https://cloud.coreweave.com), navigate to the CoreWeave application **Catalog**.
 
 ![The Catalog link on the Cloud UI](<../.gitbook/assets/image (17) (2) (1) (2).png>)
 
-A new window will open onto the CoreWeave application Catalog, where you can browse all available applications. In the search field, type **argo-workflows**. Then, select the **argo-workflows** application once it appears.
+A new window will open onto the Catalog, where you can browse all available applications. In the search field, type `argo-workflows`. Then, select the **argo-workflows** application once it appears:
 
-![](<../.gitbook/assets/image (14).png>)
+<figure><img src="../.gitbook/assets/image (14).png" alt="argo-workflows application in the Catalog"><figcaption><p>argo-workflows application in the Catalog</p></figcaption></figure>
 
-In the upper right-hand corner of the next screen, select the latest version of the Helm chart under **Chart Version**, then click the **Deploy** button.
+In the upper right-hand corner of the following screen, select the latest version of the Helm chart under **Chart Version**, then click the **Deploy** button.
 
-![](<../.gitbook/assets/image (25) (1).png>)
+<figure><img src="../.gitbook/assets/image (25) (1).png" alt="Chart version selection and deploy button"><figcaption><p>Chart version selection and deploy button</p></figcaption></figure>
 
 The following deployment form will prompt you to enter a name for the application. The remaining parameters will be set to CoreWeave's suggested defaults, but can be changed to suit your requirements. When ready to deploy, click the **Deploy** button at the bottom of the page.
 
@@ -59,9 +59,7 @@ To run a sample workflow:
 The following assumes you have already obtained CoreWeave Cloud access credentials and [set up your kubeconfig file](../coreweave-kubernetes/getting-started.md#setup-kubernetes-config).
 {% endhint %}
 
-The Argo CLI tool can be obtained from[ the Argo Project GitHub](https://github.com/argoproj/argo-workflows/releases).
-
-To run an example workflow, save an example workflow into the file `gpu-say-workflow.yaml`.
+The Argo CLI tool can be obtained from [the Argo Project's website](https://argoproj.github.io/argo-workflows/quick-start/#install-the-argo-workflows-cli). Then, to run an example workflow, save an example workflow into the file `gpu-say-workflow.yaml`.
 
 **Example**
 
@@ -184,12 +182,12 @@ Argo requires a Service Account token for authentication. The following steps ar
 {% hint style="danger" %}
 **Warning**
 
-`server` auth mode is strongly discouraged\*\*,\*\* as it opens up Argo Workflows to public access and is therefore a security risk. ​
+`server` auth mode is strongly discouraged, as it opens up Argo Workflows to public access, and is therefore a security risk. ​
 {% endhint %}
 
 ### Tailored permissions
 
-First, we create a role with minimal permissions:
+To tailor permissions more granularly, first create a role with minimal permissions:
 
 ```bash
 $ kubectl create role argo-role --verb=list,update --resource=workflows.argoproj.io
@@ -212,7 +210,7 @@ with the following parameters:
 | `workflowtasksets`      | `wfts`       | WorkflowTaskSet      | \[delete deletecollection get list patch create update watch]  |
 | `workflowtemplates`     | `wftmpl`     | WorkflowTemplate     | \[delete deletecollection get list patch create update watch]  |
 
-Using the command line to create a tailored role with the many resources and verbs can be inefficient. Alternatively, you can use a YAML manifest instead:
+Using the command line to create a tailored role with the many resources and verbs can be inefficient. It's also possible to set permissions using a YAML manifest instead:
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
