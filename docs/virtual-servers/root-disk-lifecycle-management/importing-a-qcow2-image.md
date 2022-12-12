@@ -18,7 +18,7 @@ There are three ways to import disk images from external sources:
 
 <table data-view="cards"><thead><tr><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>Import a disk image using HTTP/HTTPS</strong></td><td><a href="importing-a-qcow2-image.md#import-a-disk-image-using-http-https">#import-a-disk-image-using-http-https</a></td></tr><tr><td><strong>Import a disk image via an external object store</strong></td><td><a href="importing-a-qcow2-image.md#import-an-image-from-an-external-object-store">#import-an-image-from-an-external-object-store</a></td></tr><tr><td><strong>Import a disk image via CoreWeave Object Storage</strong></td><td><a href="importing-a-qcow2-image.md#import-an-image-from-coreweave-object-storage">#import-an-image-from-coreweave-object-storage</a></td></tr></tbody></table>
 
-## Import a disk image using HTTP/HTTPS
+## Using HTTP/HTTPS
 
 A `DataVolume` is used to both do the import and store the imported image.
 
@@ -43,7 +43,7 @@ spec:
         storage: 64Mi # Update to size of imported image
 ```
 
-## Import a disk image from an external object store
+## Using an external object store
 
 A `DataVolume` can also import a disk image from an S3-compatible object store. To import an image from an existing object store, create a `Secret` with your `accessKey` and `secretKey`:
 
@@ -88,7 +88,7 @@ spec:
         storage: 64Mi # Update to size of imported image
 ```
 
-## Import an image from CoreWeave Object Storage
+## Using CoreWeave Object Storage
 
 An image stored locally can easily be uploaded to [CoreWeave Object Storage](../../storage/object-storage.md), then imported to a `DataVolume`.
 
