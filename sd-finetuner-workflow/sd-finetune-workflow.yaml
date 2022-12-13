@@ -108,9 +108,9 @@ spec:
     - name: downloader_tag
       value: '797b903'
     - name: finetuner_image
-      value: 'harubaru1/sd-finetuner'
+      value: 'ghcr.io/coreweave/ml-containers/sd-finetuner'
     - name: finetuner_tag
-      value: 'r9'
+      value: '1924bc5'
     - name: inference_image
       value: 'ghcr.io/coreweave/ml-containers/sd-inference'
     - name: inference_tag
