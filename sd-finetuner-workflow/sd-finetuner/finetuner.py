@@ -620,6 +620,15 @@ class StableDiffusionTrainer:
 
                     self.global_step += 1
 
+                    # Output GPU RAM to flush tqdm
+                    if not hasattr(self, 'report_idx'):
+                        self.report_idx = 1
+                    else:
+                        self.report_idx += 1
+                    if self.report_idx % 100 == 0:
+                        print(f"\nLOSS: {logs['train/loss']} {get_gpu_ram()}", file=sys.stdout)
+                        sys.stdout.flush()
+
                     self.progress_bar.update(1)
                     self.progress_bar.set_postfix(**logs)
 
