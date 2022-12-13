@@ -15,7 +15,7 @@ This example demonstrates how to deploy [BLOOM](https://huggingface.co/bigscienc
 Please [contact CoreWeave Support](https://cloud.coreweave.com/contact) to access NVIDIA A100 80GB GPUs.
 {% endhint %}
 
-![To follow along, please clone the manifests from GitHub](<../../.gitbook/assets/image (1) (5).png>)
+![To follow along, please clone the manifests from GitHub](<../../.gitbook/assets/image (1) (5) (1).png>)
 
 ### What is BLOOM?
 
@@ -238,4 +238,5 @@ Start to finish: 378.292 secs
 Throughput per token including tokenize: 57.81 msecs
 Start to ready to generate: 353.200 secs
 Tokenize and generate 4000 (bs=8) tokens: 56.108 secs
-Start to finish: 409.308 secs</code></pre>
+Start to finish: 409.308 secs
+</code></pre>

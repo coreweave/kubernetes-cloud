@@ -132,6 +132,7 @@
 ## Cloud Account Management
 
 * [Organizations](cloud-account-management/organizations.md)
+* [Namespace Management](cloud-account-management/namespace-management.md)
 * [Billing Portal](cloud-account-management/billing-portal.md)
 
 ## Resources
