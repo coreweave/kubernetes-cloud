@@ -22,7 +22,7 @@ Below are descriptions of some of the deployment possibilities CoreWeave offers,
 
 **To learn about configuration options for Virtual Servers, proceed to** [**Virtual Server Configuration Options**](../../docs/virtual-servers/virtual-server-configuration-options/)**.**
 
-## [The CoreWeave Cloud UI](coreweave-apps.md)\*\*\*\*
+## [The CoreWeave Cloud UI](coreweave-apps.md)
 
 The CoreWeave Cloud UI is an easy-to-use Web interface to deploy, visualize, and manage Virtual Servers, while still providing access to deployment configuration files, server event details, and even a virtual terminal for quick access to your Virtual Servers right from the Cloud UI.
 
@@ -64,16 +64,11 @@ CoreWeave offers [an open source Terraform module](https://github.com/coreweave/
 
 ## :desktop: [Programmatic API interface options](programmatically/)
 
-CoreWeave offers several methods for interfacing with the Kubernetes REST API programmatically to deploy Virtual Servers into CoreWeave Cloud. Additionally, any Kubernetes standards-compliant SDK may be used\*\*.\*\*
+CoreWeave offers several methods for interfacing with the Kubernetes REST API programmatically to deploy Virtual Servers into CoreWeave Cloud. Additionally, **any Kubernetes standards-compliant SDK may be used**.
 
 CoreWeave provides interface examples in the following languages:
 
-| Language                                                                                               |
-| ------------------------------------------------------------------------------------------------------ |
-| [Bash](../../docs/virtual-servers/deployment-methods/programmatically/bash.md) (using `curl` and `jq`) |
-| [Golang](programmatically/golang.md)                                                                   |
-| [Python](programmatically/python.md)                                                                   |
-| [NodeJS](programmatically/nodejs.md)                                                                   |
+<table data-card-size="large" data-column-title-hidden data-view="cards"><thead><tr><th>Language</th></tr></thead><tbody><tr><td><a href="../../docs/virtual-servers/deployment-methods/programmatically/bash.md">Bash</a> (using <code>curl</code> and <code>jq</code>)</td></tr><tr><td><a href="programmatically/golang.md">Golang</a></td></tr><tr><td><a href="programmatically/python.md">Python</a></td></tr><tr><td><a href="programmatically/nodejs.md">NodeJS</a></td></tr></tbody></table>
 
 **This method is best if you are:**
 
