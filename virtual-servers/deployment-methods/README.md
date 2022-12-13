@@ -30,11 +30,11 @@ The CoreWeave Cloud UI is an easy-to-use Web interface to deploy, visualize, and
 **Best if:** You prefer using a graphical interface with toggles and buttons to visualize your configurations, but still want access to lower-level configuration files.
 {% endhint %}
 
-![](<../../docs/.gitbook/assets/image (6) (1).png>)
+![](<../../docs/.gitbook/assets/image (6) (1) (1).png>)
 
 ## [Kubernetes CLI](../../docs/virtual-servers/deployment-methods/kubectl.md)\*\*\*\*
 
-![](<../../docs/.gitbook/assets/image (71) (1) (1).png>)
+![](<../../docs/.gitbook/assets/image (71) (1).png>)
 
 [Virtual Servers are a Kubernetes Custom Defined Resource (CRD)](https://github.com/coreweave/kubernetes-cloud/blob/5632d497da5883be07a1535a67cad69b97ea5050/docs/virtual-servers/deployment-methods/kubectl.md), which may be directly deployed on CoreWeave Cloud using the `kubectl` command line tool.
 

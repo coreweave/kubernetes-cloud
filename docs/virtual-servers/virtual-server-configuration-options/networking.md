@@ -278,7 +278,7 @@ VPC names are configured inside the `network.vpcs` stanza inside this manifest:
 
 
 
-<figure><img src="../../.gitbook/assets/image (2) (4).png" alt="The networking.vpcs stanza in the Cloud UI YAML manifest editor"><figcaption><p>The <code>networking.vpcs</code> stanza in the Cloud UI YAML manifest editor</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (4) (2) (1).png" alt="The networking.vpcs stanza in the Cloud UI YAML manifest editor"><figcaption><p>The <code>networking.vpcs</code> stanza in the Cloud UI YAML manifest editor</p></figcaption></figure>
 
 
 

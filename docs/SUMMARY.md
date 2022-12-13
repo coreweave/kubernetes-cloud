@@ -91,6 +91,7 @@
 ## Inference <a href="#compass" id="compass"></a>
 
 * [Get Started with Inference](../compass/online-inference.md)
+* [NVIDIA HGX H100](compass/nvidia-hgx-h100.md)
 * [Inference Examples](../compass/examples/README.md)
   * [PyTorch Hugging Face Diffusers - Stable Diffusion Text to Image](compass/examples/pytorch-hugging-face-diffusers-stable-diffusion-text-to-image.md)
   * [PyTorch Hugging Face Transformers Accelerate - BigScience BLOOM](compass/examples/pytorch-hugging-face-transformers-bigscience-bloom.md)
