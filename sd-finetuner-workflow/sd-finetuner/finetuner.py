@@ -38,6 +38,9 @@ from diffusers.optimization import get_scheduler
 from transformers import CLIPFeatureExtractor, CLIPTextModel, CLIPTokenizer
 from PIL import Image, ImageOps
 
+# Latent Scale Factor - https://github.com/huggingface/diffusers/issues/437
+L_SCALE_FACTOR = 0.18215
+
 # defaults should be good for everyone
 # TODO: add custom VAE support. should be simple with diffusers
 bool_t = lambda x: (str(x).lower() in ["true", "1", "t", "y", "yes"])
@@ -520,7 +523,7 @@ class StableDiffusionTrainer:
             latents = self.vae.encode(
                 batch["pixel_values"].to(self.weight_dtype)
             ).latent_dist.sample()
-            latents = latents * 0.18215
+            latents = latents * L_SCALE_FACTOR
 
             # Sample noise
             noise = torch.randn_like(latents)
