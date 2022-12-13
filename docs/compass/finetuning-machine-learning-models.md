@@ -1,3 +1,7 @@
+---
+description: Finetune machine learning models using Argo Workflows on CoreWeave Cloud
+---
+
 # Finetuning Machine Learning Models
 
 Finetuning and training machine learning models can be computationally expensive. CoreWeave Cloud allows for easy, on-demand compute resources to train models, along with the infrastructure to support it.
@@ -36,6 +40,10 @@ There is an optional test [Inference endpoint](broken-reference/) that can be en
 
 This configuration is able to do 6b models comfortably, and is less expensive than the finetuner, as it requires less resources at $0.85/hr.
 
+## Source Code
+
+The code referenced throughout the rest of the tutorial can be found under the `finetuner-workflow` folder in the `coreweave/kubernetes-cloud` repository.
+
 {% embed url="https://github.com/coreweave/kubernetes-cloud/tree/master/finetuner-workflow" %}
 Check out the code on GitHub
 {% endembed %}
@@ -50,11 +58,26 @@ This guide assumes that you have already followed the process to set up the Core
 
 The following Kubernetes-based components are required:
 
-### [Argo Workflows](broken-reference/)
+### [Argo Workflows](https://docs.coreweave.com/workflows/argo)
 
 You can deploy Argo Workflows using the [application Catalog](https://apps.coreweave.com). From the application deployment menu, click on the **Catalog** tab, then search for `argo-workflows` to find and deploy the application.
 
 ![Argo Workflows](<../.gitbook/assets/image (138).png>)
+
+The catalog deployment will create the underlying resources needed for client authentication. To fetch the authentication token run the following commands after filing in the name of your argo-workflows deployment.
+
+```bash
+export ARGO_NAME=<enter your deployment name>
+export SECRET=$(kubectl get sa ${ARGO_NAME}-argo -o=jsonpath='{.secrets[0].name}')
+export ARGO_TOKEN="Bearer $(kubectl get secret $SECRET -o=jsonpath='{.data.token}' | base64 --decode)"
+echo $ARGO_TOKEN
+```
+
+Then, inside the box for **client authentication**, copy and paste the newly generated token into the Argo UI:
+
+![The Argo Workflow UI with a Bearer token pasted into the client authentication box](<../.gitbook/assets/image (2) (2) (1).png>)
+
+Finally, to log in, click the **Login** button after adding the token.
 
 ### [PVC](../storage/storage.md)
 
@@ -69,9 +92,9 @@ Create a `ReadWriteMany` [PVC storage volume](../storage/storage.md#volume-types
 It is easy to [increase the size](https://docs.coreweave.com/coreweave-kubernetes/storage#resizing) of a PVC as needed.
 {% endhint %}
 
-This workflow expects a default PVC name of `finetune-data`. This name can be changed once you are more comfortable with the workflow and configure it. If you prefer, the PVC can also be deployed using the YAML snippet below, applied using `kubectl apply -f`:
+This workflow expects a default PVC name of `finetune-data`. This name can be changed once you are more comfortable with the workflow and configure it. If you prefer, the PVC can also be deployed using the YAML snippet below, applied using `kubectl apply -f finetune-pvc.yaml`:
 
-{% code title="finetune-data.yaml" %}
+{% code title="finetune-pvc.yaml" %}
 ```yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -109,7 +132,7 @@ Some people may prefer to use a [Virtual Server](broken-reference/) to interact 
 
 ## Dataset Setup
 
-At this point, you should have a PVC set up that you can access via the [filebrowser application](finetuning-machine-learning-models.md#undefined) or some other mechanism. For each dataset you want to use, you should create a directory and give it a meaningful name. However, the workflow read the finetune dataset from the `dataset` directory by default.
+At this point, you should have a PVC set up that you can access via the [filebrowser application](finetuning-machine-learning-models.md#undefined) or some other mechanism. For each dataset you want to use, you should create a directory and give it a meaningful name. However, the workflow will read the finetune dataset from the `dataset` directory by default.
 
 The data should be **individual plaintext files** in the precise format that you want the prompt and responses to come in.
 
@@ -120,6 +143,36 @@ Here we have a `western-romance` directory below with novels, in a clean and nor
 ![western-romance dataset with text files for each novel.](<../.gitbook/assets/Screen Shot 2022-04-22 at 12.20.38 PM.png>)
 
 The dataset will automatically be tokenized by a [`dataset_tokenizer`](https://github.com/wbrown/gpt\_bpe/blob/main/cmd/dataset\_tokenizer/dataset\_tokenizer.go) component written in `golang` as a step in the Argo Workflow. It is quite fast, and has different options for how to partition the data.
+
+### Create a Dataset
+
+If you don't already have your own dataset, you can use CoreWeave's public [Dataset Downloader repository](https://github.com/coreweave/dataset-downloader). This script will download plain text files of Western Romance books available on [Smashworks](https://www.smashwords.com/). (This is the website that was scraped to create the [bookcorpus](https://huggingface.co/datasets/bookcorpus) dataset.)
+
+#### Submit Kubernetes Job
+
+The yaml file that defines the job is `kubernetes-cloud/finetuner-workflow/finetune-download-dataset.yaml`.
+
+If you inspect the yaml you will see that we are mounting our previously created PVC as a volume on the container. We then tell the downloader script to write the data into our mounted PVC which means the data will persist there once the job is finished.&#x20;
+
+To deploy the job, run the following command from the `kubernetes-cloud/finetuner-workflow` directory:
+
+```bash
+kubectl apply -f finetune-download-dataset.yaml
+```
+
+To check if the files have finished downloading, wait for the job to be in a `Completed` state:
+
+```bash
+$ kubectl get pods
+NAME                                                    READY   STATUS      RESTARTS   AGE
+dataset-download-f85hj                                  0/1     Completed   0          22m
+```
+
+Or, follow the job logs to monitor progress:
+
+```bash
+kubectl logs -l job-name=dataset-download --follow
+```
 
 ## Permissions Setup
 
@@ -409,7 +462,7 @@ The following section outlines some useful workflow parameters. This is not inte
 
 ## Artifacts and Inference
 
-Once the model completes finetuning, the model artifacts should be found under a directory with a name patterned after`{{pvc}}/{{run_name}}/final`.
+Once the model completes finetuning, the model artifacts should be found under a directory with a name patterned after`{{pvc}}/finetunes/{{run_name}}/final`.
 
 You can download the model at this point, or you can run the `InferenceService` on the model.
 

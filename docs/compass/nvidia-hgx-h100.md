@@ -6,7 +6,7 @@ description: Leverage the most powerful supercomputing platform on CoreWeave Clo
 
 CoreWeave's infrastructure is purpose-built for large-scale, GPU-accelerated workloads. We specialize in serving the most demanding AI and machine learning applications. To this end, CoreWeave is proud to be one of the only Cloud platforms in the world offering [NVIDIA's most powerful end-to-end AI supercomputing platform](https://www.nvidia.com/en-us/data-center/hgx/).
 
-<figure><img src="../.gitbook/assets/image (6).png" alt="Image of an HGX H100"><figcaption><p>The HGX H100 is NVIDIA's most powerful supercomputing platform</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (6) (1).png" alt="Image of an HGX H100"><figcaption><p>The HGX H100 is NVIDIA's most powerful supercomputing platform</p></figcaption></figure>
 
 The NVIDIA HGX H100 enables up to seven times more efficient high-performance computing (HPC) applications, up to nine times faster AI training on large models, and up to thirty times faster [AI inference](broken-reference) than the [NVIDIA HGX A100](../../coreweave-kubernetes/node-types.md).
 
