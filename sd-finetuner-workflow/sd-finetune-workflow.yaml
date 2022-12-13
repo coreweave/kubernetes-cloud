@@ -273,7 +273,8 @@ spec:
         - name: project_id
     container:
       image: "{{workflow.parameters.finetuner_image}}:{{workflow.parameters.finetuner_tag}}"
-      command: [ "accelerate-launch",
+      command: [ "/usr/bin/python3",
+                 "-m", "accelerate.commands.launch",
                  "--config", "/app/accelerate_config.yaml",
                  "--num_processes", "{{inputs.parameters.gpu_count}}",
                  "/app/finetuner.py" ]
@@ -318,7 +319,6 @@ spec:
         limits:
           memory: 96Gi
           cpu: "16"
-          nvidia.com/gpu: {{workflow.parameters.trainer_gpu_count}}
       volumeMounts:
         - mountPath: "/{{workflow.parameters.pvc}}"
           name: "{{workflow.parameters.pvc}}"
@@ -339,6 +339,14 @@ spec:
                   operator: In
                   values:
                     - "{{workflow.parameters.region}}"
+    podSpecPatch: |
+      containers:
+        - name: main
+          resources:
+            limits:
+              nvidia.com/gpu: "{{inputs.parameters.gpu_count}}"
+            requests:
+              nvidia.com/gpu: "{{inputs.parameters.gpu_count}}"
   
   - name: model-inference-service
     inputs:

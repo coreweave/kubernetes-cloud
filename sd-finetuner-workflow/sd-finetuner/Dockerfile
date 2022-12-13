@@ -11,4 +11,4 @@ COPY accelerate_config.yaml .
 RUN pip3 install --no-cache-dir -r requirements.txt
 RUN pip3 install --no-cache-dir torch torchvision --extra-index-url https://download.pytorch.org/whl/cu116 --upgrade
 COPY finetuner.py .
-CMD [ "accelerate-launch", "finetuner.py" ]
+CMD [ "/usr/bin/python3", "-m", "accelerate.commands.launch", "finetuner.py" ]
