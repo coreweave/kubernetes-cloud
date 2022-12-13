@@ -54,7 +54,7 @@ The following Kubernetes-based components are required:
 
 You can deploy Argo Workflows using the [application Catalog](https://apps.coreweave.com). From the application deployment menu, click on the **Catalog** tab, then search for `argo-workflows` to find and deploy the application.
 
-![Argo Workflows](<../../.gitbook/assets/image (91).png>)
+![Argo Workflows](<../.gitbook/assets/image (138).png>)
 
 ### [PVC](../storage/storage.md)
 
@@ -62,7 +62,7 @@ Create a `ReadWriteMany` [PVC storage volume](../storage/storage.md#volume-types
 
 `1TB` to `2TB` is the recommended size for the volume, as the model checkpoints take up a lot of space! These PVCs can be shared between multiple finetune runs. We recommend using HDD type storage, as the finetuner does not require high random I/O performance.
 
-![Configuring a PVC storage volume from the Cloud UI](<../.gitbook/assets/image (3) (2).png>)
+![Configuring a PVC storage volume from the Cloud UI](<../.gitbook/assets/image (3) (2) (1).png>)
 
 {% hint style="info" %}
 **Note**\
@@ -105,7 +105,7 @@ Simply select the `finetune-data` PVC that you created earlier. **Make sure that
 Some people may prefer to use a [Virtual Server](broken-reference/) to interact with their PVC via `ssh` or another mechanism. This flexibility is one of the key advantages of CoreWeave.
 {% endhint %}
 
-![The filebrowser application](<../../.gitbook/assets/image (60).png>)
+![The filebrowser application](<../../.gitbook/assets/image (60) (2).png>)
 
 ## Dataset Setup
 
@@ -117,7 +117,7 @@ The data should be **individual plaintext files** in the precise format that you
 
 Here we have a `western-romance` directory below with novels, in a clean and normalized plaintext format, with all extra whitespace removed.
 
-![western-romance dataset with text files for each novel.](<../../.gitbook/assets/Screen Shot 2022-04-22 at 12.20.38 PM.png>)
+![western-romance dataset with text files for each novel.](<../.gitbook/assets/Screen Shot 2022-04-22 at 12.20.38 PM.png>)
 
 The dataset will automatically be tokenized by a [`dataset_tokenizer`](https://github.com/wbrown/gpt\_bpe/blob/main/cmd/dataset\_tokenizer/dataset\_tokenizer.go) component written in `golang` as a step in the Argo Workflow. It is quite fast, and has different options for how to partition the data.
 

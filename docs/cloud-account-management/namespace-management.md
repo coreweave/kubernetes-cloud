@@ -58,10 +58,10 @@ While allowing multiple namespaces for an organization provides a Kubernetes-nat
 
 To create and manage your account's namespaces, first [log in to your CoreWeave Cloud account](https://cloud.coreweave.com). Then, navigate to [the **Namespaces** page](https://cloud.staging.coreweave.com/namespaces).
 
-<figure><img src="../.gitbook/assets/image (1) (3).png" alt="Screenshot of the namespace management page"><figcaption><p>The namespace management page</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (3).png" alt="Screenshot of the namespace management page"><figcaption><p>The namespace management page</p></figcaption></figure>
 
 To create a new namespace, click the **Create New Namespace** button in the upper right-hand corner. This will open the **New Namespace** modal.
 
-<figure><img src="../.gitbook/assets/image (8) (2).png" alt="Screenshot of The new namespace modal"><figcaption><p>Example of the new namespace modal</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (4).png" alt="Screenshot of The new namespace modal"><figcaption><p>Example of the new namespace modal</p></figcaption></figure>
 
 The **namespace identifier** will be used as the value of `<namespace-id>` shown in the preview window in the modal. As namespaces are often used to separate workloads by development phase, some common identifiers include things like `staging`, `dev`, or `prod` for the value of the namespace identifier.

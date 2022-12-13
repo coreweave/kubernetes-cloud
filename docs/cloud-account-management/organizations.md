@@ -8,13 +8,13 @@ description: >-
 
 CoreWeave Cloud allows you to share all of your cloud resources with the rest of your team by inviting new users to join your organization via [the organization management page](https://cloud.staging.coreweave.com/organization):
 
-<figure><img src="../.gitbook/assets/image (3) (1).png" alt="Screenshot of the organization management page"><figcaption><p>The organization management page</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1).png" alt="Screenshot of the organization management page"><figcaption><p>The organization management page</p></figcaption></figure>
 
 #### Inviting a user
 
 Inviting a user is simple and intuitive. Selecting the "Invite a User" button triggers a form to enter the email of the invite:
 
-![Organization Invitation Modal](<../../.gitbook/assets/image (91) (1) (1).png>)
+![Organization Invitation Modal](<../.gitbook/assets/image (142).png>)
 
 #### Managing an Invited User
 
@@ -26,7 +26,7 @@ The organization management page allows team members to easily manage their in-f
 
 After the invitation is accepted, the user could subsequently be deactivated and reactivated. Deactivating users will prevent them from accessing their account. You can reactivate their account at any time. To manage the users active status, click on the button located on the left side of the user row in the "_Actions"_ column.
 
-![](<../../.gitbook/assets/Screen Shot 2022-05-11 at 8.02.33 PM.png>)
+![](<../.gitbook/assets/Screen Shot 2022-05-11 at 8.02.33 PM.png>)
 
 #### Post Invitation
 
