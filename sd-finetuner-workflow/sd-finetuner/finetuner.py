@@ -18,6 +18,7 @@ import pynvml
 import sys
 import wandb
 import gc
+import accelerate
 
 try:
     pynvml.nvmlInit()
@@ -184,20 +185,6 @@ parser.add_argument(
     help="Number of images to log every image_log_steps",
 )
 args = parser.parse_args()
-
-os.makedirs(args.output_path, exist_ok=True)
-
-# Inform the user of host, and various versions -- useful for debugging isseus.
-print("RUN_NAME:", args.run_name)
-print("HOST:", socket.gethostname())
-print("CUDA:", torch.version.cuda)
-print("TORCH:", torch.__version__)
-print("TRANSFORMERS:", transformers.__version__)
-print("DIFFUSERS:", diffusers.__version__)
-print("MODEL:", args.model)
-print("FP16:", args.fp16)
-print("RESOLUTION:", args.resolution)
-
 
 def get_gpu_ram() -> str:
     """
@@ -430,6 +417,7 @@ class EMAModel:
 class StableDiffusionTrainer:
     def __init__(
         self,
+        accelerator: accelerate.Accelerator,
         vae: AutoencoderKL,
         unet: UNet2DConditionModel,
         text_encoder: CLIPTextModel,
@@ -438,12 +426,11 @@ class StableDiffusionTrainer:
         train_dataloader: torch.utils.data.DataLoader,
         noise_scheduler: DDPMScheduler,
         lr_scheduler: torch.optim.lr_scheduler.LambdaLR,
-        lr_scaler: torch.cuda.amp.GradScaler,
         optimizer: torch.optim.Optimizer,
-        device: torch.device,
         weight_dtype: torch.dtype,
         args: argparse.Namespace,
     ):
+        self.accelerator = accelerator
         self.vae = vae
         self.unet = unet
         self.text_encoder = text_encoder
@@ -452,34 +439,34 @@ class StableDiffusionTrainer:
         self.train_dataloader = train_dataloader
         self.noise_scheduler = noise_scheduler
         self.lr_scheduler = lr_scheduler
-        self.lr_scaler = lr_scaler
         self.optimizer = optimizer
-        self.device = device
         self.weight_dtype = weight_dtype
         self.args = args
 
-        self.progress_bar = tqdm.tqdm(
-            range(args.epochs * len(self.train_dataloader)),
-            desc="Total Steps",
-            leave=False,
-        )
-        self.run = wandb.init(
-            project=args.project_id,
-            name=args.run_name,
-            config={
-                k: v for k, v in vars(args).items() if k not in ["hf_token"]
-            },
-            dir=args.output_path + "/wandb",
-        )
-        self.global_step = 0
+        if accelerator.is_main_process:
+            self.progress_bar = tqdm.tqdm(
+                range(args.epochs * len(self.train_dataloader)),
+                desc="Total Steps",
+                leave=False,
+            )
+            self.run = wandb.init(
+                project=args.project_id,
+                name=args.run_name,
+                config={
+                    k: v for k, v in vars(args).items() if k not in ["hf_token"]
+                },
+                dir=args.output_path + "/wandb",
+            )
+            self.global_step = 0
 
     def save_checkpoint(self):
+        unet = self.accelerator.unwrap_model(self.unet)
         if args.use_ema:
-            self.ema.copy_to(self.unet.parameters())
+            self.ema.copy_to(unet.parameters())
         pipeline = StableDiffusionPipeline(
             text_encoder=self.text_encoder,
             vae=self.vae,
-            unet=self.unet,
+            unet=unet,
             tokenizer=self.tokenizer,
             scheduler=PNDMScheduler.from_pretrained(
                 self.args.model,
@@ -499,7 +486,7 @@ class StableDiffusionTrainer:
         pipeline = StableDiffusionPipeline(
             text_encoder=self.text_encoder,
             vae=self.vae,
-            unet=self.unet,
+            unet=self.accelerator.unwrap_model(self.unet),
             tokenizer=self.tokenizer,
             scheduler=PNDMScheduler.from_pretrained(
                 self.args.model,
@@ -509,7 +496,7 @@ class StableDiffusionTrainer:
             feature_extractor=CLIPFeatureExtractor.from_pretrained(
                 "openai/clip-vit-base-patch32"
             ),
-        ).to(self.device)
+        ).to(self.accelerator.device)
         # inference
         images = []
         with torch.no_grad():
@@ -526,62 +513,69 @@ class StableDiffusionTrainer:
         gc.collect()
 
     def step(self, batch: dict, epoch: int) -> dict:
-        # Convert images to latent space
-        latents = self.vae.encode(
-            batch["pixel_values"].to(self.device, dtype=self.weight_dtype)
-        ).latent_dist.sample()
-        latents = latents * 0.18215
+        train_loss = 0.0
+        with self.accelerator.accumulate(self.unet):
+            # Convert images to latent space
+            latents = self.vae.encode(
+                batch["pixel_values"].to(self.weight_dtype)
+            ).latent_dist.sample()
+            latents = latents * 0.18215
 
-        # Sample noise
-        noise = torch.randn_like(latents)
-        bsz = latents.shape[0]
-        # Sample a random timestep for each image
-        timesteps = torch.randint(
-            0,
-            self.noise_scheduler.num_train_timesteps,
-            (bsz,),
-            device=latents.device,
-        )
-        timesteps = timesteps.long()
+            # Sample noise
+            noise = torch.randn_like(latents)
+            bsz = latents.shape[0]
+            # Sample a random timestep for each image
+            timesteps = torch.randint(
+                0,
+                self.noise_scheduler.num_train_timesteps,
+                (bsz,),
+                device=latents.device,
+            )
+            timesteps = timesteps.long()
 
-        # Add noise to the latents according to the noise magnitude at each timestep
-        # (this is the forward diffusion process)
-        noisy_latents = self.noise_scheduler.add_noise(
-            latents, noise, timesteps
-        )
+            # Add noise to the latents according to the noise magnitude at each timestep
+            # (this is the forward diffusion process)
+            noisy_latents = self.noise_scheduler.add_noise(
+                latents, noise, timesteps
+            )
 
-        # Get the text embedding for conditioning
-        encoder_hidden_states = self.text_encoder(
-            batch["input_ids"].to(self.device)
-        )[0]
+            # Get the text embedding for conditioning
+            encoder_hidden_states = self.text_encoder(
+                batch["input_ids"]
+            )[0]
 
-        # Predict the noise residual and compute loss
-        with torch.autocast("cuda", enabled=args.fp16):
-            noise_pred = self.unet(
-                noisy_latents, timesteps, encoder_hidden_states
-            ).sample
-        
-        if self.noise_scheduler.config.prediction_type == "epsilon":
-            target = noise
-        elif self.noise_scheduler.config.prediction_type == "v_prediction":
-            target = self.noise_scheduler.get_velocity(latents, noise, timesteps)
-        else:
-            raise ValueError(f"Invalid prediction type: {self.noise_scheduler.config.prediction_type}")
+            # Predict the noise residual and compute loss
+            with torch.autocast("cuda", enabled=args.fp16):
+                noise_pred = self.unet(
+                    noisy_latents, timesteps, encoder_hidden_states
+                ).sample
+            
+            if self.noise_scheduler.config.prediction_type == "epsilon":
+                target = noise
+            elif self.noise_scheduler.config.prediction_type == "v_prediction":
+                target = self.noise_scheduler.get_velocity(latents, noise, timesteps)
+            else:
+                raise ValueError(f"Invalid prediction type: {self.noise_scheduler.config.prediction_type}")
 
-        loss = torch.nn.functional.mse_loss(
-            noise_pred.float(), target.float(), reduction="mean"
-        )
+            loss = torch.nn.functional.mse_loss(
+                noise_pred.float(), target.float(), reduction="mean"
+            )
 
-        # Backprop
-        self.lr_scaler.scale(loss).backward()
-        self.lr_scaler.step(self.optimizer)
-        self.lr_scaler.update()
-        self.lr_scheduler.step()
-        self.optimizer.zero_grad()
+            avg_loss = self.accelerator.gather(loss.repeat(args.batch_size)).mean()
+            train_loss += avg_loss.item() / 1 # div by gradient accumulation steps
 
-        # Update EMA
-        if args.use_ema:
-            self.ema.step(self.unet.parameters())
+            # Backprop
+            self.accelerator.backward(loss)
+            if self.accelerator.sync_gradients:
+                self.accelerator.clip_grad_norm_(self.unet.parameters(), 1.0)
+            self.optimizer.step()
+            self.lr_scheduler.step()
+            self.optimizer.zero_grad()
+
+        if self.accelerator.sync_gradients:
+            # Update EMA
+            if args.use_ema:
+                self.ema.step(self.unet.parameters())
 
         return {
             "train/loss": loss.detach().item(),
@@ -595,35 +589,40 @@ class StableDiffusionTrainer:
                 step_start = time.perf_counter()
 
                 logs = self.step(batch, epoch)
-                logs.update(
-                    {
-                        "perf/rank_samples_per_second": args.batch_size
-                        * (1 / (time.perf_counter() - step_start)),
-                        "train/epoch": epoch,
-                        "train/step": self.global_step,
-                        "train/samples_seen": self.global_step
-                        * args.batch_size,
-                    }
-                )
 
-                self.global_step += 1
-
-                self.progress_bar.update(1)
-                self.progress_bar.set_postfix(**logs)
-
-                self.run.log(logs, step=self.global_step)
-
-                if self.global_step % args.save_steps == 0:
-                    self.save_checkpoint()
-
-                if self.global_step % args.image_log_steps == 0:
-                    prompt = self.tokenizer.decode(
-                        batch["input_ids"][
-                            random.randint(0, len(batch["input_ids"]) - 1)
-                        ].tolist()
+                if self.accelerator.is_main_process:
+                    rank_samples_per_second = args.batch_size * (1 / (time.perf_counter() - step_start))
+                    world_samples_per_second = rank_samples_per_second * self.accelerator.num_processes
+                    logs.update(
+                        {
+                            "perf/rank_samples_per_second": rank_samples_per_second,
+                            "perf/world_samples_per_second": world_samples_per_second,
+                            "train/epoch": epoch,
+                            "train/step": self.global_step,
+                            "train/samples_seen": self.global_step
+                            * args.batch_size,
+                        }
                     )
-                    self.sample(prompt)
 
+                    self.global_step += 1
+
+                    self.progress_bar.update(1)
+                    self.progress_bar.set_postfix(**logs)
+
+                    self.run.log(logs, step=self.global_step)
+
+                    if self.global_step % args.save_steps == 0:
+                        self.save_checkpoint()
+
+                    if self.global_step % args.image_log_steps == 0:
+                        prompt = self.tokenizer.decode(
+                            batch["input_ids"][
+                                random.randint(0, len(batch["input_ids"]) - 1)
+                            ].tolist()
+                        )
+                        self.sample(prompt)
+        
+        self.accelerator.wait_for_everyone()
         self.save_checkpoint()
 
 
@@ -641,19 +640,28 @@ def main() -> None:
             "WARNING: Using HF_API_TOKEN from command line. This is insecure. Use environment variables instead."
         )
 
-    # get device. TODO: support multi-gpu
-    device = "cpu"
-    if torch.cuda.is_available():
-        device = "cuda"
-
-    print("DEVICE:", device)
-
-    # setup fp16 stuff
-    scaler = torch.cuda.amp.GradScaler(enabled=args.fp16)
+    # get device
+    accelerator = accelerate.Accelerator(
+        gradient_accumulation_steps=1,
+        mixed_precision="fp16" if args.fp16 else "no"
+    )
 
     # Set seed
-    torch.manual_seed(args.seed)
-    print("RANDOM SEED:", args.seed)
+    accelerate.utils.set_seed(args.seed)
+
+    if accelerator.is_main_process:
+        os.makedirs(args.output_path, exist_ok=True)
+        # Inform the user of host, and various versions -- useful for debugging isseus.
+        print("RUN_NAME:", args.run_name)
+        print("HOST:", socket.gethostname())
+        print("CUDA:", torch.version.cuda)
+        print("TORCH:", torch.__version__)
+        print("TRANSFORMERS:", transformers.__version__)
+        print("DIFFUSERS:", diffusers.__version__)
+        print("MODEL:", args.model)
+        print("FP16:", args.fp16)
+        print("RESOLUTION:", args.resolution)
+        print("RANDOM SEED:", args.seed)
 
     tokenizer = CLIPTokenizer.from_pretrained(
         args.model, subfolder="tokenizer", use_auth_token=args.hf_token
@@ -742,12 +750,15 @@ def main() -> None:
 
     lr_scheduler = get_scheduler("constant", optimizer=optimizer)
 
+    unet, optimizer, train_dataloader, lr_scheduler = accelerator.prepare(
+        unet, optimizer, train_dataloader, lr_scheduler
+    )
+
     weight_dtype = torch.float16 if args.fp16 else torch.float32
 
     # move models to device
-    vae = vae.to(device, dtype=weight_dtype)
-    unet = unet.to(device, dtype=torch.float32)
-    text_encoder = text_encoder.to(device, dtype=weight_dtype)
+    vae = vae.to(accelerator.device, dtype=weight_dtype)
+    text_encoder = text_encoder.to(accelerator.device, dtype=weight_dtype)
 
     # create ema
     if args.use_ema:
@@ -756,6 +767,7 @@ def main() -> None:
     print(get_gpu_ram())
 
     trainer = StableDiffusionTrainer(
+        accelerator,
         vae,
         unet,
         text_encoder,
@@ -764,16 +776,15 @@ def main() -> None:
         train_dataloader,
         noise_scheduler,
         lr_scheduler,
-        scaler,
         optimizer,
-        device,
         weight_dtype,
         args,
     )
     trainer.train()
 
-    print(get_gpu_ram())
-    print("Done!")
+    if accelerator.is_main_process:
+        print(get_gpu_ram())
+        print("Done!")
 
 
 if __name__ == "__main__":
