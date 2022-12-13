@@ -7,7 +7,6 @@ import torchvision
 import transformers
 import diffusers
 import os
-import io
 import PIL
 import glob
 import random
@@ -625,9 +624,9 @@ class StableDiffusionTrainer:
                         self.report_idx = 1
                     else:
                         self.report_idx += 1
-                    if self.report_idx % 100 == 0:
-                        print(f"\nLOSS: {logs['train/loss']} {get_gpu_ram()}", file=sys.stdout)
-                        sys.stdout.flush()
+                    if self.report_idx % 10 == 0:
+                        print(f"\nLOSS: {logs['train/loss']} {get_gpu_ram()}", file=sys.stderr)
+                        sys.stderr.flush()
 
                     self.progress_bar.update(1)
                     self.progress_bar.set_postfix(**logs)
@@ -727,7 +726,7 @@ def main() -> None:
         weight_decay=args.adam_weight_decay,
     )
 
-    noise_scheduler = DDPMScheduler.from_config(
+    noise_scheduler = DDPMScheduler.from_pretrained(
         args.model, subfolder="scheduler", use_auth_token=args.hf_token
     )
 
