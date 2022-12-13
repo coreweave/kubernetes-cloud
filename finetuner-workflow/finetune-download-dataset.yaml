@@ -6,20 +6,20 @@ spec:
   template:
     spec:
       containers:
-      - name: dataset-downloader
-        image: navarrepratt/smashwords-dataset-downloader:7
-        imagePullPolicy: IfNotPresent
-        args: ["--data_dir", "/mnt/pvc/dataset"]
-        volumeMounts:
-          - name: dataset-cache
-            mountPath: /mnt/pvc
-        resources:
-          requests:
-            cpu: "1"
-            memory: 4Gi 
-          limits:
-            cpu: "1"
-            memory: 4Gi 
+        - name: dataset-downloader
+          image: ghcr.io/coreweave/dataset-downloader/smashwords-downloader:836cea3
+          imagePullPolicy: IfNotPresent
+          args: [ "--data_dir", "/mnt/pvc/dataset" ]
+          volumeMounts:
+            - name: dataset-cache
+              mountPath: /mnt/pvc
+          resources:
+            requests:
+              cpu: "1"
+              memory: 4Gi
+            limits:
+              cpu: "1"
+              memory: 4Gi
       volumes:
         - name: dataset-cache
           persistentVolumeClaim:
@@ -28,10 +28,10 @@ spec:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
-            - matchExpressions:
-              - key: topology.kubernetes.io/region
-                operator: In
-                values: 
-                - ORD1
+              - matchExpressions:
+                  - key: topology.kubernetes.io/region
+                    operator: In
+                    values:
+                      - ORD1
       restartPolicy: Never
   backoffLimit: 2
