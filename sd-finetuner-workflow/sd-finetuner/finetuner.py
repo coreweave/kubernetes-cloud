@@ -186,6 +186,7 @@ parser.add_argument(
 )
 args = parser.parse_args()
 
+
 def get_gpu_ram() -> str:
     """
     Returns memory usage statistics for the CPU, GPU, and Torch.
@@ -540,29 +541,35 @@ class StableDiffusionTrainer:
             )
 
             # Get the text embedding for conditioning
-            encoder_hidden_states = self.text_encoder(
-                batch["input_ids"]
-            )[0]
+            encoder_hidden_states = self.text_encoder(batch["input_ids"])[0]
 
             # Predict the noise residual and compute loss
             with torch.autocast("cuda", enabled=args.fp16):
                 noise_pred = self.unet(
                     noisy_latents, timesteps, encoder_hidden_states
                 ).sample
-            
+
             if self.noise_scheduler.config.prediction_type == "epsilon":
                 target = noise
             elif self.noise_scheduler.config.prediction_type == "v_prediction":
-                target = self.noise_scheduler.get_velocity(latents, noise, timesteps)
+                target = self.noise_scheduler.get_velocity(
+                    latents, noise, timesteps
+                )
             else:
-                raise ValueError(f"Invalid prediction type: {self.noise_scheduler.config.prediction_type}")
+                raise ValueError(
+                    f"Invalid prediction type: {self.noise_scheduler.config.prediction_type}"
+                )
 
             loss = torch.nn.functional.mse_loss(
                 noise_pred.float(), target.float(), reduction="mean"
             )
 
-            avg_loss = self.accelerator.gather(loss.repeat(args.batch_size)).mean()
-            train_loss += avg_loss.item() / 1 # div by gradient accumulation steps
+            avg_loss = self.accelerator.gather(
+                loss.repeat(args.batch_size)
+            ).mean()
+            train_loss += (
+                avg_loss.item() / 1
+            )  # div by gradient accumulation steps
 
             # Backprop
             self.accelerator.backward(loss)
@@ -591,8 +598,12 @@ class StableDiffusionTrainer:
                 logs = self.step(batch, epoch)
 
                 if self.accelerator.is_main_process:
-                    rank_samples_per_second = args.batch_size * (1 / (time.perf_counter() - step_start))
-                    world_samples_per_second = rank_samples_per_second * self.accelerator.num_processes
+                    rank_samples_per_second = args.batch_size * (
+                        1 / (time.perf_counter() - step_start)
+                    )
+                    world_samples_per_second = (
+                        rank_samples_per_second * self.accelerator.num_processes
+                    )
                     logs.update(
                         {
                             "perf/rank_samples_per_second": rank_samples_per_second,
@@ -621,7 +632,7 @@ class StableDiffusionTrainer:
                             ].tolist()
                         )
                         self.sample(prompt)
-        
+
         self.accelerator.wait_for_everyone()
         self.save_checkpoint()
 
@@ -643,7 +654,7 @@ def main() -> None:
     # get device
     accelerator = accelerate.Accelerator(
         gradient_accumulation_steps=1,
-        mixed_precision="fp16" if args.fp16 else "no"
+        mixed_precision="fp16" if args.fp16 else "no",
     )
 
     # Set seed
