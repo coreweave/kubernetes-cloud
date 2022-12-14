@@ -3,6 +3,7 @@
 * [CoreWeave Cloud](README.md)
 * [Data Center Regions](data-center-regions.md)
 * [Release Notes](release-notes.md)
+* [Information Security Advisories](information-security-advisories.md)
 
 ## CoreWeave Kubernetes
 

@@ -30,7 +30,7 @@ Using the CoreWeave Cloud UI, an Object Storage configuration file can be genera
 
 To access Object Storage using the [CoreWeave Cloud UI](../../virtual-servers/deployment-methods/coreweave-apps.md), log in to your CoreWeave Cloud account, then navigate to the Object Storage page.
 
-<figure><img src="../.gitbook/assets/image (9) (1).png" alt="Screenshot of the Object Storage link on the side nav of the Cloud UI"><figcaption><p>The Object Storage link on the side nav of the Cloud UI</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (9).png" alt="Screenshot of the Object Storage link on the side nav of the Cloud UI"><figcaption><p>The Object Storage link on the side nav of the Cloud UI</p></figcaption></figure>
 
 To create a new token, click the button labelled **Create a New Token**. This will bring up the **New Storage Token** options. You will be prompted to assign a name to the token, which is required. You may also select a default Object Storage region from the drop-down list. This region may be changed at any time.
 
