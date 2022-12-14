@@ -4,7 +4,7 @@ description: Learn about using the Kubernetes CLI to deploy Virtual Servers
 
 # Kubernetes CLI
 
-Virtual Servers are deployed to CoreWeave cloud as [Custom Resource Definitions (CRDs)](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/), so the `kubectl` command line tool may be used to deploy Virtual Servers onto CoreWeave Cloud.
+Virtual Servers are deployed to CoreWeave Cloud as [Custom Resource Definitions (CRDs)](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/), so the `kubectl` command line tool may be used to deploy Virtual Servers onto CoreWeave Cloud.
 
 ## Getting Started
 
