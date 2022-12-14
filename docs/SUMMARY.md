@@ -3,7 +3,6 @@
 * [CoreWeave Cloud](README.md)
 * [Data Center Regions](data-center-regions.md)
 * [Release Notes](release-notes.md)
-* [Information Security Advisories](information-security-advisories.md)
 
 ## CoreWeave Kubernetes
 
@@ -136,6 +135,10 @@
 * [Organizations](cloud-account-management/organizations.md)
 * [Namespace Management](cloud-account-management/namespace-management.md)
 * [Billing Portal](cloud-account-management/billing-portal.md)
+
+## Security
+
+* [Information Security Advisories](security/information-security-advisories.md)
 
 ## Resources
 
