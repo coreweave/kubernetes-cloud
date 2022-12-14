@@ -30,7 +30,7 @@ Using the CoreWeave Cloud UI, an Object Storage configuration file can be genera
 
 To access Object Storage using the [CoreWeave Cloud UI](../../virtual-servers/deployment-methods/coreweave-apps.md), log in to your CoreWeave Cloud account, then navigate to the Object Storage page.
 
-<figure><img src="../.gitbook/assets/image (9).png" alt="Screenshot of the Object Storage link on the side nav of the Cloud UI"><figcaption><p>The Object Storage link on the side nav of the Cloud UI</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (9) (1).png" alt="Screenshot of the Object Storage link on the side nav of the Cloud UI"><figcaption><p>The Object Storage link on the side nav of the Cloud UI</p></figcaption></figure>
 
 To create a new token, click the button labelled **Create a New Token**. This will bring up the **New Storage Token** options. You will be prompted to assign a name to the token, which is required. You may also select a default Object Storage region from the drop-down list. This region may be changed at any time.
 
@@ -372,7 +372,15 @@ The current price for Object Storage is `$0.03` per GB per month.
 
 CoreWeave also offers Accelerated Object Storage, a series of Anycasted NVMe-backed storage caches that provide blazing fast download speeds. Accelerated Object Storage is best suited for frequently accessed data that doesn't change often, such as model weights and training data.&#x20;
 
-One of the biggest advantages of Anycasted Object Storage Caches is that data can be pulled from across data center regions, then be cached in the data center in which your workloads are located. For example, if your models are hosted in `ORD1` (Chicago), but have a deployment scale to all regions (`ORD1`, `LAS1`, `LGA1`), our accelerated caching solution will route to the nearest cache, then determine to pull the data from `ORD1` so that it is located in the same region as your workloads. This drastically reduces spin up times for workloads where scaling is a concern.
+One of the biggest advantages of Anycasted Object Storage Caches is that data can be pulled from across data center regions, then be cached in the data center in which your workloads are located.
+
+For example, if your models are hosted in `ORD1` (Chicago), but have a deployment scale to all regions (`ORD1`, `LAS1`, `LGA1`), your call to `https://accel-object.ord1.coreweave.com` will be routed to a cache located closest to the workload - that is to say, if you are calling from `LGA1`, it will hit the cache in `LGA1`; if you are calling from `LAS1`, it will hit the cache in `LAS1`. This drastically reduces spin up times for workloads where scaling is a concern.
+
+{% hint style="info" %}
+**Note**
+
+You do not need to change the endpoint for every region your application is deployed in - this is the beauty of it!
+{% endhint %}
 
 **Use of CoreWeave's Accelerated Object Storage is completely free.** To use Accelerated Object Storage, simply modify your Object Storage endpoint to one of the addresses that corresponds to your Data Center region.
 
