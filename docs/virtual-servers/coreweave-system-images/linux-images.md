@@ -41,13 +41,13 @@ All images are pre-installed with the [Docker Engine](https://docs.docker.com/en
 
 #### Docker + NVIDIA
 
-Images with feature tags `nvidia` and `docker` e.g. `nvidia-515-43-04-1-docker`, include the [Docker Engine](https://docs.docker.com/engine/), the [NVIDIA Container Toolkit](https://github.com/NVIDIA/nvidia-docker), and [NVIDIA GPU drivers](https://www.nvidia.com/en-us/drivers/unix/). NVIDIA driver version is periodically changed in new image releases, pending validation and dependency matches.
+Images with feature tags `nvidia` and `docker` e.g. `nvidia_docker`, include the [Docker Engine](https://docs.docker.com/engine/), the [NVIDIA Container Toolkit](https://github.com/NVIDIA/nvidia-docker), and [NVIDIA GPU drivers](https://www.nvidia.com/en-us/drivers/unix/). NVIDIA driver version is periodically changed in new image releases, pending validation and dependency matches.
 
 While these images contain NVIDIA drivers and are therefore intended to be used with a GPU, no desktop environment is pre-installed.&#x20;
 
 #### Docker + NVIDIA + Teradici
 
-Images with feature tags `nvidia`, `teradici`, and `docker` e.g. `nvidia-515-43-04-1-teradici-docker`, include the [Docker Engine](https://docs.docker.com/engine/), the [NVIDIA Container Toolkit](https://github.com/NVIDIA/nvidia-docker), [NVIDIA GPU drivers](https://www.nvidia.com/en-us/drivers/unix/), and the [Teradici Graphics Agent](https://docs.teradici.com/find/product/cloud-access-software/2022.04/graphics-agent-for-linux?subscriptionName=cloud-access-plus). Out of the box, the graphics agent points to a CoreWeave Licensing Server, where Teradici subscription licenses are billed at an hourly rate.
+Images with feature tags `nvidia`, `teradici`, and `docker` e.g. `nvidia_teradici_docker`, include the [Docker Engine](https://docs.docker.com/engine/), the [NVIDIA Container Toolkit](https://github.com/NVIDIA/nvidia-docker), [NVIDIA GPU drivers](https://www.nvidia.com/en-us/drivers/unix/), and the [Teradici Graphics Agent](https://docs.teradici.com/find/product/cloud-access-software/2022.04/graphics-agent-for-linux?subscriptionName=cloud-access-plus). Out of the box, the graphics agent points to a CoreWeave Licensing Server, where Teradici subscription licenses are billed at an hourly rate.
 
 Intended for use as a Virtual Workstation, Teradici tagged images come pre-installed with the [GNOME](https://www.gnome.org/) Desktop Environment.
 
