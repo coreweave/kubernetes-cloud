@@ -113,6 +113,7 @@
 * [Finetuning Image Generation Models](compass/finetuning-image-generation-models.md)
 * [Launching GPT DeepSpeed Models using DeterminedAI](compass/launching-gpt-deepspeed-models-using-determinedai.md)
 * [Finetuning GPT-NeoX 20B using DeterminedAI](compass/gpt-neox.md)
+* [Launching Jupyter Notebook on CoreWeave via Determined AI](compass/launching-jupyter-notebook-on-coreweave-via-determined-ai.md)
 
 ## Workflows
 

@@ -71,23 +71,21 @@ Simply select the `finetune-gpt-neox` PVC that you created earlier. **Make sure 
 Installing the filebrowser application is **very helpful** to this process. As an alternative, it may be preferable to you to launch a Virtual Server or Kubernetes Pod to interact with their PVC via SSH or other mechanism.
 {% endhint %}
 
+### Create an Object Storage bucket
+
+Before installing the Determined AI application, first [create an Object Storage bucket](../storage/object-storage.md). Retain the given values for your **access key** and **secret key**, then continue with this guide.
+
 ### Install the Determined application
 
-From the [application Catalog](https://apps.coreweave.com/), search for `determined`. This will bring up the Determined.ai (**determined**) application, which you can then deploy into your cluster.
+From the [application Catalog](https://apps.coreweave.com/), search for `determined`. This will bring up the Determined AI (`determined`) application, which you will deploy into your cluster. Click on the application when it appears, then click the **Deploy** button at the bottom right-hand corner of the screen to continue to the configuration screen.
 
 ![The DeterminedAI application in the Cloud UI application Catalog](<../.gitbook/assets/Screen Shot 2022-07-26 at 4.06.24 PM.png>)
 
-The installation values should look similar to the ones shown and described below.
+The default installation values should look similar to the ones shown and described below.
 
-![](<../.gitbook/assets/Screen Shot 2022-08-01 at 4.46.55 PM.png>)
+<figure><img src="../.gitbook/assets/Screen Shot 2022-08-01 at 4.46.55 PM.png" alt="Screenshot of the default values for launching Determined AI"><figcaption><p>Default values for launching Determined AI</p></figcaption></figure>
 
-First, create an object storage bucket, which will be used to store checkpoints. You will then have access to `<YOUR_ACCESS_KEY>` and `<YOUR_SECRET_KEY>`.
-
-{% hint style="info" %}
-**Note**
-
-Object storage is currently in beta. Please[ contact support](https://cloud.coreweave.com/contact) for access.
-{% endhint %}
+Under **Object Storage Configuration**, set the values you'd like to use for an [Object Storage](../storage/object-storage.md) bucket, which will be used to store checkpoints. You will then have access to `<YOUR_ACCESS_KEY>` and `<YOUR_SECRET_KEY>`.
 
 The values used for this demonstration are as follows:
 
@@ -110,12 +108,6 @@ The values used for this demonstration are as follows:
 | **Bucket Name** | model-checkpoints                                                                      |
 | **Access Key**  | `<YOUR_ACCESS_KEY>` - this should be replaced by your actual Object Storage access key |
 | **Secret Key**  | `<YOUR_SECRET_KEY>` - this should be replaced by your actual Object Storage secret key |
-
-{% hint style="info" %}
-**Note**
-
-You will acquire the `ACCESS_KEY` and `SECRET_KEY` once object storage has been configured for you. [Contact support for more information.](https://cloud.coreweave.com/contact)
-{% endhint %}
 
 #### Attaching the volume
 
