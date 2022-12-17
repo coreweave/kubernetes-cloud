@@ -7,7 +7,7 @@ spec:
     spec:
       containers:
       - name: model-downloader
-        image: tweldoncw/model-downloader:10
+        image: xinlicentml/model-downloader:1
         imagePullPolicy: IfNotPresent
         command: 
           - "python3"
