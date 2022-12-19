@@ -141,6 +141,7 @@
 
 ## Security
 
+* [CoreWeave Vulnerability Disclosure Policy](security/coreweave-vulnerability-disclosure-policy.md)
 * [Information Security Advisories](security/information-security-advisories.md)
 
 ## Resources
