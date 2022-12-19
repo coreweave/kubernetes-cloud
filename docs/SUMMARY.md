@@ -111,9 +111,11 @@
   * [GPT-J-6B](../compass/models/gpt-j-6b.md)
 * [Finetuning Machine Learning Models](compass/finetuning-machine-learning-models.md)
 * [Finetuning Image Generation Models](compass/finetuning-image-generation-models.md)
-* [Launching GPT DeepSpeed Models using DeterminedAI](compass/launching-gpt-deepspeed-models-using-determinedai.md)
-* [Finetuning GPT-NeoX 20B using DeterminedAI](compass/gpt-neox.md)
-* [Launching Jupyter Notebook on CoreWeave via Determined AI](compass/launching-jupyter-notebook-on-coreweave-via-determined-ai.md)
+* [Determined AI](compass/determined-ai/README.md)
+  * [Install Determined AI](compass/determined-ai/install-determined-ai.md)
+  * [Launch Jupyter Notebook on CoreWeave via Determined AI](compass/determined-ai/launch-jupyter-notebook-on-coreweave-via-determined-ai.md)
+  * [Finetune GPT-NeoX 20B using DeterminedAI](compass/determined-ai/gpt-neox.md)
+  * [Launch GPT DeepSpeed Models using DeterminedAI](compass/determined-ai/launch-gpt-deepspeed-models-using-determinedai.md)
 
 ## Workflows
 
