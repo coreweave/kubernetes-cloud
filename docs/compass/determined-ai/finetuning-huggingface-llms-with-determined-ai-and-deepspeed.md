@@ -101,7 +101,7 @@ Installing the filebrowser application is **very helpful** to this process. As a
 
 Click `+` to attach the `finetune-opt-125m` volume.
 
-<figure><img src="../../.gitbook/assets/image (28).png" alt=""><figcaption><p>The attachment configuration screen for the DeterminedAI application</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (28) (1).png" alt=""><figcaption><p>The attachment configuration screen for the DeterminedAI application</p></figcaption></figure>
 
 As shown above, for this tutorial we are attaching the `finetune-opt-125m` volume on the mount path `/mnt/finetune-opt-125m`.
 
@@ -140,7 +140,7 @@ The original username and password for the FileBrowser UI are both`admin`.
 Make sure to update these after logging in for the first time.
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (31).png" alt=""><figcaption><p>FileBrowser UI for the mounted PVC after the required files have been uploaded.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (31) (1).png" alt=""><figcaption><p>FileBrowser UI for the mounted PVC after the required files have been uploaded.</p></figcaption></figure>
 
 ### Set up the Determined CLI
 
@@ -188,7 +188,7 @@ The logs from the script will be output to your terminal window, but you can als
 
 Once the task is complete you should see the processed dataset files in the PVC via the FileBrowser.
 
-<figure><img src="../../.gitbook/assets/image (41).png" alt=""><figcaption><p>The processed WikiText dataset files shown in the FileBrowser UI.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (41) (1).png" alt=""><figcaption><p>The processed WikiText dataset files shown in the FileBrowser UI.</p></figcaption></figure>
 
 ## Prepare for Training
 
@@ -338,7 +338,7 @@ This experiment searches over only one parameter, but you can easily expend this
 
 You'll find the running experiments in the "Uncategorized" section of Determined's Web UI.
 
-<figure><img src="../../.gitbook/assets/image (7).png" alt=""><figcaption><p>Active experiments in Determined's Web UI</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (7) (3).png" alt=""><figcaption><p>Active experiments in Determined's Web UI</p></figcaption></figure>
 
 #### Single trial overview
 
@@ -354,7 +354,7 @@ All checkpoints may be seen in the **Overview** tab, but each checkpoint is also
 
 Viewing a specific checkpoint's information will show you additional information like the file sizes and location of the checkpoint.
 
-<figure><img src="../../.gitbook/assets/image (12).png" alt=""><figcaption><p>Checkpoint Information Panel</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (12) (3).png" alt=""><figcaption><p>Checkpoint Information Panel</p></figcaption></figure>
 
 Using the location from the Web UI, you can also find and download the checkpoint via the `s3cmd`:
 

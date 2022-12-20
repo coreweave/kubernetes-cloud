@@ -109,7 +109,6 @@ Storage can also be managed via the Kubernetes API natively using `kubectl`. Bel
 
 For example:
 
-{% code title="" %}
 ```yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -123,7 +122,6 @@ spec:
     requests:
       storage: 10Gi
 ```
-{% endcode %}
 
 #### HDD storage volumes
 
@@ -168,7 +166,7 @@ Filesystem attachments are specified under the **Attach Filesystems** menu while
 
 **Example**
 
-![The Attach Filesystems menu during Virtual Server creation](../.gitbook/assets/image.png)
+![The Attach Filesystems menu during Virtual Server creation](<../.gitbook/assets/image (13) (1).png>)
 
 ***
 
@@ -186,10 +184,14 @@ Attaching block device storage is not currently achievable via the Cloud UI. [Pl
 
 Select instructions for Pods or Virtual Servers below.
 
-| Attach to:                           |
-| ------------------------------------ |
-| [Pods](storage.md#pods)              |
-| [Virtual Servers](broken-reference/) |
+
+
+| Attach to:                                    |
+| --------------------------------------------- |
+| [Pods](storage.md#pods)                       |
+| [Virtual Servers](storage.md#virtual-servers) |
+
+****
 
 ### **Pods**
 
@@ -244,15 +246,15 @@ spec:
       claimName: block-storage-pvc
 ```
 
-### Virtual Servers
+
+
+## Virtual Servers
 
 #### Filesystem attachments
 
 The filesystem attachment information for Virtual Servers is provided in the `storage.filesystems` stanza of the spec. Here, specifying values for `filesystems.name`, `filesystems.mountPoint`, and `persistentVolumeClaim.name`.
 
 ***
-
-**Example**
 
 ```yaml
 apiVersion: virtualservers.coreweave.com/v1alpha1
@@ -270,15 +272,11 @@ spec:
           name: filesystem-storage-pvc
 ```
 
-####
+
 
 #### Block storage attachments
 
 To attach a block storage device to a Virtual Server, specify the block device's values in the `storage.additionalDisks` stanza.
-
-***
-
-**Example**
 
 ```yaml
 apiVersion: virtualservers.coreweave.com/v1alpha1
@@ -294,6 +292,31 @@ spec:
         persistentVolumeClaim:
           name: block-storage-pvc
 ```
+
+
+
+#### **Read-only additional disks**
+
+`VirtualServer.spec.storage.additionalDisks[]` allows attaching disks as read-only.
+
+
+
+| Field                                 | Type | Description                                                                    |
+| ------------------------------------- | ---- | ------------------------------------------------------------------------------ |
+| `storage.additionalDisks[ ].readOnly` | bool | The additional disk is attached as a read-only device. Default set to `false`. |
+
+
+
+If you are using a PVC, and the value of `persistentVolumeClaim.readOnly` on the PVC disk is set to `true`, the value of `VirtualServer.spec.storage.additionalDisks[].readOnly` **must also be set to `true`**.
+
+If it is not, the Virtual Server will report an error.
+
+
+
+| Disk type                             | Action                                                                                                                                                                                   |
+| ------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `readOnly` disk                       | Set the `vs.storage.additionalDisks.readOnly: true`.                                                                                                                                     |
+| `readOnly` disk with a `readOnly` PVC | Set both the value for the storage disk to (`vs.storage.additionalDisks.readOnly`) to `true`, as well as the PVC claim (`additionalDisk.spec.persistentVolumeClaim.readOnly`) to `true`. |
 {% endtab %}
 {% endtabs %}
 
