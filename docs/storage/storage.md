@@ -168,7 +168,7 @@ Filesystem attachments are specified under the **Attach Filesystems** menu while
 
 **Example**
 
-![The Attach Filesystems menu during Virtual Server creation](<../.gitbook/assets/image (13).png>)
+![The Attach Filesystems menu during Virtual Server creation](../.gitbook/assets/image.png)
 
 ***
 
@@ -321,7 +321,7 @@ From the Storage Volumes page in the Cloud UI, click the pencil associated with 
 
 From this modal, make the desired changes, then click **Save** to apply the changes.
 
-![The volume edit modal](<../.gitbook/assets/image (10).png>)
+![The volume edit modal](<../.gitbook/assets/image (10) (1).png>)
 {% endtab %}
 
 {% tab title="CLI" %}

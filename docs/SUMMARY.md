@@ -116,6 +116,7 @@
   * [Launch Jupyter Notebook on CoreWeave via Determined AI](compass/determined-ai/launch-jupyter-notebook-on-coreweave-via-determined-ai.md)
   * [Finetune GPT-NeoX 20B using DeterminedAI](compass/determined-ai/gpt-neox.md)
   * [Launch GPT DeepSpeed Models using DeterminedAI](compass/determined-ai/launch-gpt-deepspeed-models-using-determinedai.md)
+  * [Finetuning HuggingFace LLMs with Determined AI and DeepSpeed](compass/determined-ai/finetuning-huggingface-llms-with-determined-ai-and-deepspeed.md)
 
 ## Workflows
 
