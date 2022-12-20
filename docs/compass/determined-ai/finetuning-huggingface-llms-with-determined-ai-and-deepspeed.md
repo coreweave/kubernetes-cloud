@@ -14,9 +14,13 @@ In the following example,[ DeterminedAI](https://www.determined.ai/) will be dep
 
 ## Source Code
 
-The code referenced throughout the rest of this tutorial can be found under the `examples/deepspeed/huggingface` folder in the `coreweave/determined_coreweave` repository. Make sure to use the `coreweave` branch:
+The code referenced throughout the rest of this tutorial can be found under the `examples/deepspeed/huggingface` folder in the `coreweave/determined_coreweave` repository.
 
-{% embed url="https://github.com/coreweave/coreweave_determined" %}
+Make sure to use the `coreweave` branch:
+
+{% embed url="https://github.com/coreweave/coreweave_determined/blob/coreweave/examples/deepspeed/huggingface/README.md" %}
+Demo source code
+{% endembed %}
 
 ## Cloud Resources
 
