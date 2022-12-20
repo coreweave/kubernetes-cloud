@@ -1,5 +1,5 @@
 ---
-description: Learn about networking options on CoreWeave.
+description: Learn about networking on CoreWeave Cloud
 ---
 
 # Get Started with Networking
