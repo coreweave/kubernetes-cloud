@@ -390,7 +390,7 @@ You do not need to change the endpoint for every region your application is depl
 | LGA1   | `accel-object.lga1.coreweave.com` |
 | ORD1   | `accel-object.ord1.coreweave.com` |
 
-### s3cmd Alternatives
+## s3cmd Alternatives
 
 There are a number of alternatives to the standard s3cmd client. One of which is [s5cmd](https://github.com/peak/s5cmd). s5cmd an interface for running **highly parallelized operations**. Benchmarks show s5cmd performs excellent for tasks involving moving large numbers of files to and from buckets.&#x20;
 
