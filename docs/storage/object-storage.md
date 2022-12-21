@@ -387,5 +387,17 @@ You do not need to change the endpoint for every region your application is depl
 | Region | Endpoint                          |
 | ------ | --------------------------------- |
 | LAS1   | `accel-object.las1.coreweave.com` |
-| LGA1   | `accel-object.lga1.corewaeve.com` |
+| LGA1   | `accel-object.lga1.coreweave.com` |
 | ORD1   | `accel-object.ord1.coreweave.com` |
+
+### s3cmd Alternatives
+
+There are a number of alternatives to the standard s3cmd client. One of which is [s5cmd](https://github.com/peak/s5cmd). s5cmd an interface for running **highly parallelized operations**. Benchmarks show s5cmd performs excellent for tasks involving moving large numbers of files to and from buckets.&#x20;
+
+To use s5cmd with CoreWeave Object Storage you must specify an endpoint URL, for example:
+
+```yaml
+--endpoint-url=https://object.lga1.coreweave.com
+```
+
+**Note:** with extremely large filesystems ( >1 million files ) s5cmd may exhibit unwanted behavior,  in those cases, reducing concurrency using the `--concurrency` flag or selecting standard instead of accelerated endpoints may help.
