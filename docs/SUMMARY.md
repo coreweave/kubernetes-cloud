@@ -42,7 +42,9 @@
 
 ## Storage
 
-* [Get Started with Storage](storage/storage.md)
+* [Get Started with Storage](storage/storage/README.md)
+  * [Using Storage - Cloud UI](storage/storage/using-storage-cloud-ui.md)
+  * [Using Storage - Kubectl](storage/storage/using-storage-kubectl.md)
 * [Object Storage](storage/object-storage.md)
 
 ## Virtual Servers

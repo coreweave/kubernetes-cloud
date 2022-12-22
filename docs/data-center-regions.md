@@ -105,7 +105,7 @@ The following table provides the storage class names, correspondent to each stor
 {% hint style="info" %}
 **Additional Resources**
 
-[Learn more about Storage on CoreWeave Cloud.](storage/storage.md)
+[Learn more about Storage on CoreWeave Cloud.](storage/storage/)
 {% endhint %}
 
 | Storage Class |        LGA1        |        ORD1        |        LAS1        |

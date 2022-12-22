@@ -35,7 +35,7 @@ The following tools must be installed and configured prior to running the exampl
 
 We require two images:
 
-1. **The Downloader image.** This will download the model to a [shared storage volume](../../storage/storage.md), the individual inference Pods will load the model from this storage instead of downloading it over internet every time they scale up.
+1. **The Downloader image.** This will download the model to a [shared storage volume](../../storage/storage/), the individual inference Pods will load the model from this storage instead of downloading it over internet every time they scale up.
 2. **The Model Image.** This is what will run CompVis/stable-diffusion-v1-4
 
 {% hint style="warning" %}

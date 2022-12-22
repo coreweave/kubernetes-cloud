@@ -33,7 +33,7 @@ The following tools must be installed and configured prior to running the exampl
 
 We require two images:
 
-1. **The Downloader image.** This will download the model to a [shared storage volume](../../storage/storage.md), the individual inference Pods will load the model from this storage instead of downloading it over internet every time they scale up.&#x20;
+1. **The Downloader image.** This will download the model to a [shared storage volume](../../storage/storage/), the individual inference Pods will load the model from this storage instead of downloading it over internet every time they scale up.&#x20;
 2. **The Model Image.** This is what will run DALL-E Mini/Mega.
 
 {% hint style="warning" %}
@@ -133,7 +133,8 @@ Alternatively, you can wait for the `InferenceService` to show that `READY` is `
 <pre class="language-bash"><code class="lang-bash"><strong>$ kubectl get isvc dalle-mega
 </strong><strong>
 </strong><strong>NAME         URL                                                                        READY   PREV   LATEST   PREVROLLEDOUTREVISION   LATESTREADYREVISION                  AGE
-</strong>dalle-mega   http://dalle-mega.tenant-my-namespace.knative.chi.coreweave.com   True           100                              dalle-mega-predictor-default-00001   19h</code></pre>
+</strong>dalle-mega   http://dalle-mega.tenant-my-namespace.knative.chi.coreweave.com   True           100                              dalle-mega-predictor-default-00001   19h
+</code></pre>
 
 Using the provided URL, you can make an HTTP request via your preferred means.
 

@@ -9,7 +9,7 @@ $ curl -d '{"instances": ["That was easy"]}' http://gpt-s3-transformer-default.t
 
 *   [Jupyter PVC](../../../docs/compass/examples/gpt-2/jupyter-pvc.md) (Start here and work your way down)
 
-    A Jupyter notebook and a container serving it demonstrating packaging the model for serving and storing it to a [CoreWeave Storage](../../../docs/storage/storage.md#shared-filesystem).
+    A Jupyter notebook and a container serving it demonstrating packaging the model for serving and storing it to a [CoreWeave Storage](../../../docs/storage/storage/#shared-filesystem).
 
     This notebook will be allocated a GPU and can be used for finetuning as well.
 *   [PVC Model Serving](../../../docs/compass/examples/gpt-2/service-pvc.md)

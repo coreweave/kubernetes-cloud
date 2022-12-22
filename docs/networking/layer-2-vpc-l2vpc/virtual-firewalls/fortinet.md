@@ -43,7 +43,7 @@ Once the download is complete, extract the image file, then upload it to a publi
 
 ### Importing the FortiGate image
 
-The FortiGate image will be imported into a new [block storage volume](../../../storage/storage.md#block-storage-volumes), which is created using a Kubernetes manifest such as the one described below.
+The FortiGate image will be imported into a new [block storage volume](../../../storage/storage/#block-storage-volumes), which is created using a Kubernetes manifest such as the one described below.
 
 The fields that comprise this manifest are:
 
