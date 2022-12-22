@@ -34,7 +34,7 @@ Filesystem attachments are specified under the **Attach Filesystems** menu while
 
 **Example**
 
-![The Attach Filesystems menu during Virtual Server creation](../../.gitbook/assets/image.png)
+![The Attach Filesystems menu during Virtual Server creation](<../../.gitbook/assets/image (13) (1).png>)
 
 ### **Block device attachments**
 
@@ -58,6 +58,6 @@ _**Volumes cannot be downsized again once they are expanded.**_
 
 From **the Storage Volumes page** in the Cloud UI, click the pencil icon beside the listed storage volume that you'd like to resize. This will open the Persistent Volume Claim modal.
 
-![The storage volume list, featuring the pencil icon to the right](<../../.gitbook/assets/image (2) (4).png>)
+![The storage volume list, featuring the pencil icon to the right](<../../.gitbook/assets/image (2) (6).png>)
 
 From this modal, make the desired changes, then click **Save** to apply the changes.
