@@ -12,7 +12,7 @@ Get started right away by navigating to your area of interest, or continue below
 
 ## What is CoreWeave Cloud?
 
-**CoreWeave Cloud** is built from the ground up to support computationally intensive workloads, we provide the best tools for creators leveraging powerful accelerated hardware. We're not your regular, one-size fits all, Cloud provider. **We're not here to host your WordPress blog.**
+**CoreWeave Cloud** is built from the ground up to support computationally intensive workloads. We provide the best tools for creators leveraging powerful accelerated hardware. We're not your regular, one-size fits all, Cloud provider. **We're not here to host your WordPress blog.**
 
 ### :checkered\_flag: Accelerated compute at your fingertips
 

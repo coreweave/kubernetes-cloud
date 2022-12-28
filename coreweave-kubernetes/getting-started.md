@@ -17,7 +17,7 @@ To generate your access credentials, first [sign up for CoreWeave Cloud](https:/
 {% hint style="danger" %}
 **Warning**
 
-**The Kubeconfig and Access Token is shown and given** **only once!** Be sure to save this file and the token in a secure location. If you lose your Access Token, it can be found inside your Kubeconfig file.
+**The Kubeconfig and Access Token are shown** **only once!** Be sure to save this file and the token in a secure location. If you lose your Access Token, it can be found inside your [Kubeconfig file](getting-started.md#configure-kubernetes).
 {% endhint %}
 
 From the [API Access page](https://cloud.coreweave.com/api-access) on the Cloud UI, click the **API & KUBECONFIG** tab at the top right of the page, then click the **Create a New Token** button to the right.
