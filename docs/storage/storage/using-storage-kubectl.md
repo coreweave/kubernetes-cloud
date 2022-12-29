@@ -158,9 +158,10 @@ spec:
 
 `VirtualServer.spec.storage.additionalDisks[]` allows attaching disks as read-only.
 
-| Field                                 | Type | Description                                                                    |
-| ------------------------------------- | ---- | ------------------------------------------------------------------------------ |
-| `storage.additionalDisks[ ].readOnly` | bool | The additional disk is attached as a read-only device. Default set to `false`. |
+| Field                                 | Type | Description                                                                                                     |
+| ------------------------------------- | ---- | --------------------------------------------------------------------------------------------------------------- |
+| `storage.additionalDisks[ ].readOnly` | bool | The additional disk is attached as a read-only device. Default set to `false`.                                  |
+| `storage.additionalDisks[ ].serial`   | bool | The root disk serial number, when not specified Virtual Server generates serial and preserves between restarts. |
 
 If you are using a PVC, and the value of `persistentVolumeClaim.readOnly` on the PVC disk is set to `true`, the value of `VirtualServer.spec.storage.additionalDisks[].readOnly` **must also be set to `true`**.
 
