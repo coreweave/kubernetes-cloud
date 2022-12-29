@@ -115,6 +115,7 @@
 * [Finetuning Image Generation Models](compass/finetuning-image-generation-models.md)
 * [Determined AI](compass/determined-ai/README.md)
   * [Install Determined AI](compass/determined-ai/install-determined-ai.md)
+  * [Shell for Machine Learning on Determined AI](compass/determined-ai/shell-for-machine-learning-on-determined-ai.md)
   * [Launch Jupyter Notebook on CoreWeave via Determined AI](compass/determined-ai/launch-jupyter-notebook-on-coreweave-via-determined-ai.md)
   * [Finetune GPT-NeoX 20B using DeterminedAI](compass/determined-ai/gpt-neox.md)
   * [Launch GPT DeepSpeed Models using DeterminedAI](compass/determined-ai/launch-gpt-deepspeed-models-using-determinedai.md)

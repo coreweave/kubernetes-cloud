@@ -34,7 +34,7 @@ Filesystem attachments are specified under the **Attach Filesystems** menu while
 
 **Example**
 
-![The Attach Filesystems menu during Virtual Server creation](<../../.gitbook/assets/image (13) (1).png>)
+![The Attach Filesystems menu during Virtual Server creation](<../../.gitbook/assets/image (13).png>)
 
 ### **Block device attachments**
 

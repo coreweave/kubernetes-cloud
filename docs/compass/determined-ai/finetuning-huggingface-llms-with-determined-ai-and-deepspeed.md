@@ -101,7 +101,7 @@ Installing the filebrowser application is **very helpful** to this process. As a
 
 Click `+` to attach the `finetune-opt-125m` volume.
 
-<figure><img src="../../.gitbook/assets/image (28) (1).png" alt=""><figcaption><p>The attachment configuration screen for the DeterminedAI application</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (28) (1) (1).png" alt=""><figcaption><p>The attachment configuration screen for the DeterminedAI application</p></figcaption></figure>
 
 As shown above, for this tutorial we are attaching the `finetune-opt-125m` volume on the mount path `/mnt/finetune-opt-125m`.
 
@@ -184,7 +184,7 @@ det cmd run 'pip install -r /mnt/finetune-opt-125m/requirements.txt; \
 
 The logs from the script will be output to your terminal window, but you can also view them from the Determined UI under the Tasks page.
 
-<figure><img src="../../.gitbook/assets/image (13).png" alt=""><figcaption><p>Prepare Dataset Task running in Determined AI</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (13) (1).png" alt=""><figcaption><p>Prepare Dataset Task running in Determined AI</p></figcaption></figure>
 
 Once the task is complete you should see the processed dataset files in the PVC via the FileBrowser.
 
@@ -372,7 +372,7 @@ s3cmd get -r s3://$BUCKET_NAME/2923ac08-0f11-4391-945e-6de03e424a61/
 
 The profiler was enabled in both of the experiments that were created, but this is not the case by default. When the profiler is enabled, Determined will automatically track a number of system metrics.
 
-<figure><img src="../../.gitbook/assets/image (9).png" alt=""><figcaption><p>Profiler Tab for a Running Experiment in Determined's Web UI</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (9) (1).png" alt=""><figcaption><p>Profiler Tab for a Running Experiment in Determined's Web UI</p></figcaption></figure>
 
 For the grid search experiment, it is important to compare the throughput metrics, GPU free memory, and GPU utilization across the different micro batch size. Notice that the higher micro batch sizes use more of the GPUs memory getting higher utilization and samples per second.
 

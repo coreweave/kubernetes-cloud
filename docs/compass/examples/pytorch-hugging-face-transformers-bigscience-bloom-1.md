@@ -15,7 +15,7 @@ This example demonstrates how to deploy [BLOOM](https://huggingface.co/bigscienc
 Please [contact CoreWeave Support](https://cloud.coreweave.com/contact) to access NVIDIA A100 80GB GPUs.
 {% endhint %}
 
-![To follow along, please clone the manifests from GitHub](<../../.gitbook/assets/image (1) (5) (1).png>)
+![To follow along, please clone the manifests from GitHub](<../../.gitbook/assets/image (1) (5).png>)
 
 ### What is BLOOM?
 
