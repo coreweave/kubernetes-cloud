@@ -26,7 +26,7 @@ Namespace separation can be necessary to segregate workloads for security purpos
 
 ### Permissions
 
-At this time, permissions are uniform across all namespaces for a single organization by default. If you need different permissions configurations per namespace, [contact your CoreWeave Support Specialist](https://cloud.coreweave.com/contact).&#x20;
+The permissions and quotas for new namespaces are inherited from the namespace that is set in your current context in the CoreWeave Cloud dashboard. To change any of these permissions, [contact your CoreWeave Support Specialist](https://cloud.coreweave.com/contact).&#x20;
 
 ### Kubeconfig
 
