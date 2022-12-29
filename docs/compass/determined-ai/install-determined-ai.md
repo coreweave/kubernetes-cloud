@@ -33,3 +33,23 @@ Some values, such as link to the cluster, may be important for certain applicati
 {% endhint %}
 
 Finally, click the **Deploy** button at the bottom of the configuration screen to launch the application.
+
+## Accessing Determined
+
+Once the application is in a **Ready** state, the Determined AI Web UI may be accessed by visiting the Ingress URL provided in the post-launch notes. The default URL and default login information for the instance will be listed after the text `To access the Web UI, please visit:`. Navigate to the given URL using your Web browser to access the Determined UI.
+
+{% hint style="info" %}
+**Note**
+
+The client is configured to communicate with the server via the environment variable `$DET_MASTER`.
+{% endhint %}
+
+<figure><img src="../../.gitbook/assets/image (5).png" alt="The Web UI access info in the post-launch notes"><figcaption><p>The Web UI access info in the post-launch notes</p></figcaption></figure>
+
+### The Web UI
+
+Navigating to the generated URL will lead you to the Determined AI home screen. From here you can do things like [launch a JupyterLab and subsequent Jupyter Notebooks](launch-jupyter-notebook-on-coreweave-via-determined-ai.md), or perform model finetuning using [GPT DeepSpeed](launch-gpt-deepspeed-models-using-determinedai.md), [GPT-NeoX](gpt-neox.md), or [HuggingFace](finetuning-huggingface-llms-with-determined-ai-and-deepspeed.md).
+
+<figure><img src="../../.gitbook/assets/image (3).png" alt="The Determined AI Web UI"><figcaption><p>The Determined AI Web UI</p></figcaption></figure>
+
+For more information on using Determined AI, refer to the [official Determined AI documentation](https://docs.determined.ai/latest/).
