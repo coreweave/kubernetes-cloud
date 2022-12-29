@@ -8,13 +8,14 @@ description: Manage Storage Volumes using Kubectl
 
 Storage can be managed via the Kubernetes API natively using `kubectl`. Below are some example manifests to do this, as well as descriptions of the fields used.
 
-| Field name         | Field type | Description                                                                                                         |
-| ------------------ | ---------- | ------------------------------------------------------------------------------------------------------------------- |
-| `storageClassName` | string     | Sets the storage class name for the volume's PVC; determines which kind of storage class the volume will be         |
-| `accessModes`      | list       | Sets the [access mode](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#access-modes) for the volume |
-| `resources`        | array      | Defines which resources with which to provision the Volume                                                          |
-| `requests`         | array      | Defines the resource requests to create the volume                                                                  |
-| `storage`          | string     | Determines the size of the volume, in Gi                                                                            |
+| Field name            | Field type | Description                                                                                                             |
+| --------------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `storageClassName`    | string     | Sets the storage class name for the volume's PVC; determines which kind of storage class the volume will be             |
+| `accessModes`         | list       | Sets the [access mode](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#access-modes) for the volume     |
+| `resources`           | array      | Defines which resources with which to provision the Volume                                                              |
+| `requests`            | array      | Defines the resource requests to create the volume                                                                      |
+| `storage`             | string     | Determines the size of the volume, in Gi                                                                                |
+| `storage.root.serial` | bool       | The root disk serial number. When not specified, a new serial number is generated, which is preserved between restarts. |
 
 ### **All-NVMe volumes**
 
