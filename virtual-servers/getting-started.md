@@ -18,7 +18,7 @@ description: >-
 * :minidisc: Available with pre-built [**Linux distributions**](https://docs.coreweave.com/virtual-servers/coreweave-system-images/linux-images)**,** [**Windows versions**](https://docs.coreweave.com/virtual-servers/coreweave-system-images/windows-images)**, or** [**bring your own image**](../docs/virtual-servers/root-disk-lifecycle-management/importing-a-qcow2-image.md)**.** Need additional control? [Use cloud-init for customization at startup.](https://docs.coreweave.com/virtual-servers/coreweave-system-images/linux-images)
 * :floppy\_disk: Leverage **high-performance** [**CoreWeave Cloud Storage**](../docs/storage/storage/) for both the Virtual Server root disk and any shared file system volumes to connect to centralized asset storage.
 * :rocket: Up to **100Gbps internal and external networking speed** per instance, for blazing fast data transfers.
-* ****:bulb: **** [**Directly attach public IP addresses**](https://docs.coreweave.com/coreweave-kubernetes/networking) to a Virtual Server network interface, or leverage [Load Balancer IPs](https://docs.coreweave.com/coreweave-kubernetes/networking) to control internal and external service access.
+* ****:bulb: **** [Directly attach public IP addresses](../docs/virtual-servers/virtual-server-configuration-options/networking.md#attach-public-ip) to a Virtual Server network interface, or leverage [Load Balancer IPs](https://docs.coreweave.com/coreweave-kubernetes/networking) to control internal and external service access.
 
 ### What can I do with Virtual Servers?
 
