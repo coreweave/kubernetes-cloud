@@ -1,0 +1,109 @@
+apiVersion: "kubeflow.org/v1"
+kind: "PyTorchJob"
+metadata:
+  name: "pytorch-dist-mnist-nccl"
+spec:
+  pytorchReplicaSpecs:
+    Master:
+      replicas: 1
+      restartPolicy: OnFailure
+      template:
+        metadata:
+          annotations:
+            sidecar.istio.io/inject: "false"
+        spec:
+          containers:
+            - name: pytorch
+              image: navarrepratt/pytorch_dist_mnist:1
+              args:
+                - "--backend"
+                - "nccl"
+                - "--log-dir"
+                - "/mnt/pvc/pytorch/logs"
+                - "--data-dir"
+                - "/mnt/pvc/dataset"
+                - "--model-dir"
+                - "/mnt/pvc/pytorch/checkpoints"
+              resources:
+                requests:
+                  cpu: 4
+                  memory: 16G
+                  nvidia.com/gpu: 1
+                limits:
+                  cpu: 4
+                  memory: 16G
+                  nvidia.com/gpu: 1
+              volumeMounts:
+                - name: kubeflow-mnist
+                  mountPath: /mnt/pvc
+
+          volumes:
+            - name: kubeflow-mnist
+              persistentVolumeClaim:
+                claimName: kubeflow-mnist
+
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                  - matchExpressions:
+                      - key: gpu.nvidia.com/model
+                        operator: In
+                        values:
+                          - RTX_A4000
+                      - key: failure-domain.beta.kubernetes.io/region
+                        operator: In
+                        values:
+                          - LAS1
+
+    Worker:
+      replicas: 3
+      restartPolicy: OnFailure
+      template:
+        metadata:
+          annotations:
+            sidecar.istio.io/inject: "false"
+        spec:
+          containers:
+            - name: pytorch
+              image: navarrepratt/pytorch_dist_mnist:1
+              args:
+                - "--backend"
+                - "nccl"
+                - "--log-dir"
+                - "/mnt/pvc/pytorch/logs"
+                - "--data-dir"
+                - "/mnt/pvc/dataset"
+                - "--model-dir"
+                - "/mnt/pvc/pytorch/checkpoints"
+              resources:
+                requests:
+                  cpu: 4
+                  memory: 16G
+                  nvidia.com/gpu: 1
+                limits:
+                  cpu: 4
+                  memory: 16G
+                  nvidia.com/gpu: 1
+              volumeMounts:
+                - name: kubeflow-mnist
+                  mountPath: /mnt/pvc
+
+          volumes:
+            - name: kubeflow-mnist
+              persistentVolumeClaim:
+                claimName: kubeflow-mnist
+
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                  - matchExpressions:
+                      - key: gpu.nvidia.com/model
+                        operator: In
+                        values:
+                          - RTX_A4000
+                      - key: failure-domain.beta.kubernetes.io/region
+                        operator: In
+                        values:
+                          - LAS1

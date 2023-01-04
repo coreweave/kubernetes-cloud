@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: kubeflow-mnist
+spec:
+  storageClassName: shared-hdd-las1
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi

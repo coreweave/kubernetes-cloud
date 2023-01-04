@@ -1,0 +1,12 @@
+FROM nvcr.io/nvidia/pytorch:22.12-py3
+
+RUN pip install tensorboardX filelock
+RUN mkdir -p /opt/mnist
+
+WORKDIR /opt/mnist/src
+ADD mnist_pytorch.py /opt/mnist/src/mnist.py
+
+RUN  chgrp -R 0 /opt/mnist \
+  && chmod -R g+rwX /opt/mnist
+
+ENTRYPOINT ["python", "/opt/mnist/src/mnist.py"]

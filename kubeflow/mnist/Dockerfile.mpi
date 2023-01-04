@@ -1,0 +1,20 @@
+FROM nvcr.io/nvidia/pytorch:22.12-py3
+
+RUN HOROVOD_GPU_OPERATIONS=NCCL pip install tensorboardX horovod[pytorch] filelock
+RUN mkdir -p /opt/mnist
+
+RUN  chgrp -R 0 /opt/mnist \
+  && chmod -R g+rwX /opt/mnist
+
+RUN apt-get -qq update && \
+    apt-get -qq install -y --allow-change-held-packages --no-install-recommends \
+    openssh-server
+
+# SSH dependencies for MPI
+RUN sed -i 's/[ #]\(.*StrictHostKeyChecking \).*/ \1no/g' /etc/ssh/ssh_config && \
+    echo "    UserKnownHostsFile /dev/null" >> /etc/ssh/ssh_config && \
+    sed -i 's/#\(StrictModes \).*/\1no/g' /etc/ssh/sshd_config && \
+    mkdir /var/run/sshd -p
+
+WORKDIR /opt/mnist/src
+ADD mnist_horovod.py /opt/mnist/src/mnist.py

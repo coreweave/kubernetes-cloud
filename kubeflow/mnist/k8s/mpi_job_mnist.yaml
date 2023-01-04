@@ -1,0 +1,70 @@
+apiVersion: "kubeflow.org/v2beta1"
+kind: "MPIJob"
+metadata:
+  name: "pytorch-horovod-mnist-mpi"
+spec:
+  slotsPerWorker: 4
+  runPolicy:
+    cleanPodPolicy: Running
+  mpiReplicaSpecs:
+    Launcher:
+      replicas: 1
+      restartPolicy: OnFailure
+      template:
+        spec:
+          containers:
+            - name: pytorch
+              image: navarrepratt/pytorch_mpi_mnist:1
+              command:
+                - "mpirun"
+                - "-n"
+                - "4"  # Total processes = num workers * slots per workers
+                - "--allow-run-as-root"
+                - "python"
+                - "/opt/mnist/src/mnist.py"
+                - "--data-dir"
+                - "/mnt/pvc/dataset"
+                - "--model-dir"
+                - "/mnt/pvc/mpi/checkpoints"
+              resources:
+                requests:
+                  cpu: 2
+                  memory: 128Mi
+
+    Worker:
+      replicas: 1
+      restartPolicy: OnFailure
+      template:
+        spec:
+          containers:
+            - name: pytorch
+              image: navarrepratt/pytorch_mpi_mnist:1
+              resources:
+                requests:
+                  cpu: 4
+                  memory: 16G
+                  nvidia.com/gpu: 4
+                limits:
+                  cpu: 4
+                  memory: 16G
+                  nvidia.com/gpu: 4
+              volumeMounts:
+                - name: kubeflow-mnist
+                  mountPath: /mnt/pvc
+          volumes:
+            - name: kubeflow-mnist
+              persistentVolumeClaim:
+                claimName: kubeflow-mnist
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                  - matchExpressions:
+                      - key: gpu.nvidia.com/model
+                        operator: In
+                        values:
+                          - RTX_A4000
+                      - key: failure-domain.beta.kubernetes.io/region
+                        operator: In
+                        values:
+                          - LAS1
