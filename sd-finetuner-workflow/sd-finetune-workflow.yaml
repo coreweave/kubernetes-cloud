@@ -110,7 +110,7 @@ spec:
     - name: finetuner_image
       value: 'ghcr.io/coreweave/ml-containers/sd-finetuner'
     - name: finetuner_tag
-      value: '1924bc5'
+      value: '1061aab'
     - name: inference_image
       value: 'ghcr.io/coreweave/ml-containers/sd-inference'
     - name: inference_tag
