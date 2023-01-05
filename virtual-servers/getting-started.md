@@ -1,7 +1,7 @@
 ---
 description: >-
   What Virtual Servers are, what makes them unique, and how to deploy them onto
-  CoreWeave Cloud.
+  CoreWeave Cloud
 ---
 
 # Get Started with Virtual Servers
