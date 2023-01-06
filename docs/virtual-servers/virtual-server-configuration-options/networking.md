@@ -120,7 +120,7 @@ Floating IPs allow the provisioning of stable IP addresses, assigned from the lo
 
 
 
-![The floatingIPs option in the YAML manifest.](<../../.gitbook/assets/image (7) (2).png>)
+![The floatingIPs option in the YAML manifest.](<../../.gitbook/assets/image (7) (2) (1).png>)
 
 Floating IPs can be specified in the YAML manifest in a YAML list.\
 \

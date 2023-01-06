@@ -1,5 +1,5 @@
 ---
-description: Creating your own Blender render farm using thousands of GPUs
+description: Create your own Blender render farm using thousands of GPUs
 ---
 
 # CGI Rendering Using Workflows
@@ -239,7 +239,7 @@ spec:
 {% hint style="info" %}
 **Note**
 
-[Retry logic](https://argoproj.github.io/argo-workflows/retries/) is considered a best practice when running rendering in parallel. Due to the constant advancements in CGI rendering platforms and GPU compute, sometimes these things break "for no reason." Retries as defined in your Argo Workflow template will ensure you aren't hunting for frames lost due to some unknown cause.
+Argo's [retry logic](https://argoproj.github.io/argo-workflows/retries/) is considered a best practice when running rendering in parallel. Due to the constant advancements in CGI rendering platforms and GPU compute, sometimes these things break "for no reason." Retries as defined in your Argo Workflow template will ensure you aren't hunting for frames lost due to some unknown cause.
 {% endhint %}
 
 Our completed Workflow file, which we will save as `blender-gpu-render.yaml`, is now set up to render in parallel using 10 Pods of `4x NV_Pascal` GPUs.
@@ -293,6 +293,6 @@ STEP                                                   PODNAME                  
 
 This output shows the status of the 10 frames you've specified being rendered on 10 different GPU instances with `4x NV_Pascal GPUs` each. You can now browse to your FileBrowser site via the Ingress URL provided in the application status page, where you should see a new folder named `outputs` with a sub-directory - in this example named `bmw27_gpu`. This directory should now contain the 10 newly rendered frames!
 
-![](<../../.gitbook/assets/image (1).png>)
+<figure><img src="../../.gitbook/assets/image (1).png" alt="Newly rendered frames in the file browser"><figcaption><p>Newly rendered frames in the file browser</p></figcaption></figure>
 
 With just some small changes to the Argo workflow we just built and used, you can now run your Blender GPU rendering on thousands of GPUs simultaneously!

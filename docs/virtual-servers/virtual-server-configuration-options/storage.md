@@ -11,7 +11,7 @@ High-performance, network-attached storage for both [containerized workloads](ht
 {% hint style="info" %}
 **Note**
 
-For implementation instructions for **all deployment methods**, see [the Storage section](https://docs.coreweave.com/coreweave-kubernetes/storage#how-to-provision-coreweave-cloud-storage).
+For implementation instructions for **all deployment methods**, see [the Storage section](broken-reference).
 {% endhint %}
 {% endtab %}
 {% endtabs %}

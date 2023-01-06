@@ -35,7 +35,7 @@ The following tools must be installed and configured prior to running the exampl
 
 We require two images:
 
-1. **The Downloader image.** This will download the model to a [shared storage volume](../../storage/storage.md), the individual inference Pods will load the model from this storage instead of downloading it over internet every time they scale up.
+1. **The Downloader image.** This will download the model to a [shared storage volume](../../storage/storage/), the individual inference Pods will load the model from this storage instead of downloading it over internet every time they scale up.
 2. **The Model Image.** This is what will run CompVis/stable-diffusion-v1-4
 
 {% hint style="warning" %}
@@ -211,7 +211,7 @@ Depending on use case, GPUs with less VRAM will also work down to 8GB GPUs, such
 
 The graph and table below compare recent GPU benchmark inference speeds for Stable Diffusion processing on different GPUs:
 
-<figure><img src="../../.gitbook/assets/image (7).png" alt="A graph displaying a comparison of benchmark inference times for Stable Diffusion on different GPUs"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (7) (2).png" alt="A graph displaying a comparison of benchmark inference times for Stable Diffusion on different GPUs"><figcaption></figcaption></figure>
 
 | GPU              | Seconds |
 | ---------------- | ------- |

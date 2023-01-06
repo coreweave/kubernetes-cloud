@@ -346,6 +346,9 @@ else:
         sys.exit(1)
     print(get_gpu_ram())
 
+#log out the tokenizer and model
+print(f"Tokenizer: {tokenizer}")
+
 model.config.gradient_checkpointing = True
 model.resize_token_embeddings(len(tokenizer))
 model.config.use_cache = False

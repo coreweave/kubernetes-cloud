@@ -7,7 +7,8 @@ RUN apt-get install -y cuda-nvcc-11-3 cuda-nvml-dev-11-3 libcurand-dev-11-3 \
 RUN mkdir /app
 WORKDIR /app
 COPY requirements.txt .
+COPY accelerate_config.yaml .
 RUN pip3 install --no-cache-dir -r requirements.txt
 RUN pip3 install --no-cache-dir torch torchvision --extra-index-url https://download.pytorch.org/whl/cu116 --upgrade
 COPY finetuner.py .
-CMD [ "/usr/bin/python3", "finetuner.py" ]
+CMD [ "/usr/bin/python3", "-m", "accelerate.commands.launch", "finetuner.py" ]

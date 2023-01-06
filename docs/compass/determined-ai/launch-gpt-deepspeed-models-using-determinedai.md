@@ -2,7 +2,7 @@
 description: Launch a GPT DeepSpeed model using DeterminedAI on CoreWeave Cloud
 ---
 
-# Launching GPT DeepSpeed Models using DeterminedAI
+# Launch GPT DeepSpeed Models using DeterminedAI
 
 DeepSpeed is an [open source](https://en.wikipedia.org/wiki/Open\_source) [deep learning](https://en.wikipedia.org/wiki/Deep\_learning) optimization library for [PyTorch](https://en.wikipedia.org/wiki/PyTorch) optimized for low latency, high throughput training, and is designed to reduce compute power and memory use for the purpose of training large distributed models.
 
@@ -13,7 +13,7 @@ In the example below, a minimal GPT-NeoX DeepSpeed distributed training job is l
 
 This guide makes several assumptions:\
 \
-• You have [set up the CoreWeave Kubernetes environment](../../coreweave-kubernetes/getting-started.md).\
+• You have [set up the CoreWeave Kubernetes environment](../../../coreweave-kubernetes/getting-started.md).\
 • You have some experience launching and using [DeterminedAI on CoreWeave Cloud](https://www.determined.ai). (If you have not done so already, it is recommended to [deploy DeterminedAI via the application Catalog](https://apps.coreweave.com/) to familiarize yourself with it).\
 • You have `git` installed on your terminal.
 {% endhint %}
@@ -30,11 +30,9 @@ $ git clone --recurse-submodules https://github.com/coreweave/gpt-det-deepseed.g
 
 ### Install DeterminedAI
 
-To install DeterminedAI, log in to your CoreWeave Cloud account and navigate to the applications Catalog. From here, search for and locate the DeterminedAI application. Click into it to configure the instance from the deployment screen, then deploy the instance into your cluster by clicking the **Deploy** button.
+[Follow the steps to install the Determined AI application](install-determined-ai.md).
 
-Once the instance is shown as `Ready`, you may proceed with the experiment.
-
-In the configuration file `gpt_neox_config/small.yml`, change the `vocab_path`, `data_path` `load`, and `save` parameters to the appropriate paths.
+Then, in the configuration file `gpt_neox_config/small.yml`, change the `vocab_path`, `data_path` `load`, and `save` parameters to the appropriate paths.
 
 ### The launcher configuration file
 

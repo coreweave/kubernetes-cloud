@@ -11,7 +11,7 @@ This guide requires `kubectl` and a valid access token. View [Getting Started](.
 
 ### Storage Classes
 
-[Storage](../../storage/storage.md) on CoreWeave Cloud is delineated by [storage classes](https://kubernetes.io/docs/concepts/storage/storage-classes/), in the notation of `<storage type block|shared>`-`<storage medium hdd|nvme>`-`<region ord1|las1|etc>`. For example:
+[Storage](../../storage/storage/) on CoreWeave Cloud is delineated by [storage classes](https://kubernetes.io/docs/concepts/storage/storage-classes/), in the notation of `<storage type block|shared>`-`<storage medium hdd|nvme>`-`<region ord1|las1|etc>`. For example:
 
 * `block-nvme-ewr1`
 * `block-nvme-las1`

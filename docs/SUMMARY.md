@@ -11,6 +11,7 @@
 * [Useful Commands](../coreweave-kubernetes/useful-commands.md)
 * [Node Types](../coreweave-kubernetes/node-types.md)
 * [Advanced Label Selectors](../coreweave-kubernetes/label-selectors.md)
+* [CoSchedulers](coreweave-kubernetes/coschedulers.md)
 * [Serverless](../coreweave-kubernetes/serverless.md)
 * [Metrics](../coreweave-kubernetes/prometheus/README.md)
   * [Grafana](../coreweave-kubernetes/prometheus/grafana.md)
@@ -41,7 +42,9 @@
 
 ## Storage
 
-* [Get Started with Storage](storage/storage.md)
+* [Get Started with Storage](storage/storage/README.md)
+  * [Using Storage - Cloud UI](storage/storage/using-storage-cloud-ui.md)
+  * [Using Storage - Kubectl](storage/storage/using-storage-kubectl.md)
 * [Object Storage](storage/object-storage.md)
 
 ## Virtual Servers
@@ -76,7 +79,7 @@
     * [Configuring a Linux image sourced from CoreWeave Cloud](../virtual-servers/root-disk-lifecycle-management/using-packer-to-create-and-update-os-images/configuring-a-linux-image-sourced-from-coreweave-cloud.md)
     * [Configuring an externally sourced cloud Linux image](../virtual-servers/root-disk-lifecycle-management/using-packer-to-create-and-update-os-images/configuring-an-externally-sourced-cloud-linux-image.md)
   * [Exporting images to QCOW2](../virtual-servers/root-disk-lifecycle-management/exporting-images-to-qcow2.md)
-  * [Importing a QCOW2 image](virtual-servers/root-disk-lifecycle-management/importing-a-qcow2-image.md)
+  * [Importing Disk Images](virtual-servers/root-disk-lifecycle-management/importing-a-qcow2-image.md)
   * [Cloning block volumes](virtual-servers/root-disk-lifecycle-management/cloning-block-volumes.md)
 * [CoreWeave System Images](virtual-servers/coreweave-system-images/README.md)
   * [Windows Images](virtual-servers/coreweave-system-images/windows-images.md)
@@ -90,6 +93,7 @@
 ## Inference <a href="#compass" id="compass"></a>
 
 * [Get Started with Inference](../compass/online-inference.md)
+* [NVIDIA HGX H100](compass/nvidia-hgx-h100.md)
 * [Inference Examples](../compass/examples/README.md)
   * [PyTorch Hugging Face Diffusers - Stable Diffusion Text to Image](compass/examples/pytorch-hugging-face-diffusers-stable-diffusion-text-to-image.md)
   * [PyTorch Hugging Face Transformers Accelerate - BigScience BLOOM](compass/examples/pytorch-hugging-face-transformers-bigscience-bloom.md)
@@ -109,8 +113,13 @@
   * [GPT-J-6B](../compass/models/gpt-j-6b.md)
 * [Finetuning Machine Learning Models](compass/finetuning-machine-learning-models.md)
 * [Finetuning Image Generation Models](compass/finetuning-image-generation-models.md)
-* [Launching GPT DeepSpeed Models using DeterminedAI](compass/launching-gpt-deepspeed-models-using-determinedai.md)
-* [Finetuning GPT-NeoX 20B using DeterminedAI](compass/gpt-neox.md)
+* [Determined AI](compass/determined-ai/README.md)
+  * [Install Determined AI](compass/determined-ai/install-determined-ai.md)
+  * [Shell for Machine Learning on Determined AI](compass/determined-ai/shell-for-machine-learning-on-determined-ai.md)
+  * [Launch Jupyter Notebook on CoreWeave via Determined AI](compass/determined-ai/launch-jupyter-notebook-on-coreweave-via-determined-ai.md)
+  * [Finetune GPT-NeoX 20B using DeterminedAI](compass/determined-ai/gpt-neox.md)
+  * [Launch GPT DeepSpeed Models using DeterminedAI](compass/determined-ai/launch-gpt-deepspeed-models-using-determinedai.md)
+  * [Finetuning HuggingFace LLMs with Determined AI and DeepSpeed](compass/determined-ai/finetuning-huggingface-llms-with-determined-ai-and-deepspeed.md)
 
 ## Workflows
 
@@ -131,7 +140,13 @@
 ## Cloud Account Management
 
 * [Organizations](cloud-account-management/organizations.md)
+* [Namespace Management](cloud-account-management/namespace-management.md)
 * [Billing Portal](cloud-account-management/billing-portal.md)
+
+## Security
+
+* [CoreWeave Vulnerability Disclosure Policy](security/coreweave-vulnerability-disclosure-policy.md)
+* [Information Security Advisories](security/information-security-advisories.md)
 
 ## Resources
 

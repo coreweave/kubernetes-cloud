@@ -97,6 +97,8 @@ spec:
     # Training GPU - A6000, 48gb VRAM
     - name: trainer_gpu
       value: 'RTX_A6000'
+    - name: trainer_gpu_count
+      value: '1'
     # Inference GPU - Quadro RTX 5000, 16gb VRAM
     - name: inference_gpu
       value: 'Quadro_RTX_5000'
@@ -108,11 +110,11 @@ spec:
     - name: finetuner_image
       value: 'ghcr.io/coreweave/ml-containers/sd-finetuner'
     - name: finetuner_tag
-      value: '47e37cd'
+      value: '1061aab'
     - name: inference_image
-      value: 'docker.io/harubaru1/stable-diffusion'
+      value: 'ghcr.io/coreweave/ml-containers/sd-inference'
     - name: inference_tag
-      value: '6'
+      value: '01320dd'
 
   templates:
   - name: main
@@ -132,6 +134,8 @@ spec:
         template: model-finetuner
         arguments:
           parameters:
+          - name: gpu_count
+            value: "{{workflow.parameters.trainer_gpu_count}}"
           - name: run_name
             value: "{{workflow.parameters.run_name}}"
           - name: model
@@ -240,6 +244,7 @@ spec:
   - name: model-finetuner
     inputs:
       parameters:
+        - name: gpu_count
         - name: run_name
         - name: model
         - name: dataset
@@ -268,7 +273,11 @@ spec:
         - name: project_id
     container:
       image: "{{workflow.parameters.finetuner_image}}:{{workflow.parameters.finetuner_tag}}"
-      command: [ "/usr/bin/python3", "/app/finetuner.py" ]
+      command: [ "/usr/bin/python3",
+                 "-m", "accelerate.commands.launch",
+                 "--config", "/app/accelerate_config.yaml",
+                 "--num_processes", "{{inputs.parameters.gpu_count}}",
+                 "/app/finetuner.py" ]
       args: ["--run_name", "{{inputs.parameters.run_name}}",
               "--model", "{{inputs.parameters.model}}",
               "--dataset", "{{inputs.parameters.dataset}}",
@@ -301,14 +310,15 @@ spec:
         value: "1"
       - name: WANDB_API_KEY
         value: "{{workflow.parameters.wandb_api_key}}"
+      - name: GPU_COUNT
+        value: "{{workflow.parameters.trainer_gpu_count}}"
       resources:
         requests:
           memory: 32Gi
           cpu: "8"
         limits:
           memory: 96Gi
-          cpu: "8"
-          nvidia.com/gpu: 1
+          cpu: "16"
       volumeMounts:
         - mountPath: "/{{workflow.parameters.pvc}}"
           name: "{{workflow.parameters.pvc}}"
@@ -329,6 +339,14 @@ spec:
                   operator: In
                   values:
                     - "{{workflow.parameters.region}}"
+    podSpecPatch: |
+      containers:
+        - name: main
+          resources:
+            limits:
+              nvidia.com/gpu: "{{inputs.parameters.gpu_count}}"
+            requests:
+              nvidia.com/gpu: "{{inputs.parameters.gpu_count}}"
   
   - name: model-inference-service
     inputs:

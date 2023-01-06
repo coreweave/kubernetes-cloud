@@ -36,7 +36,7 @@ There is an optional test [Inference endpoint](examples/pytorch-hugging-face-dif
 
 The above configuration for inferencing Stable Diffusion is billed at $0.65 per hour through CoreWeave's [resource based pricing](../../resources/resource-based-pricing.md) model.
 
-{% embed url="https://github.com/coreweave/kubernetes-cloud/tree/amercurio/sd-finetuner/sd-finetuner-workflow" %}
+{% embed url="https://github.com/coreweave/kubernetes-cloud/tree/master/sd-finetuner-workflow" %}
 View the code on GitHub
 {% endembed %}
 
@@ -189,9 +189,9 @@ Assuming that you now have a copy of `sd-finetune-workflow.yaml`, the Argo Workf
 
 ```shell-session
 $ argo submit sd-finetune-workflow.yaml \
-        -p run_name=example-sd \
-        -p model=CompVis/stable-diffusion-v1-4 \
-        -p dataset=dataset \
+        -p run_name=sd-test \
+        -p model=runwayml/stable-diffusion-v1-5 \
+        -p dataset=test-dataset \
         -p hf_token=<Add your HuggingFace token here> \
         -p wandb_token=<Add your WandB token here> \
         -p run_inference=true
@@ -209,9 +209,9 @@ The parameters included in the above are:
 | Parameter Name               | Description                                                                                                                                                                                                                                                                              |
 | ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `run_name`                   | It is strongly recommended that the value of this parameter be unique, as it is what is used to name the `InferenceService` and for tracking the finetune through [WandB](https://wandb.ai/). Consequently, the `run_name` must meet DNS standards. Keep this parameter short in length. |
-| `model`                      | This example uses a Hugging Face model identifier to pull down Stable Diffusion 1.4 for finetuning. This model will be cached on subsequent runs on your PVC, under `models`.                                                                                                            |
+| `model`                      | This example uses a Hugging Face model identifier to pull down Stable Diffusion 1.5 for finetuning. This model will be cached on subsequent runs on your PVC, under `models`.                                                                                                            |
 | `dataset`                    | The name of the directory on the PVC.                                                                                                                                                                                                                                                    |
-| `hf_token`                   | Your Hugging Face token for pulling private models, such as Stable Diffusion 1.4                                                                                                                                                                                                         |
+| `hf_token`                   | Your Hugging Face token for pulling private models, such as Stable Diffusion 1.5                                                                                                                                                                                                         |
 | `wandb_token`                | Your [WandB token](https://wandb.ai/authorize) for tracking the finetune run.                                                                                                                                                                                                            |
 | `run_inference`              | This parameter explicitly tells the Workflow that we want to run a test inference service when this exercise is done. It is not intended to be a production service, but to provide an end-to-end demonstration, allowing you to test the finetuned model.                               |
 | `--serviceaccount inference` | Required for `run_inference` to work correctly.                                                                                                                                                                                                                                          |
@@ -230,24 +230,25 @@ Other methods of passing parameters to your jobs may be preferred to inline defi
 Once the job is submitted, you should see output that looks very much like the following:
 
 ```
-Name:                sd-finetune-qn92w
+Name:                sd-finetune-fhhwt
 Namespace:           tenant-sta-amercurio-amercurio
 ServiceAccount:      inference
 Status:              Pending
-Created:             Mon Oct 24 16:41:29 -0700 (1 second ago)
+Created:             Thu Dec 08 15:04:16 -0700 (now)
 Progress:            
 Parameters:          
-  run_name:          test
-  model:             CompVis/stable-diffusion-v1-4
-  dataset:           dataset
+  run_name:          sd-test
+  model:             runwayml/stable-diffusion-v1-5
+  epochs:            10
+  dataset:           test-dataset
   batch_size:        1
-  hf_token:          <A Hugging Face key here>
+  resolution:        512
+  hf_token:          <Add your HuggingFace token here>
   run_inference:     True
   inference_only:    False
-  wandb_api_key:     <A wandb API key here>
+  wandb_api_key:     <Add your WandB token here>
   pvc:               sd-finetune-data
   lr:                5e-6
-  epochs:            10
   use_ema:           False
   ucg:               0.1
   gradient_checkpointing: False
@@ -258,7 +259,6 @@ Parameters:
   adam_epsilon:      1e-8
   seed:              42
   save_steps:        500
-  resolution:        512
   resize:            False
   center_crop:       False
   resize_interp:     lanczos
@@ -271,21 +271,21 @@ Parameters:
   inference_gpu:     Quadro_RTX_5000
   downloader_image:  ghcr.io/wbrown/gpt_bpe/model_downloader
   downloader_tag:    797b903
-  finetuner_image:   docker.io/harubaru1/sd-finetuner
-  finetuner_tag:     r6
-  inference_image:   docker.io/harubaru1/stable-diffusion
-  inference_tag:     5
+  finetuner_image:   ghcr.io/coreweave/ml-containers/sd-finetuner
+  finetuner_tag:     1924bc5
+  inference_image:   ghcr.io/coreweave/ml-containers/sd-inference
+  inference_tag:     01320dd
 ```
 
 ## Observing the Argo Workflow
 
-At this point, we can observe the job via several mechanisms, now that we have the `Name` of `sd-finetune-qn92w`:
+At this point, we can observe the job via several mechanisms, now that we have the `Name` of `sd-finetune-fhhwt`:
 
 ### Argo Commands
 
 #### `argo watch`
 
-Invoking `argo watch sd-finetune-qn92w` tells Argo that we want to watch the job as it goes through the stages of:
+Invoking `argo watch sd-finetune-fhhwt` tells Argo that we want to watch the job as it goes through the stages of:
 
 * `model-download`
 * `model-finetune`\
@@ -295,29 +295,32 @@ Invoking `argo watch sd-finetune-qn92w` tells Argo that we want to watch the job
 #### Example output
 
 ```
-Name:                sd-finetune-qn92w
+Name:                sd-finetune-fhhwt
 Namespace:           tenant-sta-amercurio-amercurio
 ServiceAccount:      inference
-Status:              Running
+Status:              Succeeded
 Conditions:          
- PodRunning          True
-Created:             Mon Oct 24 16:41:29 -0700 (4 minutes ago)
-Started:             Mon Oct 24 16:41:30 -0700 (4 minutes ago)
-Duration:            4 minutes 19 seconds
-Progress:            1/2
-ResourcesDuration:   21s*(1 cpu),1m52s*(100Mi memory)
+ PodRunning          False
+ Completed           True
+Created:             Thu Dec 08 15:04:16 -0700 (4 minutes ago)
+Started:             Thu Dec 08 15:04:16 -0700 (4 minutes ago)
+Finished:            Thu Dec 08 15:08:41 -0700 (now)
+Duration:            4 minutes 25 seconds
+Progress:            3/3
+ResourcesDuration:   17m36s*(1 cpu),9h12m40s*(100Mi memory),1m34s*(1 nvidia.com/gpu)
 Parameters:          
-  run_name:          test
-  model:             CompVis/stable-diffusion-v1-4
-  dataset:           dataset
+  run_name:          sd-test
+  model:             runwayml/stable-diffusion-v1-5
+  epochs:            10
+  dataset:           test-dataset
   batch_size:        1
-  hf_token:          <A Hugging Face key here>
+  resolution:        512
+  hf_token:          <Add your HuggingFace token here>
   run_inference:     True
   inference_only:    False
-  wandb_api_key:     <A wandb API key here>
+  wandb_api_key:     <Add your WandB token here>
   pvc:               sd-finetune-data
   lr:                5e-6
-  epochs:            10
   use_ema:           False
   ucg:               0.1
   gradient_checkpointing: False
@@ -328,7 +331,6 @@ Parameters:
   adam_epsilon:      1e-8
   seed:              42
   save_steps:        500
-  resolution:        512
   resize:            False
   center_crop:       False
   resize_interp:     lanczos
@@ -341,20 +343,21 @@ Parameters:
   inference_gpu:     Quadro_RTX_5000
   downloader_image:  ghcr.io/wbrown/gpt_bpe/model_downloader
   downloader_tag:    797b903
-  finetuner_image:   docker.io/harubaru1/sd-finetuner
-  finetuner_tag:     r6
-  inference_image:   docker.io/harubaru1/stable-diffusion
-  inference_tag:     5
+  finetuner_image:   ghcr.io/coreweave/ml-containers/sd-finetuner
+  finetuner_tag:     1924bc5
+  inference_image:   ghcr.io/coreweave/ml-containers/sd-inference
+  inference_tag:     01320dd
 
-STEP                  TEMPLATE          PODNAME                       DURATION  MESSAGE
- ● sd-finetune-qn92w  main                                                        
- ├───✔ downloader(0)  model-downloader  sd-finetune-qn92w-3584625971  15s         
- └───● finetuner      model-finetuner   sd-finetune-qn92w-420816036   3m 
+STEP                  TEMPLATE                 PODNAME                       DURATION  MESSAGE
+ ✔ sd-finetune-fhhwt  main                                                               
+ ├───✔ downloader(0)  model-downloader         sd-finetune-fhhwt-2619431075  1m          
+ ├───✔ finetuner      model-finetuner          sd-finetune-fhhwt-640945044   2m          
+ └───✔ inference      model-inference-service  sd-finetune-fhhwt-1216885088  19s  
 ```
 
 #### `argo logs`
 
-Invoking `argo logs -f sd-finetune-qn92w kfserving-container` watches the logs in real time.
+Invoking `argo logs -f sd-finetune-fhhwt kfserving-container` watches the logs in real time.
 
 {% hint style="warning" %}
 **Important**
@@ -365,47 +368,43 @@ If this process appears to hang while outputting the message `Loading the model`
 #### Example Output
 
 ```
-sd-finetune-qn92w-420816036: wandb: Currently logged in as: haruu. Use `wandb login --relogin` to force relogin
-sd-finetune-qn92w-420816036: wandb: WARNING Path /sd-finetune-data/finetunes/test/wandb/wandb/ wasn't writable, using system temp directory.
-sd-finetune-qn92w-420816036: wandb: WARNING Path /sd-finetune-data/finetunes/test/wandb/wandb/ wasn't writable, using system temp directory
-sd-finetune-qn92w-420816036: wandb: Tracking run with wandb version 0.13.4
-sd-finetune-qn92w-420816036: wandb: Run data is saved locally in /tmp/wandb/run-20221024_234339-lfrc5t20
-sd-finetune-qn92w-420816036: wandb: Run `wandb offline` to turn off syncing.
-sd-finetune-qn92w-420816036: wandb: Syncing run test
-sd-finetune-qn92w-420816036: wandb: ⭐️ View project at https://wandb.ai/haruu/sd-finetune
-sd-finetune-qn92w-420816036: wandb: 🚀 View run at https://wandb.ai/haruu/sd-finetune/runs/lfrc5t20
-sd-finetune-qn92w-420816036: RUN_NAME: test
-sd-finetune-qn92w-420816036: HOST: sd-finetune-qn92w-420816036
-sd-finetune-qn92w-420816036: CUDA: 11.6
-sd-finetune-qn92w-420816036: TORCH: 1.12.1+cu116
-sd-finetune-qn92w-420816036: TRANSFORMERS: 4.23.1
-sd-finetune-qn92w-420816036: DIFFUSERS: 0.5.1
-sd-finetune-qn92w-420816036: MODEL: /sd-finetune-data/models/CompVis/stable-diffusion-v1-4
-sd-finetune-qn92w-420816036: FP16: False
-sd-finetune-qn92w-420816036: RESOLUTION: 512
-sd-finetune-qn92w-420816036: DEVICE: cuda
-sd-finetune-qn92w-420816036: RANDOM SEED: 42
-...
-100% 51/51 [00:07<00:00,  7.00it/s]
-Downloading: 100% 4.55k/4.55k [00:00<00:00, 4.42MB/s]
-Downloading: 100% 1.22G/1.22G [00:13<00:00, 93.4MB/s]
-sd-finetune-qn92w-420816036: CPU: (maxrss: 8,008mb F: 86,588mb) GPU: (U: 17,890mb F: 33,636mb T: 51,527mb) TORCH: (R: 15,466mb/16,148mb, A: 12,957mb/15,320mb)
-sd-finetune-qn92w-420816036: Done!
-wandb: Waiting for W&B process to finish... (success).                         
-sd-finetune-qn92w-420816036: wandb: 
-sd-finetune-qn92w-420816036: wandb: Run history:
-sd-finetune-qn92w-420816036: wandb: epoch ▁▁▁▁▂▂▂▂▃▃▃▃▃▃▃▃▄▄▄▄▅▅▅▅▆▆▆▆▆▆▆▆▇▇▇▇████
-sd-finetune-qn92w-420816036: wandb:  loss █▁▁▁▁▃▄▂▄▅▁▂▁▁▁▂▁▁▁▂▃▃▃▁▃▁▁▂▁▁▂▁▂▁▁▂▁▂▂▂
-sd-finetune-qn92w-420816036: wandb:    lr ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
-sd-finetune-qn92w-420816036: wandb: 
-sd-finetune-qn92w-420816036: wandb: Run summary:
-sd-finetune-qn92w-420816036: wandb: epoch 9
-sd-finetune-qn92w-420816036: wandb:  loss 0.06736
-sd-finetune-qn92w-420816036: wandb:    lr 1e-05
-sd-finetune-qn92w-420816036: wandb: 
-sd-finetune-qn92w-420816036: wandb: Synced test: https://wandb.ai/haruu/sd-finetune/runs/lfrc5t20
-sd-finetune-qn92w-420816036: wandb: Synced 5 W&B file(s), 24 media file(s), 0 artifact file(s) and 0 other file(s)
-sd-finetune-qn92w-420816036: wandb: Find logs at: /tmp/wandb/run-20221024_234339-lfrc5t20/logs
+sd-finetune-fhhwt-640945044: wandb: Currently logged in as: haruu. Use `wandb login --relogin` to force relogin
+sd-finetune-fhhwt-640945044: wandb: WARNING Path /sd-finetune-data/finetunes/sd-test/wandb/wandb/ wasn't writable, using system temp directory.
+sd-finetune-fhhwt-640945044: wandb: WARNING Path /sd-finetune-data/finetunes/sd-test/wandb/wandb/ wasn't writable, using system temp directory
+sd-finetune-fhhwt-640945044: wandb: wandb version 0.13.6 is available!  To upgrade, please run:
+sd-finetune-fhhwt-640945044: wandb:  $ pip install wandb --upgrade
+sd-finetune-fhhwt-640945044: wandb: Tracking run with wandb version 0.13.4
+sd-finetune-fhhwt-640945044: wandb: Run data is saved locally in /tmp/wandb/run-20221208_220645-5ehjolmm
+sd-finetune-fhhwt-640945044: wandb: Run `wandb offline` to turn off syncing.
+sd-finetune-fhhwt-640945044: wandb: Syncing run sd-test
+sd-finetune-fhhwt-640945044: wandb: ⭐️ View project at https://wandb.ai/haruu/sd-finetune
+sd-finetune-fhhwt-640945044: wandb: 🚀 View run at https://wandb.ai/haruu/sd-finetune/runs/5ehjolmm
+Downloading: 100% 4.55k/4.55k [00:00<00:00, 7.94MB/s]/rank_samples_per_second=2.24, train/epoch=9, train/loss=0.0358, train/lr=5e-6, train/samples_seen=79, train/step=79] amples_seen=48, train/step=48]
+Downloading: 100% 1.22G/1.22G [00:25<00:00, 48.5MB/s]
+Downloading: 100% 316/316 [00:00<00:00, 496kB/s]MB/s]
+sd-finetune-fhhwt-640945044: CPU: (maxrss: 12,682mb F: 92,639mb) GPU: (U: 23,119mb F: 28,407mb T: 51,527mb) TORCH: (R: 21,026mb/21,026mb, A: 14,672mb/20,953mb)
+sd-finetune-fhhwt-640945044: Done!
+wandb: Waiting for W&B process to finish... (success).                                                                                                                    
+wandb: | 0.005 MB of 0.005 MB uploaded (0.000 MB deduped)B uploaded (0.000 MB deduped)
+sd-finetune-fhhwt-640945044: wandb: Run history:
+sd-finetune-fhhwt-640945044: wandb: perf/rank_samples_per_second ▁███████████████████████████████████████
+sd-finetune-fhhwt-640945044: wandb:                  train/epoch ▁▁▁▁▂▂▂▂▃▃▃▃▃▃▃▃▄▄▄▄▅▅▅▅▆▆▆▆▆▆▆▆▇▇▇▇████
+sd-finetune-fhhwt-640945044: wandb:                   train/loss █▆▁▁▁▅▅▂▃▁▁▁▁▄▁▂▂▄▅▁▄▁▂▆▁▂▁▂▅▃▁▁▄▆▄▁▄▁▅▁
+sd-finetune-fhhwt-640945044: wandb:                     train/lr ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+sd-finetune-fhhwt-640945044: wandb:           train/samples_seen ▁▁▁▂▂▂▂▂▂▃▃▃▃▃▃▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▆▇▇▇▇▇███
+sd-finetune-fhhwt-640945044: wandb:                   train/step ▁▁▁▂▂▂▂▂▂▃▃▃▃▃▃▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▆▇▇▇▇▇███
+sd-finetune-fhhwt-640945044: wandb: 
+sd-finetune-fhhwt-640945044: wandb: Run summary:
+sd-finetune-fhhwt-640945044: wandb: perf/rank_samples_per_second 2.23878
+sd-finetune-fhhwt-640945044: wandb:                  train/epoch 9
+sd-finetune-fhhwt-640945044: wandb:                   train/loss 0.03577
+sd-finetune-fhhwt-640945044: wandb:                     train/lr 1e-05
+sd-finetune-fhhwt-640945044: wandb:           train/samples_seen 79
+sd-finetune-fhhwt-640945044: wandb:                   train/step 79
+sd-finetune-fhhwt-640945044: wandb: 
+sd-finetune-fhhwt-640945044: wandb: Synced sd-test: https://wandb.ai/haruu/sd-finetune/runs/5ehjolmm
+sd-finetune-fhhwt-640945044: wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+sd-finetune-fhhwt-640945044: wandb: Find logs at: /tmp/wandb/run-20221208_220645-5ehjolmm/logs
 ```
 
 During finetuning, the time elapsed is displayed, alongside the expected time to complete. Checkpointing and loss reporting is also reported within the logs as well as WandB.
@@ -418,6 +417,22 @@ You can instantly watch a submitted workflow by using the `--watch` option when 
 `argo submit --watch`
 {% endhint %}
 
+#### WandB Logging
+
+Logs for the finetuning workflow can be tracked and visualized using [Weights & Biases (WandB)](https://wandb.ai/). To use WandB, pass your WandB API key into the workflow's `wandb_api_key` parameter using `-p wand_api_key=<Add your WandB key here>`
+
+<figure><img src="../.gitbook/assets/UsbKtmS.png" alt=""><figcaption><p>Generated samples during finetuning</p></figcaption></figure>
+
+The Media tab is where you can see images being generated during the finetuning process for every `image_log_steps` amount of steps. This can also be adjusted depending on how often you want to sample from the model during finetuning.&#x20;
+
+<figure><img src="../.gitbook/assets/eP1wSTg.png" alt=""><figcaption><p>Performance metrics</p></figcaption></figure>
+
+In the performance tab you will see how fast the GPU is performing in a metric of samples per second.
+
+<figure><img src="../.gitbook/assets/i0oCpjf (2).png" alt=""><figcaption><p>Finetuning metrics</p></figcaption></figure>
+
+For the training tab, a multitude of finetuning metrics are recorded which indicates whether or not the workflow is making progress by reducing loss over time. These metrics can be very useful in determining whether or not the model has reached convergence.
+
 #### Web UI
 
 You can access your Argo Workflow application via HTTPS to see all the finetuner jobs, and to check their statuses.
@@ -428,37 +443,37 @@ You can access your Argo Workflow application via HTTPS to see all the finetuner
 
 The following section outlines some useful workflow parameters. This is not intended to be a complete or exhaustive reference on all exposed parameters.
 
-| Parameter                | Description                                                                                                                                                           | Default Value                   |
-| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------- |
-| `run_name`               | The run name used to name artifacts and report metrics. Should be unique.                                                                                             | N/A                             |
-| `pvc`                    | The PVC to use for dataset and model artifacts.                                                                                                                       | `sd-finetune-data`              |
-| `region`                 | The region to run the Argo jobs in. Generally, this should be ORD1.                                                                                                   | `ORD1`                          |
-| `dataset`                | The path to the dataset inside of the PVC.                                                                                                                            | `dataset`                       |
-| `model`                  | The Hugging Face model identifier to pull the Stable Diffusion model from.                                                                                            | `CompVis/stable-diffusion-v1-4` |
-| `epochs`                 | The amount of times the finetuner will run through the entire dataset.                                                                                                | `10`                            |
-| `batch_size`             | The amount of batches to use in a single optimization step.                                                                                                           | `1`                             |
-| `use_ema`                | Whether or not to use EMA during finetuning.                                                                                                                          | `False`                         |
-| `ucg`                    | The probability to drop the text condition during finetuning. This helps Classifier-Free Guidance.                                                                    | `0.1`                           |
-| `gradient_checkpointing` | Whether or not to perform gradient checkpointing to save VRAM consumption.                                                                                            | `False`                         |
-| `use_8bit_adam`          | Whether or not to use 8-bit Adam. This saves VRAM while improving speed but is only supported on a few NVIDIA GPUs.                                                   | `False`                         |
-| `adam_beta1`             | Beta 1 hyperparameter for the Adam Optimizer.                                                                                                                         | `0.9`                           |
-| `adam_beta2`             | Beta 2 hyperparameter for the Adam Optimizer.                                                                                                                         | `0.999`                         |
-| `adam_weight_decay`      | Weight Decay hyperparameter for the Adam Optimizer.                                                                                                                   | `1e-2`                          |
-| `adam_epsilon`           | Epsilon hyperparameter for the Adam Optimizer.                                                                                                                        | `1e-08`                         |
-| `seed`                   | Seed for random number generator. This is to be used for reproducibility purposes.                                                                                    | `42`                            |
-| `save_steps`             | The steps to save the model at.                                                                                                                                       | `500`                           |
-| `resolution`             | The image resolution to train the model at.                                                                                                                           | `512`                           |
-| `resize`                 | Whether or not to perform image resizing during training. Only set this to True if the images in your dataset are of different resolutions that you want to train at. | `False`                         |
-| `center_crop`            | Whether or not to center crop the training images.                                                                                                                    | `False`                         |
-| `resize_interp`          | The interpolation method to use for image resizing.                                                                                                                   | `lanczos`                       |
-| `shuffle`                | Whether or not to shuffle the dataset.                                                                                                                                | `True`                          |
-| `image_log_steps`        | The number of steps at which to log images at for WandB tracking.                                                                                                     | `500`                           |
-| `image_log_amount`       | The amount of images to log per each image logging step.                                                                                                              | `4`                             |
-| `hf_token`               | The Hugging Face token to use to download private Stable Diffusion models.                                                                                            | N/A                             |
-| `wandb_api_key`          | Your WandB API key for tracking the finetune run.                                                                                                                     | N/A                             |
-| `project_id`             | The project to report to in WandB.                                                                                                                                    | `diffusers`                     |
-| `run_inference`          | Whether or not to run inference at the end of finetuning.                                                                                                             | `False`                         |
-| `inference_only`         | Skip training and only run inference. This will only work if the model already exists within your PVC.                                                                | `False`                         |
+| Parameter                | Description                                                                                                                                                           | Default Value                    |
+| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- |
+| `run_name`               | The run name used to name artifacts and report metrics. Should be unique.                                                                                             | N/A                              |
+| `pvc`                    | The PVC to use for dataset and model artifacts.                                                                                                                       | `sd-finetune-data`               |
+| `region`                 | The region to run the Argo jobs in. Generally, this should be ORD1.                                                                                                   | `ORD1`                           |
+| `dataset`                | The path to the dataset inside of the PVC.                                                                                                                            | `dataset`                        |
+| `model`                  | The Hugging Face model identifier to pull the Stable Diffusion model from.                                                                                            | `runwayml/stable-diffusion-v1-5` |
+| `epochs`                 | The amount of times the finetuner will run through the entire dataset.                                                                                                | `10`                             |
+| `batch_size`             | The amount of batches to use in a single optimization step.                                                                                                           | `1`                              |
+| `use_ema`                | Whether or not to use EMA during finetuning.                                                                                                                          | `False`                          |
+| `ucg`                    | The probability to drop the text condition during finetuning. This helps Classifier-Free Guidance.                                                                    | `0.1`                            |
+| `gradient_checkpointing` | Whether or not to perform gradient checkpointing to save VRAM consumption.                                                                                            | `False`                          |
+| `use_8bit_adam`          | Whether or not to use 8-bit Adam. This saves VRAM while improving speed but is only supported on a few NVIDIA GPUs.                                                   | `False`                          |
+| `adam_beta1`             | Beta 1 hyperparameter for the Adam Optimizer.                                                                                                                         | `0.9`                            |
+| `adam_beta2`             | Beta 2 hyperparameter for the Adam Optimizer.                                                                                                                         | `0.999`                          |
+| `adam_weight_decay`      | Weight Decay hyperparameter for the Adam Optimizer.                                                                                                                   | `1e-2`                           |
+| `adam_epsilon`           | Epsilon hyperparameter for the Adam Optimizer.                                                                                                                        | `1e-08`                          |
+| `seed`                   | Seed for random number generator. This is to be used for reproducibility purposes.                                                                                    | `42`                             |
+| `save_steps`             | The steps to save the model at.                                                                                                                                       | `500`                            |
+| `resolution`             | The image resolution to train the model at.                                                                                                                           | `512`                            |
+| `resize`                 | Whether or not to perform image resizing during training. Only set this to True if the images in your dataset are of different resolutions that you want to train at. | `False`                          |
+| `center_crop`            | Whether or not to center crop the training images.                                                                                                                    | `False`                          |
+| `resize_interp`          | The interpolation method to use for image resizing.                                                                                                                   | `lanczos`                        |
+| `shuffle`                | Whether or not to shuffle the dataset.                                                                                                                                | `True`                           |
+| `image_log_steps`        | The number of steps at which to log images at for WandB tracking.                                                                                                     | `500`                            |
+| `image_log_amount`       | The amount of images to log per each image logging step.                                                                                                              | `4`                              |
+| `hf_token`               | The Hugging Face token to use to download private Stable Diffusion models.                                                                                            | N/A                              |
+| `wandb_api_key`          | Your WandB API key for tracking the finetune run.                                                                                                                     | N/A                              |
+| `project_id`             | The project to report to in WandB.                                                                                                                                    | `diffusers`                      |
+| `run_inference`          | Whether or not to run inference at the end of finetuning.                                                                                                             | `False`                          |
+| `inference_only`         | Skip training and only run inference. This will only work if the model already exists within your PVC.                                                                | `False`                          |
 
 ## Artifacts and Inference
 
