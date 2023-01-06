@@ -10,7 +10,7 @@ On CoreWeave, **Kubeconfig** files are used to interact with our Kubernetes clus
 
 To generate your access credentials, first [sign up for CoreWeave Cloud](https://cloud.coreweave.com/request-account). Once you have an account, [log in to the Cloud UI](https://cloud.coreweave.com), then navigate to the **API Access** page from the left-hand menu.
 
-<figure><img src="../docs/.gitbook/assets/image (7) (4).png" alt="Screenshot of The API &#x26; Kubeconfig page on the Cloud UI"><figcaption><p>The API &#x26; Kubeconfig page on the Cloud UI</p></figcaption></figure>
+<figure><img src="../docs/.gitbook/assets/image (7) (5).png" alt="Screenshot of The API &#x26; Kubeconfig page on the Cloud UI"><figcaption><p>The API &#x26; Kubeconfig page on the Cloud UI</p></figcaption></figure>
 
 ### Generate the Kubeconfig file
 
