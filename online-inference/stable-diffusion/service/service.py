@@ -5,13 +5,15 @@ from typing import Dict
 from argparse import ArgumentParser
 from io import BytesIO
 
+from tensorizer import load_model
+
 import torch
 from torch import autocast
-from diffusers import StableDiffusionPipeline, LMSDiscreteScheduler
+from diffusers import StableDiffusionPipeline, LMSDiscreteScheduler, AutoencoderKL, UNet2DConditionModel
+from transformers import CLIPTextModel, CLIPTextConfig, CLIPTokenizer
 
 parser = ArgumentParser()
-parser.add_argument("--model-id", default="CompVis/stable-diffusion-v1-4", type=str)
-parser.add_argument("--hf-home", default="/mnt/models/hub", type=str)
+parser.add_argument("--model-id", default="/mnt/models/CompVis/stable-diffusion-v1-4", type=str)
 parser.add_argument(
     "--precision", choices=["float16", "float32"], default="float16", type=str
 )
@@ -23,11 +25,11 @@ parser.add_argument("--height", default=512, type=int)
 parser.add_argument("--beta-start", default=0.00085, type=float)
 parser.add_argument("--beta-end", default=0.012, type=float)
 parser.add_argument("--num-train-timesteps", default=1000, type=int)
+parser.add_argument("--tensorized", default=False, action="store_true")
 args = parser.parse_args()
 
 options = {
     "MODEL_ID": os.getenv("MODEL_ID", default=args.model_id),
-    "MODEL_CACHE": os.getenv("HF_HOME", default=args.hf_home),
     "PRECISION": str(os.getenv("PRECISION", default=args.precision)),
     "BETA_START": float(os.getenv("BETA_START", default=args.beta_start)),
     "BETA_END": float(os.getenv("BETA_END", default=args.beta_end)),
@@ -45,7 +47,6 @@ logging.basicConfig(level=kserve.constants.KSERVE_LOGLEVEL)
 logger = logging.getLogger(MODEL_NAME)
 logger.info(f"Model Name: {MODEL_NAME}")
 logger.info(f'Model ID: {options["MODEL_ID"]}')
-logger.info(f'Model Cache: {options["MODEL_CACHE"]}')
 
 parameters = {
     "GUIDANCE_SCALE": float(os.getenv("CONDITION_SCALE", default=args.guidance_scale)),
@@ -65,23 +66,38 @@ class Model(kserve.Model):
         self.ready = False
         self.pipeline = None
         self.model_name = name
+    
+    def load_diffusers(self):
+        self.pipeline = StableDiffusionPipeline.from_pretrained(
+            options["MODEL_ID"],
+            torch_dtype=getattr(torch, options["PRECISION"]),
+            scheduler=LMSDiscreteScheduler.from_pretrained(options["MODEL_ID"], subfolder="scheduler"),
+            local_files_only=True,
+        )
+
+    def load_tensorizer(self):
+        vae = load_model(options["MODEL_ID"], AutoencoderKL, None, "vae")
+        unet = load_model(options["MODEL_ID"], UNet2DConditionModel, None, "unet")
+        encoder = load_model(options["MODEL_ID"], CLIPTextModel, CLIPTextConfig, "encoder")
+
+        self.pipeline = StableDiffusionPipeline(
+            text_encoder=encoder,
+            vae=vae,
+            unet=unet,
+            scheduler=LMSDiscreteScheduler.from_pretrained(options["MODEL_ID"], subfolder="scheduler"),
+            tokenizer=CLIPTokenizer.from_pretrained(options["MODEL_ID"]),
+            safety_checker=None,
+            feature_extractor=None,
+        )
 
     def load(self):
         logger.info(f"Loading {MODEL_NAME}")
-        lms = LMSDiscreteScheduler(
-            beta_start=options["BETA_START"],
-            beta_end=options["BETA_END"],
-            beta_schedule="scaled_linear",
-            num_train_timesteps=options["NUM_TRAIN_TIMESTEPS"],
-        )
 
-        self.pipeline = StableDiffusionPipeline.from_pretrained(
-            options["MODEL_ID"],
-            cache_dir=options["MODEL_CACHE"],
-            torch_dtype=getattr(torch, options["PRECISION"]),
-            scheduler=lms,
-            local_files_only=True,
-        )
+        if args.tensorized == True:
+            self.load_tensorizer()
+        else:
+            self.load_diffusers()
+
         logger.info(f"Loaded {MODEL_NAME}")
 
         logger.info(f"Loading {MODEL_NAME} to accelerator")

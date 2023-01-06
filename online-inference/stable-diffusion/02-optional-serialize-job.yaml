@@ -13,7 +13,7 @@ spec:
           - "python3"
           - "/app/serialize.py"
           - "--model-id=CompVis/stable-diffusion-v1-4"
-          - "--save-path=/mnt/models/stable-diffusion-v1-4"
+          - "--save-path=/mnt/models/CompVis/stable-diffusion-v1-4"
         env:
         - name: HF_HOME
           value: /mnt/models/

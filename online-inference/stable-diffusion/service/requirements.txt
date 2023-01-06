@@ -1,7 +1,7 @@
 kserve==0.9.0
 torch==1.12.1+cu116
 --extra-index-url https://download.pytorch.org/whl/cu116
-diffusers==0.2.3
+diffusers==0.11.1
 transformers==4.21.1
 scipy==1.9.0
 ftfy==6.1.1
