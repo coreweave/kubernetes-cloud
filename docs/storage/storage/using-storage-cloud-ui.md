@@ -8,13 +8,13 @@ description: Manage Storage Volumes from the CoreWeave Cloud UI
 
 [The CoreWeave Cloud UI](../../../virtual-servers/deployment-methods/coreweave-apps.md) provides an easy-to-use storage configuration page. To access it, first log in to your CoreWeave Cloud account. Then, from the left-hand menu, navigate to **Storage Volumes**.
 
-![The storage volumes link on the left-hand menu of the Cloud UI](<../../.gitbook/assets/image (1) (6).png>)
+![The storage volumes link on the left-hand menu of the Cloud UI](<../../.gitbook/assets/image (1).png>)
 
 From the upper right-hand corner, click the **New Volume** button. This will launch the volume configuration modal.
 
-![The New Volume button](<../../.gitbook/assets/image (3) (5).png>)
+![The New Volume button](<../../.gitbook/assets/image (16).png>)
 
-![The volume configuration modal](<../../.gitbook/assets/image (53) (1).png>)
+![The volume configuration modal](<../../../.gitbook/assets/image (62).png>)
 
 Within this modal, configure your desired Volume settings.
 
@@ -34,7 +34,7 @@ Filesystem attachments are specified under the **Attach Filesystems** menu while
 
 **Example**
 
-![The Attach Filesystems menu during Virtual Server creation](<../../.gitbook/assets/image (13) (1).png>)
+![The Attach Filesystems menu during Virtual Server creation](<../../.gitbook/assets/image (51).png>)
 
 ### **Block device attachments**
 
@@ -58,6 +58,6 @@ _**Volumes cannot be downsized again once they are expanded.**_
 
 From **the Storage Volumes page** in the Cloud UI, click the pencil icon beside the listed storage volume that you'd like to resize. This will open the Persistent Volume Claim modal.
 
-![The storage volume list, featuring the pencil icon to the right](<../../.gitbook/assets/image (2) (6).png>)
+![The storage volume list, featuring the pencil icon to the right](<../../.gitbook/assets/image (2) (2).png>)
 
 From this modal, make the desired changes, then click **Save** to apply the changes.

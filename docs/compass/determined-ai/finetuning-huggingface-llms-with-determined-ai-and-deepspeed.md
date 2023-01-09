@@ -40,7 +40,7 @@ First, create a **Shared Filesystem storage volume** from the **Storage** menu i
 
 If you're following along with this demo, you can use the values shown and described below.
 
-<figure><img src="../../.gitbook/assets/image (14).png" alt=""><figcaption><p>Create a New Volume on the Storage menu from the Cloud UI</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (14) (1).png" alt=""><figcaption><p>Create a New Volume on the Storage menu from the Cloud UI</p></figcaption></figure>
 
 The values used for this demo are as follows:
 
@@ -240,7 +240,7 @@ In total, there are three stages, each of which adds another level of paralleliz
 | **Stage 2**  | The gradients are partitioned across all devices      |
 | **Stage 3**  | The model weights are partitioned across all devices  |
 
-<figure><img src="../../.gitbook/assets/image (18).png" alt="Graph from the ZeRO paper showing the memory efficiency from different optimization stages."><figcaption><p>Graph from the <a href="https://arxiv.org/abs/1910.02054v3">ZeRO paper</a> showing the memory efficiency from different optimization stages.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (18) (1).png" alt="Graph from the ZeRO paper showing the memory efficiency from different optimization stages."><figcaption><p>Graph from the <a href="https://arxiv.org/abs/1910.02054v3">ZeRO paper</a> showing the memory efficiency from different optimization stages.</p></figcaption></figure>
 
 ### The experiment config
 
@@ -372,7 +372,7 @@ s3cmd get -r s3://$BUCKET_NAME/2923ac08-0f11-4391-945e-6de03e424a61/
 
 The profiler was enabled in both of the experiments that were created, but this is not the case by default. When the profiler is enabled, Determined will automatically track a number of system metrics.
 
-<figure><img src="../../.gitbook/assets/image (9).png" alt=""><figcaption><p>Profiler Tab for a Running Experiment in Determined's Web UI</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (9) (4).png" alt=""><figcaption><p>Profiler Tab for a Running Experiment in Determined's Web UI</p></figcaption></figure>
 
 For the grid search experiment, it is important to compare the throughput metrics, GPU free memory, and GPU utilization across the different micro batch size. Notice that the higher micro batch sizes use more of the GPUs memory getting higher utilization and samples per second.
 
@@ -380,7 +380,7 @@ For the grid search experiment, it is important to compare the throughput metric
 
 The values used for the trial may be viewed in the hyperparameter tab. This tab is more important when performing hyperparameter searches and you want to know the specific values for that trial compared to the others.
 
-<figure><img src="../../.gitbook/assets/image (10).png" alt=""><figcaption><p>Hyperparameter Tab for a Trial in Determined's Web UI</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (10) (2).png" alt=""><figcaption><p>Hyperparameter Tab for a Trial in Determined's Web UI</p></figcaption></figure>
 
 #### Experiment with Multiple Trials Overview
 

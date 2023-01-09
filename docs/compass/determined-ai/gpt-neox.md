@@ -492,7 +492,7 @@ You should see an "Active" status for your experiment:
 
 You can visualize and monitor logs:
 
-![](<../../.gitbook/assets/Screen Shot 2022-08-01 at 12.46.41 PM.png>)
+![](<../../.gitbook/assets/Screen Shot 2022-08-01 at 12.46.41 PM (1).png>)
 
 Once training is completed, you will have access to the checkpoint in your S3 bucket for downstream tasks such as inference, transfer learning or model ensembles.
 

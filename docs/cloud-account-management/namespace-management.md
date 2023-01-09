@@ -62,6 +62,6 @@ To create and manage your account's namespaces, first [log in to your CoreWeave 
 
 To create a new namespace, click the **Create New Namespace** button in the upper right-hand corner. This will open the **New Namespace** modal.
 
-<figure><img src="../.gitbook/assets/image (4) (1).png" alt="Screenshot of The new namespace modal"><figcaption><p>Example of the new namespace modal</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (4) (3).png" alt="Screenshot of The new namespace modal"><figcaption><p>Example of the new namespace modal</p></figcaption></figure>
 
 The **namespace identifier** will be used as the value of `<namespace-id>` shown in the preview window in the modal. As namespaces are often used to separate workloads by development phase, some common identifiers include things like `staging`, `dev`, or `prod` for the value of the namespace identifier.
