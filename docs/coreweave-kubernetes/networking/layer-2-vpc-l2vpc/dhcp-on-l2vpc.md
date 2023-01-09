@@ -24,7 +24,7 @@ To install the DHCP server, navigate to the applications Catalog from the CoreWe
 
 Selecting the application will expose the configuration options for the DHCP server, shown and detailed below.
 
-![DHCP configuration settings, exposed by clicking the DHCP server application](<../../../.gitbook/assets/image (15) (2).png>)
+![DHCP configuration settings, exposed by clicking the DHCP server application](<../../../.gitbook/assets/image (15) (1).png>)
 
 #### Configuration options
 
@@ -60,7 +60,7 @@ Learn more about general DHCP configuration options on [the ISC website](https:/
 
 At the bottom of the application's configuration screen are the **Network settings** for the DHCP server, in which you can adjust the settings for the server's VPC and network.
 
-![Network settings for DHCP server application.](<../../../.gitbook/assets/image (14).png>)
+![Network settings for DHCP server application.](<../../../.gitbook/assets/image (14) (3) (1).png>)
 
 #### Configuration options
 

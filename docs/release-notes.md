@@ -80,7 +80,7 @@ Some features are only available through an upgrade request. To increase your qu
 
 ### NVIDIA A100 80GB NVLINK with InfiniBand and SHARP:zap:
 
-<figure><img src=".gitbook/assets/image (3) (2).png" alt="NVIDIA Mellanox Quantum leaf switches in the CoreWeave LAS1 datacenter"><figcaption><p>NVIDIA Mellanox Quantum leaf switches in the CoreWeave LAS1 datacenter</p></figcaption></figure>
+<figure><img src=".gitbook/assets/image (3) (1) (2).png" alt="NVIDIA Mellanox Quantum leaf switches in the CoreWeave LAS1 datacenter"><figcaption><p>NVIDIA Mellanox Quantum leaf switches in the CoreWeave LAS1 datacenter</p></figcaption></figure>
 
 **A100 80GB NVLINK SXM4** GPUs are now available in the **LAS1** region. These GPUs are provisioned in large clusters, intended for distributed training and inference of LLMs such as [BLOOM 176B](compass/examples/pytorch-hugging-face-transformers-bigscience-bloom-1.md#what-is-bloom).
 
@@ -154,7 +154,7 @@ Accelerated object storage provides local caching for frequently accessed object
 
 ### **Introducing The Workload Activity Tracker dashboard** :chart\_with\_upwards\_trend:
 
-<figure><img src=".gitbook/assets/image (2) (3).png" alt="Screenshot of the Workload Activity Tracker in action - vertical columns displaying information on Pods, such as their CPU usage and idle status"><figcaption><p>The Workload Activity Tracker in action</p></figcaption></figure>
+<figure><img src=".gitbook/assets/image (2) (3) (1).png" alt="Screenshot of the Workload Activity Tracker in action - vertical columns displaying information on Pods, such as their CPU usage and idle status"><figcaption><p>The Workload Activity Tracker in action</p></figcaption></figure>
 
 It's an all too common experience to let idle research shells or experiments idle in your namespace after you're done working with them, only to later come back and realize you've been eating resources unnecessarily. Now, with the Workload Activity Tracker dashboard for Grafana, answering "is everything deployed in my namespace doing something?" is never a question you have to worry about.
 

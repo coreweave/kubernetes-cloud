@@ -16,7 +16,7 @@ If your studio configuration requires a more custom solution, [reach out to your
 
 First, [log in to your CoreWeave Cloud account](https://cloud.coreweave.com). Navigate to [the application Catalog](https://apps.coreweave.com) by clicking **Applications** in the right-hand menu. From there, search for `filesystem-volume`, then select the **filesystem-volume** application.
 
-<figure><img src="../../.gitbook/assets/image (84).png" alt="The filesystem-volume application in the application Catalog"><figcaption><p>The filesystem-volume application displayed in the application Catalog</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (120).png" alt="The filesystem-volume application in the application Catalog"><figcaption><p>The filesystem-volume application displayed in the application Catalog</p></figcaption></figure>
 
 Click the **Deploy** button in the upper right-hand corner to open the configuration screen. Set a name for the filesystem, then set the [data center region](../data-center-regions.md), [storage type](broken-reference), and storage size.
 
@@ -26,7 +26,7 @@ Click the **Deploy** button in the upper right-hand corner to open the configura
 This application will create a **shared filesystem**. If you require a **block filesystem** instead, [please refer to the Storage documentation](broken-reference).&#x20;
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (85) (2).png" alt="Storage configuration for the filesystem-volume application"><figcaption><p>Storage configuration for the filesystem-volume application</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (125).png" alt="Storage configuration for the filesystem-volume application"><figcaption><p>Storage configuration for the filesystem-volume application</p></figcaption></figure>
 
 In this example, we create a filesystem volume for render outputs. This way, all of our virtual desktops can access the same shared storage as our rendering nodes.
 
@@ -42,7 +42,7 @@ For this example, everything is provisioned to the Chicago datacenter (`ORD1`), 
 
 After clicking on the **Deploy** button, the status screen will inform you that the volume has been created.
 
-![The post-deployment status screen, including a status message](<../../.gitbook/assets/image (60) (1) (1).png>)
+![The post-deployment status screen, including a status message](<../../.gitbook/assets/image (58).png>)
 
 From the **Applications** tab, you will also be able to see the filesystem volume with the name you've assigned it.
 
@@ -102,11 +102,11 @@ Both the standard flavor of Samba as well as the Active Directory version may be
 
 <div>
 
-<figure><img src="../../.gitbook/assets/image (86) (1).png" alt="The standard Samba icon in the application Catalog"><figcaption><p>The standard Samba icon in the application Catalog</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (62) (1) (1).png" alt="The standard Samba icon in the application Catalog"><figcaption><p>The standard Samba icon in the application Catalog</p></figcaption></figure>
 
  
 
-<figure><img src="../../.gitbook/assets/image (88) (1) (1).png" alt="The Active Directory Samba icon in the application Catalog"><figcaption><p>The Active Directory Samba icon in the application Catalog</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (133).png" alt="The Active Directory Samba icon in the application Catalog"><figcaption><p>The Active Directory Samba icon in the application Catalog</p></figcaption></figure>
 
 </div>
 
@@ -188,13 +188,13 @@ Once you are finished configuring your Samba instance, click the **Deploy** butt
 
 Additionally, now from the **Applications** tab, both the shared filesystem volume as well as the new Samba instance should be listed as exemplified below.
 
-![Both the render-output storage volume (PVC) and the render-outputs-samba Samba instance are listed in the Applications page](<../../.gitbook/assets/image (94) (1).png>)
+![Both the render-output storage volume (PVC) and the render-outputs-samba Samba instance are listed in the Applications page](<../.gitbook/assets/image (152).png>)
 
 ### Connecting to Samba (Windows)
 
 After deploying your Samba instance, the **Installation Notes** section will provide the `.coreweave.cloud` domain name for the instance. You can connect to this drive by utilizing Windows "Map network drive" option.
 
-![The DNS name listed in the success message of the Samba deployment](<../../.gitbook/assets/image (81) (1).png>)
+![The DNS name listed in the success message of the Samba deployment](<../../.gitbook/assets/image (73) (1).png>)
 
 Navigate to the Start menu and right-click the name of your local machine. Select **Map network drive...** from the drop-down.
 
@@ -202,7 +202,7 @@ Navigate to the Start menu and right-click the name of your local machine. Selec
 
 Map the network drive by providing the given Samba domain name to the **Folder** input field. Then click the **Browse...** button.
 
-![Mapping the network drive using the provided DNS name](<../../.gitbook/assets/image (90) (1).png>)
+![Mapping the network drive using the provided DNS name](<../.gitbook/assets/image (139).png>)
 
 ![The mapped drive, listed in the Browse for Folder listing](<../../.gitbook/assets/image (65) (1).png>)
 
@@ -232,7 +232,7 @@ Toggle the **Expose on Public IP** toggle depending on whether or not you'd like
 
 Finally, click the **Deploy** button in the lower left-hand corner.
 
-<figure><img src="../../.gitbook/assets/Screenshot 2021-10-18 170110.jpg" alt="The updated applications listing page"><figcaption><p>The updated applications listing page, including both Samba and NFS</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/Screenshot 2021-10-18 170110.jpg" alt="The updated applications listing page"><figcaption><p>The updated applications listing page, including both Samba and NFS</p></figcaption></figure>
 
 ## Exposing storage via FileBrowser
 
@@ -240,7 +240,7 @@ A final option for accessing your Cloud storage remotely is by using the FileBro
 
 To install FileBrowser, first navigate to the applications Catalog, then search for **filebrowser**.
 
-<figure><img src="../.gitbook/assets/image (24).png" alt=""><figcaption><p>The filebrowser application</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (24) (1).png" alt=""><figcaption><p>The filebrowser application</p></figcaption></figure>
 
 Navigate to the application Catalog through the CoreWeave Cloud UI, then search for `filebrowser`.  Select the application, then click the **Deploy** button in the lower right-hand corne
 
@@ -268,7 +268,7 @@ In the **Access URLs** box on the status page, you will find an Ingress URL (suc
 After the first login, it is strongly recommended to change the password of your FileBrowser user account. Log in, then navigate to **Settings -> User Management** to configure new users.
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/filebrowser-screen.png" alt="A successful FileBrowser post-installation screen"><figcaption><p>A successful FileBrowser post-installation screen</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/filebrowser-screen.png" alt="A successful FileBrowser post-installation screen"><figcaption><p>A successful FileBrowser post-installation screen</p></figcaption></figure>
 
 ## Media Shuttle
 
@@ -288,11 +288,11 @@ Once you have completed the wizard, the storage server registration key will be 
 
 Return to the applications Catalog from CoreWeave Cloud, and search for `media-shuttle`. Find the **media-shuttle** application, select it, then click the **Deploy** button in the bottom right corner of the screen to begin configuring the application.
 
-<figure><img src="../../.gitbook/assets/image (80).png" alt="The Media Shuttle application icon"><figcaption><p>The Media Shuttle application icon displayed in the applications Catalog</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (64) (1) (1).png" alt="The Media Shuttle application icon"><figcaption><p>The Media Shuttle application icon displayed in the applications Catalog</p></figcaption></figure>
 
 Clicking the **Deploy** button will open the application configuration screen.
 
-![After pressing Media Shuttle](<../../.gitbook/assets/image (87) (1) (1).png>)
+![After pressing Media Shuttle](<../.gitbook/assets/image (131).png>)
 
 Update the name, registry key, and add a [Persistent Volume Claim](https://docs.coreweave.com/coreweave-kubernetes/storage) to the `mounts` list by navigating to the **YAML** tab and locating the `mounts` block. In the example below, the PVC that has been added is defined with a mountpoint `name` of `render-output-mnt` and passed the PVC title, `pvc: render-output`.
 
@@ -302,6 +302,6 @@ Finally, click the **Deploy** button at the bottom of the screen to launch the d
 
 Once the deployment has completed, you will be automatically redirected to the Media Shuttle deployment status page. Once this status page shows that the Media Shuttle Pod is ready, you are ready to use the deployment.
 
-<figure><img src="../../.gitbook/assets/image (92) (1) (1) (1).png" alt="Media Shuttle deployment status page, showing the Pod is ready"><figcaption><p>Media Shuttle deployment status page, showing the Pod is ready</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (150).png" alt="Media Shuttle deployment status page, showing the Pod is ready"><figcaption><p>Media Shuttle deployment status page, showing the Pod is ready</p></figcaption></figure>
 
 ##

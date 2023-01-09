@@ -20,7 +20,7 @@ From the **Operating System / Root Disk Storage** menu, you can select and confi
 
 You can also configure the size of the **root disk** of the Virtual Server from here using the **Root Disk Size** slider.
 
-![The Operating System and Root Disk Size configuration section.](<../../.gitbook/assets/image (56).png>)
+![The Operating System and Root Disk Size configuration section.](<../../.gitbook/assets/image (56) (2).png>)
 
 #### **UEFI bootloader**
 

@@ -2,7 +2,7 @@
 
 To follow along, please clone the [GitHub repository](https://github.com/coreweave/kubernetes-cloud/tree/master/tensorflow-jupyter) with the example manifests.
 
-![Screenshot](<../../.gitbook/assets/screenshot (1).png>)
+![Screenshot](../../tensorflow-jupyter/screenshot.png)
 
 ### Introduction
 

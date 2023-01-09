@@ -46,7 +46,7 @@ Learn to install CoreWeave CloudLink on Linux:
 
 ## Transparent cache
 
-![Diagram exemplifying the transparent cache connection](../../../../.gitbook/assets/111335067-772be780-864a-11eb-949c-56ece0902a9d.png)
+![Diagram exemplifying the transparent cache connection](../../../.gitbook/assets/111335067-772be780-864a-11eb-949c-56ece0902a9d.png)
 
 A pull-through transparent cache can be deployed in CoreWeave Cloud.
 

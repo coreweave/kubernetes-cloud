@@ -46,7 +46,7 @@ From the Catalog, search for `deadline` , then select it from the list of availa
 Your `version` may differ from what is shown in this example.
 {% endhint %}
 
-![An example of the default YAML configuration for an instance of Thinkbox Deadline](<../../../.gitbook/assets/image (95) (1) (1).png>)
+![An example of the default YAML configuration for an instance of Thinkbox Deadline](<../../.gitbook/assets/image (156).png>)
 
 The Helm values given are default values for deploying the Deadline chart. If you're interested in seeing what configuration options are available to you, look this chart over; however, for this example, we are going to remove the default configurations entirely by deleting all the contents of this box, so as to begin from the beginning.
 
@@ -478,7 +478,7 @@ If all goes as expected, then you should see a number of Deadline-specific Pods 
 
 You can connect to your Deadline repository once it is in the `Running` state. By default, the [Deadline remote connection server](https://docs.thinkboxsoftware.com/products/deadline/10.1/1\_User%20Manual/manual/remote-connection-server.html) is the simplest way to connect, and can be reached at the domain `rcs-<name of Deadline release>-<your namespace>.coreweave.cloud`, where `<name of Deadline release>` is the name that was used when deploying the Deadline application. In the window named **Select Repository**, place this address in the **Remote Server** field. By default, the RCS connection uses port `4433`.
 
-<figure><img src="../../../.gitbook/assets/deadline-repo-settings.PNG" alt="Screenshot of the Deadline remote connection server"><figcaption><p>Screenshot of the Deadline remote connection server</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/deadline-repo-settings.PNG" alt="Screenshot of the Deadline remote connection server"><figcaption><p>Screenshot of the Deadline remote connection server</p></figcaption></figure>
 
 To retrieve your certificate to connect, run:
 

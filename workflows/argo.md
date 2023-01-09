@@ -6,13 +6,13 @@ description: Use Argo Workflows to run jobs in parallel
 
 Workflows on CoreWeave Cloud run on [Argo Workflows](https://argoproj.github.io/workflows), which is a great tool to orchestrate parallel execution of GPU and CPU jobs. With Workflows, you can manage retries and parallelism automatically. Workflows can also be submitted via CLI, [Rest API](https://argoproj.github.io/argo-workflows/rest-api/) and the [Kubernetes API](https://argoproj.github.io/argo-workflows/walk-through/kubernetes-resources/).
 
-<figure><img src="../.gitbook/assets/screen-shot-2020-07-29-at-10.04.26-pm.png" alt="Screenshot showing the Argo Web UI"><figcaption><p>A view of the Argo Web UI</p></figcaption></figure>
+<figure><img src="../docs/.gitbook/assets/screen-shot-2020-07-29-at-10.04.26-pm.png" alt="Screenshot showing the Argo Web UI"><figcaption><p>A view of the Argo Web UI</p></figcaption></figure>
 
 ## Get Started
 
 After logging into [CoreWeave Cloud](https://cloud.coreweave.com), navigate to the CoreWeave application **Catalog**.
 
-![The Catalog link on the Cloud UI](<../.gitbook/assets/image (17) (2) (1) (1).png>)
+![The Catalog link on the Cloud UI](<../.gitbook/assets/image (17) (2) (1) (2).png>)
 
 A new window will open onto the Catalog, where you can browse all available applications. In the search field, type `argo-workflows`. Then, select the **argo-workflows** application once it appears:
 
@@ -275,7 +275,7 @@ Write-Host "Bearer $([Text.Encoding]::Utf8.GetString([Convert]::FromBase64String
 
 Then, inside the box for **client authentication**, copy and paste the newly generated token into the Argo UI:
 
-![The Argo Workflow UI with a Bearer token pasted into the client authentication box](<../docs/.gitbook/assets/image (2) (2) (2).png>)
+![The Argo Workflow UI with a Bearer token pasted into the client authentication box](<../docs/.gitbook/assets/image (2) (2) (1).png>)
 
 Finally, to log in, click the **Login** button after adding the token.
 

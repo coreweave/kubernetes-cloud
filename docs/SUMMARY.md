@@ -84,6 +84,7 @@
 * [CoreWeave System Images](virtual-servers/coreweave-system-images/README.md)
   * [Windows Images](virtual-servers/coreweave-system-images/windows-images.md)
   * [Linux Images](virtual-servers/coreweave-system-images/linux-images.md)
+* [Tips and Tricks for VDIs](virtual-servers/tips-and-tricks-for-vdis.md)
 * [Examples](../virtual-servers/examples/README.md)
   * [Active Directory Environment hosted on CoreWeave Cloud](virtual-servers/examples/active-directory-environment-hosted-on-coreweave-cloud/README.md)
     * [Provision an Active Directory Domain](virtual-servers/examples/active-directory-environment-hosted-on-coreweave-cloud/provision-an-active-directory-domain-controller.md)

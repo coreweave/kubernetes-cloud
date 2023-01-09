@@ -231,7 +231,7 @@ For a list of valid application names, refer to [the Chocolatey community packag
 
 For the final machine, follow the same steps outlined above, with the modification that under **Operating System Additions**, toggle on **Teradici** and **NVIDIA Drivers**.
 
-<figure><img src="../../.gitbook/assets/Screen Shot 2021-11-08 at 3.37.58 PM.png" alt="Operating System Addition toggles, only be available with Virtual Servers running Linux"><figcaption><p>Operating System Addition toggles, only be available with Virtual Servers running Linux</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/Screen Shot 2021-11-08 at 3.37.58 PM.png" alt="Operating System Addition toggles, only be available with Virtual Servers running Linux"><figcaption><p>Operating System Addition toggles, only be available with Virtual Servers running Linux</p></figcaption></figure>
 
 For the Linux-based Workstation, storage will be mounted in via [Virtiofs](https://virtio-fs.gitlab.io/). To configure the filesystem for this kind of Workstation, navigate to the YAML editor by clicking the **YAML** tab at the top of the screen, then find the `filesystem` block inside the manifest. Edit the block to specify the filesystem source, type, and name:
 
@@ -249,7 +249,7 @@ Typically, administrators and support staff do not need the same resources as ar
 
 First, launch a new Virtual Machine configured to run Windows 10.
 
-![Cloud UI Virtual Server configuration menu](<../../.gitbook/assets/Screen Shot 2021-11-08 at 3.46.02 PM.png>)
+![Cloud UI Virtual Server configuration menu](<../.gitbook/assets/Screen Shot 2021-11-08 at 3.46.02 PM.png>)
 
 {% hint style="warning" %}
 **Important**

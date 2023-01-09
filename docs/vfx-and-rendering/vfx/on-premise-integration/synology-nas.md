@@ -32,7 +32,7 @@ The server status screen shown after deployment will provide you with the CloudL
 
 From the Synology Package Center, install the Docker application.
 
-![The Docker application in the Synology Package Center](../../../../.gitbook/assets/screen-shot-2021-03-05-at-2.42.49-pm.png)
+![The Docker application in the Synology Package Center](../../../.gitbook/assets/screen-shot-2021-03-05-at-2.42.49-pm.png)
 
 Once installed, open the Docker application from the Synology main menu.
 
@@ -40,11 +40,11 @@ Once installed, open the Docker application from the Synology main menu.
 
 Inside the Docker window, navigate to **Image**, then select **Add**, **** then **Add From URL**. Add `coreweave/cloud-link`. No username and password is needed.
 
-![Adding coreweave/cloud-link to the URL box in the Docker configuration screen](../../../../.gitbook/assets/screen-shot-2021-03-05-at-2.43.55-pm.png)
+![Adding coreweave/cloud-link to the URL box in the Docker configuration screen](../../../.gitbook/assets/screen-shot-2021-03-05-at-2.43.55-pm.png)
 
 Once the Docker image is loaded, navigate to the **Container** menu, then select **Settings**, then and **Import**. Upload the `coreweave-cloud-link.json` file provided by your CoreWeave Specialist.
 
-![Docker Container configuration screen](../../../../.gitbook/assets/screen-shot-2021-03-05-at-4.55.35-pm.png)
+![Docker Container configuration screen](../../../.gitbook/assets/screen-shot-2021-03-05-at-4.55.35-pm.png)
 
 Once loaded, select the newly created container, then hit **Edit**. Confirm these are correct, then click **Select**.
 
@@ -61,7 +61,7 @@ Do not change any settings except those under **Environment** - the file provide
 | `DEADLINE_WEBSERVICE` | If running the Deadline Repository locally, this is the IP address of the server running the Deadline Web service |
 | `DEADLINE_RCS`        | If running the Deadline Repository locally, this is the IP address of the server running Deadline RCS             |
 
-![An example configuration screen on Synology](../../../../.gitbook/assets/screen-shot-2021-03-05-at-5.06.50-pm.png)
+![An example configuration screen on Synology](../../../.gitbook/assets/screen-shot-2021-03-05-at-5.06.50-pm.png)
 
 Once you are satisfied with these configurations, click **Apply**, then start the container. Successful connection to the CoreWeave CloudLink Server is identified by the `Running` state and an uptime that is increasing.
 
