@@ -1,0 +1,100 @@
+apiVersion: "kubeflow.org/v2beta1"
+kind: "MPIJob"
+metadata:
+  name: "imagenet-16gpu-mpijob"
+spec:
+  slotsPerWorker: 8
+  runPolicy:
+    cleanPodPolicy: Running
+  mpiReplicaSpecs:
+    Launcher:
+      replicas: 1
+      restartPolicy: OnFailure
+      template:
+        spec:
+          containers:
+            - name: pytorch
+              image: navarrepratt/pytorch_mpi_resnet50:1
+              command:
+                - "mpirun"
+                - "-np"
+                - "16"  # Total processes = num workers * slots per workers
+                - "-x"
+                - "WANDB_API_KEY=$(WANDB_API_KEY)"
+                - "--allow-run-as-root"
+                - "python"
+                - "/opt/resnet50/src/resnet50.py"
+                - "--data-dir"
+                - "/mnt/pvc/dataset/ILSVRC/Data/CLS-LOC"
+                - "--model-dir"
+                - "/mnt/pvc/mpi/checkpoints"
+                - "--epochs"
+                - "10"
+                - "--batch-size"
+                - "256"
+                - "--wandb-project"
+                - "resnet50-imagenet-horovod"
+                - "--wandb-run"
+                - "a40-16gpu"
+              resources:
+                requests:
+                  cpu: 2
+                  memory: 128Mi
+              env:
+                - name: WANDB_API_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: wandb-token-secret
+                      key: token
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                  - matchExpressions:
+                      - key: failure-domain.beta.kubernetes.io/region
+                        operator: In
+                        values:
+                          - LAS1
+
+    Worker:
+      replicas: 2
+      restartPolicy: OnFailure
+      template:
+        spec:
+          containers:
+            - name: pytorch
+              image: navarrepratt/pytorch_mpi_resnet50:1
+              resources:
+                requests:
+                  cpu: 16
+                  memory: 128G
+                  nvidia.com/gpu: 8
+                limits:
+                  cpu: 16
+                  memory: 196G
+                  nvidia.com/gpu: 8
+              volumeMounts:
+                - name: kubeflow-resnet50
+                  mountPath: /mnt/pvc
+                - name: dshm
+                  mountPath: /dev/shm
+          volumes:
+            - name: kubeflow-resnet50
+              persistentVolumeClaim:
+                claimName: kubeflow-resnet50
+            - emptyDir:
+                medium: Memory
+              name: dshm
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                  - matchExpressions:
+                      - key: gpu.nvidia.com/model
+                        operator: In
+                        values:
+                          - A40
+                      - key: failure-domain.beta.kubernetes.io/region
+                        operator: In
+                        values:
+                          - LAS1

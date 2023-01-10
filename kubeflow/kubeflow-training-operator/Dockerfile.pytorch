@@ -1,0 +1,12 @@
+FROM nvcr.io/nvidia/pytorch:22.12-py3
+
+RUN pip install tensorboardX filelock wandb
+RUN mkdir -p /opt/resnet50
+
+WORKDIR /opt/resnet50/src
+ADD resnet50_pytorch.py /opt/resnet50/src/resnet50.py
+
+RUN  chgrp -R 0 /opt/resnet50 \
+  && chmod -R g+rwX /opt/resnet50
+
+ENTRYPOINT ["python", "/opt/resnet50/src/resnet50.py"]

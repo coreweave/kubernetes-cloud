@@ -1,10 +1,10 @@
 FROM nvcr.io/nvidia/pytorch:22.12-py3
 
-RUN HOROVOD_GPU_OPERATIONS=NCCL pip install tensorboardX horovod[pytorch] filelock
-RUN mkdir -p /opt/mnist
+RUN HOROVOD_GPU_OPERATIONS=NCCL pip install tensorboardX horovod[pytorch] filelock wandb
+RUN mkdir -p /opt/resnet50
 
-RUN  chgrp -R 0 /opt/mnist \
-  && chmod -R g+rwX /opt/mnist
+RUN  chgrp -R 0 /opt/resnet50 \
+  && chmod -R g+rwX /opt/resnet50
 
 RUN apt-get -qq update && \
     apt-get -qq install -y --allow-change-held-packages --no-install-recommends \
@@ -16,5 +16,5 @@ RUN sed -i 's/[ #]\(.*StrictHostKeyChecking \).*/ \1no/g' /etc/ssh/ssh_config &&
     sed -i 's/#\(StrictModes \).*/\1no/g' /etc/ssh/sshd_config && \
     mkdir /var/run/sshd -p
 
-WORKDIR /opt/mnist/src
-ADD mnist_horovod.py /opt/mnist/src/mnist.py
+WORKDIR /opt/resnet50/src
+ADD resnet50_horovod.py /opt/resnet50/src/resnet50.py
