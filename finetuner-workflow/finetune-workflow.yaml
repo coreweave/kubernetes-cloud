@@ -24,7 +24,7 @@ spec:
       value: 'false'
     # How should the tokenizer order the dataset inputs? Options available are:
     # `size_ascending`, `size_descending`, `name_ascending`, `name_descending`,
-    # `random`, and `none`. `shuffle` implements name_ascending while also assigning chunks randomly to file instead
+    # `random`, and `none`. `shuffle` implements `none` while also assigning chunks randomly to file instead
     # of sequentially
     - name: reorder
       value: 'none'
