@@ -10,6 +10,9 @@ RUN apt update && apt upgrade -y && \
     pip3 install --no-cache-dir -r requirements.txt
 
 RUN git clone https://github.com/coreweave/tensorizer && \
+    cd tensorizer && \
+    git checkout 35381e3812ba342991d30b71ce257503622ae828 && \
+    cd .. && \
     mv tensorizer/tensorizer.py . && \
     rm -rf tensorizer
 
