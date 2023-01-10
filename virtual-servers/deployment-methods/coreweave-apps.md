@@ -102,4 +102,4 @@ A basic diagnostic log of all actions involving the Virtual Server will be recor
 The events listed under the **Events** tab are short-lived, and should mostly be used for diagnostics or simply for tracing the status of the Virtual Server.
 {% endhint %}
 
-![Event history for a new Virtual Server](<../../docs/.gitbook/assets/image (50).png>)
+![Event history for a new Virtual Server](<../../docs/.gitbook/assets/image (50) (1).png>)

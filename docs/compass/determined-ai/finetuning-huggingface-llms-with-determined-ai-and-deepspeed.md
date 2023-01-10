@@ -40,7 +40,7 @@ First, create a **Shared Filesystem storage volume** from the **Storage** menu i
 
 If you're following along with this demo, you can use the values shown and described below.
 
-<figure><img src="../../.gitbook/assets/image (14).png" alt=""><figcaption><p>Create a New Volume on the Storage menu from the Cloud UI</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (14) (3).png" alt=""><figcaption><p>Create a New Volume on the Storage menu from the Cloud UI</p></figcaption></figure>
 
 The values used for this demo are as follows:
 
@@ -140,7 +140,7 @@ The original username and password for the FileBrowser UI are both`admin`.
 Make sure to update these after logging in for the first time.
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (31) (1).png" alt=""><figcaption><p>FileBrowser UI for the mounted PVC after the required files have been uploaded.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (31) (1) (1).png" alt=""><figcaption><p>FileBrowser UI for the mounted PVC after the required files have been uploaded.</p></figcaption></figure>
 
 ### Set up the Determined CLI
 
@@ -184,11 +184,11 @@ det cmd run 'pip install -r /mnt/finetune-opt-125m/requirements.txt; \
 
 The logs from the script will be output to your terminal window, but you can also view them from the Determined UI under the Tasks page.
 
-<figure><img src="../../.gitbook/assets/image (13).png" alt=""><figcaption><p>Prepare Dataset Task running in Determined AI</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (13) (2).png" alt=""><figcaption><p>Prepare Dataset Task running in Determined AI</p></figcaption></figure>
 
 Once the task is complete you should see the processed dataset files in the PVC via the FileBrowser.
 
-<figure><img src="../../.gitbook/assets/image (41) (1).png" alt=""><figcaption><p>The processed WikiText dataset files shown in the FileBrowser UI.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (41) (1) (1).png" alt=""><figcaption><p>The processed WikiText dataset files shown in the FileBrowser UI.</p></figcaption></figure>
 
 ## Prepare for Training
 
@@ -380,7 +380,7 @@ For the grid search experiment, it is important to compare the throughput metric
 
 The values used for the trial may be viewed in the hyperparameter tab. This tab is more important when performing hyperparameter searches and you want to know the specific values for that trial compared to the others.
 
-<figure><img src="../../.gitbook/assets/image (10).png" alt=""><figcaption><p>Hyperparameter Tab for a Trial in Determined's Web UI</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (10) (1).png" alt=""><figcaption><p>Hyperparameter Tab for a Trial in Determined's Web UI</p></figcaption></figure>
 
 #### Experiment with Multiple Trials Overview
 

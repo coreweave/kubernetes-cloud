@@ -84,6 +84,7 @@
 * [CoreWeave System Images](virtual-servers/coreweave-system-images/README.md)
   * [Windows Images](virtual-servers/coreweave-system-images/windows-images.md)
   * [Linux Images](virtual-servers/coreweave-system-images/linux-images.md)
+* [Tips and Tricks for VDIs](virtual-servers/tips-and-tricks-for-vdis.md)
 * [Examples](../virtual-servers/examples/README.md)
   * [Active Directory Environment hosted on CoreWeave Cloud](virtual-servers/examples/active-directory-environment-hosted-on-coreweave-cloud/README.md)
     * [Provision an Active Directory Domain](virtual-servers/examples/active-directory-environment-hosted-on-coreweave-cloud/provision-an-active-directory-domain-controller.md)
@@ -127,15 +128,22 @@
 * [Examples](workflows/examples/README.md)
   * [CGI Rendering Using Workflows](../workflows/examples/cgi-rendering.md)
 
-## Solutions
+## VFX & Rendering
 
-* [Get Started with VFX](../solutions/vfx/README.md)
-  * [Deploying Managed Deadline](../solutions/vfx/deadline.md)
-  * [On-Premise Integration](../solutions/vfx/on-premise-integration/README.md)
-    * [CloudLink on Linux](../solutions/vfx/on-premise-integration/linux.md)
-    * [Synology NAS](../solutions/vfx/on-premise-integration/synology-nas.md)
-  * [VFX Studio Components Guide](../solutions/vfx/vfx-studio-components-guide.md)
-  * [Cloud Studio Reference Guide](../solutions/vfx/cloud-studio-reference-guide.md)
+* [Get Started with VFX Studios](vfx-and-rendering/vfx/README.md)
+  * [Managed Thinkbox Deadline](vfx-and-rendering/vfx/deadline.md)
+  * [On-Premise Integrations](vfx-and-rendering/vfx/on-premise-integration/README.md)
+    * [CoreWeave CloudLink on Linux](vfx-and-rendering/vfx/on-premise-integration/linux.md)
+    * [Synology NAS](vfx-and-rendering/vfx/on-premise-integration/synology-nas.md)
+
+***
+
+* [CoreWeave VFX Cloud Studio Reference Guide](cloud-studio-reference-guide/README.md)
+  * [Virtual Workstations](cloud-studio-reference-guide/virtual-workstations.md)
+  * [Rendering](cloud-studio-reference-guide/vfx-studio-components-guide.md)
+  * [Storage](cloud-studio-reference-guide/storage.md)
+  * [Networking](cloud-studio-reference-guide/networking.md)
+  * [Management](cloud-studio-reference-guide/management.md)
 
 ## Cloud Account Management
 
