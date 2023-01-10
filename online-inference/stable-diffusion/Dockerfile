@@ -5,7 +5,7 @@ ADD service/ /app/
 WORKDIR /app
 
 RUN apt update && apt upgrade -y && \
-    apt update && apt install -y python3 python3-pip git && \
+    apt update && apt install -y python3 python3-pip git curl && \
     pip3 install --no-cache-dir --upgrade pip && \
     pip3 install --no-cache-dir -r requirements.txt
 

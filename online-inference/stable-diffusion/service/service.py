@@ -14,6 +14,7 @@ from transformers import CLIPTextModel, CLIPTextConfig, CLIPTokenizer
 
 parser = ArgumentParser()
 parser.add_argument("--model-id", default="/mnt/models/CompVis/stable-diffusion-v1-4", type=str)
+parser.add_argument("--hf-id", default="CompVis/stable-diffusion-v1-4", type=str)
 parser.add_argument(
     "--precision", choices=["float16", "float32"], default="float16", type=str
 )
@@ -42,6 +43,8 @@ try:
     MODEL_NAME = options["MODEL_ID"].split("/")[-1]
 except:
     MODEL_NAME = options["MODEL_ID"]
+
+HF_TOKEN = os.getenv("HUGGING_FACE_HUB_TOKEN")
 
 logging.basicConfig(level=kserve.constants.KSERVE_LOGLEVEL)
 logger = logging.getLogger(MODEL_NAME)
@@ -80,12 +83,24 @@ class Model(kserve.Model):
         unet = load_model(options["MODEL_ID"], UNet2DConditionModel, None, "unet")
         encoder = load_model(options["MODEL_ID"], CLIPTextModel, CLIPTextConfig, "encoder")
 
+        scheduler = LMSDiscreteScheduler.from_pretrained(
+            args.hf_id,
+            subfolder="scheduler",
+            use_auth_token=HF_TOKEN
+        )
+
+        tokenizer = CLIPTokenizer.from_pretrained(
+            args.hf_id,
+            subfolder="tokenizer",
+            use_auth_token=HF_TOKEN
+        )
+
         self.pipeline = StableDiffusionPipeline(
             text_encoder=encoder,
             vae=vae,
             unet=unet,
-            scheduler=LMSDiscreteScheduler.from_pretrained(options["MODEL_ID"], subfolder="scheduler"),
-            tokenizer=CLIPTokenizer.from_pretrained(options["MODEL_ID"]),
+            scheduler=scheduler,
+            tokenizer=tokenizer,
             safety_checker=None,
             feature_extractor=None,
         )
@@ -138,7 +153,7 @@ class Model(kserve.Model):
                 guidance_scale=request_parameters["GUIDANCE_SCALE"],
                 num_inference_steps=request_parameters["NUM_INFERENCE_STEPS"],
                 generator=generator,
-            )["sample"][0]
+            ).images[0]
         logger.debug(f"Image generated")
 
         image_file = BytesIO()
