@@ -21,6 +21,8 @@ spec:
                 - "16"  # Total processes = num workers * slots per workers
                 - "-x"
                 - "WANDB_API_KEY=$(WANDB_API_KEY)"
+                - "-x"
+                - "NCCL_DEBUG=INFO"
                 - "--allow-run-as-root"
                 - "python"
                 - "/opt/resnet50/src/resnet50.py"
@@ -64,14 +66,14 @@ spec:
           containers:
             - name: pytorch
               image: navarrepratt/pytorch_mpi_resnet50:1
-              resources:
+              resources:  # Use the full node
                 requests:
-                  cpu: 16
-                  memory: 128G
+                  cpu: 90
+                  memory: 700G
                   nvidia.com/gpu: 8
                 limits:
-                  cpu: 16
-                  memory: 196G
+                  cpu: 90
+                  memory: 700G
                   nvidia.com/gpu: 8
               volumeMounts:
                 - name: kubeflow-resnet50

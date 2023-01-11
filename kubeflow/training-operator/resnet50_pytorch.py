@@ -263,14 +263,12 @@ def main() -> None:
     lr_scaler = dist.get_world_size() if is_distributed() else 1
     optimizer = optim.SGD(model.parameters(), lr=args.lr * lr_scaler, momentum=args.momentum)
 
-    start_time = time.time()
+    start = time.perf_counter()
     for epoch in range(1, args.epochs + 1):
         train(args, model, criterion, use_cuda, train_loader, train_sampler, optimizer, epoch, writer, wandb_run)
         test(model, criterion, use_cuda, test_loader, test_sampler, epoch, writer, wandb_run)
 
-    total_time = time.time() - start_time
-    total_time_str = str(datetime.timedelta(seconds=int(total_time)))
-    print(f"Training time {total_time_str}")
+    print(f"Training time: {time.perf_counter() - start:0.3f}s")
 
     # Only have the master checkpoint the model
     if args.model_dir and dist.get_rank() == 0:

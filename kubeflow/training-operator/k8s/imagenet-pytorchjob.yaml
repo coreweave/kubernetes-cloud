@@ -39,14 +39,14 @@ spec:
                 - "resnet50-imagenet-pytorch"
                 - "--wandb-run"
                 - "a40-16gpu"
-              resources:
+              resources:  # Use the full node
                 requests:
-                  cpu: 16
-                  memory: 128G
+                  cpu: 90
+                  memory: 700G
                   nvidia.com/gpu: 8
                 limits:
-                  cpu: 16
-                  memory: 196G
+                  cpu: 90
+                  memory: 700G
                   nvidia.com/gpu: 8
               volumeMounts:
                 - name: kubeflow-resnet50
@@ -115,14 +115,14 @@ spec:
                 - "resnet50-imagenet-pytorch"
                 - "--wandb-run"
                 - "a40-16gpu"
-              resources:
+              resources:  # Use the full node
                 requests:
-                  cpu: 16
-                  memory: 128G
+                  cpu: 90
+                  memory: 700G
                   nvidia.com/gpu: 8
                 limits:
-                  cpu: 16
-                  memory: 196G
+                  cpu: 90
+                  memory: 700G
                   nvidia.com/gpu: 8
               volumeMounts:
                 - name: kubeflow-resnet50
