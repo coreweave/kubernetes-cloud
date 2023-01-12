@@ -1,124 +1,20 @@
 import argparse
-import datetime
 import os
 import time
 from pathlib import Path
-from typing import Tuple, Optional
 
 import torch
 import torch.distributed as dist
 import torch.nn as nn
 import torch.optim as optim
 import wandb
-from tensorboardX import SummaryWriter
-from torch.utils.data import DataLoader, RandomSampler, SequentialSampler, Sampler
-from torch.utils.data.distributed import DistributedSampler
-from torchvision import datasets, transforms, models
-from torchvision.transforms import transforms
-from torchvision.transforms.functional import InterpolationMode
+from torch.utils.data import DataLoader
+from torchvision import models
+
+from util import train_epoch, test, load_data
 
 WORLD_SIZE = int(os.environ.get("WORLD_SIZE", 1))
 LOCAL_RANK = int(os.environ.get("LOCAL_RANK", 0))
-
-
-def train(args: argparse.Namespace,
-          model: models.resnet50,
-          criterion: nn.CrossEntropyLoss,
-          use_cuda: bool,
-          train_loader: DataLoader,
-          train_sampler: Sampler,
-          optimizer: optim.Optimizer,
-          epoch: int,
-          writer: SummaryWriter,
-          wandb_run: Optional[wandb.run]) -> None:
-    model.train()
-    if is_distributed():
-        # Set epoch to sampler for shuffling.
-        train_sampler.set_epoch(epoch)
-    for batch_idx, (data, target) in enumerate(train_loader):
-        step_start = time.perf_counter()
-        if use_cuda:
-            data, target = data.cuda(), target.cuda()
-        optimizer.zero_grad()
-        output = model(data)
-        loss = criterion(output, target)
-        loss.backward()
-        optimizer.step()
-
-        if wandb_run:
-            step_time = time.perf_counter() - step_start
-            global_step = (epoch - 1) * len(train_loader) + batch_idx
-            wandb_info = {"train/loss": loss.item(),
-                          "train/epoch": epoch,
-                          "train/step": global_step,
-                          "train/samples_seen": global_step * len(data),
-                          "perf/rank_samples_per_second": len(data) / step_time}
-            wandb_run.log(wandb_info, step=global_step)
-
-        if batch_idx % args.log_interval == 0:
-            num_processed_samples = batch_idx * len(data)
-            completion_percentage = 100. * batch_idx / len(train_loader)
-            print(f'Train Epoch: {epoch} [{num_processed_samples}/{len(train_sampler)} ({completion_percentage:.0f}%)]'
-                  f'\tloss={loss.item():.4f}')
-            niter = epoch * len(train_loader) + batch_idx
-            writer.add_scalar('loss', loss.item(), niter)
-
-
-def test(model: models.resnet50,
-         criterion: nn.CrossEntropyLoss,
-         use_cuda: bool,
-         test_loader: DataLoader,
-         test_sampler: Sampler,
-         epoch: int,
-         writer: SummaryWriter,
-         wandb_run: Optional[wandb.run]):
-    model.eval()
-    test_loss = 0
-    acc1 = 0
-    acc5 = 0
-    with torch.inference_mode():
-        for data, target in test_loader:
-            if use_cuda:
-                data, target = data.cuda(), target.cuda()
-            output = model(data)
-            test_loss += criterion(output, target).item()
-
-            batch_acc1, batch_acc5 = accuracy(output, target)
-            acc1 += batch_acc1.item()
-            acc5 += batch_acc5.item()
-
-    test_loss /= len(test_sampler)
-    acc1 /= len(test_sampler)
-    acc5 /= len(test_sampler)
-    print(f'Test Epoch: {epoch}\tloss={test_loss:.4f}\tAcc@1={acc1:.3f}\tAcc@5={acc5:.3f}')
-    writer.add_scalar('acc1', acc1, epoch)
-    writer.add_scalar('acc5', acc5, epoch)
-
-    if wandb_run:
-        wandb_info = {"test/loss": test_loss,
-                      "test/epoch": epoch,
-                      "test/acc1": acc1,
-                      "test/acc5": acc5}
-        wandb_run.log(wandb_info)
-
-
-def accuracy(output, target, topk=(1, 5)):
-    """Computes the accuracy over the k top predictions for the specified values of k"""
-    with torch.inference_mode():
-        maxk = max(topk)
-        batch_size = target.size(0)
-        if target.ndim == 2:
-            target = target.max(dim=1)[1]
-
-        _, pred = output.topk(maxk, 1, True, True)
-        pred = pred.t()
-        correct = pred.eq(target[None])
-
-        res = []
-        for k in topk:
-            correct_k = correct[:k].flatten().sum(dtype=torch.float32)
-            res.append(correct_k * (100.0 / batch_size))
-        return res
 
 
 def should_distribute() -> bool:
@@ -127,41 +23,6 @@ def should_distribute() -> bool:
 
 def is_distributed() -> bool:
     return dist.is_available() and dist.is_initialized()
-
-
-def load_data(train_dir: Path,
-              test_dir: Path,
-              args: argparse.Namespace) -> Tuple[datasets.ImageFolder, datasets.ImageFolder, Sampler, Sampler]:
-    # These are known ImageNet values
-    mean = (0.485, 0.456, 0.406)
-    std = (0.229, 0.224, 0.225)
-
-    interpolation = InterpolationMode(args.interpolation)
-    train_transforms = transforms.Compose([
-        transforms.RandomResizedCrop(args.train_crop_size, interpolation=interpolation),
-        transforms.PILToTensor(),
-        transforms.ConvertImageDtype(torch.float),
-        transforms.Normalize(mean=mean, std=std)
-    ])
-    train_dataset = datasets.ImageFolder(str(train_dir), train_transforms)
-
-    test_transforms = transforms.Compose([
-        transforms.Resize(args.val_resize_size, interpolation=interpolation),
-        transforms.CenterCrop(args.val_crop_size),
-        transforms.PILToTensor(),
-        transforms.ConvertImageDtype(torch.float),
-        transforms.Normalize(mean=mean, std=std),
-    ])
-    test_dataset = datasets.ImageFolder(str(test_dir), test_transforms)
-
-    if is_distributed():
-        train_sampler = DistributedSampler(train_dataset, num_replicas=dist.get_world_size(), rank=dist.get_rank())
-        test_sampler = DistributedSampler(test_dataset, num_replicas=dist.get_world_size(), rank=dist.get_rank())
-    else:
-        train_sampler = RandomSampler(train_dataset)
-        test_sampler = SequentialSampler(test_dataset)
-
-    return train_dataset, test_dataset, train_sampler, test_sampler
 
 
 def get_args() -> argparse.Namespace:
@@ -229,8 +90,6 @@ def main() -> None:
     else:
         wandb_run = None
 
-    writer = SummaryWriter(args.log_dir)
-
     if should_distribute():
         print('Using distributed PyTorch with {} backend'.format(args.backend))
         dist.init_process_group(backend=args.backend)
@@ -238,7 +97,9 @@ def main() -> None:
 
     train_dataset, test_dataset, train_sampler, test_sampler = load_data(args.data_dir / "train",
                                                                          args.data_dir / "val",
-                                                                         args)
+                                                                         args,
+                                                                         dist.get_world_size(),
+                                                                         dist.get_rank())
 
     train_loader = DataLoader(train_dataset,
                               batch_size=args.batch_size,
@@ -265,8 +126,16 @@ def main() -> None:
 
     start = time.perf_counter()
     for epoch in range(1, args.epochs + 1):
-        train(args, model, criterion, use_cuda, train_loader, train_sampler, optimizer, epoch, writer, wandb_run)
-        test(model, criterion, use_cuda, test_loader, test_sampler, epoch, writer, wandb_run)
+        train_epoch(model,
+                    criterion,
+                    train_sampler,
+                    train_loader,
+                    optimizer,
+                    epoch,
+                    args.log_interval,
+                    use_cuda,
+                    wandb_run)
+        test(model, criterion, test_sampler, test_loader, use_cuda, epoch, wandb_run)
 
     print(f"Training time: {time.perf_counter() - start:0.3f}s")
 

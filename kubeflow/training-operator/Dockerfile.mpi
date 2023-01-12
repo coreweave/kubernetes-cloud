@@ -18,3 +18,4 @@ RUN sed -i 's/[ #]\(.*StrictHostKeyChecking \).*/ \1no/g' /etc/ssh/ssh_config &&
 
 WORKDIR /opt/resnet50/src
 ADD resnet50_horovod.py /opt/resnet50/src/resnet50.py
+ADD util.py /opt/resnet50/src/util.py

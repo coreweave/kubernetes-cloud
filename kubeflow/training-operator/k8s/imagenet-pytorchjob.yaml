@@ -14,7 +14,7 @@ spec:
         spec:
           containers:
             - name: pytorch
-              image: navarrepratt/pytorch_dist_resnet50:9
+              image: navarrepratt/pytorch_dist_resnet50:14
               command:
                 - "torchrun"
                 - "--nproc_per_node=8"
@@ -90,7 +90,7 @@ spec:
         spec:
           containers:
             - name: pytorch
-              image: navarrepratt/pytorch_dist_resnet50:9
+              image: navarrepratt/pytorch_dist_resnet50:14
               command:
                 - "torchrun"
                 - "--nproc_per_node=8"  # Num GPUs per worker

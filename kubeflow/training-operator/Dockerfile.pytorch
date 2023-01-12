@@ -5,6 +5,7 @@ RUN mkdir -p /opt/resnet50
 
 WORKDIR /opt/resnet50/src
 ADD resnet50_pytorch.py /opt/resnet50/src/resnet50.py
+ADD util.py /opt/resnet50/src/util.py
 
 RUN  chgrp -R 0 /opt/resnet50 \
   && chmod -R g+rwX /opt/resnet50

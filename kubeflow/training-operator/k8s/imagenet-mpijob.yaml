@@ -14,7 +14,7 @@ spec:
         spec:
           containers:
             - name: pytorch
-              image: navarrepratt/pytorch_mpi_resnet50:1
+              image: navarrepratt/pytorch_mpi_resnet50:6
               command:
                 - "mpirun"
                 - "-np"
@@ -65,7 +65,7 @@ spec:
         spec:
           containers:
             - name: pytorch
-              image: navarrepratt/pytorch_mpi_resnet50:1
+              image: navarrepratt/pytorch_mpi_resnet50:6
               resources:  # Use the full node
                 requests:
                   cpu: 90
