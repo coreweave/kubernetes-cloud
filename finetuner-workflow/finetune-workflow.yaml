@@ -29,8 +29,8 @@ spec:
     # sequential datasets like novels.
     - name: reorder
       value: 'none'
-    # What % of chunks to throw out, to reduce redundancy (randomly throws them out) valid values are between 0-100, 
-    # 100 disables argument
+    # What % of chunks to throw out, to reduce redundancy (randomly throws them out)
+    # valid values are between 0-100, 100 disables argument
     - name: sampling
       value: 100
     # eot and pad tokens, it is suggested not to change this value, but usual
