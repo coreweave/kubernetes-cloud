@@ -31,11 +31,9 @@ Workstations may be provisioned with GPUs or may be provisioned as CPU-only inst
 
 ### Thinkbox Deadline
 
-Workstations on CoreWeave Cloud support [Thinkbox Deadline](https://www.awsthinkbox.com/deadline), the most responsive modern render management solution for accessing render nodes and automatic workload scaling. Learn more about configuring Deadline:
+Workstations on CoreWeave Cloud support [Thinkbox Deadline](https://www.awsthinkbox.com/deadline), the most responsive modern render management solution for accessing render nodes and automatic workload scaling.
 
-{% content-ref url="broken-reference" %}
-[Broken link](broken-reference)
-{% endcontent-ref %}
+<table data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>Learn more about configuring managed Deadline on CoreWeave!</strong></td><td></td><td></td><td><a href="../vfx-and-rendering/vfx/deadline.md">deadline.md</a></td></tr></tbody></table>
 
 ## Creating and configuring Virtual Workstations
 
