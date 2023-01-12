@@ -74,19 +74,23 @@ The following tables describe which resources are available per data center regi
 
 ### GPU regional availability
 
-| Resource Name    |         LGA1         |         ORD1         |         LAS1         |
-| ---------------- | :------------------: | :------------------: | :------------------: |
-| H100 80GB PCIe   |      :no\_entry:     |      :no\_entry:     | :white\_check\_mark: |
-| A100 80GB NVLINK |      :no\_entry:     |      :no\_entry:     | :white\_check\_mark: |
-| A100 40GB NVLINK |      :no\_entry:     | :white\_check\_mark: |      :no\_entry:     |
-| A100 80GB PCIe   |      :no\_entry:     | :white\_check\_mark: |      :no\_entry:     |
-| A100 40GB PCIe   |      :no\_entry:     | :white\_check\_mark: |      :no\_entry:     |
-| A40              | :white\_check\_mark: | :white\_check\_mark: | :white\_check\_mark: |
-| RTX A6000        | :white\_check\_mark: | :white\_check\_mark: | :white\_check\_mark: |
-| RTX A5000        | :white\_check\_mark: | :white\_check\_mark: | :white\_check\_mark: |
-| RTX A4000        | :white\_check\_mark: | :white\_check\_mark: | :white\_check\_mark: |
-| Quadro RTX 5000  | :white\_check\_mark: | :white\_check\_mark: | :white\_check\_mark: |
-| Quadro RTX 4000  | :white\_check\_mark: | :white\_check\_mark: | :white\_check\_mark: |
+| Resource Name        |         LGA1         |         ORD1         |         LAS1         |
+| -------------------- | :------------------: | :------------------: | :------------------: |
+| H100 80GB PCIe       |      :no\_entry:     |      :no\_entry:     | :white\_check\_mark: |
+| A100 80GB HGX NVLINK |      :no\_entry:     |      :no\_entry:     | :white\_check\_mark: |
+| A100 40GB HGX NVLINK |      :no\_entry:     | :white\_check\_mark: |      :no\_entry:     |
+| A100 80GB PCIe       |      :no\_entry:     | :white\_check\_mark: |      :no\_entry:     |
+| A100 40GB PCIe       |      :no\_entry:     | :white\_check\_mark: |      :no\_entry:     |
+| A40                  | :white\_check\_mark: | :white\_check\_mark: | :white\_check\_mark: |
+| RTX A6000            | :white\_check\_mark: | :white\_check\_mark: | :white\_check\_mark: |
+| RTX A5000            | :white\_check\_mark: | :white\_check\_mark: | :white\_check\_mark: |
+| RTX A4000            | :white\_check\_mark: | :white\_check\_mark: | :white\_check\_mark: |
+| Quadro RTX 5000      | :white\_check\_mark: | :white\_check\_mark: | :white\_check\_mark: |
+| Quadro RTX 4000      | :white\_check\_mark: | :white\_check\_mark: | :white\_check\_mark: |
+
+{% hint style="info" %}
+H100 HGX and A100 HGX distributed training nodes are only available via CoreWeave Bare Metal Kubernetes. These node types are not offered as Virtual Servers to eliminiate any virtualization overhead.
+{% endhint %}
 
 ### CPU regional availability
 

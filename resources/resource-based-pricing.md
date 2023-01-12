@@ -8,24 +8,26 @@ While we also show pricing and allow scheduling based upon ["Standard Instances"
 
 The following components are configurable in GPU based instances.
 
-| Type | Description                   | Label                | Cost per Hour | VRAM       |
-| ---- | ----------------------------- | -------------------- | ------------- | ---------- |
-| GPU  | NVIDIA A100 for NVLINK (80GB) | A100\_NVLINK_\__80GB | $2.21         |            |
-| GPU  | NVIDIA A100 for NVLINK (40GB) | A100\_NVLINK         | $2.06         | 40GB HBM2e |
-| GPU  | NVIDIA A100 for PCIE (40GB)   | A100\_PCIE\_40GB     | $2.06         | 40GB HBM2e |
-| GPU  | NVIDIA A100 for PCIE (80GB)   | A100\_PCIE\_80GB     | $2.21         |            |
-| GPU  | NVIDIA V100 for NVLINK        | Tesla\_V100\_NVLINK  | $0.80         | 16GB HBM2  |
-| GPU  | NVIDIA A40                    | A40                  | $1.28         | 48GB GDDR6 |
-| GPU  | NVIDIA RTX A6000              | RTX\_A6000           | $1.28         | 48GB GDDR6 |
-| GPU  | NVIDIA RTX A5000              | RTX\_A5000           | $0.77         | 24GB GDDR6 |
-| GPU  | NVIDIA RTX A4000              | RTX\_A4000           | $0.61         | 16GB GDDR6 |
-| GPU  | NVIDIA Quadro RTX 5000        | Quadro\_RTX\_5000    | $0.57         | 16GB GDDR6 |
-| GPU  | NVIDIA Quadro RTX 4000        | Quadro\_RTX\_4000    | $0.24         | 8GB GDDR6  |
-| CPU  | AMD Epyc Milan vCPU           | amd-epyc-milan       | $0.010        | N/A        |
-| CPU  | AMD Epyc Rome vCPU            | amd-epyc-rome        | $0.010        | N/A        |
-| CPU  | Intel Xeon Scalable           | intel-xeon-scalable  | $0.010        | N/A        |
-| CPU  | Intel Xeon v4                 | intel-xeon-v4        | $0.010        | N/A        |
-| RAM  | System RAM per GB             | memory               | $0.005        | N/A        |
+| Type | Description                 | Label                | Cost per Hour | VRAM       |
+| ---- | --------------------------- | -------------------- | ------------- | ---------- |
+| GPU  | NVIDIA H100 HGX (80GB)      | H100\_NVLINK_\__80GB | $4.78         |            |
+| GPU  | NVIDIA H100 for PCIe (80GB) | H100\_PCIE           | $4.25         |            |
+| GPU  | NVIDIA A100 HGX (80GB)      | A100\_NVLINK_\__80GB | $2.21         |            |
+| GPU  | NVIDIA A100 HGX (40GB)      | A100\_NVLINK         | $2.06         | 40GB HBM2e |
+| GPU  | NVIDIA A100 for PCIe (40GB) | A100\_PCIE\_40GB     | $2.06         | 40GB HBM2e |
+| GPU  | NVIDIA A100 for PCIe (80GB) | A100\_PCIE\_80GB     | $2.21         |            |
+| GPU  | NVIDIA V100 for NVLINK      | Tesla\_V100\_NVLINK  | $0.80         | 16GB HBM2  |
+| GPU  | NVIDIA A40                  | A40                  | $1.28         | 48GB GDDR6 |
+| GPU  | NVIDIA RTX A6000            | RTX\_A6000           | $1.28         | 48GB GDDR6 |
+| GPU  | NVIDIA RTX A5000            | RTX\_A5000           | $0.77         | 24GB GDDR6 |
+| GPU  | NVIDIA RTX A4000            | RTX\_A4000           | $0.61         | 16GB GDDR6 |
+| GPU  | NVIDIA Quadro RTX 5000      | Quadro\_RTX\_5000    | $0.57         | 16GB GDDR6 |
+| GPU  | NVIDIA Quadro RTX 4000      | Quadro\_RTX\_4000    | $0.24         | 8GB GDDR6  |
+| CPU  | AMD Epyc Milan vCPU         | amd-epyc-milan       | $0.010        | N/A        |
+| CPU  | AMD Epyc Rome vCPU          | amd-epyc-rome        | $0.010        | N/A        |
+| CPU  | Intel Xeon Scalable         | intel-xeon-scalable  | $0.010        | N/A        |
+| CPU  | Intel Xeon v4               | intel-xeon-v4        | $0.010        | N/A        |
+| RAM  | System RAM per GB           | memory               | $0.005        | N/A        |
 
 An example, guaranteed request, hardware configuration of 4 Tesla V100 NVLINK GPUs with 32 Intel Xeon Scalable vCPU and 128GB of RAM would look something like:
 
