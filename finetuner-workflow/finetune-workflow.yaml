@@ -24,8 +24,9 @@ spec:
       value: 'false'
     # How should the tokenizer order the dataset inputs? Options available are:
     # `size_ascending`, `size_descending`, `name_ascending`, `name_descending`,
-    # `random`, and `none`. `shuffle` implements `none` while also assigning chunks randomly to file instead
-    # of sequentially
+    # `random`, and `none`. `shuffle` implements `none` while also assigning 
+    # chunks randomly to file instead of sequentially, useful for large
+    # sequential datasets like novels.
     - name: reorder
       value: 'none'
     # What % of chunks to throw out, to reduce redundancy (randomly throws them out) valid values are between 0-100, 
