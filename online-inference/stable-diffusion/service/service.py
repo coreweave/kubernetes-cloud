@@ -9,12 +9,21 @@ from tensorizer import load_model
 
 import torch
 from torch import autocast
-from diffusers import StableDiffusionPipeline, LMSDiscreteScheduler, AutoencoderKL, UNet2DConditionModel
+from diffusers import (
+    StableDiffusionPipeline,
+    LMSDiscreteScheduler,
+    AutoencoderKL,
+    UNet2DConditionModel,
+)
 from transformers import CLIPTextModel, CLIPTextConfig, CLIPTokenizer
 
 parser = ArgumentParser()
-parser.add_argument("--model-id", default="/mnt/models/CompVis/stable-diffusion-v1-4", type=str)
-parser.add_argument("--hf-id", default="CompVis/stable-diffusion-v1-4", type=str)
+parser.add_argument(
+    "--model-id", default="/mnt/models/CompVis/stable-diffusion-v1-4", type=str
+)
+parser.add_argument(
+    "--hf-id", default="CompVis/stable-diffusion-v1-4", type=str
+)
 parser.add_argument(
     "--precision", choices=["float16", "float32"], default="float16", type=str
 )
@@ -52,7 +61,9 @@ logger.info(f"Model Name: {MODEL_NAME}")
 logger.info(f'Model ID: {options["MODEL_ID"]}')
 
 parameters = {
-    "GUIDANCE_SCALE": float(os.getenv("CONDITION_SCALE", default=args.guidance_scale)),
+    "GUIDANCE_SCALE": float(
+        os.getenv("CONDITION_SCALE", default=args.guidance_scale)
+    ),
     "NUM_INFERENCE_STEPS": int(
         os.getenv("NUM_INFERENCE_STEPS", default=args.num_inference_steps)
     ),
@@ -69,30 +80,32 @@ class Model(kserve.Model):
         self.ready = False
         self.pipeline = None
         self.model_name = name
-    
+
     def load_diffusers(self):
         self.pipeline = StableDiffusionPipeline.from_pretrained(
             options["MODEL_ID"],
             torch_dtype=getattr(torch, options["PRECISION"]),
-            scheduler=LMSDiscreteScheduler.from_pretrained(options["MODEL_ID"], subfolder="scheduler"),
+            scheduler=LMSDiscreteScheduler.from_pretrained(
+                options["MODEL_ID"], subfolder="scheduler"
+            ),
             local_files_only=True,
         )
 
     def load_tensorizer(self):
         vae = load_model(options["MODEL_ID"], AutoencoderKL, None, "vae")
-        unet = load_model(options["MODEL_ID"], UNet2DConditionModel, None, "unet")
-        encoder = load_model(options["MODEL_ID"], CLIPTextModel, CLIPTextConfig, "encoder")
+        unet = load_model(
+            options["MODEL_ID"], UNet2DConditionModel, None, "unet"
+        )
+        encoder = load_model(
+            options["MODEL_ID"], CLIPTextModel, CLIPTextConfig, "encoder"
+        )
 
         scheduler = LMSDiscreteScheduler.from_pretrained(
-            args.hf_id,
-            subfolder="scheduler",
-            use_auth_token=HF_TOKEN
+            args.hf_id, subfolder="scheduler", use_auth_token=HF_TOKEN
         )
 
         tokenizer = CLIPTokenizer.from_pretrained(
-            args.hf_id,
-            subfolder="tokenizer",
-            use_auth_token=HF_TOKEN
+            args.hf_id, subfolder="tokenizer", use_auth_token=HF_TOKEN
         )
 
         self.pipeline = StableDiffusionPipeline(
@@ -137,12 +150,16 @@ class Model(kserve.Model):
         request_parameters = parameters.copy()
         if "parameters" in request:
             logger.debug(f"Configuring request")
-            request_parameters = self.configure_request(request, request_parameters)
+            request_parameters = self.configure_request(
+                request, request_parameters
+            )
             logger.debug(f"Request configured")
 
         generator = None
         if request_parameters["SEED"] is not None:
-            generator = torch.Generator("cuda").manual_seed(request_parameters["SEED"])
+            generator = torch.Generator("cuda").manual_seed(
+                request_parameters["SEED"]
+            )
 
         logger.debug(f"Generating image")
         with autocast("cuda"):
