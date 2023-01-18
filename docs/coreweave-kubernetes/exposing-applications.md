@@ -11,7 +11,7 @@ A Service allocates a dedicated IP address for the exposed application, whereas 
 {% hint style="info" %}
 **Note**
 
-For stateless Web services, the [Serverless framework](../../../coreweave-kubernetes/serverless.md) may be a good option. In this framework, the application is automatically deployed with a TLS-enabled hostname and autoscaling enabled.
+For stateless Web services, the [Serverless framework](serverless/) may be a good option. In this framework, the application is automatically deployed with a TLS-enabled hostname and autoscaling enabled.
 {% endhint %}
 
 ## Internal Services
@@ -65,7 +65,7 @@ spec:
 {% hint style="warning" %}
 **Important**
 
-To ensure optimal traffic routing, ensure that your Workload is only scheduled to run in the same region from which a public IP is being requested. Use the [region label affinity](../../../coreweave-kubernetes/label-selectors.md) to limit scheduling of the Workload to a single region.
+To ensure optimal traffic routing, ensure that your Workload is only scheduled to run in the same region from which a public IP is being requested. Use the [region label affinity](../../coreweave-kubernetes/label-selectors.md) to limit scheduling of the Workload to a single region.
 {% endhint %}
 
 ### Attaching Service IPs directly to Pods
@@ -170,7 +170,8 @@ metadata:
 spec:
   redirectScheme:
     permanent: true
-    scheme: https</code></pre>
+    scheme: https
+</code></pre>
 
 ###
 

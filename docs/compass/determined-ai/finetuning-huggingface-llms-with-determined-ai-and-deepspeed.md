@@ -40,7 +40,7 @@ First, create a **Shared Filesystem storage volume** from the **Storage** menu i
 
 If you're following along with this demo, you can use the values shown and described below.
 
-<figure><img src="../../.gitbook/assets/image (14) (3).png" alt=""><figcaption><p>Create a New Volume on the Storage menu from the Cloud UI</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (14) (1).png" alt=""><figcaption><p>Create a New Volume on the Storage menu from the Cloud UI</p></figcaption></figure>
 
 The values used for this demo are as follows:
 
@@ -240,7 +240,7 @@ In total, there are three stages, each of which adds another level of paralleliz
 | **Stage 2**  | The gradients are partitioned across all devices      |
 | **Stage 3**  | The model weights are partitioned across all devices  |
 
-<figure><img src="../../.gitbook/assets/image (18).png" alt="Graph from the ZeRO paper showing the memory efficiency from different optimization stages."><figcaption><p>Graph from the <a href="https://arxiv.org/abs/1910.02054v3">ZeRO paper</a> showing the memory efficiency from different optimization stages.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (18) (1).png" alt="Graph from the ZeRO paper showing the memory efficiency from different optimization stages."><figcaption><p>Graph from the <a href="https://arxiv.org/abs/1910.02054v3">ZeRO paper</a> showing the memory efficiency from different optimization stages.</p></figcaption></figure>
 
 ### The experiment config
 
@@ -344,7 +344,7 @@ You'll find the running experiments in the "Uncategorized" section of Determined
 
 The trial overview shows a lot of important info in one tab. You can see a graph of the trial's performance over time, along with a chart of the raw number visible in the graph.
 
-<figure><img src="../../.gitbook/assets/image (22).png" alt=""><figcaption><p>Overview tab for a Running Trial in the Determined Web UI</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (22) (2).png" alt=""><figcaption><p>Overview tab for a Running Trial in the Determined Web UI</p></figcaption></figure>
 
 #### Checkpoints
 
@@ -354,7 +354,7 @@ All checkpoints may be seen in the **Overview** tab, but each checkpoint is also
 
 Viewing a specific checkpoint's information will show you additional information like the file sizes and location of the checkpoint.
 
-<figure><img src="../../.gitbook/assets/image (12) (3).png" alt=""><figcaption><p>Checkpoint Information Panel</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (12) (3) (1).png" alt=""><figcaption><p>Checkpoint Information Panel</p></figcaption></figure>
 
 Using the location from the Web UI, you can also find and download the checkpoint via the `s3cmd`:
 
@@ -372,7 +372,7 @@ s3cmd get -r s3://$BUCKET_NAME/2923ac08-0f11-4391-945e-6de03e424a61/
 
 The profiler was enabled in both of the experiments that were created, but this is not the case by default. When the profiler is enabled, Determined will automatically track a number of system metrics.
 
-<figure><img src="../../.gitbook/assets/image (9).png" alt=""><figcaption><p>Profiler Tab for a Running Experiment in Determined's Web UI</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (45) (1).png" alt=""><figcaption><p>Profiler Tab for a Running Experiment in Determined's Web UI</p></figcaption></figure>
 
 For the grid search experiment, it is important to compare the throughput metrics, GPU free memory, and GPU utilization across the different micro batch size. Notice that the higher micro batch sizes use more of the GPUs memory getting higher utilization and samples per second.
 
@@ -380,19 +380,19 @@ For the grid search experiment, it is important to compare the throughput metric
 
 The values used for the trial may be viewed in the hyperparameter tab. This tab is more important when performing hyperparameter searches and you want to know the specific values for that trial compared to the others.
 
-<figure><img src="../../.gitbook/assets/image (10) (1).png" alt=""><figcaption><p>Hyperparameter Tab for a Trial in Determined's Web UI</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (10) (2).png" alt=""><figcaption><p>Hyperparameter Tab for a Trial in Determined's Web UI</p></figcaption></figure>
 
 #### Experiment with Multiple Trials Overview
 
 From the overview of an experiment that is running multiple trials, you can track the progress of all trials.&#x20;
 
-<figure><img src="../../.gitbook/assets/image (25).png" alt=""><figcaption><p>Experiment Overview with Multiple Trials</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (25) (1).png" alt=""><figcaption><p>Experiment Overview with Multiple Trials</p></figcaption></figure>
 
 #### Trials
 
 You can see more information about each specific trial in the **Trials** tab. Each individual trial may also be inspected from here by clicking into them.
 
-<figure><img src="../../.gitbook/assets/image (19).png" alt=""><figcaption><p>Trials Tab in the Determined Web UI</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (5).png" alt=""><figcaption><p>Trials Tab in the Determined Web UI</p></figcaption></figure>
 
 {% hint style="info" %}
 **Note**

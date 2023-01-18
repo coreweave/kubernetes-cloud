@@ -62,7 +62,7 @@ The following Kubernetes-based components are required:
 
 You can deploy Argo Workflows using the [application Catalog](https://apps.coreweave.com). From the application deployment menu, click on the **Catalog** tab, then search for `argo-workflows` to find and deploy the application.
 
-![Argo Workflows](<../.gitbook/assets/image (138).png>)
+![Argo Workflows](<../.gitbook/assets/image (82) (2).png>)
 
 The catalog deployment will create the underlying resources needed for client authentication. To fetch the authentication token run the following commands after filing in the name of your argo-workflows deployment.
 
@@ -75,7 +75,7 @@ echo $ARGO_TOKEN
 
 Then, inside the box for **client authentication**, copy and paste the newly generated token into the Argo UI:
 
-![The Argo Workflow UI with a Bearer token pasted into the client authentication box](<../.gitbook/assets/image (2) (2) (1).png>)
+![The Argo Workflow UI with a Bearer token pasted into the client authentication box](<../.gitbook/assets/image (2) (2) (1) (1) (1).png>)
 
 Finally, to log in, click the **Login** button after adding the token.
 
@@ -128,7 +128,7 @@ Simply select the `finetune-data` PVC that you created earlier. **Make sure that
 Some people may prefer to use a [Virtual Server](broken-reference/) to interact with their PVC via `ssh` or another mechanism. This flexibility is one of the key advantages of CoreWeave.
 {% endhint %}
 
-![The filebrowser application](<../../.gitbook/assets/image (60) (2).png>)
+![The filebrowser application](<../../.gitbook/assets/image (60) (1) (1).png>)
 
 ## Dataset Setup
 

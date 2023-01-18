@@ -7,12 +7,13 @@
 ## CoreWeave Kubernetes
 
 * [Get Started with CoreWeave](../coreweave-kubernetes/getting-started.md)
+* [Serverless](coreweave-kubernetes/serverless/README.md)
+  * [Applications Catalog](coreweave-kubernetes/serverless/applications-catalog.md)
 * [Exposing Applications](coreweave-kubernetes/exposing-applications.md)
 * [Useful Commands](../coreweave-kubernetes/useful-commands.md)
 * [Node Types](../coreweave-kubernetes/node-types.md)
 * [Advanced Label Selectors](../coreweave-kubernetes/label-selectors.md)
 * [CoSchedulers](coreweave-kubernetes/coschedulers.md)
-* [Serverless](../coreweave-kubernetes/serverless.md)
 * [Metrics](../coreweave-kubernetes/prometheus/README.md)
   * [Grafana](../coreweave-kubernetes/prometheus/grafana.md)
   * [Useful Metrics](../coreweave-kubernetes/prometheus/useful-metrics.md)
