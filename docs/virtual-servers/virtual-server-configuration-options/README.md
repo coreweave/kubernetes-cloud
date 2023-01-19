@@ -1,7 +1,5 @@
 ---
-description: >-
-  Explore all of the Virtual Server configuration options and how to implement
-  them.
+description: Implement Virtual Servers using one of four deployment methods
 ---
 
 # Configuration Options
