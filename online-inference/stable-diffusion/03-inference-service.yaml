@@ -22,7 +22,11 @@ spec:
               - ORD1 
     containers:
       - name: kserve-container
-        image: tweldoncw/stable-diffusion:7
+        image: harubaru1/stable-diffusion:17
+        command:
+          - "python3"
+          - "/app/service.py"
+          - "--model-id=/mnt/models/CompVis/stable-diffusion-v1-4" # If the model is serialized, this should be the path to the serialized model which can also be an s3 path
         env:
           - name: HUGGING_FACE_HUB_TOKEN # Once the model is released publicly, this variable can be removed
             valueFrom:
