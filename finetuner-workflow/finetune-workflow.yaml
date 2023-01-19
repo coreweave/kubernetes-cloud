@@ -24,9 +24,16 @@ spec:
       value: 'false'
     # How should the tokenizer order the dataset inputs? Options available are:
     # `size_ascending`, `size_descending`, `name_ascending`, `name_descending`,
-    # `random`, and `none`.
+    # `random`, and `none`. `shuffle` implements `none` while also assigning 
+    # chunks randomly to file instead of sequentially, useful for large
+    # sequential datasets like novels.
     - name: reorder
       value: 'none'
+    # What % of chunks to throw out, to reduce redundancy 
+    # (randomly throws them out)
+    # valid values are between 0-100, 100 disables argument
+    - name: sampling
+      value: 100
     # eot and pad tokens, it is suggested not to change this value, but usual
     # values are `<|padding|>` or `<|endoftext|>`
     - name: eot_token
@@ -77,7 +84,7 @@ spec:
       value: '3'
     # Whether to *not* resume from checkpoints.
     - name: no_resume
-      value: 'false'
+      value: false
     # Where we store our training logs on the PVC.
     - name: logs
       value: 'logs'
@@ -110,7 +117,7 @@ spec:
     - name: tokenizer_image
       value: 'ghcr.io/wbrown/gpt_bpe/dataset_tokenizer'
     - name: tokenizer_tag
-      value: '7ffb3ec'
+      value: 'baa7df3'
     - name: finetuner_image
       value: 'docker.io/gooseai/finetuner'
     - name: finetuner_tag
@@ -152,6 +159,10 @@ spec:
             value: "{{workflow.parameters.boundary_token}}"
           - name: reorder
             value: "{{workflow.parameters.reorder}}"
+          - name: sampling
+            value: "{{workflow.parameters.sampling}}"
+          - name: retokenize
+            value: "{{workflow.parameters.retokenize}}"
         when: "{{workflow.parameters.inference_only}} == false"
 
     - - name: finetuner
@@ -241,6 +252,7 @@ spec:
         - name: pad
         - name: output
         - name: boundary
+        - name: sampling
         - name: reorder
     retryStrategy:
       limit: 1
@@ -255,6 +267,7 @@ spec:
              "-output", "{{inputs.parameters.output}}",
              "-boundary", "{{inputs.parameters.boundary}}",
              "-reorder", "{{inputs.parameters.reorder}}",
+             "-sampling", "{{inputs.parameters.sampling}}",
              "-sanitize"]
       resources:
         requests:
