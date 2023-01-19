@@ -44,7 +44,7 @@ Once the application is in a **Ready** state, the Determined AI Web UI may be ac
 The client is configured to communicate with the server via the environment variable `$DET_MASTER`.
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (5) (1).png" alt="The Web UI access info in the post-launch notes"><figcaption><p>The Web UI access info in the post-launch notes</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5) (6).png" alt="The Web UI access info in the post-launch notes"><figcaption><p>The Web UI access info in the post-launch notes</p></figcaption></figure>
 
 ### The Web UI
 

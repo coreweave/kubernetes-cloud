@@ -1,8 +1,6 @@
 # PyTorch - GPT-2 AITextgen
 
-## Introduction
-
-A custom predictor allows you to deploy your own prediction implementation, useful when the existing serving implementations don't fit your needs. If migrating from Cortex, the custom predictor work exactly the same way as `PythonPredictor` does in Cortex. Most `PythonPredictors` can be converted to custom predictor by copy pasting the code and renaming some variables.
+A **custom predictor** allows you to deploy your own prediction implementation, useful when the existing serving implementations don't fit your needs. If migrating from Cortex, the custom predictor work exactly the same way as `PythonPredictor` does in Cortex. Most `PythonPredictors` can be converted to custom predictor by copy pasting the code and renaming some variables.
 
 The custom predictor is packaged as a Docker container. It is recommended, but not required, to keep large model files outside of the container image itself and to load them from a storage volume. This example does not follow that pattern. Refer to the [Custom Sentiment](custom-sentiment.md) example for a better production setup. You will need somewhere to publish your Docker image once built. This example leverages [Docker Hub](https://hub.docker.com), where storing public images are free and private images are cheap. [Google Container Registry](https://blog.container-solutions.com/using-google-container-registry-with-kubernetes) and other registries can also be used.
 
@@ -12,7 +10,7 @@ Make sure you use a GPU enabled Docker image as a base, and that you enable GPU 
 
 To follow along, please clone the manifests from [GitHub](https://github.com/coreweave/kubernetes-cloud/tree/master/online-inference/custom-pytorch-aitextgen).
 
-## Getting Started
+## Get Started
 
 After installing `kubectl` and adding your CoreWeave Cloud access credentials, the following steps will deploy the Inference Service. Clone this repository and folder, and execute all commands in there. We'll be using all the files.
 

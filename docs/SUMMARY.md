@@ -46,6 +46,7 @@
 * [Get Started with Storage](storage/storage/README.md)
   * [Using Storage - Cloud UI](storage/storage/using-storage-cloud-ui.md)
   * [Using Storage - Kubectl](storage/storage/using-storage-kubectl.md)
+* [FileBrowser](storage/filebrowser.md)
 * [Object Storage](storage/object-storage.md)
 
 ## Virtual Servers
