@@ -465,7 +465,7 @@ class ModelSampler(TrainerCallback):
                         )
                         print("-----------------------------")
                         print("RESPONSE:", output_text)
-            wandb.log({"Generations": self.wandb_table}, step=state.global_step)
+            wandb.log({"Generations": self.wandb_table}, commit=False)
             model.train()
 
 
