@@ -183,9 +183,6 @@ VS_NAME=vs-example
 echo -e "\n------------- CREATE VS -----------------------------------"
 create_vs ${VS_NAME}
 
-echo -e "\n------------- START VS -----------------------------------"
-start_vm ${VS_NAME}
-
 echo -e "\n------------- WAIT FOR VMI UNTIL RUNNING ------------------"
 wait_until_vs_status ${VS_NAME} expect_vs_running
 

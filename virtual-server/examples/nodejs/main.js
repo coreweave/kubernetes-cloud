@@ -42,7 +42,7 @@ virtualServerManifest.spec = {
       source: {
         pvc: {
           namespace: "vd-images",
-          name: "ubuntu1804-nvidia-465-19-01-1-docker-master-20210629-ord1"
+          name: "ubuntu2004-nvidia-515-86-01-1-docker-master-20221205-ord1"
         }
       }
     }
