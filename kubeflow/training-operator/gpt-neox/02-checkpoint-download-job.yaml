@@ -1,0 +1,42 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: neox-checkpoint-download
+spec:
+  template:
+    spec:
+      containers:
+        - name: checkpoint-downloader
+          image: debian:11.6-slim
+          imagePullPolicy: IfNotPresent
+          command: [ "/bin/bash", "-c" ]
+          args:
+            - apt-get update && apt-get install -y wget;
+              mkdir -p /mnt/checkpoints/20B_checkpoints;
+              cd /mnt/checkpoints;
+              wget --cut-dirs=5 -nH -r --no-parent --reject "index.html*" https://the-eye.eu/public/AI/models/GPT-NeoX-20B/slim_weights/ -P 20B_checkpoints
+          volumeMounts:
+            - name: neox-checkpoints
+              mountPath: /mnt/checkpoints
+          resources:
+            requests:
+              cpu: "1"
+              memory: 4Gi
+            limits:
+              cpu: "1"
+              memory: 4Gi
+      volumes:
+        - name: neox-checkpoints
+          persistentVolumeClaim:
+            claimName: neox-checkpoints
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: topology.kubernetes.io/region
+                    operator: In
+                    values:
+                      - LAS1
+      restartPolicy: Never
+  backoffLimit: 2

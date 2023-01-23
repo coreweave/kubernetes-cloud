@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: neox-checkpoints
+spec:
+  storageClassName: shared-nvme-las1
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 512Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: neox-data
+spec:
+  storageClassName: shared-hdd-las1
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 64Gi

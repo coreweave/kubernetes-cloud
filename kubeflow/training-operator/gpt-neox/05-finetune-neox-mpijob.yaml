@@ -1,0 +1,110 @@
+apiVersion: kubeflow.org/v2beta1
+kind: MPIJob
+metadata:
+  name: finetune-neox
+spec:
+  slotsPerWorker: 8
+  runPolicy:
+    cleanPodPolicy: Running
+  mpiReplicaSpecs:
+    Launcher:
+      replicas: 1
+      template:
+        spec:
+          # This is very much a hack. The NeoX code just stalls sometimes if
+          # all workers are not up. It doesn't exit gracefully so the launcher retries.
+          initContainers:
+            - image: busybox:1.28
+              name: sleep
+              command: [ "sleep", "30" ]
+          containers:
+            - image: navarrepratt/gpt-neox:7
+              name: neox
+              command:
+                - /usr/bin/python
+                - deepy.py
+                - train.py
+                - /mnt/config/neox.yml
+              volumeMounts:
+                - mountPath: /mnt/config
+                  name: config
+              env:
+                - name: WANDB_API_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: wandb-token-secret
+                      key: token
+          volumes:
+            - name: config
+              configMap:
+                name: neox-training
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                  - matchExpressions:
+                      - key: topology.kubernetes.io/region
+                        operator: In
+                        values:
+                          - LAS1
+
+          enableServiceLinks: false
+          automountServiceAccountToken: false
+
+    Worker:
+      replicas: 2
+      template:
+        spec:
+          containers:
+            - image: navarrepratt/gpt-neox:7
+              name: neox
+              volumeMounts:
+                - mountPath: /dev/shm
+                  name: dshm
+                - mountPath: /mnt/checkpoints
+                  name: neox-checkpoints
+                - mountPath: /mnt/data
+                  name: neox-data
+                - mountPath: /mnt/config
+                  name: config
+              resources:
+                requests:
+                  cpu: 48
+                  memory: 256Gi
+                  nvidia.com/gpu: 8
+                  rdma/ib: 1
+                limits:
+                  nvidia.com/gpu: 8
+                  rdma/ib: 1
+
+          volumes:
+            - name: config
+              configMap:
+                name: neox-training
+            # Custom volumes for model / checkpoint / data storage
+            - emptyDir:
+                medium: Memory
+              name: dshm
+            - name: neox-checkpoints
+              persistentVolumeClaim:
+                claimName: neox-checkpoints
+            - name: neox-data
+              persistentVolumeClaim:
+                claimName: neox-data
+
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                  - matchExpressions:
+                      - key: gpu.nvidia.com/model
+                        operator: In
+                        values:
+                          - A100_NVLINK_80GB
+                      - key: topology.kubernetes.io/region
+                        operator: In
+                        values:
+                          - LAS1
+
+          enableServiceLinks: false
+          automountServiceAccountToken: false
