@@ -5,9 +5,23 @@ metadata:
 spec:
   template:
     spec:
+      # The dataset downloader runs as the nonroot user so the dataset folder in the PVC
+      # needs the correct permissions.
+      initContainers:
+        - name: init
+          image: alpine:3.17
+          command: [ "/bin/sh" ]
+          args:
+            - -c
+            - >-
+              mkdir -p /mnt/pvc/dataset && 
+              chmod o+rw,g+s /mnt/pvc/dataset
+          volumeMounts:
+            - name: dataset-cache
+              mountPath: /mnt/pvc
       containers:
         - name: dataset-downloader
-          image: ghcr.io/coreweave/dataset-downloader/smashwords-downloader:836cea3
+          image: ghcr.io/coreweave/dataset-downloader/smashwords-downloader:ad27ab2
           imagePullPolicy: IfNotPresent
           args: [ "--data_dir", "/mnt/pvc/dataset" ]
           volumeMounts:
