@@ -9,6 +9,7 @@
     "os": {
       "type": "linux"
     },
+    "initializeRunning": true,
     "resources": {
       "cpu": {
         "count": 2,
@@ -23,7 +24,7 @@
         "source": {
           "pvc": {
             "namespace": "vd-images",
-            "name": "ubuntu2004-nvidia-510-47-03-1-teradici-docker-master-20220426-ord1"
+            "name": "ubuntu2004-nvidia-515-86-01-1-docker-master-20221205-ord1"
           }
         }
       }

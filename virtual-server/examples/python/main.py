@@ -67,7 +67,7 @@ runcmd:
                 'size': '40Gi',
                 'source': {
                     'pvc': {
-                        'name': 'ubuntu1804-nvidia-465-19-01-1-docker-master-20210629-ord1',
+                        'name': 'ubuntu2004-nvidia-515-86-01-1-docker-master-20221205-ord1',
                         'namespace': 'vd-images'
                     }
                 },
@@ -104,21 +104,18 @@ except ApiException as e:
 print(vsclient.create(my_virtualserver))
 print(f'VirtualServer status: {vsclient.ready(namespace, name)}')
 
+# Stop the Virtual Machine Instance to apply changes.
+print(vsclient.kubevirt_api.stop(namespace, name))
+print(f'VirtualServer status: {vsclient.ready(namespace, name, expected_state="Stopped")}')
+
 # Update the manifest and attach directly to Load Balancer
 my_virtualserver['spec']['network']['tcp']['ports'] = []
 my_virtualserver['spec']['network']['udp']['ports'] = []
 my_virtualserver['spec']['network']['directAttachLoadBalancerIP'] = True
 print(vsclient.update(my_virtualserver))
 
-# Restart the Virtual Machine Instance to apply changes.
-print(vsclient.kubevirt_api.restart(namespace, name))
-print(f'VirtualServer status: {vsclient.ready(namespace, name, expected_state="Terminating")}')
+print(vsclient.kubevirt_api.start(namespace, name))
 print(f'VirtualServer status: {vsclient.ready(namespace, name)}')
-
-
-# Stop virtual server
-print(vsclient.kubevirt_api.stop(namespace, name))
-print(f'VirtualServer status: {vsclient.ready(namespace, name, expected_state="Stopped")}')
 
 # Delete virtual server
 vsclient.delete(namespace, name)
