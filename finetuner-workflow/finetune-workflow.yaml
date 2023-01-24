@@ -110,10 +110,14 @@ spec:
     - name: inference_gpu
       value: 'RTX_A5000'
     # Container images -- generally, don't alter this.
-    - name: downloader_image
+    - name: model_downloader_image
       value: 'ghcr.io/wbrown/gpt_bpe/model_downloader'
-    - name: downloader_tag
+    - name: model_downloader_tag
       value: '7ffb3ec'
+    - name: dataset_downloader_image
+      value: 'ghcr.io/coreweave/dataset-downloader/smashwords-downloader'
+    - name: dataset_downloader_tag
+      value: 'ad27ab2'
     - name: tokenizer_image
       value: 'ghcr.io/wbrown/gpt_bpe/dataset_tokenizer'
     - name: tokenizer_tag
@@ -130,7 +134,7 @@ spec:
   templates:
   - name: main
     steps:
-    - - name: downloader
+    - - name: model-downloader
         template: model-downloader
         arguments:
           parameters:
@@ -138,6 +142,14 @@ spec:
               value: "{{workflow.parameters.model}}"
             - name: dest
               value: "/{{workflow.parameters.pvc}}/models/{{workflow.parameters.model}}"
+
+    - - name: dataset-downloader
+        template: dataset-downloader
+        arguments:
+          parameters:
+            - name: output
+              value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.dataset}}"
+        when: "{{workflow.parameters.inference_only}} == false"
 
     - - name: tokenizer
         template: model-tokenizer
@@ -214,7 +226,7 @@ spec:
     retryStrategy:
       limit: 1
     container:
-      image: "{{workflow.parameters.downloader_image}}:{{workflow.parameters.downloader_tag}}"
+      image: "{{workflow.parameters.model_downloader_image}}:{{workflow.parameters.model_downloader_tag}}"
       command: [ "/ko-app/model_downloader" ]
       args: [ "-model", "{{inputs.parameters.model}}",
               "-dest", "{{inputs.parameters.dest}}" ]
@@ -225,6 +237,50 @@ spec:
         limits:
           memory: 512Mi
           cpu: "2"
+      volumeMounts:
+        - mountPath: "/{{workflow.parameters.pvc}}"
+          name: "{{workflow.parameters.pvc}}"
+    volumes:
+      - name: "{{workflow.parameters.pvc}}"
+        persistentVolumeClaim:
+           claimName: "{{workflow.parameters.pvc}}"
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: topology.kubernetes.io/region
+              operator: In
+              values:
+              - "{{workflow.parameters.region}}"
+
+  - name: dataset-downloader
+    inputs:
+      parameters:
+        - name: output
+    retryStrategy:
+      limit: 1
+    # The dataset downloader runs as the nonroot user so the dataset folder in the PVC
+    # needs the correct permissions.
+    initContainers:
+      - name: dataset-perms
+        image: alpine:3.17
+        command: [ "/bin/sh" ]
+        args:
+          - "-c"
+          - "mkdir -p {{inputs.parameters.output}};
+            chmod o+rw,g+s {{inputs.parameters.output}}"
+        mirrorVolumeMounts: true
+    container:
+      image: "{{workflow.parameters.dataset_downloader_image}}:{{workflow.parameters.dataset_downloader_tag}}"
+      args: ["--data_dir", "{{inputs.parameters.output}}"]
+      resources:
+        requests:
+          memory: 256Mi
+          cpu: "4"
+        limits:
+          memory: 256Mi
+          cpu: "4"
       volumeMounts:
         - mountPath: "/{{workflow.parameters.pvc}}"
           name: "{{workflow.parameters.pvc}}"
