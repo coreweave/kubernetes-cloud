@@ -96,9 +96,12 @@ spec:
     # Inference service configuration.
     - name: run_inference
       value: false
-    # Skip tokenization and training and only run inference, presumably
+    # Skip dataset download, tokenization, and training to only run inference, presumably
     # you have a model already ready to go under `model_run` name.
     - name: inference_only
+      value: false
+    # Download a dataset of Western Romance books from SmashWords.com
+    - name: download_dataset
       value: false
     # CoreWeave region to default to; ORD1 has most of the GPUs.
     - name: region
@@ -149,7 +152,7 @@ spec:
           parameters:
             - name: output
               value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.dataset}}"
-        when: "{{workflow.parameters.inference_only}} == false"
+        when: "{{workflow.parameters.inference_only}} == false && {{workflow.parameters.download_dataset}} == true"
 
     - - name: tokenizer
         template: model-tokenizer
