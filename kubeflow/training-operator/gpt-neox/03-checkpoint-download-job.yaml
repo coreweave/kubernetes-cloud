@@ -1,42 +1,39 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: prepare-neox-dataset
+  name: neox-checkpoint-download
 spec:
   template:
     spec:
       containers:
-        - name: prepare-neox-dataset
-          image: navarrepratt/gpt-neox:3
+        - name: checkpoint-downloader
+          image: ghcr.io/coreweave/ml-containers/gpt-neox-mpi:npratt-gpt-neox-mpi-a5cccd0
           imagePullPolicy: IfNotPresent
-          command: [ "python", "prepare_data.py" ]
+          command: [ "/bin/bash", "-c" ]
           args:
-            - -d
-            - /mnt/data/datasets
-            - -t
-            - HFTokenizer
-            - --vocab-file
-            - /mnt/checkpoints/20B_checkpoints/20B_tokenizer.json
-            - hackernews  # All options are here: https://github.com/EleutherAI/gpt-neox/blob/main/tools/corpora.py#L298
+            - dest=$(yq '.load' /mnt/config/neox.yml);
+              url=$(cat /mnt/config/model_weights_url);
+              mkdir -p $dest;
+              wget --cut-dirs=5 -nH -r --no-parent --reject "index.html*" $url -P $dest
           volumeMounts:
-            - name: neox-data
-              mountPath: /mnt/data
             - name: neox-checkpoints
               mountPath: /mnt/checkpoints
+            - mountPath: /mnt/config
+              name: config
           resources:
             requests:
-              cpu: "8"
-              memory: 16Gi
+              cpu: "1"
+              memory: 4Gi
             limits:
-              cpu: "8"
-              memory: 16Gi
+              cpu: "1"
+              memory: 4Gi
       volumes:
-        - name: neox-data
-          persistentVolumeClaim:
-            claimName: neox-data
         - name: neox-checkpoints
           persistentVolumeClaim:
             claimName: neox-checkpoints
+        - name: config
+          configMap:
+            name: neox-training
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:

@@ -18,7 +18,7 @@ spec:
               name: sleep
               command: [ "sleep", "30" ]
           containers:
-            - image: navarrepratt/gpt-neox:7
+            - image: ghcr.io/coreweave/ml-containers/gpt-neox-mpi:npratt-gpt-neox-mpi-a5cccd0
               name: neox
               command:
                 - /usr/bin/python
@@ -56,7 +56,7 @@ spec:
       template:
         spec:
           containers:
-            - image: navarrepratt/gpt-neox:7
+            - image: ghcr.io/coreweave/ml-containers/gpt-neox-mpi:npratt-gpt-neox-mpi-a5cccd0
               name: neox
               volumeMounts:
                 - mountPath: /dev/shm

@@ -3,6 +3,7 @@ kind: ConfigMap
 metadata:
   name: neox-training
 data:
+  model_weights_url: "https://the-eye.eu/public/AI/models/GPT-NeoX-20B/slim_weights/"
   neox.yml: |
     {
       # Tokenizer /  checkpoint settings - you will need to change these to the location you have them saved in
@@ -10,7 +11,9 @@ data:
       "save": "/mnt/checkpoints/20B_finetune_checkpoints",
       "load": "/mnt/checkpoints/20B_checkpoints",
       
-      # If finetuning, edit the following to the location of your finetuning dataset:
+      # If finetuning, edit the following to the location of your finetuning dataset. Otherwise, it Will be used as the
+      # destination path if you run the prepare-dataset-job. You can replace 'hackernews' with another dataset from
+      # these options: https://github.com/EleutherAI/gpt-neox/blob/main/tools/corpora.py#L298
       "data-path": "/mnt/data/datasets/hackernews/hackernews_text_document",
       
       # parallelism settings ( you will want to change these based on your cluster setup, ideally scheduling pipeline stages
