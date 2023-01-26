@@ -20,7 +20,7 @@ Choose a number of **Slots** (that is, the number of GPUs to use) and set a **Na
 
 Once configuration is complete, click the **Launch** button in the bottom right-hand corner of the modal. This will prompt Determined to prepare [the JupyterLab environment](https://towardsdatascience.com/how-to-setup-your-jupyterlab-project-environment-74909dade29b).
 
-<figure><img src="../../.gitbook/assets/image (2) (7).png" alt="Determined AI configuring the Jupyter-lab environment"><figcaption><p>Determined AI configuring the Jupyter-lab environment</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (1).png" alt="Determined AI configuring the Jupyter-lab environment"><figcaption><p>Determined AI configuring the Jupyter-lab environment</p></figcaption></figure>
 
 Once the environment is ready, you will be redirected to the JupyterLab home screen. From here, you may begin a Notebook, open a terminal, or create other kinds of files for your Notebook, such as Markdown text files.
 
@@ -30,7 +30,7 @@ Once the environment is ready, you will be redirected to the JupyterLab home scr
 To learn more about Jupyter and how to use Notebooks and JupyterLab, refer to [the Jupyter documentation](https://docs.jupyter.org/en/latest/).
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (12) (4).png" alt="The Jupyter-lab homescreen"><figcaption><p>The Jupyter-lab homescreen</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (12) (3).png" alt="The Jupyter-lab homescreen"><figcaption><p>The Jupyter-lab homescreen</p></figcaption></figure>
 
 To shut down the notebook, navigate to the **File** menu, then select **Shut Down**.
 

@@ -304,7 +304,7 @@ Floating services, sometimes called floating IPs, allows users to create their o
 {% tab title="Cloud UI" %}
 **Deployment method:** <mark style="background-color:blue;">CoreWeave Cloud UI</mark>\ <mark style="background-color:blue;"></mark>\ <mark style="background-color:blue;"></mark>To configure Floating IPs on the Cloud UI, navigate to the YAML tab and find the `floatingIPs` field. This field is an array of load balancer Service names. If configured, the Virtual Server will be assigned floating IPs from the load balancer IP of each service.\ <mark style="background-color:blue;"></mark>
 
-![The floatingIPs option as exposed through the YAML tab on the Cloud UI](<../../.gitbook/assets/image (1) (4).png>)
+![The floatingIPs option as exposed through the YAML tab on the Cloud UI](<../../.gitbook/assets/image (1) (4) (1).png>)
 {% endtab %}
 
 {% tab title="CLI" %}
