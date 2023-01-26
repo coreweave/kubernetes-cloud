@@ -14,7 +14,7 @@ spec:
     # Training parameters. Model IDs are hugging face IDs to pull down, or
     # a path to your model relative to the PVC root.
     - name: model
-      value: 'EleutherAI/gpt-neo-2.7B'
+      value: 'EleutherAI/pythia-2.7b-dedup'
     # The directory to read your dataset in, and tokenize for training.
     - name: dataset
       value: 'dataset'
@@ -22,11 +22,16 @@ spec:
     # NOT enable this if you are making multiple runs on the same dataset.
     - name: retokenize
       value: 'false'
+    # Which tokenizer to use - the dataset_tokenizer internally supports `gpt2`
+    # and `pile`. You can also provide a model-id, and it will attempt to use
+    # the model's tokenizer data.
+    - name: tokenizer
+      value: ''
     # How should the tokenizer order the dataset inputs? Options available are:
     # `size_ascending`, `size_descending`, `name_ascending`, `name_descending`,
     # `random`, and `none`.
     - name: reorder
-      value: 'none'
+      value: ''
     # eot and pad tokens, it is suggested not to change this value, but usual
     # values are `<|padding|>` or `<|endoftext|>`
     - name: eot_token
@@ -39,12 +44,37 @@ spec:
     # range is used to start the next `context`.
     - name: boundary_token
       value: '\n'
-    # The context size to train. Most models have a default maximum of `2048`, but
-    # this can be adjusted downwards. This is most useful when the text you're
-    # training on is divided along logical boundaries and is split using
-    # `boundary_token`.
+    # The context size to train. Most models have a default maximum of `2048`,
+    # but this can be adjusted downwards. This is most useful when the text
+    # you're training on is divided along logical boundaries and is split
+    # using `boundary_token`.
     - name: context
       value: '2048'
+    # A prompts file to read in for testing the model, and reporting the
+    # outputs. This is useful for monitoring the progress and effectivness of
+    # training. One prompt per line, newlines escaped with `\n` if the prompt
+    # is a multiline one.
+    - name: prompt_file
+      value: ''
+    # The interval of step counts to run the prompts tests. If we provide
+    # it with `0`, it will perform these tests at each checkpoint.
+    - name: prompt_every
+      value: 0
+    # The number of tokens to generate per prompt.
+    - name: prompt_tokens
+      value: 200
+    # The number of times to run prompt evaluation for each prompt.
+    - name: prompt_samples
+      value: 5
+    # The following are sampling parameters used during prompt evaluation.
+    - name: top_k
+      value: 50
+    - name: top_p
+      value: 0.95
+    - name: temperature
+      value: 1.0
+    - name: repetition_penalty
+      value: 1.1
     # Model training parameters
     - name: train_ratio
       value: '0.9'
@@ -106,15 +136,15 @@ spec:
     - name: downloader_image
       value: 'ghcr.io/wbrown/gpt_bpe/model_downloader'
     - name: downloader_tag
-      value: '7ffb3ec'
+      value: 'a0fe11e'
     - name: tokenizer_image
       value: 'ghcr.io/wbrown/gpt_bpe/dataset_tokenizer'
     - name: tokenizer_tag
-      value: '7ffb3ec'
+      value: 'a0fe11e'
     - name: finetuner_image
       value: 'docker.io/gooseai/finetuner'
     - name: finetuner_tag
-      value: 'rc57'
+      value: 'cuda-11-8-rc4'
     - name: inference_image
       value: 'coreweave/ml-images'
     - name: inference_tag
@@ -140,8 +170,8 @@ spec:
             value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.dataset}}"
           - name: output
             value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.dataset}}-{{=sprig.replace('/', '_', sprig.replace('.','_', sprig.replace('-','_', workflow.parameters.model)))}}-{{workflow.parameters.context}}-{{workflow.parameters.tokenizer_tag}}.tokens"
-          - name: model
-            value: "/{{workflow.parameters.pvc}}/models/{{workflow.parameters.model}}"
+          - name: tokenizer
+            value: "{{=workflow.parmeters.tokenizer == '' ? /workflow.parameters.pvc/models/workflow.parameters.model : workflow.parameters.tokenizer }}"
           - name: context
             value: "{{workflow.parameters.context}}"
           - name: eot
@@ -180,6 +210,14 @@ spec:
               --project_id {{workflow.parameters.project_id}}
               --epochs {{workflow.parameters.epochs}}
               --context_size {{workflow.parameters.context}}
+              --prompt_file /{{workflow.parameters.pvc}}/{{workflow.parameters.prompt_file}}
+              --prompt_every {{workflow.parameters.prompt_every}}
+              --prompt_tokens {{workflow.parameters.prompt_tokens}}
+              --prompt_samples {{workflow.parameters.prompt_samples}}
+              --top_k {{workflow.parameters.top_k}}
+              --top_p {{workflow.parameters.top_p}}
+              --temperature {{workflow.parameters.temperature}}
+              --repetition_penalty {{workflow.parameters.repetition_penalty}}
               {{=workflow.parameters.force_fp16 == 'true' ? '--fp16' : ''}}
           - name: wandb_key
             value: "{{workflow.parameters.wandb_key}}"
@@ -235,7 +273,7 @@ spec:
     inputs:
       parameters:
         - name: input
-        - name: model
+        - name: tokenizer
         - name: context
         - name: eot
         - name: pad
@@ -247,21 +285,21 @@ spec:
     container:
       image: "{{workflow.parameters.tokenizer_image}}:{{workflow.parameters.tokenizer_tag}}"
       command: [ "/ko-app/dataset_tokenizer" ]
-      args: ["-tokenizer", "{{inputs.parameters.model}}",
+      args: ["-tokenizer", "{{inputs.parameters.tokenizer}}",
              "-context", "{{inputs.parameters.context}}",
              "-eot", "{{inputs.parameters.eot}}",
              "-pad", "{{inputs.parameters.pad}}",
              "-input", "{{inputs.parameters.input}}",
              "-output", "{{inputs.parameters.output}}",
              "-boundary", "{{inputs.parameters.boundary}}",
-             "-reorder", "{{inputs.parameters.reorder}}",
-             "-sanitize"]
+             "-reorder", "{{inputs.parameters.reorder}}"]
+             #"-retokenize"]
       resources:
         requests:
-          memory: 256Mi
+          memory: 512Mi
           cpu: "4"
         limits:
-          memory: 256Mi
+          memory: 512Mi
           cpu: "4"
       volumeMounts:
         - mountPath: "/{{workflow.parameters.pvc}}"
@@ -300,7 +338,7 @@ spec:
         value: "{{inputs.parameters.torch_cache}}"
       resources:
         requests:
-          memory: 128Gi
+          memory: 192Gi
           cpu: "8"
         limits:
           memory: 192Gi

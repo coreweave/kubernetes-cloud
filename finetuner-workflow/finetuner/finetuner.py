@@ -170,13 +170,16 @@ parser.add_argument(
     "--prompt_every", type=int, default=0, help="Prompt every N steps"
 )
 parser.add_argument(
-    "--generate_tokens",
+    "--prompt_tokens",
     type=int,
     default=200,
     help="Number of tokens to sample from prompt",
 )
 parser.add_argument(
-    "--num_samples", type=int, help="Number of samples to generate", default=5
+    "--prompt_samples",
+    type=int,
+    help="Number of samples to generate",
+    default=5,
 )
 parser.add_argument(
     "--top_k", type=int, help="Top K to use for prompt sampling", default=50
@@ -413,19 +416,12 @@ class ModelSampler(TrainerCallback):
         self.num_samples = num_samples
         self.context_size = context_size
         self.tokens_per_step = batch_size * context_size
-        self.wandb_table = wandb.Table(
-            columns=[
-                "Run",
-                "Step",
-                "Contexts Trained",
-                "Prompt",
-                "Generated Text",
-            ]
-        )
+        self.table_data = []
 
     def on_step_end(
         self, args, state, control, model: PreTrainedModel = None, **kwargs
     ):
+
         if not model:
             return
         if state.global_step % self.report_every == 0 or state.global_step == 1:
@@ -456,16 +452,32 @@ class ModelSampler(TrainerCallback):
                     end = time.time()
                     print(f"INFERENCE TIME: {end - start:.2f}s")
                     for output_text in outputs:
-                        self.wandb_table.add_data(
-                            self.run_name,
-                            state.global_step,
-                            curr_tokens_step,
-                            prompt,
-                            output_text,
+                        self.table_data.append(
+                            [
+                                self.run_name,
+                                state.global_step,
+                                curr_tokens_step,
+                                prompt,
+                                output_text,
+                            ]
                         )
                         print("-----------------------------")
                         print("RESPONSE:", output_text)
-            wandb.log({"Generations": self.wandb_table}, commit=False)
+            wandb.log(
+                {
+                    "Generations": wandb.Table(
+                        data=self.table_data,
+                        columns=[
+                            "Run",
+                            "Step",
+                            "Contexts Trained",
+                            "Prompt",
+                            "Generated Text",
+                        ],
+                    )
+                },
+                commit=False,
+            )
             model.train()
 
 
@@ -676,9 +688,9 @@ if args.prompt_file:
         ModelSampler(
             args.prompt_file,
             tokenizer,
-            generate_tokens=args.generate_tokens,
+            generate_tokens=args.prompt_tokens,
             batch_size=bs,
-            num_samples=args.num_samples,
+            num_samples=args.prompt_samples,
             gas=args.gradients,
             report_every=args.prompt_every or args.save_steps,
             context_size=args.context_size,
@@ -686,6 +698,7 @@ if args.prompt_file:
     ]
 else:
     sampler_callbacks = None
+print(f"PROMPT FILE: {args.prompt_file}")
 
 # Parametrize our training based on provided arguments.
 training_args = TrainingArguments(

@@ -1,7 +1,8 @@
-FROM gooseai/torch-base:6cfdc11
-RUN apt-get install -y cuda-nvcc-11-3 cuda-nvml-dev-11-3 libcurand-dev-11-3 \
-                       libcublas-dev-11-3 libcusparse-dev-11-3 \
-                       libcusolver-dev-11-3 cuda-nvprof-11-3 \
+FROM gooseai/torch-base:1.13.1-cuda-1.18-rc4
+RUN apt-get install -y cuda-nvcc-11-8 cuda-nvml-dev-11-8 libcurand-dev-11-8 \
+                       libcublas-dev-11-8 libcusparse-dev-11-8 \
+                       libcusolver-dev-11-8 cuda-nvprof-11-8 \
+                       cuda-profiler-api-11-8 \
                        ninja-build && \
     apt-get clean
 RUN mkdir /app
