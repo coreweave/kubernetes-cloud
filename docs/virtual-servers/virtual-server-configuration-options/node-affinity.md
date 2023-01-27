@@ -12,7 +12,7 @@ description: Learn more about configuring Kubernetes node affinity for Virtual S
 
 From the Cloud UI, the affinity for the Virtual Server can be configured in the `affinity` field in the YAML manifest as shown below.
 
-![YAML manifest screenshot of affinity field.](<../../.gitbook/assets/image (14) (2) (1).png>)
+![YAML manifest screenshot of affinity field.](<../../.gitbook/assets/image (14) (2).png>)
 
 **Example**
 

@@ -34,7 +34,7 @@ When creating a new Virtual Server on CoreWeave cloud, instance specific informa
 
 Within the Virtual Server deployment form, switch to the YAML tab:
 
-![](<../../.gitbook/assets/image (59) (1).png>)
+![](<../../.gitbook/assets/image (59) (1) (1).png>)
 
 Towards the bottom of the page, a commented out cloudInit section will be pre-populated. Uncomment to add custom user data:
 
@@ -54,7 +54,7 @@ Samba shares (Or any SMB/CIFS compliant share) can be added via cloudInit, to be
 
 Using an example from a Samba instance hosted via CoreWeave Cloud Apps, we can derive the following information:
 
-![](<../../.gitbook/assets/image (86).png>)
+![](<../../.gitbook/assets/image (144).png>)
 
 Using our share information, we can populate the cloudInit `key: value` pairs:
 
@@ -197,7 +197,7 @@ Many applications on Windows require a display connected to GPU in order to rend
 {% hint style="warning" %}
 When the Virtual Display is enabled, Windows will only output to the attached GPU, making the built-in VNC terminal inaccessible. Connecting via `virtctl vnc` will result in one of the blank screens below:
 
-<img src="../../.gitbook/assets/vnc-1.png" alt="" data-size="original"><img src="../../../.gitbook/assets/vnc-2 (1) (1).png" alt="" data-size="original">
+<img src="../../.gitbook/assets/vnc-1.png" alt="" data-size="original"><img src="../../../.gitbook/assets/vnc-2.png" alt="" data-size="original">
 
 For serial console access (Windows Special Admin Console), use `virtctl console` instead.
 {% endhint %}
@@ -239,11 +239,11 @@ Via Windows Apps and Features, the default behavior can be modified:
 
 Selecting "Modify" will prompt for an action to perform when it is detected that the root disk can be expanded. The default action of `ReSize` will expand the root disk. `NewPartition` will create a new partition with the unallocated space, and automatically assign a drive letter. Entering no value will disable any automatic action.
 
-![Changing the default action to "NewPartition"](<../../.gitbook/assets/image (78) (1).png>)
+![Changing the default action to "NewPartition"](<../../.gitbook/assets/image (129).png>)
 
 After selecting the desired re-size disk option, an additional prompt appears to set an action for newly detected RAW disks. Automatic formatting can be enabled or disabled with `true` or `false`.
 
-![Disabling auto RAW disk format](<../../.gitbook/assets/image (72) (2).png>)
+![Disabling auto RAW disk format](<../../.gitbook/assets/image (118).png>)
 
 #### CoreWeave Auto Shutdown
 
@@ -253,7 +253,7 @@ Instance power-off based on interactive user input can be configured via [cloudI
 
 Modifying will prompt for an integer value in minutes to configure auto-shutoff, or set to 0 to disable:
 
-![](<../../.gitbook/assets/image (92) (2).png>)
+![](<../../.gitbook/assets/image (157).png>)
 
 #### CoreWeave Windows Update
 

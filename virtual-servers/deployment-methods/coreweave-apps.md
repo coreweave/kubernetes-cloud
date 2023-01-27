@@ -46,7 +46,7 @@ From the Virtual Servers dashboard, you can configure a Virtual Server to your d
 Not every Virtual Server configuration option is exposed through the options displayed graphically on the configuration screen. For more fine-tuned control, or to save the Virtual Server configuration file to replicate additional Virtual Servers, you can view the generated YAML chart under the **YAML** tab.
 {% endhint %}
 
-![The Virtual Server configuration screen in the CoreWeave Cloud UI](<../../docs/.gitbook/assets/image (69) (3).png>)
+![The Virtual Server configuration screen in the CoreWeave Cloud UI](<../../docs/.gitbook/assets/image (69) (1).png>)
 
 ### Configuration
 
@@ -102,4 +102,4 @@ A basic diagnostic log of all actions involving the Virtual Server will be recor
 The events listed under the **Events** tab are short-lived, and should mostly be used for diagnostics or simply for tracing the status of the Virtual Server.
 {% endhint %}
 
-![Event history for a new Virtual Server](<../../docs/.gitbook/assets/image (50) (1).png>)
+![Event history for a new Virtual Server](<../../docs/.gitbook/assets/image (50).png>)

@@ -63,11 +63,11 @@ Note this instance exists in **LAS1** - subsequent instances should match this r
 
 We can monitor the Virtual Server spinning up with `kubectl get pods --watch`
 
-![Output of "kubectl get pods --watch"](<../../docs/.gitbook/assets/image (30).png>)
+![Output of "kubectl get pods --watch"](<../../docs/.gitbook/assets/image (30) (1).png>)
 
 Once our VS has reached "Running" status, we can get an External IP to connect to it with `kubectl get vs`
 
-![Output of "kubectl get vs"](<../../.gitbook/assets/image (31) (1) (1) (1) (1).png>)
+![Output of "kubectl get vs"](<../../.gitbook/assets/image (31) (1).png>)
 
 {% hint style="info" %}
 Allow \~5 minutes after "Running" status for the Virtual Server to complete initial start procedures.
@@ -81,7 +81,7 @@ Once the Virtual Server is ready, we can use the External IP to connect to it vi
 
 Or via OpenSSH:
 
-![Connection prompt via SSH](<../../docs/.gitbook/assets/image (32) (1).png>)
+![Connection prompt via SSH](<../../docs/.gitbook/assets/image (32).png>)
 
 Or even via Console (useful for instances where a Public IP is not desired) using `virtctl console vs-windows10-source`:
 

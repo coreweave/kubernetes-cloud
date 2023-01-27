@@ -116,6 +116,7 @@
   * [GPT-J-6B](../compass/models/gpt-j-6b.md)
 * [Finetuning Machine Learning Models](compass/finetuning-machine-learning-models.md)
 * [Finetuning Image Generation Models](compass/finetuning-image-generation-models.md)
+* [Distributed Training with Kubeflow Training Operators](compass/distributed-training-with-kubeflow-training-operators.md)
 * [Determined AI](compass/determined-ai/README.md)
   * [Install Determined AI](compass/determined-ai/install-determined-ai.md)
   * [Shell for Machine Learning on Determined AI](compass/determined-ai/shell-for-machine-learning-on-determined-ai.md)
