@@ -390,36 +390,40 @@ You do not need to change the endpoint for every region your application is depl
 | LGA1   | `accel-object.lga1.coreweave.com` |
 | ORD1   | `accel-object.ord1.coreweave.com` |
 
-## s3cmd Alternatives
+## s3cmd alternatives
 
-There are a number of alternatives to the standard s3cmd client. One of which is [s5cmd](https://github.com/peak/s5cmd). s5cmd an interface for running **highly parallelized operations**. Benchmarks show s5cmd performs excellent for tasks involving moving large numbers of files to and from buckets.&#x20;
+There are a few alternative clients to s3cmd, one of which is [s5cmd](https://github.com/peak/s5cmd). s5cmd is an interface ideal for running **** highly parallelized operations. As benchmarks have shown, s5cmd performs very well for tasks that involve moving large numbers of files to and from buckets.&#x20;
 
-To use s5cmd with CoreWeave Object Storage you must specify an endpoint URL, for example:
+To use s5cmd with CoreWeave Object Storage, first create a file at `~/.aws/credentials` that contains the following parameters:
 
-```yaml
+```toml
+[default]
+aws_access_key_id=<Your object storage access key>
+aws_secret_access_key=<Your object storage secret key>
+```
+
+To use s5cmd with CoreWeave Object Storage, the `--endpoint-url` option must be included during use to specify the CoreWeave Object Storage endpoint URL:
+
+```bash
 --endpoint-url=https://object.lga1.coreweave.com
 ```
 
-In addition you will need to create a file at \~/.aws/credentials containing the following:
+It may be helpful to define an `alias` so as to avoid providing the endpoint URL every time.&#x20;
 
-```
-[default]
-aws_access_key_id=<Your access key>
-aws_secret_access_key=<Your secret key>
-```
-
-You can then run s5cmd normally, for example:
-
-```
-s5cmd --endpoint-url https://object.lga1.coreweave.com cp ./my-local-directory/* s3://my-bucket/my-prefix/
-```
-
-It may also be helpful to define an alias to avoid providing an endpoint url every time, for example:&#x20;
-
-```
+```bash
 alias s5="s5cmd --endpoint-url https://object.lga1.coreweave.com"
 ```
 
-This can be installed by simply adding the line to the end of your `.bashrc` or `.zshrc` file and reloading your terminal session.
+Once the `~/.aws/credentials` file above is in place, run s5cmd. The full command, without an alias, looks like:
 
-**Note:** with extremely large filesystems ( >1 million files ) s5cmd may exhibit unwanted behavior,  in those cases, reducing concurrency using the `--concurrency` flag or selecting standard instead of accelerated endpoints may help.
+{% code overflow="wrap" %}
+```bash
+s5cmd --endpoint-url=https://object.lga1.coreweave.com cp ./my-local-directory/* s3://my-bucket/my-prefix/
+```
+{% endcode %}
+
+{% hint style="info" %}
+**Note**
+
+With extremely large filesystems ( >1 million files) s5cmd may exhibit unwanted behavior.  In these cases, reducing concurrency using the `--concurrency` option, or selecting standard endpoints instead of accelerated endpoints, may help.
+{% endhint %}
