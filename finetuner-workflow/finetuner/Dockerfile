@@ -11,4 +11,5 @@ COPY requirements.txt .
 RUN pip3 install --no-cache-dir -r requirements.txt
 COPY ds_config.json .
 COPY finetuner.py .
+COPY evaluator.py .
 CMD [ "/usr/bin/python3", "finetuner.py" ]

@@ -411,7 +411,7 @@ class ModelSampler(TrainerCallback):
         self.prompt_file = prompt_file
         self.wandb = wandb
         self.report_every = report_every
-        self.run_name = wandb.run.name
+        self.run_name = run.name
         self.generate_tokens = generate_tokens
         self.num_samples = num_samples
         self.context_size = context_size
