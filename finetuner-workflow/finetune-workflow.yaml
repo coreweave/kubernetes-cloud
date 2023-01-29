@@ -131,7 +131,7 @@ spec:
     # Training number of CPU cores
     - name: trainer_cores
       value: 8
-    # Training compute RAM
+    # Training compute RAM in gigabytes
     - name: trainer_ram
       value: 192
     # Inference GPU - RTX A5000, 24gb VRAM
@@ -240,16 +240,6 @@ spec:
             - name: model_path
               value: "finetunes/results-{{workflow.parameters.run_name}}"
         when: "{{workflow.parameters.run_inference}} == true"
-    podSpecPatch: |
-      containers:
-        - name: model-finetuner
-          resources:
-            requests:
-              memory: "{{workflow.parameters.trainer_ram}}"
-              cpu: "{{workflow.parameters.trainer_cpu}}"
-            limits:
-              memory: "{{workflow.parameters.trainer_ram}}"
-              cpu: "{{workflow.parameters.trainer_cpu}}"
   - name: model-downloader
     inputs:
       parameters:
@@ -343,6 +333,16 @@ spec:
         - name: torch_cache
         - name: trainer_ram
         - name: trainer_cores
+    podSpecPatch: |
+      containers:
+        - name: main
+          resources:
+            requests:
+              memory: "{{workflow.parameters.trainer_ram}}Gi"
+              cpu: "{{workflow.parameters.trainer_cores}}"
+            limits:
+              memory: "{{workflow.parameters.trainer_ram}}Gi"
+              cpu: "{{workflow.parameters.trainer_cores}}"
     container:
       image: "{{workflow.parameters.finetuner_image}}:{{workflow.parameters.finetuner_tag}}"
       command: ["/usr/bin/bash", "-c"]
