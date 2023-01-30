@@ -1,0 +1,492 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: "finetune-gpt-neox-"
+spec:
+  entrypoint: main
+  arguments:
+    parameters:
+    # run_name should be unique on a per-run basis, especially if reporting
+    # to wandb or sharing PVCs between runs.
+    - name: run_name
+    # This PVC will be used to store the dataset, logs, and tensorboard files
+    - name: pvc_data_name
+      value: 'neox-data'
+    # This PVC will be used to store the pretrained and finetuned model checkpoints
+    - name: pvc_checkpoints_name
+      value: 'neox-checkpoints'
+    # Flag to download the pretrained model weights. Can be set to false if they're already present at `pretrained_checkpoint_path'
+    - name: download_checkpoint
+      value: true
+    - name: model_weights_url
+      value: 'https://the-eye.eu/public/AI/models/GPT-NeoX-20B/slim_weights/'
+    # Name of the folder in the checkpoints PVC where the pretrained weights will be downloaded
+    - name: pretrained_checkpoint_path
+      value: '20B_pretrained_checkpoint'
+    # Name of the folder in the checkpoints PVC where the finetuned weights will be saved
+    - name: finetuned_checkpoint_path
+      value: '20B_finetuned_checkpoint'
+    # Whether to download a public dataset for finetuning. If not, the dataset path parameter should be specified.
+    - name: download_dataset
+      value: true
+    # URL that will be used to download a public dataset if `download_dataset` is set to true.
+    - name: dataset_url
+      value: 'https://the-eye.eu/public/AI/pile_preliminary_components/hn.tar.gz'
+    # Path to the folder on the data PVC that contains the dataset file.
+    - name: dataset_path
+      value: "datasets"
+    # Name of the dataset file
+    - name: dataset_file
+      value: "hn.tar.gz"
+    # Flag to tokenize the dataset at `dataset_path`
+    - name: tokenize_dataset
+      value: true
+    # Prefix path to the tokenized dataset files
+    - name: tokenized_dataset_path
+      value: "datasets/hackernews"
+    # Name of the ConfigMap containing a 'neox.yml' with the training config for GPT-NeoX
+    - name: training_config_name
+      value: 'neox-training'
+    # URL that will be used to download the model weights used for finetuning
+    # CoreWeave region to default to
+    - name: region
+      value: 'LAS1'
+    # Number of nodes used for training
+    - name: trainer_nodes
+      value: 2
+    # Weights and Biases values that will be used to log. Leave blank to not use WandB
+    - name: wandb_secret_name
+      value: "wandb-token-secret"
+    - name: wandb_project
+      value: "finetune-gpt-neox"
+    - name: wandb_group
+      value: "A100-NVLINK-2N"
+    # Container images -- generally, don't alter this.
+    - name: downloader_image
+      value: 'cirrusci/wget'
+    - name: downloader_tag
+      value: 'latest'
+    - name: gpt_neox_image
+      value: 'ghcr.io/coreweave/ml-containers/gpt-neox-mpi'
+    - name: gpt_neox_tag
+      value: '845d3a1'
+
+  templates:
+  - name: main
+    dag:
+      tasks:
+        - name: create-configmap
+          template: create-configmap
+          arguments:
+            parameters:
+              - name: name
+                value: "{{workflow.parameters.training_config_name}}"
+              - name: load_path
+                value: "{{workflow.parameters.pretrained_checkpoint_path}}"
+              - name: save_path
+                value: "{{workflow.parameters.finetuned_checkpoint_path}}"
+              - name: data_path
+                value: "{{workflow.parameters.tokenized_dataset_path}}"
+              - name: wandb_project
+                value: "{{workflow.parameters.wandb_project}}"
+              - name: wandb_group
+                value: "{{workflow.parameters.wandb_group}}"
+
+        - name: download-checkpoint
+          template: downloader
+          arguments:
+            parameters:
+              - name: destination
+                value: "{{workflow.parameters.pretrained_checkpoint_path}}"
+              - name: source
+                value: "{{workflow.parameters.model_weights_url}}"
+              - name: pvc
+                value: "{{workflow.parameters.pvc_checkpoints_name}}"
+              - name: wget_params
+                value: '--cut-dirs=5 -nH -r --no-parent --reject "index.html*" -P'
+          when: "{{workflow.parameters.download_checkpoint}} == true"
+
+        - name: download-dataset
+          template: downloader
+          arguments:
+            parameters:
+              - name: destination
+                value: "{{workflow.parameters.dataset_path}}"
+              - name: source
+                value: "{{workflow.parameters.dataset_url}}"
+              - name: pvc
+                value: "{{workflow.parameters.pvc_data_name}}"
+              - name: wget_params
+                value: '-P'
+          when: "{{workflow.parameters.download_dataset}} == true"
+
+        - name: tokenize-dataset
+          template: tokenize-dataset
+          dependencies:
+            - download-dataset
+            - download-checkpoint
+          arguments:
+            parameters:
+              - name: input
+                value: "{{workflow.parameters.dataset_path}}/{{workflow.parameters.dataset_file}}"
+              - name: output
+                value: "{{workflow.parameters.tokenized_dataset_path}}"
+              - name: vocab_file
+                value: "{{workflow.parameters.pretrained_checkpoint_path}}/20B_tokenizer.json"
+          when: "{{workflow.parameters.tokenize_dataset}} == true"
+
+        - name: finetune
+          template: finetune
+          dependencies:
+            - create-configmap
+            - tokenize-dataset
+          arguments:
+            parameters:
+              - name: num_nodes
+                value: "{{workflow.parameters.trainer_nodes}}"
+              - name: config_name
+                value: "{{workflow.parameters.training_config_name}}"
+
+  - name: create-configmap
+    inputs:
+      parameters:
+        - name: name
+        - name: save_path
+        - name: load_path
+        - name: data_path
+        - name: wandb_group
+        - name: wandb_project
+    resource:
+      action: apply
+      manifest: |
+        apiVersion: v1
+        kind: ConfigMap
+        metadata:
+          name: {{ inputs.parameters.name }}
+        data:
+          neox.yml: |
+            {
+              # Tokenizer /  checkpoint settings - you will need to change these to the location you have them saved in
+              "vocab-file": "/{{ workflow.parameters.pvc_checkpoints_name }}/{{ inputs.parameters.load_path }}/20B_tokenizer.json",
+              "save": "/{{ workflow.parameters.pvc_checkpoints_name }}/{{ inputs.parameters.save_path }}",
+              "load": "/{{ workflow.parameters.pvc_checkpoints_name }}/{{ inputs.parameters.load_path }}",
+
+              "data-path": "/{{ workflow.parameters.pvc_data_name }}/{{ inputs.parameters.data_path }}_text_document",
+              
+              # parallelism settings ( you will want to change these based on your cluster setup, ideally scheduling pipeline stages
+              # across the node boundaries )
+              "pipe-parallel-size": 4,
+              "model-parallel-size": 2,
+              
+              # model settings
+              "num-layers": 44,
+              "hidden-size": 6144,
+              "num-attention-heads": 64,
+              "seq-length": 2048,
+              "max-position-embeddings": 2048,
+              "norm": "layernorm",
+              "pos-emb": "rotary",
+              "rotary_pct": 0.25,
+              "no-weight-tying": true,
+              "gpt_j_residual": true,
+              "output_layer_parallelism": "column",
+              "scaled-upper-triang-masked-softmax-fusion": true,
+              "bias-gelu-fusion": true,
+              
+              # init methods
+              "init_method": "small_init",
+              "output_layer_init_method": "wang_init",
+              
+              # optimizer settings
+              "optimizer": {
+                "type": "Adam",
+                "params": {
+                  "lr": 0.97e-4,
+                  "betas": [ 0.9, 0.95 ],
+                  "eps": 1.0e-8,
+                }
+              },
+              
+              "min_lr": 0.97e-5,
+              
+              # for all zero_optimization options, see https://www.deepspeed.ai/docs/config-json/#zero-optimizations-for-fp16-training
+              "zero_optimization": {
+                "stage": 1,
+                "allgather_partitions": True,
+                "allgather_bucket_size": 1260000000,
+                "overlap_comm": True,
+                "reduce_scatter": True,
+                "reduce_bucket_size": 1260000000,
+                "contiguous_gradients": True,
+              },
+              
+              # batch / data settings (assuming 16 GPUs)
+              "train_micro_batch_size_per_gpu": 8,
+              # 12,288 samples before stepping the optimizer (8 GPUs per nodes * N nodes * 8 micro batch size)
+              "gradient_accumulation_steps": 96,
+              "data-impl": "mmap",
+              "split": "995,4,1",
+              
+              # activation checkpointing
+              "checkpoint-activations": true,
+              "checkpoint-num-layers": 1,
+              "partition-activations": false,
+              "synchronize-each-layer": true,
+              
+              # regularization
+              "gradient_clipping": 1.0,
+              "weight-decay": 0.01,
+              "hidden-dropout": 0,
+              "attention-dropout": 0,
+              
+              # precision settings
+              "fp16": {
+                "fp16": true,
+                "enabled": true,
+                "loss_scale": 0,
+                "loss_scale_window": 1000,
+                "initial_scale_power": 12,
+                "hysteresis": 2,
+                "min_loss_scale": 1
+              },
+              
+              # misc. training settings
+              "train-iters": 150_000,
+              "lr-decay-iters": 150_000,
+              
+              "distributed-backend": "nccl",
+              "lr-decay-style": "cosine",
+              "warmup": 0.01,
+              "checkpoint-factor": 500, # this variable previously called `save-interval`
+              "eval-interval": 1000,
+              "eval-iters": 10,
+              
+              # logging
+              "log-interval": 2,
+              "steps_per_print": 2,
+              "wall_clock_breakdown": false,
+              
+              ### NEW DATA: ####
+              "tokenizer_type": "HFTokenizer",
+              "tensorboard-dir": "/mnt/data/tensorboard",
+              "log-dir": "/mnt/data/logs",
+              
+              # MPI Operator
+              "hostfile": "/etc/mpi/hostfile",
+              "deepspeed_mpi": false,
+              
+              #  "wandb_team": "coreweave",
+              {{=len(inputs.parameters.wandb_project) > 0 ? '"wandb_project": "' + inputs.parameters.wandb_project + '",' : ''}}
+              {{=len(inputs.parameters.wandb_group) > 0 ? '"wandb_group": "' + inputs.parameters.wandb_group + '"' : ''}}
+            }
+
+  - name: downloader
+    inputs:
+      parameters:
+        - name: destination
+        - name: wget_params
+        - name: source
+        - name: pvc
+    retryStrategy:
+      limit: 3  # Have retries because sometimes the-eye.eu throws errors
+    container:
+      image: "{{workflow.parameters.gpt_neox_image}}:{{workflow.parameters.gpt_neox_tag}}"
+      command: [ "/bin/sh", "-c" ]
+      args:
+        - "wget {{inputs.parameters.wget_params}} /{{inputs.parameters.pvc}}/{{inputs.parameters.destination}} {{inputs.parameters.source}}"
+      resources:
+        requests:
+          memory: 512Mi
+          cpu: "2"
+        limits:
+          memory: 512Mi
+          cpu: "2"
+      volumeMounts:
+        - name: "{{inputs.parameters.pvc}}"
+          mountPath: "/{{inputs.parameters.pvc}}"
+    volumes:
+      - name: "{{inputs.parameters.pvc}}"
+        persistentVolumeClaim:
+           claimName: "{{inputs.parameters.pvc}}"
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: topology.kubernetes.io/region
+              operator: In
+              values:
+              - "{{workflow.parameters.region}}"
+
+  - name: tokenize-dataset
+    inputs:
+      parameters:
+        - name: input
+        - name: output
+        - name: vocab_file
+    retryStrategy:
+      limit: 1
+    container:
+      image: "{{workflow.parameters.gpt_neox_image}}:{{workflow.parameters.gpt_neox_tag}}"
+      command:
+        - "/usr/bin/python"
+        - "tools/preprocess_data.py"
+      args:
+        - "--input"
+        - "/{{workflow.parameters.pvc_data_name}}/{{inputs.parameters.input}}"
+        - "--output-prefix"
+        - "/{{workflow.parameters.pvc_data_name}}/{{inputs.parameters.output}}"
+        - "--vocab"
+        - "/{{workflow.parameters.pvc_checkpoints_name}}/{{inputs.parameters.vocab_file}}"
+        - "--tokenizer-type"
+        - "HFTokenizer"
+      volumeMounts:
+        - name: "{{workflow.parameters.pvc_checkpoints_name}}"
+          mountPath: "/{{workflow.parameters.pvc_checkpoints_name}}"
+        - name: "{{workflow.parameters.pvc_data_name}}"
+          mountPath: "/{{workflow.parameters.pvc_data_name}}"
+      resources:
+        requests:
+          cpu: "8"
+          memory: 16Gi
+        limits:
+          cpu: "8"
+          memory: 16Gi
+    volumes:
+      - name: "{{workflow.parameters.pvc_checkpoints_name}}"
+        persistentVolumeClaim:
+           claimName: "{{workflow.parameters.pvc_checkpoints_name}}"
+      - name: "{{workflow.parameters.pvc_data_name}}"
+        persistentVolumeClaim:
+           claimName: "{{workflow.parameters.pvc_data_name}}"
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: topology.kubernetes.io/region
+              operator: In
+              values:
+              - "{{workflow.parameters.region}}"
+
+  - name: finetune
+    inputs:
+      parameters:
+        - name: num_nodes
+        - name: config_name
+    resource:
+      action: apply
+      failureCondition: status.replicaStatuses.Launcher.failed > 0
+      successCondition: status.replicaStatuses.Launcher.succeeded > 0
+      manifest: |
+        apiVersion: kubeflow.org/v2beta1
+        kind: MPIJob
+        metadata:
+          name: {{workflow.name}}-mpijob
+        spec:
+          slotsPerWorker: 8
+          runPolicy:
+            cleanPodPolicy: Running
+          mpiReplicaSpecs:
+            Launcher:
+              replicas: 1
+              template:
+                spec:
+                  # This is very much a hack. The NeoX code just stalls sometimes if
+                  # all workers are not up. It doesn't exit gracefully so the launcher retries.
+                  initContainers:
+                    - image: busybox:1.28
+                      name: sleep
+                      command: [ "sleep", "60" ]
+                  containers:
+                    - image: {{workflow.parameters.gpt_neox_image}}:{{workflow.parameters.gpt_neox_tag}}
+                      name: neox
+                      command:
+                        - /usr/bin/python
+                        - deepy.py
+                        - train.py
+                        - /mnt/config/neox.yml
+                      volumeMounts:
+                        - mountPath: /mnt/config
+                          name: config
+                      env:
+                        - name: WANDB_API_KEY
+                          valueFrom:
+                            secretKeyRef:
+                              name: {{=len(workflow.parameters.wandb_secret_name) > 0 ? workflow.parameters.wandb_secret_name : "fake-secret"}}
+                              key: token
+                              optional: true
+                  volumes:
+                    - name: config
+                      configMap:
+                        name: {{inputs.parameters.config_name}}
+                  affinity:
+                    nodeAffinity:
+                      requiredDuringSchedulingIgnoredDuringExecution:
+                        nodeSelectorTerms:
+                          - matchExpressions:
+                              - key: topology.kubernetes.io/region
+                                operator: In
+                                values:
+                                  - {{workflow.parameters.region}}
+
+                  enableServiceLinks: false
+                  automountServiceAccountToken: false
+
+            Worker:
+              replicas: {{inputs.parameters.num_nodes}}
+              template:
+                spec:
+                  containers:
+                    - image: {{workflow.parameters.gpt_neox_image}}:{{workflow.parameters.gpt_neox_tag}}
+                      name: neox
+                      volumeMounts:
+                        - mountPath: /dev/shm
+                          name: dshm
+                        - mountPath: /{{workflow.parameters.pvc_checkpoints_name}}
+                          name: {{workflow.parameters.pvc_checkpoints_name}}
+                        - mountPath: /{{workflow.parameters.pvc_data_name}}
+                          name: {{workflow.parameters.pvc_data_name}}
+                        - mountPath: /mnt/config
+                          name: config
+                      resources:
+                        requests:
+                          cpu: 48
+                          memory: 256Gi
+                          nvidia.com/gpu: 8
+                          rdma/ib: 1
+                        limits:
+                          nvidia.com/gpu: 8
+                          rdma/ib: 1
+
+                  volumes:
+                    - name: config
+                      configMap:
+                        name: {{inputs.parameters.config_name}}
+                    # Custom volumes for model / checkpoint / data storage
+                    - emptyDir:
+                        medium: Memory
+                      name: dshm
+                    - name: {{workflow.parameters.pvc_checkpoints_name}}
+                      persistentVolumeClaim:
+                        claimName: {{workflow.parameters.pvc_checkpoints_name}}
+                    - name: {{workflow.parameters.pvc_data_name}}
+                      persistentVolumeClaim:
+                        claimName: {{workflow.parameters.pvc_data_name}}
+
+                  affinity:
+                    nodeAffinity:
+                      requiredDuringSchedulingIgnoredDuringExecution:
+                        nodeSelectorTerms:
+                          - matchExpressions:
+                              - key: gpu.nvidia.com/model
+                                operator: In
+                                values:
+                                  - A100_NVLINK_80GB
+                              - key: topology.kubernetes.io/region
+                                operator: In
+                                values:
+                                  - {{workflow.parameters.region}}
+
+                  enableServiceLinks: false
+                  automountServiceAccountToken: false
