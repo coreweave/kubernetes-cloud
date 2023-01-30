@@ -244,14 +244,15 @@ if wandb_key:
 
     if lastCheckpoint is not None:
         for run in wandbApi.runs(path=args.project_id):
-            if run.state == "crashed" and run.name == args.run_name:
+            print("PRIOR RUN:", run, run.name, run.id, run.state)
+            if run.state in ["crashed", "failed"] and run.name == args.run_name:
+                print(f"CHECKPOINT: Resuming {run.id}")
                 run = wandb.init(
                     id=run.id,
                     project=args.project_id,
                     resume="must",
                     name=run.name,
                 )
-                print(f"CHECKPOINT: Resuming {run.id}")
                 break
     else:
         run = wandb.init(project=args.project_id, name=args.run_name)
@@ -563,41 +564,38 @@ if args.fp16:
 model: PreTrainedModel
 tokenizer: PreTrainedTokenizer
 
-print(f"Loading {args.model}")
-if "tensorizer" in sys.modules and validators.url(args.model):
-    tokenizer, unitrim, word_tokens = get_tokenizer(
-        args.model, {"eos_token": args.eot, "pad_token": args.pad}
+try:
+    tokenizer = AutoTokenizer.from_pretrained(
+        args.model,
+        eos_token=args.eot,
+        pad_token=args.pad,
+        cache_dir=args.cache,
     )
-    if args.fp16:
-        model = load_model(args.model).half()
-    else:
-        model = load_model(args.model)
+except Exception as e:
+    print(e)
+    print(get_gpu_ram())
+    sys.exit(1)
 
-else:
-    try:
-        tokenizer = AutoTokenizer.from_pretrained(
-            args.model,
-            eos_token=args.eot,
-            pad_token=args.pad,
-            cache_dir=args.cache,
-        )
-        model = AutoModelForCausalLM.from_pretrained(
-            args.model,  # Can be a HuggingFace ID or directory.
-            cache_dir=args.cache,
-            use_cache=False,
-        )  # Gradient checkpointing needs this off.
+try:
+    model = AutoModelForCausalLM.from_pretrained(
+        args.model,  # Can be a HuggingFace ID or directory.
+        cache_dir=args.cache,
+        use_cache=False,
+    )  # Gradient checkpointing needs this off.
+    if lastCheckpoint is None:
         if args.fp16:
             model = no_init(lambda: model.half().to(device))
         else:
             model = no_init(lambda: model.to(device))
-        sys.stderr.flush()
-        sys.stdout.flush()
-    except Exception as e:
-        print(e)
-        print(get_gpu_ram())
-        sys.exit(1)
+    else:
+        model = no_init(lambda: model)
+    sys.stderr.flush()
+    sys.stdout.flush()
+except Exception as e:
+    print(e)
     print(get_gpu_ram())
-
+    sys.exit(1)
+print(get_gpu_ram())
 
 @torch.no_grad()
 def evaluate(
