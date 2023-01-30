@@ -24,9 +24,9 @@ Using the CoreWeave Cloud UI, an Object Storage configuration file can be genera
 
 <figure><img src="../.gitbook/assets/image (9) (2).png" alt="Screenshot of the Object Storage link on the side nav of the Cloud UI"><figcaption><p>The Object Storage link is located on the left-hand menu on the Cloud UI</p></figcaption></figure>
 
-To create a new token, click the button labelled **Create a New Token**. This will bring up the **New Storage Token** modal, which prompts you to assign a name, a default [S3 region](../data-center-regions.md) (which can be changed later), and [an access level](object-storage.md#identity-and-access-management-iam) to the token.
+To create a new token, click the button labelled **Create a New Token**. This will bring up the **New Storage Token** modal, which prompts you to assign a name, a default [S3 region](../data-center-regions.md) (which can be changed later), and [an access level](object-storage.md#identity-and-access-management-iam-and-access-levels) to the token.
 
-<figure><img src="../.gitbook/assets/image (12).png" alt="Screenshot of the new storage token modal"><figcaption><p>The New Storage Token modal</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1).png" alt="Screenshot of the new storage token modal"><figcaption><p>The New Storage Token modal</p></figcaption></figure>
 
 Finally, clicking the **Generate** button generates the token's configuration file:
 
@@ -192,9 +192,9 @@ $ aws s3 --endpoint-url=https://object.las1.coreweave.com \
 
 ## Identity and Access Management (IAM) and access levels
 
-Each generated key pair is considered an individual user for access, and can be used to provide granular access to applications or users. The permissions levels, or, **access levels** of these keypairs are either set using the Cloud UI dropdown menu on token creation, or are set using CRDs. When using CRDs for Object Storage access, the user's permission levels are defined using the corresponding key in the CRD's `spec.access` field.
+When an initial key pair is created for Object Storage access, that key pair is given the permissions specified on creation in order to read, write, and modify policies of the buckets which it owns. Each key pair is considered an individual user for access, and can be used to provide granular access to applications or users.
 
-#### Access levels
+Permission levels that may be granted are:
 
 | Permission level | CRD key     | Description                                                                                      |
 | ---------------- | ----------- | ------------------------------------------------------------------------------------------------ |
@@ -203,9 +203,19 @@ Each generated key pair is considered an individual user for access, and can be 
 | Read/Write       | `readwrite` | Grants access to both read and write to buckets you own and have created                         |
 | Full             | `full`      | Grant Write/Read access, as well as admin access to create buckets and apply policies to buckets |
 
+### Access levels via Cloud UI
+
+Alternatively, key pair permissions may be specified via the Cloud UI on the Object Storage page.
+
+From the Object Storage page, the **Access Level** field displays the key's current access level. The access of a new Object Storage token is set during creation by selecting an access level from the **Select an access level** drop-down menu located at the bottom of the New Storage Token module.
+
+<figure><img src="../.gitbook/assets/image (21).png" alt=""><figcaption><p>Access levels are displayed on the Object Storage page</p></figcaption></figure>
+
+<figure><img src="../.gitbook/assets/image (26).png" alt="Screenshot: Access levels drop-down"><figcaption><p>Any access level may be chosen from this drop-down</p></figcaption></figure>
+
 ### IAM actions
 
-Currently, CoreWeave Cloud supports the following IAM bucket policy actions.&#x20;
+Currently, CoreWeave Cloud supports the following IAM bucket policy actions:
 
 <details>
 

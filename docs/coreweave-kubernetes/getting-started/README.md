@@ -10,7 +10,7 @@ On CoreWeave, **Kubeconfig** files are used to interact with our Kubernetes clus
 
 To generate your access credentials, first [sign up for CoreWeave Cloud](https://cloud.coreweave.com/request-account). Once you have an account, [log in to the Cloud UI](https://cloud.coreweave.com), then navigate to the **API Access** page from the left-hand menu.
 
-<figure><img src="../../.gitbook/assets/image (7) (4).png" alt="Screenshot of The API &#x26; Kubeconfig page on the Cloud UI"><figcaption><p>The API &#x26; Kubeconfig page on the Cloud UI</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (7) (5).png" alt="Screenshot of The API &#x26; Kubeconfig page on the Cloud UI"><figcaption><p>The API &#x26; Kubeconfig page on the Cloud UI</p></figcaption></figure>
 
 ### Generate the Kubeconfig file
 
@@ -30,7 +30,7 @@ When prompted, give the token a recognizable name, then click the **Generate** b
 If you would like to prevent the Kubeconfig file from downloading automatically, un-check the **Automatically download Kubeconfig** checkbox.
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (4) (3).png" alt="The &#x22;New Access Token&#x22; modal"><figcaption><p>The "New Access Token" modal</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (4) (4).png" alt="The &#x22;New Access Token&#x22; modal"><figcaption><p>The "New Access Token" modal</p></figcaption></figure>
 
 ## Install the Kubernetes command line tools
 

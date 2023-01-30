@@ -282,7 +282,7 @@ Once you have a working Media Shuttle license, locate your Media Shuttle registr
 
 Then, select the checkbox to agree to the license agreement terms.
 
-<figure><img src="../.gitbook/assets/image (39).png" alt="Screenshot of the license agreement checkbox in Media Shuttle"><figcaption><p>License agreement checkbox</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (39) (1).png" alt="Screenshot of the license agreement checkbox in Media Shuttle"><figcaption><p>License agreement checkbox</p></figcaption></figure>
 
 Once you have completed the wizard, the storage server registration key will be presented to you. Retain this for the next few setup steps.
 
@@ -296,7 +296,7 @@ Clicking the **Deploy** button will open the application configuration screen.
 
 Update the name, registry key, and add a [Persistent Volume Claim](https://docs.coreweave.com/coreweave-kubernetes/storage) to the `mounts` list by navigating to the **YAML** tab and locating the `mounts` block. In the example below, the PVC that has been added is defined with a mountpoint `name` of `render-output-mnt` and passed the PVC title, `pvc: render-output`.
 
-<figure><img src="../.gitbook/assets/image (47) (1).png" alt="A defined mount in the mounts block"><figcaption><p>A defined mount in the <code>mounts</code> block</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (47).png" alt="A defined mount in the mounts block"><figcaption><p>A defined mount in the <code>mounts</code> block</p></figcaption></figure>
 
 Finally, click the **Deploy** button at the bottom of the screen to launch the deployment.
 
