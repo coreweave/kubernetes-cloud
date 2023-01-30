@@ -55,7 +55,7 @@ To install and configure the FileBrowser application:
 3. Under **Node Selection**, select your datacenter region.
 4. As we want our new PVC to act as the storage for FileBrowser, under the "Attach existing volumes to your FileBrowser" list, select the newly created PVC (in this case, `shared-data-pvc`) by clicking the small blue plus sign to the right of the Volume name:
 
-<figure><img src="../../docs/.gitbook/assets/image (21) (1).png" alt=""><figcaption><p>The FileBrowser configuration screen, including a list of "Available Volumes"</p></figcaption></figure>
+<figure><img src="../../docs/.gitbook/assets/image (21) (1) (1).png" alt=""><figcaption><p>The FileBrowser configuration screen, including a list of "Available Volumes"</p></figcaption></figure>
 
 Configure how you'd like the Volume to appear once mounted, then click the **Deploy** button.
 

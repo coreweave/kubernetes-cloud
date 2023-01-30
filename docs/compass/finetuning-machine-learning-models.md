@@ -40,9 +40,9 @@ There is an optional test [Inference endpoint](broken-reference/) that can be en
 
 This configuration is able to do 6b models comfortably, and is less expensive than the finetuner, as it requires less resources at $0.85/hr.
 
-## Source Code
+## Source code
 
-The code referenced throughout the rest of the tutorial can be found under the `finetuner-workflow` folder in the `coreweave/kubernetes-cloud` repository.
+The source code used for this tutorial can be found under the `finetuner-workflow` folder in the `coreweave/kubernetes-cloud` repository.
 
 {% embed url="https://github.com/coreweave/kubernetes-cloud/tree/master/finetuner-workflow" %}
 Check out the code on GitHub
@@ -53,7 +53,7 @@ Check out the code on GitHub
 {% hint style="info" %}
 **Note**
 
-This guide assumes that you have already followed the process to set up the CoreWeave Kubernetes environment. If you have not done so already, [follow our Getting Started guide](../coreweave-kubernetes/getting-started/) before proceeding with this guide.
+This guide assumes that you have already followed the process to set up the CoreWeave Kubernetes environment. If you have not done so already, [follow our Getting Started guide](../../coreweave-kubernetes/getting-started.md) before proceeding with this guide.
 {% endhint %}
 
 The following Kubernetes-based components are required:
@@ -144,37 +144,11 @@ Here we have a `western-romance` directory below with novels, in a clean and nor
 
 The dataset will automatically be tokenized by a [`dataset_tokenizer`](https://github.com/wbrown/gpt\_bpe/blob/main/cmd/dataset\_tokenizer/dataset\_tokenizer.go) component written in `golang` as a step in the Argo Workflow. It is quite fast, and has different options for how to partition the data.
 
-### Create a Dataset
+### Create a dataset
 
-If you don't already have your own dataset, you can use CoreWeave's public [Dataset Downloader repository](https://github.com/coreweave/dataset-downloader). This script will download plain text files of Western Romance books available on [Smashworks](https://www.smashwords.com/). (This is the website that was scraped to create the [bookcorpus](https://huggingface.co/datasets/bookcorpus) dataset.)
+If you don't already have your own dataset, you can set the Argo Workflow to use CoreWeave's public [Dataset Downloader repository](https://github.com/coreweave/dataset-downloader). This script will download plain text files of Western Romance books available on [Smashworks](https://www.smashwords.com/). (This is the website that was scraped to create the [bookcorpus](https://huggingface.co/datasets/bookcorpus) dataset.)
 
-#### Submit Kubernetes Job
-
-The yaml file that defines the job is `kubernetes-cloud/finetuner-workflow/finetune-download-dataset.yaml`.
-
-If you inspect the yaml you will see that we are mounting our previously created PVC as a volume on the container. We then tell the downloader script to write the data into our mounted PVC which means the data will persist there once the job is finished.&#x20;
-
-To deploy the job, run the following command from the `kubernetes-cloud/finetuner-workflow` directory:
-
-```bash
-kubectl apply -f finetune-download-dataset.yaml
-```
-
-To check if the files have finished downloading, wait for the job to be in a `Completed` state:
-
-```bash
-$ kubectl get pods
-NAME                                                    READY   STATUS      RESTARTS   AGE
-dataset-download-f85hj                                  0/1     Completed   0          22m
-```
-
-Or, follow the job logs to monitor progress:
-
-```bash
-kubectl logs -l job-name=dataset-download --follow
-```
-
-## Permissions Setup
+## Permissions setup
 
 To automatically create an `InferenceService`, the Argo Workflow job you submit needs special permissions. The below YAML snippet shows an example `ServiceAccount` with the corresponding required permissions.
 
@@ -222,7 +196,7 @@ subjects:
 
 Invoking `kubectl apply -f inference-role.yaml` will apply the permissions detailed above.
 
-## Getting and Running the Workflow
+## Clone and run the Workflow
 
 The [example code is available on GitHub](https://github.com/coreweave/kubernetes-cloud/tree/master/finetuner-workflow). It is recommended that you use `git checkout` to pull down the latest copy of the code.
 
@@ -247,11 +221,20 @@ $ argo submit finetune-workflow.yaml \
         -p dataset=dataset \
         -p reorder=random \
         -p run_inference=true \
-        -p inference_only=false\
+        -p inference_only=false \
+        -p download_dataset=false \
         -p model=EleutherAI/gpt-j-6B \
         --serviceaccount inference
 ```
 {% endcode %}
+
+{% hint style="info" %}
+**Note**
+
+If you didn't upload your own dataset in the [Dataset Setup](finetuning-machine-learning-models.md#dataset-setup) section, set the `download_dataset` parameter to `true`:
+
+`-p download_dataset=true`
+{% endhint %}
 
 The parameters included in the above are:
 
@@ -263,6 +246,7 @@ The parameters included in the above are:
 | `run_inference`              | This parameter explicitly tells the Workflow that we want to run a test inference service when this exercise is done. It is not intended to be a production service, but to provide an end-to-end demonstration, allowing you to test the finetuned model.                                                                                                                                                                                                                                         |
 | `--serviceaccount inference` | Required for `run_inference` to work correctly.                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | `inference_only`             | <p>This parameter tells the Workflow whether or not you want to skip the finetuning portion of the training.<br><br><span data-gb-custom-inline data-tag="emoji" data-code="26a0">⚠</span>Set this to <code>false</code> in the first run, then to <code>true</code> in following runs once you have generated a model.</p>                                                                                                                                                                        |
+| `download_dataset`           | This parameter tells the Workflow whether or not you need to download a dataset before tokenization.                                                                                                                                                                                                                                                                                                                                                                                               |
 | `model`                      | This example uses a [Hugging Face model](https://github.com/huggingface) identifier to pull down the model `gpt-j-6B`. This model will be cached on subsequent runs on your PVC, under `cache`.                                                                                                                                                                                                                                                                                                    |
 
 {% hint style="info" %}

@@ -16,7 +16,7 @@ You will want to ensure that the storage volume you want to use with FileBrowser
 
 <figure><img src="../.gitbook/assets/image (24) (2).png" alt=""><figcaption><p>The filebrowser application</p></figcaption></figure>
 
-To deploy FileBrowser, first log in to your CoreWeave Cloud account. Then, navigate to [the application Catalog](../coreweave-kubernetes/getting-started/applications-catalog.md). Once in the Catalog, use the search bar to search for `filebrowser`.
+To deploy FileBrowser, first log in to your CoreWeave Cloud account. Then, navigate to [the application Catalog](../coreweave-kubernetes/serverless/applications-catalog.md). Once in the Catalog, use the search bar to search for `filebrowser`.
 
 When the **filebrowser** application appears, click on it. This will open the application's about page. At the bottom or top right-hand corner of the screen, click the **Deploy** button to open the deployment page for the application. From this page, set a **Name** for the application. Then, under **Node Selection**, select your [data center region](../data-center-regions.md).
 

@@ -15,7 +15,7 @@ To use the Kubernetes CLI as your deployment method, you will first need to obta
 {% hint style="info" %}
 **Note**
 
-See [Obtain Access Credentials](../../coreweave-kubernetes/getting-started/#obtain-access-credentials) for more information.
+See [Obtain Access Credentials](../../../coreweave-kubernetes/getting-started.md#obtain-access-credentials) for more information.
 {% endhint %}
 
 ## Examples

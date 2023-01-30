@@ -33,7 +33,7 @@ Operating system source images provided by CoreWeave for Virtual Servers live in
 
 ### Querying Images using Metadata Labels
 
-Using [`kubectl`](../../coreweave-kubernetes/getting-started/#install-kubernetes-command-line-tools) via CLI and the metadata labels listed above, individual images are easily queried.
+Using [`kubectl`](../../../coreweave-kubernetes/getting-started.md#install-kubernetes-command-line-tools) via CLI and the metadata labels listed above, individual images are easily queried.
 
 #### Listing all latest images available for use
 
