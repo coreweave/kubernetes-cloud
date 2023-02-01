@@ -94,7 +94,7 @@ parser.add_argument(
     "--eot", type=str, help="EOT token to use", default="<|endoftext|>"
 )
 parser.add_argument(
-    "--pad", type=str, help="Pad token to use", default="<|endoftext|>"
+    "--pad", type=str, help="Pad token to use", default="<|padding|>"
 )
 parser.add_argument(
     "--bs", type=int, help="Batch size (-1 == autosize)", default=-1
@@ -260,6 +260,19 @@ else:
     os.environ["WANDB_DISABLED"] = "True"
     run = wandb.init(project=args.project_id, name=args.run_name)
 
+# Set up our tokenizer.
+tokenizer: PreTrainedTokenizer
+try:
+    tokenizer = AutoTokenizer.from_pretrained(
+        args.model,
+        eos_token=args.eot,
+        pad_token=args.pad,
+        cache_dir=args.cache,
+    )
+except Exception as e:
+    print(e)
+    sys.exit(1)
+
 
 def no_init(loading_code: Callable[[], PreTrainedModel]) -> PreTrainedModel:
     def dummy(self):
@@ -354,10 +367,14 @@ class ModifiedTrainer(Trainer):
     """
 
     def compute_loss(self, model, inputs, return_outputs=False):
+        if "labels" in inputs:
+            inputs["labels"][inputs["labels"] == tokenizer.pad_token_id] = -100
+
         if self.label_smoother is not None and "labels" in inputs:
             labels = inputs.pop("labels")
         else:
             labels = None
+
         outputs = model(**inputs)
 
         if self.args.past_index >= 0:
@@ -532,6 +549,7 @@ print(get_gpu_ram())
 print("MODEL:", args.model)
 print("SHUFFLE:", not args.no_shuffle)
 
+
 # Set up our dataset from our tokenized data files, and split into training
 # dataset and values dataset -- values dataset is used to test the outcome
 # and determine our loss rate.
@@ -562,19 +580,7 @@ if args.fp16:
 # Load our model that we're training. This may fetch via HTTP if not cached
 # already.
 model: PreTrainedModel
-tokenizer: PreTrainedTokenizer
 
-try:
-    tokenizer = AutoTokenizer.from_pretrained(
-        args.model,
-        eos_token=args.eot,
-        pad_token=args.pad,
-        cache_dir=args.cache,
-    )
-except Exception as e:
-    print(e)
-    print(get_gpu_ram())
-    sys.exit(1)
 
 try:
     model = AutoModelForCausalLM.from_pretrained(
@@ -596,6 +602,7 @@ except Exception as e:
     print(get_gpu_ram())
     sys.exit(1)
 print(get_gpu_ram())
+
 
 @torch.no_grad()
 def evaluate(

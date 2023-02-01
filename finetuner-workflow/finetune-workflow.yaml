@@ -145,7 +145,7 @@ spec:
     - name: tokenizer_image
       value: 'ghcr.io/wbrown/gpt_bpe/dataset_tokenizer'
     - name: tokenizer_tag
-      value: 'a78fbb6'
+      value: 'fcb9bef'
     - name: finetuner_image
       value: 'docker.io/gooseai/finetuner'
     - name: finetuner_tag
