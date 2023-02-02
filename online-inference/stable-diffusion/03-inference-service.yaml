@@ -15,14 +15,14 @@ spec:
             - key: gpu.nvidia.com/class
               operator: In
               values:
-              - A40
+              - Quadro_RTX_5000
             - key: topology.kubernetes.io/region
               operator: In
               values:
               - ORD1 
     containers:
       - name: kserve-container
-        image: harubaru1/stable-diffusion:17
+        image: ghcr.io/coreweave/ml-containers/sd-inference:bb1ac67
         command:
           - "python3"
           - "/app/service.py"

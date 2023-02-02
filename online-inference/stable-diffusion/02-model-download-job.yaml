@@ -7,7 +7,7 @@ spec:
     spec:
       containers:
       - name: model-downloader
-        image: ghcr.io/wbrown/gpt_bpe/model_downloader:baa7df3
+        image: ghcr.io/wbrown/gpt_bpe/model_downloader:6d77d9c
         imagePullPolicy: IfNotPresent
         command: 
           - "/ko-app/model_downloader"
