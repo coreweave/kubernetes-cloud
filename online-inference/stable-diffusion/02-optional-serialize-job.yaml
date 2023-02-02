@@ -7,7 +7,7 @@ spec:
     spec:
       containers:
       - name: model-serializer
-        image: harubaru1/model-serializer:2
+        image: ghcr.io/coreweave/ml-containers/sd-serializer:1ff2762
         imagePullPolicy: IfNotPresent
         command: 
           - "python3"

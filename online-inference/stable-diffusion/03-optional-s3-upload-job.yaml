@@ -17,7 +17,7 @@ spec:
             --secret_key=${AWS_SECRET}
             put --recursive --acl-public
             /mnt/models/CompVis/stable-diffusion-v1-4
-            s3://amercurio-model-storage/stable-diffusion-v1-4/
+            s3://<BUCKET URL>/
         env:
         - name: AWS_KEY
           valueFrom:
