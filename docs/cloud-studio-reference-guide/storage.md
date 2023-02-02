@@ -248,7 +248,7 @@ Under **Node Selection**, select the same data center region into which the stor
 
 Under the "Attach existing volumes to your FileBrowser" list, highlight the associated storage volume, then click the blue plus sign to the right of its name.
 
-<figure><img src="../.gitbook/assets/image (21) (1).png" alt=""><figcaption><p>The FileBrowser configuration screen, including a list of "Available Volumes"</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (21) (2).png" alt=""><figcaption><p>The FileBrowser configuration screen, including a list of "Available Volumes"</p></figcaption></figure>
 
 Configure how you'd like the Volume to appear once mounted, then click the **Deploy** button.
 

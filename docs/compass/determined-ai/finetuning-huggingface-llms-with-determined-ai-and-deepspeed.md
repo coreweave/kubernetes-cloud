@@ -29,7 +29,7 @@ Demo source code
 
 This guide makes several assumptions:\
 \
-• You have [set up the CoreWeave Kubernetes environment](../../../coreweave-kubernetes/getting-started.md).\
+• You have [set up the CoreWeave Kubernetes environment](../../coreweave-kubernetes/getting-started/).\
 • You have some experience launching and using [DeterminedAI on CoreWeave Cloud](https://www.determined.ai). (If you have not done so already, it is recommended to deploy DeterminedAI via the application Catalog to familiarize yourself with it).\
 • You have `git` installed on your terminal.
 {% endhint %}

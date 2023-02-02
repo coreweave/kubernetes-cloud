@@ -53,7 +53,7 @@ Check out the code on GitHub
 {% hint style="info" %}
 **Note**
 
-This guide assumes that you have already followed the process to set up the CoreWeave Kubernetes environment. If you have not done so already, [follow our Getting Started guide](../../coreweave-kubernetes/getting-started.md) before proceeding with this guide.
+This guide assumes that you have already followed the process to set up the CoreWeave Kubernetes environment. If you have not done so already, [follow our Getting Started guide](../coreweave-kubernetes/getting-started/) before proceeding with this guide.
 {% endhint %}
 
 The following Kubernetes-based components are required:

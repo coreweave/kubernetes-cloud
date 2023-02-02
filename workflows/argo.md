@@ -56,7 +56,7 @@ To run a sample workflow:
 {% hint style="info" %}
 **Note**
 
-The following assumes you have already obtained CoreWeave Cloud access credentials and [set up your kubeconfig file](../coreweave-kubernetes/getting-started.md#setup-kubernetes-config).
+The following assumes you have already obtained CoreWeave Cloud access credentials and [set up your kubeconfig file](../docs/coreweave-kubernetes/getting-started/#setup-kubernetes-config).
 {% endhint %}
 
 The Argo CLI tool can be obtained from [the Argo Project's website](https://argoproj.github.io/argo-workflows/quick-start/#install-the-argo-workflows-cli). Then, to run an example workflow, save an example workflow into the file `gpu-say-workflow.yaml`.

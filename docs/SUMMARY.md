@@ -6,8 +6,8 @@
 
 ## CoreWeave Kubernetes
 
-* [Get Started with CoreWeave](../coreweave-kubernetes/getting-started.md)
-  * [Applications Catalog](coreweave-kubernetes/serverless/applications-catalog.md)
+* [Get Started with CoreWeave](coreweave-kubernetes/getting-started/README.md)
+  * [Applications Catalog](coreweave-kubernetes/getting-started/applications-catalog.md)
 * [Serverless](coreweave-kubernetes/serverless.md)
 * [Exposing Applications](coreweave-kubernetes/exposing-applications.md)
 * [Useful Commands](../coreweave-kubernetes/useful-commands.md)
@@ -124,6 +124,7 @@
   * [Finetune GPT-NeoX 20B using DeterminedAI](compass/determined-ai/gpt-neox.md)
   * [Launch GPT DeepSpeed Models using DeterminedAI](compass/determined-ai/launch-gpt-deepspeed-models-using-determinedai.md)
   * [Finetuning HuggingFace LLMs with Determined AI and DeepSpeed](compass/determined-ai/finetuning-huggingface-llms-with-determined-ai-and-deepspeed.md)
+  * [Custom Images for Determined AI](compass/determined-ai/custom-images-for-determined-ai.md)
 
 ## Workflows
 

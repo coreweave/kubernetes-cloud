@@ -8,7 +8,7 @@ While Virtual Servers can be managed via the [CoreWeave Cloud UI](https://cloud.
 
 ## Installing `virtctl`
 
-`virtctl`provides an easy, imperative method to start, stop and access VM instances. On CoreWeave Cloud, `virtctl` uses the Kubernetes access credentials configured in [Getting Started](../coreweave-kubernetes/getting-started.md).
+`virtctl`provides an easy, imperative method to start, stop and access VM instances. On CoreWeave Cloud, `virtctl` uses the Kubernetes access credentials configured in [Getting Started](../docs/coreweave-kubernetes/getting-started/).
 
 `virtctl` may be downloaded from one of the following sources:
 
