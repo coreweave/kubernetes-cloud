@@ -14,7 +14,7 @@ spec:
     # Training parameters. Model IDs are hugging face IDs to pull down, or
     # a path to your model relative to the PVC root.
     - name: model
-      value: 'EleutherAI/pythia-2.7b-dedup'
+      value: 'EleutherAI/pythia-2.8b-deduped'
     # The directory to read your dataset in, and tokenize for training.
     - name: dataset
       value: 'dataset'
@@ -50,7 +50,7 @@ spec:
     - name: context
       value: '2048'
     # A prompts file to read in for testing the model, and reporting the
-    # outputs. This is useful for monitoring the progress and effectivness of
+    # outputs. This is useful for monitoring the progress and effectiveness of
     # training. One prompt per line, newlines escaped with `\n` if the prompt
     # is a multiline one.
     - name: prompt_file
@@ -175,7 +175,7 @@ spec:
           - name: output
             value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.dataset}}-{{=sprig.replace('/', '_', sprig.replace('.','_', sprig.replace('-','_', workflow.parameters.model)))}}-{{workflow.parameters.context}}-{{workflow.parameters.tokenizer_tag}}.tokens"
           - name: tokenizer
-            value: "{{=sprig.default('/workflow.parameters.pvc/models/workflow.parameters.model', workflow.parameters.tokenizer)}}"
+            value: "{{=sprig.default('/' + workflow.parameters.pvc + '/models/' + workflow.parameters.model, workflow.parameters.tokenizer)}}"
           - name: context
             value: "{{workflow.parameters.context}}"
           - name: eot
