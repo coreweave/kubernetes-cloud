@@ -214,7 +214,7 @@ spec:
               --project_id {{workflow.parameters.project_id}}
               --epochs {{workflow.parameters.epochs}}
               --context_size {{workflow.parameters.context}}
-              --prompt_file /{{workflow.parameters.pvc}}/{{workflow.parameters.prompt_file}}
+              --prompt_file {{=workflow.parameters.prompt_file == '' ? '' : '/' + workflow.parameters.pvc + '/' + workflow.parameters.prompt_file}}
               --prompt_every {{workflow.parameters.prompt_every}}
               --prompt_tokens {{workflow.parameters.prompt_tokens}}
               --prompt_samples {{workflow.parameters.prompt_samples}}
