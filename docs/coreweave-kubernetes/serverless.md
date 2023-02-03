@@ -8,7 +8,7 @@ CoreWeave Cloud enables clients to run their own code, manage data, and integrat
 
 Deploying serverless applications is an especially ideal deployment alternative when the purpose of the application is to serve HTTP or gRPC requests either internally or externally to and from the Internet.
 
-<table data-card-size="large" data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td>Our <strong>applications Catalog</strong> houses tons of apps that you can deploy with a few clicks!</td><td>Learn more --></td><td></td><td><a href="getting-started/applications-catalog.md">applications-catalog.md</a></td></tr></tbody></table>
+<table data-card-size="large" data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td>Our <strong>applications Catalog</strong> houses tons of apps that you can deploy with a few clicks!</td><td><strong>Learn more</strong> ➡️</td><td></td><td><a href="getting-started/applications-catalog.md">applications-catalog.md</a></td></tr></tbody></table>
 
 ## KNative on CoreWeave
 
