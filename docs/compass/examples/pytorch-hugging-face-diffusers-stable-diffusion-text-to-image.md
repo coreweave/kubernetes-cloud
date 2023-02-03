@@ -6,123 +6,129 @@ description: >-
 
 # PyTorch Hugging Face Diffusers - Stable Diffusion Text to Image
 
-The [Stable Diffusion](https://huggingface.co/CompVis/stable-diffusion-v1-4) model takes a text prompt as input, and generates high quality images with photorealistic capabilities. It is an open source model built by our friends at [Stability.AI](https://stability.ai/). Stability also offers a UI for the model and an API service via [Dream Studio](https://beta.dreamstudio.ai/).
+The [Stable Diffusion](https://huggingface.co/CompVis/stable-diffusion-v1-4) open source model, built by our friends at [Stability.AI](https://stability.ai/), takes a text prompt as input to generate high-quality images with photorealistic capabilities. Stability also offers a UI for the model and an API service via [Dream Studio](https://beta.dreamstudio.ai/).
 
-In this example we will go step by step to deploy Stable Diffusion as an auto-scaling Inference Service on CoreWeave Cloud, which will provide an HTTP API in order to generate images from a text prompt.
+The following tutorial is a step-by-step guide to deploy Stable Diffusion as an autoscaling Inference Service on CoreWeave Cloud that provides an HTTP API in order to generate images from a text prompt.
 
 <figure><img src="../../.gitbook/assets/red-forest.png" alt=""><figcaption><p>An image generated from the prompt: "Red forest, digital art, trending"</p></figcaption></figure>
 
-**View the example code on GitHub:**
+## Tutorial code
+
+To follow along with this tutorial, clone the source code from CoreWeave's GitHub:
 
 {% embed url="https://github.com/coreweave/kubernetes-cloud/tree/master/online-inference/stable-diffusion" %}
-To follow along, please clone the manifests from GitHub
-{% endembed %}
 
 ## Prerequisites
 
-The following tools must be installed and configured prior to running the example:
+For this tutorial, the following tools are required:
 
 * [kubectl](https://docs.coreweave.com/coreweave-kubernetes/getting-started#install-kubernetes-command-line-tools)
 * [docker](https://docs.docker.com/get-docker/)
 * A CoreWeave Cloud account ([with Kubectl configured to use your CoreWeave kubeconfig](https://docs.coreweave.com/coreweave-kubernetes/getting-started#obtain-access-credentials))
 * A [Docker Hub](https://hub.docker.com/) account
-* A [HuggingFace](https://huggingface.co/) account with an [API Token](https://huggingface.co/settings/tokens)
-* Register to use the model by clicking `Access Repository` [here](https://huggingface.co/CompVis/stable-diffusion-v1-4)
+* A [Hugging Face](https://huggingface.co/) account with an [API Token](https://huggingface.co/settings/tokens)
+  * [Completed registration](https://huggingface.co/CompVis/stable-diffusion-v1-4) for model usage - due to the generative power of this model, it is necessary to register your contact information via Hugging Face before the model can be used
 
-## Procedure
+{% hint style="success" %}
+**Tip**
 
-### Build and push the Docker images
-
-We require two images:
-
-1. **The Downloader image.** This will download the model to a [shared storage volume](../../storage/storage/), the individual inference Pods will load the model from this storage instead of downloading it over internet every time they scale up.
-2. **The Model Image.** This is what will run CompVis/stable-diffusion-v1-4
-
-{% hint style="warning" %}
-**Important**
-
-The default Docker tag is `latest`. Using this tag is **strongly** **discouraged**, as containers are cached on the nodes and in other parts of the CoreWeave stack. Always use a unique tag, and never push to the same tag twice. Once you have pushed to a tag, **do not** push to that tag again.
+Optionally, but highly recommended, is the use of CoreWeave's serialization library, [Tensorizer](pytorch-hugging-face-diffusers-stable-diffusion-text-to-image.md#tensorizer), which serializes the Stable Diffusion model in order to make model serving lightning fast and considerably more cost-effective.\
+\
+[Learn more -->](pytorch-hugging-face-diffusers-stable-diffusion-text-to-image.md#tensorizer)
 {% endhint %}
 
-Below, we use simple versioning by using the tag `1` for the first iteration of the image.
+## Docker images
 
-{% hint style="info" %}
-**Note**
+The tutorial requires two images, which may either be built locally and pushed to a container image registry, or may be sourced from the publicly available images:
 
-When running the following commands, be sure to replace the example `username` with your Docker Hub `username`.
-{% endhint %}
+| Kind                     | Description                                                                                                                                                                                                                                                                                                                                                                                              | Public image source                               |
+| ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- |
+| **The downloader image** | <p>This image downloads the model to a <a href="../../storage/storage/">shared storage volume</a>. The individual inference Pods will load the model from this storage so as to avoid downloading it over the internet every time they scale up.</p><p></p><p>Referenced in the <a href="../../../online-inference/stable-diffusion/02-model-download-job.yaml">02-model-download-job.yaml</a> file.</p> | `ghcr.io/wbrown/gpt_bpe/model_downloader:baa7df3` |
+| **The model image**      | <p>Runs the <code>CompVis/stable-diffusion-v1-4</code> model.</p><p></p><p>Referenced in the <a href="../../../online-inference/stable-diffusion/03-inference-service.yaml">03-inference-service.yaml</a> file.</p>                                                                                                                                                                                      | `harubaru1/stable-diffusion:17`                   |
 
-From the `kubernetes-cloud/online-inference/stable-diffusion` directory, run the following commands:
+Should you choose to utilize the publicly-available images listed above, you do not need to build the images from Dockerfiles. Instead, simply ensure that the `image:` field in the `02-model-download-job.yaml` file and the `03-inference-service.yaml` files matches the public image URLs given above.
+
+### Build the Docker images from Dockerfiles
+
+If you do choose to build the Docker images yourself, ensure you have already cloned [the tutorial's source code](pytorch-hugging-face-diffusers-stable-diffusion-text-to-image.md#tutorial-code). Then, change directories into the `kubernetes-cloud/online-inference/stable-diffusion`. From here, log in to Docker.
 
 ```bash
 $ docker login
 $ export DOCKER_USER=coreweave
+```
+
+{% hint style="warning" %}
+**Important**
+
+The default Docker tag is `latest`. Using this tag is **strongly** **discouraged**, as containers are cached on the nodes and in other parts of the CoreWeave stack. Always use a unique tag; never push to the same tag twice. Once you have pushed to a tag, **do not** **push to that tag again**.
+{% endhint %}
+
+In building the images, a simple versioning scheme is implemented by using the tag `1` for the first iteration of the image, and so on.
+
+Next, build the `model-downloader` image and the `stable-diffusion` image respectively, using `docker build` in the current directory.
+
+```bash
 $ docker build -t $DOCKER_USER/model-downloader:1 -f Dockerfile.downloader . 
 $ docker build -t $DOCKER_USER/stable-diffusion:1 -f Dockerfile . 
-$ docker push $DOCKER_USER/model-downloader:1
-$ docker push $DOCKER_USER/stable-diffusion:1
 ```
 
 {% hint style="info" %}
 **Note**
 
-This example assumes a public docker registry. To use a private registry, an [imagePullSecret ](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/)needs to be defined.
+This example assumes a public Docker registry. To use a private registry, an [`imagePullSecret` ](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/)must first be defined.
 {% endhint %}
 
-### Deploy the Kubernetes resources
+Finally, push both images with an initial tag of `1` (or whatever other simple tagging scheme you'd like to use).
 
-#### PVC
+```bash
+$ docker build -t $DOCKER_USER/model-downloader:1 -f Dockerfile.downloader . 
+$ docker build -t $DOCKER_USER/stable-diffusion:1 -f Dockerfile . 
+```
 
-{% hint style="info" %}
-**Note**\
-Before continuing, you may either point the `image:` in the following manifests to the image we just built in the previous steps, or you may use the publicly-available image found in the following manifests:
+## Deploy the Kubernetes resources
 
-* [02-model-download-job.yaml](../../../online-inference/stable-diffusion/02-model-download-job.yaml)
-* [03-inference-service.yaml](../../../online-inference/stable-diffusion/03-inference-service.yaml)
-{% endhint %}
+In the manifests discussed below, you may either point the `image` in the following manifests to the image built earlier, or you may use the publicly-available images, as are referenced in the following manifests:
 
-To create a PVC in which to store the model, run the following command from the `kubernetes-cloud/online-inference/stable-diffusion` directory:
+### PVC
+
+The `00-model-pvc.yaml` file deploys the Persistent Volume Claim (PVC) in which the model will be stored. To create it, apply the `00-model-pvc.yaml` file.
 
 ```bash
 $ kubectl apply -f 00-model-pvc.yaml
 ```
 
-#### Model Repository Registration
+### Model Repository Registration
 
-Due to the generative power of this model, it is necessary to register your contact information via HuggingFace before the model can be used.
+Due to the generative power of this model, it is necessary to register your contact information via Hugging Face before the model can be used. If you have not already done so, create a [Hugging Face](https://huggingface.co/) account and [API Token.](https://huggingface.co/settings/tokens)
 
-While logged in, [visit the HuggingFace Model Repository page](https://huggingface.co/CompVis/stable-diffusion-v1-4), review the terms, and click the `Access Repository` button at the bottom of the page.
+To do this, ensure you are logged in to the Hugging Face, then navigate to the[ HuggingFace Model Repository page](https://huggingface.co/CompVis/stable-diffusion-v1-4). Review the terms, then click the **Access Repository** button at the bottom of the page.
 
-<figure><img src="../../.gitbook/assets/2022-09-07-145024_934x814_scrot.png" alt=""><figcaption><p>Stable Diffusion HuggingFace repository registration</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/2022-09-07-145024_934x814_scrot.png" alt="Screenshot: Stable Diffusion HuggingFace repository registration"><figcaption><p>Stable Diffusion HuggingFace repository registration</p></figcaption></figure>
 
-#### Secret
+### Secret
 
-If you have not already done so, create a [HuggingFace](https://huggingface.co/) account and [API Token.](https://huggingface.co/settings/tokens)
-
-Once you have a token, copy and Base64 encode it:
+Locate your Hugging Face API token. Copy it, then Base64-encode it using `base64`.
 
 ```bash
-$  echo -n "TOKEN_HERE" | base64
+$  echo -n "<YOUR TOKEN>" | base64
 VE9LRU5fSEVSRQ==
 ```
-
-**Replace `TOKEN_HERE` with your Huggingface API Token**
 
 {% hint style="warning" %}
 **Important**
 
-Note the extra space before the "echo" command, this will prevent the command (and as a result your HuggingFace API token) out of your shell history.
+The extra space before the `echo` command will prevent the command - and your HuggingFace API token - from being recorded in your shell history.
 {% endhint %}
 
-Take the Base64-encoded value of your token from the above command, and replace the value in the `token` field of the `01-huggingface-secret.yaml` file with it, then create the Secret:
+In the `01-huggingface-secret.yaml` file, replace the `token` value with the newly generated Base64-encoded token. Then, create the secret using `kubectl create`.
 
 ```bash
 $ kubectl create -f 01-huggingface-secret.yaml
 ```
 
-#### Model job download
+### Model job download
 
-To deploy the job that downloads the model to the PVC, run the following command from the `kubernetes-cloud/online-inference/stable-diffusion/` directory:
+To deploy the job that downloads the model to the PVC, `apply` the `02-model-download-job.yaml` file from the `kubernetes-cloud/online-inference/stable-diffusion/` directory.
 
 ```bash
 $ kubectl apply -f 02-model-download-job.yaml
@@ -132,41 +138,45 @@ To check if the model has finished downloading, wait for the job to be in a `Com
 
 ```bash
 $ kubectl get pods
+
 NAME                              READY   STATUS      RESTARTS   AGE
 stable-diffusion-download-vsznr   0/1     Completed   0          3h14m
 ```
 
-Or, follow the job logs to monitor progress:
+Or, follow the job logs to monitor its progress:
 
 ```bash
 $ kubectl logs -l job-name=stable-diffusion-download --follow
 ```
 
-#### InferenceService
+### InferenceService
 
-Once the model is downloaded, the `InferenceService` can be deployed by invoking:
+Once the model has finished downloading, deploy the `InferenceService` by applying the `01-huggingface-secret.yaml` file.
 
 ```bash
 $ kubectl apply -f 03-inference-service.yaml
 ```
 
-Loading up the model into GPU memory may take a couple of minutes. To monitor the progress of this, you can wait to see the KServe workers start in the pod logs by invoking:
+Loading up the model into GPU memory may take a couple of minutes. To monitor the progress of this, wait to see the KServe workers start in the Pod logs.
 
+{% code overflow="wrap" %}
 ```bash
 $ kubectl logs -l serving.kubeflow.org/inferenceservice=stable-diffusion --container kfserving-container
 ```
+{% endcode %}
 
-Alternatively, you can wait for the `InferenceService` to show that `READY` is `True`, and that it has a URL:
+Alternatively, you can wait for the `InferenceService` to show that `READY` is `True`, and that it has a URL.
 
 ```bash
-$ kubectl get isvc stable-diffusion                                                                     
+$ kubectl get isvc stable-diffusion  
+                                                                   
 NAME               URL                                                                              READY   PREV   LATEST   PREVROLLEDOUTREVISION   LATESTREADYREVISION                        AGE
 stable-diffusion   http://stable-diffusion.tenant-example-example.knative.chi.coreweave.com   True           100                              stable-diffusion-predictor-default-00001   64m
 ```
 
 Using the provided URL, you can make an HTTP request via your preferred means.
 
-Here is a simple cURL example:
+Here is an example utilizing cURL:
 
 {% code overflow="wrap" %}
 ```bash
@@ -175,19 +185,19 @@ curl http://stable-diffusion.tenant-example-example.knative.chi.coreweave.com/v1
 ```
 {% endcode %}
 
-<figure><img src="../../.gitbook/assets/sunset.png" alt=""><figcaption><p>An image generated from the prompt: "California sunset on the beach, red clouds, Nikon DSLR, professional photography"</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/sunset.png" alt="Generated photo of a sunset. An image generated from the prompt: &#x22;California sunset on the beach, red clouds, Nikon DSLR, professional photography&#x22;"><figcaption><p>An image generated from the prompt: "California sunset on the beach, red clouds, Nikon DSLR, professional photography"</p></figcaption></figure>
 
-The following per-request parameters are supported:
+## Supported request parameters
 
-```
-- guidance_scale
-- num_inference_steps
-- seed
-- width
-- height
-```
+The following request parameters are supported:
 
-Parameters may be passed per-request as follows:
+* `guidance_scale`
+* `num_inference_steps`
+* `seed`
+* `width`
+* `height`
+
+Parameters may be passed in per request. For example:
 
 {% code overflow="wrap" %}
 ```shell-session
@@ -197,9 +207,9 @@ $ curl http://stable-diffusion.tenant-example-example.knative.chi.coreweave.com/
 ```
 {% endcode %}
 
-### Hardware and Performance
+## Hardware and performance
 
-This example is set to one A40 for production of higher resolution images. Inference times are around `4.78` seconds for a default resolution of `512x512` with 50 steps. Larger resolutions take longer - for example, a resolution of `1024x768` takes around `47` seconds.
+This example is set to one A40 node for the production of higher resolution images. Inference times are around `4.78` seconds for a default resolution of `512x512` with `50` steps. Larger resolutions take longer - for example, a resolution of `1024x768` takes around `47` seconds.
 
 {% hint style="info" %}
 **Note**
@@ -208,6 +218,8 @@ Multi-GPU Inference is not supported.
 {% endhint %}
 
 Depending on use case, GPUs with less VRAM will also work down to 8GB GPUs, such as the Quadro RTX 4000, however output resolution will be limited by memory to `512x512`.
+
+### Benchmarks
 
 The graph and table below compare recent GPU benchmark inference speeds for Stable Diffusion processing on different GPUs:
 
@@ -232,9 +244,9 @@ Refer to the[ Node Types](https://docs.coreweave.com/coreweave-kubernetes/node-t
 
 ### Autoscaling
 
-Scaling is controlled in the `InferenceService` configuration. This example is set to always run one replica, regardless of number of requests.
+Scaling is controlled in the `InferenceService` configuration. This example is set to always run one replica regardless of number of requests.
 
-Increasing the number of `maxReplicas` will allow the CoreWeave infrastructure to automatically scale up replicas when there are multiple outstanding requests to your endpoints. Replicas will automatically be scaled down as demand decreases.
+Increasing the number of `maxReplicas` will allow CoreWeave's infrastructure to automatically scale up replicas when there are multiple outstanding requests to your endpoints. Replicas will automatically be scaled down as demand decreases.
 
 #### Example
 
@@ -245,6 +257,111 @@ spec:
     maxReplicas: 1
 ```
 
-By setting `minReplicas` to `0`, Scale To Zero can be enabled, which will completely scale down the `InferenceService` when there have been no requests for a period of time.
+By setting `minReplicas` to `0`, Scale-to-Zero can be enabled, which will completely scale down the `InferenceService` when there have been no requests for a period of time. When a service is scaled to zero, no cost is incurred.
 
-When a service is scaled to zero, no cost is incurred.
+## Optional steps
+
+The following additional steps are optional, but will allow for quicker and less resource-intensive spin-up by serializing the Stable Diffusion model through the use of our model serialization library, [Tensorizer](https://github.com/coreweave/tensorizer/).
+
+### Tensorizer
+
+[CoreWeave's Tensorizer](https://github.com/coreweave/tensorizer/) makes it possible to load models in **less than 5 seconds**, making it easier and more cost-effective to serve the model at scale. Because transfers occur nearly instantly to the GPU when using Tensorizer, the amount of CPU and RAM necessary for the instance is also reduced, resulting in lower incurred costs by a reduction in the amount of resources used.
+
+{% embed url="https://github.com/coreweave/tensorizer/" %}
+
+## Using CoreWeave Object Storage
+
+Optionally, [CoreWeave Object Storage](../../storage/object-storage.md) may be used for storing models. To use it, first [create both an access key and a secret key](../../storage/object-storage.md#get-started). Then, create a bucket using the `s3cmd` tool:
+
+```shell-session
+$ s3cmd mb s3://BUCKET
+```
+
+Once you have generated an access key and a secret key, copy and Base64-encode both keys.
+
+```shell-session
+$  echo -n "<YOUR ACCESS KEY>" | base64
+QUNDRVNTX0tFWV9IRVJF
+
+$  echo -n "<YOUR SECRET KEY>" | base64
+U0VDUkVUX0tFWV9IRVJF
+```
+
+You will also have to Base64-encode the hostname that you intend to use for storing the serialized model. For the purpose of this example, we will be using the `ORD1` region, where our hostname is the Object Storage endpoint URL `object.ord1.coreweave.com`.
+
+```shell-session
+$  echo -n "object.ord1.coreweave.com" | base64
+b2JqZWN0Lm9yZDEuY29yZXdlYXZlLmNvbQ==
+```
+
+In the YAML manifest named `01-optional-s3-secret.yaml`, use these newly Base64-encoded values for the respective values of the `access_key`, `secret_key`, and `url` fields. Then, create the Secret:
+
+```shell-session
+$ kubectl create -f 01-optional-s3-secret.yaml
+```
+
+### Model Serialization Job
+
+To serialize the Stable Diffusion model that has already been downloaded, deploy the serialization job from the `kubernetes-cloud/online-inference/stable-diffusion/` directory by applying its manifest (`02-optional-serialize-job.yaml`).
+
+```shell-session
+$ kubectl apply -f 02-optional-serialize-job.yaml
+```
+
+The serialized model will be written to the PVC that was created earlier.
+
+### Object Storage upload job
+
+In the `03-optional-s3-upload-job.yaml` file, edit the container's `args` field to use the created bucket, by replacing the `INSERT_BUCKET_HERE` placeholder with the bucket URL.
+
+```yaml
+ args:
+  - >
+    /usr/bin/s3cmd
+    --access_key=${AWS_KEY}
+    --secret_key=${AWS_SECRET}
+    put --recursive --acl-public
+    /mnt/models/CompVis/stable-diffusion-v1-4
+    s3://<BUCKET URL>/
+```
+
+To upload the serialized model to [CoreWeave Object Storage](pytorch-hugging-face-diffusers-stable-diffusion-text-to-image.md#object-storage), apply the `03-optional-s3-upload-job.yaml` manifest, which initiates a job to upload the model.
+
+```shell-session
+$ kubectl apply -f 03-optional-s3-upload-job.yaml
+```
+
+{% hint style="danger" %}
+**Warning**
+
+Objects uploaded through the Upload Job are stored with ACL that allows public `read` permissions.
+{% endhint %}
+
+### Serialized model deployment
+
+In order to deploy the serialized model from [CoreWeave Object Storage](pytorch-hugging-face-diffusers-stable-diffusion-text-to-image.md#object-storage), retrieve the public URI:
+
+```
+http://object.ord1.coreweave.com/<YOUR_BUCKET>/stable-diffusion-v1-4
+```
+
+Edit the `03-inference-service.yaml` file to supplement the public object URI, and include the `--tensorized` flag to the container's `command` arguments.
+
+```yaml
+containers:
+  - name: kserve-container
+    image: ghcr.io/coreweave/ml-containers/sd-inference:bb1ac67
+    command:
+      - "python3"
+      - "/app/service.py"
+      - "--model-id=http://object.ord1.coreweave.com/YOUR_BUCKET/stable-diffusion-v1-4"
+      - "--tensorized"
+```
+
+Finally, to deploy the serialized model on an `InferenceService`, apply the inference service manifest using `kubectl`.
+
+```shell-session
+$ kubectl apply -f 03-inference-service.yaml
+```
+
+To verify the deployment, [run the same cURL command](pytorch-hugging-face-diffusers-stable-diffusion-text-to-image.md#inferenceservice) used to test the `InferenceService` deployment earlier.
