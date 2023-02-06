@@ -69,7 +69,7 @@ spec:
     - name: gpt_neox_image
       value: 'ghcr.io/coreweave/ml-containers/gpt-neox-mpi'
     - name: gpt_neox_tag
-      value: '845d3a1'
+      value: '8094734'
 
   templates:
   - name: main
