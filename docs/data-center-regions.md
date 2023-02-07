@@ -17,7 +17,7 @@ Each data center features redundant, **200Gbps+ public Internet connectivity** f
 {% hint style="info" %}
 **Note**
 
-To access and run the speedtests linked below in your terminal, use `curl` on the link's URL.
+To access and run the speedtests linked below in your terminal, either click the link to download them, or use `curl` on the link's URL.
 
 For example:
 
