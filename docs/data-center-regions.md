@@ -14,6 +14,18 @@ Our data centers are broken up into three geographical buckets, each of which se
 
 Each data center features redundant, **200Gbps+ public Internet connectivity** from Tier 1 global carriers, and are connected to each other with **400Gbps+ of dark fiber transport**, allowing for **easy,** **free data transfers** within CoreWeave Cloud.
 
+{% hint style="info" %}
+**Note**
+
+To access and run the speedtests linked below in your terminal, use `curl` on the link's URL.
+
+For example:
+
+```bash
+curl http://http.speedtest.lga1.coreweave.com/1G --output speedtest-lga1-1g
+```
+{% endhint %}
+
 CoreWeave's data center regions are:
 
 ## :cityscape: US East: `LGA1`
@@ -22,7 +34,7 @@ CoreWeave's data center regions are:
 
 Located at the mouth of the Lincoln Tunnel, `LGA1` serves the Eastern US, and provides ultra-low latency to the NYC metropolitan area, covering **over 20 million people**. This **ISO 27001, SOC2 compliant** data center is packed with **NVIDIA GPU accelerated** Cloud Instances, with near-unlimited compute and storage infrastructure to go with it.
 
-| Region Label | Speedtest files                                                                                          |
+| Region Label | Speedtests                                                                                               |
 | ------------ | -------------------------------------------------------------------------------------------------------- |
 | `LGA1`       | [1GB](http://http.speedtest.lga1.coreweave.com/1G), [10GB](http://http.speedtest.lga1.coreweave.com/10G) |
 
@@ -32,7 +44,7 @@ Located at the mouth of the Lincoln Tunnel, `LGA1` serves the Eastern US, and pr
 
 Located just outside downtown Chicago, `ORD1` serves the **Central US**. This **ISO 27001, SOC2, HIPAA** compliant data center is built for the most demanding workloads, including distributed training using **NVIDIA A100 NVLINK** accelerators connected with **Infiniband GPUDirect RDMA.**
 
-| Region Label | Speedtest files                                                                                          |
+| Region Label | Speedtests                                                                                               |
 | ------------ | -------------------------------------------------------------------------------------------------------- |
 | `ORD1`       | [1GB](http://http.speedtest.ord1.coreweave.com/1G), [10GB](http://http.speedtest.ord1.coreweave.com/10G) |
 
@@ -42,7 +54,7 @@ Located just outside downtown Chicago, `ORD1` serves the **Central US**. This **
 
 Located in fabulous Las Vegas, `LAS1` serves the **Western US**. Powered by 100% renewable energy, LAS1's **ISO 27001, SOC2 and HIPAA** compliant infrastructure brings scaled **NVIDIA GPU** accelerated compute to the US West, serving both Las Vegas and the Los Angeles basin with low latency connectivity.
 
-| Regional label | Speedtest files                                                                                          |
+| Regional label | Speedtests                                                                                               |
 | -------------- | -------------------------------------------------------------------------------------------------------- |
 | `LAS1`         | [1GB](http://http.speedtest.las1.coreweave.com/1G), [10GB](http://http.speedtest.las1.coreweave.com/10G) |
 
