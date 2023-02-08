@@ -6,9 +6,10 @@
 
 ## CoreWeave Kubernetes
 
-* [Get Started with CoreWeave](coreweave-kubernetes/getting-started/README.md)
-  * [Applications Catalog](coreweave-kubernetes/getting-started/applications-catalog.md)
-* [Serverless](coreweave-kubernetes/serverless.md)
+* [Get Started with CoreWeave](coreweave-kubernetes/getting-started.md)
+* [Serverless](coreweave-kubernetes/serverless/README.md)
+  * [Applications Catalog](coreweave-kubernetes/serverless/applications-catalog.md)
+  * [Deploy Custom Containers](coreweave-kubernetes/serverless/deploy-custom-containers.md)
 * [Exposing Applications](coreweave-kubernetes/exposing-applications.md)
 * [Useful Commands](../coreweave-kubernetes/useful-commands.md)
 * [Node Types](../coreweave-kubernetes/node-types.md)

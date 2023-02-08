@@ -26,7 +26,7 @@ Using the CoreWeave Cloud UI, an Object Storage configuration file can be genera
 
 To create a new token, click the button labelled **Create a New Token**. This will bring up the **New Storage Token** modal, which prompts you to assign a name, a default [S3 region](../data-center-regions.md) (which can be changed later), and [an access level](object-storage.md#identity-and-access-management-iam-and-access-levels) to the token.
 
-<figure><img src="../.gitbook/assets/image (1).png" alt="Screenshot of the new storage token modal"><figcaption><p>The New Storage Token modal</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (17).png" alt="Screenshot of the new storage token modal"><figcaption><p>The New Storage Token modal</p></figcaption></figure>
 
 Finally, clicking the **Generate** button generates the token's configuration file:
 
@@ -209,9 +209,9 @@ Alternatively, key pair permissions may be specified via the Cloud UI on the Obj
 
 From the Object Storage page, the **Access Level** field displays the key's current access level. The access of a new Object Storage token is set during creation by selecting an access level from the **Select an access level** drop-down menu located at the bottom of the New Storage Token module.
 
-<figure><img src="../.gitbook/assets/image (21).png" alt=""><figcaption><p>Access levels are displayed on the Object Storage page</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (64).png" alt=""><figcaption><p>Access levels are displayed on the Object Storage page</p></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/image (26).png" alt="Screenshot: Access levels drop-down"><figcaption><p>Any access level may be chosen from this drop-down</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (22).png" alt="Screenshot: Access levels drop-down"><figcaption><p>Any access level may be chosen from this drop-down</p></figcaption></figure>
 
 ### IAM actions
 

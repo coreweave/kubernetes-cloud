@@ -8,7 +8,7 @@ CoreWeave Cloud enables clients to run their own code, manage data, and integrat
 
 Deploying serverless applications is an especially ideal deployment alternative when the purpose of the application is to serve HTTP or gRPC requests either internally or externally to and from the Internet.
 
-<table data-card-size="large" data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td>Our <strong>applications Catalog</strong> houses tons of apps that you can deploy with a few clicks!</td><td><strong>Learn more</strong> ➡️</td><td></td><td><a href="getting-started/applications-catalog.md">applications-catalog.md</a></td></tr></tbody></table>
+<table data-card-size="large" data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td>Our <strong>applications Catalog</strong> houses tons of apps that you can deploy with a few clicks!</td><td><strong>Learn more</strong> ➡️</td><td></td><td><a href="applications-catalog.md">applications-catalog.md</a></td></tr></tbody></table>
 
 ## KNative on CoreWeave
 
@@ -18,7 +18,7 @@ CoreWeave uses the [KNative](https://knative.dev/docs/serving/getting-started-kn
 
 <table data-card-size="large" data-view="cards"><thead><tr><th></th><th></th><th></th></tr></thead><tbody><tr><td><span data-gb-custom-inline data-tag="emoji" data-code="1f510">🔐</span> <strong>Automatic public HTTPS endpoints</strong></td><td>Never worry about managing SSL certificates for your serverless applications - with KNative and LetsEncrypt, HTTPS endpoints are automatic with every deployment.</td><td></td></tr><tr><td><span data-gb-custom-inline data-tag="emoji" data-code="1f4c8">📈</span> <strong>Autoscaling by default, including</strong> <a href="https://knative.dev/docs/serving/autoscaling/scale-to-zero/#enable-scale-to-zero"><strong>Scale-to-Zero</strong></a><strong></strong></td><td>High-availability comes built-in with serverless application deployments on CoreWeave, so application resources scale automatically according to their traffic. Scaling to zero means consuming no resources, incurring no billable charges while idle.</td><td></td></tr><tr><td><span data-gb-custom-inline data-tag="emoji" data-code="1f4b0">💰</span> <strong>No charge for public IPs</strong></td><td>Public IP addresses do not incur any additional costs when deploying serverless applications on CoreWeave, making public distribution of the application easy.</td><td></td></tr><tr><td><span data-gb-custom-inline data-tag="emoji" data-code="1f9ea">🧪</span> <strong>Advanced deployment strategies</strong></td><td>CoreWeave's implementation of the KNative runtime supports advanced deployment strategies, including <a href="https://knative.dev/docs/getting-started/first-traffic-split/">traffic splitting techniques</a> useful for blue/green and canary deployment methods.</td><td></td></tr></tbody></table>
 
-<figure><img src="../.gitbook/assets/screen-shot-2020-05-25-at-9.08.48-am.png" alt="Serveless deployment diagram"><figcaption><p>Serveless deployment diagram</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/screen-shot-2020-05-25-at-9.08.48-am.png" alt="Serveless deployment diagram"><figcaption><p>Serveless deployment diagram</p></figcaption></figure>
 
 ## Deployment example
 
@@ -73,8 +73,8 @@ If the value of the URL provided does not have `https`, it may be that the domai
 
 Managed [Grafana](https://grafana.com/) monitoring provides insights into requests, success rates, response times and auto-scaling metrics transparently. No metrics-specific code needs to be added to the serverless application.
 
-<figure><img src="../.gitbook/assets/screen-shot-2020-05-08-at-1.34.33-am.png" alt="Screenshot: Grafana dashboard"><figcaption><p>Grafana dashboard</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/screen-shot-2020-05-08-at-1.34.33-am.png" alt="Screenshot: Grafana dashboard"><figcaption><p>Grafana dashboard</p></figcaption></figure>
 
 To access Grafana, [log in to your CoreWeave Cloud account](https://cloud.coreweave.com), then navigate to the **Account Details** section in the left-hand navigation menu, and click **Grafana**. Clicking this link will open a new window in your browser.
 
-<figure><img src="../.gitbook/assets/image (15) (2).png" alt="Screenshot: Grafana in the left-hand menu"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (15).png" alt="Screenshot: Grafana in the left-hand menu"><figcaption></figcaption></figure>

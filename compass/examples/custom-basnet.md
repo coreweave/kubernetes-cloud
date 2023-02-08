@@ -7,10 +7,10 @@ This example demonstrates deploying an auto-scaling Inference service from a pre
 To follow along, clone the manifests from [GitHub](https://github.com/coreweave/kubernetes-cloud/tree/master/online-inference/custom-basnet).
 
 **Input**\
-![input](../../docs/.gitbook/assets/test.png)
+![input](<../../online-inference/custom-basnet/client/images/test (1) (1).png>)
 
 **Output**\
-![output](../../online-inference/custom-basnet/client/expected\_output.png)
+![output](../../docs/.gitbook/assets/expected\_output.png)
 
 ## Getting Started
 

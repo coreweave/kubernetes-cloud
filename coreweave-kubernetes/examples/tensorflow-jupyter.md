@@ -2,9 +2,7 @@
 
 To follow along, please clone the [GitHub repository](https://github.com/coreweave/kubernetes-cloud/tree/master/tensorflow-jupyter) with the example manifests.
 
-![Screenshot](../../tensorflow-jupyter/screenshot.png)
-
-### Introduction
+![Screenshot](<../../docs/.gitbook/assets/screenshot (1).png>)
 
 This example leverages a [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) to always maintain one instance of [Tensorflow](https://www.tensorflow.org) with Jupyter. Tensorflow is a highly popular deep learning framework that is greatly accelerated by GPUs. Each instance, in Kubernetes terminology called a [Pod](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/) is allocated 2 GPUs.
 
@@ -30,9 +28,10 @@ After installing `kubectl` and adding your CoreWeave Cloud access credentials, t
 
 1.  Apply the resources. This can be used to both create and update existing manifests
 
-    ```
+    ```bash
      $ kubectl apply -f tensorflow-deployment.yaml
      deployment.apps/tensorflow-jupyter configured
+     
      $ kubectl apply -f tensorflow-service.yaml
      service/tensorflow-jupyter configured 
     ```

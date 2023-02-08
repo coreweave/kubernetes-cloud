@@ -8,7 +8,7 @@ This example walks through the setup of a complete Cloud rendering solution for 
 
 If you are following along with this example, by the end of it you will have a Web-based file management solution for uploading assets and downloading render output, as well as a highly parallel workflow template with which to launch your render jobs.
 
-<figure><img src="../../docs/.gitbook/assets/image (23) (1).png" alt=""><figcaption><p>Image of a CGI-rendered car</p></figcaption></figure>
+<figure><img src="../../docs/.gitbook/assets/cars.png" alt=""><figcaption><p>Image of a CGI-rendered car</p></figcaption></figure>
 
 ## Configure the Persistent Volume Claim
 
@@ -46,7 +46,7 @@ We now have a shared filesystem of `100GB`, named `shared-data-pvc`, which we ca
 
 Because we are attempting to create an easy-to-use service to render our Blender animation, we will also quickly setup a Web-based file management platform to upload and download any assets and render output we have. To accomplish this, we will be using the open-source utility [FileBrowser](http://www.filebrowser.xyz), available through [the CoreWeave Cloud application Catalog](https://apps.coreweave.com) as **filebrowser**.
 
-<figure><img src="../../docs/.gitbook/assets/image (24) (2).png" alt=""><figcaption><p>The filebrowser application</p></figcaption></figure>
+<figure><img src="../../docs/.gitbook/assets/image (24) (1).png" alt=""><figcaption><p>The filebrowser application</p></figcaption></figure>
 
 To install and configure the FileBrowser application:
 
@@ -55,7 +55,7 @@ To install and configure the FileBrowser application:
 3. Under **Node Selection**, select your datacenter region.
 4. As we want our new PVC to act as the storage for FileBrowser, under the "Attach existing volumes to your FileBrowser" list, select the newly created PVC (in this case, `shared-data-pvc`) by clicking the small blue plus sign to the right of the Volume name:
 
-<figure><img src="../../docs/.gitbook/assets/image (21) (1) (1).png" alt=""><figcaption><p>The FileBrowser configuration screen, including a list of "Available Volumes"</p></figcaption></figure>
+<figure><img src="../../docs/.gitbook/assets/image (21) (2).png" alt=""><figcaption><p>The FileBrowser configuration screen, including a list of "Available Volumes"</p></figcaption></figure>
 
 Configure how you'd like the Volume to appear once mounted, then click the **Deploy** button.
 
@@ -77,13 +77,13 @@ It is **strongly recommended** to change the default login credentials for FileB
 
 In the **Access URLs** box on the status page, you will find an Ingress URL (such as `https://filebrowser-name.tenant-sta-coreweave-clientname.ord1.ingress.coreweave.cloud/`). This Ingress URL may be used to access the FileBrowser application in a browser.
 
-![The FileBrowser login screen](<../../.gitbook/assets/image (3) (1) (1) (2).png>)
+![The FileBrowser login screen](<../../.gitbook/assets/image (3) (1) (1) (1) (1).png>)
 
 #### **Rendering example**
 
 For this example, we want to render something that quickly in order to showcase the power of CoreWeave Cloud, so we're going to take one of the typical Blender benchmarks, [BMW\_27](https://download.blender.org/demo/test/BMW27\_2.blend.zip), and upload the unpacked file `bmw27_gpu.blend` to our root path in the FileBrowser application.
 
-![The FileBrowser UI, displaying the uploaded bmw27\_gpu.blend file](<../../.gitbook/assets/image (2) (1).png>)
+![The FileBrowser UI, displaying the uploaded bmw27\_gpu.blend file](<../../.gitbook/assets/image (2) (1) (1).png>)
 
 ## Create the render workflow
 
@@ -293,6 +293,6 @@ STEP                                                   PODNAME                  
 
 This output shows the status of the 10 frames you've specified being rendered on 10 different GPU instances with `4x NV_Pascal GPUs` each. You can now browse to your FileBrowser site via the Ingress URL provided in the application status page, where you should see a new folder named `outputs` with a sub-directory - in this example named `bmw27_gpu`. This directory should now contain the 10 newly rendered frames!
 
-<figure><img src="../../.gitbook/assets/image (1).png" alt="Newly rendered frames in the file browser"><figcaption><p>Newly rendered frames in the file browser</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1).png" alt="Newly rendered frames in the file browser"><figcaption><p>Newly rendered frames in the file browser</p></figcaption></figure>
 
 With just some small changes to the Argo workflow we just built and used, you can now run your Blender GPU rendering on thousands of GPUs simultaneously!

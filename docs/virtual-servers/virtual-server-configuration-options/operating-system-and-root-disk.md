@@ -20,7 +20,7 @@ From the **Operating System / Root Disk Storage** menu, you can select and confi
 
 You can also configure the size of the **root disk** of the Virtual Server from here using the **Root Disk Size** slider.
 
-![The Operating System and Root Disk Size configuration section.](<../../.gitbook/assets/image (56) (2).png>)
+![The Operating System and Root Disk Size configuration section.](<../../.gitbook/assets/image (56).png>)
 
 #### **UEFI bootloader**
 
@@ -30,7 +30,7 @@ This option can be configured in the `os.uefi` field in the YAML manifest under 
 
 **Example**
 
-![The os.uefi option configured under the YAML tab in the configuration screen.](<../../.gitbook/assets/image (56) (1) (1).png>)
+![The os.uefi option configured under the YAML tab in the configuration screen.](<../../.gitbook/assets/image (56) (1).png>)
 
 #### Operating System add**itions**
 

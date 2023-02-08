@@ -1,6 +1,6 @@
 # Get Started with Inference
 
-![diagram](../online-inference/overview.png)
+![diagram](../docs/.gitbook/assets/overview.png)
 
 CoreWeave Cloud allows for easy serving of machine learning models. The models can be sourced from a range of storage backends, including S3 compatible object storage, HTTP and a [CoreWeave Storage Volume](../docs/storage/storage/). After deployment the inference engine auto scales the containers based on demand to swiftly fulfill user requests and scales down as load decreases to not waste GPU resources. Allocating new resources and scaling up a container can be as fast as 15 seconds for the 6B GPT-J model. The quick autoscale allows a significantly more responsive service than depending on scaling of hypervisor backed instances of other cloud providers.
 
