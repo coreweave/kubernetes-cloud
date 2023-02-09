@@ -6,7 +6,7 @@
 
 ## CoreWeave Kubernetes
 
-* [Get Started with CoreWeave](coreweave-kubernetes/getting-started.md)
+* [Get Started with CoreWeave](coreweave-kubernetes/getting-started/README.md)
 * [Serverless](coreweave-kubernetes/serverless/README.md)
   * [Applications Catalog](coreweave-kubernetes/serverless/applications-catalog.md)
   * [Deploy Custom Containers](coreweave-kubernetes/serverless/deploy-custom-containers.md)
@@ -117,7 +117,9 @@
   * [GPT-J-6B](../compass/models/gpt-j-6b.md)
 * [Finetuning Machine Learning Models](compass/finetuning-machine-learning-models.md)
 * [Finetuning Image Generation Models](compass/finetuning-image-generation-models.md)
-* [Distributed Training with Kubeflow Training Operators](compass/distributed-training-with-kubeflow-training-operators.md)
+* [Distributed Training with Kubeflow Training Operators](compass/distributed-training-with-kubeflow-training-operators/README.md)
+  * [Train ResNet-50 with ImageNet](compass/distributed-training-with-kubeflow-training-operators/train-resnet-50-with-imagenet.md)
+  * [Finetune GPT-NeoX-20B with Argo Workflows](compass/distributed-training-with-kubeflow-training-operators/finetune-gpt-neox-20b-with-argo-workflows.md)
 * [Determined AI](compass/determined-ai/README.md)
   * [Install Determined AI](compass/determined-ai/install-determined-ai.md)
   * [Shell for Machine Learning on Determined AI](compass/determined-ai/shell-for-machine-learning-on-determined-ai.md)

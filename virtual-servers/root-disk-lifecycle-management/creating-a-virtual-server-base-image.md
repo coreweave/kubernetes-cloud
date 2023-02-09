@@ -8,7 +8,7 @@
 ## Deploy source Virtual Server
 
 {% hint style="success" %}
-Be sure to review [Getting Started](../../docs/coreweave-kubernetes/getting-started.md#obtain-access-credentials) and the [kubectl Virtual Server deployment method](../../docs/virtual-servers/deployment-methods/kubectl.md#deploying-a-virtual-server) before starting this guide.
+Be sure to review [Getting Started](../../docs/coreweave-kubernetes/getting-started/#obtain-access-credentials) and the [kubectl Virtual Server deployment method](../../docs/virtual-servers/deployment-methods/kubectl.md#deploying-a-virtual-server) before starting this guide.
 {% endhint %}
 
 First, we will deploy a Windows Virtual Server using a [reference YAML](../../virtual-server/examples/kubectl/virtual-server-windows.yaml). This will serve as the source disk for our subsequent instances:
@@ -67,7 +67,7 @@ We can monitor the Virtual Server spinning up with `kubectl get pods --watch`
 
 Once our VS has reached "Running" status, we can get an External IP to connect to it with `kubectl get vs`
 
-![Output of "kubectl get vs"](<../../.gitbook/assets/image (31) (1) (1) (1) (1).png>)
+![Output of "kubectl get vs"](<../../.gitbook/assets/image (31) (1).png>)
 
 {% hint style="info" %}
 Allow \~5 minutes after "Running" status for the Virtual Server to complete initial start procedures.
@@ -172,15 +172,15 @@ $ ./pvc-clone.sh vs-windows10-source windows10-base-disk
 This will clone a PVC within the same region in which it was created.
 {% endhint %}
 
-![Output of pvc-clone.sh](<../../docs/.gitbook/assets/image (39) (1).png>)
+![Output of pvc-clone.sh](<../../docs/.gitbook/assets/image (39).png>)
 
 We can now safely delete our Virtual Server with `k delete vs vs-windows10-source`:
 
-![Output of "kubectl delete vs"](<../../docs/.gitbook/assets/image (33).png>)
+![Output of "kubectl delete vs"](<../../docs/.gitbook/assets/image (33) (1).png>)
 
 With `k get pvc`, we can see our original Virtual Server PVC is now deleted, and only the clone remains:
 
-![Output of "kubectl get pvc"](<../../docs/.gitbook/assets/image (29) (1).png>)
+![Output of "kubectl get pvc"](<../../docs/.gitbook/assets/image (29).png>)
 
 We'll adjust our Virtual Server spec to suit:
 

@@ -8,7 +8,7 @@ This guide walks through the steps necessary to deploy a basic containerized app
 
 This guide presumes that you already have an active CoreWeave Cloud account, and have already configured and installed a kubeconfig file for use with CoreWeave Kubernetes. It also assumes you have an application that has already successfully been containerized using Docker or a similar container runtime.
 
-If you have not already completed these steps, first visit [Get Started with CoreWeave](../getting-started.md).
+If you have not already completed these steps, first visit [Get Started with CoreWeave](../getting-started/).
 
 {% hint style="info" %}
 **Additional Resources**
@@ -134,7 +134,7 @@ If your application requires storage, you'll need to create a storage volume. To
 
 Optionally, if your application may benefit from having a visual file browser, install [the FileBrowser application](../../storage/filebrowser.md), configured with an equally recognizable name.
 
-<figure><img src="../../.gitbook/assets/image (7).png" alt="Screenshot of a PVC volume and the FileBrowser application installed in the namespace"><figcaption><p>For the Kobold AI example, we have created both a PVC storage volume (left) and a FileBrowser instance (right)</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (7) (3).png" alt="Screenshot of a PVC volume and the FileBrowser application installed in the namespace"><figcaption><p>For the Kobold AI example, we have created both a PVC storage volume (left) and a FileBrowser instance (right)</p></figcaption></figure>
 
 If your application requires a lot of storage, it is recommended to configure a PVC with at least 1TB of space, similar to the configuration settings determined for this example.
 

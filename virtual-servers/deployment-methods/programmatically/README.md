@@ -19,7 +19,7 @@ To use programmatic deployment as your deployment method, you will first need to
 {% hint style="info" %}
 **Note**
 
-See [Obtain Access Credentials](../../../docs/coreweave-kubernetes/getting-started.md#obtain-access-credentials) for more information.
+See [Obtain Access Credentials](../../../docs/coreweave-kubernetes/getting-started/#obtain-access-credentials) for more information.
 {% endhint %}
 
 ## Examples

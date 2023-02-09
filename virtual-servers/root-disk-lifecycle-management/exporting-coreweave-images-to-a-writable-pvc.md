@@ -8,7 +8,7 @@
 {% file src="../../docs/.gitbook/assets/volume_clone.yaml" %}
 
 {% hint style="success" %}
-Be sure to review [Getting Started](../../docs/coreweave-kubernetes/getting-started.md#obtain-access-credentials) and the [kubectl Virtual Server deployment method](../../docs/virtual-servers/deployment-methods/kubectl.md#deploying-a-virtual-server) before starting this guide.
+Be sure to review [Getting Started](../../docs/coreweave-kubernetes/getting-started/#obtain-access-credentials) and the [kubectl Virtual Server deployment method](../../docs/virtual-servers/deployment-methods/kubectl.md#deploying-a-virtual-server) before starting this guide.
 {% endhint %}
 
 ### Identifying source image

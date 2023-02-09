@@ -6,18 +6,18 @@ description: Learn how to configure your CoreWeave Kubernetes setup to access th
 
 ## Obtain CoreWeave access credentials
 
-On CoreWeave, **Kubeconfig** files are used to interact with our Kubernetes cluster by using clients such as `kubectl`, and **API Access Tokens** are used for programmatic access to CoreWeave Cloud applications such as [Prometheus](../../coreweave-kubernetes/prometheus/).
+On CoreWeave, **Kubeconfig** files are used to interact with our Kubernetes cluster by using clients such as `kubectl`, and **API Access Tokens** are used for programmatic access to CoreWeave Cloud applications such as [Prometheus](../../../coreweave-kubernetes/prometheus/).
 
 To generate your access credentials, first [sign up for CoreWeave Cloud](https://cloud.coreweave.com/request-account). Once you have an account, [log in to the Cloud UI](https://cloud.coreweave.com), then navigate to the **API Access** page from the left-hand menu.
 
-<figure><img src="../.gitbook/assets/image (7) (5).png" alt="Screenshot of The API &#x26; Kubeconfig page on the Cloud UI"><figcaption><p>The API &#x26; Kubeconfig page on the Cloud UI</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (7) (5).png" alt="Screenshot of The API &#x26; Kubeconfig page on the Cloud UI"><figcaption><p>The API &#x26; Kubeconfig page on the Cloud UI</p></figcaption></figure>
 
 ### Generate the Kubeconfig file
 
 {% hint style="danger" %}
 **Warning**
 
-**The Kubeconfig and Access Token are shown** **only once!** Be sure to save this file and the token in a secure location. If you lose your Access Token, it can be found inside your [Kubeconfig file](getting-started.md#configure-kubernetes).
+**The Kubeconfig and Access Token are shown** **only once!** Be sure to save this file and the token in a secure location. If you lose your Access Token, it can be found inside your [Kubeconfig file](./#configure-kubernetes).
 {% endhint %}
 
 From the [API Access page](https://cloud.coreweave.com/api-access) on the Cloud UI, click the **API & KUBECONFIG** tab at the top right of the page, then click the **Create a New Token** button to the right.
@@ -30,7 +30,7 @@ When prompted, give the token a recognizable name, then click the **Generate** b
 If you would like to prevent the Kubeconfig file from downloading automatically, un-check the **Automatically download Kubeconfig** checkbox.
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/image (4) (4).png" alt="The &#x22;New Access Token&#x22; modal"><figcaption><p>The "New Access Token" modal</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (4) (4).png" alt="The &#x22;New Access Token&#x22; modal"><figcaption><p>The "New Access Token" modal</p></figcaption></figure>
 
 ## Install the Kubernetes command line tools
 
@@ -160,7 +160,7 @@ If you would prefer to download the `kubectl` executable directly, [follow the o
 
 ## Configure Kubernetes
 
-Finally, once you [have `kubectl` installed](getting-started.md#installing-the-kubernetes-command-line-tools), and the `cw-kubeconfig` file has been [generated and downloaded](getting-started.md#generate-the-kubeconfig-file), the next step is to move this config file to the right location.
+Finally, once you [have `kubectl` installed](./#installing-the-kubernetes-command-line-tools), and the `cw-kubeconfig` file has been [generated and downloaded](./#generate-the-kubeconfig-file), the next step is to move this config file to the right location.
 
 By default, `kubectl` looks for a file named `config` (also referred to as a Kubeconfig file) in the `$HOME/.kube` directory.
 
@@ -250,4 +250,4 @@ default-token-frqgm            kubernetes.io/service-account-token   3      3h
 
 You are now ready to use CoreWeave Cloud to deploy all types of services on CoreWeave's Kubernetes infrastructure!
 
-<table data-card-size="large" data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><span data-gb-custom-inline data-tag="emoji" data-code="1f4a5">💥</span> <strong>Check out some examples of what you can do on CoreWeave!</strong></td><td></td><td></td><td><a href="../../coreweave-kubernetes/examples/">examples</a></td></tr></tbody></table>
+<table data-card-size="large" data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><span data-gb-custom-inline data-tag="emoji" data-code="1f4a5">💥</span> <strong>Check out some examples of what you can do on CoreWeave!</strong></td><td></td><td></td><td><a href="../../../coreweave-kubernetes/examples/">examples</a></td></tr></tbody></table>

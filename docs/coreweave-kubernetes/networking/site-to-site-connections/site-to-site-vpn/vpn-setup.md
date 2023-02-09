@@ -18,13 +18,13 @@ The VPC **must be created** before the VPN is deployed.
 
 Find and select the **vpn-ipsec-server** in the applications Catalog:
 
-![The applications page on CoreWeave Cloud, with a search filter for "vpn"](<../../../../.gitbook/assets/image (2) (1) (4).png>)
+![The applications page on CoreWeave Cloud, with a search filter for "vpn"](<../../../../.gitbook/assets/image (2) (1) (2) (1).png>)
 
 ### Configuration
 
 Selecting the VPN application from the catalog exposes its configuration options, shown and detailed below.
 
-![VPN Server configuration example](<../../../../.gitbook/assets/image (1) (1) (1) (2).png>)
+![VPN Server configuration example](<../../../../.gitbook/assets/image (1) (1) (1) (1).png>)
 
 #### Configuration Options
 
@@ -40,7 +40,7 @@ Selecting the VPN application from the catalog exposes its configuration options
 
 Under the **Network Settings** portion of the IPSec VPN setup page are the configuration fields for your VPC.
 
-![VPC configuration example](<../../../../.gitbook/assets/image (2) (1) (3).png>)
+![VPC configuration example](<../../../../.gitbook/assets/image (105).png>)
 
 The fields provided are:
 

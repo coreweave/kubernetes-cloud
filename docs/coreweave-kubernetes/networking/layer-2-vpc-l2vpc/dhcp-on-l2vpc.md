@@ -24,7 +24,7 @@ To install the DHCP server, navigate to the applications Catalog from the CoreWe
 
 Selecting the application will expose the configuration options for the DHCP server, shown and detailed below.
 
-![DHCP configuration settings, exposed by clicking the DHCP server application](<../../../.gitbook/assets/image (15) (1).png>)
+![DHCP configuration settings, exposed by clicking the DHCP server application](<../../../.gitbook/assets/image (15) (1) (1).png>)
 
 #### Configuration options
 

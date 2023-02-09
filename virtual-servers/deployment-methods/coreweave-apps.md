@@ -23,7 +23,7 @@ Once you have an account and account credentials, log in to the dashboard from t
 {% hint style="info" %}
 **Note**
 
-See [Obtain Access Credentials](../../docs/coreweave-kubernetes/getting-started.md#obtain-access-credentials) for more information.
+See [Obtain Access Credentials](../../docs/coreweave-kubernetes/getting-started/#obtain-access-credentials) for more information.
 {% endhint %}
 
 ![The CoreWeave Cloud UI sign-in page](<../../docs/.gitbook/assets/image (78).png>)

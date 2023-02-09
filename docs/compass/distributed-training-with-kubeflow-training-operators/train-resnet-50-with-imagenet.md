@@ -1,70 +1,26 @@
 ---
 description: >-
-  Easily run distributed training using PyTorch and MPI Operators with Kubeflow
-  on CoreWeave Cloud
+  Use Kubeflow training operators to perform distributing training of the
+  popular ResNet-50 model.
 ---
 
-# Distributed Training with Kubeflow Training Operators
+# Train ResNet-50 with ImageNet
 
-The[ Kubeflow project](https://www.kubeflow.org/) is dedicated to making deployments of Machine Learning (ML) workflows on Kubernetes simple, portable, and scalable. The goal is not to recreate other services, but to provide a straightforward way to deploy best-of-breed open-source systems for ML to diverse infrastructures. Anywhere you are running Kubernetes, you should be able to run Kubeflow.
+Originally published in 2015, [the ResNet model architecture](https://arxiv.org/abs/1512.03385) achieved state-of-the-art results on image classification datasets such as [ImageNet](https://en.wikipedia.org/wiki/ImageNet). Since then, both ResNet and ImageNet have been used in numerous papers to test the performance of large scale training techniques, such as the [Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour paper](https://arxiv.org/abs/1706.02677).
 
-## Kubeflow Training Operators
-
-CoreWeave Cloud supports running [Kubeflow Training Operators](https://www.kubeflow.org/docs/components/training/) to easily train your Machine Learning models across a variety of frameworks and backends. The diagram below shows some of the Training Operators that Kubeflow supports - the full list can be found in the [Kubeflow official documentation](https://www.kubeflow.org/docs/components/training/) as well as the [source code](https://github.com/kubeflow/training-operator).
-
-<figure><img src="../.gitbook/assets/image (13).png" alt="Kubeflow Training Operators support diagram"><figcaption><p>Kubeflow Training Operators</p></figcaption></figure>
-
-It can be confusing at first, so it is important to understand the distinction between the different categories in this chart, and how it impacts the code.
-
-### PyTorch Operator
-
-The first operator used in this example is the [PyTorch operator](https://www.kubeflow.org/docs/components/training/pytorch/). As the name suggests, it uses PyTorch as the framework which includes packages like `torch.distributed` and `torch.nn.parallel`. For a more in depth explanation to distributed training with PyTorch see the [PyTorch Distributed Overview](https://pytorch.org/tutorials/beginner/dist\_overview.html) documentation page.
-
-### MPI Operator
-
-Unlike the PyTorch operator, the [MPI Operator](https://www.kubeflow.org/docs/components/training/mpi/) is decoupled from underlying frameworks. It does this by leveraging a distributed deep learning training framework called [Horovod](https://horovod.ai/). Horovod supports many frameworks by implementing simple wrappers like its `DistributedOptimizer`. For a more in depth explanation, see the [Introduction to Kubeflow MPI Operator and Industry Adoption blog post](https://medium.com/kubeflow/introduction-to-kubeflow-mpi-operator-and-industry-adoption-296d5f2e6edc) that was created when the MPI Operator was originally released.&#x20;
-
-## Frameworks
-
-A "framework" is what is used to define your machine learning model. The most popular frameworks are [TensorFlow](https://www.tensorflow.org/) and [PyTorch](https://pytorch.org/), but Kubeflow also supports other frameworks such as [MXNet](https://mxnet.apache.org/versions/1.9.1/) and [XGBoost](https://xgboost.readthedocs.io/en/stable/).
-
-## Distribution strategy
-
-A "distribution strategy" is the package that used in code that handles distribution. This is the main distinction between the three operators in the chart above. The distribution strategy is often implemented as a wrapper for different parts of your framework, such as the model and optimizer.&#x20;
-
-## Backend
-
-The "Backend" is the library that is used to facilitate the communication between devices that is required by distributed training. You will often not need to deal with these backends directly as the distribution strategy implements the use of them for you. The [NVIDIA Collective Communication Library](https://developer.nvidia.com/nccl) (NCCL) is optimized for the NVIDIA GPUs and Networking in CoreWeave Cloud so that is what we will be using in this example.
-
-## Data parallelism
-
-The example included in this document involves training ResNet-50, a smaller version of the popular image classification model ResNet-152 first introduced in 2015 through[ this paper](https://arxiv.org/abs/1512.03385). Like the original paper, we will train the model with the [ImageNet dataset](https://www.image-net.org/).
-
-The training is distributed across a number of GPUs through a process known as "data parallelism." This means that an instance of the model is running on every GPU. During training, each batch is split into "micro-batches," where every GPU gets a single micro batch. The gradient is averaged across all micro-batches, and every instance of the model is updated.
-
-When scaling up distributed training using data parallelism, it is considered best practice to follow the "[Linear Scaling Rule](https://arxiv.org/abs/1706.02677)," as presented in the [Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour paper](https://arxiv.org/abs/1706.02677):
-
-> When the minibatch size is multiplied by `k`, multiply the learning rate by `k`.
-
-This means that if the total number of processes is doubled - which doubles the effective batch size - the learning rate should also be doubled. This prevents the accuracy from decreasing as the number of processes is scaled up while also matching the training curves when scaling up, meaning similar convergence rates in the same number of epochs.
-
-{% hint style="info" %}
-**Note**
-
-In the language of the rule, "minibatch" refers to the entire batch that then gets split into micro-batches. &#x20;
-{% endhint %}
+In this example, we'll use the [`torchvision` library](https://pytorch.org/vision/stable/index.html) along with multiple [Kubeflow training operators ](./)to perform distributed training of ResNet-50 on ImageNet.
 
 ## Source code
 
-Throughout the rest of this document, referenced files may be found in CoreWeave's `kubernetes-cloud` repo in the `kubeflow/training-operator` repo.
+Throughout the rest of this document, referenced files may be found in CoreWeave's `kubernetes-cloud` repo in the `kubeflow/training-operator/resnet50` folder.
 
-{% embed url="https://github.com/coreweave/kubernetes-cloud/tree/master/kubeflow/training-operator" %}
-Link to the source code for this example
+{% embed url="https://github.com/coreweave/kubernetes-cloud/tree/master/kubeflow/training-operator/resnet50" %}
+Link to the source code referenced in this example
 {% endembed %}
 
 In this folder, there are two Python files, two Docker files, and one folder named `k8s/`.
 
-The Python files implement the training scripts for [the PyTorch and MPI Operators](distributed-training-with-kubeflow-training-operators.md#kubeflow-training-operators). The Dockerfiles create the respective images used by the Training Operators. Finally, the `k8s/` folder contains all of the YAML files that define the Kubernetes resources needed to run this example on CoreWeave Cloud.
+The Python files implement the training scripts for [the PyTorch and MPI Operators](train-resnet-50-with-imagenet.md#kubeflow-training-operators). The Dockerfiles create the respective images used by the Training Operators. Finally, the `k8s/` folder contains all of the YAML files that define the Kubernetes resources needed to run this example on CoreWeave Cloud.
 
 ### Util script
 
@@ -72,7 +28,7 @@ Since both training operators are using PyTorch as the framework, the common fun
 
 ### PyTorch Operator Training script
 
-The training script that will be used by the [PyTorch Operator](distributed-training-with-kubeflow-training-operators.md#pytorch-operator) is in `resnet50_pytorch.py`.
+The training script that will be used by the [PyTorch Operator](train-resnet-50-with-imagenet.md#pytorch-operator) is in `resnet50_pytorch.py`.
 
 The model definition, train loop, and test loop are all standard for PyTorch. The important pieces that set up distributed training are found in the `main` function.
 
@@ -102,7 +58,7 @@ if is_distributed():
 ```
 {% endcode %}
 
-Following the [linear scaling rule](distributed-training-with-kubeflow-training-operators.md#data-parallelism), the learning rate is also scaled by the number of processes:
+Following the [linear scaling rule](train-resnet-50-with-imagenet.md#data-parallelism), the learning rate is also scaled by the number of processes:
 
 {% code overflow="wrap" %}
 ```python
@@ -123,7 +79,7 @@ if args.model_dir and dist.get_rank() == 0:
 
 ### MPI Operator Training script
 
-The training script that will be used by the [MPI Operator](distributed-training-with-kubeflow-training-operators.md#mpi-operator) is in `resnet50_horovod.py`.
+The training script that will be used by the [MPI Operator](train-resnet-50-with-imagenet.md#mpi-operator) is in `resnet50_horovod.py`.
 
 This script also uses PyTorch as its framework, but utilizes [Horovod](https://horovod.ai/) to handle distribution.
 
@@ -213,7 +169,7 @@ Like the `PyTorchJob`, scaling up the number of GPUs used with the `MPIJob` can 
 {% hint style="info" %}
 **Note**
 
-This guide assumes that you have already followed the process to set up the CoreWeave Kubernetes environment. If you have not done so already, [follow our Getting Started guide](../coreweave-kubernetes/getting-started.md) before proceeding with this guide.
+This guide assumes that you have already followed the process to set up the CoreWeave Kubernetes environment. If you have not done so already, [follow our Getting Started guide](../../coreweave-kubernetes/getting-started/) before proceeding with this guide.
 {% endhint %}
 
 ### PVC
@@ -232,7 +188,7 @@ It is recommended that the name you give the Filebrowser application be very sho
 
 When configuring the application instance, select the `kubeflow-mnist` PVC that you created earlier. **Make sure that you actually add your PVC to the filebrowser list of mounts!**
 
-<figure><img src="../.gitbook/assets/image (19).png" alt=""><figcaption><p>The filebrowser application</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (7) (3) (2).png" alt=""><figcaption><p>The filebrowser application</p></figcaption></figure>
 
 ### Docker images
 
@@ -277,7 +233,7 @@ The ImageNet dataset is publicly available via a [Kaggle Object Localization Cha
 
 After you have signed in to your new account, navigate to the [Kaggle competition](https://www.kaggle.com/competitions/imagenet-object-localization-challenge/data) and accept the competition rules. When all of that is done, you should be be able to see a sample of the data in your browser:
 
-<figure><img src="../.gitbook/assets/image (3).png" alt="Preview of ImageNet data from Kaggle"><figcaption><p>Preview of ImageNet data from Kaggle</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (6) (5).png" alt="Preview of ImageNet data from Kaggle"><figcaption><p>Preview of ImageNet data from Kaggle</p></figcaption></figure>
 
 Once your Kaggle account has access to the ImageNet dataset, create an API token by navigating to your profile page (`https://www.kaggle.com/<username>/account`). Click "Create API Token." This will trigger a download of a file named `kaggle.json`.
 
@@ -472,7 +428,7 @@ The hyperparameters used haven't been properly tuned to produce a "state of the 
 
 The data in the chart below shows samples per second numbers throughout 3 epochs of training on **each** GPU. This means that the total samples per second is the value shown in the chart times the number of GPUs used. Each line represents a different combination of PytorchJob and MPIJob and half-full A40 nodes (8 and 16 GPUs).
 
-<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption><p>Training throughput for distributed training with the kubeflow training operators</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (9) (2).png" alt=""><figcaption><p>Training throughput for distributed training with the kubeflow training operators</p></figcaption></figure>
 
 As you can see, the per-GPU throughput hardly drops when moving to two nodes. This means the total throughput is almost doubled when using twice as many GPUs. You can expect the scaling efficiency to decrease as you increase the model size and total number of GPUs.
 
@@ -497,4 +453,3 @@ kubectl delete -R -f k8s/
 
 If you created the optional Filebrowser application, you will need to delete it via the CoreWeave Cloud Applications page **before** the PVC can be deleted.
 {% endhint %}
-
