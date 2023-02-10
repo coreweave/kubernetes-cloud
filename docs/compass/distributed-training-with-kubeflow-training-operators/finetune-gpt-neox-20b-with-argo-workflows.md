@@ -29,7 +29,7 @@ In this folder, you will find numbered YAML files:
 
 These should be deployed in the order in which they are numbered. The first three YAML files (`01-pvc.yaml`, `02-finetune-role.yaml`, and `03-wanbd-secret.yaml`) deploy the Kubernetes resources that are required by the Argo workflow, which is deployed using the fourth file (`04-finetune-workflow.yaml`).
 
-## The Finetune Workflow
+## Understanding the Finetune Workflow
 
 The Argo workflow for finetuning is defined in the `04-finetune-workflow.yaml` file. This file consists of three important sections:
 
@@ -77,7 +77,7 @@ The config file containing all of the training-related parameters is stored with
 
 ### Finetuning resources
 
-By default, this Workflow uses two A100 nodes with NVLINK and Infiniband for extremely fast distributed training. These resources are defined in the `Worker` spec of the MPIJob at the bottom of the Workflow's YAML manifest:
+By default, this Workflow uses two A100 nodes with NVLINK and RDMA over InfiniBand for extremely fast distributed training. These resources are defined in the `Worker` spec of the MPIJob at the bottom of the Workflow's YAML manifest:
 
 ```yaml
 resources:
@@ -91,11 +91,13 @@ resources:
     rdma/ib: 1
 ```
 
-{% hint style="warning" %}
-**Important**
+### RDMA over InfiniBand
 
-Requesting the `rdma/ib` resource will give a big boost to distributed training performance. It is not available for all the GPU types available on CoreWeave Cloud, so it is easy to forget when upgrading to the A100s.
-{% endhint %}
+As is shown in this example, the `rdma/ib` resource requests that Remote Direct Memory Access (RDMA) be performed using InfiniBand. RDMA allows for direct memory access from the memory of one computer into that of another without involving the Operating System of either machine, which is accomplished using InfiniBand packets over Ethernet.
+
+Requesting this resource offers a big boost to distributed training performance, however it is currently **only available for A100 and H100 GPU node types on CoreWeave Cloud.**
+
+<table data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td>➡️ <strong>Learn more about InfiniBand on CoreWeave Cloud</strong></td><td></td><td></td><td><a href="../../coreweave-kubernetes/networking/hpc-interconnect.md">hpc-interconnect.md</a></td></tr></tbody></table>
 
 ## Setup
 
