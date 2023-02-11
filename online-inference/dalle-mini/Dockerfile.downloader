@@ -1,4 +1,4 @@
-FROM python:3.9.13-alpine3.16
+FROM python:3.10.10-alpine3.16
 RUN mkdir /app
 RUN pip3 install huggingface_hub
 ADD downloader/download.py /app
