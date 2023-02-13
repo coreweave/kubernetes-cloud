@@ -1,7 +1,5 @@
 ---
-description: >-
-  Learn about using Argo Workflows for finetuning and training Stable Diffusion
-  models.
+description: Finetune and train Stable Diffusion models on CoreWeave Cloud
 ---
 
 # Finetuning Image Generation Models
@@ -37,8 +35,6 @@ There is an optional test [Inference endpoint](examples/pytorch-hugging-face-dif
 The above configuration for inferencing Stable Diffusion is billed at $0.65 per hour through CoreWeave's [resource based pricing](../../resources/resource-based-pricing.md) model.
 
 {% embed url="https://github.com/coreweave/kubernetes-cloud/tree/master/sd-finetuner-workflow" %}
-View the code on GitHub
-{% endembed %}
 
 ## Setup
 
