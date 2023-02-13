@@ -179,7 +179,7 @@ spec:
 
 [Kubernetes internal DNS](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/) provides Service discovery inside the cluster, allowing connections between Services and Pods without the use of IP addresses. Many applications will need to be reached both from inside the cluster as well as from the Internet.
 
-CoreWeave provides External DNS out of the box for all types of applications - the given DNS name simply must be in the format of `<your-chice>.<namespace>.coreweave.cloud`.
+CoreWeave provides External DNS out of the box for all types of applications - the given DNS name simply must be in the format of `<your-choice>.<namespace>.coreweave.cloud`.
 
 #### Example manifest&#x20;
 
