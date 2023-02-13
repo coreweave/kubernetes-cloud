@@ -1,5 +1,7 @@
 ---
-description: Finetune and train Stable Diffusion models on CoreWeave Cloud
+description: >-
+  Learn about using Argo Workflows for finetuning and training Stable Diffusion
+  models.
 ---
 
 # Finetuning Image Generation Models
@@ -187,10 +189,10 @@ Assuming that you now have a copy of `sd-finetune-workflow.yaml`, the Argo Workf
 $ argo submit sd-finetune-workflow.yaml \
         -p run_name=sd-test \
         -p model=runwayml/stable-diffusion-v1-5 \
-        -p dataset=test-dataset \
+        -p dataset=dataset \
         -p hf_token=<Add your HuggingFace token here> \
-        -p wandb_token=<Add your WandB token here> \
-        -p run_inference=true
+        -p wandb_api_key=<Add your WandB token here> \
+        -p run_inference=true \
         --serviceaccount inference
 ```
 
@@ -208,7 +210,7 @@ The parameters included in the above are:
 | `model`                      | This example uses a Hugging Face model identifier to pull down Stable Diffusion 1.5 for finetuning. This model will be cached on subsequent runs on your PVC, under `models`.                                                                                                            |
 | `dataset`                    | The name of the directory on the PVC.                                                                                                                                                                                                                                                    |
 | `hf_token`                   | Your Hugging Face token for pulling private models, such as Stable Diffusion 1.5                                                                                                                                                                                                         |
-| `wandb_token`                | Your [WandB token](https://wandb.ai/authorize) for tracking the finetune run.                                                                                                                                                                                                            |
+| `wandb_api_key`              | Your [WandB token](https://wandb.ai/authorize) for tracking the finetune run.                                                                                                                                                                                                            |
 | `run_inference`              | This parameter explicitly tells the Workflow that we want to run a test inference service when this exercise is done. It is not intended to be a production service, but to provide an end-to-end demonstration, allowing you to test the finetuned model.                               |
 | `--serviceaccount inference` | Required for `run_inference` to work correctly.                                                                                                                                                                                                                                          |
 
