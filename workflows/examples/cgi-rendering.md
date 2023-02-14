@@ -46,7 +46,7 @@ We now have a shared filesystem of `100GB`, named `shared-data-pvc`, which we ca
 
 Because we are attempting to create an easy-to-use service to render our Blender animation, we will also quickly setup a Web-based file management platform to upload and download any assets and render output we have. To accomplish this, we will be using the open-source utility [FileBrowser](http://www.filebrowser.xyz), available through [the CoreWeave Cloud application Catalog](https://apps.coreweave.com) as **filebrowser**.
 
-<figure><img src="../../docs/.gitbook/assets/image (24) (2).png" alt=""><figcaption><p>The filebrowser application</p></figcaption></figure>
+<figure><img src="../../docs/.gitbook/assets/image (24).png" alt=""><figcaption><p>The filebrowser application</p></figcaption></figure>
 
 To install and configure the FileBrowser application:
 

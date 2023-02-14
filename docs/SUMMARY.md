@@ -12,6 +12,7 @@
   * [Deploy Custom Containers](coreweave-kubernetes/serverless/deploy-custom-containers.md)
 * [Exposing Applications](coreweave-kubernetes/exposing-applications.md)
 * [Useful Commands](../coreweave-kubernetes/useful-commands.md)
+* [Sealed Secrets](coreweave-kubernetes/sealed-secrets.md)
 * [Node Types](../coreweave-kubernetes/node-types.md)
 * [Advanced Label Selectors](../coreweave-kubernetes/label-selectors.md)
 * [CoSchedulers](coreweave-kubernetes/coschedulers.md)

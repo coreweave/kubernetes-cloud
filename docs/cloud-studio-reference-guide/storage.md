@@ -214,7 +214,7 @@ Select the mount, click the OK button, then enter your credentials.
 
 To expose the same storage over NFS, search for the NFS application in the application Catalog. **** Click the **Deploy** button to configure the NFS settings.
 
-<figure><img src="../.gitbook/assets/image (29) (1).png" alt="The NFS application in the application Catalog"><figcaption><p>The NFS application in the application Catalog</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (29) (2).png" alt="The NFS application in the application Catalog"><figcaption><p>The NFS application in the application Catalog</p></figcaption></figure>
 
 {% hint style="warning" %}
 **Important**
@@ -278,11 +278,11 @@ After the first login, it is strongly recommended to change the password of your
 
 Once you have a working Media Shuttle license, locate your Media Shuttle registration key by opening Media Shuttle. Click "Add" beside Storage.
 
-<figure><img src="../.gitbook/assets/image (48).png" alt="Screenshot of the &#x22;Add&#x22; link located on the Media Shuttle menu"><figcaption><p>The "Add" link located on the Media Shuttle menu</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (48) (2).png" alt="Screenshot of the &#x22;Add&#x22; link located on the Media Shuttle menu"><figcaption><p>The "Add" link located on the Media Shuttle menu</p></figcaption></figure>
 
 Then, select the checkbox to agree to the license agreement terms.
 
-<figure><img src="../.gitbook/assets/image (39) (1).png" alt="Screenshot of the license agreement checkbox in Media Shuttle"><figcaption><p>License agreement checkbox</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (39) (2).png" alt="Screenshot of the license agreement checkbox in Media Shuttle"><figcaption><p>License agreement checkbox</p></figcaption></figure>
 
 Once you have completed the wizard, the storage server registration key will be presented to you. Retain this for the next few setup steps.
 

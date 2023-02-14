@@ -14,7 +14,7 @@ You will want to ensure that the storage volume you want to use with FileBrowser
 
 ## Deploy the application
 
-<figure><img src="../.gitbook/assets/image (24) (2).png" alt=""><figcaption><p>The filebrowser application</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (24).png" alt=""><figcaption><p>The filebrowser application</p></figcaption></figure>
 
 To deploy FileBrowser, first log in to your CoreWeave Cloud account. Then, navigate to [the application Catalog](../coreweave-kubernetes/serverless/applications-catalog.md). Once in the Catalog, use the search bar to search for `filebrowser`.
 
@@ -34,11 +34,11 @@ Under the "Attach existing volumes to your FileBrowser" list, under the "Availab
 
 Click the small blue plus sign to the right of the Volume name to move it to the list on the right.
 
-<figure><img src="../.gitbook/assets/image (73).png" alt="Screenshot: Click the blue plus sign beside the volume you wish to attach"><figcaption><p>Click the blue plus sign beside the volume you wish to attach</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (73) (1).png" alt="Screenshot: Click the blue plus sign beside the volume you wish to attach"><figcaption><p>Click the blue plus sign beside the volume you wish to attach</p></figcaption></figure>
 
 Configure how you'd like the volume to appear once mounted. In the example shown here, the `shared-data-pvc` volume retains its same name for the mount path.
 
-<figure><img src="../.gitbook/assets/image (69).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (69) (1).png" alt=""><figcaption></figcaption></figure>
 
 Once you are ready, click the **Deploy** button.
 

@@ -37,7 +37,7 @@ The Argo workflow for finetuning is defined in the `04-finetune-workflow.yaml` f
 * [the directed-acyclic graph (DAG) definition](https://argoproj.github.io/argo-workflows/walk-through/dag/#dag),
 * and the step definitions.
 
-<figure><img src="../../.gitbook/assets/image (3).png" alt="Visualization of the DAG defined by the Argo workflow"><figcaption><p>Visualization of the DAG defined by the Argo workflow</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3) (1).png" alt="Visualization of the DAG defined by the Argo workflow"><figcaption><p>Visualization of the DAG defined by the Argo workflow</p></figcaption></figure>
 
 ### Parameters
 

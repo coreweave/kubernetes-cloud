@@ -55,7 +55,7 @@ Once you have [configured your Virtual Server](../../virtual-servers/getting-sta
 
 From here, uncomment the `filesystems` stanza to mount in a shared storage volume as a filesystem.
 
-<figure><img src="../.gitbook/assets/image (45).png" alt="Filesystems YAML stanza"><figcaption><p>Filesystems YAML stanza</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (45) (1).png" alt="Filesystems YAML stanza"><figcaption><p>Filesystems YAML stanza</p></figcaption></figure>
 
 A valid specification may look something like the following:
 

@@ -54,7 +54,7 @@ To install the Docker Registry application, first log in to your CoreWeave Cloud
 
 From the Catalog homepage, search for `docker`. Then select the version of the Docker Registry application that you'd like to deploy.
 
-<figure><img src="../../.gitbook/assets/image (8).png" alt="Screenshot of docker-registry in the applications Catalog"><figcaption><p>Locate the docker-registry application in the applications Catalog</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (8) (4).png" alt="Screenshot of docker-registry in the applications Catalog"><figcaption><p>Locate the docker-registry application in the applications Catalog</p></figcaption></figure>
 
 Clicking on the application card will open the deployment page, which contains further information about the application itself. Clicking the **Deploy** button will navigate to the application's settings screen, where the instance is configured.
 
@@ -62,7 +62,7 @@ Finally, click the **Deploy** button in the bottom right-hand corner of the scre
 
 From this page, access the **Application Secrets** from the section at the top right-hand part of the screen. Clicking the eye icon beside each field will reveal the field's contents. This secrets area contains the registry password - either that which was configured previously, or the new randomly-generated password.
 
-<figure><img src="../../.gitbook/assets/image (10).png" alt=""><figcaption><p>The application secrets include the configured or randomly-generated registry password</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (10) (2).png" alt=""><figcaption><p>The application secrets include the configured or randomly-generated registry password</p></figcaption></figure>
 
 Alternatively, to retrieve the registry credentials via the command line, run the following Kubectl command.
 
@@ -134,7 +134,7 @@ If your application requires storage, you'll need to create a storage volume. To
 
 Optionally, if your application may benefit from having a visual file browser, install [the FileBrowser application](../../storage/filebrowser.md), configured with an equally recognizable name.
 
-<figure><img src="../../.gitbook/assets/image (7) (3).png" alt="Screenshot of a PVC volume and the FileBrowser application installed in the namespace"><figcaption><p>For the Kobold AI example, we have created both a PVC storage volume (left) and a FileBrowser instance (right)</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (7) (6).png" alt="Screenshot of a PVC volume and the FileBrowser application installed in the namespace"><figcaption><p>For the Kobold AI example, we have created both a PVC storage volume (left) and a FileBrowser instance (right)</p></figcaption></figure>
 
 If your application requires a lot of storage, it is recommended to configure a PVC with at least 1TB of space, similar to the configuration settings determined for this example.
 
