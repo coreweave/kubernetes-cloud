@@ -114,7 +114,7 @@ spec:
     - name: inference_image
       value: 'ghcr.io/coreweave/ml-containers/sd-inference'
     - name: inference_tag
-      value: '01320dd'
+      value: '34116b7'
 
   templates:
   - name: main
