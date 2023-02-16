@@ -225,8 +225,8 @@ print("LAST CHECKPOINT:", lastCheckpoint)
 
 # Set up `wandb` reporting if we have an API key, and resume reporting
 # if we are resuming a checkpoint.
-report_to = None
-wandb_key = os.getenv("WANDB_API_KEY", "").lstrip().rstrip()
+report_to = "none"
+wandb_key = os.getenv("WANDB_API_KEY", "").strip()
 if not wandb_key:
     print("WANDB_API_KEY: No WANDB_API_KEY found, not reporting to wandb.")
     os.environ["WANDB_DISABLED"] = "True"
@@ -234,10 +234,10 @@ if not wandb_key:
 import wandb
 
 if wandb_key:
-    wandbApi = wandb.Api(overrides={"project": args.project_id})
     report_to = "wandb"
 
     if lastCheckpoint is not None:
+        wandbApi = wandb.Api(overrides={"project": args.project_id})
         for run in wandbApi.runs(path=args.project_id):
             print("PRIOR RUN:", run, run.name, run.id, run.state)
             if run.state in ["crashed", "failed"] and run.name == args.run_name:
