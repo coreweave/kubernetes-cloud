@@ -21,10 +21,6 @@ from typing import Callable, Tuple, Optional, List
 import socket
 from contextlib import closing
 
-try:
-    from tensorizer.tensorizer import load_model, get_tokenizer, no_init
-except ModuleNotFoundError:
-    pass
 import validators
 import deepspeed
 
@@ -102,7 +98,7 @@ parser.add_argument(
 parser.add_argument(
     "--bs_divisor",
     type=float,
-    help="Batch size divisor for " "automatically " "determining batch size",
+    help="Batch size divisor for automatically determining batch size",
     default=1.0,
 )
 parser.add_argument(
@@ -208,12 +204,11 @@ output_dir = os.path.abspath(
 
 # Properly type-cast the param (str to bool)
 FALSE = [
-    "False",
     "false",
     "f",
     "0",
 ]
-args.no_resume = args.no_resume not in FALSE
+args.no_resume = args.no_resume.lower() not in FALSE
 
 # Discover if we have any checkpoints to resume from.
 if not args.no_resume:
@@ -329,34 +324,32 @@ def get_gpu_ram() -> str:
         cudadev = torch.cuda.current_device()
         nvml_device = pynvml.nvmlDeviceGetHandleByIndex(cudadev)
         gpu_info = pynvml.nvmlDeviceGetMemoryInfo(nvml_device)
-        gpu_total = int(gpu_info.total / 1e6)
-        gpu_free = int(gpu_info.free / 1e6)
-        gpu_used = int(gpu_info.used / 1e6)
+        gpu_total = gpu_info.total >> 20
+        gpu_free = gpu_info.free >> 20
+        gpu_used = gpu_info.used >> 20
         gpu_str = (
-            f"GPU: (U: {gpu_used:,}mb F: {gpu_free:,}mb "
-            f"T: {gpu_total:,}mb) "
+            f"GPU: (U: {gpu_used:,}MiB F: {gpu_free:,}MiB T: {gpu_total:,}MiB) "
         )
-        torch_reserved_gpu = int(torch.cuda.memory.memory_reserved() / 1e6)
-        torch_reserved_max = int(torch.cuda.memory.max_memory_reserved() / 1e6)
-        torch_used_gpu = int(torch.cuda.memory_allocated() / 1e6)
-        torch_max_used_gpu = int(torch.cuda.max_memory_allocated() / 1e6)
+        torch_reserved_gpu = torch.cuda.memory.memory_reserved() >> 20
+        torch_reserved_max = torch.cuda.memory.max_memory_reserved() >> 20
+        torch_used_gpu = torch.cuda.memory_allocated() >> 20
+        torch_max_used_gpu = torch.cuda.max_memory_allocated() >> 20
         torch_str = (
-            f"TORCH: (R: {torch_reserved_gpu:,}mb/"
-            f"{torch_reserved_max:,}mb, "
-            f"A: {torch_used_gpu:,}mb/{torch_max_used_gpu:,}mb)"
+            f"TORCH: (R: {torch_reserved_gpu:,}MiB/"
+            f"{torch_reserved_max:,}MiB, "
+            f"A: {torch_used_gpu:,}MiB/{torch_max_used_gpu:,}MiB)"
         )
     except AssertionError:
         pass
-    cpu_maxrss = int(
-        resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1e3
-        + resource.getrusage(resource.RUSAGE_CHILDREN).ru_maxrss / 1e3
-    )
+    cpu_maxrss = (
+        resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+        + resource.getrusage(resource.RUSAGE_CHILDREN).ru_maxrss
+    ) >> 10
     cpu_vmem = psutil.virtual_memory()
-    cpu_free = int(cpu_vmem.free / 1e6)
+    cpu_free = cpu_vmem.free >> 20
     return (
-        f"CPU: (maxrss: {cpu_maxrss:,}mb F: {cpu_free:,}mb) "
-        f"{gpu_str}"
-        f"{torch_str}"
+        f"CPU: (maxrss: {cpu_maxrss:,}MiB F: {cpu_free:,}MiB) "
+        f"{gpu_str}{torch_str}"
     )
 
 
@@ -439,7 +432,6 @@ class ModelSampler(TrainerCallback):
     def on_step_end(
         self, args, state, control, model: PreTrainedModel = None, **kwargs
     ):
-
         if not model:
             return
         if state.global_step % self.report_every == 0 or state.global_step == 1:
@@ -511,11 +503,11 @@ class TokenizedDataset(Dataset):
         self.length = int(file_stat.st_size / 2 / context_length)
         self.formatstr = "%sH" % context_length
         self.context_length = context_length
-        length_mb = os.stat(path).st_size / 1024.0 / 1024.0
+        length_mb = os.stat(path).st_size / (1 << 20)
         num_tokens = self.length * context_length
         print(f"DATASET: {path}")
         print(
-            f"DATASET SIZE: {length_mb:,.2f}mb, {num_tokens:,} tokens, "
+            f"DATASET SIZE: {length_mb:,.2f}MiB, {num_tokens:,} tokens, "
             f"{self.length:,} contexts"
         )
 
@@ -539,7 +531,7 @@ class TokenizedDataset(Dataset):
         return self.load(idx)
 
 
-# Inform the user of host, and various versions -- useful for debugging isseus.
+# Inform the user of host, and various versions -- useful for debugging issues.
 print("RUN_NAME:", args.run_name)
 print("HOST:", socket.gethostname())
 print("CUDA:", torch.version.cuda)
@@ -573,14 +565,11 @@ print("RANDOM SEED:", args.seed)
 
 # Determine if we train in fp32 or fp16 mode.
 print("FORCE FP16:", args.fp16)
-fp16_arg = {}
-if args.fp16:
-    fp16_arg = {"fp16": True}
+fp16_arg = {"fp16": True} if args.fp16 else {}
 
 # Load our model that we're training. This may fetch via HTTP if not cached
 # already.
 model: PreTrainedModel
-
 
 try:
     model = AutoModelForCausalLM.from_pretrained(
@@ -640,10 +629,8 @@ def evaluate(
         bad_words_ids=[[eval_tokenizer.eos_token_id]],
     )
 
-    for sample_idx in range(len(generated_tokens)):
-        output_text = eval_tokenizer.decode(
-            generated_tokens[sample_idx], skip_special_tokens=False
-        )
+    for token in generated_tokens:
+        output_text = eval_tokenizer.decode(token, skip_special_tokens=False)
         output_texts.append(output_text)
 
     return output_texts
@@ -669,10 +656,7 @@ else:
 ds_args = {}
 if device != "cpu":
     ds_config = json.load(open(args.ds_config))
-    if (
-        "zero_optimization" in ds_config
-        and ds_config["zero_optimization"].get("stage", None) != args.zero_stage
-    ):
+    if "zero_optimization" in ds_config:
         ds_config["zero_optimization"]["stage"] = args.zero_stage
     ds_args["deepspeed"] = ds_config
 else:
