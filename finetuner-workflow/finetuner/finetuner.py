@@ -17,9 +17,9 @@ from torch import Tensor
 from torch.utils.data import Dataset, random_split, RandomSampler
 import argparse
 import pathlib
-from typing import Callable, Tuple, Optional, List
+from typing import Tuple, List
 import socket
-from contextlib import closing
+from contextlib import closing, contextmanager
 
 import validators
 import deepspeed
@@ -87,10 +87,16 @@ parser.add_argument(
     default=0.9,
 )
 parser.add_argument(
-    "--eot", type=str, help="EOT token to use", default="<|endoftext|>"
+    "--eot",
+    type=str,
+    help="EOT token to use",
+    default="",  # default is model-dependent
 )
 parser.add_argument(
-    "--pad", type=str, help="Pad token to use", default="<|padding|>"
+    "--pad",
+    type=str,
+    help="Pad token to use",
+    default="",  # default is model-dependent
 )
 parser.add_argument(
     "--bs", type=int, help="Batch size (-1 == autosize)", default=-1
@@ -258,18 +264,42 @@ else:
 # Set up our tokenizer.
 tokenizer: PreTrainedTokenizer
 try:
+    # If a special token (args.eot or args.pad) is explicitly provided,
+    # then use it; otherwise use the model's defaults if they exist;
+    # otherwise use hardcoded defaults.
+
+    # The resulting padding token ID must match the one the dataset tokenizer
+    # used, or the existing padding tokens in the dataset
+    # will not be properly masked during training.
+
+    tokens_to_add = {}
+    if args.eot:
+        tokens_to_add["eos_token"] = args.eot
+    if args.pad:
+        tokens_to_add["pad_token"] = args.pad
+
     tokenizer = AutoTokenizer.from_pretrained(
         args.model,
-        eos_token=args.eot,
-        pad_token=args.pad,
+        **tokens_to_add,
         cache_dir=args.cache,
     )
+
+    tokens_to_add.clear()
+    if "eos_token" not in tokenizer.special_tokens_map:
+        tokens_to_add["eos_token"] = "<|endoftext|>"
+    if "pad_token" not in tokenizer.special_tokens_map:
+        tokens_to_add["pad_token"] = "<|endoftext|>"
+    if tokens_to_add:
+        tokenizer.add_special_tokens(tokens_to_add)
 except Exception as e:
     print(e)
     sys.exit(1)
 
 
-def no_init(loading_code: Callable[[], PreTrainedModel]) -> PreTrainedModel:
+@contextmanager
+def no_init():
+    # `no_init_weights` doesn't suppress initialization of some layers by default
+    # See https://github.com/huggingface/transformers/issues/18505
     def dummy(self):
         return
 
@@ -279,12 +309,12 @@ def no_init(loading_code: Callable[[], PreTrainedModel]) -> PreTrainedModel:
         original[mod] = mod.reset_parameters
         mod.reset_parameters = dummy
 
-    with no_init_weights():
-        result = loading_code()
-    for mod in modules:
-        mod.reset_parameters = original[mod]
-
-    return result
+    try:
+        with no_init_weights():
+            yield
+    finally:
+        for mod in modules:
+            mod.reset_parameters = original[mod]
 
 
 def estimate_batch_size(divisor: float = 1.0) -> int:
@@ -559,18 +589,16 @@ fp16_arg = {"fp16": True} if args.fp16 else {}
 model: PreTrainedModel
 
 try:
-    model = AutoModelForCausalLM.from_pretrained(
-        args.model,  # Can be a HuggingFace ID or directory.
-        cache_dir=args.cache,
-        use_cache=False,
-    )  # Gradient checkpointing needs this off.
-    if lastCheckpoint is None:
-        if args.fp16:
-            model = no_init(lambda: model.half().to(device))
-        else:
-            model = no_init(lambda: model.to(device))
-    else:
-        model = no_init(lambda: model)
+    with no_init():
+        model = AutoModelForCausalLM.from_pretrained(
+            args.model,  # Can be a HuggingFace ID or directory.
+            eos_token_id=tokenizer.eos_token_id,
+            pad_token_id=tokenizer.pad_token_id,
+            cache_dir=args.cache,
+            use_cache=False,
+        )  # Gradient checkpointing needs this off.
+        if lastCheckpoint is None:
+            model = model.to(device)
     sys.stderr.flush()
     sys.stdout.flush()
 except Exception as e:
