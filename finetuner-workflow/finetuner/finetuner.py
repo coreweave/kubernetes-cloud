@@ -361,36 +361,23 @@ class ModifiedTrainer(Trainer):
 
     def compute_loss(self, model, inputs, return_outputs=False):
         if "labels" in inputs:
-            inputs["labels"][inputs["labels"] == tokenizer.pad_token_id] = -100
+            inputs["labels"].masked_fill_(
+                inputs["labels"] == tokenizer.pad_token_id, -100
+            )
 
-        if self.label_smoother is not None and "labels" in inputs:
-            labels = inputs.pop("labels")
-        else:
-            labels = None
-
-        outputs = model(**inputs)
-
-        if self.args.past_index >= 0:
-            self._past = outputs[self.args.past_index]
-
-        if labels is not None:
-            loss = self.label_smoother(outputs, labels)
-        else:
-            loss = outputs["loss"] if isinstance(outputs, dict) else outputs[0]
+        results = super().compute_loss(model, inputs, return_outputs)
+        loss = results[0] if return_outputs else results
 
         # Hack -- enable `requires_grad` on `loss`
         loss.requires_grad_(True)
 
-        # Hack -- output an (useful) GPU ram update to flush tqdm.
-        if not hasattr(self, "report_idx"):
-            self.report_idx = 1
-        else:
-            self.report_idx += 1
-        if self.report_idx % 10 == 0:
+        # Hack -- output a (useful) GPU ram update to flush tqdm.
+        self.report_idx = getattr(self, "report_idx", 0) + 1
+        if self.report_idx % (2 * self.args.gradient_accumulation_steps) == 0:
             print(f"\nLOSS: {loss:.3f} {get_gpu_ram()}", file=sys.stderr)
             sys.stderr.flush()
 
-        return (loss, outputs) if return_outputs else loss
+        return results
 
 
 class ModelSampler(TrainerCallback):
@@ -521,7 +508,7 @@ class TokenizedDataset(Dataset):
                 self.formatstr, self.file.read(self.context_length * 2)
             )
         )
-        mask = torch.zeros(self.context_length)
+        mask = input_ids != tokenizer.pad_token_id
         return input_ids, mask
 
     def seek(self, idx):
@@ -612,7 +599,7 @@ def evaluate(
     input_tokens: Tensor = (
         torch.LongTensor(tokenizer.encode(prompt)).unsqueeze(0).to(device)
     )
-    attention_mask: Tensor = torch.ones_like(input_tokens).to(device)
+    attention_mask: Tensor = input_tokens != tokenizer.pad_token_id
     max_length = input_tokens.shape[1] + generate_tokens
     generated_tokens = eval_model.generate(
         input_tokens,
@@ -665,7 +652,7 @@ else:
     os.environ["LOCAL_RANK"] = "-1"
 
 # The latest deepspeed logging is pretty obnoxious, so we disable it.
-deepspeed.utils.logger.setLevel(logging.ERROR)
+deepspeed.utils.logger.setLevel(logging.WARNING)
 
 # Change our current directory due to some packages assumptions.
 os.makedirs(args.output_path, exist_ok=True)
