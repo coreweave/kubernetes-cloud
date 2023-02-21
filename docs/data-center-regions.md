@@ -22,7 +22,7 @@ To access and run the speedtests linked below in your terminal, either click the
 For example:
 
 ```bash
-curl http://http.speedtest.lga1.coreweave.com/1G --output speedtest-lga1-1g
+curl http://http.speedtest.lga1.coreweave.com/1G --output /dev/null
 ```
 {% endhint %}
 
