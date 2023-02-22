@@ -110,7 +110,7 @@ spec:
     # Where we store our training logs on the PVC.
     - name: logs
       value: 'logs'
-    # Project reporting/id
+    # WandB token.
     - name: wandb_key
       value: ''
     - name: project_id
@@ -128,6 +128,9 @@ spec:
     # Training GPU - A40, 48gb VRAM
     - name: trainer_gpu
       value: 'A40'
+    # Training number of GPUs
+    - name: trainer_gpus
+      value: 1
     # Training number of CPU cores
     - name: trainer_cores
       value: 8
@@ -141,15 +144,15 @@ spec:
     - name: downloader_image
       value: 'ghcr.io/wbrown/gpt_bpe/model_downloader'
     - name: downloader_tag
-      value: 'a0fe11e'
+      value: 'e2ef65f'
     - name: tokenizer_image
       value: 'ghcr.io/wbrown/gpt_bpe/dataset_tokenizer'
     - name: tokenizer_tag
-      value: 'fcb9bef'
+      value: 'e2ef65f'
     - name: finetuner_image
-      value: 'docker.io/gooseai/finetuner'
+      value: 'harubaru1/finetuner'
     - name: finetuner_tag
-      value: 'cuda-11-8-rc14'
+      value: '8'
     - name: inference_image
       value: 'coreweave/ml-images'
     - name: inference_tag
@@ -231,6 +234,8 @@ spec:
             value: "{{workflow.parameters.trainer_ram}}"
           - name: trainer_cores
             value: "{{workflow.parameters.trainer_cores}}"
+          - name: trainer_gpus
+            value: "{{workflow.parameters.trainer_gpus}}"
         when: "{{workflow.parameters.inference_only}} == false"
 
     - - name: inference-service
@@ -333,6 +338,7 @@ spec:
         - name: torch_cache
         - name: trainer_ram
         - name: trainer_cores
+        - name: trainer_gpus
     podSpecPatch: |
       containers:
         - name: main
@@ -340,13 +346,15 @@ spec:
             requests:
               memory: "{{workflow.parameters.trainer_ram}}Gi"
               cpu: "{{workflow.parameters.trainer_cores}}"
+              nvidia.com/gpu: "{{workflow.parameters.trainer_gpus}}"
             limits:
               memory: "{{workflow.parameters.trainer_ram}}Gi"
               cpu: "{{workflow.parameters.trainer_cores}}"
+              nvidia.com/gpu: "{{workflow.parameters.trainer_gpus}}"
     container:
       image: "{{workflow.parameters.finetuner_image}}:{{workflow.parameters.finetuner_tag}}"
       command: ["/usr/bin/bash", "-c"]
-      args: ["/usr/bin/python3 /app/finetuner.py {{inputs.parameters.finetuner_params}}"]
+      args: ["/usr/bin/python3 -m deepspeed.launcher.runner --num_gpus {{workflow.parameters.trainer_gpus}} /app/finetuner.py {{inputs.parameters.finetuner_params}}"]
       tty: true
       env:
       - name: WANDB_API_KEY

@@ -201,7 +201,18 @@ parser.add_argument(
     help="Repetition penalty to use for prompt sampling",
     default=1.1,
 )
+parser.add_argument(
+    "--local_rank",
+    type=int,
+    help="For distributed training: local_rank",
+    default=-1,
+)
 args = parser.parse_args()
+
+
+def is_main_process() -> bool:
+    return args.local_rank in [-1, 0]
+
 
 # Where we write our training checkpoints and final model.
 output_dir = os.path.abspath(
@@ -239,7 +250,7 @@ if not wandb_key:
 
 import wandb
 
-if wandb_key:
+if wandb_key and is_main_process():
     report_to = "wandb"
 
     if lastCheckpoint is not None:
@@ -258,8 +269,7 @@ if wandb_key:
     else:
         run = wandb.init(project=args.project_id, name=args.run_name)
 else:
-    os.environ["WANDB_DISABLED"] = "True"
-    run = wandb.init(project=args.project_id, name=args.run_name)
+    run = wandb.init(project=args.project_id, name=args.run_name, mode="disabled")
 
 # Set up our tokenizer.
 tokenizer: PreTrainedTokenizer
@@ -404,8 +414,9 @@ class ModifiedTrainer(Trainer):
         # Hack -- output a (useful) GPU ram update to flush tqdm.
         self.report_idx = getattr(self, "report_idx", 0) + 1
         if self.report_idx % (2 * self.args.gradient_accumulation_steps) == 0:
-            print(f"\nLOSS: {loss:.3f} {get_gpu_ram()}", file=sys.stderr)
-            sys.stderr.flush()
+            if is_main_process():
+                print(f"\nLOSS: {loss:.3f} {get_gpu_ram()}", file=sys.stderr)
+                sys.stderr.flush()
 
         return results
 
@@ -449,7 +460,7 @@ class ModelSampler(TrainerCallback):
     def on_step_end(
         self, args, state, control, model: PreTrainedModel = None, **kwargs
     ):
-        if not model:
+        if not is_main_process() or not model:
             return
         if state.global_step % self.report_every == 0 or state.global_step == 1:
             curr_tokens_step = (
@@ -522,11 +533,12 @@ class TokenizedDataset(Dataset):
         self.context_length = context_length
         length_mb = os.stat(path).st_size / (1 << 20)
         num_tokens = self.length * context_length
-        print(f"DATASET: {path}")
-        print(
-            f"DATASET SIZE: {length_mb:,.2f}MiB, {num_tokens:,} tokens, "
-            f"{self.length:,} contexts"
-        )
+        if is_main_process():
+            print(f"DATASET: {path}")
+            print(
+                f"DATASET SIZE: {length_mb:,.2f}MiB, {num_tokens:,} tokens, "
+                f"{self.length:,} contexts"
+            )
 
     def __len__(self) -> int:
         return self.length
@@ -549,15 +561,17 @@ class TokenizedDataset(Dataset):
 
 
 # Inform the user of host, and various versions -- useful for debugging issues.
-print("RUN_NAME:", args.run_name)
-print("HOST:", socket.gethostname())
-print("CUDA:", torch.version.cuda)
-print("TORCH:", torch.__version__)
-print("TRANSFORMERS:", transformers.__version__)
-print(get_gpu_ram())
-print("MODEL:", args.model)
-print("SHUFFLE:", not args.no_shuffle)
-
+torch.cuda.set_device(args.local_rank)
+if is_main_process():
+    print("RUN_NAME:", args.run_name)
+    print("HOST:", socket.gethostname())
+    print("CUDA:", torch.version.cuda)
+    print("TORCH:", torch.__version__)
+    print("TRANSFORMERS:", transformers.__version__)
+    print(get_gpu_ram())
+    print("MODEL:", args.model)
+    print("SHUFFLE:", not args.no_shuffle)
+print("RANK:", args.local_rank)
 
 # Set up our dataset from our tokenized data files, and split into training
 # dataset and values dataset -- values dataset is used to test the outcome
@@ -572,17 +586,20 @@ else:
     train_dataset, val_dataset = random_split(
         dataset, [train_size, len(dataset) - train_size]
     )
-print(f"TRAIN_DATASET: {len(train_dataset):,} examples")
-print(f"VALUE_DATASET: {len(val_dataset):,} examples")
 
 # Set random seed, for ML research purposes and reproducibility, it's important
 # that we set this to a consistent value.
 torch.manual_seed(args.seed)
-print("RANDOM SEED:", args.seed)
 
 # Determine if we train in fp32 or fp16 mode.
-print("FORCE FP16:", args.fp16)
 fp16_arg = {"fp16": True} if args.fp16 else {}
+
+if is_main_process():
+    print(f"TRAIN_DATASET: {len(train_dataset):,} examples")
+    print(f"VALUE_DATASET: {len(val_dataset):,} examples")
+    print("RANDOM SEED:", args.seed)
+    print("FORCE FP16:", args.fp16)
+
 
 # Load our model that we're training. This may fetch via HTTP if not cached
 # already.
@@ -652,7 +669,8 @@ def evaluate(
 
 
 # log out the tokenizer and model
-print(f"TOKENIZER: {tokenizer}")
+if is_main_process():
+    print(f"TOKENIZER: {tokenizer}")
 
 model.config.gradient_checkpointing = True
 model.resize_token_embeddings(len(tokenizer))
@@ -674,6 +692,8 @@ if device != "cpu":
     if "zero_optimization" in ds_config:
         ds_config["zero_optimization"]["stage"] = args.zero_stage
     ds_args["deepspeed"] = ds_config
+    ds_args["local_rank"] = args.local_rank
+    os.environ["LOCAL_RANK"] = str(args.local_rank)
 else:
     ds_args["no_cuda"] = True
     ds_args["local_rank"] = -1
@@ -702,7 +722,9 @@ if args.prompt_file:
     ]
 else:
     sampler_callbacks = None
-print(f"PROMPT FILE: {args.prompt_file}")
+
+if is_main_process():
+    print(f"PROMPT FILE: {args.prompt_file}")
 
 # Parametrize our training based on provided arguments.
 training_args = TrainingArguments(
