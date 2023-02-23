@@ -57,7 +57,7 @@ Once you have pushed to a tag, do not push to that tag again. Below, we use simp
 
 {% hint style="info" %}
 **Note**\
-\*\*\*\*In the following commands, be sure to replace the example `username` with your Docker Hub `username`.
+In the following commands, be sure to replace the example `username` with your Docker Hub `username.`
 {% endhint %}
 
 From the `kubernetes-cloud/online-inference/bloom-176b/model` directory, run the following commands:
