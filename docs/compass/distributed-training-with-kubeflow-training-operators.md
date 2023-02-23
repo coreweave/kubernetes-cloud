@@ -8,13 +8,13 @@ description: >-
 
 The[ Kubeflow project](https://www.kubeflow.org/) is dedicated to making deployments of Machine Learning (ML) workflows on Kubernetes simple, portable, and scalable. The goal is not to recreate other services, but to provide a straightforward way to deploy best-of-breed open-source systems for ML to diverse infrastructures. Anywhere you are running Kubernetes, you should be able to run Kubeflow.
 
-Below you will find a general introduction to distributed training and Kubeflow training operators. Links to numerous open source, end-to-end examples built to be run on CoreWeave can be found [here](./#examples).
+Below you will find a general introduction to distributed training and Kubeflow training operators. Links to numerous open source, end-to-end examples built to be run on CoreWeave can be found [here](distributed-training-with-kubeflow-training-operators.md#examples).
 
 ## Kubeflow Training Operators
 
 CoreWeave Cloud supports running [Kubeflow Training Operators](https://www.kubeflow.org/docs/components/training/) to easily train your Machine Learning models across a variety of frameworks and backends. The diagram below shows some of the Training Operators that Kubeflow supports - the full list can be found in the [Kubeflow official documentation](https://www.kubeflow.org/docs/components/training/) as well as the [source code](https://github.com/kubeflow/training-operator).
 
-<figure><img src="../../.gitbook/assets/image (3).png" alt="Kubeflow Training Operators support diagram"><figcaption><p>Kubeflow Training Operators</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1).png" alt="Kubeflow Training Operators support diagram"><figcaption><p>Kubeflow Training Operators</p></figcaption></figure>
 
 It can be confusing at first, so it is important to understand the distinction between the different categories in this chart, and how it impacts the code.
 
@@ -58,8 +58,20 @@ In the language of the rule, "minibatch" refers to the entire batch that then ge
 
 ## Examples
 
-| Example title                                                | Description                                          |
-| ------------------------------------------------------------ | ---------------------------------------------------- |
-| [ResNet-50](train-resnet-50-with-imagenet.md)                | PyTorchJob and MPIJob to train ResNet-50 on ImageNet |
-| [GPT-NeoX-20B](finetune-gpt-neox-20b-with-argo-workflows.md) | Argo Workflow to finetune GPT-NeoX-20B with MPIJob   |
+{% hint style="info" %}
+**Note**
+
+You might see the `launcher` pod fail a couple of times if the `worker` pod is still starting up. This is an expected race condition which often happens if the Docker image is already cached on the launcher machine, causing it to start up much more quickly. Once the `worker` pod is fully created, the launcher will be able to communicate with it via SSH.
+{% endhint %}
+
+{% hint style="warning" %}
+**Important**
+
+The names of MPIJobs are unique. An old job must be deleted before a new one can be created with the same name.
+{% endhint %}
+
+| Example title                                                                                                      | Description                                          |
+| ------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------- |
+| [ResNet-50](distributed-training-with-kubeflow-training-operators/train-resnet-50-with-imagenet.md)                | PyTorchJob and MPIJob to train ResNet-50 on ImageNet |
+| [GPT-NeoX-20B](distributed-training-with-kubeflow-training-operators/finetune-gpt-neox-20b-with-argo-workflows.md) | Argo Workflow to finetune GPT-NeoX-20B with MPIJob   |
 

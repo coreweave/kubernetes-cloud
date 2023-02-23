@@ -27,7 +27,7 @@ This guide will use [the DeterminedAI MLOps platform](https://www.determined.ai/
 
 This guide makes several assumptions:\
 \
-• You have [set up the CoreWeave Kubernetes environment](../../coreweave-kubernetes/getting-started/).\
+• You have [set up the CoreWeave Kubernetes environment](../../coreweave-kubernetes/getting-started.md).\
 • You have some experience launching and using [DeterminedAI on CoreWeave Cloud](https://www.determined.ai). (If you have not done so already, it is recommended to [deploy DeterminedAI via the application Catalog](https://apps.coreweave.com/) to familiarize yourself with it).\
 • You have `git` installed on your terminal.
 {% endhint %}
@@ -123,7 +123,7 @@ Navigating to the **Logs** tab will give you a full output of the experiment's l
 
 Navigating to **Overview** will give you access to a metrics visualization of the experiment and checkpoint reference.
 
-![Metrics visualization in the DeterminedAI Web UI](<../../.gitbook/assets/image (16) (1).png>)
+![Metrics visualization in the DeterminedAI Web UI](<../../.gitbook/assets/image (16) (1) (1).png>)
 
 ## Training
 

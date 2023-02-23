@@ -36,7 +36,7 @@ From the Synology Package Center, install the Docker application.
 
 Once installed, open the Docker application from the Synology main menu.
 
-<figure><img src="../../../.gitbook/assets/image (50).png" alt=""><figcaption><p>The Docker application in the Synology main menu</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (50) (1).png" alt=""><figcaption><p>The Docker application in the Synology main menu</p></figcaption></figure>
 
 Inside the Docker window, navigate to **Image**, then select **Add**, **** then **Add From URL**. Add `coreweave/cloud-link`. No username and password is needed.
 
@@ -89,7 +89,7 @@ Ensure that a specific User Account has been created for CoreWeave. Provide the 
 {% tab title="NFS (Linux)" %}
 If you are primarily using **Linux**, you will want to select **NFS** for CoreWeave CloudLink. Under **Advanced Settings**, make sure `NFSv4.1` is **enabled**, and set **packet sizes** to `32KB`.
 
-<figure><img src="../../../.gitbook/assets/image (46).png" alt=""><figcaption><p>Example configuration for NFSLinux users</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (46) (1).png" alt=""><figcaption><p>Example configuration for NFSLinux users</p></figcaption></figure>
 
 
 
@@ -109,6 +109,6 @@ Ensure that permissions for all Shared Folders accessible from CoreWeave Cloud a
 
 
 
-<figure><img src="../../../.gitbook/assets/image (31).png" alt=""><figcaption><p>Described NFS settings as shown in the <strong>Edit NFS rules</strong> window</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (31) (2).png" alt=""><figcaption><p>Described NFS settings as shown in the <strong>Edit NFS rules</strong> window</p></figcaption></figure>
 {% endtab %}
 {% endtabs %}

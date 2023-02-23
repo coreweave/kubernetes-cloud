@@ -8,7 +8,7 @@ description: >-
 
 Originally published in 2015, [the ResNet model architecture](https://arxiv.org/abs/1512.03385) achieved state-of-the-art results on image classification datasets such as [ImageNet](https://en.wikipedia.org/wiki/ImageNet). Since then, both ResNet and ImageNet have been used in numerous papers to test the performance of large scale training techniques, such as the [Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour paper](https://arxiv.org/abs/1706.02677).
 
-In this example, we'll use the [`torchvision` library](https://pytorch.org/vision/stable/index.html) along with multiple [Kubeflow training operators ](./)to perform distributed training of ResNet-50 on ImageNet.
+In this example, we'll use the [`torchvision` library](https://pytorch.org/vision/stable/index.html) along with multiple [Kubeflow training operators ](../distributed-training-with-kubeflow-training-operators.md)to perform distributed training of ResNet-50 on ImageNet.
 
 ## Source code
 
@@ -169,7 +169,7 @@ Like the `PyTorchJob`, scaling up the number of GPUs used with the `MPIJob` can 
 {% hint style="info" %}
 **Note**
 
-This guide assumes that you have already followed the process to set up the CoreWeave Kubernetes environment. If you have not done so already, [follow our Getting Started guide](../../coreweave-kubernetes/getting-started/) before proceeding with this guide.
+This guide assumes that you have already followed the process to set up the CoreWeave Kubernetes environment. If you have not done so already, [follow our Getting Started guide](../../coreweave-kubernetes/getting-started.md) before proceeding with this guide.
 {% endhint %}
 
 ### PVC
@@ -188,7 +188,7 @@ It is recommended that the name you give the Filebrowser application be very sho
 
 When configuring the application instance, select the `kubeflow-mnist` PVC that you created earlier. **Make sure that you actually add your PVC to the filebrowser list of mounts!**
 
-<figure><img src="../../.gitbook/assets/image (45).png" alt=""><figcaption><p>The filebrowser application</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (8).png" alt=""><figcaption><p>The filebrowser application</p></figcaption></figure>
 
 ### Docker images
 
@@ -233,7 +233,7 @@ The ImageNet dataset is publicly available via a [Kaggle Object Localization Cha
 
 After you have signed in to your new account, navigate to the [Kaggle competition](https://www.kaggle.com/competitions/imagenet-object-localization-challenge/data) and accept the competition rules. When all of that is done, you should be be able to see a sample of the data in your browser:
 
-<figure><img src="../../.gitbook/assets/image (14).png" alt="Preview of ImageNet data from Kaggle"><figcaption><p>Preview of ImageNet data from Kaggle</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (4) (3).png" alt="Preview of ImageNet data from Kaggle"><figcaption><p>Preview of ImageNet data from Kaggle</p></figcaption></figure>
 
 Once your Kaggle account has access to the ImageNet dataset, create an API token by navigating to your profile page (`https://www.kaggle.com/<username>/account`). Click "Create API Token." This will trigger a download of a file named `kaggle.json`.
 
@@ -428,7 +428,7 @@ The hyperparameters used haven't been properly tuned to produce a "state of the 
 
 The data in the chart below shows samples per second numbers throughout 3 epochs of training on **each** GPU. This means that the total samples per second is the value shown in the chart times the number of GPUs used. Each line represents a different combination of PytorchJob and MPIJob and half-full A40 nodes (8 and 16 GPUs).
 
-<figure><img src="../../.gitbook/assets/image (7).png" alt=""><figcaption><p>Training throughput for distributed training with the kubeflow training operators</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (7) (1).png" alt=""><figcaption><p>Training throughput for distributed training with the kubeflow training operators</p></figcaption></figure>
 
 As you can see, the per-GPU throughput hardly drops when moving to two nodes. This means the total throughput is almost doubled when using twice as many GPUs. You can expect the scaling efficiency to decrease as you increase the model size and total number of GPUs.
 

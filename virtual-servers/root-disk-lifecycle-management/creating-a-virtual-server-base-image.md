@@ -8,7 +8,7 @@
 ## Deploy source Virtual Server
 
 {% hint style="success" %}
-Be sure to review [Getting Started](../../docs/coreweave-kubernetes/getting-started/#obtain-access-credentials) and the [kubectl Virtual Server deployment method](../../docs/virtual-servers/deployment-methods/kubectl.md#deploying-a-virtual-server) before starting this guide.
+Be sure to review [Getting Started](../../docs/coreweave-kubernetes/getting-started.md#obtain-access-credentials) and the [kubectl Virtual Server deployment method](../../docs/virtual-servers/deployment-methods/kubectl.md#deploying-a-virtual-server) before starting this guide.
 {% endhint %}
 
 First, we will deploy a Windows Virtual Server using a [reference YAML](../../virtual-server/examples/kubectl/virtual-server-windows.yaml). This will serve as the source disk for our subsequent instances:
@@ -81,7 +81,7 @@ Once the Virtual Server is ready, we can use the External IP to connect to it vi
 
 Or via OpenSSH:
 
-![Connection prompt via SSH](<../../docs/.gitbook/assets/image (32) (1).png>)
+![Connection prompt via SSH](<../../docs/.gitbook/assets/image (32).png>)
 
 Or even via Console (useful for instances where a Public IP is not desired) using `virtctl console vs-windows10-source`:
 
@@ -101,7 +101,7 @@ Using `kubectl get vs`, we can confirm `Started: False`:
 
 We can see that the PVC created along with our source Virtual Server persists with it shut off:
 
-![Output of "kubectl get pvc"](<../../docs/.gitbook/assets/image (34) (1).png>)
+![Output of "kubectl get pvc"](<../../docs/.gitbook/assets/image (34).png>)
 
 We will reference this PVC to create a new Virtual Server:
 
@@ -176,11 +176,11 @@ This will clone a PVC within the same region in which it was created.
 
 We can now safely delete our Virtual Server with `k delete vs vs-windows10-source`:
 
-![Output of "kubectl delete vs"](<../../docs/.gitbook/assets/image (33) (1).png>)
+![Output of "kubectl delete vs"](<../../docs/.gitbook/assets/image (33).png>)
 
 With `k get pvc`, we can see our original Virtual Server PVC is now deleted, and only the clone remains:
 
-![Output of "kubectl get pvc"](<../../docs/.gitbook/assets/image (29) (1).png>)
+![Output of "kubectl get pvc"](<../../docs/.gitbook/assets/image (29).png>)
 
 We'll adjust our Virtual Server spec to suit:
 

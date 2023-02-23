@@ -37,7 +37,7 @@ The Argo workflow for finetuning is defined in the `04-finetune-workflow.yaml` f
 * [the directed-acyclic graph (DAG) definition](https://argoproj.github.io/argo-workflows/walk-through/dag/#dag),
 * and the step definitions.
 
-<figure><img src="../../.gitbook/assets/image (3) (1).png" alt="Visualization of the DAG defined by the Argo workflow"><figcaption><p>Visualization of the DAG defined by the Argo workflow</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3) (1) (3).png" alt="Visualization of the DAG defined by the Argo workflow"><figcaption><p>Visualization of the DAG defined by the Argo workflow</p></figcaption></figure>
 
 ### Parameters
 
@@ -106,7 +106,7 @@ Before running the Workflow, a few things need to be created in your namespace.&
 {% hint style="info" %}
 **Note**
 
-This guide assumes that you have already followed the process to set up the CoreWeave Kubernetes environment. If you have not done so already, [follow our Getting Started guide](../../coreweave-kubernetes/getting-started/) before proceeding with this guide.
+This guide assumes that you have already followed the process to set up the CoreWeave Kubernetes environment. If you have not done so already, [follow our Getting Started guide](../../coreweave-kubernetes/getting-started.md) before proceeding with this guide.
 {% endhint %}
 
 ### Argo Workflows

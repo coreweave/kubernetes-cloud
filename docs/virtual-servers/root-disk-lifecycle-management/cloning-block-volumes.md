@@ -4,7 +4,7 @@
 **Overview:** This guide details using the `clone_block_volume` function from the [Kubernetes Cloud](https://github.com/coreweave/kubernetes-cloud) repository to clone between two example datacenter regions.&#x20;
 
 {% hint style="success" %}
-This guide requires `kubectl` and a valid access token. View [Getting Started](../../coreweave-kubernetes/getting-started/) for more details.
+This guide requires `kubectl` and a valid access token. View [Getting Started](../../coreweave-kubernetes/getting-started.md) for more details.
 {% endhint %}
 
 ## Volume Cloning
@@ -46,7 +46,7 @@ spec:
 
 Cloning within the same storage class can also be accomplished via the [CoreWeave Cloud Storage UI](https://cloud.coreweave.com/storage):&#x20;
 
-![](<../../.gitbook/assets/image (55) (1).png>)
+![](<../../.gitbook/assets/image (55) (1) (1).png>)
 
 ### Cloning via CLI between Storage Classes
 

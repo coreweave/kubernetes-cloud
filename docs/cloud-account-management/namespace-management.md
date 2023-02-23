@@ -30,7 +30,7 @@ The permissions and quotas for new namespaces are inherited from the namespace t
 
 ### Kubeconfig
 
-Even when using multiple namespaces, [your `kubeconfig` file](../coreweave-kubernetes/getting-started/#obtaining-coreweave-access-credentials) will contain the default namespace that is set as the current Kubernetes context in the CoreWeave Cloud UI, which is selected in the dropdown menu located in the upper right-hand corner of the Cloud UI screen.
+Even when using multiple namespaces, [your `kubeconfig` file](../coreweave-kubernetes/getting-started.md#obtaining-coreweave-access-credentials) will contain the default namespace that is set as the current Kubernetes context in the CoreWeave Cloud UI, which is selected in the dropdown menu located in the upper right-hand corner of the Cloud UI screen.
 
 For example, if the namespace `tenant-namespace-1` is the active namespace context in the CoreWeave Cloud dashboard, it will be set as the default namespace in your `kubeconfig` file as well. This namespace value can be changed at any time by editing the `kubeconfig` file.
 
