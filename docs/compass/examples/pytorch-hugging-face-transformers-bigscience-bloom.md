@@ -57,7 +57,7 @@ Once you have pushed to a tag, do not push to that tag again. Below, we use simp
 
 {% hint style="info" %}
 **Note**\
-In the following commands, be sure to replace the example `username` with your Docker Hub `username` .
+In the following commands, be sure to replace the example `username` with your Docker Hub `username`.
 {% endhint %}
 
 From the `kubernetes-cloud/online-inference/bloom-176b/model` directory, run the following commands:
@@ -102,7 +102,7 @@ $ kubectl apply -f 01-bloom-176b-download-job.yaml
 
 {% hint style="info" %}
 **Note**\
-\*\*\*\*The model is quite large at 329Gi, and may take around 30 minutes for the download job to complete.
+The model is quite large at 329Gi, and may take around 30 minutes for the download job to complete.
 {% endhint %}
 
 To check if the model has finished downloading, wait for the job to be in a `Completed` state:
