@@ -18,3 +18,9 @@ Each of the pages listed below contains a description and a link to the example'
 | [BASNet Object Detector](custom-basnet.md)                                                                           | Custom Predictor using a third-party image                    |
 | [FastAI Sentiment Analyzer](custom-sentiment.md)                                                                     | Custom PyTorch Predictor                                      |
 | [aitextgen GPT-2 Text Generation](custom-pytorch-aitextgen.md)                                                       | Custom PyTorch Predictor                                      |
+
+{% hint style="info" %}
+**Note**
+
+For PyTorch, use `pip` to install PyTorch bundled with CUDA. Do not install CUDA separately, as doing so may result in dependency mismatches. For more information, refer to the[ PyTorch installation guide](https://pytorch.org/get-started/locally/).
+{% endhint %}
