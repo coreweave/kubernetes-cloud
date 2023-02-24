@@ -14,7 +14,7 @@ If you are following along with this example, by the end of it you will have a W
 
 First, we will need a place for all of our render assets and outputs to reside that is accessible to multiple workers and other services in our namespace. To do this, we will create a shared filesystem [Persistent Volume Claim](https://docs.coreweave.com/coreweave-kubernetes/storage#shared-filesystem).
 
-In this example, the resource storage request is `100Gi` in this example; you may adjust as necessary.
+In this example, the resource storage request is `100Gi`; you may adjust as necessary.
 
 {% code title="pvc.yaml" %}
 ```yaml

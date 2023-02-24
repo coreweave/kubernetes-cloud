@@ -124,7 +124,7 @@ spec:
                     - "16"
 ```
 
-Submit the new workflow \*\*\*\* file (`gpu-say-workflow.yaml` ). According to the specifications above, this workflow takes a JSON array to spin up Pods with one GPU allocated for each, in parallel. The `nvidia-smi` output, as well as the parameter entry assigned for that Pod, is outputted to the log:
+Submit the new workflow file (`gpu-say-workflow.yaml`). According to the specifications above, this workflow takes a JSON array to spin up Pods with one GPU allocated for each, in parallel. The `nvidia-smi` output, as well as the parameter entry assigned for that Pod, is outputted to the log:
 
 ```
 $ argo submit --watch gpu-say-workflow.yaml -p messages='["Argo", "Is", "Awesome"]'
@@ -204,11 +204,11 @@ with the following parameters:
 | Name                    | Shortnames   | Kind                 | Verbs                                                          |
 | ----------------------- | ------------ | -------------------- | -------------------------------------------------------------- |
 | `cronworkflows`         | `cwf,cronwf` | CronWorkflow         | `[delete deletecollection get list patch create update watch]` |
-| `workfloweventbindings` | `wfeb`       | WorkflowEventBinding | \[delete deletecollection get list patch create update watch]  |
-| `workflows`             | `wf`         | Workflow             | \[delete deletecollection get list patch create update watch]  |
-| `workflowtaskresults`   |              | WorkflowTaskResult   | \[delete deletecollection get list patch create update watch]  |
-| `workflowtasksets`      | `wfts`       | WorkflowTaskSet      | \[delete deletecollection get list patch create update watch]  |
-| `workflowtemplates`     | `wftmpl`     | WorkflowTemplate     | \[delete deletecollection get list patch create update watch]  |
+| `workfloweventbindings` | `wfeb`       | WorkflowEventBinding | `[delete deletecollection get list patch create update watch]` |
+| `workflows`             | `wf`         | Workflow             | `[delete deletecollection get list patch create update watch]` |
+| `workflowtaskresults`   |              | WorkflowTaskResult   | `[delete deletecollection get list patch create update watch]` |
+| `workflowtasksets`      | `wfts`       | WorkflowTaskSet      | `[delete deletecollection get list patch create update watch]` |
+| `workflowtemplates`     | `wftmpl`     | WorkflowTemplate     | `[delete deletecollection get list patch create update watch]` |
 
 Using the command line to create a tailored role with the many resources and verbs can be inefficient. It's also possible to set permissions using a YAML manifest instead:
 
