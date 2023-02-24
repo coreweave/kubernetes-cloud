@@ -10,7 +10,7 @@ description: Build your own images for running machine learning models on Determ
 
 Before continuing with the rest of this guide, the Determined AI application must be installed in your namespace.
 
-<table data-card-size="large" data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td>--> <strong>Install Determined AI in your namespace</strong></td><td></td><td></td><td><a href="./#get-started">#get-started</a></td></tr></tbody></table>
+<table data-card-size="large" data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td>➡️ <strong>Install Determined AI in your namespace</strong></td><td></td><td></td><td><a href="./#get-started">#get-started</a></td></tr></tbody></table>
 
 ### Standard images
 
