@@ -10,6 +10,12 @@ Deploying serverless applications is an especially ideal deployment alternative 
 
 <table data-card-size="large" data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td>Our <strong>applications Catalog</strong> houses tons of apps that you can deploy with a few clicks!</td><td><strong>Learn more</strong> ➡️</td><td></td><td><a href="applications-catalog.md">applications-catalog.md</a></td></tr></tbody></table>
 
+{% hint style="success" %}
+**Tip**
+
+Learn more about [the benefits of Serverless Kubernetes and how it works.](https://coreweave.com/blog/serverless-kubernetes-what-it-is-and-how-it-works)
+{% endhint %}
+
 ## KNative on CoreWeave
 
 CoreWeave uses the [KNative](https://knative.dev/docs/serving/getting-started-knative-app/) runtime to support deploying serverless applications with a single manifest, so no additional installation or configuration is necessary to deploy your applications.
