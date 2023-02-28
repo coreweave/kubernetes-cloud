@@ -207,6 +207,10 @@ args = parser.parse_args()
 def is_main_process() -> bool:
     return args.local_rank in [-1, 0]
 
+# To be used in cases where using if statements are ugly.
+def main_process_print(*args, **kwargs):
+    if is_main_process():
+        print(*args, **kwargs)
 
 # Where we write our training checkpoints and final model.
 output_dir = os.path.abspath(
@@ -418,7 +422,7 @@ class ModifiedTrainer(Trainer):
 class ModelSampler(TrainerCallback):
     """
     Test the model on one or more prompts every so often and report to the
-    console, and to WanDB.
+    console, and to each rank's WanDB run.
     """
 
     def __init__(
@@ -453,14 +457,14 @@ class ModelSampler(TrainerCallback):
 
     def on_step_end(
         self, args, state, control, model: PreTrainedModel = None, **kwargs
-    ):
+    ):  
         if not model:
             return
         if state.global_step % self.report_every == 0 or state.global_step == 1:
             curr_tokens_step = (
                 state.global_step * self.train_batch_size * self.gas
             )
-            print(
+            main_process_print(
                 f"\nSTEP {state.global_step}: Evaluating on {self.prompt_file}...",
                 file=sys.stderr,
             )
@@ -471,8 +475,8 @@ class ModelSampler(TrainerCallback):
                     i.rstrip("\n").replace("\\n", "\n") for i in f.readlines()
                 ]
                 for prompt in prompts:
-                    print("=============================")
-                    print("PROMPT:", prompt)
+                    main_process_print("=============================")
+                    main_process_print("PROMPT:", prompt)
                     start = time.time()
                     outputs = evaluate(
                         prompt,
@@ -482,7 +486,7 @@ class ModelSampler(TrainerCallback):
                         self.tokenizer,
                     )
                     end = time.time()
-                    print(f"INFERENCE TIME: {end - start:.2f}s")
+                    main_process_print(f"INFERENCE TIME: {end - start:.2f}s")
                     for output_text in outputs:
                         self.table_data.append(
                             [
@@ -493,8 +497,10 @@ class ModelSampler(TrainerCallback):
                                 output_text,
                             ]
                         )
-                        print("-----------------------------")
-                        print("RESPONSE:", output_text)
+                        main_process_print("-----------------------------")
+                        main_process_print("RESPONSE:", output_text)
+            # it is still useful to collect evaluations on other ranks in their respective
+            # wandb runs.
             wandb.log(
                 {
                     "Generations": wandb.Table(
