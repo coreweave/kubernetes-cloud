@@ -16,7 +16,7 @@ CoreWeave's Object Storage features include:
 
 Currently, Object Storage is configured and accessed either by:
 
-<table data-card-size="large" data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><p><strong></strong><a href="object-storage.md#the-user-crd"><strong>User CRDs</strong></a><strong></strong></p><p><strong></strong></p><p>Use CoreWeave's Kubernetes <a href="object-storage.md#the-user-crd">Custom Resource Definitions (CRD) for Users </a>to create a Custom Resource with the appropriate permissions.</p></td><td></td><td></td><td></td></tr><tr><td><p><strong></strong><a href="object-storage.md#using-the-cloud-ui-and-s3cmd"><strong>Cloud UI</strong></a><strong></strong></p><p></p><p>Use the <a href="object-storage.md#using-the-cloud-ui-and-s3cmd">CoreWeave Cloud UI </a>to generate a config file, which is then manually passed to <code>s3cmd</code> to authenticate to Object Storage.</p></td><td></td><td></td><td></td></tr></tbody></table>
+<table data-card-size="large" data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><p><strong></strong><a href="object-storage.md#the-user-crd"><strong>User CRDs</strong></a><strong></strong></p><p><strong></strong></p><p>Use CoreWeave's Kubernetes <a href="object-storage.md#user-crd">Custom Resource Definitions (CRD) for Users </a>to create a Custom Resource with the appropriate permissions.</p></td><td></td><td></td><td></td></tr><tr><td><p><strong></strong><a href="object-storage.md#using-the-cloud-ui-and-s3cmd"><strong>Cloud UI</strong></a><strong></strong></p><p></p><p>Use the <a href="object-storage.md#generating-object-storage-tokens-via-cloud-ui">CoreWeave Cloud UI </a>to generate a config file, which is then manually passed to <code>s3cmd</code> to authenticate to Object Storage.</p></td><td></td><td></td><td></td></tr></tbody></table>
 
 ## Using the Cloud UI and s3cmd
 
@@ -45,7 +45,7 @@ This generated config file is used to authenticate to Object Storage by using [t
 
 ### Authentication
 
-After the `s3cmd` tool is installed, place the configuration file generated previously in the home directory with the filename `.s3cfg` (for example: `/home/myuser/.s3cfg`). The `s3cmd` tool looks for the config file at this path by default, but other filepaths may alternatively be passed directly to `s3cmd` using the `-config=` option.
+After the `s3cmd` tool is installed, place the configuration file generated previously in the home directory with the filename `.s3cfg` (for example: `/home/.s3cfg`). The `s3cmd` tool looks for the config file at this path by default, but other filepaths may alternatively be passed directly to `s3cmd` using the `-config=` option.
 
 **Example `s3cmd` usage**
 
@@ -364,7 +364,7 @@ $ s3cmd setpolicy examplepol s3://happybucket
 Once the policy is applied, the data in your bucket may be accessed without credentials, for example, by using `curl`:
 
 ```bash
-$ curl -v https://happybucket.object.las1.coreweave.com/my-new-file.txt
+curl -v https://happybucket.object.las1.coreweave.com/my-new-file.txt
 ```
 
 Finally, the policy is deleted using `s3cmd delpolicy`:
@@ -422,14 +422,14 @@ To use s5cmd with CoreWeave Object Storage, the `--endpoint-url` option must be 
 It may be helpful to define an `alias` so as to avoid providing the endpoint URL every time.&#x20;
 
 ```bash
-$ alias s5="s5cmd --endpoint-url https://object.lga1.coreweave.com"
+alias s5="s5cmd --endpoint-url https://object.lga1.coreweave.com"
 ```
 
 Once the `~/.aws/credentials` file above is in place, run s5cmd. The full command, without an alias, looks like:
 
 {% code overflow="wrap" %}
 ```bash
-$ s5cmd --endpoint-url=https://object.lga1.coreweave.com cp ./my-local-directory/* s3://my-bucket/my-prefix/
+s5cmd --endpoint-url=https://object.lga1.coreweave.com cp ./my-local-directory/* s3://my-bucket/my-prefix/
 ```
 {% endcode %}
 

@@ -4,9 +4,9 @@ description: Learn about CoreWeave Storage options
 
 # Get Started with Storage
 
-**High-performance, network-attached storage volumes** for both containerized workloads and [Virtual Servers](../../../virtual-servers/getting-started.md) are easy to provision and manage on CoreWeave Cloud.
+**High-performance, network-attached storage volumes** for both containerized workloads and [Virtual Servers](../broken-reference/) are easy to provision and manage on CoreWeave Cloud.
 
-Available in both [all-NVMe](./#types-of-shared-file-system-volumes) and [HDD tiers](./#types-of-shared-file-system-volumes), Storage Volumes can be created as [Block Volumes](./#block-storage-volumes) or [Shared File System Volumes](./#shared-file-system-volumes), and can be resized at any time. Storage is managed separately from compute, and can be moved between instances and hardware types.
+Available in both [all-NVMe](./#all-nvme-volumes) and [HDD tiers](./#hdd-storage-volumes), Storage Volumes can be created as [Block Volumes](./#block-storage-volumes) or [Shared File System Volumes](./#block-storage-volumes-1), and can be resized at any time. Storage is managed separately from compute, and can be moved between instances and hardware types.
 
 CoreWeave Cloud Storage Volumes are built on top of [Ceph](https://docs.ceph.com/), a software defined scale-out enterprise grade storage platform. Built with triple replication, the CoreWeave Cloud Storage platform is built to provide high-availability, performant storage for your most demanding Cloud-native workloads.
 
@@ -28,7 +28,7 @@ In addition to traditional Storage Volumes, CoreWeave also offers S3-compliant O
 
 :checkered\_flag: May be cloned to instantiate new Virtual Servers from a template
 
-:fire: Automatic backups are supported using BackBlaze via [CoreWeave Apps](../../coreweave-kubernetes/serverless/applications-catalog.md)
+:fire: Automatic backups are supported using BackBlaze via [CoreWeave Apps](https://apps.coreweave.com)
 
 ## Volume Types
 
@@ -46,7 +46,7 @@ It is possible to attach these Volumes to many instances at the same time. They 
 
 #### Types of Shared File System Volumes
 
-<table data-card-size="large" data-view="cards"><thead><tr><th></th><th></th><th></th></tr></thead><tbody><tr><td><p><span data-gb-custom-inline data-tag="emoji" data-code="23e9">⏩</span> <strong>All-NVMe</strong></p><p></p><p>The <strong>All-NVMe CoreWeave Cloud storage tier</strong> offers the highest performance in both throughput and IOPS.</p><p></p><p>Great for hosting the root disk of a Virtual Server, or as the backing store for a transactional database, the All-NVMe tier can provide up to 10 million IOPS per Volume and peak storage throughput into the Tbps range.</p><p></p><p>All-NVMe Cloud Storage Volumes can be provisioned using the following storage class convention:</p><p></p><p><strong>Block Volumes:</strong><br><strong></strong><code>block-nvme-&#x3C;region></code><br><strong>Shared File System:</strong><br><strong></strong><code>shared-nvme-&#x3C;region></code></p></td><td></td><td></td></tr><tr><td><p><strong></strong><span data-gb-custom-inline data-tag="emoji" data-code="25b6">▶</span> <strong>HDD</strong></p><p></p><p>The <strong>HDD CoreWeave Cloud storage tier</strong> offers excellent throughput optimized performance at a lower cost.</p><p></p><p>Great for large file storage with sequential IOPS access patterns, the HDD tier is backed by an NVMe caching layer to improve performance and scale throughput capacity.</p><p><br>All HDD Cloud Storage Volumes can be provisioned using the following storage class convention:<br></p><p><strong>Block Volumes:</strong><br><strong></strong><code>block-hdd-&#x3C;region></code><br><strong>Shared File System:</strong><br><strong></strong><code>shared-hdd-&#x3C;region></code></p></td><td></td><td></td></tr></tbody></table>
+<table data-card-size="large" data-view="cards"><thead><tr><th></th><th></th><th></th></tr></thead><tbody><tr><td><p><span data-gb-custom-inline data-tag="emoji" data-code="23e9">⏩</span> <strong>All-NVMe</strong></p><p></p><p>The <strong>All-NVMe CoreWeave Cloud storage tier</strong> offers the highest performance in both throughput and IOPS.</p><p></p><p>Great for hosting the root disk of a Virtual Server, or as the backing store for a transactional database, the All-NVMe tier can provide up to 10 million IOPS per Volume and peak storage throughput into the Tbps range.</p><p></p><p>All-NVMe Cloud Storage Volumes can be provisioned using the following storage class convention:</p><p></p><p><strong>Block Volumes:</strong><br><strong></strong><code>block-nvme-&#x3C;region></code><br><strong>Shared File System:</strong><br><strong></strong><code>shared-nvme-&#x3C;region></code></p></td><td></td><td></td></tr><tr><td><p><strong></strong><span data-gb-custom-inline data-tag="emoji" data-code="25b6">▶</span> <strong>HDD</strong></p><p></p><p>The <strong>HDD CoreWeave Cloud storage tier</strong> offers excellent throughput optimized performance at a lower cost.</p><p></p><p>Great for large file storage with sequential IOPS access patterns, the HDD tier is backed by an NVMe caching layer to improve performance and scale throughput capacity.</p><p><br><br>All HDD Cloud Storage Volumes can be provisioned using the following storage class convention:<br></p><p><strong>Block Volumes:</strong><br><strong></strong><code>block-hdd-&#x3C;region></code><br><strong>Shared File System:</strong><br><strong></strong><code>shared-hdd-&#x3C;region></code></p></td><td></td><td></td></tr></tbody></table>
 
 ## Creating and using Storage Volumes
 
@@ -63,7 +63,7 @@ There are certain exceptions to this rule of thumb, which are mainly relevant fo
 In general, **block volumes** should always be **used in the same region in which they are allocated**.
 {% endhint %}
 
-Storage Volumes can be configured, deployed, and managed using either the [CoreWeave Cloud UI](using-storage-cloud-ui.md) or using [the Kubernetes command line](using-storage-kubectl.md) (`kubectl`).
+Storage Volumes can be configured, deployed, and managed using either the [CoreWeave Cloud UI](./#cloud-ui) or using [the Kubernetes command line](./#cli) (`kubectl`).
 
 Select your preferred method to learn more:
 

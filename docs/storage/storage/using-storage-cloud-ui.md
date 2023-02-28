@@ -41,7 +41,7 @@ Filesystem attachments are specified under the **Attach Filesystems** menu while
 {% hint style="info" %}
 **Note**
 
-Attaching block device storage is not currently achievable via the Cloud UI. [Please see CLI options to attach block storage devices to Virtual Servers](using-storage-kubectl.md).
+Attaching block device storage is not currently achievable via the Cloud UI. [Please see CLI options to attach block storage devices to Virtual Servers](using-storage-cloud-ui.md#virtual-servers).
 {% endhint %}
 
 ## **Resizing Volumes**

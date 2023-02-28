@@ -30,7 +30,7 @@ The permissions and quotas for new namespaces are inherited from the namespace t
 
 ### Kubeconfig
 
-Even when using multiple namespaces, [your `kubeconfig` file](../coreweave-kubernetes/getting-started.md#obtaining-coreweave-access-credentials) will contain the default namespace that is set as the current Kubernetes context in the CoreWeave Cloud UI, which is selected in the dropdown menu located in the upper right-hand corner of the Cloud UI screen.
+Even when using multiple namespaces, [your `kubeconfig` file](../coreweave-kubernetes/getting-started.md#obtain-coreweave-access-credentials) will contain the default namespace that is set as the current Kubernetes context in the CoreWeave Cloud UI, which is selected in the dropdown menu located in the upper right-hand corner of the Cloud UI screen.
 
 For example, if the namespace `tenant-namespace-1` is the active namespace context in the CoreWeave Cloud dashboard, it will be set as the default namespace in your `kubeconfig` file as well. This namespace value can be changed at any time by editing the `kubeconfig` file.
 
@@ -56,7 +56,7 @@ While allowing multiple namespaces for an organization provides a Kubernetes-nat
 
 ## Setup and Management
 
-To create and manage your account's namespaces, first [log in to your CoreWeave Cloud account](https://cloud.coreweave.com). Then, navigate to [the **Namespaces** page](https://cloud.staging.coreweave.com/namespaces).
+To create and manage your account's namespaces, first [log in to your CoreWeave Cloud account](https://cloud.coreweave.com). Then, navigate to [the **Namespaces** page](https://cloud.coreweave.com/namespaces).
 
 <figure><img src="../.gitbook/assets/image (3) (4).png" alt="Screenshot of the namespace management page"><figcaption><p>The namespace management page</p></figcaption></figure>
 
