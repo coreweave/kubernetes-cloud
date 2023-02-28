@@ -8,7 +8,7 @@ description: >-
 
 The[ Kubeflow project](https://www.kubeflow.org/) is dedicated to making deployments of Machine Learning (ML) workflows on Kubernetes simple, portable, and scalable. The goal is not to recreate other services, but to provide a straightforward way to deploy best-of-breed open-source systems for ML to diverse infrastructures. Anywhere you are running Kubernetes, you should be able to run Kubeflow.
 
-Below you will find a general introduction to distributed training and Kubeflow training operators. Links to numerous open source, end-to-end examples built to be run on CoreWeave can be found [here](distributed-training-with-kubeflow-training-operators.md#examples).
+Below you will find a general introduction to distributed training and Kubeflow training operators. Links to numerous open source, end-to-end examples built to be run on CoreWeave can be found under [Examples](distributed-training-with-kubeflow-training-operators.md#examples).
 
 ## Kubeflow Training Operators
 
