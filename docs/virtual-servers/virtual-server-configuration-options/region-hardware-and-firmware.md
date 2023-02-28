@@ -115,7 +115,7 @@ Select how many **GPUs** you'd like the Virtual Server to have using the **GPU C
 
 Determine the amount of **memory** (in Gebibytes) the Virtual Server will have using the **Memory** slider.
 
-![](<../../.gitbook/assets/image (10) (3) (1).png>)
+![](<../../.gitbook/assets/image (10) (3).png>)
 
 #### Definition
 

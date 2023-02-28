@@ -115,7 +115,7 @@ After deploying the DeterminedAI application, a URL to the Web UI will be provid
 
 As an example, here is what a live experiment looks like when viewed from the Web UI:
 
-![A live experiment running in the DeterminedAI Web UI](<../../.gitbook/assets/image (20).png>)
+![A live experiment running in the DeterminedAI Web UI](<../../.gitbook/assets/image (20) (1).png>)
 
 Navigating to the **Logs** tab will give you a full output of the experiment's logs:
 
@@ -123,7 +123,7 @@ Navigating to the **Logs** tab will give you a full output of the experiment's l
 
 Navigating to **Overview** will give you access to a metrics visualization of the experiment and checkpoint reference.
 
-![Metrics visualization in the DeterminedAI Web UI](<../../.gitbook/assets/image (16) (1) (1).png>)
+![Metrics visualization in the DeterminedAI Web UI](<../../.gitbook/assets/image (16) (1).png>)
 
 ## Training
 

@@ -16,7 +16,7 @@ Our Samba-AD instance uses Shared Filesystem volumes:
 
 In this example, we have three volumes we'll be using for our Samba-AD instance:
 
-![](<../../../.gitbook/assets/image (57).png>)
+![](<../../../.gitbook/assets/image (57) (1).png>)
 
 ## Deploy Samba-AD Instances
 

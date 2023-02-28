@@ -43,7 +43,7 @@ To deploy our Workstations, we'll be using the [CoreWeave Cloud UI](../../virtua
 
 To get started creating a Virtual Workstation, first log in to your [CoreWeave Cloud account](https://cloud.coreweave.com). Once logged in, navigate to the Virtual Servers configuration screen by clicking the **Deploy Now** button below **Deploy Virtual Server** on the navigation card.
 
-<figure><img src="../.gitbook/assets/image (43).png" alt="&#x22;Deploy Virtual Server&#x22; menu card on the CoreWeave Cloud UI homepage"><figcaption><p>"Deploy Virtual Server" menu card on the CoreWeave Cloud UI homepage</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (43) (1).png" alt="&#x22;Deploy Virtual Server&#x22; menu card on the CoreWeave Cloud UI homepage"><figcaption><p>"Deploy Virtual Server" menu card on the CoreWeave Cloud UI homepage</p></figcaption></figure>
 
 {% hint style="info" %}
 **Note**
@@ -55,7 +55,7 @@ Once you have [configured your Virtual Server](../../virtual-servers/getting-sta
 
 From here, uncomment the `filesystems` stanza to mount in a shared storage volume as a filesystem.
 
-<figure><img src="../.gitbook/assets/image (45).png" alt="Filesystems YAML stanza"><figcaption><p>Filesystems YAML stanza</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (45) (2).png" alt="Filesystems YAML stanza"><figcaption><p>Filesystems YAML stanza</p></figcaption></figure>
 
 A valid specification may look something like the following:
 

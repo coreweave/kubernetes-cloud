@@ -12,7 +12,7 @@ description: Manage Storage Volumes from the CoreWeave Cloud UI
 
 From the upper right-hand corner, click the **New Volume** button. This will launch the volume configuration modal.
 
-![The New Volume button](<../../.gitbook/assets/image (3) (5).png>)
+![The New Volume button](<../../.gitbook/assets/image (3) (7).png>)
 
 ![The volume configuration modal](<../../.gitbook/assets/image (53) (1).png>)
 
@@ -34,14 +34,14 @@ Filesystem attachments are specified under the **Attach Filesystems** menu while
 
 **Example**
 
-![The Attach Filesystems menu during Virtual Server creation](<../../.gitbook/assets/image (13) (1).png>)
+![The Attach Filesystems menu during Virtual Server creation](<../../.gitbook/assets/image (13) (2).png>)
 
 ### **Block device attachments**
 
 {% hint style="info" %}
 **Note**
 
-Attaching block device storage is not currently achievable via the Cloud UI. [Please see CLI options to attach block storage devices to Virtual Servers](using-storage-cloud-ui.md#virtual-servers).
+Attaching block device storage is not currently achievable via the Cloud UI. [Please see CLI options to attach block storage devices to Virtual Servers](using-storage-kubectl.md).
 {% endhint %}
 
 ## **Resizing Volumes**

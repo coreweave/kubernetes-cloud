@@ -14,6 +14,7 @@
 * [Useful Commands](../coreweave-kubernetes/useful-commands.md)
 * [Sealed Secrets](coreweave-kubernetes/sealed-secrets.md)
 * [Node Types](../coreweave-kubernetes/node-types.md)
+* [Nydus on CoreWeave](coreweave-kubernetes/nydus-on-coreweave.md)
 * [Advanced Label Selectors](../coreweave-kubernetes/label-selectors.md)
 * [CoSchedulers](coreweave-kubernetes/coschedulers.md)
 * [Metrics](../coreweave-kubernetes/prometheus/README.md)

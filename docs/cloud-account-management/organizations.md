@@ -14,9 +14,7 @@ CoreWeave Cloud allows you to share all of your Cloud resources with the rest of
 
 Inviting a user is simple. From the Organization Management page in CoreWeave Cloud, click the "Invite a User" button. A form will appear prompting for the e-mail of the person you'd like to invite. Enter this address, then click **Send Invite.**
 
-![Organization Invitation Modal](<../.gitbook/assets/image (142).png>)
-
-### Invitation acceptance
+<figure><img src="../.gitbook/assets/image (142).png" alt="Screenshot of The user invite modal"><figcaption><p>The user invite modal</p></figcaption></figure>
 
 After a user accepts their invitation and completes the signup process, they will be added to the organization, and will show up as an accepted user. They will now have full access to your namespace and will have the ability to allocate storage, create a deployment, and provision a Virtual Server. To remove a user from your organization completely, please [contact support](https://cloud.coreweave.com/contact).
 
@@ -34,4 +32,10 @@ After the invitation is accepted, the user can be managed from the Organization 
 
 ## User permissions
 
-It is important to note that all members of your organization will have the same read/write privileges in your namespace whereas user activation/deactivation is scoped to the organizations first owner. We fully intend to provide Role-based access control (RBAC) on a per user basis but until then it is recommended that only trusted members be added to your organization.
+It is important to note that all members of your organization will have the same read and write privileges in your namespace, however only the organizations' primary owner may edit user activation and deactivation.
+
+{% hint style="info" %}
+**Note**
+
+Top-level RBAC management is forthcoming. Until then, it is strongly recommended to only invite trusted users into your organization.
+{% endhint %}

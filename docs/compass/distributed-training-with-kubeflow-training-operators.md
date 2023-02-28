@@ -14,7 +14,7 @@ Below you will find a general introduction to distributed training and Kubeflow 
 
 CoreWeave Cloud supports running [Kubeflow Training Operators](https://www.kubeflow.org/docs/components/training/) to easily train your Machine Learning models across a variety of frameworks and backends. The diagram below shows some of the Training Operators that Kubeflow supports - the full list can be found in the [Kubeflow official documentation](https://www.kubeflow.org/docs/components/training/) as well as the [source code](https://github.com/kubeflow/training-operator).
 
-<figure><img src="../.gitbook/assets/image (1).png" alt="Kubeflow Training Operators support diagram"><figcaption><p>Kubeflow Training Operators</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (6).png" alt="Kubeflow Training Operators support diagram"><figcaption><p>Kubeflow Training Operators</p></figcaption></figure>
 
 It can be confusing at first, so it is important to understand the distinction between the different categories in this chart, and how it impacts the code.
 

@@ -50,6 +50,6 @@ The client is configured to communicate with the server via the environment vari
 
 Navigating to the generated URL will lead you to the Determined AI home screen. From here you can do things like [launch a JupyterLab and subsequent Jupyter Notebooks](launch-jupyter-notebook-on-coreweave-via-determined-ai.md), or perform model finetuning using [GPT DeepSpeed](launch-gpt-deepspeed-models-using-determinedai.md), [GPT-NeoX](gpt-neox.md), or [HuggingFace](finetuning-huggingface-llms-with-determined-ai-and-deepspeed.md).
 
-<figure><img src="../../.gitbook/assets/image (3) (1).png" alt="The Determined AI Web UI"><figcaption><p>The Determined AI Web UI</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3) (6).png" alt="The Determined AI Web UI"><figcaption><p>The Determined AI Web UI</p></figcaption></figure>
 
 For more information on using Determined AI, refer to the [official Determined AI documentation](https://docs.determined.ai/latest/).
