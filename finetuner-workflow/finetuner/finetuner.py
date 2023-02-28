@@ -31,12 +31,6 @@ def find_free_port():
         s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         return s.getsockname()[1]
 
-
-os.environ["MASTER_ADDR"] = "localhost"
-os.environ["MASTER_PORT"] = f"{find_free_port()}"
-os.environ["RANK"] = "0"
-os.environ["LOCAL_RANK"] = "0"
-os.environ["WORLD_SIZE"] = "1"
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 thisPath = str(pathlib.Path(__file__).parent.resolve())
@@ -460,7 +454,7 @@ class ModelSampler(TrainerCallback):
     def on_step_end(
         self, args, state, control, model: PreTrainedModel = None, **kwargs
     ):
-        if not is_main_process() or not model:
+        if not model:
             return
         if state.global_step % self.report_every == 0 or state.global_step == 1:
             curr_tokens_step = (

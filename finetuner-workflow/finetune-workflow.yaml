@@ -152,7 +152,7 @@ spec:
     - name: finetuner_image
       value: 'harubaru1/finetuner'
     - name: finetuner_tag
-      value: '8'
+      value: '13'
     - name: inference_image
       value: 'coreweave/ml-images'
     - name: inference_tag
