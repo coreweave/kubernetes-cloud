@@ -4,7 +4,7 @@ The billing portal for CoreWeave Cloud is a simple external portal that is provi
 
 ![Billing Portal View](<../.gitbook/assets/image (153).png>)
 
-### Portal Invitation
+## Portal Invitation
 
 During account creation on CoreWeave Cloud an invitation email will be sent to the email associated with the account. To resend this email, please [contact support](https://cloud.coreweave.com/contact).
 
@@ -12,7 +12,7 @@ During account creation on CoreWeave Cloud an invitation email will be sent to t
 The Billing Portal account is completely separate from your CoreWeave Cloud account. The email and passwords are not linked and can differ for the 2 accounts. The Billing Portal account credentials and payment methods can be changed post account creation.
 {% endhint %}
 
-### Security and Compliance
+## Security and Compliance
 
 CoreWeave Cloud values user security and privacy. Our billing portal is provided and hosted by a software company called [Chargify](https://www.chargify.com/). Chargify is PCI DSS Level 1 compliant and has undergone a SOC 1 Type II audit, more information can be found on [their website](https://www.chargify.com/security/).
 

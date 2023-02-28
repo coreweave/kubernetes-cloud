@@ -12,7 +12,7 @@ CoreWeave Cloud allows you to share all of your Cloud resources with the rest of
 
 ## Invite users
 
-Inviting a user is simple. From the Organization Management page in CoreWeave Cloud, click the "Invite a User" button. A form will appear prompting for the e-mail of the person you'd like to invite. Enter this address, then click **Send Invite.**
+Inviting a user is simple. From the Organization Management page in CoreWeave Cloud, click the **Invite a User** button. A form will appear prompting for the email of the person you'd like to invite. Enter this address, then click **Send Invite.**
 
 <figure><img src="../.gitbook/assets/image (142).png" alt="Screenshot of The user invite modal"><figcaption><p>The user invite modal</p></figcaption></figure>
 
