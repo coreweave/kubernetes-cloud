@@ -31,6 +31,7 @@ def find_free_port():
         s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         return s.getsockname()[1]
 
+
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 thisPath = str(pathlib.Path(__file__).parent.resolve())
@@ -207,10 +208,12 @@ args = parser.parse_args()
 def is_main_process() -> bool:
     return args.local_rank in [-1, 0]
 
+
 # To be used in cases where using if statements are ugly.
 def main_process_print(*args, **kwargs):
     if is_main_process():
         print(*args, **kwargs)
+
 
 # Where we write our training checkpoints and final model.
 output_dir = os.path.abspath(
@@ -267,7 +270,9 @@ if wandb_key and is_main_process():
     else:
         run = wandb.init(project=args.project_id, name=args.run_name)
 else:
-    run = wandb.init(project=args.project_id, name=args.run_name, mode="disabled")
+    run = wandb.init(
+        project=args.project_id, name=args.run_name, mode="disabled"
+    )
 
 # Set up our tokenizer.
 tokenizer: PreTrainedTokenizer
@@ -457,7 +462,7 @@ class ModelSampler(TrainerCallback):
 
     def on_step_end(
         self, args, state, control, model: PreTrainedModel = None, **kwargs
-    ):  
+    ):
         if not model:
             return
         if state.global_step % self.report_every == 0 or state.global_step == 1:
