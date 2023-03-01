@@ -122,8 +122,6 @@ With **CoreWeave CoSchedulers**, you can ensure that your Pods are all deployed 
 
 <table data-card-size="large" data-view="cards"><thead><tr><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>➡️ Learn more about the CoreWeave CoSchedulers!</strong></td><td><a href="coreweave-kubernetes/coschedulers.md">coschedulers.md</a></td></tr></tbody></table>
 
-##
-
 ## September 2022 :maple\_leaf:
 
 New on CoreWeave Cloud this month:
@@ -221,8 +219,6 @@ It's an all too common experience to let idle research shells or experiments idl
 The Workload Activity Tracker displays which of your Workloads have had activity in the past 24 hours, which are inactive, how many resources they are consuming, and how much cost they're incurring, all in a convenient and concise overview format.
 
 > **Check out** [**the Workload Activity Tracker dashboard**](http://grafana.coreweave.com/) **now!**
-
-##
 
 ## May 2022 :sunflower:
 
