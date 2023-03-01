@@ -116,7 +116,7 @@ spec:
     - name: model_downloader_image
       value: 'ghcr.io/wbrown/gpt_bpe/model_downloader'
     - name: model_downloader_tag
-      value: '7ffb3ec'
+      value: 'e2ef65f'
     - name: dataset_downloader_image
       value: 'ghcr.io/coreweave/dataset-downloader/smashwords-downloader'
     - name: dataset_downloader_tag
