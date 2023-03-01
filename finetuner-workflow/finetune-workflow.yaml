@@ -120,7 +120,7 @@ spec:
     - name: dataset_downloader_image
       value: 'ghcr.io/coreweave/dataset-downloader/smashwords-downloader'
     - name: dataset_downloader_tag
-      value: 'ad27ab2'
+      value: '7dba2c7'
     - name: tokenizer_image
       value: 'ghcr.io/wbrown/gpt_bpe/dataset_tokenizer'
     - name: tokenizer_tag
