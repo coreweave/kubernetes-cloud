@@ -276,6 +276,7 @@ spec:
         mirrorVolumeMounts: true
     container:
       image: "{{workflow.parameters.dataset_downloader_image}}:{{workflow.parameters.dataset_downloader_tag}}"
+      command: ["/ko-app/smashwords-downloader"]
       args: ["--data_dir", "{{inputs.parameters.output}}"]
       resources:
         requests:
