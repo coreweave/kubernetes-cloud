@@ -83,4 +83,4 @@ Managed [Grafana](https://grafana.com/) monitoring provides insights into reques
 
 To access Grafana, [log in to your CoreWeave Cloud account](https://cloud.coreweave.com), then navigate to the **Account Details** section in the left-hand navigation menu, and click **Grafana**. Clicking this link will open a new window in your browser.
 
-<figure><img src="../../.gitbook/assets/image (15).png" alt="Screenshot: Grafana in the left-hand menu"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (15) (4).png" alt="Screenshot: Grafana in the left-hand menu"><figcaption></figcaption></figure>

@@ -4,6 +4,66 @@ description: Feature Updates and Release Notes for CoreWeave Cloud
 
 # Release Notes
 
+## March 2023
+
+New this month on CoreWeave Cloud...
+
+### :tada: [HGX H100 nodes are now online!](compass/nvidia-hgx-h100.md)
+
+Big news! We are proud to announce that CoreWeave has become **the first Cloud provider in the world** to bring the super powerful [NVIDIA HGX H100](compass/nvidia-hgx-h100.md) nodes online!
+
+The NVIDIA HGX H100 enables up to seven times more efficient high-performance computing (HPC) applications, up to nine times faster AI training on large models, and up to thirty times faster [AI inference](broken-reference) than the [NVIDIA HGX A100](../coreweave-kubernetes/node-types.md).
+
+This speed, combined with the lowest NVIDIA GPUDirect network latency in the market with [the NVIDIA Quantum-2 InfiniBand platform](coreweave-kubernetes/networking/hpc-interconnect.md), reduces the training time of AI models to ["days or hours, instead of months."](https://cts.businesswire.com/ct/CT?id=smartlink\&url=https%3A%2F%2Fwww.forbes.com%2Fsites%2Fmoorinsights%2F2022%2F09%2F14%2Fnvidias-new-h100-gpu-smashes-artificial-intelligence-benchmarking-records%2F%3Fsh%3D14bccacae728\&esheet=52960519\&newsitemid=20221107005057\&lan=en-US\&anchor=%26%238220%3Bdays+or+hours+instead+of+months.%26%238221%3B\&index=4\&md5=1aca6283a20b6bb79597814bc4574be4) **** With AI permeating nearly every industry today, this speed and efficiency has never been more vital for HPC applications.
+
+### :anchor: Introducing SUNK: Slurm on Kubernetes
+
+[Slurm](https://slurm.schedmd.com/) is the de-facto scheduler for large HPC jobs in supercomputer centers around the world. CoreWeave's Slurm implementation, SUNK ("SlUrm oN Kubernetes"), integrates Slurm with Kubernetes, allowing compute to transition between distributed training in Slurm and applications such as online inference in Kubernetes.
+
+As an implementation of Slurm on Kubernetes deployed on CoreWeave Cloud, SUNK comes complete with options for:
+
+* external Directory Services such as Active Directory
+* Slurm Accounting, backed by a MySQL database
+* dynamic Slurm node scaling to match your Workload requirements
+
+In SUNK, Slurm images are derived from OCI container images, which execute on bare metal, and compute node resources are allocated using Kubernetes.
+
+{% hint style="info" %}
+**Note**
+
+CoreWeave maintains several base images for different CUDA versions, including [all dependencies for InfiniBand and SHARP](https://www.github.com/coreweave/nccl-tests). If you'd like to implement SUNK in your cluster, please contact [CoreWeave support](https://cloud.coreweave.com/contact) for engineering support for cluster design and deployment.
+{% endhint %}
+
+### :zap: [Nydus is now on CoreWeave!](coreweave-kubernetes/nydus-on-coreweave.md)
+
+Embedding machine learning models directly into images has become a popular ease-of-use technique, but it has made image pull times slower due to the increased size of container images. As a result, pulling images is often the most time-consuming aspect of spinning up new containers, and for those who rely on fast autoscaling to respond to changes in demand, the time it takes to create new containers can pose as a major hurdle.
+
+It's for this reason that CoreWeave Cloud now supports using [Nydus](https://github.com/containerd/nydus-snapshotter), the external plugin for [containerd](https://containerd.io/), for shorter container image pull times.
+
+Leveraging [its own container image service](https://github.com/dragonflyoss/image-service#nydus-dragonfly-container-image-service), Nydus implements a content-addressable filesystem on top of a RAFS format for container images. This formatting allows for major improvements to the current [OCI image specification](https://github.com/opencontainers/image-spec/blob/main/spec.md#open-container-initiative) in terms of container launching speed, image space, network bandwidth efficiency, and data integrity. The result: [_significantly_ faster container image pull times](https://github.com/dragonflyoss/image-service#introduction).
+
+{% hint style="warning" %}
+**Important**
+
+Nydus on CoreWeave is currently an **alpha offering**, with limited, node-specific release.
+{% endhint %}
+
+### :muscle: [Distributed training using Kubeflow operators](compass/distributed-training-with-kubeflow-training-operators.md)
+
+The[ Kubeflow project](https://www.kubeflow.org/) is dedicated to making deployments of Machine Learning (ML) workflows on Kubernetes simple, portable, and scalable. The goal is not to recreate other services, but to provide a straightforward way to deploy best-of-breed open-source systems for ML to diverse infrastructures. Anywhere you are running Kubernetes, you should be able to run Kubeflow.
+
+CoreWeave is pleased to present [new tutorials](compass/distributed-training-with-kubeflow-training-operators.md) on using Kubeflow training operators for distributed training on CoreWeave Cloud! Follow along with these walkthroughs to train [ResNet-50 with ImageNet](compass/distributed-training-with-kubeflow-training-operators/train-resnet-50-with-imagenet.md), or [finetune GPT-NeoX-20B with Argo Workflows](compass/distributed-training-with-kubeflow-training-operators/finetune-gpt-neox-20b-with-argo-workflows.md)!
+
+### :minidisc:[ Import disk images using CoreWeave Object Storage](virtual-servers/root-disk-lifecycle-management/importing-a-qcow2-image.md#using-coreweave-object-storage)
+
+Disk images may be imported from external URLs to be used as source images for root or additional disks for Virtual Servers. In addition to `qcow2`, `raw` and `iso` formatted images are also supported, and may be compressed with either `gz` or `xz`.
+
+Following our newly published guide, an image stored locally can easily be uploaded to [CoreWeave Object Storage](storage/object-storage.md), then imported to a `DataVolume`.
+
+### :tools: [Deploy custom containers on CoreWeave Cloud](coreweave-kubernetes/serverless/deploy-custom-containers.md)
+
+Hosting your own containerized applications on CoreWeave Cloud is simple! With our [new guide for deploying custom containers](coreweave-kubernetes/serverless/deploy-custom-containers.md), you can have your applications running in CoreWeave Cloud in minutes!
+
 ## December 2022 :snowflake:
 
 New on CoreWeave Cloud this month:
@@ -80,7 +140,7 @@ Some features are only available through an upgrade request. To increase your qu
 
 ### NVIDIA A100 80GB NVLINK with InfiniBand and SHARP:zap:
 
-<figure><img src=".gitbook/assets/image (3) (1).png" alt="NVIDIA Mellanox Quantum leaf switches in the CoreWeave LAS1 datacenter"><figcaption><p>NVIDIA Mellanox Quantum leaf switches in the CoreWeave LAS1 datacenter</p></figcaption></figure>
+<figure><img src=".gitbook/assets/image (3) (1) (1).png" alt="NVIDIA Mellanox Quantum leaf switches in the CoreWeave LAS1 datacenter"><figcaption><p>NVIDIA Mellanox Quantum leaf switches in the CoreWeave LAS1 datacenter</p></figcaption></figure>
 
 **A100 80GB NVLINK SXM4** GPUs are now available in the **LAS1** region. These GPUs are provisioned in large clusters, intended for distributed training and inference of LLMs such as [BLOOM 176B](compass/examples/pytorch-hugging-face-transformers-bigscience-bloom-1.md#what-is-bloom).
 
@@ -154,7 +214,7 @@ Accelerated object storage provides local caching for frequently accessed object
 
 ### **Introducing The Workload Activity Tracker dashboard** :chart\_with\_upwards\_trend:
 
-<figure><img src=".gitbook/assets/image (2) (3) (1).png" alt="Screenshot of the Workload Activity Tracker in action - vertical columns displaying information on Pods, such as their CPU usage and idle status"><figcaption><p>The Workload Activity Tracker in action</p></figcaption></figure>
+<figure><img src=".gitbook/assets/image (2) (3) (1) (1).png" alt="Screenshot of the Workload Activity Tracker in action - vertical columns displaying information on Pods, such as their CPU usage and idle status"><figcaption><p>The Workload Activity Tracker in action</p></figcaption></figure>
 
 It's an all too common experience to let idle research shells or experiments idle in your namespace after you're done working with them, only to later come back and realize you've been eating resources unnecessarily. Now, with the Workload Activity Tracker dashboard for Grafana, answering "is everything deployed in my namespace doing something?" is never a question you have to worry about.
 

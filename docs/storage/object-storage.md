@@ -22,11 +22,11 @@ Currently, Object Storage is configured and accessed either by:
 
 Using the CoreWeave Cloud UI, an Object Storage configuration file can be generated to authenticate to Object Storage using `s3cmd`. To access Object Storage using the [CoreWeave Cloud UI](../../virtual-servers/deployment-methods/coreweave-apps.md), log in to your CoreWeave Cloud account, then navigate to the Object Storage page.
 
-<figure><img src="../.gitbook/assets/image (9) (2).png" alt="Screenshot of the Object Storage link on the side nav of the Cloud UI"><figcaption><p>The Object Storage link is located on the left-hand menu on the Cloud UI</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (9).png" alt="Screenshot of the Object Storage link on the side nav of the Cloud UI"><figcaption><p>The Object Storage link is located on the left-hand menu on the Cloud UI</p></figcaption></figure>
 
 To create a new token, click the button labelled **Create a New Token**. This will bring up the **New Storage Token** modal, which prompts you to assign a name, a default [S3 region](../data-center-regions.md) (which can be changed later), and [an access level](object-storage.md#identity-and-access-management-iam-and-access-levels) to the token.
 
-<figure><img src="../.gitbook/assets/image (42).png" alt="Screenshot of the new storage token modal"><figcaption><p>The New Storage Token modal</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (52).png" alt="Screenshot of the new storage token modal"><figcaption><p>The New Storage Token modal</p></figcaption></figure>
 
 Finally, clicking the **Generate** button generates the token's configuration file:
 
@@ -209,9 +209,9 @@ Alternatively, key pair permissions may be specified via the Cloud UI on the Obj
 
 From the Object Storage page, the **Access Level** field displays the key's current access level. The access of a new Object Storage token is set during creation by selecting an access level from the **Select an access level** drop-down menu located at the bottom of the New Storage Token module.
 
-<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption><p>Access levels are displayed on the Object Storage page</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (4) (5).png" alt=""><figcaption><p>Access levels are displayed on the Object Storage page</p></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/image (62).png" alt="Screenshot: Access levels drop-down"><figcaption><p>Any access level may be chosen from this drop-down</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (3).png" alt="Screenshot: Access levels drop-down"><figcaption><p>Any access level may be chosen from this drop-down</p></figcaption></figure>
 
 ### IAM actions
 

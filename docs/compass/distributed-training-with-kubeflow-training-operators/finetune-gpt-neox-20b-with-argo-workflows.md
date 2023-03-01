@@ -37,7 +37,7 @@ The Argo workflow for finetuning is defined in the `04-finetune-workflow.yaml` f
 * [the directed-acyclic graph (DAG) definition](https://argoproj.github.io/argo-workflows/walk-through/dag/#dag),
 * and the step definitions.
 
-<figure><img src="../../.gitbook/assets/image (3) (5).png" alt="Visualization of the DAG defined by the Argo workflow"><figcaption><p>Visualization of the DAG defined by the Argo workflow</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3) (1) (3).png" alt="Visualization of the DAG defined by the Argo workflow"><figcaption><p>Visualization of the DAG defined by the Argo workflow</p></figcaption></figure>
 
 ### Parameters
 
@@ -189,7 +189,7 @@ Once the Workflow is submitted, its progress may be monitored from the Argo Work
 
 Pod logs may be acquired via CLI using `kubectl logs <pod name>`, or by clicking on the relevant stage in the Argo Workflows Web UI.
 
-<figure><img src="../../.gitbook/assets/image (2) (3).png" alt=""><figcaption><p>Argo Workflow right after submission</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2).png" alt=""><figcaption><p>Argo Workflow right after submission</p></figcaption></figure>
 
 The logs from the finetuning training script are available from the launcher Pod. They can be accessed via `kubectl`:
 

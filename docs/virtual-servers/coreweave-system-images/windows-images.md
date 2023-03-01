@@ -38,7 +38,7 @@ Within the Virtual Server deployment form, switch to the YAML tab:
 
 Towards the bottom of the page, a commented out cloudInit section will be pre-populated. Uncomment to add custom user data:
 
-![](<../../.gitbook/assets/image (61) (1) (1).png>)
+![](<../../.gitbook/assets/image (61) (1).png>)
 
 {% hint style="info" %}
 For more information on what be added via native cloudInit Userdata, view the Cloudbase Solutions documentation [here](https://cloudbase-init.readthedocs.io/en/latest/userdata.html#userdata).
@@ -235,7 +235,7 @@ By default, when the root disk of a Windows image is expanded, Windows will auto
 
 Via Windows Apps and Features, the default behavior can be modified:
 
-![](<../../.gitbook/assets/image (54) (1) (1).png>)
+![](<../../.gitbook/assets/image (54) (1).png>)
 
 Selecting "Modify" will prompt for an action to perform when it is detected that the root disk can be expanded. The default action of `ReSize` will expand the root disk. `NewPartition` will create a new partition with the unallocated space, and automatically assign a drive letter. Entering no value will disable any automatic action.
 

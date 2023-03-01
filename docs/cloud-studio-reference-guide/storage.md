@@ -144,7 +144,7 @@ The following examples demonstrate different configuration settings per Samba ty
 
 To install a standard Samba instance, navigate to the application Catalog and search for **Samba**. Select the Samba application, then click the **Deploy** button in the lower right-hand corner to open the configuration options.
 
-<figure><img src="../.gitbook/assets/image (30) (1).png" alt="The standard Samba configuration options"><figcaption><p>The standard Samba configuration options</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (30).png" alt="The standard Samba configuration options"><figcaption><p>The standard Samba configuration options</p></figcaption></figure>
 
 Under the **Form** tab, within the **Samba Server** box, select the same region into which your storage volume was provisioned earlier.
 
@@ -162,7 +162,7 @@ Finally, click the **Deploy** button in the lower left-hand corner.
 
 To install a Samba-AD instance, navigate to the application Catalog and search for **Samba**. Select the **samba-ad** application, then click the **Deploy** button in the lower right-hand corner to open the configuration options.
 
-<figure><img src="../.gitbook/assets/image (38) (1).png" alt="The Samba-AD configuration options"><figcaption><p>The Samba-AD configuration options</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (38).png" alt="The Samba-AD configuration options"><figcaption><p>The Samba-AD configuration options</p></figcaption></figure>
 
 First, select the same data region into which your storage volume was provisioned earlier. Then, complete the Samba Server Domain information, and whether or not to specify a custom DNS suffix.
 
@@ -214,7 +214,7 @@ Select the mount, click the OK button, then enter your credentials.
 
 To expose the same storage over NFS, search for the NFS application in the application Catalog. **** Click the **Deploy** button to configure the NFS settings.
 
-<figure><img src="../.gitbook/assets/image (29) (2).png" alt="The NFS application in the application Catalog"><figcaption><p>The NFS application in the application Catalog</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (29) (1).png" alt="The NFS application in the application Catalog"><figcaption><p>The NFS application in the application Catalog</p></figcaption></figure>
 
 {% hint style="warning" %}
 **Important**
@@ -222,7 +222,7 @@ To expose the same storage over NFS, search for the NFS application in the appli
 One major difference between an NFS deployment and a Samba deployment on CoreWeave is that the one-click NFS solution **does not include any authentication.** For added security, consider integrating with Active Directory directly, or use network policies to ensure access to the NFS service is only accessible to the correct endpoints.
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/image (27).png" alt="The NFS configuration screen"><figcaption><p>The NFS configuration screen</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (27) (1).png" alt="The NFS configuration screen"><figcaption><p>The NFS configuration screen</p></figcaption></figure>
 
 First, give the NFS volume a name. Then, select the same data region into which the storage volume was provisioned earlier.
 
@@ -240,7 +240,7 @@ A final option for accessing your Cloud storage remotely is by using the FileBro
 
 To install FileBrowser, first navigate to the applications Catalog, then search for **filebrowser**.
 
-<figure><img src="../.gitbook/assets/image (24) (1) (1).png" alt=""><figcaption><p>The filebrowser application</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (24) (1).png" alt=""><figcaption><p>The filebrowser application</p></figcaption></figure>
 
 Navigate to the application Catalog through the CoreWeave Cloud UI, then search for `filebrowser`.  Select the application, then click the **Deploy** button in the lower right-hand corne
 
@@ -248,7 +248,7 @@ Under **Node Selection**, select the same data center region into which the stor
 
 Under the "Attach existing volumes to your FileBrowser" list, highlight the associated storage volume, then click the blue plus sign to the right of its name.
 
-<figure><img src="../.gitbook/assets/image (21) (2).png" alt=""><figcaption><p>The FileBrowser configuration screen, including a list of "Available Volumes"</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (21).png" alt=""><figcaption><p>The FileBrowser configuration screen, including a list of "Available Volumes"</p></figcaption></figure>
 
 Configure how you'd like the Volume to appear once mounted, then click the **Deploy** button.
 
@@ -278,11 +278,11 @@ After the first login, it is strongly recommended to change the password of your
 
 Once you have a working Media Shuttle license, locate your Media Shuttle registration key by opening Media Shuttle. Click "Add" beside Storage.
 
-<figure><img src="../.gitbook/assets/image (48).png" alt="Screenshot of the &#x22;Add&#x22; link located on the Media Shuttle menu"><figcaption><p>The "Add" link located on the Media Shuttle menu</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (48) (1).png" alt="Screenshot of the &#x22;Add&#x22; link located on the Media Shuttle menu"><figcaption><p>The "Add" link located on the Media Shuttle menu</p></figcaption></figure>
 
 Then, select the checkbox to agree to the license agreement terms.
 
-<figure><img src="../.gitbook/assets/image (39) (2).png" alt="Screenshot of the license agreement checkbox in Media Shuttle"><figcaption><p>License agreement checkbox</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (39) (1).png" alt="Screenshot of the license agreement checkbox in Media Shuttle"><figcaption><p>License agreement checkbox</p></figcaption></figure>
 
 Once you have completed the wizard, the storage server registration key will be presented to you. Retain this for the next few setup steps.
 
@@ -296,7 +296,7 @@ Clicking the **Deploy** button will open the application configuration screen.
 
 Update the name, registry key, and add a [Persistent Volume Claim](https://docs.coreweave.com/coreweave-kubernetes/storage) to the `mounts` list by navigating to the **YAML** tab and locating the `mounts` block. In the example below, the PVC that has been added is defined with a mountpoint `name` of `render-output-mnt` and passed the PVC title, `pvc: render-output`.
 
-<figure><img src="../.gitbook/assets/image (47).png" alt="A defined mount in the mounts block"><figcaption><p>A defined mount in the <code>mounts</code> block</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (47) (1).png" alt="A defined mount in the mounts block"><figcaption><p>A defined mount in the <code>mounts</code> block</p></figcaption></figure>
 
 Finally, click the **Deploy** button at the bottom of the screen to launch the deployment.
 

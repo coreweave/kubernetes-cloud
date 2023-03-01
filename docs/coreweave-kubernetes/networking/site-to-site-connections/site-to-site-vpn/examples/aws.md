@@ -89,7 +89,7 @@ After completing the initial setup for the VPN, you'll need to configure further
 
 These options should be configured following the instructions detailed in the following table.
 
-![](<../../../../../.gitbook/assets/image (7) (1) (1).png>)
+![](<../../../../../.gitbook/assets/image (7) (1) (1) (1).png>)
 
 ### Configuration
 
@@ -138,7 +138,7 @@ The following table describes what the configurations for the advanced Tunnel 1 
 
 The following screenshot exemplifies what these configurations look like.
 
-![Advanced Tunnel 1 options.](<../../../../../.gitbook/assets/image (12) (1) (1).png>)
+![Advanced Tunnel 1 options.](<../../../../../.gitbook/assets/image (12) (1).png>)
 
 ## Configure Routes
 

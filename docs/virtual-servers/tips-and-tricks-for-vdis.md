@@ -12,7 +12,7 @@ When using Parsec to connect to your Windows-based VDI, there are a few configur
 
 Once you have selected a machine to connect to, further configuration options for that instance are shown by clicking the Parsec logo button on the left-hand side of the screen.
 
-<figure><img src="../.gitbook/assets/image (36).png" alt="Screenshot: The gear icon leading to the Parsec Settings page"><figcaption><p>The gear icon leading to the Parsec Settings page</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (4) (2).png" alt="Screenshot: The gear icon leading to the Parsec Settings page"><figcaption><p>The gear icon leading to the Parsec Settings page</p></figcaption></figure>
 
 ### Enable H.265 (HEVC) encoding
 
@@ -24,25 +24,25 @@ Once you have selected a machine to connect to, further configuration options fo
 Read more about video coding on [the Parsec website](https://parsec.app/blog/an-introduction-to-video-compression-c5061a5d075e).
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/image (76).png" alt="Screenshot: It is recommended to turn the H.265 (HEVC) setting to On"><figcaption><p>It is recommended to turn the H.265 (HEVC) setting to On</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (10) (3).png" alt="Screenshot: It is recommended to turn the H.265 (HEVC) setting to On"><figcaption><p>It is recommended to turn the H.265 (HEVC) setting to On</p></figcaption></figure>
 
 ### Always run Parsec in full screen
 
 For most cases, matching your VDI resolution to your local display resolution will yeild the best performance and visuals in Parsec. You can do this by using the Parsec menu, or by using NVIDIA Control Panel on your VDI.
 
-<figure><img src="../.gitbook/assets/image (60).png" alt="Screenshot: It is recommended to run Parsec in Fullscreen mode"><figcaption><p>It is recommended to run Parsec in Fullscreen mode</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (3) (3) (1).png" alt="Screenshot: It is recommended to run Parsec in Fullscreen mode"><figcaption><p>It is recommended to run Parsec in Fullscreen mode</p></figcaption></figure>
 
 ### Set "Immersive Mode" to `Keyboard`
 
 Parsec's "[Immersive Mode](https://support.parsec.app/hc/en-us/articles/360003146271-Send-Special-Keys-To-The-Host-By-Default-Immersive-Mode-)" passes Windows-native hotkeys to the host machine.
 
-<figure><img src="../.gitbook/assets/image (29).png" alt="Screenshot: It is recommended to set &#x22;Immersive Mode&#x22; to &#x22;Keyboard&#x22;"><figcaption><p>It is recommended to set "Immersive Mode" to "Keyboard"</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (23) (2).png" alt="Screenshot: It is recommended to set &#x22;Immersive Mode&#x22; to &#x22;Keyboard&#x22;"><figcaption><p>It is recommended to set "Immersive Mode" to "Keyboard"</p></figcaption></figure>
 
 ### Set bandwidth limit to 50Mbps
 
 Once connected to an instance, navigate to the **Bandwidth Limit** option and select **50 Mbps** from the Parsec menu on the left-hand side of the screen.
 
-<figure><img src="../.gitbook/assets/image (26).png" alt="Screenshot: it is recommended to set Parsec&#x27;s bandwidth limit to 50 Mbps"><figcaption><p>It is recommended to set Parsec's bandwidth limit to 50 Mbps</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (6) (2).png" alt="Screenshot: it is recommended to set Parsec&#x27;s bandwidth limit to 50 Mbps"><figcaption><p>It is recommended to set Parsec's bandwidth limit to 50 Mbps</p></figcaption></figure>
 
 ### Set the VDI resolution to your local display's resolution
 
@@ -50,7 +50,7 @@ For most cases, matching your VDI resolution to your local display resolution wi
 
 If you are trying to set your VDI to a non-standard resolution (e.g. MacBook Pro's native resolution of `2880x1800`), use the NVIDIA Control Panel, as the Parsec menu only includes standard resolution options.
 
-<figure><img src="../.gitbook/assets/image (2).png" alt="Screenshot: It is recommended to set Parsec&#x27;s resoluton to your host machine&#x27;s native resolution"><figcaption><p>It is recommended to set Parsec's resoluton to your host machine's native resolution</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (8) (3).png" alt="Screenshot: It is recommended to set Parsec&#x27;s resoluton to your host machine&#x27;s native resolution"><figcaption><p>It is recommended to set Parsec's resoluton to your host machine's native resolution</p></figcaption></figure>
 
 #### Setting resolution using the NVIDIA control panel
 
@@ -61,7 +61,7 @@ If you'd prefer to set your resolution using the NVIDIA control panel, you can d
 3. On the list of enabled displays select the display you want to change resolution of, then below that, select the resolution you would like set.
 4. Click the **Apply** button.
 
-<figure><img src="../.gitbook/assets/image (54).png" alt="Screenshot: The NVIDIA control panel&#x27;s resolution menu"><figcaption><p>The NVIDIA control panel's resolution menu</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (5) (2).png" alt="Screenshot: The NVIDIA control panel&#x27;s resolution menu"><figcaption><p>The NVIDIA control panel's resolution menu</p></figcaption></figure>
 
 ### Prefer 4:4:4 color
 
@@ -75,7 +75,7 @@ Unless you have an [NVIDIA Turing](https://www.nvidia.com/en-us/geforce/turing/)
 You can learn more about how Parsec uses color encoding on [the Parsec website](https://support.parsec.app/hc/en-us/articles/4425688194189#444).
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/image (56).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (11) (4).png" alt=""><figcaption></figcaption></figure>
 
 ## Network
 

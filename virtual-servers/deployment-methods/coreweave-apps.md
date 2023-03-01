@@ -46,7 +46,7 @@ From the Virtual Servers dashboard, you can configure a Virtual Server to your d
 Not every Virtual Server configuration option is exposed through the options displayed graphically on the configuration screen. For more fine-tuned control, or to save the Virtual Server configuration file to replicate additional Virtual Servers, you can view the generated YAML chart under the **YAML** tab.
 {% endhint %}
 
-![The Virtual Server configuration screen in the CoreWeave Cloud UI](<../../docs/.gitbook/assets/image (69) (1).png>)
+![The Virtual Server configuration screen in the CoreWeave Cloud UI](<../../docs/.gitbook/assets/image (69).png>)
 
 ### Configuration
 

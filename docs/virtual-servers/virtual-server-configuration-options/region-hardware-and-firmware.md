@@ -115,7 +115,7 @@ Select how many **GPUs** you'd like the Virtual Server to have using the **GPU C
 
 Determine the amount of **memory** (in Gebibytes) the Virtual Server will have using the **Memory** slider.
 
-![](<../../.gitbook/assets/image (10) (3).png>)
+![](<../../.gitbook/assets/image (10) (3) (1).png>)
 
 #### Definition
 
@@ -245,7 +245,7 @@ You can read more about virtual hardware firmware configuration in [the Kubevirt
 
 ***
 
-![Example of firmware configuration in the YAML manifest tab of the Cloud UI.](<../../.gitbook/assets/image (9) (1) (1).png>)
+![Example of firmware configuration in the YAML manifest tab of the Cloud UI.](<../../.gitbook/assets/image (9) (1).png>)
 {% endtab %}
 
 {% tab title="CLI" %}
