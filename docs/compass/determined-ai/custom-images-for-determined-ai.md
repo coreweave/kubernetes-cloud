@@ -64,14 +64,14 @@ Determined AI uses a fork of the standard [DeepSpeed library](https://www.deepsp
 {% hint style="info" %}
 **Note**
 
-The example Dockerfiles provided here are compatible with `CUDA==11.7`.
+The example Dockerfiles provided here are compatible with `CUDA==11.7 or CUDA==11.8`.
 {% endhint %}
 
-### PyTorch 1.13
+### PyTorch 1.13 with CUDA 11.7&#x20;
 
 <details>
 
-<summary>Click to expand - PyTorch 1.13 Dockerfile</summary>
+<summary>Click to expand - PyTorch 1.13 with CUDA 11.7 Dockerfile</summary>
 
 ```docker
 FROM ghcr.io/coreweave/nccl-tests:11.7.1-devel-ubuntu20.04-nccl2.14.3-1-45d6ec9
@@ -109,6 +109,150 @@ RUN python3.8 -m pip install --no-cache-dir pybind11
 RUN python3.8 -m pip install --no-cache-dir protobuf==3.19.4
 RUN update-alternatives --install /usr/bin/python3 python /usr/bin/python3.8 2
 RUN echo 2 | update-alternatives --config python
+```
+
+</details>
+
+### PyTorch 1.13 with CUDA 11.8
+
+<details>
+
+<summary>Click to expand - PyTorch 1.13 with CUDA 11.8 Dockerfile</summary>
+
+```docker
+ARG CUDA_VERSION="11.8.0"
+
+## Build pytorch on a builder image.
+FROM nvidia/cuda:${CUDA_VERSION}-devel-ubuntu20.04 as builder
+ENV DEBIAN_FRONTEND=noninteractive
+ENV CUDA_PACKAGE_VERSION="11-8"
+ENV TORCH_VERSION="1.13.1"
+ENV TORCH_VISION_VERSION="0.14.1"
+ENV TORCH_CUDA_ARCH_LIST="6.0 6.1 6.2 7.0 7.2 7.5 8.0 8.6 8.7 8.9 9.0+PTX"
+RUN apt-get update && apt-get install -y \
+      libncurses5 python3 python3-pip git apt-utils ssh ca-certificates \
+      python3-distutils python3-numpy build-essential cmake && \
+    update-alternatives --install /usr/bin/python python /usr/bin/python3 1 && \
+    update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1 && \
+    pip3 install --no-cache-dir --upgrade pip && \
+    apt-get clean
+
+RUN mkdir /build
+WORKDIR /build
+
+## Build torch
+RUN git clone --recursive https://github.com/pytorch/pytorch -b v${TORCH_VERSION} && \
+    cd pytorch && \
+    git submodule sync && \
+    git submodule update --init --recursive --jobs 0
+RUN cd pytorch && pip3 install -r requirements.txt
+RUN cd pytorch && \
+    mkdir build && \
+    ln -s /usr/bin/cc build/cc && \
+    ln -s /usr/bin/c++ build/c++ && \
+    USE_OPENCV=1 \
+    BUILD_TORCH=ON \
+    CMAKE_PREFIX_PATH="/usr/bin/" \
+    LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/lib:$LD_LIBRARY_PATH \
+    CUDA_BIN_PATH=/usr/local/cuda/bin \
+    CUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda/ \
+    CUDNN_LIB_DIR=/usr/local/cuda/lib64 \
+    CUDA_HOST_COMPILER=cc \
+    USE_CUDA=1 \
+    USE_NNPACK=1 \
+    CC=cc \
+    CXX=c++ \
+    USE_EIGEN_FOR_BLAS=ON \
+    USE_MKL=OFF \
+    PYTORCH_BUILD_VERSION="${TORCH_VERSION}" \
+    PYTORCH_BUILD_NUMBER=0 \
+    TORCH_CUDA_ARCH_LIST="${TORCH_CUDA_ARCH_LIST}" \
+    TORCH_NVCC_FLAGS="-Xfatbin -compress-all" \
+    python3 setup.py bdist_wheel
+RUN cd pytorch && pip3 install --no-cache-dir dist/torch*.whl
+
+## Build torchvision
+RUN git clone --recursive https://github.com/pytorch/vision -b v${TORCH_VISION_VERSION} && \
+    cd pytorch && \
+    git submodule sync && \
+    git submodule update --init --recursive --jobs 0
+RUN cd vision && pip3 install --no-cache-dir matplotlib \
+                                             numpy \
+                                             typing_extensions \
+                                             requests \
+                                             pillow
+RUN cd vision && \
+    mkdir build && \
+    ln -s /usr/bin/cc build/cc && \
+    ln -s /usr/bin/c++ build/c++ && \
+    USE_OPENCV=1 \
+    PATH=/usr/local/cuda/bin:$PATH \
+    BUILD_TORCH=ON \
+    CMAKE_PREFIX_PATH="/usr/bin/" \
+    LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/lib:$LD_LIBRARY_PATH \
+    CUDA_BIN_PATH=/usr/local/cuda/bin \
+    CUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda/ \
+    CUDNN_LIB_DIR=/usr/local/cuda/lib64 \
+    CUDA_HOST_COMPILER=cc \
+    USE_CUDA=1 \
+    USE_NNPACK=1 \
+    CC=cc \
+    CXX=c++ \
+    USE_EIGEN_FOR_BLAS=ON \
+    USE_MKL=OFF \
+    BUILD_VERISON="${TORCH_VISION_VERSION}" \
+    TORCH_CUDA_ARCH_LIST="${TORCH_CUDA_ARCH_LIST}" \
+    TORCH_NVCC_FLAGS="-Xfatbin -compress-all" \
+    python3 setup.py bdist_wheel
+RUN cd vision && pip3 install --no-cache-dir dist/torchvision*.whl
+
+## Build final torch-base image now
+FROM nvidia/cuda:${CUDA_VERSION}-base-ubuntu20.04
+ENV CUDA_PACKAGE_VERSION="11-8"
+ENV TORCH_VERSION="1.13.1"
+ENV TORCH_VISION_VERSION="0.14.1"
+ENV TORCH_CUDA_ARCH_LIST="6.0 6.1 6.2 7.0 7.2 7.5 8.0 8.6 8.7 8.9 9.0+PTX"
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Determined variables
+ENV DET_PYTHON_EXECUTABLE="/usr/bin/python3.8"
+ENV DET_SKIP_PIP_INSTALL="SKIP"
+
+
+# Install core packages
+RUN apt-get update && apt-get install -y \
+      libncurses5 python3 python3-pip python3-distutils python3-numpy \
+      curl git apt-utils ssh ca-certificates tmux nano vim sudo bash rsync \
+      htop wget unzip tini && \
+    update-alternatives --install /usr/bin/python python /usr/bin/python3 1 && \
+    update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1 && \
+    pip3 install --no-cache-dir --upgrade pip && \
+    apt-get clean
+RUN apt-get install -y \
+         libcurand-${CUDA_PACKAGE_VERSION} \
+         libcufft-${CUDA_PACKAGE_VERSION} \
+         libcublas-${CUDA_PACKAGE_VERSION} \
+         cuda-nvrtc-${CUDA_PACKAGE_VERSION} \
+         libcusparse-${CUDA_PACKAGE_VERSION} \
+         libcusolver-${CUDA_PACKAGE_VERSION} \
+         cuda-cupti-${CUDA_PACKAGE_VERSION} \
+         libnvtoolsext1 \
+         libnccl2 && \
+    apt-get clean
+
+WORKDIR /usr/src/app
+
+# Copy python dist-packages for pytorch in.
+COPY --from=builder /usr/local/lib/python3.8/dist-packages \
+                    /usr/local/lib/python3.8/dist-packages
+
+# Python packages
+RUN python3.8 -m pip install --no-cache-dir determined==0.19.9
+RUN python3.8 -m pip install --no-cache-dir pybind11
+RUN python3.8 -m pip install --no-cache-dir protobuf==3.19.4
+RUN update-alternatives --install /usr/bin/python3 python /usr/bin/python3.8 2
+RUN echo 2 | update-alternatives --config python
+
 ```
 
 </details>
