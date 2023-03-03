@@ -14,7 +14,7 @@ Before following the rest of this guide, ensure that the following are completed
 {% hint style="success" %}
 **Tip**
 
-You may also want to **** [install Helm](https://helm.sh/) on your local system in order to manage and update the applications deployed in your namespace, though this is optional.
+You may also want to [install Helm](https://helm.sh/) on your local system in order to manage and update the applications deployed in your namespace, though this is optional.
 {% endhint %}
 
 ## Rendering

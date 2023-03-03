@@ -35,7 +35,7 @@ When rendering on CoreWeave Cloud, ensuring that applications don't attempt to w
 {% hint style="info" %}
 **Note**
 
-For this example, everything is provisioned to the Chicago datacenter (`ORD1`), however if you are following along, it is recommended to select the datacenter closest to you. **** [Read more about CoreWeave's data center regions](../data-center-regions.md).
+For this example, everything is provisioned to the Chicago datacenter (`ORD1`), however if you are following along, it is recommended to select the datacenter closest to you. [Read more about CoreWeave's data center regions](../data-center-regions.md).
 {% endhint %}
 
 <figure><img src="../../.gitbook/assets/image (66) (1).png" alt="The filesystem storage application configuration screen"><figcaption><p>The filesystem storage application configuration screen</p></figcaption></figure>
@@ -148,7 +148,7 @@ To install a standard Samba instance, navigate to the application Catalog and se
 
 Under the **Form** tab, within the **Samba Server** box, select the same region into which your storage volume was provisioned earlier.
 
-Next, select the number of replicas you'd like the Pod to have. Then, choose whether you'd like to expose the instance publicly by altering the **Expose on Public IP** toggle, which allows **** enables or disables public networking accordingly.
+Next, select the number of replicas you'd like the Pod to have. Then, choose whether you'd like to expose the instance publicly by altering the **Expose on Public IP** toggle, which allows, enables or disables public networking accordingly.
 
 The following box, **User Information**, is for configuring the Samba user account. Input the **Username, Password, User ID, Group name,** and **Group ID** to use for the Samba share.
 
@@ -198,7 +198,7 @@ After deploying your Samba instance, the **Installation Notes** section will pro
 
 Navigate to the Start menu and right-click the name of your local machine. Select **Map network drive...** from the drop-down.
 
-![](<../../.gitbook/assets/image (70).png>)
+<figure><img src="../../.gitbook/assets/image (70).png" alt="Screenshot of Map network drive..."><figcaption></figcaption></figure>
 
 Map the network drive by providing the given Samba domain name to the **Folder** input field. Then click the **Browse...** button.
 
@@ -212,7 +212,7 @@ Select the mount, click the OK button, then enter your credentials.
 
 ## Exposing storage via NFS
 
-To expose the same storage over NFS, search for the NFS application in the application Catalog. **** Click the **Deploy** button to configure the NFS settings.
+To expose the same storage over NFS, search for the NFS application in the application Catalog. Click the **Deploy** button to configure the NFS settings.
 
 <figure><img src="../.gitbook/assets/image (29) (1).png" alt="The NFS application in the application Catalog"><figcaption><p>The NFS application in the application Catalog</p></figcaption></figure>
 
@@ -303,5 +303,3 @@ Finally, click the **Deploy** button at the bottom of the screen to launch the d
 Once the deployment has completed, you will be automatically redirected to the Media Shuttle deployment status page. Once this status page shows that the Media Shuttle Pod is ready, you are ready to use the deployment.
 
 <figure><img src="../.gitbook/assets/image (150).png" alt="Media Shuttle deployment status page, showing the Pod is ready"><figcaption><p>Media Shuttle deployment status page, showing the Pod is ready</p></figcaption></figure>
-
-##

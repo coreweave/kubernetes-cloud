@@ -10,7 +10,7 @@ The Teradici Security Gateway and Connection Manager allows for centralized prov
 
 ## Setup
 
-First, create a new CentOS-based [Virtual Server](broken-reference). In this example, we will provision a machine with 8vCPU cores and `32Gi` of memory running CentOS 7 with no GPU. Configure a direct attached IP address, then deploy the machine. Once this machine is instantiated, use SSH to connect to the instance, then install Leostream:
+First, create a new CentOS-based [Virtual Server](broken-reference). In this example, we will provision a machine with 8 vCPU cores and `32Gi` of memory running CentOS 7 with no GPU. Configure a direct attached IP address, then deploy the machine. Once this machine is instantiated, use SSH to connect to the instance, then install Leostream:
 
 1. Update `yum` packages using `sudo yum update`.
 2. Download and run the Leostream binary by running `sudo curl http://downloads.leostream.com/broker.prod.sh | sudo bash`
@@ -37,7 +37,7 @@ These commands will launch a GUI installer, so be prepared to connect via Teradi
 {% endhint %}
 
 1. Update `yum` packages using `sudo yum update`.
-2. Install the requred Java package using `sudo yum install LibXScrnSaver java-1.7.0-openjdk.x86_64`.
+2. Install the required Java package using `sudo yum install LibXScrnSaver java-1.7.0-openjdk.x86_64`.
 3. Download the Leostream agent using `wget https://s3.amazonaws.com/downloads.leostream.com/LeostreamAgentJava-5.2.6.0.jar`.
 4. Run the Java `jar` using `sudo java -jar ./LeostreamAgentJava-5.2.6.0.jar`.
 

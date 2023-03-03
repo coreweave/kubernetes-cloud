@@ -4,40 +4,42 @@ description: Create Virtual Workstations on CoreWeave Cloud
 
 # Virtual Workstations
 
-Virtual Workstations are a great way for artists across the world to access applications requiring high powered CPU and GPU acceleration. Virtual Workstations improve artist workflows and reduce the burden of maintaining "on-prem" infrastructure, resulting in greater productivity, less strain on your team, and a better end-product for your clients.
+Virtual Workstations are a great way for artists across the world to access applications requiring high powered CPU and GPU acceleration. Virtual Workstations improve artist workflows and reduce the burden of maintaining on-premises infrastructure, resulting in greater productivity, less strain on your team, and a better end-product for your clients.
 
 Virtual Workstations are deployed on top of the open source project [Kubevirt](https://kubevirt.io/). The `virtctl` tool may be used for fine-grained control over Virtual Servers.
 
-**Before continuing with this guide, you may want to learn a bit more about** [**Virtual Servers**](broken-reference) **(upon which Workstations are built), or a bit more about how to leverage `virtctl` for fine-grained control over Virtual Workstations.**
+{% hint style="info" %}
+**Tip**
+
+Before continuing with this guide, you may want to learn a bit more about [Virtual Servers](broken-reference) (upon which Workstations are built), or a bit more about how to leverage `virtctl` for fine-grained control over Virtual Workstations.
+{% endhint %}
 
 <table data-card-size="large" data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-cover data-type="files"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><p><strong>Get Started with Virtual Servers</strong></p><p></p><p>Learn all about CoreWeave <strong>Virtual Servers</strong> – what they are, how they work, and how to create them.</p></td><td></td><td><strong></strong></td><td><a href="../.gitbook/assets/virtualservers (1).jpeg">virtualservers (1).jpeg</a></td><td><a href="../../virtual-servers/getting-started.md">getting-started.md</a></td></tr><tr><td><strong>Managing Virtual Workstations using <code>virtctl</code></strong></td><td><p></p><p>The <a href="https://kubevirt.io/user-guide/operations/virtctl_client_tool/"><code>virtctl</code> tool</a> may be used for remotely controlling Virtual Workstations. If you require more <strong>fine-grained control</strong> over your Virtual Workstations, check out our Remote Access &#x26; Control guide.</p></td><td></td><td><a href="../.gitbook/assets/kubevirt (1).png">kubevirt (1).png</a></td><td><a href="../../virtual-servers/remote-access-and-control.md">remote-access-and-control.md</a></td></tr></tbody></table>
 
-### Operating Systems
+## Operating Systems
 
 Virtual Workstations may be configured to run a variety of Operating Systems, including:
 
-* Centos 7 (Terdici Desktop)
-* Ubuntu 20.04 (Terdici Desktop)&#x20;
+* Centos 7 (Teradici Desktop)
+* Ubuntu 20.04 (Teradici Desktop)&#x20;
 * Ubuntu 20.04
 * Ubuntu 20.04 (No GPU)
-* Ubuntu 18.04 (Terdici Desktop)
+* Ubuntu 18.04 (Teradici Desktop)
 * Ubuntu 18.04
 * Ubuntu 18.04 (No GPU)
 * Windows 10 Professional
 * Windows Server 2019 Standard
 * Windows Server 2019 Datacenter
 
-Workstations may be provisioned with GPUs or may be provisioned as CPU-only instances.  CoreWeave offers a variety of CPUs, including AMD Epyc and Intel Xeon solutions. You can learn more and see pricing and configuration CLI commands in [our CPU-Only Instance Pricing guide](../../coreweave-kubernetes/node-types.md#cpu-availability).
+Workstations may be provisioned with GPUs or may be provisioned as CPU-only instances. CoreWeave offers a variety of CPUs, including AMD EPYC and Intel Xeon solutions. You can learn more about pricing and configuration in [our CPU-Only Instance Pricing guide](../../resources/resource-based-pricing.md#cpu-only-instance-resource-pricing).
 
-### Thinkbox Deadline
+## [Thinkbox Deadline](../vfx-and-rendering/vfx/deadline.md)
 
 Workstations on CoreWeave Cloud support [Thinkbox Deadline](https://www.awsthinkbox.com/deadline), the most responsive modern render management solution for accessing render nodes and automatic workload scaling.
 
-<table data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>Learn more about configuring managed Deadline on CoreWeave!</strong></td><td></td><td></td><td><a href="../vfx-and-rendering/vfx/deadline.md">deadline.md</a></td></tr></tbody></table>
-
 ## Creating and configuring Virtual Workstations
 
-In this example, we will create an array of Virtual Workstations with different configurations for both Windows and CentOS 7, and we will also be creating some lighter-weight machines for administrators. Later, we will configure special network policies in order to to provide strong security barriers between different types of users.
+In this example, we will create an array of Virtual Workstations with different configurations for both Windows and CentOS 7, and we will also be creating some lighter-weight machines for administrators. Later, we will configure special network policies in order to provide strong security barriers between different types of users.
 
 To deploy our Workstations, we'll be using the [CoreWeave Cloud UI](../../virtual-servers/deployment-methods/coreweave-apps.md).
 
@@ -215,7 +217,7 @@ Next, deploy the Virtual Server by clicking the **Deploy** button. Once the Virt
 {% hint style="info" %}
 **Note**
 
-If you would like to add additional applications on initialization, the Windows package manager [Chocolatey](https://chocolatey.org/) **** is recommended. To use Chocolatey, add a list of application names to the `choco_install` parameter in the YAML specification in the `cloudInit` block.
+If you would like to add additional applications on initialization, the Windows package manager [Chocolatey](https://chocolatey.org/) is recommended. To use Chocolatey, add a list of application names to the `choco_install` parameter in the YAML specification in the `cloudInit` block.
 
 For example:
 
@@ -255,4 +257,4 @@ First, launch a new Virtual Machine configured to run Windows 10.
 Windows machines are not accessible via Teradici without a NVIDIA graphics card. In this case, RDP or Parsec may be used for administrator remote access instead.
 {% endhint %}
 
-In our reference namespace, we will create two administrator Windows 10 machines with both Teradici and Parsec in the same way as our artist machines, labelled `admin-teradici` and `admin-parsec`, respectively.
+In our reference namespace, we will create two administrator Windows 10 machines with both Teradici and Parsec in the same way as our artist machines, labeled `admin-teradici` and `admin-parsec`, respectively.
