@@ -14,6 +14,12 @@ The Billing Portal account is completely separate from your CoreWeave Cloud acco
 
 ## Security and Compliance
 
-CoreWeave Cloud values user security and privacy. Our billing portal is provided and hosted by a software company called [Chargify](https://www.chargify.com/). Chargify is PCI DSS Level 1 compliant and has undergone a SOC 1 Type II audit, more information can be found on [their website](https://www.chargify.com/security/).
+CoreWeave Cloud values user security and privacy. Our billing portal is provided [Chargify](https://www.chargify.com/), a secure and reliable payment processor. [See their security page](https://www.chargify.com/security/) to learn more about their PCI DSS Level 1 compliance and SOC 1 Type II audit. You'll find more information about Chargify [in their support portal](https://maxio-chargify.zendesk.com/).
 
-Addition information regarding the Billing Portal can be found [here](https://chargify.zendesk.com/hc/en-us/articles/4407649191195#subscription-overview). If you have any question related to billing or portal management you can also reach out to support.
+Of course, if you have any question related to billing or portal management you can [reach out to CoreWeave support](https://cloud.coreweave.com/contact), we are always here to help.
+
+{% hint style="info" %}
+**Security Tip**
+
+We recommend that you [enable two-factor authentication](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404986900493#two-factor-authentication) for your Chargify account.&#x20;
+{% endhint %}
