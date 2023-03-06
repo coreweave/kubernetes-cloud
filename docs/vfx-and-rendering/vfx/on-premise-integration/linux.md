@@ -4,9 +4,9 @@ description: Install CloudLink on a Linux server
 
 # CoreWeave CloudLink on Linux
 
-[CoreWeave CloudLink](./#cloud-link) can be run on any Linux server or Virtual Machine capable of running [Docker Containers](https://www.docker.com). The following guide will walk through how to install CloudLink on any such Linux system.
+[CoreWeave CloudLink](./#coreweave-cloudlink) can be run on any Linux server or Virtual Machine capable of running [Docker Containers](https://www.docker.com). The following guide will walk through how to install CloudLink on any such Linux system.
 
-This guide will also explain how to expose both **SMB/CIFS (Windows File Sharing)** and **NFS** to CoreWeave. You are likely already using one of the two, and will want to expose whichever protocol you are currently using.
+This guide will also explain how to expose both **Windows File Sharing (SMB/CIFS)** and **NFS** to CoreWeave. You are likely already using one of the two, and will want to expose whichever protocol you are currently using.
 
 {% hint style="info" %}
 **Note**
@@ -14,7 +14,7 @@ This guide will also explain how to expose both **SMB/CIFS (Windows File Sharing
 Depending on storage system, CIFS can sometimes provide better performance than NFS.
 {% endhint %}
 
-## Pre-requisites
+## Prerequisites
 
 * A Linux server or Virtual Machine on a modern CPU with at least 2 cores and 256MB of RAM available
 * Good network connectivity to existing storage infrastructure
@@ -22,7 +22,7 @@ Depending on storage system, CIFS can sometimes provide better performance than 
 
 ## Setup
 
-### Installing CloudLink on CoreWeave Cloud
+### Install CloudLink on CoreWeave Cloud
 
 First, [log in to your CoreWeave Cloud account](https://cloud.coreweave.com), then navigate to [the applications Catalog](https://apps.coreweave.com/) on CoreWeave Cloud. Search for `CloudLink`, then select the CloudLink application. Deploy the CloudLink Server into your CoreWeave namespace by clicking the **Deploy** button in the upper right-hand corner.
 
@@ -34,7 +34,7 @@ It is likely that your CoreWeave specialist has already done this for you, in wh
 
 The server status screen shown after deployment will provide you with the CloudLink server's IP, which you will need later for use with docker-compose.
 
-### Installing services with docker-compose
+### Install services with docker-compose
 
 Unless Docker is already installed, install it now by running the following one-line install command:
 
@@ -94,7 +94,7 @@ There may be some additional considerations which you may want to take into acco
 * Ensuring NFS allows the connection from the server or VM running CloudLink
 {% endhint %}
 
-**If using** **SMB (Windows File Sharing):**&#x20;
+**If using** **Windows File Sharing (SMB/CIFS):**&#x20;
 
 * Ensure that a specific User Account has been created for CoreWeave.
 * Provide the username and password to your CoreWeave Support Specialist.

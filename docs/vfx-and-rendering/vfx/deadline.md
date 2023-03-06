@@ -4,7 +4,7 @@ description: Learn how to deploy a managed Thinkbox Deadline instance
 
 # Managed Thinkbox Deadline
 
-[Thinkbox Deadline](https://docs.thinkboxsoftware.com/products/deadline/10.1/1\_User%20Manual/manual/overview.html) is an industry standard render management platform. CoreWeave provides a fully managed implementation of Deadline, including all of its necessary components, delivered as a service to clients working in VFX and rendering who require quick setup, zero management, and automatic, limitless scalability.
+[Thinkbox Deadline](https://docs.thinkboxsoftware.com/products/deadline/10.1/1\_User%20Manual/manual/overview.html) is an industry-standard render management platform. CoreWeave provides a fully managed implementation of Deadline, including all of its necessary components, delivered as a service to clients working in VFX and rendering who require quick setup, zero management, and automatic, limitless scalability.
 
 CoreWeave deploys Deadline through a [Kubernetes Helm Chart](https://helm.sh/), in order to leverage templating for reconfiguring multistage Kubernetes deployments, and to provide unique configurability to Deadline users.
 
@@ -20,9 +20,9 @@ Containerization **** comes at the cost of needing to convert existing Deadline 
 If you are interested in seeing examples of Dockerfiles used in the process of building and configuring Deadline Worker groups, [reach out to your CoreWeave support specialist](https://cloud.coreweave.com/contact).
 {% endhint %}
 
-## Deploying the Deadline application
+## Deploy the Deadline application
 
-There are two ways of deploying Thinkbox Deadline on CoreWeave<mark style="color:green;">**:**</mark>
+There are two ways to deploy Thinkbox Deadline on CoreWeave<mark style="color:green;">**:**</mark>
 
 <table data-card-size="large" data-view="cards"><thead><tr><th></th><th></th><th></th></tr></thead><tbody><tr><td><strong>Fully Managed </strong><mark style="color:green;"><strong>(Recommended)</strong></mark></td><td>We deploy the repository and all related components entirely on CoreWeave Cloud.</td><td></td></tr><tr><td><strong>Workers-Only</strong></td><td>We deploy autoscaled deadline workers on CoreWeave, which connect to an on-premise Deadline repository.</td><td></td></tr></tbody></table>
 
@@ -31,7 +31,7 @@ This guide provides walkthroughs for deploying based on either method.
 {% hint style="info" %}
 **Note**
 
-This guide assume that you already have some familiarity with Deadline, if not consider checking out [the official Thinkbox documentation](https://docs.thinkboxsoftware.com/products/deadline/10.0/1\_User%20Manual/index.html).
+This guide assumes that you already have some familiarity with Deadline, if not consider checking out [the official Thinkbox documentation](https://docs.thinkboxsoftware.com/).
 {% endhint %}
 
 ### Installing Deadline
@@ -85,7 +85,7 @@ version: 10.1.18.5
 ```
 
 {% hint style="info" %}
-#### For Workers-Only
+**For Workers-Only**
 
 If you plan on deploying **Workers only**, add the following on a new line to the chart:
 
@@ -388,7 +388,7 @@ resources:
         memory: 129Gi
 ```
 
-### Putting It All Together
+### Put it all together
 
 Now that we have all our values ready, it's time to put it all together.
 
@@ -499,7 +499,7 @@ This menu will display the license name, the usage level, the license count, the
 {% hint style="info" %}
 **Note**&#x20;
 
-Due to limitations in the Deadline API, license limits can only be created programmatically  while they function identically to `resource`.
+Due to limitations in the Deadline API, license limits can only be created programmatically while they function identically to `resource`.
 {% endhint %}
 
 ## Security

@@ -4,11 +4,11 @@ description: Install CloudLink on Synology NAS
 
 # Synology NAS
 
-[Synology](https://www.synology.com) is capable of natively running [CoreWeave CloudLink](./#cloud-link) as a Docker container. This makes integration with Synology storage straightforward, without the need for any external components or firewall modifications.
+[Synology](https://www.synology.com) is capable of natively running [CoreWeave CloudLink](./) as a Docker container. This makes integration with Synology storage straightforward, without the need for any external components or firewall modifications.
 
-This guide will also explain how to expose both **SMB/CIFS (Windows File Sharing)** and **NFS** to CoreWeave. You are likely already using one of the two, and will want to expose whichever protocol you are currently using.
+This guide will also explain how to expose both **Windows File Sharing (SMB/CIFS)** and **NFS** to CoreWeave. You are likely already using one of the two, and will want to expose whichever protocol you are currently using.
 
-## Pre-requisites
+## Prerequisites
 
 * Any [Synology model capable of running Docker](https://www.synology.com/en-us/dsm/packages/Docker), i.e., any Synology model able to run the latest version of DSM
 * Admin credentials to the NAS
@@ -42,7 +42,7 @@ Inside the Docker window, navigate to **Image**, then select **Add**, **** then 
 
 ![Adding coreweave/cloud-link to the URL box in the Docker configuration screen](../../../.gitbook/assets/screen-shot-2021-03-05-at-2.43.55-pm.png)
 
-Once the Docker image is loaded, navigate to the **Container** menu, then select **Settings**, then and **Import**. Upload the `coreweave-cloud-link.json` file provided by your CoreWeave Specialist.
+Once the Docker image is loaded, navigate to the **Container** menu, then select **Settings**, then **Import**. Upload the `coreweave-cloud-link.json` file provided by your CoreWeave Specialist.
 
 ![Docker Container configuration screen](../../../.gitbook/assets/screen-shot-2021-03-05-at-4.55.35-pm.png)
 
@@ -71,7 +71,7 @@ Once you are satisfied with these configurations, click **Apply**, then start th
 If the container is restarting, it means that the CoreWeave CloudLink server cannot be reached. Validate the `FRP_SERVER` environment variable, and ensure that outbound connections to that IP address on port `7000` are allowed.
 {% endhint %}
 
-### Configuring the file server
+### Configure the file server
 
 Select the tab that corresponds to your filesystem type.
 

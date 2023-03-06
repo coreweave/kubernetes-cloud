@@ -20,7 +20,13 @@ Integration is achieved using one or a combination of multiple technologies:
 
 ## CoreWeave CloudLink
 
-CoreWeave CloudLink consists of a small Docker container running on a server in the on-premise environment. CloudLink can run on a physical Linux server, or in a Virtual Machine - it can also run on certain Docker-capable storage solutions such as [Synology](https://www.synology.com/en-us) and [UNRAID](https://unraid.net).
+CoreWeave CloudLink consists of a small Docker container running on a server in the on-premise environment. CloudLink can run on a physical Linux server, or in a Virtual Machine - it can also run on certain Docker-capable storage solutions such as [Synology](https://www.synology.com/en-us) and [UNRAID](https://unraid.net).&#x20;
+
+{% hint style="info" %}
+**Additional Resources**
+
+See detailed installation steps for [Synology NAS](synology-nas.md) and [CoreWeave CloudLink on Linux](linux.md).
+{% endhint %}
 
 CoreWeave CloudLink exposes local SMB or NFS storage, as well as local Thinkbox Deadline services to your namespace in CoreWeave Cloud.
 
@@ -37,12 +43,6 @@ The server component for CoreWeave CloudLink is handled via [the application Cat
 
 If using NFS, the NFS share needs to be configured to allow connections from unprivileged ports.
 {% endhint %}
-
-Learn to install CoreWeave CloudLink on Linux:
-
-{% content-ref url="linux.md" %}
-[linux.md](linux.md)
-{% endcontent-ref %}
 
 ## Transparent cache
 
