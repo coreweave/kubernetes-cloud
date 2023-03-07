@@ -91,8 +91,9 @@ A more complete example of this same manifest might look like:
 
 ```yaml
 kind: Pod
+apiVersion: v1
 metadata:
-  name: http-bin-nydus
+  name: nydus-image
 spec:
   affinity:
     nodeAffinity:
@@ -106,7 +107,7 @@ spec:
             - 1.19.1
             - 1.18.0   
   containers:
-  - name: http-bin-nydus
+  - name: nydus-image
     image: {registry}:{tag}
     ports:
     - containerPort: 80
