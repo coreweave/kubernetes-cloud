@@ -116,11 +116,11 @@ spec:
     - name: model_downloader_image
       value: 'ghcr.io/wbrown/gpt_bpe/model_downloader'
     - name: model_downloader_tag
-      value: '7ffb3ec'
+      value: 'e2ef65f'
     - name: dataset_downloader_image
       value: 'ghcr.io/coreweave/dataset-downloader/smashwords-downloader'
     - name: dataset_downloader_tag
-      value: 'ad27ab2'
+      value: '7dba2c7'
     - name: tokenizer_image
       value: 'ghcr.io/wbrown/gpt_bpe/dataset_tokenizer'
     - name: tokenizer_tag
@@ -276,6 +276,7 @@ spec:
         mirrorVolumeMounts: true
     container:
       image: "{{workflow.parameters.dataset_downloader_image}}:{{workflow.parameters.dataset_downloader_tag}}"
+      command: ["/ko-app/smashwords-downloader"]
       args: ["--data_dir", "{{inputs.parameters.output}}"]
       resources:
         requests:
