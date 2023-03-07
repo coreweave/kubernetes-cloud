@@ -144,11 +144,11 @@ spec:
     - name: downloader_image
       value: 'ghcr.io/wbrown/gpt_bpe/model_downloader'
     - name: downloader_tag
-      value: 'e2ef65f'
+      value: '34fa97f'
     - name: tokenizer_image
       value: 'ghcr.io/wbrown/gpt_bpe/dataset_tokenizer'
     - name: tokenizer_tag
-      value: 'e2ef65f'
+      value: '34fa97f'
     - name: finetuner_image
       value: 'harubaru1/finetuner'
     - name: finetuner_tag
