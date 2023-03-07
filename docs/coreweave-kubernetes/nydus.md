@@ -2,12 +2,12 @@
 description: Get faster pull times with Nydus on CoreWeave
 ---
 
-# Nydus on CoreWeave
+# Nydus
 
 {% hint style="info" %}
 **Note**
 
-Nydus on CoreWeave Cloud is currently in **alpha** with limited availability. In order to make use of Nydus, Workloads must be [scheduled onto Nydus-enabled nodes using anti-affinity](nydus-on-coreweave.md#schedule-the-workloads).
+Nydus on CoreWeave Cloud is currently in **alpha** with limited availability. In order to make use of Nydus, Workloads must be [scheduled onto Nydus-enabled nodes using anti-affinity](nydus.md#schedule-the-workloads).
 {% endhint %}
 
 Embedding machine learning models directly into images has become a popular ease-of-use technique, but it has made image pull times slower due to the increased size of container images. As a result, pulling images is often the most time-consuming aspect of spinning up new containers, and for those who rely on fast autoscaling to respond to changes in demand, the time it takes to create new containers can pose as a major hurdle.
