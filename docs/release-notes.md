@@ -34,7 +34,7 @@ In SUNK, Slurm images are derived from OCI container images, which execute on ba
 CoreWeave maintains several base images for different CUDA versions, including [all dependencies for InfiniBand and SHARP](https://www.github.com/coreweave/nccl-tests). If you'd like to implement SUNK in your cluster, please contact [CoreWeave support](https://cloud.coreweave.com/contact) for engineering support for cluster design and deployment.
 {% endhint %}
 
-### :zap: [Nydus is now on CoreWeave!](coreweave-kubernetes/nydus.md)
+### :zap:[ Nydus is now on CoreWeave!](coreweave-kubernetes/nydus.md)
 
 Embedding machine learning models directly into images has become a popular ease-of-use technique, but it has made image pull times slower due to the increased size of container images. As a result, pulling images is often the most time-consuming aspect of spinning up new containers, and for those who rely on fast autoscaling to respond to changes in demand, the time it takes to create new containers can pose as a major hurdle.
 
