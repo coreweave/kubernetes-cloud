@@ -2,13 +2,13 @@
 description: Deploy containerized applications onto CoreWeave Cloud
 ---
 
-# Deploy Custom Containers
+# Custom Containers
 
-This guide walks through the steps necessary to deploy a basic containerized application onto CoreWeave Cloud. The configurations implemented in the following example are intentionally kept simple, although [many additional configuration options are available](../../virtual-servers/deployment-methods/kubectl.md#configuration-quick-reference).
+This guide walks through the steps necessary to deploy a basic containerized application onto CoreWeave Cloud. The configurations implemented in the following example are intentionally kept simple, although [many additional configuration options are available](../virtual-servers/deployment-methods/kubectl.md#configuration-quick-reference).
 
 This guide presumes that you already have an active CoreWeave Cloud account, and have already configured and installed a kubeconfig file for use with CoreWeave Kubernetes. It also assumes you have an application that has already successfully been containerized using Docker or a similar container runtime.
 
-If you have not already completed these steps, first visit [Get Started with CoreWeave](../getting-started.md).
+If you have not already completed these steps, first visit [Get Started with CoreWeave](getting-started.md).
 
 {% hint style="info" %}
 **Additional Resources**
@@ -20,7 +20,7 @@ For an even more pared down example of Deployments, refer to Kubernetes' officia
 
 To deploy a custom application that has been locally built, the image must first be pushed to an image repository.
 
-CoreWeave provides an easy way to deploy a Docker Registry instance into your namespace for this purpose by installing the [Docker Registry application](https://docs.docker.com/registry/) via [the applications Catalog](applications-catalog.md). Once deployed, the Docker Registry instance may be configured for access both within and outside of the CoreWeave environment.
+CoreWeave provides an easy way to deploy a Docker Registry instance into your namespace for this purpose by installing the [Docker Registry application](https://docs.docker.com/registry/) via [the applications Catalog](serverless/applications-catalog.md). Once deployed, the Docker Registry instance may be configured for access both within and outside of the CoreWeave environment.
 
 {% hint style="warning" %}
 **Important**
@@ -46,7 +46,7 @@ For more information on Docker Registry, see [the official Docker documentation]
 
 ### Storage backends
 
-[CoreWeave's S3-compatible Object Storage](../../storage/object-storage.md) may be used as a backend storage solution for the container registry, or a [persistent volume](../../storage/storage/) may be configured as a backend.
+[CoreWeave's S3-compatible Object Storage](../storage/object-storage.md) may be used as a backend storage solution for the container registry, or a [persistent volume](../storage/storage/) may be configured as a backend.
 
 ## Install Docker Registry into your CoreWeave namespace
 
@@ -54,7 +54,7 @@ To install the Docker Registry application, first log in to your CoreWeave Cloud
 
 From the Catalog homepage, search for `docker`. Then select the version of the Docker Registry application that you'd like to deploy.
 
-<figure><img src="../../.gitbook/assets/image (8).png" alt="Screenshot of docker-registry in the applications Catalog"><figcaption><p>Locate the docker-registry application in the applications Catalog</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (8).png" alt="Screenshot of docker-registry in the applications Catalog"><figcaption><p>Locate the docker-registry application in the applications Catalog</p></figcaption></figure>
 
 Clicking on the application card will open the deployment page, which contains further information about the application itself. Clicking the **Deploy** button will navigate to the application's settings screen, where the instance is configured.
 
@@ -62,7 +62,7 @@ Finally, click the **Deploy** button in the bottom right-hand corner of the scre
 
 From this page, access the **Application Secrets** from the section at the top right-hand part of the screen. Clicking the eye icon beside each field will reveal the field's contents. This secrets area contains the registry password - either that which was configured previously, or the new randomly-generated password.
 
-<figure><img src="../../.gitbook/assets/image (10) (2) (1).png" alt=""><figcaption><p>The application secrets include the configured or randomly-generated registry password</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (10) (2) (1).png" alt=""><figcaption><p>The application secrets include the configured or randomly-generated registry password</p></figcaption></figure>
 
 Alternatively, to retrieve the registry credentials via the command line, run the following Kubectl command.
 
@@ -130,11 +130,11 @@ Never use the `latest` tag; always push to a new tag. Due to aggressive caching 
 
 ## Create a storage volume
 
-If your application requires storage, you'll need to create a storage volume. To do this, navigate to the **Storage** page from the CoreWeave Cloud homepage. [Create a storage volume](../../storage/storage/using-storage-cloud-ui.md#creating-storage-volumes), giving it a name that is easy to associate with the relevant application.
+If your application requires storage, you'll need to create a storage volume. To do this, navigate to the **Storage** page from the CoreWeave Cloud homepage. [Create a storage volume](../storage/storage/using-storage-cloud-ui.md#creating-storage-volumes), giving it a name that is easy to associate with the relevant application.
 
-Optionally, if your application may benefit from having a visual file browser, install [the FileBrowser application](../../storage/filebrowser.md), configured with an equally recognizable name.
+Optionally, if your application may benefit from having a visual file browser, install [the FileBrowser application](../storage/filebrowser.md), configured with an equally recognizable name.
 
-<figure><img src="../../.gitbook/assets/image (7) (3).png" alt="Screenshot of a PVC volume and the FileBrowser application installed in the namespace"><figcaption><p>For the Kobold AI example, we have created both a PVC storage volume (left) and a FileBrowser instance (right)</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (7) (3).png" alt="Screenshot of a PVC volume and the FileBrowser application installed in the namespace"><figcaption><p>For the Kobold AI example, we have created both a PVC storage volume (left) and a FileBrowser instance (right)</p></figcaption></figure>
 
 If your application requires a lot of storage, it is recommended to configure a PVC with at least 1TB of space, similar to the configuration settings determined for this example.
 
@@ -259,7 +259,7 @@ In this case, that means that the container may have up to `8` CPUs, up to `64Gi
 
 ### Affinities
 
-In Kubernetes, `affinities` are used to assign specific pods to specific nodes. In CoreWeave Cloud, affinities are also used to select [the CoreWeave node type](../../../coreweave-kubernetes/node-types.md) you'd like a container to run on.
+In Kubernetes, `affinities` are used to assign specific pods to specific nodes. In CoreWeave Cloud, affinities are also used to select [the CoreWeave node type](../../coreweave-kubernetes/node-types.md) you'd like a container to run on.
 
 In the example given above, the `spec.affinity` block dictates that the type of GPU the container should run on is an NVIDIA A40.
 
@@ -330,5 +330,5 @@ koboldai-test-844567464d-6r6cb                            1/1     Running   0   
 {% hint style="info" %}
 **Additional Resources**
 
-For additional, more advanced examples of Deployments, see [the Examples section](../../../coreweave-kubernetes/examples/).
+For additional, more advanced examples of Deployments, see [the Examples section](../../coreweave-kubernetes/examples/).
 {% endhint %}

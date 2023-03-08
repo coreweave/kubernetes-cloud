@@ -60,9 +60,9 @@ Disk images may be imported from external URLs to be used as source images for r
 
 Following our newly published guide, an image stored locally can easily be uploaded to [CoreWeave Object Storage](storage/object-storage.md), then imported to a `DataVolume`.
 
-### :tools: [Deploy custom containers on CoreWeave Cloud](coreweave-kubernetes/serverless/deploy-custom-containers.md)
+### :tools: [Deploy custom containers on CoreWeave Cloud](coreweave-kubernetes/custom-containers.md)
 
-Hosting your own containerized applications on CoreWeave Cloud is simple! With our [new guide for deploying custom containers](coreweave-kubernetes/serverless/deploy-custom-containers.md), you can have your applications running in CoreWeave Cloud in minutes!
+Hosting your own containerized applications on CoreWeave Cloud is simple! With our [new guide for deploying custom containers](coreweave-kubernetes/custom-containers.md), you can have your applications running in CoreWeave Cloud in minutes!
 
 ## December 2022 :snowflake:
 
