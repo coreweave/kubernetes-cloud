@@ -34,7 +34,7 @@ To learn more about Jupyter and how to use Notebooks and JupyterLab, refer to [t
 
 To shut down the notebook, navigate to the **File** menu, then select **Shut Down**.
 
-![The file -> shutdown menu](<../../.gitbook/assets/image (11).png>)
+![The file -> shutdown menu](<../../.gitbook/assets/image (11) (6).png>)
 
 This will end the lab. In order to return to Jupyter Lab, you must re-launch the environment as described above.
 
