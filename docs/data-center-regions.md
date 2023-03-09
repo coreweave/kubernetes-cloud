@@ -88,7 +88,7 @@ The following tables describe which resources are available per data center regi
 
 | Resource Name        |         LGA1         |         ORD1         |         LAS1         |
 | -------------------- | :------------------: | :------------------: | :------------------: |
-| H100 80GB PCIe       |      :no\_entry:     |      :no\_entry:     | :white\_check\_mark: |
+| H100 80GB PCIe       | :white\_check\_mark: |      :no\_entry:     | :white\_check\_mark: |
 | A100 80GB HGX NVLINK |      :no\_entry:     |      :no\_entry:     | :white\_check\_mark: |
 | A100 40GB HGX NVLINK |      :no\_entry:     | :white\_check\_mark: |      :no\_entry:     |
 | A100 80GB PCIe       |      :no\_entry:     | :white\_check\_mark: |      :no\_entry:     |
