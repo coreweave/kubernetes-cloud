@@ -24,7 +24,7 @@ Once you have selected a machine to connect to, further configuration options fo
 Read more about video coding on [the Parsec website](https://parsec.app/blog/an-introduction-to-video-compression-c5061a5d075e).
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/image (10) (3).png" alt="Screenshot: It is recommended to turn the H.265 (HEVC) setting to On"><figcaption><p>It is recommended to turn the H.265 (HEVC) setting to On</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (10) (3) (2).png" alt="Screenshot: It is recommended to turn the H.265 (HEVC) setting to On"><figcaption><p>It is recommended to turn the H.265 (HEVC) setting to On</p></figcaption></figure>
 
 ### Always run Parsec in full screen
 

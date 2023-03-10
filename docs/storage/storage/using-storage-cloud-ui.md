@@ -1,63 +1,103 @@
 ---
-description: Manage Storage Volumes from the CoreWeave Cloud UI
+description: Manage Storage Volumes using the CoreWeave Cloud UI
 ---
 
 # Using Storage - Cloud UI
 
-## Creating Storage Volumes
+[The CoreWeave Cloud UI](../../../virtual-servers/deployment-methods/coreweave-apps.md) provides an easy-to-use storage configuration page. To access it, first log in to your CoreWeave Cloud account. Then, from the left-hand menu, navigate to **Storage Volumes**. To create a new Storage Volume, click the **New Volume** button in the upper right-hand corner or center of the page.
 
-[The CoreWeave Cloud UI](../../../virtual-servers/deployment-methods/coreweave-apps.md) provides an easy-to-use storage configuration page. To access it, first log in to your CoreWeave Cloud account. Then, from the left-hand menu, navigate to **Storage Volumes**.
+<figure><img src="../../.gitbook/assets/image (8).png" alt="Screenshot: The Storage Volumes management page"><figcaption><p>The Storage Volumes management page</p></figcaption></figure>
 
-![The storage volumes link on the left-hand menu of the Cloud UI](<../../.gitbook/assets/image (1) (6).png>)
+## Create a new Storage Volume
 
-From the upper right-hand corner, click the **New Volume** button. This will launch the volume configuration modal.
+<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption><p>The Storage Volume modal opens when the <strong>New Volume</strong> button is clicked</p></figcaption></figure>
 
-![The New Volume button](<../../.gitbook/assets/image (3) (5).png>)
+### Volume name
 
-![The volume configuration modal](<../../.gitbook/assets/image (53) (1).png>)
+The **volume name** will be used to refer to and identify the Storage Volume across the Cloud platform. If the new volume is being used for a specific application, it is recommended to create a name that clearly identifies it for that use for the sake of easy association.
 
-Within this modal, configure your desired Volume settings.
+### Namespace
 
-Finally, click **Create** to deploy the storage volume.
+The **namespace** field will be prepopulated with your current tenant namespace name. This cannot be changed from this modal.
 
-## Attaching Storage Volumes
+### Region
+
+The **region** field specifies in which [data center region](../../data-center-regions.md) you'd like the new storage volume to be hosted.
 
 {% hint style="warning" %}
 **Important**
 
-The volumes must first be created and provisioned **before** they can be attached to a Pod or Virtual Server.
+It is strongly recommended that application workloads requiring storage volumes be placed in the same data center region as their associated storage volumes. See Custom Containers for examples, or refer to the [Advanced Label Selectors page](../../../coreweave-kubernetes/label-selectors.md) for more information on scheduling workloads to the same data center region as their storage volumes.
+{% endhint %}
+
+### Disk class
+
+Once a **region** has been selected, a **disk class** may be chosen. There are [two disk storage classes](./#volume-types) from which to choose, NVMe and HDD.
+
+{% hint style="info" %}
+**Additional Resources**
+
+For more information on these disk classes, refer to [the Storage section](../../virtual-servers/virtual-server-configuration-options/storage.md).
+{% endhint %}
+
+### Storage type
+
+The **storage type** field determines whether the new storage volume will be a [shared filesystem](./#shared-file-system-volumes) or a [block storage](./#block-storage-volumes) **** device.
+
+{% hint style="info" %}
+**Additional Resources**
+
+For more information on these disk classes, refer to [the "Volume types" portion of the Storage section](./#volume-types).
+{% endhint %}
+
+### Size
+
+The desired **size** of the disk is specified in `Gi`_._ The maximum allotable size for a single storage volume is `30720Gi`.
+
+### Labels
+
+While optional, if it is desired to schedule specific workloads onto certain storage volumes, **labels** can be very helpful. Kubernetes affinities may be used to select these labels for scheduling workloads appropriately. See [the Custom Container guide](../../coreweave-kubernetes/custom-containers.md) for examples.
+
+## Attach a Storage Volume using the Cloud UI
+
+{% hint style="warning" %}
+**Important**
+
+Storage Volumes must be created and provisioned **before** they can be attached to a Pod or Virtual Server.
 {% endhint %}
 
 ### Filesystem attachments
 
-Filesystem attachments are specified under the **Attach Filesystems** menu while [creating a Virtual Server](../../../virtual-servers/deployment-methods/). To attach a filesystem, first select the Volume you wish to attach from the **Available Volumes** menu. The selected Volumes will appear under the **Attach Volume** column. Finally, configure the mount point under the **Mount As** column.
+When [creating a Virtual Server](../../../virtual-servers/getting-started.md), the option to attach a filesystem volume is presented under the **Attach Filesystems** section of the Virtual Server creation screen.
 
-**Example**
+To attach a filesystem, first select the Volume you wish to attach from the **Available Volumes** column by clicking the blue plus sign beside its name. The selected Volumes will then appear under the **Attach Volume** column.
 
-![The Attach Filesystems menu during Virtual Server creation](<../../.gitbook/assets/image (13) (1).png>)
+Finally, the mount point for the Volume is specified under the **Mount As** column.
+
+<figure><img src="../../.gitbook/assets/image (10).png" alt="Screenshot showing a filesystem volume being attached to a Virtual Server"><figcaption><p>Attach a filesystem Volume to a Virtual Server</p></figcaption></figure>
 
 ### **Block device attachments**
-
-{% hint style="info" %}
-**Note**
-
-Attaching block device storage is not currently achievable via the Cloud UI. [Please see CLI options to attach block storage devices to Virtual Servers](using-storage-kubectl.md).
-{% endhint %}
-
-## **Resizing Volumes**
 
 {% hint style="warning" %}
 **Important**
 
-**Shared File System Volumes** are resized online **without disruption** the workload.
-
-Resizing **Block Volumes** requires **stopping or restarting all workloads** that are attached the Volume in order for the resize to take effect.
-
-_**Volumes cannot be downsized again once they are expanded.**_
+Attaching block device storage is not currently possible via the Cloud UI. [Refer to CLI options to attach block storage devices to Virtual Servers](using-storage-kubectl.md).
 {% endhint %}
 
-From **the Storage Volumes page** in the Cloud UI, click the pencil icon beside the listed storage volume that you'd like to resize. This will open the Persistent Volume Claim modal.
+## **Resize a Volume**
 
-![The storage volume list, featuring the pencil icon to the right](<../../.gitbook/assets/image (2) (6).png>)
+{% hint style="danger" %}
+**Warning**
 
-From this modal, make the desired changes, then click **Save** to apply the changes.
+**Shared File System Volumes** are resized online, **without disruption** to workloads.
+
+Resizing **Block Volumes**, on the other hand, requires **stopping or restarting all workloads** that are attached the Volume in order for the resize to take effect.
+{% endhint %}
+
+To resize a Volume, first navigate to the Storage Volumes page. Click the pencil icon that appears beside the listed Storage Volume that you'd like to resize to open the Persistent Volume Claim modal.
+
+<figure><img src="../../.gitbook/assets/image (12).png" alt="Screenshot: Click the pencil icon to the right of the Storage Volume name to edit it"><figcaption><p>Click the pencil icon to the right of the Storage Volume name to edit it</p></figcaption></figure>
+
+From this modal, it is possible to adjust the size and labels of the Volume. Adjust the size under the **size** field, then click the **Save** button to apply your changes.
+
+<figure><img src="../../.gitbook/assets/image (9).png" alt="Screenshot of the storage volume edit module"><figcaption><p>Adjust the volume size</p></figcaption></figure>
