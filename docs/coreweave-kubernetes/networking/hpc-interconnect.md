@@ -55,9 +55,9 @@ By processing data as it traverses the network, NVIDIA Quantum switches eliminat
 
 {% hint style="success" %}
 **Tip**\
-SHARP effectively **doubles** the performance of a compliant InfiniBand network compared to a network with similar specifications without in-network computing such as RDMA over Converged Ethernet (RoCE).
+SHARP effectively **doubles** **the performance** of a compliant InfiniBand network compared to a network with similar specifications without in-network computing such as RDMA over Converged Ethernet (RoCE).
 
-\-> [Read more about SHARP](https://on-demand.gputechconf.com/ai-conference-2019/T6-5\_\_Qingchung%20Song\(Mellanox\)\_Mellanox%20In-Network%20Computing%20for%20AI%20and%20the%20development%20with%20NVIDIA\_Final.pdf).
+[Read more about SHARP](https://on-demand.gputechconf.com/ai-conference-2019/T6-5\_\_Qingchung%20Song\(Mellanox\)\_Mellanox%20In-Network%20Computing%20for%20AI%20and%20the%20development%20with%20NVIDIA\_Final.pdf).
 {% endhint %}
 
 ## Bare Metal Environment
