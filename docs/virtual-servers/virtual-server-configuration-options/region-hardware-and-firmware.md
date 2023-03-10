@@ -245,7 +245,7 @@ You can read more about virtual hardware firmware configuration in [the Kubevirt
 
 ***
 
-![Example of firmware configuration in the YAML manifest tab of the Cloud UI.](<../../.gitbook/assets/image (9) (1) (2).png>)
+![Example of firmware configuration in the YAML manifest tab of the Cloud UI.](<../../.gitbook/assets/image (9) (1) (1).png>)
 {% endtab %}
 
 {% tab title="CLI" %}

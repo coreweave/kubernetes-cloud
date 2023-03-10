@@ -1,67 +1,170 @@
 ---
-description: Label selectors are available for precise placement of workloads
+description: Use advanced label selectors for precise workload scheduling
 ---
 
 # Advanced Label Selectors
 
-Selecting the right hardware for your workload is important. All compute nodes are tagged with a set of labels specifying the hardware type. [Affinity Rules](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity) should be leveraged on workloads to ensure that the desired type of hardware (ie. GPU model) gets assigned to your job.
+Selecting the right hardware for your workloads is key for performance. While the basic node labels as listed in the [Node Types](node-types.md#requesting-compute-in-kubernetes) list are typically all that is needed to include in a Deployment manifest to schedule workloads properly, there are some situations in which more specific designations may be required, such as some instances of [deploying custom containers](../docs/coreweave-kubernetes/custom-containers.md).
+
+On CoreWeave, compute nodes are tagged with [Kubernetes labels](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/), which specify their hardware type. In turn, [Kubernetes affinities](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity) are specified in [workload Deployment manifests](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) to select these labels, ensuring that your workloads are correctly scheduled to the desired hardware type.
 
 {% hint style="info" %}
-The basic node selectors demonstrated in [Node Types](node-types.md#requesting-compute-in-kubernetes) are usually all that is needed to properly schedule workloads. Please [contact support](mailto:%20cloud.support@coreweave.com) for any questions about advanced scheduling or special requirements.
+**Note**
+
+For any questions about advanced scheduling or other special requirements, please [contact support](mailto:%20cloud.support@coreweave.com).
 {% endhint %}
 
-| Label                          | Possible Values                                                                         | Description                                                                                                                                                           |
-| ------------------------------ | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| node.coreweave.cloud/cpu       | ([see list](../resources/resource-based-pricing.md#cpu-only-instance-resource-pricing)) | The CPU family of the CPU in the node                                                                                                                                 |
-| ethernet.coreweave.cloud/speed | 10G, 40G, 100G                                                                          | The uplink speed from the node to the backbone                                                                                                                        |
-| gpu.nvidia.com/count           | 4-8                                                                                     | Number of GPUs provisioned in the node. Using this selector is not recommended as the GPU resource requests are the correct method of selecting GPU count requirement |
-| gpu.nvidia.com/class           | ([see list](node-types.md#gpu-availability))                                            | GPU model provisioned in the node                                                                                                                                     |
-| gpu.nvidia.com/vram            | ([see list](node-types.md#gpu-availability))                                            | GPU VRAM in Gigabytes on the GPUs provisioned in the node                                                                                                             |
-| gpu.nvidia.com/nvlink          | true, false                                                                             | Denotes if GPUs are interconnected with NVLink. Currently applicable only for Tesla\_V100                                                                             |
-| topology.kubernetes.io/region  | ORD1, LAS1, LGA1                                                                        | The region the node is placed in                                                                                                                                      |
+The following labels are attached to nodes on CoreWeave Cloud, and may be selected using affinities in the Deployment manifests, as demonstrated in the following affinity usage examples.
 
-#### Examples
+## CPU model
 
-{% tabs %}
-{% tab title="Schedule in ORD1 only" %}
+| Label                      | Refers to                             | Value options                                                                                 |
+| -------------------------- | ------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `node.coreweave.cloud/cpu` | The CPU family of the CPU on the node | See [CPU-only instances](node-types.md#cpu-availability) for a list of types and their values |
+
+### Affinity usage example
+
 ```yaml
 affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+          - key: node.coreweave.cloud/cpu
+            operator: In
+            values:
+              - amd-epyc-rome
+              - intel-xeon-v4
+```
+
+## GPU count
+
+{% hint style="warning" %}
+**Important**
+
+Using this selector is not recommended. Instead, request GPU resources by setting the GPU count in the Deployment spec; see the guide on deploying [Custom Containers](../docs/coreweave-kubernetes/custom-containers.md#define-the-applications-resources) for examples.
+{% endhint %}
+
+| Label                  | Refers to                              | Value options                            |
+| ---------------------- | -------------------------------------- | ---------------------------------------- |
+| `gpu.nvidia.com/count` | Number of GPUs provisioned in the node | `4` to `8`; must be included as a string |
+
+### Affinity usage example
+
+```yaml
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+          - key: gpu.nvidia.com/count
+            operator: In
+            values:
+              - "3"
+```
+
+## GPU model
+
+| Label                  | Refers to                             | Value options                                                                               |
+| ---------------------- | ------------------------------------- | ------------------------------------------------------------------------------------------- |
+| `gpu.nvidia.com/class` | The GPU model provisioned in the node | See [Node Types](node-types.md#component-availability) for a list of types and their values |
+
+### Affinity usage example
+
+```yaml
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+          - key: gpu.nvidia.com/class
+            operator: In
+            values:
+              - A40
+```
+
+## GPU VRAM
+
+| Label                 | Refers to                                                       | Value options                                                                                      |
+| --------------------- | --------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `gpu.nvidia.com/vram` | The GPU VRAM, in Gigabytes, on the GPUs provisioned in the node | See the **VRAM** column in [the GPU-enabled Node Types list](node-types.md#component-availability) |
+
+### Affinity usage example
+
+```yaml
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+          - key: gpu.nvidia.com/vram
+            operator: In
+            values:
+              - "8"
+```
+
+## Uplink speed
+
+| Label                            | Refers to                              | Value options        |
+| -------------------------------- | -------------------------------------- | -------------------- |
+| `ethernet.coreweave.cloud/speed` | Uplink speed from node to the backbone | `10G`, `40G`, `100G` |
+
+### Affinity usage example
+
+```yaml
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+          - key: ethernet.coreweave.cloud/speed
+            operator: In
+            values:
+              - 40G
+```
+
+## NVLink
+
+{% hint style="warning" %}
+**Important**
+
+This label is currently applicable only for `Tesla_V100` nodes.
+{% endhint %}
+
+| Label                   | Refers to                                                  | Value options   |
+| ----------------------- | ---------------------------------------------------------- | --------------- |
+| `gpu.nvidia.com/nvlink` | Denotes whether or not GPUs are interconnected with NVLink | `true`, `false` |
+
+### Affinity usage example
+
+```yaml
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+          - key: gpu.nvidia.com/nvlink
+            operator: In
+            values:
+              - true
+```
+
+## Data center region
+
+| Label                           | Refers to                        | Value options          |
+| ------------------------------- | -------------------------------- | ---------------------- |
+| `topology.kubernetes.io/region` | The region the node is placed in | `ORD1`, `LAS1`, `LGA1` |
+
+### Affinity usage example
+
+```yaml
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
         - matchExpressions:
           - key: topology.kubernetes.io/region
             operator: In
             values:
               - ORD1
 ```
-{% endtab %}
-
-{% tab title="16 Core Xeon CPU with 10GE " %}
-```yaml
-spec:
-  containers:
-  - name: example
-    resources:
-      limits:
-        cpu: 16
-        memory: 48Gi
-        
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: node.coreweave.cloud/cpu
-            operator: In
-            values:
-              - intel-xeon-v4
-          - key: ethernet.coreweave.cloud/speed
-            operator: In
-            values:
-              - 10G
-```
-{% endtab %}
-{% endtabs %}
-
-####
