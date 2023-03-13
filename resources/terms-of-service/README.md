@@ -17,8 +17,8 @@ The TOS is a binding legal contract; the Customer’s acceptance of it is requir
 There are other contractual documents that apply to the Customer’s use of the CoreWeave Cloud Platform as a Covered Service, and the terms contained in those documents are incorporated in these TOS. The Customer should review these other documents, which can be found by clicking at the links below:
 
 * Data Processing Agreement (DPA), which contains the applicable terms for CoreWeave processing certain types of data on the Customer’s behalf. The Customer is responsible to determine and must alert CoreWeave immediately if the Customer is subject to any Data Protection Laws that require the Customer and CoreWeave to effectuate a DPA.&#x20;
-* Acceptable Use Policy (AUP), which sets out prohibited uses of the CoreWeave Cloud Platform as a Covered Service, and which is effective at the time the Customer creates an Account.&#x20;
-* Privacy Policy, which outlines how CoreWeave may collect, use and/or share Customer Data in connection with performing services.
+* [Acceptable Use Policy](acceptable-use-policy.md) (AUP), which sets out prohibited uses of the CoreWeave Cloud Platform as a Covered Service, and which is effective at the time the Customer creates an Account.&#x20;
+* [Privacy Policy](privacy-policy.md), which outlines how CoreWeave may collect, use and/or share Customer Data in connection with performing services.
 
 ### **Service Level Objectives**
 
@@ -114,7 +114,7 @@ Subject to Customer’s strict compliance with this TOS, CoreWeave grants Custom
 
 ### **Use of Customer Data**
 
-CoreWeave will only access or use or share Customer Data in accordance with its then current Privacy Policy in effect.
+CoreWeave will only access or use or share Customer Data in accordance with its then current [Privacy Policy](privacy-policy.md) in effect.
 
 Subject to this TOS, by providing Customer Data to or via the CoreWeave Cloud Platform, Customer grants CoreWeave a license to host, store, transfer, display, perform, reproduce, modify for the purpose of formatting for display, and distribute Customer Data solely and exclusively for the purpose of providing the CoreWeave services to Customer.
 
@@ -148,7 +148,7 @@ On expiry of the Term of an Order Form or the closing of a Customer account, Cus
 
 ### **Data Security**
 
-Customer should refer to CoreWeave’s Security and Compliance Datasheet for CoreWeave’s data and privacy policies with respect to the CoreWeave Cloud Platform.
+Customer should refer to CoreWeave’s [Security and Compliance Datasheet](security-and-compliance.md) for CoreWeave’s data and privacy policies with respect to the CoreWeave Cloud Platform.
 
 ### **Data Incidents**
 
