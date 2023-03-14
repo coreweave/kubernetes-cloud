@@ -439,6 +439,8 @@ hyperparameters:
   conf_dir: /gpt-neox/configs
   conf_file:
       - determined_cluster.yml
+  overwrite_values:
+    pipe_parallel_size: 4
   wandb_group: null
   wandb_team: null
   user_script: null
