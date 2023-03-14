@@ -10,7 +10,7 @@ description: Manage Storage Volumes using the CoreWeave Cloud UI
 
 ## Create a new Storage Volume
 
-<figure><img src="../../.gitbook/assets/image (39).png" alt=""><figcaption><p>The Storage Volume modal opens when the <strong>New Volume</strong> button is clicked</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (39) (1).png" alt=""><figcaption><p>The Storage Volume modal opens when the <strong>New Volume</strong> button is clicked</p></figcaption></figure>
 
 ### Volume name
 

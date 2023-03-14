@@ -39,15 +39,15 @@ Each tutorial page includes a link to the source code for the provided example. 
 
 ### JAX
 
-|                                                                                                                                 |                                                                                                                             |
-| ------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| [DALL-E Mega](../../training/kubeflow-training-operators/finetune-gpt-neox-20b-with-argo-workflows/jax/jax-dall-e-mini-mega.md) | Use a text prompt as input to generate an image as output using [DALL-E Mega](https://huggingface.co/dalle-mini/dalle-mega) |
+|                                                       |                                                                                                                             |
+| ----------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| [DALL-E Mega](../../training/jax-dall-e-mini-mega.md) | Use a text prompt as input to generate an image as output using [DALL-E Mega](https://huggingface.co/dalle-mini/dalle-mega) |
 
 ### Custom
 
-|                                                                                                                        |                                                                           |
-| ---------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| [BASNET](../../training/kubeflow-training-operators/finetune-gpt-neox-20b-with-argo-workflows/custom/custom-basnet.md) | Deploy an auto-scaling Inference service from a pre-existing Docker image |
+|                                           |                                                                           |
+| ----------------------------------------- | ------------------------------------------------------------------------- |
+| [BASNET](../../training/custom-basnet.md) | Deploy an auto-scaling Inference service from a pre-existing Docker image |
 
 {% hint style="info" %}
 **Note**

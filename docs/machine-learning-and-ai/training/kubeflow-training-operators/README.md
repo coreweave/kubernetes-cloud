@@ -14,7 +14,7 @@ Below you will find a general introduction to distributed training and Kubeflow 
 
 CoreWeave Cloud supports running [Kubeflow Training Operators](https://www.kubeflow.org/docs/components/training/) to easily train your Machine Learning models across a variety of frameworks and backends. The diagram below shows some of the Training Operators that Kubeflow supports - the full list can be found in the [Kubeflow official documentation](https://www.kubeflow.org/docs/components/training/) as well as the [source code](https://github.com/kubeflow/training-operator).
 
-<figure><img src="../../../.gitbook/assets/image (3).png" alt="Kubeflow Training Operators support diagram"><figcaption><p>Kubeflow Training Operators</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1).png" alt="Kubeflow Training Operators support diagram"><figcaption><p>Kubeflow Training Operators</p></figcaption></figure>
 
 It can be confusing at first, so it is important to understand the distinction between the different categories in this chart, and how it impacts the code.
 
@@ -70,8 +70,8 @@ You might see the `launcher` pod fail a couple of times if the `worker` pod is s
 The names of MPIJobs are unique. An old job must be deleted before a new one can be created with the same name.
 {% endhint %}
 
-| Example title                                              | Description                                          |
-| ---------------------------------------------------------- | ---------------------------------------------------- |
-| [ResNet-50](train-resnet-50-with-imagenet.md)              | PyTorchJob and MPIJob to train ResNet-50 on ImageNet |
-| [GPT-NeoX-20B](finetune-gpt-neox-20b-with-argo-workflows/) | Argo Workflow to finetune GPT-NeoX-20B with MPIJob   |
+| Example title                                                 | Description                                          |
+| ------------------------------------------------------------- | ---------------------------------------------------- |
+| [ResNet-50](train-resnet-50-with-imagenet.md)                 | PyTorchJob and MPIJob to train ResNet-50 on ImageNet |
+| [GPT-NeoX-20B](fine-tune-gpt-neox-20b-with-argo-workflows.md) | Argo Workflow to finetune GPT-NeoX-20B with MPIJob   |
 

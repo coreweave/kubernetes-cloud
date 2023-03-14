@@ -6,22 +6,18 @@ description: Build your own images for running machine learning models on Determ
 
 ## Prerequisites
 
-### Install Determined AI
+Before continuing with this guide, [install the Determined AI application](../../../compass/determined-ai/install-determined-ai.md) in your namespace.
 
-Before continuing with the rest of this guide, the Determined AI application must be installed in your namespace.
+## Standard images
 
-<table data-card-size="large" data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td>➡️ <strong>Install Determined AI in your namespace</strong></td><td></td><td></td><td><a href="../#get-started">#get-started</a></td></tr></tbody></table>
-
-### Standard images
-
-Determined AI provides a few useful [standard default base images](https://docs.determined.ai/latest/training/setup-guide/custom-env.html#default-images). It is strongly recommended to use one of these official Determined images as a base image, using the `FROM` instruction in your image's Dockerfile. For example:
+Determined AI provides a few useful [standard default base images](https://docs.determined.ai/latest/training/setup-guide/custom-env.html#default-images). We strongly recommend using one of these official Determined images as a base image, using the `FROM` instruction in your image's Dockerfile. For example:
 
 ```docker
 # Determined Image
 FROM determinedai/environments:cuda-11.3-pytorch-1.10-tf-2.8-gpu-0.19.10
 ```
 
-#### Determined AI default base images
+### Determined AI default base images
 
 | Environment | Image                                                                | Framework      |
 | ----------- | -------------------------------------------------------------------- | -------------- |
@@ -34,20 +30,16 @@ FROM determinedai/environments:cuda-11.3-pytorch-1.10-tf-2.8-gpu-0.19.10
 
 Determined AI warns AGAINST installing TensorFlow, PyTorch, Horovod, or Apex packages, which conflict with Determined-installed packages.
 
-This can cause issues for people looking to build custom models that pin different versions of PyTorch, TensorFlow, Horovod, and so forth. CoreWeave provides a repository and a guide from our efforts to build custom images on the Determined AI platform.
+This can cause issues for people looking to build custom models that pin different versions of PyTorch, TensorFlow, Horovod, and so forth. CoreWeave [provides a repository](https://github.com/coreweave/coreweave\_determined) and a guide based on our experience building custom images on the Determined AI platform.
 
 At this time, the Determined AI team is working on building images for `CUDA==11.8` with the latest PyTorch that supports it using official NVIDIA base images.
 {% endhint %}
 
-{% hint style="info" %}
-**Note**
-
-The below guidelines and repository provide insight into how to go about this process. The build process will vary based on requirements; trial and error may be required to get your custom image to work on the Determined AI platform.
-{% endhint %}
+The guidelines and repository below provide insight about how to go about this process. The build process will vary based on your requirements and trial and error may be required to get your custom image to work on the Determined AI platform.
 
 ### Python dependencies
 
-The Determined AI Python package pins certain version of packages required to run their setup harness and to execute their launcher. All dependencies are listed in [Determined's provided `setup.py` file](https://github.com/determined-ai/determined/blob/master/harness/setup.py).
+The Determined AI Python package pins the package version required to run their setup harness and to execute their launcher. All dependencies are listed in [Determined's provided `setup.py` file](https://github.com/determined-ai/determined/blob/master/harness/setup.py).
 
 {% hint style="warning" %}
 **Important**
@@ -67,11 +59,7 @@ Determined AI uses a fork of the standard [DeepSpeed library](https://www.deepsp
 The example Dockerfiles provided here are compatible with `CUDA==11.7 or CUDA==11.8`.
 {% endhint %}
 
-### PyTorch 1.13 with CUDA 11.7&#x20;
-
-<details>
-
-<summary>Click to expand - PyTorch 1.13 with CUDA 11.7 Dockerfile</summary>
+### PyTorch 1.13 with CUDA 11.7 Dockerfile
 
 ```docker
 FROM ghcr.io/coreweave/nccl-tests:11.7.1-devel-ubuntu20.04-nccl2.14.3-1-45d6ec9
@@ -111,13 +99,7 @@ RUN update-alternatives --install /usr/bin/python3 python /usr/bin/python3.8 2
 RUN echo 2 | update-alternatives --config python
 ```
 
-</details>
-
-### PyTorch 1.13 with CUDA 11.8
-
-<details>
-
-<summary>Click to expand - PyTorch 1.13 with CUDA 11.8 Dockerfile</summary>
+### PyTorch 1.13 with CUDA 11.8 Dockerfile
 
 ```docker
 ARG CUDA_VERSION="11.8.0"
@@ -254,8 +236,6 @@ RUN update-alternatives --install /usr/bin/python3 python /usr/bin/python3.8 2
 RUN echo 2 | update-alternatives --config python
 
 ```
-
-</details>
 
 ## Additional resources
 

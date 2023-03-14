@@ -1,4 +1,4 @@
-# BASNET
+# Object Detection and Background Removal with BASNET
 
 In this tutorial, we'll deploy an auto-scaling Inference service from a pre-existing Docker image.
 
@@ -7,10 +7,10 @@ This can be useful when deploying off-the-shelf models that aren't available as 
 To follow along, clone the manifests from [GitHub](https://github.com/coreweave/kubernetes-cloud/tree/master/online-inference/custom-basnet).
 
 **Input**\
-![input](../../../../../.gitbook/assets/test.png)
+![input](../../.gitbook/assets/test.png)
 
 **Output**\
-![output](../../../../../../online-inference/custom-basnet/client/expected\_output.png)
+![output](../../../online-inference/custom-basnet/client/expected\_output.png)
 
 ## Getting Started
 

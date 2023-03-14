@@ -32,9 +32,9 @@ Our Kubernetes offering differs from most of the other leading cloud providers b
 
 A experiment-oriented MLOps platform featuring hyperparameter search. Determined.AI runs experiments in containers on CoreWeave Kubernetes, abstracting the DevOps portions via a simple CLI and UI. DeterminedAI can be deployed with a single click from the [CoreWeave application Catalog](https://apps.coreweave.com/). DeterminedAI is a great way to run large distributed training jobs with support for most popular frameworks.
 
-### ****:squid: **** [**Argo Workflows**](kubeflow-training-operators/finetuning-machine-learning-models.md)
+### ****:squid: **** [**Argo Workflows**](finetuning-machine-learning-models.md)
 
-Our favorite workflow runner can easily be tasked to train or finetune a model and automatically deploy an [Inference endpoint](kubeflow-training-operators/finetuning-machine-learning-models.md#inference-endpoint) when finished.
+Our favorite workflow runner can easily be tasked to train or finetune a model and automatically deploy an [Inference endpoint](finetuning-machine-learning-models.md#inference-endpoint) when finished.
 
 ### ****:person\_running: **** [**Training Operators**](broken-reference)
 

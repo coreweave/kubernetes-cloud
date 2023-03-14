@@ -1,10 +1,8 @@
 ---
-description: >-
-  Learn how to train or finetune a GPT-NeoX 20B parameter model on CoreWeave
-  Cloud
+description: Learn how to fine-tune a GPT-NeoX 20B parameter model on CoreWeave Cloud
 ---
 
-# Finetune GPT-NeoX 20B using DeterminedAI
+# Fine-tune GPT-NeoX 20B with Determined AI
 
 [GPT-NeoX](https://blog.eleuther.ai/announcing-20b/) is a 20B parameter autoregressive model trained on [the Pile dataset](https://arxiv.org/abs/2101.00027).
 
@@ -27,7 +25,7 @@ This guide will use [the DeterminedAI MLOps platform](https://www.determined.ai/
 
 This guide makes several assumptions:\
 \
-• You have [set up the CoreWeave Kubernetes environment](../../../coreweave-kubernetes/getting-started.md).\
+• You have [set up the CoreWeave Kubernetes environment](../../coreweave-kubernetes/getting-started.md).\
 • You have some experience launching and using [DeterminedAI on CoreWeave Cloud](https://www.determined.ai). (If you have not done so already, it is recommended to [deploy DeterminedAI via the application Catalog](https://apps.coreweave.com/) to familiarize yourself with it).\
 • You have `git` installed on your terminal.
 {% endhint %}
@@ -38,7 +36,7 @@ First, create a **Shared Filesystem storage volume** from [the Storage menu on t
 
 You can use the values shown and described below for this tutorial.
 
-![Create a New Volume on the Storage menu from the Cloud UI](<../../../.gitbook/assets/Screen Shot 2022-07-26 at 4.14.13 PM.png>)
+![Create a New Volume on the Storage menu from the Cloud UI](<../../.gitbook/assets/Screen Shot 2022-07-26 at 4.14.13 PM.png>)
 
 The values used for this demo are as follows:
 
@@ -64,7 +62,7 @@ It is recommended that the name you give this filebrowser application be very sh
 
 Simply select the `finetune-gpt-neox` PVC that you created earlier. **Make sure that you actually add your PVC to the filebrowser list of mounts!**
 
-![The filebrowser application in the Cloud UI application Catalog](<../../../.gitbook/assets/Screen Shot 2022-07-26 at 4.10.34 PM.png>)
+![The filebrowser application in the Cloud UI application Catalog](<../../.gitbook/assets/Screen Shot 2022-07-26 at 4.10.34 PM.png>)
 
 {% hint style="info" %}
 **Note**\
@@ -73,7 +71,7 @@ Installing the filebrowser application is **very helpful** to this process. As a
 
 ### Create an Object Storage bucket
 
-Before installing the Determined AI application, first [create an Object Storage bucket](../../../storage/object-storage.md). Retain the given values for your **access key** and **secret key**, then continue with this guide.
+Before installing the Determined AI application, first [create an Object Storage bucket](../../storage/object-storage.md). Retain the given values for your **access key** and **secret key**, then continue with this guide.
 
 ### Install the Determined application
 
@@ -103,7 +101,7 @@ Before installing the Determined AI application, first [create an Object Storage
 
 Click `+` to attach the `finetune-gpt-neox` volume.
 
-![The attachment configuration screen for the DeterminedAI application](<../../../.gitbook/assets/Screen Shot 2022-07-26 at 4.26.14 PM.png>)
+![The attachment configuration screen for the DeterminedAI application](<../../.gitbook/assets/Screen Shot 2022-07-26 at 4.26.14 PM.png>)
 
 As shown above, for this tutorial we are attaching the `finetune-gpt-neox` volume on the mount path `/mnt/finetune-gpt-neox`.
 
@@ -111,19 +109,19 @@ As shown above, for this tutorial we are attaching the `finetune-gpt-neox` volum
 
 After deploying the DeterminedAI application, a URL to the Web UI will be provided to you. You can use this UI to monitor experiments and check logs.
 
-![The DeterminedAI Web UI](<../../../.gitbook/assets/image (17) (1).png>)
+![The DeterminedAI Web UI](<../../.gitbook/assets/image (17) (1).png>)
 
 As an example, here is what a live experiment looks like when viewed from the Web UI:
 
-![A live experiment running in the DeterminedAI Web UI](<../../../.gitbook/assets/image (20) (3).png>)
+![A live experiment running in the DeterminedAI Web UI](<../../.gitbook/assets/image (20) (1).png>)
 
 Navigating to the **Logs** tab will give you a full output of the experiment's logs:
 
-![Log output from the DeterminedAI Web UI](<../../../.gitbook/assets/image (19) (1).png>)
+![Log output from the DeterminedAI Web UI](<../../.gitbook/assets/image (19) (1).png>)
 
 Navigating to **Overview** will give you access to a metrics visualization of the experiment and checkpoint reference.
 
-![Metrics visualization in the DeterminedAI Web UI](<../../../.gitbook/assets/image (16) (1) (1).png>)
+![Metrics visualization in the DeterminedAI Web UI](<../../.gitbook/assets/image (16) (1).png>)
 
 ## Training
 
@@ -173,11 +171,11 @@ There are [several standard datasets](https://github.com/EleutherAI/gpt-neox/blo
 
 Upload your data as a single JSONL file called `data.jsonl` to filebrowser under `finetune-gpt-neox`:
 
-![](<../../../.gitbook/assets/Screen Shot 2022-08-01 at 5.43.47 PM.png>)
+![](<../../.gitbook/assets/Screen Shot 2022-08-01 at 5.43.47 PM.png>)
 
 Using the filebrowser app, create a new folder called `gpt_finetune` under the `finetune-gpt-neox` folder.
 
-![Creating the gpt\_finetune directory in filebrowser](<../../../.gitbook/assets/image (5) (3) (1) (1).png>)
+![Creating the gpt\_finetune directory in filebrowser](<../../.gitbook/assets/image (5) (3) (1).png>)
 
 You can now pre-tokenize your data using `tools/preprocess_data.py`. The arguments for this utility are listed below.
 
@@ -253,7 +251,7 @@ You will need to add the prefix that both these files share to your training con
 
 You should see the data here similar to below:
 
-![](<../../../.gitbook/assets/Screen Shot 2022-08-02 at 5.54.33 PM.png>)
+![](<../../.gitbook/assets/Screen Shot 2022-08-02 at 5.54.33 PM.png>)
 
 ### Finetuning
 
@@ -488,15 +486,15 @@ The experiment is now launched! You can see the status of your experiment and mo
 
 You should see an "Active" status for your experiment:
 
-![](<../../../.gitbook/assets/Screen Shot 2022-08-01 at 12.44.15 PM.png>)
+![](<../../.gitbook/assets/Screen Shot 2022-08-01 at 12.44.15 PM.png>)
 
 You can visualize and monitor logs:
 
-![](<../../../.gitbook/assets/Screen Shot 2022-08-01 at 12.46.41 PM.png>)
+![](<../../.gitbook/assets/Screen Shot 2022-08-01 at 12.46.41 PM.png>)
 
 Once training is completed, you will have access to the checkpoint in your S3 bucket for downstream tasks such as inference, transfer learning or model ensembles.
 
-![](<../../../.gitbook/assets/Screen Shot 2022-08-02 at 5.47.43 PM.png>)
+![](<../../.gitbook/assets/Screen Shot 2022-08-02 at 5.47.43 PM.png>)
 
 ### **(Optional) Wandb.ai visualization of training graphs**
 

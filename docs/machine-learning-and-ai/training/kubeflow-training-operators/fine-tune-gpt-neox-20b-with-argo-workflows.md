@@ -4,7 +4,7 @@ description: >-
   finetuning of GPT-NeoX-20B.
 ---
 
-# Finetune GPT-NeoX-20B with Argo Workflows
+# Fine-tune GPT-NeoX-20B with Argo Workflows
 
 Similarly to the [Finetuning Machine Learning Models](../finetuning-machine-learning-models.md) tutorial, the following walkthrough provides an example of using Argo Workflows to finetune a smaller model (GPT-J) on a smaller dataset. If you are new to finetuning and Argo Workflows, this is a great place to start.
 
@@ -37,7 +37,7 @@ The Argo workflow for finetuning is defined in the `04-finetune-workflow.yaml` f
 * [the directed-acyclic graph (DAG) definition](https://argoproj.github.io/argo-workflows/walk-through/dag/#dag),
 * and the step definitions.
 
-<figure><img src="../../../../.gitbook/assets/image (3) (5).png" alt="Visualization of the DAG defined by the Argo workflow"><figcaption><p>Visualization of the DAG defined by the Argo workflow</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (3) (1) (3).png" alt="Visualization of the DAG defined by the Argo workflow"><figcaption><p>Visualization of the DAG defined by the Argo workflow</p></figcaption></figure>
 
 ### Parameters
 
@@ -97,7 +97,7 @@ As is shown in this example, the `rdma/ib` resource requests that Remote Direct 
 
 Requesting this resource offers a big boost to distributed training performance, however it is currently **only available for A100 and H100 GPU node types on CoreWeave Cloud.**
 
-<table data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td>➡️ <strong>Learn more about InfiniBand on CoreWeave Cloud</strong></td><td></td><td></td><td><a href="../../../../coreweave-kubernetes/networking/hpc-interconnect.md">hpc-interconnect.md</a></td></tr></tbody></table>
+<table data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td>➡️ <strong>Learn more about InfiniBand on CoreWeave Cloud</strong></td><td></td><td></td><td><a href="../../../coreweave-kubernetes/networking/hpc-interconnect.md">hpc-interconnect.md</a></td></tr></tbody></table>
 
 ## Setup
 
@@ -106,12 +106,12 @@ Before running the Workflow, a few things need to be created in your namespace.&
 {% hint style="info" %}
 **Note**
 
-This guide assumes that you have already followed the process to set up the CoreWeave Kubernetes environment. If you have not done so already, [follow our Getting Started guide](../../../../coreweave-kubernetes/getting-started.md) before proceeding with this guide.
+This guide assumes that you have already followed the process to set up the CoreWeave Kubernetes environment. If you have not done so already, [follow our Getting Started guide](../../../coreweave-kubernetes/getting-started.md) before proceeding with this guide.
 {% endhint %}
 
 ### Argo Workflows
 
-To run an Argo workflow, first deploy the Argo Workflows application in your namespace via the CoreWeave's [application Catalog](../../../../coreweave-kubernetes/serverless/applications-catalog.md).
+To run an Argo workflow, first deploy the Argo Workflows application in your namespace via the CoreWeave's [application Catalog](../../../coreweave-kubernetes/serverless/applications-catalog.md).
 
 {% hint style="info" %}
 **Additional Information**
@@ -130,7 +130,7 @@ kubectl apply -f 01-pvc.yaml
 {% hint style="info" %}
 **Optional**
 
-You can deploy [a FileBrowser application](../../../../storage/filebrowser.md) attaching the newly created PVCs to be able to inspect their contents in your browser.
+You can deploy [a FileBrowser application](../../../storage/filebrowser.md) attaching the newly created PVCs to be able to inspect their contents in your browser.
 {% endhint %}
 
 ### Finetune role
@@ -189,7 +189,7 @@ Once the Workflow is submitted, its progress may be monitored from the Argo Work
 
 Pod logs may be acquired via CLI using `kubectl logs <pod name>`, or by clicking on the relevant stage in the Argo Workflows Web UI.
 
-<figure><img src="../../../../.gitbook/assets/image (2) (1).png" alt=""><figcaption><p>Argo Workflow right after submission</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (7).png" alt=""><figcaption><p>Argo Workflow right after submission</p></figcaption></figure>
 
 The logs from the finetuning training script are available from the launcher Pod. They can be accessed via `kubectl`:
 

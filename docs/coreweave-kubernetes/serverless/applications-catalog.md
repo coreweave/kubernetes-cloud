@@ -12,7 +12,7 @@ The [CoreWeave Cloud applications Catalog](https://apps.coreweave.com) offers ma
 
 To access the Catalog, first log in to your CoreWeave Cloud account, then navigate to the **Applications** page on the left-hand menu.
 
-<figure><img src="../../.gitbook/assets/image (10) (2) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (10) (2) (2).png" alt=""><figcaption></figcaption></figure>
 
 ## Find applications
 
@@ -20,13 +20,13 @@ The **Applications** tab at the top will display all applications you've deploye
 
 From here, you can either search for an application by directly entering its name in the search bar, or you can filter by application type by clicking the filter boxes on the left-hand side.
 
-<figure><img src="../../.gitbook/assets/image (19).png" alt="Screenshot: The filter boxes can be used to search by application type, or a specific application may be searched for using the search bar"><figcaption><p>The filter boxes can be used to search by application type, or a specific application may be searched for using the search bar</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (19) (2).png" alt="Screenshot: The filter boxes can be used to search by application type, or a specific application may be searched for using the search bar"><figcaption><p>The filter boxes can be used to search by application type, or a specific application may be searched for using the search bar</p></figcaption></figure>
 
 ## Deploy applications
 
 ### About page
 
-<figure><img src="../../.gitbook/assets/image (21) (3).png" alt="Screenshot of application preview page"><figcaption><p>Application package information will be displayed on the left-hand side</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (21) (2).png" alt="Screenshot of application preview page"><figcaption><p>Application package information will be displayed on the left-hand side</p></figcaption></figure>
 
 After clicking on the application you'd like to deploy, you'll be brought to the application's **about page**, where you can learn all about the application. From this page, you can also select the application's **Package Version** from the upper right-hand corner of the screen. Additional summary information will be included on the left-hand side of the screen.
 

@@ -2,7 +2,7 @@
 description: Deploy DALL-E Mini for scalable inference on CoreWeave Cloud
 ---
 
-# DALL-E Mega
+# Scalable Inference with DALL-E Mega
 
 The [DALL-E Mini and Mega](https://huggingface.co/dalle-mini/dalle-mega) models take a text prompt as input, then generate an image as output.
 
@@ -10,7 +10,7 @@ The following example includes code to accept text inputs to generate an image, 
 
 The end result is a HTTP API that can be used to generate images from text input in a concurrent and highly scalable fashion.
 
-![Generated image of a grassy field with a single tree on a hill](../../../../../.gitbook/assets/tree.png)
+![Generated image of a grassy field with a single tree on a hill](../../.gitbook/assets/tree.png)
 
 **View the example code on GitHub:**
 
@@ -33,7 +33,7 @@ The following tools must be installed and configured prior to running the exampl
 
 We require two images:
 
-1. **The Downloader image.** This will download the model to a [shared storage volume](../../../../../storage/storage/), the individual inference Pods will load the model from this storage instead of downloading it over internet every time they scale up.&#x20;
+1. **The Downloader image.** This will download the model to a [shared storage volume](../../storage/storage/), the individual inference Pods will load the model from this storage instead of downloading it over internet every time they scale up.&#x20;
 2. **The Model Image.** This is what will run DALL-E Mega.
 
 {% hint style="warning" %}
@@ -81,8 +81,8 @@ This example assumes a public docker registry. To use a private registry, an [im
 **Note**\
 Before continuing, you may either point the `image:` in the following manifests to the image we just built in the previous steps, or you may use the publicly-available image found in the following manifests:
 
-* ``[`01-model-download-job.yaml`](../../../../../../online-inference/dalle-mini/01-model-download-job.yaml)``
-* ``[`02-inference-service.yaml`](../../../../../../online-inference/dalle-mini/02-inference-service.yaml)``
+* ``[`01-model-download-job.yaml`](../../../online-inference/dalle-mini/01-model-download-job.yaml)``
+* ``[`02-inference-service.yaml`](../../../online-inference/dalle-mini/02-inference-service.yaml)``
 {% endhint %}
 
 To create a PVC in which to store the model, run the following command from the `kubernetes-cloud/online-inference/dalle-mini` directory:
@@ -146,7 +146,7 @@ curl http://dalle-mega.tenant-my-namespace.knative.chi.coreweave.com/v1/models/d
 
 
 
-![Generated image of a photorealistic galaxy](../../../../../.gitbook/assets/galaxy.png)
+![Generated image of a photorealistic galaxy](../../.gitbook/assets/galaxy.png)
 
 The following parameters are supported:
 
@@ -163,7 +163,7 @@ You can modify the model parameters by invoking `curl` as follows:
 curl http://dalle-mega.tenant-my-namespace.knative.chi.coreweave.com/v1/models/dalle-mega:predict -d '{"prompt": "Photorealistic galaxy", "parameters": {"top_k": 100, "top_p": 2.0, "temperature": 1.5, "condition_scale": 15.0}}' --output prediction.png && open prediction.png
 ```
 
-![Generated image of a photorealistic galaxy](../../../../../.gitbook/assets/galaxy2.png)
+![Generated image of a photorealistic galaxy](../../.gitbook/assets/galaxy2.png)
 
 ### Hardware and Performance
 

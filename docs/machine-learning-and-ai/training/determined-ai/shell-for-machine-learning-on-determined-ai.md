@@ -16,7 +16,7 @@ For more information, refer to the official Determined AI documentation regardin
 
 ## Setup
 
-Before continuing with the rest of this guide, first [install and configure the Determined AI application via the Cloud UI](gpt-neox.md#install-the-determined-application) into your namespace.
+Before continuing with the rest of this guide, first [install and configure the Determined AI application via the Cloud UI](../../../compass/determined-ai/gpt-neox.md#install-the-determined-application) into your namespace.
 
 Next, create a Python virtual environment using a tool such as `venv` or `virtualenv` on your local environment. Then, install the Determined AI CLI tool using `pip`:
 

@@ -1,8 +1,8 @@
 # Hugging Face
 
-<figure><img src="../../../../../.gitbook/assets/image (42).png" alt="The Hugging Face logo"><figcaption></figcaption></figure>
+<figure><img src="../../../../../.gitbook/assets/image (42) (2).png" alt="The Hugging Face logo"><figcaption></figcaption></figure>
 
-[Hugging Face](https://huggingface.co/) provides open source, state-of-the-art Machine Learning resources for [JAX](../../../../training/kubeflow-training-operators/finetune-gpt-neox-20b-with-argo-workflows/jax/), [PyTorch](../) and [TensorFlow](../../tensorflow/), via projects such as [Diffusers](https://github.com/huggingface/diffusers) and [Transformers](https://github.com/huggingface/transformers).
+[Hugging Face](https://huggingface.co/) provides open source, state-of-the-art Machine Learning resources for [JAX](broken-reference), [PyTorch](../) and [TensorFlow](../../tensorflow/), via projects such as [Diffusers](https://github.com/huggingface/diffusers) and [Transformers](https://github.com/huggingface/transformers).
 
 Diffusers provides pre-trained diffusion models that act as a modular toolbox for inference and training of diffusion models that can be applied across audio and visuals, while Transformers provides thousands of pre-trained models to perform tasks on text, visuals, and audio.
 

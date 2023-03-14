@@ -222,7 +222,7 @@ To expose the same storage over NFS, search for the NFS application in the appli
 One major difference between an NFS deployment and a Samba deployment on CoreWeave is that the one-click NFS solution **does not include any authentication.** For added security, consider integrating with Active Directory directly, or use network policies to ensure access to the NFS service is only accessible to the correct endpoints.
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/image (27) (2).png" alt="The NFS configuration screen"><figcaption><p>The NFS configuration screen</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (27) (1).png" alt="The NFS configuration screen"><figcaption><p>The NFS configuration screen</p></figcaption></figure>
 
 First, give the NFS volume a name. Then, select the same data region into which the storage volume was provisioned earlier.
 
@@ -240,7 +240,7 @@ A final option for accessing your Cloud storage remotely is by using the FileBro
 
 To install FileBrowser, first navigate to the applications Catalog, then search for **filebrowser**.
 
-<figure><img src="../.gitbook/assets/image (24) (1) (1).png" alt=""><figcaption><p>The filebrowser application</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (24) (1).png" alt=""><figcaption><p>The filebrowser application</p></figcaption></figure>
 
 Navigate to the application Catalog through the CoreWeave Cloud UI, then search for `filebrowser`.  Select the application, then click the **Deploy** button in the lower right-hand corne
 
@@ -248,7 +248,7 @@ Under **Node Selection**, select the same data center region into which the stor
 
 Under the "Attach existing volumes to your FileBrowser" list, highlight the associated storage volume, then click the blue plus sign to the right of its name.
 
-<figure><img src="../.gitbook/assets/image (21) (2).png" alt=""><figcaption><p>The FileBrowser configuration screen, including a list of "Available Volumes"</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (21).png" alt=""><figcaption><p>The FileBrowser configuration screen, including a list of "Available Volumes"</p></figcaption></figure>
 
 Configure how you'd like the Volume to appear once mounted, then click the **Deploy** button.
 
@@ -278,11 +278,11 @@ After the first login, it is strongly recommended to change the password of your
 
 Once you have a working Media Shuttle license, locate your Media Shuttle registration key by opening Media Shuttle. Click "Add" beside Storage.
 
-<figure><img src="../.gitbook/assets/image (48) (2).png" alt="Screenshot of the &#x22;Add&#x22; link located on the Media Shuttle menu"><figcaption><p>The "Add" link located on the Media Shuttle menu</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (48) (1).png" alt="Screenshot of the &#x22;Add&#x22; link located on the Media Shuttle menu"><figcaption><p>The "Add" link located on the Media Shuttle menu</p></figcaption></figure>
 
 Then, select the checkbox to agree to the license agreement terms.
 
-<figure><img src="../.gitbook/assets/image (39) (2).png" alt="Screenshot of the license agreement checkbox in Media Shuttle"><figcaption><p>License agreement checkbox</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (39) (1) (1).png" alt="Screenshot of the license agreement checkbox in Media Shuttle"><figcaption><p>License agreement checkbox</p></figcaption></figure>
 
 Once you have completed the wizard, the storage server registration key will be presented to you. Retain this for the next few setup steps.
 
