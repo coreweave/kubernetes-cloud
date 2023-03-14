@@ -145,7 +145,7 @@ kubectl apply -f 02-finetune-role.yaml
 
 ### Weights and Biases secret
 
-If you would like to take advantage of Weights and Biases logging during finetuning, create a Secret that contains your WandB account key. To do this, first [acquire your key from Weights and Biases](https://wandb.ai/authorize) and encode it using base64.
+If you would like to take advantage of Weights and Biases logging during fine-tuning, create a Secret that contains your WandB account key. To do this, first [acquire your key from Weights and Biases](https://wandb.ai/authorize) and encode it using base64.
 
 ```bash
 $ echo -n "example-wanbd-key" | base64
@@ -200,7 +200,7 @@ kubectl logs finetune-gpt-neox-n6mnd-mpijob-launcher-xz98s
 {% hint style="info" %}
 **Note**
 
-Once complete, the finetuned model checkpoint will be saved in the `neox-checkpoints` PVC. The path is defined as a workflow parameter and defaults to `pvc://neox-checkpoints/20B_finetuned_checkpoint`.
+Once complete, the fine-tuned model checkpoint will be saved in the `neox-checkpoints` PVC. The path is defined as a workflow parameter and defaults to `pvc://neox-checkpoints/20B_finetuned_checkpoint`.
 {% endhint %}
 
 ### Debugging

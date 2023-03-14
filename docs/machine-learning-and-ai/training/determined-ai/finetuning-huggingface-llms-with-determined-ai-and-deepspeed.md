@@ -28,13 +28,13 @@ Demo source code
 This guide makes several assumptions:\
 \
 • You have [set up the CoreWeave Kubernetes environment](../../../coreweave-kubernetes/getting-started.md).\
-• You have some experience launching and using [DeterminedAI on CoreWeave Cloud](https://www.determined.ai). (If you have not done so already, it is recommended to deploy DeterminedAI via the application Catalog to familiarize yourself with it).\
+• You have some experience launching and using [Determined AI on CoreWeave Cloud](https://www.determined.ai). (If you have not done so already, it is recommended to deploy Determined AI via the application Catalog to familiarize yourself with it).\
 • You have `git` installed on your terminal.
 {% endhint %}
 
 ### Create a Shared Filesystem storage volume
 
-First, create a **Shared Filesystem storage volume** from the **Storage** menu in the [CoreWeave Cloud UI](https://cloud.coreweave.com/storage?\_gl=1\*11x43xa\*\_ga\*MTY1MjQxMzI1Mi4xNjY4NDQwMTM1\*\_ga\_XKNHS53VYL\*MTY3MTAzMzkwMi41NC4xLjE2NzEwMzU2NjEuMC4wLjA.). This volume will be used to store the model and training data for finetuning. Shared storage volumes may be accessed by many nodes at once in CoreWeave, allowing for a massive amount of compute power to access the same dataset.
+First, create a **Shared Filesystem storage volume** from the **Storage** menu in the [CoreWeave Cloud UI](https://cloud.coreweave.com/storage?\_gl=1\*11x43xa\*\_ga\*MTY1MjQxMzI1Mi4xNjY4NDQwMTM1\*\_ga\_XKNHS53VYL\*MTY3MTAzMzkwMi41NC4xLjE2NzEwMzU2NjEuMC4wLjA.). This volume will be used to store the model and training data for fine-tuning. Shared storage volumes may be accessed by many nodes at once in CoreWeave, allowing for a massive amount of compute power to access the same dataset.
 
 If you're following along with this demo, you can use the values shown and described below.
 
@@ -99,7 +99,7 @@ Installing the filebrowser application is **very helpful** to this process. As a
 
 Click `+` to attach the `finetune-opt-125m` volume.
 
-<figure><img src="../../../.gitbook/assets/image (28) (1) (2).png" alt=""><figcaption><p>The attachment configuration screen for the DeterminedAI application</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (28) (1) (2).png" alt=""><figcaption><p>The attachment configuration screen for the Determined AI application</p></figcaption></figure>
 
 As shown above, for this tutorial we are attaching the `finetune-opt-125m` volume on the mount path `/mnt/finetune-opt-125m`.
 
@@ -119,7 +119,7 @@ HuggingFace has [many datasets available](https://huggingface.co/datasets) for t
 The rest of the tutorial will reference files in the `examples/deepspeed/huggingface` folder in the [`coreweave/determined_coreweave`](https://github.com/coreweave/coreweave\_determined) repository.
 {% endhint %}
 
-The `prepare_lm_data.py` script will preprocess the dataset so it is ready to be used with finetuning. There are two important transformations that the script performs:
+The `prepare_lm_data.py` script will preprocess the dataset so it is ready to be used with fine-tuning. There are two important transformations that the script performs:
 
 1. Tokenizes the data
 2. Generate chunks of a configurable max length
@@ -238,6 +238,8 @@ In total, there are three stages, each of which adds another level of paralleliz
 | **Stage 2**  | The gradients are partitioned across all devices      |
 | **Stage 3**  | The model weights are partitioned across all devices  |
 
+
+
 <figure><img src="../../../.gitbook/assets/image (18).png" alt="Graph from the ZeRO paper showing the memory efficiency from different optimization stages."><figcaption><p>Graph from the <a href="https://arxiv.org/abs/1910.02054v3">ZeRO paper</a> showing the memory efficiency from different optimization stages.</p></figcaption></figure>
 
 ### The experiment config
@@ -274,19 +276,19 @@ The hyperparameters that are used in these experiments are described below.
 | `deepspeed_config_file`         | Name of the DeepSpeed JSON config file                                                                                                |
 | `overwrite_deepspeed_args`      | Values that will override the matching values in the DeepSpeed config - useful when doing hyperparameter searches on DeepSpeed values |
 
-All of the values used for these variables are selected based on choosing to finetune OPT-125M. However, you'll see in the experiment YAML files that in this demo, we are overriding the defualt DeepSpeed value for `train_micro_batch_size_per_gpu`. This value should be tuned based on the choice of your model, the kind of data being used, and the GPU that will be used.
+All of the values used for these variables are selected based on choosing to finetune OPT-125M. However, you'll see in the experiment YAML files that in this demo, we are overriding the default DeepSpeed value for `train_micro_batch_size_per_gpu`. This value should be tuned based on the choice of your model, the kind of data being used, and the GPU that will be used.
 
 `train_micro_batch_size_per_gpu` is the number of samples that will be given to each GPU during training. The full batch size can be calculated by `train_micor_batch_size_per_gpu * num_gpus`. A value set too low will underutilize the GPUs, but a value set too high will use too much memory. A value of `16` will make good use of the A40s used in this example without using too much memory.
 
 {% hint style="info" %}
 **Note**
 
-DeterminedAI has their own [Introduction to Distributed Training page](https://docs.determined.ai/latest/training/dtrain-introduction.html) that will give you a further explanation of their system.&#x20;
+Determined AI has their own [Introduction to Distributed Training page](https://docs.determined.ai/latest/training/dtrain-introduction.html) that will give you a further explanation of their system.&#x20;
 {% endhint %}
 
-## Run finetuning experiments
+## Run fine-tuning experiments
 
-Everything is now ready for training! In these next steps, two finetuning experiments will be run on Determined, then inspected via the Web UI.
+Everything is now ready for training! In these next steps, two fine-tuning experiments will be run on Determined, then inspected via the Web UI.
 
 ### Single trial experiment
 
