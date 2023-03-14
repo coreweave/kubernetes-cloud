@@ -34,7 +34,7 @@ A experiment-oriented MLOps platform featuring hyperparameter search. Determined
 
 ### ****:squid: **** [**Argo Workflows**](finetuning-machine-learning-models.md)
 
-Our favorite workflow runner can easily be tasked to train or finetune a model and automatically deploy an [Inference endpoint](finetuning-machine-learning-models.md#inference-endpoint) when finished.
+Our favorite workflow runner can easily be tasked to train or fine-tune a model and automatically deploy an [Inference endpoint](finetuning-machine-learning-models.md#inference-endpoint) when finished.
 
 ### ****:person\_running: **** [**Training Operators**](broken-reference)
 

@@ -473,7 +473,7 @@ entrypoint:
 {% hint style="info" %}
 **Note**
 
-Many of the parameters in the above configuration can be changed, such as `batches`, and `slots_per_trail.` We use default values of `100` batches to finetune on with `50` batches before validation or early stopping, and `96 A40 GPUs` .
+Many of the parameters in the above configuration can be changed, such as `batches`, and `slots_per_trail.` We use default values of `100` batches to fine-tune on with `50` batches before validation or early stopping, and `96 A40 GPUs` .
 {% endhint %}
 
 Run the following command to launch the experiment:

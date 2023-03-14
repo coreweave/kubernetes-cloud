@@ -4,11 +4,11 @@ description: Fine-tune and train Stable Diffusion models using Argo Workflows
 
 # Fine-tune Stable Diffusion Models with CoreWeave
 
-Finetuning and training Stable Diffusion can be computationally expensive. CoreWeave Cloud allows for the training of Stable Diffusion models using on-demand compute resources along with the infrastructure to support it. While this demo barely scratches the surface of finetuning, the following example is a good place to get started.
+Fine-tuning and training Stable Diffusion can be computationally expensive. CoreWeave Cloud allows for the training of Stable Diffusion models using on-demand compute resources along with the infrastructure to support it. While this demo barely scratches the surface of fine-tuning, the following example is a good place to get started.
 
-This guide is intended to be a reference example of [how to use Argo Workflows](broken-reference) to set up a pipeline on CoreWeave for finetuning and training Stable Diffusion models. While the following barely scratches the surface of finetuning, it should be enough to get you started.
+This guide is intended to be a reference example of [how to use Argo Workflows](broken-reference) to set up a pipeline on CoreWeave for fine-tuning and training Stable Diffusion models. While the following barely scratches the surface of fine-tuning, it should be enough to get you started.
 
-The reference example uses the [Hugging Face Diffusers](https://github.com/huggingface/diffusers/) library for finetuning and saving Stable Diffusion models.
+The reference example uses the [Hugging Face Diffusers](https://github.com/huggingface/diffusers/) library for fine-tuning and saving Stable Diffusion models.
 
 {% hint style="info" %}
 **Note**
@@ -26,7 +26,7 @@ Presently, the reference example uses the following container configuration to t
 
 The above configuration has been found to be optimal for training Stable Diffusion models. However, you can use any configuration you wish, as long as it meets the minimum requirements for training Stable Diffusion models. The above configuration is billed at $1.52 per hour through CoreWeave's [resource based pricing](../../../resources/resource-based-pricing.md) model.
 
-There is an optional test [Inference endpoint](../inference/examples/pytorch/hugging-face/pytorch-hugging-face-diffusers-stable-diffusion-text-to-image.md) that can be enabled and deployed automatically when the model completes finetuning. This Inference container defaults to the following configuration:
+There is an optional test [Inference endpoint](../inference/examples/pytorch/hugging-face/pytorch-hugging-face-diffusers-stable-diffusion-text-to-image.md) that can be enabled and deployed automatically when the model completes fine-tuning. This Inference container defaults to the following configuration:
 
 * 4 vCPU
 * 8GB RAM
@@ -56,7 +56,7 @@ You can deploy Argo Workflows using the [Application Catalog](https://apps.corew
 
 Create a `ReadWriteMany` PVC storage volume from the [Storage](broken-reference) menu.
 
-`1TB` to `2TB` is recommended for training Stable Diffusion models, depending on the size of the dataset and how many finetunes you wish to run. These PVCs can be shared between multiple finetune runs. We recommend using HDD type storage, as the finetuner does not require high random I/O performance.
+`1TB` to `2TB` is recommended for training Stable Diffusion models, depending on the size of the dataset and how many fine-tunes you wish to run. These PVCs can be shared between multiple fine-tune runs. We recommend using HDD type storage, as the fine-tuner does not require high random I/O performance.
 
 <figure><img src="../../.gitbook/assets/pvc.png" alt=""><figcaption><p>Configuring a PVC storage volume from the Cloud UI</p></figcaption></figure>
 
@@ -170,14 +170,14 @@ To follow along, pull the latest version of [the demo code](https://github.com/c
 
 This repository includes the following files:
 
-| Filename                        | Description                                                                                                |
-| ------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| `sd-finetune-workflow.yaml`     | The Argo Workflow itself                                                                                   |
-| `inference-role.yaml`           | The inference role you configured earlier in this demo                                                     |
-| `sd-finetune-pvc.yaml`          | A model storage volume, as described earlier in this demo                                                  |
-| `sd-finetuner/Dockerfile`       | A Dockerfile that can be used to build your own finetuner image, should you modify the `finetuner.py` code |
-| `sd-finetuner/finetuner.py`     | The simple reference example for finetuning Stable Diffusion                                               |
-| `sd-finetuner/requirements.txt` | The Python requirements which list the dependencies for the finetuner                                      |
+| Filename                        | Description                                                                                                 |
+| ------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `sd-finetune-workflow.yaml`     | The Argo Workflow itself                                                                                    |
+| `inference-role.yaml`           | The inference role you configured earlier in this demo                                                      |
+| `sd-finetune-pvc.yaml`          | A model storage volume, as described earlier in this demo                                                   |
+| `sd-finetuner/Dockerfile`       | A Dockerfile that can be used to build your own fine-tuner image, should you modify the `finetuner.py` code |
+| `sd-finetuner/finetuner.py`     | The simple reference example for fine-tuning Stable Diffusion                                               |
+| `sd-finetuner/requirements.txt` | The Python requirements which list the dependencies for the fine-tuner                                      |
 
 For reference, a copy of the `sd-finetune-workflow.yaml` is featured at the bottom of this document, but the GitHub repository has the authoritative version.
 
@@ -205,11 +205,11 @@ The parameters included in the above are:
 | Parameter Name               | Description                                                                                                                                                                                                                                                                              |
 | ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `run_name`                   | It is strongly recommended that the value of this parameter be unique, as it is what is used to name the `InferenceService` and for tracking the finetune through [WandB](https://wandb.ai/). Consequently, the `run_name` must meet DNS standards. Keep this parameter short in length. |
-| `model`                      | This example uses a Hugging Face model identifier to pull down Stable Diffusion 1.5 for finetuning. This model will be cached on subsequent runs on your PVC, under `models`.                                                                                                            |
+| `model`                      | This example uses a Hugging Face model identifier to pull down Stable Diffusion 1.5 for fine-tuning. This model will be cached on subsequent runs on your PVC, under `models`.                                                                                                           |
 | `dataset`                    | The name of the directory on the PVC.                                                                                                                                                                                                                                                    |
 | `hf_token`                   | Your Hugging Face token for pulling private models, such as Stable Diffusion 1.5                                                                                                                                                                                                         |
 | `wandb_api_key`              | Your [WandB token](https://wandb.ai/authorize) for tracking the finetune run.                                                                                                                                                                                                            |
-| `run_inference`              | This parameter explicitly tells the Workflow that we want to run a test inference service when this exercise is done. It is not intended to be a production service, but to provide an end-to-end demonstration, allowing you to test the finetuned model.                               |
+| `run_inference`              | This parameter explicitly tells the Workflow that we want to run a test inference service when this exercise is done. It is not intended to be a production service, but to provide an end-to-end demonstration, allowing you to test the fine-tuned model.                              |
 | `--serviceaccount inference` | Required for `run_inference` to work correctly.                                                                                                                                                                                                                                          |
 
 {% hint style="info" %}
@@ -403,7 +403,7 @@ sd-finetune-fhhwt-640945044: wandb: Synced 5 W&B file(s), 0 media file(s), 0 art
 sd-finetune-fhhwt-640945044: wandb: Find logs at: /tmp/wandb/run-20221208_220645-5ehjolmm/logs
 ```
 
-During finetuning, the time elapsed is displayed, alongside the expected time to complete. Checkpointing and loss reporting is also reported within the logs as well as WandB.
+During fine-tuning, the time elapsed is displayed, alongside the expected time to complete. Checkpointing and loss reporting is also reported within the logs as well as WandB.
 
 {% hint style="info" %}
 **Note**
@@ -415,11 +415,11 @@ You can instantly watch a submitted workflow by using the `--watch` option when 
 
 #### WandB Logging
 
-Logs for the finetuning workflow can be tracked and visualized using [Weights & Biases (WandB)](https://wandb.ai/). To use WandB, pass your WandB API key into the workflow's `wandb_api_key` parameter using `-p wand_api_key=<Add your WandB key here>`
+Logs for the fine-tuning workflow can be tracked and visualized using [Weights & Biases (WandB)](https://wandb.ai/). To use WandB, pass your WandB API key into the workflow's `wandb_api_key` parameter using `-p wand_api_key=<Add your WandB key here>`
 
-<figure><img src="../../.gitbook/assets/UsbKtmS.png" alt=""><figcaption><p>Generated samples during finetuning</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/UsbKtmS.png" alt=""><figcaption><p>Generated samples during fine-tuning</p></figcaption></figure>
 
-The Media tab is where you can see images being generated during the finetuning process for every `image_log_steps` amount of steps. This can also be adjusted depending on how often you want to sample from the model during finetuning.&#x20;
+The Media tab is where you can see images being generated during the fine-tuning process for every `image_log_steps` amount of steps. This can also be adjusted depending on how often you want to sample from the model during fine-tuning.&#x20;
 
 <figure><img src="../../.gitbook/assets/eP1wSTg.png" alt=""><figcaption><p>Performance metrics</p></figcaption></figure>
 
@@ -427,11 +427,11 @@ In the performance tab you will see how fast the GPU is performing in a metric o
 
 <figure><img src="../../.gitbook/assets/i0oCpjf (2).png" alt=""><figcaption><p>Finetuning metrics</p></figcaption></figure>
 
-For the training tab, a multitude of finetuning metrics are recorded which indicates whether or not the workflow is making progress by reducing loss over time. These metrics can be very useful in determining whether or not the model has reached convergence.
+For the training tab, a multitude of fine-tuning metrics are recorded which indicates whether or not the workflow is making progress by reducing loss over time. These metrics can be very useful in determining whether or not the model has reached convergence.
 
 #### Web UI
 
-You can access your Argo Workflow application via HTTPS to see all the finetuner jobs, and to check their statuses.
+You can access your Argo Workflow application via HTTPS to see all the fine-tuner jobs, and to check their statuses.
 
 <figure><img src="../../.gitbook/assets/webui.png" alt=""><figcaption><p>Argo Workflow Web UI</p></figcaption></figure>
 
@@ -446,10 +446,10 @@ The following section outlines some useful workflow parameters. This is not inte
 | `region`                 | The region to run the Argo jobs in. Generally, this should be ORD1.                                                                                                   | `ORD1`                           |
 | `dataset`                | The path to the dataset inside of the PVC.                                                                                                                            | `dataset`                        |
 | `model`                  | The Hugging Face model identifier to pull the Stable Diffusion model from.                                                                                            | `runwayml/stable-diffusion-v1-5` |
-| `epochs`                 | The amount of times the finetuner will run through the entire dataset.                                                                                                | `10`                             |
+| `epochs`                 | The amount of times the fine-tuner will run through the entire dataset.                                                                                               | `10`                             |
 | `batch_size`             | The amount of batches to use in a single optimization step.                                                                                                           | `1`                              |
-| `use_ema`                | Whether or not to use EMA during finetuning.                                                                                                                          | `False`                          |
-| `ucg`                    | The probability to drop the text condition during finetuning. This helps Classifier-Free Guidance.                                                                    | `0.1`                            |
+| `use_ema`                | Whether or not to use EMA during fine-tuning.                                                                                                                         | `False`                          |
+| `ucg`                    | The probability to drop the text condition during fine--tuning. This helps Classifier-Free Guidance.                                                                  | `0.1`                            |
 | `gradient_checkpointing` | Whether or not to perform gradient checkpointing to save VRAM consumption.                                                                                            | `False`                          |
 | `use_8bit_adam`          | Whether or not to use 8-bit Adam. This saves VRAM while improving speed but is only supported on a few NVIDIA GPUs.                                                   | `False`                          |
 | `adam_beta1`             | Beta 1 hyperparameter for the Adam Optimizer.                                                                                                                         | `0.9`                            |
@@ -466,14 +466,14 @@ The following section outlines some useful workflow parameters. This is not inte
 | `image_log_steps`        | The number of steps at which to log images at for WandB tracking.                                                                                                     | `500`                            |
 | `image_log_amount`       | The amount of images to log per each image logging step.                                                                                                              | `4`                              |
 | `hf_token`               | The Hugging Face token to use to download private Stable Diffusion models.                                                                                            | N/A                              |
-| `wandb_api_key`          | Your WandB API key for tracking the finetune run.                                                                                                                     | N/A                              |
+| `wandb_api_key`          | Your WandB API key for tracking the fine-tune run.                                                                                                                    | N/A                              |
 | `project_id`             | The project to report to in WandB.                                                                                                                                    | `diffusers`                      |
-| `run_inference`          | Whether or not to run inference at the end of finetuning.                                                                                                             | `False`                          |
+| `run_inference`          | Whether or not to run inference at the end of fine-tuning.                                                                                                            | `False`                          |
 | `inference_only`         | Skip training and only run inference. This will only work if the model already exists within your PVC.                                                                | `False`                          |
 
 ## Artifacts and Inference
 
-Once the model completes finetuning, the model artifacts should be found under a directory with a name patterned after `{{pvc}}/finetunes/{{run_name}}`.
+Once the model completes fine-tuning, the model artifacts should be found under a directory with a name patterned after `{{pvc}}/finetunes/{{run_name}}`.
 
 You can download the model at this point, or you can run the `InferenceService` on the model.
 
@@ -508,4 +508,4 @@ The above command should yield a result and an image similar to the following:
 
 <figure><img src="../../.gitbook/assets/sunset (1).png" alt=""><figcaption><p>California sunset on the beach, red clouds, Nikon DSLR, professional photography</p></figcaption></figure>
 
-The model and dataset have now been run through the finetuning process to do test inferences against the new model.
+The model and dataset have now been run through the fine-tuning process to do test inferences against the new model.

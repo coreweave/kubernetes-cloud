@@ -73,5 +73,5 @@ The names of MPIJobs are unique. An old job must be deleted before a new one can
 | Example title                                                 | Description                                          |
 | ------------------------------------------------------------- | ---------------------------------------------------- |
 | [ResNet-50](train-resnet-50-with-imagenet.md)                 | PyTorchJob and MPIJob to train ResNet-50 on ImageNet |
-| [GPT-NeoX-20B](fine-tune-gpt-neox-20b-with-argo-workflows.md) | Argo Workflow to finetune GPT-NeoX-20B with MPIJob   |
+| [GPT-NeoX-20B](fine-tune-gpt-neox-20b-with-argo-workflows.md) | Argo Workflow to fine-tune GPT-NeoX-20B with MPIJob  |
 

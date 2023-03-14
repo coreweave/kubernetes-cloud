@@ -1,12 +1,12 @@
 ---
 description: >-
   Use Argo Workflows to run a full pipeline which ends with distributed
-  finetuning of GPT-NeoX-20B.
+  fine-tuning of GPT-NeoX-20B.
 ---
 
 # Fine-tune GPT-NeoX-20B with Argo Workflows
 
-Similarly to the [Finetuning Machine Learning Models](../finetuning-machine-learning-models.md) tutorial, the following walkthrough provides an example of using Argo Workflows to finetune a smaller model (GPT-J) on a smaller dataset. If you are new to finetuning and Argo Workflows, this is a great place to start.
+Similarly to the [Fine-tuning Machine Learning Models](../finetuning-machine-learning-models.md) tutorial, the following walkthrough provides an example of using Argo Workflows to fine-tune a smaller model (GPT-J) on a smaller dataset. If you are new to fine-tuning and Argo Workflows, this is a great place to start.
 
 This example uses two A100 nodes (16 total GPUs) using NVIDIA's [NVLINK](https://www.nvidia.com/en-us/data-center/nvlink/) and [Infiniband](https://www.nvidia.com/en-us/networking/products/infiniband/) technologies for highly performant distributed training.
 
@@ -29,9 +29,9 @@ In this folder, you will find numbered YAML files:
 
 These should be deployed in the order in which they are numbered. The first three YAML files (`01-pvc.yaml`, `02-finetune-role.yaml`, and `03-wanbd-secret.yaml`) deploy the Kubernetes resources that are required by the Argo workflow, which is deployed using the fourth file (`04-finetune-workflow.yaml`).
 
-## Understanding the Finetune Workflow
+## Understanding the Fine-tune Workflow
 
-The Argo workflow for finetuning is defined in the `04-finetune-workflow.yaml` file. This file consists of three important sections:
+The Argo workflow for fine-tuning is defined in the `04-finetune-workflow.yaml` file. This file consists of three important sections:
 
 * workflow parameters,
 * [the directed-acyclic graph (DAG) definition](https://argoproj.github.io/argo-workflows/walk-through/dag/#dag),
@@ -41,7 +41,7 @@ The Argo workflow for finetuning is defined in the `04-finetune-workflow.yaml` f
 
 ### Parameters
 
-At the top of the `04-finetune-workflow.yaml` file, all of the Workflow parameters and their default values are defined. If none of these are changed, the Workflow will download and tokenize the [Hackernews subset of The Pile dataset](https://news.ycombinator.com/item?id=25607809) before finetuning GPT-NeoX-20B on it using two `A100_NVLINK_80GB` nodes in the `LAS1` region.
+At the top of the `04-finetune-workflow.yaml` file, all of the Workflow parameters and their default values are defined. If none of these are changed, the Workflow will download and tokenize the [Hackernews subset of The Pile dataset](https://news.ycombinator.com/item?id=25607809) before fine-tuning GPT-NeoX-20B on it using two `A100_NVLINK_80GB` nodes in the `LAS1` region.
 
 If you have already downloaded the model weights, dataset, and/or tokenized the dataset, you can skip those steps by changing the respective parameters to `false`:
 
@@ -55,7 +55,7 @@ If you have already downloaded the model weights, dataset, and/or tokenized the 
 The screenshot above shows these steps being skipped.
 {% endhint %}
 
-The finetuning stage uses [Weights and Biases](https://wandb.ai/site) for extra logging. This is controlled by the three `wandb` parameters. To avoid using Weights and Biases, you can set the values of these parameters to an empty string.
+The fine-tuning stage uses [Weights and Biases](https://wandb.ai/site) for extra logging. This is controlled by the three `wandb` parameters. To avoid using Weights and Biases, you can set the values of these parameters to an empty string.
 
 ### DAG definition
 
@@ -69,13 +69,13 @@ It is not demonstrated in this example, but it is possible to have more advanced
 
 ### Source code
 
-The code that performs the dataset tokenization and finetuning is straight from [Eluther AI's `gpt-neox` repo](https://github.com/EleutherAI/gpt-neox). This code is built into the Docker image that is built from [CoreWeave's `ml-containers` repo](https://github.com/coreweave/ml-containers).
+The code that performs the dataset tokenization and fine-tuning is straight from [Eluther AI's `gpt-neox` repo](https://github.com/EleutherAI/gpt-neox). This code is built into the Docker image that is built from [CoreWeave's `ml-containers` repo](https://github.com/coreweave/ml-containers).
 
 ### Training config
 
 The config file containing all of the training-related parameters is stored within [a Kubernetes ConfigMap](https://kubernetes.io/docs/concepts/configuration/configmap/). If you would like to adjust these parameters, the ConfigMap can be edited within the `04-finetune-workflow.yaml` file in the `create-configmap` stage definition.
 
-### Finetuning resources
+### Fine-tuning resources
 
 By default, this Workflow uses two A100 nodes with NVLINK and RDMA over InfiniBand for extremely fast distributed training. These resources are defined in the `Worker` spec of the MPIJob at the bottom of the Workflow's YAML manifest:
 
@@ -133,7 +133,7 @@ kubectl apply -f 01-pvc.yaml
 You can deploy [a FileBrowser application](../../../storage/filebrowser.md) attaching the newly created PVCs to be able to inspect their contents in your browser.
 {% endhint %}
 
-### Finetune role
+### Fine-tune role
 
 This Argo Workflow involves creating new Kubernetes resources in your environment: [a ConfigMap](https://kubernetes.io/docs/concepts/configuration/configmap/), and an MPIJob. In order to do create these, the Workflow needs to run as a Service Account with the necessary permissions granted to it.
 
@@ -191,7 +191,7 @@ Pod logs may be acquired via CLI using `kubectl logs <pod name>`, or by clicking
 
 <figure><img src="../../../.gitbook/assets/image (2) (7).png" alt=""><figcaption><p>Argo Workflow right after submission</p></figcaption></figure>
 
-The logs from the finetuning training script are available from the launcher Pod. They can be accessed via `kubectl`:
+The logs from the fine-tuning training script are available from the launcher Pod. They can be accessed via `kubectl`:
 
 ```bash
 kubectl logs finetune-gpt-neox-n6mnd-mpijob-launcher-xz98s
@@ -225,7 +225,7 @@ Once the Workflow has finished, the Pods used for all Workflow stages will move 
 
 The easiest way to clean all of these Pods up is by deleting the Workflow run from the Argo Workflows Web UI. You may also delete them manually using `kubectl delete pod`.
 
-Deleting the Argo Workflow alone won't remove all of the resources. The `mpijob` resource that was used for finetuning, and the `configmap` resource will still exist. To delete them, target them specifically using `kubectl delete`:
+Deleting the Argo Workflow alone won't remove all of the resources. The `mpijob` resource that was used for fine-tuning, and the `configmap` resource will still exist. To delete them, target them specifically using `kubectl delete`:
 
 ```bash
 kubectl delete configmap neox-training
@@ -238,7 +238,7 @@ kubectl delete mpijob <mpijob-name-created-by-argo>
 The unique name of the `mpijob` can be acquired using `kubectl get mpijob`.
 {% endhint %}
 
-Finally, remove the resources that were created prior to running the Workflow. You can delete the Argo Workflows deployment through the CoreWeave's Applications UI. The PVCs, finetune Service Account role, and Weights and Biases secret can be deleted by targeting the files that created them with `kubectl delete`:
+Finally, remove the resources that were created prior to running the Workflow. You can delete the Argo Workflows deployment through the CoreWeave's Applications UI. The PVCs, fine-tune Service Account role, and Weights and Biases secret can be deleted by targeting the files that created them with `kubectl delete`:
 
 ```bash
 kubectl delete -f 03-wandb-secret.yaml
