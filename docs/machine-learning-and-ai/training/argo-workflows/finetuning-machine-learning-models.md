@@ -6,7 +6,7 @@ description: Fine-tune machine learning models using Argo Workflows on CoreWeave
 
 Fine-tuning and training machine learning models can be computationally expensive. CoreWeave Cloud allows for easy, on-demand compute resources to train models, along with the infrastructure to support it.
 
-This guide is intended to be a reference example of [how to use Argo Workflows](../../compass/broken-reference/) to set up a machine learning pipeline on CoreWeave. While the following barely scratches the surface of fine-tuning, this is a great place to start.
+This guide is intended to be a reference example of [how to use Argo Workflows](../../../compass/broken-reference/) to set up a machine learning pipeline on CoreWeave. While the following barely scratches the surface of fine-tuning, this is a great place to start.
 
 The reference example utilizes GPT-type transformer models with the [Hugging Face Transformers](https://huggingface.co/docs/transformers/index) library, and assumes that the model's tokenization format is BPE.
 
@@ -16,7 +16,7 @@ The reference example utilizes GPT-type transformer models with the [Hugging Fac
 This reference example is not intended to be a production application; rather, it is a guide on how to utilize CoreWeave resources to set up a pipeline.
 {% endhint %}
 
-The base model being trained on can be provided directly in a [PVC (PersistentVolumeClaim)](../../storage/storage/), or in a model identifier from [Hugging Face's model repository](https://huggingface.co/models). The dataset trained upon needs to be in the same PVC, and in pure text format.
+The base model being trained on can be provided directly in a [PVC (PersistentVolumeClaim)](../../../storage/storage/), or in a model identifier from [Hugging Face's model repository](https://huggingface.co/models). The dataset trained upon needs to be in the same PVC, and in pure text format.
 
 {% hint style="info" %}
 **Note**
@@ -30,9 +30,9 @@ Presently, the reference example uses the following container configuration to t
 * 128GB RAM
 * Nvidia A40/A6000 (48GB VRAM)
 
-The above configuration has been found to be optimal for training a variety of GPT models from a 155m to a 6b parameter size on a single GPU. The above configuration is billed at $2.00/hr through CoreWeave's [resource based pricing](../../../resources/resource-based-pricing.md) model.
+The above configuration has been found to be optimal for training a variety of GPT models from a 155m to a 6b parameter size on a single GPU. The above configuration is billed at $2.00/hr through CoreWeave's [resource based pricing](../../../../resources/resource-based-pricing.md) model.
 
-There is an optional test [Inference endpoint](../../compass/broken-reference/) that can be enabled and deployed automatically when the model completes fine-tuning. This Inference container defaults to the following configuration:
+There is an optional test [Inference endpoint](../../../compass/broken-reference/) that can be enabled and deployed automatically when the model completes fine-tuning. This Inference container defaults to the following configuration:
 
 * 4 vCPU
 * 8GB RAM
@@ -53,7 +53,7 @@ Check out the code on GitHub
 {% hint style="info" %}
 **Note**
 
-This guide assumes that you have already followed the process to set up the CoreWeave Kubernetes environment. If you have not done so already, [follow our Getting Started guide](../../coreweave-kubernetes/getting-started.md) before proceeding with this guide.
+This guide assumes that you have already followed the process to set up the CoreWeave Kubernetes environment. If you have not done so already, [follow our Getting Started guide](../../../coreweave-kubernetes/getting-started.md) before proceeding with this guide.
 {% endhint %}
 
 The following Kubernetes-based components are required:
@@ -62,7 +62,7 @@ The following Kubernetes-based components are required:
 
 You can deploy Argo Workflows using the [application Catalog](https://apps.coreweave.com). From the application deployment menu, click on the **Catalog** tab, then search for `argo-workflows` to find and deploy the application.
 
-![Argo Workflows](<../../.gitbook/assets/image (138).png>)
+![Argo Workflows](<../../../.gitbook/assets/image (138).png>)
 
 The catalog deployment will create the underlying resources needed for client authentication. To fetch the authentication token run the following commands after filing in the name of your argo-workflows deployment.
 
@@ -75,17 +75,17 @@ echo $ARGO_TOKEN
 
 Then, inside the box for **client authentication**, copy and paste the newly generated token into the Argo UI:
 
-![The Argo Workflow UI with a Bearer token pasted into the client authentication box](<../../.gitbook/assets/image (2) (2) (1).png>)
+![The Argo Workflow UI with a Bearer token pasted into the client authentication box](<../../../.gitbook/assets/image (2) (2) (1).png>)
 
 Finally, to log in, click the **Login** button after adding the token.
 
-### [PVC](../../storage/storage/)
+### [PVC](../../../storage/storage/)
 
-Create a `ReadWriteMany` [PVC storage volume](../../storage/storage/#volume-types) from the [Storage](https://cloud.coreweave.com/storage) menu.
+Create a `ReadWriteMany` [PVC storage volume](../../../storage/storage/#volume-types) from the [Storage](https://cloud.coreweave.com/storage) menu.
 
 `1TB` to `2TB` is the recommended size for the volume, as the model checkpoints take up a lot of space! These PVCs can be shared between multiple fine-tune runs. We recommend using HDD type storage, as the fine-tuner does not require high random I/O performance.
 
-![Configuring a PVC storage volume from the Cloud UI](<../../.gitbook/assets/image (3) (2) (1).png>)
+![Configuring a PVC storage volume from the Cloud UI](<../../../.gitbook/assets/image (3) (2) (1).png>)
 
 {% hint style="info" %}
 **Note**\
@@ -125,10 +125,10 @@ Simply select the `finetune-data` PVC that you created earlier. **Make sure that
 {% hint style="success" %}
 **Tip**
 
-Some people may prefer to use a [Virtual Server](../../compass/broken-reference/) to interact with their PVC via `ssh` or another mechanism. This flexibility is one of the key advantages of CoreWeave.
+Some people may prefer to use a [Virtual Server](../../../compass/broken-reference/) to interact with their PVC via `ssh` or another mechanism. This flexibility is one of the key advantages of CoreWeave.
 {% endhint %}
 
-![The filebrowser application](<../../../.gitbook/assets/image (60) (2).png>)
+![The filebrowser application](<../../../../.gitbook/assets/image (60) (2).png>)
 
 ## Dataset Setup
 
@@ -140,7 +140,7 @@ The data should be **individual plaintext files** (.txt) in the precise format t
 
 Here we have a `western-romance` directory below with novels, in a clean and normalized plaintext format, with all extra whitespace removed.
 
-![western-romance dataset with text files for each novel.](<../../.gitbook/assets/Screen Shot 2022-04-22 at 12.20.38 PM.png>)
+![western-romance dataset with text files for each novel.](<../../../.gitbook/assets/Screen Shot 2022-04-22 at 12.20.38 PM.png>)
 
 The dataset will automatically be tokenized by a [`dataset_tokenizer`](https://github.com/wbrown/gpt\_bpe/blob/main/cmd/dataset\_tokenizer/dataset\_tokenizer.go) component written in `golang` as a step in the Argo Workflow. It is quite fast, and has different options for how to partition the data.
 
@@ -423,7 +423,7 @@ You can instantly watch a submitted workflow by using the `--watch` option when 
 
 You can access your Argo Workflow application via HTTPS to see all the fine-tuner jobs, and to check their statuses.
 
-![Argo Workflows HTTPS request, via the Web UI](<../../../.gitbook/assets/image (68).png>)
+![Argo Workflows HTTPS request, via the Web UI](<../../../../.gitbook/assets/image (68).png>)
 
 ## Workflow options
 

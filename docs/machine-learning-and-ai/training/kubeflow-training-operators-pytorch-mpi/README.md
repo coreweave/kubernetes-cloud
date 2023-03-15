@@ -4,7 +4,7 @@ description: >-
   on CoreWeave Cloud
 ---
 
-# Kubeflow Training Operators
+# Kubeflow Training Operators - PyTorch/MPI
 
 The[ Kubeflow project](https://www.kubeflow.org/) is dedicated to making deployments of Machine Learning (ML) workflows on Kubernetes simple, portable, and scalable. The goal is not to recreate other services, but to provide a straightforward way to deploy best-of-breed open-source systems for ML to diverse infrastructures. Anywhere you are running Kubernetes, you should be able to run Kubeflow.
 
@@ -70,8 +70,8 @@ You might see the `launcher` pod fail a couple of times if the `worker` pod is s
 The names of MPIJobs are unique. An old job must be deleted before a new one can be created with the same name.
 {% endhint %}
 
-| Example title                                                 | Description                                          |
-| ------------------------------------------------------------- | ---------------------------------------------------- |
-| [ResNet-50](train-resnet-50-with-imagenet.md)                 | PyTorchJob and MPIJob to train ResNet-50 on ImageNet |
-| [GPT-NeoX-20B](fine-tune-gpt-neox-20b-with-argo-workflows.md) | Argo Workflow to fine-tune GPT-NeoX-20B with MPIJob  |
+| Example title                                                                   | Description                                          |
+| ------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| [ResNet-50](train-resnet-50-with-imagenet.md)                                   | PyTorchJob and MPIJob to train ResNet-50 on ImageNet |
+| [GPT-NeoX-20B](../argo-workflows/fine-tune-gpt-neox-20b-with-argo-workflows.md) | Argo Workflow to fine-tune GPT-NeoX-20B with MPIJob  |
 

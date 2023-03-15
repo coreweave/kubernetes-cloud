@@ -16,13 +16,13 @@ Each tutorial page includes a link to the source code for the provided example. 
 
 ### PyTorch
 
-| Title                                                                                                                                  | Description                                                                                                                                                                                                                      |
-| -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Hugging Face: Stable Diffusion Text to Image](pytorch/hugging-face/pytorch-hugging-face-diffusers-stable-diffusion-text-to-image.md)  | Input a text prompt to generate high-quality images with photorealistic capabilities                                                                                                                                             |
-| [Hugging Face: Transformers Accelerate - BigScience BLOOM](pytorch/hugging-face/pytorch-hugging-face-transformers-bigscience-bloom.md) | Deploy [BLOOM](https://huggingface.co/bigscience/bloom) as an [InferenceService](https://kserve.github.io/website/0.8/get\_started/first\_isvc/) with a simple HTTP API to perform Text Generation using Transformers Accelerate |
-| [Hugging Face: Transformers DeepSpeed: BigScience BLOOM](pytorch/hugging-face/pytorch-hugging-face-transformers-bigscience-bloom-1.md) | Deploy [BLOOM](https://huggingface.co/bigscience/bloom) as an [InferenceService](https://kserve.github.io/website/0.8/get\_started/first\_isvc/) with a simple HTTP API to perform Text Generation using Transformers DeepSpeed  |
-| [GPT-2 for AITextgen](pytorch/custom-pytorch-aitextgen.md)                                                                             | Deploy the new text generation toolchain for GPT-2, [aitextgen](https://docs.aitextgen.io), using a custom predictor                                                                                                             |
-| [FastAI Sentiment](pytorch/custom-sentiment.md)                                                                                        | Deploying a sentiment analyzer built with [FastAI](https://docs.fast.ai/text.html), using a custom predictor                                                                                                                     |
+| Title                                                                                                                                      | Description                                                                                                                                                                                                                      |
+| ------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Hugging Face: Stable Diffusion Text to Image](pytorch-jax/hugging-face/pytorch-hugging-face-diffusers-stable-diffusion-text-to-image.md)  | Input a text prompt to generate high-quality images with photorealistic capabilities                                                                                                                                             |
+| [Hugging Face: Transformers Accelerate - BigScience BLOOM](pytorch-jax/hugging-face/pytorch-hugging-face-transformers-bigscience-bloom.md) | Deploy [BLOOM](https://huggingface.co/bigscience/bloom) as an [InferenceService](https://kserve.github.io/website/0.8/get\_started/first\_isvc/) with a simple HTTP API to perform Text Generation using Transformers Accelerate |
+| [Hugging Face: Transformers DeepSpeed: BigScience BLOOM](pytorch-jax/hugging-face/pytorch-hugging-face-transformers-bigscience-bloom-1.md) | Deploy [BLOOM](https://huggingface.co/bigscience/bloom) as an [InferenceService](https://kserve.github.io/website/0.8/get\_started/first\_isvc/) with a simple HTTP API to perform Text Generation using Transformers DeepSpeed  |
+| [GPT-2 for AITextgen](pytorch-jax/custom-pytorch-aitextgen.md)                                                                             | Deploy the new text generation toolchain for GPT-2, [aitextgen](https://docs.aitextgen.io), using a custom predictor                                                                                                             |
+| [FastAI Sentiment](pytorch-jax/custom-sentiment.md)                                                                                        | Deploying a sentiment analyzer built with [FastAI](https://docs.fast.ai/text.html), using a custom predictor                                                                                                                     |
 
 ### TensorFlow
 
@@ -39,15 +39,15 @@ Each tutorial page includes a link to the source code for the provided example. 
 
 ### JAX
 
-|                                                       |                                                                                                                             |
-| ----------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| [DALL-E Mega](../../training/jax-dall-e-mini-mega.md) | Use a text prompt as input to generate an image as output using [DALL-E Mega](https://huggingface.co/dalle-mini/dalle-mega) |
+|                                                                 |                                                                                                                             |
+| --------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| [DALL-E Mega](pytorch-jax/hugging-face/jax-dall-e-mini-mega.md) | Use a text prompt as input to generate an image as output using [DALL-E Mega](https://huggingface.co/dalle-mini/dalle-mega) |
 
 ### Custom
 
-|                                           |                                                                           |
-| ----------------------------------------- | ------------------------------------------------------------------------- |
-| [BASNET](../../training/custom-basnet.md) | Deploy an auto-scaling Inference service from a pre-existing Docker image |
+|                                       |                                                                           |
+| ------------------------------------- | ------------------------------------------------------------------------- |
+| [BASNET](tensorflow/custom-basnet.md) | Deploy an auto-scaling Inference service from a pre-existing Docker image |
 
 {% hint style="info" %}
 **Note**

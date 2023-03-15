@@ -6,7 +6,7 @@ description: >-
 
 # Fine-tune GPT-NeoX-20B with Argo Workflows
 
-Similarly to the [Fine-tuning Machine Learning Models](../finetuning-machine-learning-models.md) tutorial, the following walkthrough provides an example of using Argo Workflows to fine-tune a smaller model (GPT-J) on a smaller dataset. If you are new to fine-tuning and Argo Workflows, this is a great place to start.
+Similarly to the [Fine-tuning Machine Learning Models](finetuning-machine-learning-models.md) tutorial, the following walkthrough provides an example of using Argo Workflows to fine-tune a smaller model (GPT-J) on a smaller dataset. If you are new to fine-tuning and Argo Workflows, this is a great place to start.
 
 This example uses two A100 nodes (16 total GPUs) using NVIDIA's [NVLINK](https://www.nvidia.com/en-us/data-center/nvlink/) and [Infiniband](https://www.nvidia.com/en-us/networking/products/infiniband/) technologies for highly performant distributed training.
 
