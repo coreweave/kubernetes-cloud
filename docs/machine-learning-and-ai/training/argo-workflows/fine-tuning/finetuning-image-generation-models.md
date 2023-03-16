@@ -24,15 +24,15 @@ Presently, the reference example uses the following container configuration to t
 * 32GB RAM
 * NVIDIA A40/A6000 GPUs (48GB VRAM)
 
-The above configuration has been found to be optimal for training Stable Diffusion models. However, you can use any configuration you wish, as long as it meets the minimum requirements for training Stable Diffusion models. The above configuration is billed at $1.52 per hour through CoreWeave's [resource based pricing](../../../../resources/resource-based-pricing.md) model.
+The above configuration has been found to be optimal for training Stable Diffusion models. However, you can use any configuration you wish, as long as it meets the minimum requirements for training Stable Diffusion models. The above configuration is billed at $1.52 per hour through CoreWeave's [resource based pricing](../../../../../resources/resource-based-pricing.md) model.
 
-There is an optional test [Inference endpoint](../../inference/examples/pytorch-jax/hugging-face/pytorch-hugging-face-diffusers-stable-diffusion-text-to-image.md) that can be enabled and deployed automatically when the model completes fine-tuning. This Inference container defaults to the following configuration:
+There is an optional test [Inference endpoint](../../../inference/examples/pytorch-jax/hugging-face/pytorch-hugging-face-diffusers-stable-diffusion-text-to-image.md) that can be enabled and deployed automatically when the model completes fine-tuning. This Inference container defaults to the following configuration:
 
 * 4 vCPU
 * 8GB RAM
 * NVIDIA Quadro RTX 5000 (16GB VRAM)
 
-The above configuration for inferencing Stable Diffusion is billed at $0.65 per hour through CoreWeave's [resource based pricing](../../../../resources/resource-based-pricing.md) model.
+The above configuration for inferencing Stable Diffusion is billed at $0.65 per hour through CoreWeave's [resource based pricing](../../../../../resources/resource-based-pricing.md) model.
 
 {% embed url="https://github.com/coreweave/kubernetes-cloud/tree/master/sd-finetuner-workflow" %}
 
@@ -41,7 +41,7 @@ The above configuration for inferencing Stable Diffusion is billed at $0.65 per 
 {% hint style="info" %}
 **Note**
 
-This guide assumes that you have already followed the process to set up the CoreWeave Kubernetes environment. If you have not done so already, follow our [Getting Started Guide](../../../coreweave-kubernetes/getting-started.md) before proceeding with this guide.
+This guide assumes that you have already followed the process to set up the CoreWeave Kubernetes environment. If you have not done so already, follow our [Getting Started Guide](../../../../coreweave-kubernetes/getting-started.md) before proceeding with this guide.
 {% endhint %}
 
 The following Kubernetes-based components are required:
@@ -50,7 +50,7 @@ The following Kubernetes-based components are required:
 
 You can deploy Argo Workflows using the [Application Catalog](https://apps.coreweave.com/). From the application deployment menu, click on the **Catalog** tab, then search for `argo-workflows` to find and deploy the application.
 
-<figure><img src="../../../.gitbook/assets/argos.png" alt=""><figcaption><p>Argo Workflows</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/argos.png" alt=""><figcaption><p>Argo Workflows</p></figcaption></figure>
 
 ### [PVC](broken-reference)
 
@@ -58,7 +58,7 @@ Create a `ReadWriteMany` PVC storage volume from the [Storage](broken-reference)
 
 `1TB` to `2TB` is recommended for training Stable Diffusion models, depending on the size of the dataset and how many fine-tunes you wish to run. These PVCs can be shared between multiple fine-tune runs. We recommend using HDD type storage, as the fine-tuner does not require high random I/O performance.
 
-<figure><img src="../../../.gitbook/assets/pvc.png" alt=""><figcaption><p>Configuring a PVC storage volume from the Cloud UI</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/pvc.png" alt=""><figcaption><p>Configuring a PVC storage volume from the Cloud UI</p></figcaption></figure>
 
 {% hint style="info" %}
 **Note**
@@ -102,7 +102,7 @@ Simply select the `sd-finetune-data` PVC that you created earlier. **Make sure t
 Some people may prefer to use a Virtual Server to interact with their `PVC` via ssh or some other mechanism. This flexibility is one of the key advantages of CoreWeave.
 {% endhint %}
 
-<figure><img src="../../../.gitbook/assets/filebrowser.png" alt=""><figcaption><p>The filebrowser application</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/filebrowser.png" alt=""><figcaption><p>The filebrowser application</p></figcaption></figure>
 
 ## Dataset Setup
 
@@ -114,7 +114,7 @@ The data will be text-image pairs, where each pair has the same filename. The ca
 
 Below we have a dataset in the directory named `dataset`, with six text-image pairs. Each image has its corresponding caption in a `.txt` file with the same filename as the image file.
 
-<figure><img src="../../../.gitbook/assets/dataset-example.png" alt=""><figcaption><p>A dataset with text-image pairs</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/dataset-example.png" alt=""><figcaption><p>A dataset with text-image pairs</p></figcaption></figure>
 
 ## Permissions Setup
 
@@ -417,15 +417,15 @@ You can instantly watch a submitted workflow by using the `--watch` option when 
 
 Logs for the fine-tuning workflow can be tracked and visualized using [Weights & Biases (WandB)](https://wandb.ai/). To use WandB, pass your WandB API key into the workflow's `wandb_api_key` parameter using `-p wand_api_key=<Add your WandB key here>`
 
-<figure><img src="../../../.gitbook/assets/UsbKtmS.png" alt=""><figcaption><p>Generated samples during fine-tuning</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/UsbKtmS.png" alt=""><figcaption><p>Generated samples during fine-tuning</p></figcaption></figure>
 
 The Media tab is where you can see images being generated during the fine-tuning process for every `image_log_steps` amount of steps. This can also be adjusted depending on how often you want to sample from the model during fine-tuning.&#x20;
 
-<figure><img src="../../../.gitbook/assets/eP1wSTg.png" alt=""><figcaption><p>Performance metrics</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/eP1wSTg.png" alt=""><figcaption><p>Performance metrics</p></figcaption></figure>
 
 In the performance tab you will see how fast the GPU is performing in a metric of samples per second.
 
-<figure><img src="../../../.gitbook/assets/i0oCpjf (2).png" alt=""><figcaption><p>Finetuning metrics</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/i0oCpjf (2).png" alt=""><figcaption><p>Finetuning metrics</p></figcaption></figure>
 
 For the training tab, a multitude of fine-tuning metrics are recorded which indicates whether or not the workflow is making progress by reducing loss over time. These metrics can be very useful in determining whether or not the model has reached convergence.
 
@@ -433,7 +433,7 @@ For the training tab, a multitude of fine-tuning metrics are recorded which indi
 
 You can access your Argo Workflow application via HTTPS to see all the fine-tuner jobs, and to check their statuses.
 
-<figure><img src="../../../.gitbook/assets/webui.png" alt=""><figcaption><p>Argo Workflow Web UI</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/webui.png" alt=""><figcaption><p>Argo Workflow Web UI</p></figcaption></figure>
 
 ## Workflow Options
 
@@ -506,6 +506,6 @@ The above command should yield a result and an image similar to the following:
 100  292k  100  292k  100   151  31960     16  0:00:09  0:00:09 --:--:-- 72763
 ```
 
-<figure><img src="../../../.gitbook/assets/sunset (1).png" alt=""><figcaption><p>California sunset on the beach, red clouds, Nikon DSLR, professional photography</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/sunset (1).png" alt=""><figcaption><p>California sunset on the beach, red clouds, Nikon DSLR, professional photography</p></figcaption></figure>
 
 The model and dataset have now been run through the fine-tuning process to do test inferences against the new model.

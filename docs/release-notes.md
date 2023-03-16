@@ -52,7 +52,7 @@ Nydus on CoreWeave is currently an **alpha offering**, with limited, node-specif
 
 The[ Kubeflow project](https://www.kubeflow.org/) is dedicated to making deployments of Machine Learning (ML) workflows on Kubernetes simple, portable, and scalable. The goal is not to recreate other services, but to provide a straightforward way to deploy best-of-breed open-source systems for ML to diverse infrastructures. Anywhere you are running Kubernetes, you should be able to run Kubeflow.
 
-CoreWeave is pleased to present [new tutorials](machine-learning-and-ai/training/kubeflow-training-operators-pytorch-mpi/) on using Kubeflow training operators for distributed training on CoreWeave Cloud! Follow along with these walkthroughs to train [ResNet-50 with ImageNet](machine-learning-and-ai/training/kubeflow-training-operators-pytorch-mpi/train-resnet-50-with-imagenet.md), or [fine-tune GPT-NeoX-20B with Argo Workflows](machine-learning-and-ai/training/argo-workflows/fine-tune-gpt-neox-20b-with-argo-workflows.md)!
+CoreWeave is pleased to present [new tutorials](machine-learning-and-ai/training/kubeflow-training-operators-pytorch-mpi/) on using Kubeflow training operators for distributed training on CoreWeave Cloud! Follow along with these walkthroughs to train [ResNet-50 with ImageNet](machine-learning-and-ai/training/kubeflow-training-operators-pytorch-mpi/train-resnet-50-with-imagenet.md), or [fine-tune GPT-NeoX-20B with Argo Workflows](machine-learning-and-ai/training/argo-workflows/fine-tuning/fine-tune-gpt-neox-20b-with-argo-workflows.md)!
 
 ### :minidisc:[ Import disk images using CoreWeave Object Storage](virtual-servers/root-disk-lifecycle-management/importing-a-qcow2-image.md#using-coreweave-object-storage)
 

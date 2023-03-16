@@ -136,15 +136,13 @@
   * [Kubeflow Training Operators - PyTorch/MPI](machine-learning-and-ai/training/kubeflow-training-operators-pytorch-mpi/README.md)
     * [Train ResNet-50 with ImageNet](machine-learning-and-ai/training/kubeflow-training-operators-pytorch-mpi/train-resnet-50-with-imagenet.md)
   * [Argo Workflows](machine-learning-and-ai/training/argo-workflows/README.md)
-    * [Fine-tune GPT-NeoX-20B with Argo Workflows](machine-learning-and-ai/training/argo-workflows/fine-tune-gpt-neox-20b-with-argo-workflows.md)
-    * [Fine-tune GPT Models with CoreWeave](machine-learning-and-ai/training/argo-workflows/finetuning-machine-learning-models.md)
-    * [Fine-tune Stable Diffusion Models with CoreWeave](machine-learning-and-ai/training/argo-workflows/finetuning-image-generation-models.md)
-
-## Workflows
-
-* [Get Started with Workflows](../workflows/argo.md)
-* [Examples](workflows/examples/README.md)
-  * [CGI Rendering Using Workflows](../workflows/examples/cgi-rendering.md)
+    * [Get Started with Workflows](machine-learning-and-ai/training/argo-workflows/argo.md)
+    * [Fine-tuning](machine-learning-and-ai/training/argo-workflows/fine-tuning/README.md)
+      * [Fine-tune Stable Diffusion Models with CoreWeave](machine-learning-and-ai/training/argo-workflows/fine-tuning/finetuning-image-generation-models.md)
+      * [Fine-tune GPT Models with CoreWeave](machine-learning-and-ai/training/argo-workflows/fine-tuning/finetuning-machine-learning-models.md)
+      * [Fine-tune GPT-NeoX-20B with Argo Workflows](machine-learning-and-ai/training/argo-workflows/fine-tuning/fine-tune-gpt-neox-20b-with-argo-workflows.md)
+    * [CGI Rendering](machine-learning-and-ai/training/argo-workflows/cgi-rendering/README.md)
+      * [CGI Rendering Using Workflows](machine-learning-and-ai/training/argo-workflows/cgi-rendering/cgi-rendering.md)
 
 ## VFX & Rendering
 

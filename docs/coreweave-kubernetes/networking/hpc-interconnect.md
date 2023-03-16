@@ -64,7 +64,7 @@ SHARP effectively **doubles** **the performance** of a compliant InfiniBand netw
 
 Training, Rendering and Simulation workloads execute in CoreWeave's bare metal container environment. GPU Drivers, NIC drivers and InfiniBand configuration are handled on the host node without any customer interaction required.
 
-Customers schedule workloads via Kubernetes, potentially leveraging distributed task managers such as [Determined.ai](https://www.determined.ai/), [MPI Operator](https://github.com/kubeflow/mpi-operator) and[ Argo Workflows](../../../workflows/argo.md), all of which are available out of the box on CoreWeave Cloud.
+Customers schedule workloads via Kubernetes, potentially leveraging distributed task managers such as [Determined.ai](https://www.determined.ai/), [MPI Operator](https://github.com/kubeflow/mpi-operator) and[ Argo Workflows](../../machine-learning-and-ai/training/argo-workflows/argo.md), all of which are available out of the box on CoreWeave Cloud.
 
 [A repository of template Docker images and Dockerfiles](https://github.com/coreweave/nccl-tests) is available for customers to use as a base for their own images. These base images include all libraries necessary to optimally leverage NCCL with SHARP:
 

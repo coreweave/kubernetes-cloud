@@ -6,21 +6,21 @@ description: Use Argo Workflows to run jobs in parallel
 
 Workflows on CoreWeave Cloud run on [Argo Workflows](https://argoproj.github.io/workflows), which is a great tool to orchestrate parallel execution of GPU and CPU jobs. With Workflows, you can manage retries and parallelism automatically. Workflows can also be submitted via CLI, [Rest API](https://argoproj.github.io/argo-workflows/rest-api/) and the [Kubernetes API](https://argoproj.github.io/argo-workflows/walk-through/kubernetes-resources/).
 
-<figure><img src="../docs/.gitbook/assets/screen-shot-2020-07-29-at-10.04.26-pm.png" alt="Screenshot showing the Argo Web UI"><figcaption><p>A view of the Argo Web UI</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/screen-shot-2020-07-29-at-10.04.26-pm.png" alt="Screenshot showing the Argo Web UI"><figcaption><p>A view of the Argo Web UI</p></figcaption></figure>
 
 ## Get Started
 
 After logging into [CoreWeave Cloud](https://cloud.coreweave.com), navigate to the CoreWeave application **Catalog**.
 
-![The Catalog link on the Cloud UI](<../.gitbook/assets/image (17) (2) (1) (2).png>)
+![The Catalog link on the Cloud UI](<../../../../.gitbook/assets/image (17) (2) (1) (2).png>)
 
 A new window will open onto the Catalog, where you can browse all available applications. In the search field, type `argo-workflows`. Then, select the **argo-workflows** application once it appears:
 
-<figure><img src="../.gitbook/assets/image (14).png" alt="argo-workflows application in the Catalog"><figcaption><p>argo-workflows application in the Catalog</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (14).png" alt="argo-workflows application in the Catalog"><figcaption><p>argo-workflows application in the Catalog</p></figcaption></figure>
 
 In the upper right-hand corner of the following screen, select the latest version of the Helm chart under **Chart Version**, then click the **Deploy** button.
 
-<figure><img src="../.gitbook/assets/image (25) (1).png" alt="Chart version selection and deploy button"><figcaption><p>Chart version selection and deploy button</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (25) (1).png" alt="Chart version selection and deploy button"><figcaption><p>Chart version selection and deploy button</p></figcaption></figure>
 
 The following deployment form will prompt you to enter a name for the application. The remaining parameters will be set to CoreWeave's suggested defaults, but can be changed to suit your requirements. When ready to deploy, click the **Deploy** button at the bottom of the page.
 
@@ -32,13 +32,13 @@ The following deployment form will prompt you to enter a name for the applicatio
 [See the **Security** section below for more information](argo.md#security).
 {% endhint %}
 
-![The Argo Workflows configuration screen](<../docs/.gitbook/assets/image (1) (6) (1).png>)
+![The Argo Workflows configuration screen](<../../../.gitbook/assets/image (1) (6) (1).png>)
 
 After a few minutes, the deployment will be ready. If you selected `Expose UI via public Ingress`, Argo Workflows will be accessible outside the cluster.
 
 Click the **ingress** link to open the Argo Workflows UI in a new window.
 
-![](<../.gitbook/assets/image (23) (1).png>)
+![](<../../../../.gitbook/assets/image (23) (1).png>)
 
 {% hint style="warning" %}
 **Important**
@@ -56,7 +56,7 @@ To run a sample workflow:
 {% hint style="info" %}
 **Note**
 
-The following assumes you have already obtained CoreWeave Cloud access credentials and [set up your kubeconfig file](../docs/coreweave-kubernetes/getting-started.md#setup-kubernetes-config).
+The following assumes you have already obtained CoreWeave Cloud access credentials and [set up your kubeconfig file](../../../coreweave-kubernetes/getting-started.md#setup-kubernetes-config).
 {% endhint %}
 
 The Argo CLI tool can be obtained from [the Argo Project's website](https://argoproj.github.io/argo-workflows/quick-start/#install-the-argo-workflows-cli). Then, to run an example workflow, save an example workflow into the file `gpu-say-workflow.yaml`.
@@ -275,7 +275,7 @@ Write-Host "Bearer $([Text.Encoding]::Utf8.GetString([Convert]::FromBase64String
 
 Then, inside the box for **client authentication**, copy and paste the newly generated token into the Argo UI:
 
-![The Argo Workflow UI with a Bearer token pasted into the client authentication box](<../docs/.gitbook/assets/image (2) (2) (1).png>)
+![The Argo Workflow UI with a Bearer token pasted into the client authentication box](<../../../.gitbook/assets/image (2) (2) (1).png>)
 
 Finally, to log in, click the **Login** button after adding the token.
 
