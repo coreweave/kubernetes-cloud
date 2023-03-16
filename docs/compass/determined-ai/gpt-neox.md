@@ -141,13 +141,15 @@ det cmd run 'git clone https://github.com/EleutherAI/gpt-neox.git /mnt/finetune-
 
 Then, download the [Vocab](https://s3.amazonaws.com/models.huggingface.co/bert/gpt2-vocab.json) and [Merge](https://s3.amazonaws.com/models.huggingface.co/bert/gpt2-merges.txt) files to your CoreWeave Cloud Storage in a terminal:
 
-```bash
-det cmd run 'wget https://s3.amazonaws.com/models.huggingface.co/bert/gpt2-vocab.json
+<pre class="language-bash"><code class="lang-bash">det cmd run 'wget https://s3.amazonaws.com/models.huggingface.co/bert/gpt2-vocab.json
 -O /mnt/finetune-gpt-neox/gpt2-vocab.json'
 
 det cmd run 'wget https://s3.amazonaws.com/models.huggingface.co/bert/gpt2-merges.txt
 -O /mnt/finetune-gpt-neox/gpt2-merges.txt'
-```
+
+<strong>det cmd run 'wget https://the-eye.eu/public/AI/models/GPT-NeoX-20B/slim_weights/20B_tokenizer.json 
+</strong><strong>-O /mnt/finetune-gpt-neox/20B_tokenizer.json'
+</strong></code></pre>
 
 ### Dataset Format
 
@@ -225,18 +227,21 @@ The command to tokenize your data and output it to `gpt_finetune` is below:
 ```shell
 python tools/preprocess_data.py \
             --input /mnt/finetune-gpt-neox/data.jsonl \
-            --output-prefix ./gpt_finetune/mydataset \
-            --vocab /mnt/finetune-gpt-neox/gpt2-vocab.json \
-            --merge-file /mnt/finetune-gpt-neox/gpt2-merges.txt \
-            --dataset-impl mmap \
-            --tokenizer-type GPT2BPETokenizer \
-            --append-eod
+            --output-prefix /mnt/gpt_finetune/mydataset \
+            --vocab /mnt/finetune-gpt-neox/20B_tokenizer.json \
+            --tokenizer-type HFTokenizer
 ```
 
 **Run** this command to pre-process and tokenize your data:
 
 ```shell
-det cmd run 'apt-get -y install libopenmpi-dev; pip install -r /mnt/finetune-gpt-neox/gpt-neox/requirements/requirements.txt; pip install protobuf==3.20; python /mnt/finetune-gpt-neox/gpt-neox/tools/preprocess_data.py --input /mnt/finetune-gpt-neox/data.jsonl --output-prefix /mnt/finetune-gpt-neox/gpt_finetune/mydataset --vocab /mnt/finetune-gpt-neox/gpt2-vocab.json --merge-file /mnt/finetune-gpt-neox/gpt2-merges.txt --dataset-impl mmap --tokenizer-type GPT2BPETokenizer --append-eod'
+det cmd run 'apt-get -y install libopenmpi-dev; 
+            pip install -r /mnt/finetune-gpt-neox/gpt-neox/requirements/requirements.txt; 
+            python tools/preprocess_data.py \
+            --input /mnt/finetune-gpt-neox/data.jsonl \
+            --output-prefix /mnt/gpt_finetune/mydataset \
+            --vocab /mnt/finetune-gpt-neox/20B_tokenizer.json \
+            --tokenizer-type HFTokenizer'
 ```
 
 {% hint style="warning" %}
@@ -315,6 +320,7 @@ Review and replace the contents of the original `determined-cluster.yml` file wi
   # across the node boundaries )
   "pipe-parallel-size": 4,
   "model-parallel-size": 2,
+  "finetune": true, 
 
   # model settings
   "num-layers": 44,
@@ -533,9 +539,9 @@ searcher:
   metric: lm_loss
   smaller_is_better: false
   max_length:
-    batches: 1000
+    batches: 100
 min_validation_period:
-    batches: 500
+    batches: 50
 max_restarts: 0
 entrypoint:
   - python3
