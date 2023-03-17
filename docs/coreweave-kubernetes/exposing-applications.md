@@ -11,7 +11,7 @@ A Service allocates a dedicated IP address for the exposed application, whereas 
 {% hint style="info" %}
 **Note**
 
-For stateless Web services, the [Serverless framework](serverless/) may be a good option. In this framework, the application is automatically deployed with a TLS-enabled hostname and autoscaling enabled.
+For stateless Web services, the [Serverless framework](serverless.md) may be a good option. In this framework, the application is automatically deployed with a TLS-enabled hostname and autoscaling enabled.
 {% endhint %}
 
 ## Internal Services

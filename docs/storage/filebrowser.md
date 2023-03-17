@@ -14,9 +14,9 @@ You will want to ensure that the storage volume you want to use with FileBrowser
 
 ## Deploy the application
 
-<figure><img src="../.gitbook/assets/image (24) (3).png" alt=""><figcaption><p>The filebrowser application</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (24) (1) (1) (1).png" alt=""><figcaption><p>The filebrowser application</p></figcaption></figure>
 
-To deploy FileBrowser, first log in to your CoreWeave Cloud account. Then, navigate to [the Applications Catalog](../coreweave-kubernetes/serverless/applications-catalog.md). Once in the Catalog, use the search bar to search for `filebrowser`.
+To deploy FileBrowser, first log in to your CoreWeave Cloud account. Then, navigate to [the Applications Catalog](../coreweave-kubernetes/applications-catalog.md). Once in the Catalog, use the search bar to search for `filebrowser`.
 
 When the **filebrowser** application appears, click on it. This will open the application's about page. At the bottom or top right-hand corner of the screen, click the **Deploy** button to open the deployment page for the application. From this page, set a **Name** for the application. Then, under **Node Selection**, select your [data center region](../data-center-regions.md).
 
@@ -54,10 +54,10 @@ In the **Access URLs** box on the status page, you will find an Ingress URL (for
 
 This Ingress URL may be used to access the FileBrowser application in a browser.
 
-![The FileBrowser login screen](<../../.gitbook/assets/image (3) (1) (1) (2).png>)
+![The FileBrowser login screen](<../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (2).png>)
 
 **It is strongly recommended to change the password for your FileBrowser instance as soon as possible.** Do this by logging into your new FileBrowser instance, navigating to **Settings** on the left-hand side, and changing the password from that page.
 
-<figure><img src="../.gitbook/assets/image (76).png" alt="Screenshot: Change the default password for your FileBrowser instance"><figcaption><p>Change the default password for your FileBrowser instance</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (76) (1).png" alt="Screenshot: Change the default password for your FileBrowser instance"><figcaption><p>Change the default password for your FileBrowser instance</p></figcaption></figure>
 
 Congratulations! You have successfully deployed FileBrowser onto CoreWeave Cloud, and now have an easy-to-use interface for file management. To learn more about the application itself, check out [the official FileBrowser documentation](https://filebrowser.org/features).

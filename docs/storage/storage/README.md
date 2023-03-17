@@ -28,7 +28,7 @@ In addition to traditional Storage Volumes, CoreWeave also offers S3-compliant O
 
 :checkered\_flag: May be cloned to instantiate new Virtual Servers from a template
 
-:fire: Automatic backups are supported using BackBlaze via [CoreWeave Apps](../../coreweave-kubernetes/serverless/applications-catalog.md)
+:fire: Automatic backups are supported using BackBlaze via [CoreWeave Apps](../../coreweave-kubernetes/applications-catalog.md)
 
 ## Volume Types
 

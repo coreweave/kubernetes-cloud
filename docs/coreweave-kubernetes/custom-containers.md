@@ -38,7 +38,7 @@ The basic steps to deploying your own custom containerized application onto Core
 
 To deploy a locally built, containerized application, the container image must first be pushed to a container image repository.
 
-CoreWeave provides an easy way to deploy a [Docker Registry](https://docs.docker.com/registry/) instance into your namespace for this purpose. Simply install the [Docker Registry application](https://docs.docker.com/registry/) from [the applications Catalog](serverless/applications-catalog.md) on the [Cloud UI](../../virtual-servers/deployment-methods/coreweave-apps.md). Once deployed, the Docker Registry instance may be configured for access both within and outside of the CoreWeave environment.
+CoreWeave provides an easy way to deploy a [Docker Registry](https://docs.docker.com/registry/) instance into your namespace for this purpose. Simply install the [Docker Registry application](https://docs.docker.com/registry/) from [the applications Catalog](applications-catalog.md) on the [Cloud UI](../../virtual-servers/deployment-methods/coreweave-apps.md). Once deployed, the Docker Registry instance may be configured for access both within and outside of the CoreWeave environment.
 
 All requests to the Docker Registry instance are authenticated. Credentials are automatically provisioned in an `imagePullSecret` in the namespace, which contains the credentials that are either manually configured during setup or automatically generated for you.
 
@@ -66,7 +66,7 @@ To install the Docker Registry application, first [log in to your CoreWeave Clou
 
 From the Catalog homepage, search for `docker`. Then, select the version of the Docker Registry application that you'd like to deploy.
 
-<figure><img src="../.gitbook/assets/image (8).png" alt="Screenshot of docker-registry in the applications Catalog"><figcaption><p>Locate the docker-registry application in the applications Catalog</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (8) (4).png" alt="Screenshot of docker-registry in the applications Catalog"><figcaption><p>Locate the docker-registry application in the applications Catalog</p></figcaption></figure>
 
 Clicking on the application's card will open its deployment page, which contains further information about the application itself. Click the **Deploy** button to navigate to the application's configuration screen, which is used to configure the instance.
 

@@ -42,7 +42,7 @@ For this example, everything is provisioned to the Chicago datacenter (`ORD1`), 
 
 After clicking on the **Deploy** button, the status screen will inform you that the volume has been created.
 
-![The post-deployment status screen, including a status message](<../../.gitbook/assets/image (58).png>)
+![The post-deployment status screen, including a status message](<../../.gitbook/assets/image (60) (1) (1).png>)
 
 From the **Applications** tab, you will also be able to see the filesystem volume with the name you've assigned it.
 
@@ -102,7 +102,7 @@ Both the standard flavor of Samba as well as the Active Directory version may be
 
 <div>
 
-<figure><img src="../../.gitbook/assets/image (62) (1) (1).png" alt="The standard Samba icon in the application Catalog"><figcaption><p>The standard Samba icon in the application Catalog</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (128) (1) (1) (2).png" alt="The standard Samba icon in the application Catalog"><figcaption><p>The standard Samba icon in the application Catalog</p></figcaption></figure>
 
  
 
@@ -194,7 +194,7 @@ Additionally, now from the **Applications** tab, both the shared filesystem volu
 
 After deploying your Samba instance, the **Installation Notes** section will provide the `.coreweave.cloud` domain name for the instance. You can connect to this drive by utilizing Windows "Map network drive" option.
 
-![The DNS name listed in the success message of the Samba deployment](<../../.gitbook/assets/image (73) (1).png>)
+![The DNS name listed in the success message of the Samba deployment](<../.gitbook/assets/image (116) (1) (1).png>)
 
 Navigate to the Start menu and right-click the name of your local machine. Select **Map network drive...** from the drop-down.
 
@@ -214,7 +214,7 @@ Select the mount, click the OK button, then enter your credentials.
 
 To expose the same storage over NFS, search for the NFS application in the application Catalog. Click the **Deploy** button to configure the NFS settings.
 
-<figure><img src="../.gitbook/assets/image (29) (1).png" alt="The NFS application in the application Catalog"><figcaption><p>The NFS application in the application Catalog</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (29) (2).png" alt="The NFS application in the application Catalog"><figcaption><p>The NFS application in the application Catalog</p></figcaption></figure>
 
 {% hint style="warning" %}
 **Important**
@@ -240,7 +240,7 @@ A final option for accessing your Cloud storage remotely is by using the FileBro
 
 To install FileBrowser, first navigate to the applications Catalog, then search for **filebrowser**.
 
-<figure><img src="../.gitbook/assets/image (24) (1).png" alt=""><figcaption><p>The filebrowser application</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (24) (1) (1).png" alt=""><figcaption><p>The filebrowser application</p></figcaption></figure>
 
 Navigate to the application Catalog through the CoreWeave Cloud UI, then search for `filebrowser`.  Select the application, then click the **Deploy** button in the lower right-hand corne
 
@@ -248,7 +248,7 @@ Under **Node Selection**, select the same data center region into which the stor
 
 Under the "Attach existing volumes to your FileBrowser" list, highlight the associated storage volume, then click the blue plus sign to the right of its name.
 
-<figure><img src="../.gitbook/assets/image (21).png" alt=""><figcaption><p>The FileBrowser configuration screen, including a list of "Available Volumes"</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (21) (1) (1) (1).png" alt=""><figcaption><p>The FileBrowser configuration screen, including a list of "Available Volumes"</p></figcaption></figure>
 
 Configure how you'd like the Volume to appear once mounted, then click the **Deploy** button.
 
@@ -282,13 +282,13 @@ Once you have a working Media Shuttle license, locate your Media Shuttle registr
 
 Then, select the checkbox to agree to the license agreement terms.
 
-<figure><img src="../.gitbook/assets/image (39) (1) (1).png" alt="Screenshot of the license agreement checkbox in Media Shuttle"><figcaption><p>License agreement checkbox</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (39) (2).png" alt="Screenshot of the license agreement checkbox in Media Shuttle"><figcaption><p>License agreement checkbox</p></figcaption></figure>
 
 Once you have completed the wizard, the storage server registration key will be presented to you. Retain this for the next few setup steps.
 
 Return to the applications Catalog from CoreWeave Cloud, and search for `media-shuttle`. Find the **media-shuttle** application, select it, then click the **Deploy** button in the bottom right corner of the screen to begin configuring the application.
 
-<figure><img src="../../.gitbook/assets/image (64) (1) (1).png" alt="The Media Shuttle application icon"><figcaption><p>The Media Shuttle application icon displayed in the applications Catalog</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (80).png" alt="The Media Shuttle application icon"><figcaption><p>The Media Shuttle application icon displayed in the applications Catalog</p></figcaption></figure>
 
 Clicking the **Deploy** button will open the application configuration screen.
 
