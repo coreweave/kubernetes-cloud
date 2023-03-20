@@ -30,7 +30,7 @@ This option can be configured in the `os.uefi` field in the YAML manifest under 
 
 **Example**
 
-![The os.uefi option configured under the YAML tab in the configuration screen.](<../../.gitbook/assets/image (56) (1).png>)
+![The os.uefi option configured under the YAML tab in the configuration screen.](<../../.gitbook/assets/image (56) (1) (1).png>)
 
 #### Operating System add**itions**
 

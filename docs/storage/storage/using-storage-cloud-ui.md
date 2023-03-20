@@ -6,11 +6,11 @@ description: Manage Storage Volumes using the CoreWeave Cloud UI
 
 [The CoreWeave Cloud UI](../../../virtual-servers/deployment-methods/coreweave-apps.md) provides an easy-to-use storage configuration page. To access it, first log in to your CoreWeave Cloud account. Then, from the left-hand menu, navigate to **Storage Volumes**. To create a new Storage Volume, click the **New Volume** button in the upper right-hand corner or center of the page.
 
-<figure><img src="../../.gitbook/assets/image (5).png" alt="Screenshot: The Storage Volumes management page"><figcaption><p>The Storage Volumes management page</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (9).png" alt="Screenshot: The Storage Volumes management page"><figcaption><p>The Storage Volumes management page</p></figcaption></figure>
 
 ## Create a new Storage Volume
 
-<figure><img src="../../.gitbook/assets/image (39) (1).png" alt=""><figcaption><p>The Storage Volume modal opens when the <strong>New Volume</strong> button is clicked</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (6).png" alt=""><figcaption><p>The Storage Volume modal opens when the <strong>New Volume</strong> button is clicked</p></figcaption></figure>
 
 ### Volume name
 
@@ -74,7 +74,7 @@ To attach a filesystem, first select the Volume you wish to attach from the **Av
 
 Finally, the mount point for the Volume is specified under the **Mount As** column.
 
-<figure><img src="../../.gitbook/assets/image (20).png" alt="Screenshot showing a filesystem volume being attached to a Virtual Server"><figcaption><p>Attach a filesystem Volume to a Virtual Server</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (4).png" alt="Screenshot showing a filesystem volume being attached to a Virtual Server"><figcaption><p>Attach a filesystem Volume to a Virtual Server</p></figcaption></figure>
 
 ### **Block device attachments**
 
@@ -96,8 +96,8 @@ Resizing **Block Volumes**, on the other hand, requires **stopping or restarting
 
 To resize a Volume, first navigate to the Storage Volumes page. Click the pencil icon that appears beside the listed Storage Volume that you'd like to resize to open the Persistent Volume Claim modal.
 
-<figure><img src="../../.gitbook/assets/image (28).png" alt="Screenshot: Click the pencil icon to the right of the Storage Volume name to edit it"><figcaption><p>Click the pencil icon to the right of the Storage Volume name to edit it</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image.png" alt="Screenshot: Click the pencil icon to the right of the Storage Volume name to edit it"><figcaption><p>Click the pencil icon to the right of the Storage Volume name to edit it</p></figcaption></figure>
 
 From this modal, it is possible to adjust the size and labels of the Volume. Adjust the size under the **size** field, then click the **Save** button to apply your changes.
 
-<figure><img src="../../.gitbook/assets/image (35).png" alt="Screenshot of the storage volume edit module"><figcaption><p>Adjust the volume size</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2).png" alt="Screenshot of the storage volume edit module"><figcaption><p>Adjust the volume size</p></figcaption></figure>

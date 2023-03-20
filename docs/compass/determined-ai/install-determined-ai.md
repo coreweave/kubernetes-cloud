@@ -88,11 +88,11 @@ After the application is in a **Ready** state, navigate to the Ingress URL provi
 The client is configured to communicate with the server via the environment variable `$DET_MASTER`.
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (5) (1) (4).png" alt="The Web UI access info in the post-launch notes"><figcaption><p>The Web UI access info in the post-launch notes</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5) (5).png" alt="The Web UI access info in the post-launch notes"><figcaption><p>The Web UI access info in the post-launch notes</p></figcaption></figure>
 
 At the Determined AI home screen, you can [launch a JupyterLab and subsequent Jupyter Notebooks](../../machine-learning-and-ai/training/determined-ai/launch-jupyter-notebook-on-coreweave-via-determined-ai.md), or perform model fine-tuning with [GPT DeepSpeed](../../machine-learning-and-ai/training/determined-ai/launch-gpt-deepspeed-models-using-determinedai.md), [GPT-NeoX](gpt-neox.md), or [Hugging Face](../../machine-learning-and-ai/training/determined-ai/finetuning-huggingface-llms-with-determined-ai-and-deepspeed.md).
 
-<figure><img src="../../.gitbook/assets/image (3) (6).png" alt="The Determined AI Web UI"><figcaption><p>The Determined AI Web UI</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3) (1) (2).png" alt="The Determined AI Web UI"><figcaption><p>The Determined AI Web UI</p></figcaption></figure>
 
 ## More Resources
 

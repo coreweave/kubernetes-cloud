@@ -4,20 +4,33 @@ description: Learn how to configure your CoreWeave Kubernetes setup to access th
 
 # Get Started with CoreWeave
 
+## Create an account
+
+To generate access credentials for CoreWeave Cloud, first [sign up for an account](https://cloud.coreweave.com/request-account).
+
+After providing payment information, you will receive a verification email to the account provided. After verifying your address, your information will be submitted to our team to verify your account request. You will also be redirected to a page that confirms the request was received.
+
+{% hint style="success" %}
+**Tip**
+
+For a higher chance of admission, it is strongly recommended to fill out [the inbound sales form](https://coreweave.com/contact-us) after submitting your account request. **Please note, account approval may take up to three business days.**
+{% endhint %}
+
 ## Obtain CoreWeave access credentials
 
-On CoreWeave, **Kubeconfig** files are used to interact with our Kubernetes cluster by using clients such as `kubectl`, and **API Access Tokens** are used for programmatic access to CoreWeave Cloud applications such as [Prometheus](../../coreweave-kubernetes/prometheus/).
+On CoreWeave, [**Kubeconfig files**](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/) are used to interact with our Kubernetes cluster via clients such as `kubectl`. **API Access Tokens** are used for programmatic access to CoreWeave Cloud applications, such as [Prometheus](../../coreweave-kubernetes/prometheus/).
 
-To generate your access credentials, first [sign up for CoreWeave Cloud](https://cloud.coreweave.com/request-account). Once you have an account, [log in to the Cloud UI](https://cloud.coreweave.com), then navigate to the **API Access** page from the left-hand menu.
+Once your account has been approved and is activated, [log in to the CoreWeave Cloud UI](https://cloud.coreweave.com), then navigate to **API Access** on the left-hand menu. New Kubeconfig files and credentials as well as new API tokens are generated from this page.
 
-<figure><img src="../.gitbook/assets/image (7) (5).png" alt="Screenshot of The API &#x26; Kubeconfig page on the Cloud UI"><figcaption><p>The API &#x26; Kubeconfig page on the Cloud UI</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (7) (5).png" alt="Screenshot of The API &#x26; Kubeconfig page on the Cloud UI"><figcaption><p>The API &#x26; Kubeconfig page on the Cloud UI, accessed via the "API Access" link on the left-hand menu</p></figcaption></figure>
 
 ### Generate the Kubeconfig file
 
 {% hint style="danger" %}
 **Warning**
 
-**The Kubeconfig and Access Token are shown** **only once!** Be sure to save this file and the token in a secure location. If you lose your Access Token, it can be found inside your [Kubeconfig file](getting-started.md#configure-kubernetes).
+**The Kubeconfig and Access Token are shown** **only once!**\
+****Be sure to save this file and the token in a secure location. If you lose your Access Token, it can be found inside your [Kubeconfig file](getting-started.md#configure-kubernetes).
 {% endhint %}
 
 From the [API Access page](https://cloud.coreweave.com/api-access) on the Cloud UI, click the **API & KUBECONFIG** tab at the top right of the page, then click the **Create a New Token** button to the right.
