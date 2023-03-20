@@ -54,6 +54,19 @@ spec:
     # Number of nodes used for training
     - name: trainer_nodes
       value: 2
+    # Type of GPU to use for training
+    - name: trainer_gpu
+      value: "A100_NVLINK_80GB"
+    # Wether to request infiniband on the training nodes
+    - name: use_ib
+      value: true
+    # The following training config parameters have been tuned for training on 2 A100_NVLINK_80GB nodes
+    # Batch size that will be sent to each GPU, total batch size = micro_batch_size * num_gpus
+    - name: micro_batch_size
+      value: 8
+    # Number of steps to accumulate the gradient before applying it to the model weights (Also known as GAS)
+    - name: gradient_accumulation_steps
+      value: 96
     # Weights and Biases values that will be used to log. Leave blank to not use WandB
     - name: wandb_secret_name
       value: "wandb-token-secret"
@@ -87,6 +100,10 @@ spec:
                 value: "{{workflow.parameters.finetuned_checkpoint_path}}"
               - name: data_path
                 value: "{{workflow.parameters.tokenized_dataset_path}}"
+              - name: micro_batch_size
+                value: "{{workflow.parameters.micro_batch_size}}"
+              - name: gradient_accumulation_steps
+                value: "{{workflow.parameters.gradient_accumulation_steps}}"
               - name: wandb_project
                 value: "{{workflow.parameters.wandb_project}}"
               - name: wandb_group
@@ -146,6 +163,10 @@ spec:
                 value: "{{workflow.parameters.trainer_nodes}}"
               - name: config_name
                 value: "{{workflow.parameters.training_config_name}}"
+              - name: gpu
+                value: "{{workflow.parameters.trainer_gpu}}"
+              - name: ib
+                value: "{{=workflow.parameters.use_ib == 'true' ? '1' : '0'}}"
 
   - name: create-configmap
     inputs:
@@ -154,6 +175,8 @@ spec:
         - name: save_path
         - name: load_path
         - name: data_path
+        - name: micro_batch_size
+        - name: gradient_accumulation_steps
         - name: wandb_group
         - name: wandb_project
     resource:
@@ -221,9 +244,9 @@ spec:
               },
               
               # batch / data settings (assuming 16 GPUs)
-              "train_micro_batch_size_per_gpu": 8,
+              "train_micro_batch_size_per_gpu": {{ inputs.parameters.micro_batch_size}},
               # 12,288 samples before stepping the optimizer (8 GPUs per nodes * N nodes * 8 micro batch size)
-              "gradient_accumulation_steps": 96,
+              "gradient_accumulation_steps": {{ inputs.parameters.gradient_accumulation_steps}},
               "data-impl": "mmap",
               "split": "995,4,1",
               
@@ -373,6 +396,8 @@ spec:
     inputs:
       parameters:
         - name: num_nodes
+        - name: gpu
+        - name: ib
         - name: config_name
     resource:
       action: apply
@@ -454,10 +479,10 @@ spec:
                           cpu: 48
                           memory: 256Gi
                           nvidia.com/gpu: 8
-                          rdma/ib: 1
+                          rdma/ib: {{inputs.parameters.ib}}
                         limits:
                           nvidia.com/gpu: 8
-                          rdma/ib: 1
+                          rdma/ib: {{inputs.parameters.ib}}
 
                   volumes:
                     - name: config
@@ -482,7 +507,7 @@ spec:
                               - key: gpu.nvidia.com/model
                                 operator: In
                                 values:
-                                  - A100_NVLINK_80GB
+                                  - {{inputs.parameters.gpu}}
                               - key: topology.kubernetes.io/region
                                 operator: In
                                 values:
