@@ -38,7 +38,7 @@ First, create a **Shared Filesystem storage volume** from the **Storage** menu i
 
 If you're following along with this demo, you can use the values shown and described below.
 
-<figure><img src="../../../.gitbook/assets/image (14) (4).png" alt=""><figcaption><p>Create a New Volume on the Storage menu from the Cloud UI</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (14).png" alt=""><figcaption><p>Create a New Volume on the Storage menu from the Cloud UI</p></figcaption></figure>
 
 The values used for this demo are as follows:
 
@@ -186,7 +186,7 @@ The logs from the script will be output to your terminal window, but you can als
 
 Once the task is complete you should see the processed dataset files in the PVC via the FileBrowser.
 
-<figure><img src="../../../.gitbook/assets/image (41) (1) (1).png" alt=""><figcaption><p>The processed WikiText dataset files shown in the FileBrowser UI.</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (41) (1) (1) (1).png" alt=""><figcaption><p>The processed WikiText dataset files shown in the FileBrowser UI.</p></figcaption></figure>
 
 ## Prepare for Training
 

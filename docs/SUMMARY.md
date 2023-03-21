@@ -8,7 +8,7 @@
 
 * [Get Started with CoreWeave](coreweave-kubernetes/getting-started.md)
 * [Applications Catalog](coreweave-kubernetes/applications-catalog.md)
-* [Serverless](coreweave-kubernetes/serverless/README.md)
+* [Serverless](coreweave-kubernetes/serverless.md)
 * [Exposing Applications](coreweave-kubernetes/exposing-applications.md)
 * [Custom Containers](coreweave-kubernetes/custom-containers.md)
 * [Useful Commands](../coreweave-kubernetes/useful-commands.md)
@@ -140,7 +140,7 @@
     * [Fine-tuning](machine-learning-and-ai/training/argo-workflows/fine-tuning/README.md)
       * [Fine-tune Stable Diffusion Models with CoreWeave](machine-learning-and-ai/training/argo-workflows/fine-tuning/finetuning-image-generation-models.md)
       * [Fine-tune GPT Models with CoreWeave](machine-learning-and-ai/training/argo-workflows/fine-tuning/finetuning-machine-learning-models.md)
-      * [Fine-tune GPT-NeoX-20B with Argo Workflows](machine-learning-and-ai/training/argo-workflows/fine-tuning/fine-tune-gpt-neox-20b-with-argo-workflows.md)
+      * [Fine-tune GPT-NeoX-20B with Argo Workflows](compass/distributed-training-with-kubeflow-training-operators/finetune-gpt-neox-20b-with-argo-workflows.md)
     * [CGI Rendering](machine-learning-and-ai/training/argo-workflows/cgi-rendering/README.md)
       * [CGI Rendering Using Workflows](machine-learning-and-ai/training/argo-workflows/cgi-rendering/cgi-rendering.md)
 

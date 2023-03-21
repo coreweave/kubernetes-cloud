@@ -240,7 +240,7 @@ A final option for accessing your Cloud storage remotely is by using the FileBro
 
 To install FileBrowser, first navigate to the applications Catalog, then search for **filebrowser**.
 
-<figure><img src="../.gitbook/assets/image (24) (1) (1).png" alt=""><figcaption><p>The filebrowser application</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (24) (1).png" alt=""><figcaption><p>The filebrowser application</p></figcaption></figure>
 
 Navigate to the application Catalog through the CoreWeave Cloud UI, then search for `filebrowser`.  Select the application, then click the **Deploy** button in the lower right-hand corne
 
@@ -278,7 +278,7 @@ After the first login, it is strongly recommended to change the password of your
 
 Once you have a working Media Shuttle license, locate your Media Shuttle registration key by opening Media Shuttle. Click "Add" beside Storage.
 
-<figure><img src="../.gitbook/assets/image (48) (1).png" alt="Screenshot of the &#x22;Add&#x22; link located on the Media Shuttle menu"><figcaption><p>The "Add" link located on the Media Shuttle menu</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (48) (1) (1).png" alt="Screenshot of the &#x22;Add&#x22; link located on the Media Shuttle menu"><figcaption><p>The "Add" link located on the Media Shuttle menu</p></figcaption></figure>
 
 Then, select the checkbox to agree to the license agreement terms.
 

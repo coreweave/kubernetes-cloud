@@ -32,7 +32,7 @@ The following deployment form will prompt you to enter a name for the applicatio
 [See the **Security** section below for more information](argo.md#security).
 {% endhint %}
 
-![The Argo Workflows configuration screen](<../../../.gitbook/assets/image (1) (6) (1).png>)
+![The Argo Workflows configuration screen](<../../../.gitbook/assets/image (1) (6) (1) (1).png>)
 
 After a few minutes, the deployment will be ready. If you selected `Expose UI via public Ingress`, Argo Workflows will be accessible outside the cluster.
 

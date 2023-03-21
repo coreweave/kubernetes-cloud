@@ -12,7 +12,7 @@ The [CoreWeave Cloud applications Catalog](https://apps.coreweave.com) offers ma
 
 To access the Catalog, first log in to your CoreWeave Cloud account, then navigate to the **Applications** page on the left-hand menu.
 
-<figure><img src="../.gitbook/assets/image (10) (2) (2) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (10) (2) (2).png" alt=""><figcaption></figcaption></figure>
 
 ## Find applications
 

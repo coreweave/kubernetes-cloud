@@ -187,7 +187,7 @@ After rebooting, your Windows Virtual Server will now be joined to your Active D
 
 Confirm connectivity by performing a policy update:
 
-![Group Policy update](<../../../.gitbook/assets/image (12) (2) (1).png>)
+![Group Policy update](<../../../.gitbook/assets/image (12) (2).png>)
 
 ## Adding a secondary Domain Controller
 

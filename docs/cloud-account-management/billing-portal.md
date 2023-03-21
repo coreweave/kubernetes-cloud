@@ -6,7 +6,7 @@ The CoreWeave Cloud billing portal is where account creators manage payment meth
 
 To access the billing portal, navigate to the [CoreWeave Cloud Web UI](https://cloud.coreweave.com/), then click **Usage & Billing** in the **Account Details** section.&#x20;
 
-<figure><img src="../.gitbook/assets/image (1) (9).png" alt="Screenshot of the Usage &#x26; Billing menu"><figcaption><p>Usage &#x26; Billing menu</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (6).png" alt="Screenshot of the Usage &#x26; Billing menu"><figcaption><p>Usage &#x26; Billing menu</p></figcaption></figure>
 
 {% hint style="info" %}
 **Note**

@@ -50,7 +50,7 @@ For most cases, matching your VDI resolution to your local display resolution wi
 
 If you are trying to set your VDI to a non-standard resolution (e.g. MacBook Pro's native resolution of `2880x1800`), use the NVIDIA Control Panel, as the Parsec menu only includes standard resolution options.
 
-<figure><img src="../.gitbook/assets/image (8) (3) (1).png" alt="Screenshot: It is recommended to set Parsec&#x27;s resoluton to your host machine&#x27;s native resolution"><figcaption><p>It is recommended to set Parsec's resoluton to your host machine's native resolution</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (8) (3).png" alt="Screenshot: It is recommended to set Parsec&#x27;s resoluton to your host machine&#x27;s native resolution"><figcaption><p>It is recommended to set Parsec's resoluton to your host machine's native resolution</p></figcaption></figure>
 
 #### Setting resolution using the NVIDIA control panel
 

@@ -38,7 +38,7 @@ Within the Virtual Server deployment form, switch to the YAML tab:
 
 Towards the bottom of the page, a commented out cloudInit section will be pre-populated. Uncomment to add custom user data:
 
-![](<../../.gitbook/assets/image (61) (1).png>)
+![](<../../.gitbook/assets/image (61) (1) (1).png>)
 
 {% hint style="info" %}
 For more information on what be added via native cloudInit Userdata, view the Cloudbase Solutions documentation [here](https://cloudbase-init.readthedocs.io/en/latest/userdata.html#userdata).

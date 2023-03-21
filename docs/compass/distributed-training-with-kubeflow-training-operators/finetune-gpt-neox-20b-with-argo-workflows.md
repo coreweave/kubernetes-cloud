@@ -6,9 +6,15 @@ description: >-
 
 # Fine-tune GPT-NeoX-20B with Argo Workflows
 
-Similarly to the [Fine-tuning Machine Learning Models](finetuning-machine-learning-models.md) tutorial, the following walkthrough provides an example of using Argo Workflows to fine-tune a smaller model (GPT-J) on a smaller dataset. If you are new to fine-tuning and Argo Workflows, this is a great place to start.
+Similarly to the [Fine-tuning Machine Learning Models](../../machine-learning-and-ai/training/argo-workflows/fine-tuning/finetuning-machine-learning-models.md) tutorial, the following walkthrough provides an example of using Argo Workflows to fine-tune a smaller model (GPT-J) on a smaller dataset. If you are new to fine-tuning and Argo Workflows, this is a great place to start.
 
 This example uses two A100 nodes (16 total GPUs) using NVIDIA's [NVLINK](https://www.nvidia.com/en-us/data-center/nvlink/) and [Infiniband](https://www.nvidia.com/en-us/networking/products/infiniband/) technologies for highly performant distributed training.
+
+{% hint style="info" %}
+**Optional A40 configuration**
+
+If A100 resources aren't available in the selected region, A40 nodes can be substituted. See the [A40 option](finetune-gpt-neox-20b-with-argo-workflows.md#a40-option) later in this tutorial and check the [Debugging](finetune-gpt-neox-20b-with-argo-workflows.md#debugging-race-conditions) section for more tips.
+{% endhint %}
 
 ## Source code
 
@@ -37,7 +43,7 @@ The Argo workflow for fine-tuning is defined in the `04-finetune-workflow.yaml` 
 * [the directed-acyclic graph (DAG) definition](https://argoproj.github.io/argo-workflows/walk-through/dag/#dag),
 * and the step definitions.
 
-<figure><img src="../../../../.gitbook/assets/image (3) (1) (3).png" alt="Visualization of the DAG defined by the Argo workflow"><figcaption><p>Visualization of the DAG defined by the Argo workflow</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3) (1) (3).png" alt="Visualization of the DAG defined by the Argo workflow"><figcaption><p>Visualization of the DAG defined by the Argo workflow</p></figcaption></figure>
 
 ### Parameters
 
@@ -95,9 +101,7 @@ resources:
 
 As is shown in this example, the `rdma/ib` resource requests that Remote Direct Memory Access (RDMA) be performed using InfiniBand. RDMA allows for direct memory access from the memory of one computer into that of another without involving the Operating System of either machine, which is accomplished using InfiniBand packets over Ethernet.
 
-Requesting this resource offers a big boost to distributed training performance, however it is currently **only available for A100 and H100 GPU node types on CoreWeave Cloud.**
-
-<table data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td>➡️ <strong>Learn more about InfiniBand on CoreWeave Cloud</strong></td><td></td><td></td><td><a href="../../../../coreweave-kubernetes/networking/hpc-interconnect.md">hpc-interconnect.md</a></td></tr></tbody></table>
+Requesting this resource offers a big boost to distributed training performance, however it is currently **only available for A100 and H100 GPU node types on CoreWeave Cloud.** Learn more about [InfiniBand on CoreWeave Cloud](../../coreweave-kubernetes/networking/hpc-interconnect.md).
 
 ## Setup
 
@@ -106,12 +110,12 @@ Before running the Workflow, a few things need to be created in your namespace.&
 {% hint style="info" %}
 **Note**
 
-This guide assumes that you have already followed the process to set up the CoreWeave Kubernetes environment. If you have not done so already, [follow our Getting Started guide](../../../../coreweave-kubernetes/getting-started.md) before proceeding with this guide.
+This guide assumes that you have already followed the process to set up the CoreWeave Kubernetes environment. If you have not done so already, [follow our Getting Started guide](../../coreweave-kubernetes/getting-started.md) before proceeding with this guide.
 {% endhint %}
 
 ### Argo Workflows
 
-To run an Argo workflow, first deploy the Argo Workflows application in your namespace via the CoreWeave's [application Catalog](../../../../coreweave-kubernetes/applications-catalog.md).
+To run an Argo workflow, first deploy the Argo Workflows application in your namespace via the CoreWeave's [application Catalog](../../coreweave-kubernetes/applications-catalog.md).
 
 {% hint style="info" %}
 **Additional Information**
@@ -130,7 +134,7 @@ kubectl apply -f 01-pvc.yaml
 {% hint style="info" %}
 **Optional**
 
-You can deploy [a FileBrowser application](../../../../storage/filebrowser.md) attaching the newly created PVCs to be able to inspect their contents in your browser.
+You can deploy [a FileBrowser application](../../storage/filebrowser.md) attaching the newly created PVCs to be able to inspect their contents in your browser.
 {% endhint %}
 
 ### Fine-tune role
@@ -189,7 +193,7 @@ Once the Workflow is submitted, its progress may be monitored from the Argo Work
 
 Pod logs may be acquired via CLI using `kubectl logs <pod name>`, or by clicking on the relevant stage in the Argo Workflows Web UI.
 
-<figure><img src="../../../../.gitbook/assets/image (2) (1).png" alt=""><figcaption><p>Argo Workflow right after submission</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (7).png" alt=""><figcaption><p>Argo Workflow right after submission</p></figcaption></figure>
 
 The logs from the fine-tuning training script are available from the launcher Pod. They can be accessed via `kubectl`:
 
@@ -203,21 +207,9 @@ kubectl logs finetune-gpt-neox-n6mnd-mpijob-launcher-xz98s
 Once complete, the fine-tuned model checkpoint will be saved in the `neox-checkpoints` PVC. The path is defined as a workflow parameter and defaults to `pvc://neox-checkpoints/20B_finetuned_checkpoint`.
 {% endhint %}
 
-### Debugging
+Deleting the Argo Workflow alone won't remove all of the resources. The `mpijob` resource that was used for fine-tuning, and the `configmap` resource will still exist. To delete them, target them specifically using `kubectl delete`:
 
-The GPT-NeoX code can hang indefinitely if both the Worker Pods are not up and running when the main container in the launcher begins to run. To prevent this, an init container is used in the launcher, which sleeps for 60 seconds. In most cases, this will prevent a hanging issue. However, if the Worker Pods take longer than 60 seconds to spin up - which may occur if they are in a `pending` state due to a lack of resource availability - they might not spin up in time.
-
-One quick way to check if the launcher is properly connected to both of the Worker Pods is by checking the Worker logs. If the most recent line in these logs is `Accepted publickey for root...`, then the launcher is connected. On the other hand, if the most recent log is `Disconnected...`, then the launcher isn't currently connected. This could be the sign of an issue.
-
-In this example, the logs show the launcher properly connected to the worker:
-
-<pre class="language-bash"><code class="lang-bash"><strong>$ kubectl logs finetune-gpt-neox-n6mnd-mpijob-worker-1
-</strong>
-Server listening on 0.0.0.0 port 22.
-Server listening on :: port 22.
-
-Accepted publickey for root from 10.145.231.160 port 38432 ssh2: ECDSA SHA256:mq7qxkWCmx7Srl2iavbJ0Dk7KsBriu1UvYnUCcruAts
-</code></pre>
+Finally, remove the resources that were created prior to running the Workflow. You can delete the Argo Workflows deployment through the CoreWeave's Applications UI. The PVCs, fine-tune Service Account role, and Weights and Biases secret can be deleted by targeting the files that created them with `kubectl delete`:
 
 ## Clean up
 
@@ -245,3 +237,55 @@ kubectl delete -f 03-wandb-secret.yaml
 kubectl delete -f 02-finetune-role.yaml
 kubectl delete -f 01-pvc.yaml
 ```
+
+## Debugging Race Conditions
+
+The GPT-NeoX code can hang indefinitely if both worker Pods are not up and running when the main container in the launcher begins to run.&#x20;
+
+This tutorial uses an init container in the launcher that sleeps for 60 seconds to prevent this problem. In most cases, this delay is sufficient, but the code can hang indefinitely if the worker Pods take longer than 60 seconds to spin up or remain in a `Pending` state due to a lack of resource availability. For example, there may not be enough A100s available in the selected region. If so, consider using the [A40 option](finetune-gpt-neox-20b-with-argo-workflows.md#a40-option) below.
+
+To detect if the launcher is properly connected to both of the worker Pods, check the worker logs with `kubectl logs`.&#x20;
+
+* If the most recent line is `Accepted publickey for root...`, then the launcher is connected.&#x20;
+* On the other hand, if the most recent log is `Disconnected...`, then the launcher isn't currently connected.
+
+Here is an example of a launcher properly connected to the worker:
+
+<pre class="language-bash"><code class="lang-bash"><strong>$ kubectl logs finetune-gpt-neox-n6mnd-mpijob-worker-1
+</strong>
+Server listening on 0.0.0.0 port 22.
+Server listening on :: port 22.
+
+Accepted publickey for root from 10.145.231.160 port 38432 ssh2: ECDSA SHA256:mq7qxkWCmx7Srl2iavbJ0Dk7KsBriu1UvYnUCcruAts
+</code></pre>
+
+## A40 option
+
+This tutorial uses two Nodes with A100 80GB cards and Infiniband, for a total of 16 GPUs. This delivers very high performance, but you may find that you aren't able to schedule that many A100s on-demand, leaving the worker Pods stuck in the `Pending` state. If you require A100 GPUs that you can't schedule on-demand, [please reach out to CoreWeave support](https://cloud.coreweave.com/contact) and ask about Reserved Instances.&#x20;
+
+Alternatively, you can use A40s by changing the default parameters when submitting the workflow to `argo` , as shown.
+
+```bash
+argo submit 04-finetune-workflow.yaml \            
+    -p run_name=finetune_gpt_neox \
+    -p trainer_gpu=A40 \
+    -p use_ib=false \
+    -p micro_batch_size=4 \
+    -p  gradient_accumulation_steps=192 \
+    --serviceaccount finetune
+```
+
+The main differences in this workflow are:
+
+* GPU affinity of the fine-tune job has been changed to `A40`&#x20;
+* the resource request/limit of `rdma/ib: 1` is changed to `rdma/ib: 0`
+* the GPT-NeoX config reflect the smaller memory of the A40
+
+## More information
+
+See these resources for more information:
+
+* [CoreWeave Kubernetes Cloud repository](https://github.com/coreweave/kubernetes-cloud)
+* [Argo Workflows documentation](https://argoproj.github.io/argo-workflows/)
+* [Eluther AI's gpt-neox repository](https://github.com/EleutherAI/gpt-neox/)
+* [Weights and Biases (wandb) documentation](https://docs.wandb.ai/)

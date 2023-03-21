@@ -113,7 +113,7 @@ After deploying the DeterminedAI application, a URL to the Web UI will be provid
 
 As an example, here is what a live experiment looks like when viewed from the Web UI:
 
-![A live experiment running in the DeterminedAI Web UI](<../../.gitbook/assets/image (20).png>)
+![A live experiment running in the DeterminedAI Web UI](<../../.gitbook/assets/image (20) (3).png>)
 
 Navigating to the **Logs** tab will give you a full output of the experiment's logs:
 
@@ -177,7 +177,7 @@ Upload your data as a single JSONL file called `data.jsonl` to filebrowser under
 
 Using the filebrowser app, create a new folder called `gpt_finetune` under the `finetune-gpt-neox` folder.
 
-![Creating the gpt\_finetune directory in filebrowser](<../../.gitbook/assets/image (5) (3) (1) (1).png>)
+![Creating the gpt\_finetune directory in filebrowser](<../../.gitbook/assets/image (5) (3) (1).png>)
 
 You can now pre-tokenize your data using `tools/preprocess_data.py`. The arguments for this utility are listed below.
 
