@@ -43,6 +43,10 @@ spec:
     # range is used to start the next `context`.
     - name: boundary_token
       value: '\n'
+    # token index in context to approximately overlap contexts on, -1 for last
+    # boundary token in context
+    - name: boundary_index
+      value: '-1'
     # The context size to train. Most models have a default maximum of `2048`,
     # but this can be adjusted downwards. This is most useful when the text
     # you're training on is divided along logical boundaries and is split
@@ -144,15 +148,15 @@ spec:
     - name: downloader_image
       value: 'ghcr.io/wbrown/gpt_bpe/model_downloader'
     - name: downloader_tag
-      value: '34fa97f'
+      value: 'e526c65'
     - name: tokenizer_image
       value: 'ghcr.io/wbrown/gpt_bpe/dataset_tokenizer'
     - name: tokenizer_tag
-      value: '34fa97f'
+      value: 'e526c65'
     - name: finetuner_image
-      value: 'harubaru1/finetuner'
+      value: 'gooseai/finetuner'
     - name: finetuner_tag
-      value: '14'
+      value: 'cuda-11-8-torch-2-rc1'
     - name: inference_image
       value: 'coreweave/ml-images'
     - name: inference_tag
@@ -187,6 +191,8 @@ spec:
             value: "{{workflow.parameters.pad_token}}"
           - name: boundary
             value: "{{workflow.parameters.boundary_token}}"
+          - name: boundary_index
+            value: "{{workflow.parameters.boundary_index}}"
           - name: reorder
             value: "{{workflow.parameters.reorder}}"
         when: "{{workflow.parameters.inference_only}} == false"
@@ -304,6 +310,7 @@ spec:
              "-input", "{{inputs.parameters.input}}",
              "-output", "{{inputs.parameters.output}}",
              "-boundary", "{{inputs.parameters.boundary}}",
+             "-boundary_overlap", "{{inputs.parameters.boundary_index}}",
              "-reorder", "{{inputs.parameters.reorder}}"]
              #"-retokenize"]
       resources:

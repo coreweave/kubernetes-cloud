@@ -1,4 +1,4 @@
-FROM gooseai/torch-base:1.13.1-cuda-1.18-rc4
+FROM ghcr.io/coreweave/ml-containers/torch:afecfe9-base-cuda11.8.0-torch2.0.0-vision0.15.1
 RUN apt-get install -y cuda-nvcc-11-8 cuda-nvml-dev-11-8 libcurand-dev-11-8 \
                        libcublas-dev-11-8 libcusparse-dev-11-8 \
                        libcusolver-dev-11-8 cuda-nvprof-11-8 \
