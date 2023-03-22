@@ -297,6 +297,7 @@ spec:
         - name: pad
         - name: output
         - name: boundary
+        - name: boundary_index
         - name: reorder
     retryStrategy:
       limit: 1
