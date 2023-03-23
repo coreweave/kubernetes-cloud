@@ -12,7 +12,6 @@ import struct
 import time
 import math
 import torch
-import logging
 from torch import Tensor
 from torch.utils.data import Dataset, random_split, RandomSampler
 import argparse
@@ -20,9 +19,10 @@ import pathlib
 from typing import Tuple, List
 import socket
 from contextlib import closing, contextmanager
-
+import logging
 import validators
 import deepspeed
+
 
 
 def find_free_port():
@@ -204,6 +204,19 @@ parser.add_argument(
 )
 args = parser.parse_args()
 
+logger = logging.getLogger(__name__)
+logger.setLevel(level=logging.INFO)
+fh = logging.StreamHandler()
+if args.local_rank != -1:
+    fh_formatter = logging.Formatter(
+        f"%(asctime)s %(levelname)s %(filename)s(%(process)d) - RANK {args.local_rank}"
+        " - %(message)s"
+    )
+else:
+    fh_formatter = logging.Formatter("%(asctime)s %(levelname)s - %(message)s")
+fh.setFormatter(fh_formatter)
+logger.addHandler(fh)
+
 
 def is_main_process() -> bool:
     return args.local_rank in [-1, 0]
@@ -212,7 +225,7 @@ def is_main_process() -> bool:
 # To be used in cases where using if statements are ugly.
 def main_process_print(*args, **kwargs):
     if is_main_process():
-        print(*args, **kwargs)
+        logger.info(*args, **kwargs)
 
 
 # Where we write our training checkpoints and final model.
@@ -239,14 +252,14 @@ if not args.no_resume:
         lastCheckpoint = None
 else:
     lastCheckpoint = None
-print("LAST CHECKPOINT:", lastCheckpoint)
+logger.info(f"LAST CHECKPOINT: {lastCheckpoint}")
 
 # Set up `wandb` reporting if we have an API key, and resume reporting
 # if we are resuming a checkpoint.
 report_to = "none"
 wandb_key = os.getenv("WANDB_API_KEY", "").strip()
 if not wandb_key:
-    print("WANDB_API_KEY: No WANDB_API_KEY found, not reporting to wandb.")
+    logger.warning("WANDB_API_KEY: No WANDB_API_KEY found, not reporting to wandb.")
     os.environ["WANDB_DISABLED"] = "True"
 
 import wandb
@@ -257,9 +270,9 @@ if wandb_key and is_main_process():
     if lastCheckpoint is not None:
         wandbApi = wandb.Api(overrides={"project": args.project_id})
         for run in wandbApi.runs(path=args.project_id):
-            print("PRIOR RUN:", run, run.name, run.id, run.state)
+            logger.info(f"PRIOR RUN: {run} {run.name} {run.id} {run.state}")
             if run.state in ["crashed", "failed"] and run.name == args.run_name:
-                print(f"CHECKPOINT: Resuming {run.id}")
+                logger.info(f"CHECKPOINT: Resuming {run.id}")
                 run = wandb.init(
                     id=run.id,
                     project=args.project_id,
@@ -305,7 +318,7 @@ try:
     if tokens_to_add:
         tokenizer.add_special_tokens(tokens_to_add)
 except Exception as e:
-    print(e)
+    logger.error(e)
     sys.exit(1)
 
 
@@ -348,8 +361,8 @@ def estimate_batch_size(divisor: float = 1.0) -> int:
         gpu_info = pynvml.nvmlDeviceGetMemoryInfo(nvml_device)
         gpu_free = gpu_info.free
         new_bs = int(math.ceil(gpu_free / (used_gpu * divisor)))
-    print(get_gpu_ram())
-    print(f"Setting batch size to {new_bs}")
+    logger.info(get_gpu_ram())
+    logger.info(f"Setting batch size to {new_bs}")
     # if new_bs == 1:
     #    gc.set_threshold(10)
     return new_bs
@@ -418,7 +431,8 @@ class ModifiedTrainer(Trainer):
         self.report_idx = getattr(self, "report_idx", 0) + 1
         if self.report_idx % (2 * self.args.gradient_accumulation_steps) == 0:
             if is_main_process():
-                print(f"\nLOSS: {loss:.3f} {get_gpu_ram()}", file=sys.stderr)
+                print(f"\nLOSS: {loss:.3f} {get_gpu_ram()}", file=sys.stderr,
+                      flush=True)
                 sys.stderr.flush()
 
         return results
@@ -471,7 +485,6 @@ class ModelSampler(TrainerCallback):
             )
             main_process_print(
                 f"\nSTEP {state.global_step}: Evaluating on {self.prompt_file}...",
-                file=sys.stderr,
             )
             model.eval()
             sys.stderr.flush()
@@ -481,7 +494,7 @@ class ModelSampler(TrainerCallback):
                 ]
                 for prompt in prompts:
                     main_process_print("=============================")
-                    main_process_print("PROMPT:", prompt)
+                    main_process_print(f"PROMPT: {prompt}")
                     start = time.time()
                     outputs = evaluate(
                         prompt,
@@ -503,9 +516,9 @@ class ModelSampler(TrainerCallback):
                             ]
                         )
                         main_process_print("-----------------------------")
-                        main_process_print("RESPONSE:", output_text)
-            # it is still useful to collect evaluations on other ranks in their respective
-            # wandb runs.
+                        main_process_print(f"RESPONSE: {output_text}")
+            # it is still useful to collect evaluations on other ranks in their
+            # respective wandb runs.
             wandb.log(
                 {
                     "Generations": wandb.Table(
@@ -539,8 +552,8 @@ class TokenizedDataset(Dataset):
         length_mb = os.stat(path).st_size / (1 << 20)
         num_tokens = self.length * context_length
         if is_main_process():
-            print(f"DATASET: {path}")
-            print(
+            logger.info(f"DATASET: {path}")
+            logger.info(
                 f"DATASET SIZE: {length_mb:,.2f}MiB, {num_tokens:,} tokens, "
                 f"{self.length:,} contexts"
             )
@@ -568,15 +581,18 @@ class TokenizedDataset(Dataset):
 # Inform the user of host, and various versions -- useful for debugging issues.
 torch.cuda.set_device(args.local_rank)
 if is_main_process():
-    print("RUN_NAME:", args.run_name)
-    print("HOST:", socket.gethostname())
-    print("CUDA:", torch.version.cuda)
-    print("TORCH:", torch.__version__)
-    print("TRANSFORMERS:", transformers.__version__)
-    print(get_gpu_ram())
-    print("MODEL:", args.model)
-    print("SHUFFLE:", not args.no_shuffle)
-print("RANK:", args.local_rank)
+    logger.info(f"RUN_NAME: {args.run_name}")
+    logger.info(f"HOST: {socket.gethostname()}")
+    logger.info(f"CUDA: {torch.version.cuda}")
+    logger.info(f"TORCH: {torch.__version__}")
+    logger.info(f"TRANSFORMERS: {transformers.__version__}")
+    logger.info(get_gpu_ram())
+    logger.info(f"MODEL: {args.model}")
+    logger.info(f"SHUFFLE: {not args.no_shuffle}")
+
+# Set random seed, for ML research purposes and reproducibility, it's important
+# that we set this to a consistent value.
+torch.manual_seed(args.seed)
 
 # Set up our dataset from our tokenized data files, and split into training
 # dataset and values dataset -- values dataset is used to test the outcome
@@ -592,18 +608,14 @@ else:
         dataset, [train_size, len(dataset) - train_size]
     )
 
-# Set random seed, for ML research purposes and reproducibility, it's important
-# that we set this to a consistent value.
-torch.manual_seed(args.seed)
-
 # Determine if we train in fp32 or fp16 mode.
 fp16_arg = {"fp16": True} if args.fp16 else {}
 
 if is_main_process():
-    print(f"TRAIN_DATASET: {len(train_dataset):,} examples")
-    print(f"VALUE_DATASET: {len(val_dataset):,} examples")
-    print("RANDOM SEED:", args.seed)
-    print("FORCE FP16:", args.fp16)
+    logger.info(f"TRAIN_DATASET: {len(train_dataset):,} examples")
+    logger.info(f"VALUE_DATASET: {len(val_dataset):,} examples")
+    logger.info(f"RANDOM SEED: {args.seed}")
+    logger.info(f"FORCE FP16: {args.fp16}")
 
 
 # Load our model that we're training. This may fetch via HTTP if not cached
@@ -618,16 +630,17 @@ try:
             pad_token_id=tokenizer.pad_token_id,
             cache_dir=args.cache,
             use_cache=False,
+            low_cpu_mem_usage=True,
         )  # Gradient checkpointing needs this off.
         if lastCheckpoint is None:
             model = model.to(device)
     sys.stderr.flush()
     sys.stdout.flush()
 except Exception as e:
-    print(e)
-    print(get_gpu_ram())
+    logger.error(e)
+    logger.error(get_gpu_ram())
     sys.exit(1)
-print(get_gpu_ram())
+logger.info(get_gpu_ram())
 
 
 @torch.no_grad()
@@ -664,6 +677,7 @@ def evaluate(
         num_return_sequences=num_samples,
         use_cache=True,
         bad_words_ids=[[eval_tokenizer.eos_token_id]],
+        synced_gpus=True,
     )
 
     for token in generated_tokens:
@@ -675,7 +689,7 @@ def evaluate(
 
 # log out the tokenizer and model
 if is_main_process():
-    print(f"TOKENIZER: {tokenizer}")
+    logger.info(f"TOKENIZER: {tokenizer}")
 
 model.config.gradient_checkpointing = True
 model.resize_token_embeddings(len(tokenizer))
@@ -713,6 +727,9 @@ os.chdir(args.output_path)
 
 # Set up our prompt testing callback if we were given a prompt file.
 if args.prompt_file:
+    if args.prompt_every == -1:
+        args.prompt_every = args.save_steps
+
     sampler_callbacks = [
         ModelSampler(
             args.prompt_file,
@@ -729,7 +746,7 @@ else:
     sampler_callbacks = None
 
 if is_main_process():
-    print(f"PROMPT FILE: {args.prompt_file}")
+    logger.info(f"PROMPT FILE: {args.prompt_file}")
 
 # Parametrize our training based on provided arguments.
 training_args = TrainingArguments(
