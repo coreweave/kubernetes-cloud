@@ -156,7 +156,7 @@ spec:
     - name: finetuner_image
       value: 'gooseai/finetuner'
     - name: finetuner_tag
-      value: 'cuda-11-8-torch-2-rc1'
+      value: 'cuda-11-8-torch-2-rc2'
     - name: inference_image
       value: 'coreweave/ml-images'
     - name: inference_tag
