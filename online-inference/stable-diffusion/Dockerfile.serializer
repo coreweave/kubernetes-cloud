@@ -8,12 +8,5 @@ WORKDIR /app
 
 RUN pip3 install --upgrade pip && \
     pip3 install -r requirements.txt
-    
-RUN git clone https://github.com/coreweave/tensorizer && \
-    cd tensorizer && \
-    git checkout ${tenzorizer_commit} && \
-    cd .. && \
-    mv tensorizer/tensorizer.py . && \
-    rm -rf tensorizer
 
 CMD ["python3", "/app/serialize.py"]

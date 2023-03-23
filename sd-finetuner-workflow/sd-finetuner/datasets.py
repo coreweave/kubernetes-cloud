@@ -96,7 +96,8 @@ class DreamBoothDataset(DiffusionDataset):
                                       if f.suffix in self.ext]
             self.num_class_images = len(self.class_images_path)
         elif self.num_class_images > num_class_images:
-            self.num_class_images = self.num_class_images[:num_class_images]
+            self.num_class_images = num_class_images
+            self.class_images_path = self.class_images_path[:num_class_images]
 
         self.class_ids = self.tokenizer(class_prompt,
                                         truncation=True,

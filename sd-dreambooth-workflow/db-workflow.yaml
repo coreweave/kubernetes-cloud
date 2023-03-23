@@ -14,7 +14,7 @@ spec:
     # Training parameters. Model IDs are hugging face IDs to pull down, or
     # a path to your Diffusers model relative to the PVC root.
     - name: model
-      value: 'stabilityai/stable-diffusion-2'
+      value: 'runwayml/stable-diffusion-v1-5'
     # The path on the PVC to the instance data image folder
     - name: instance_dataset
       value: 'data/example-dog'
@@ -64,6 +64,10 @@ spec:
     # Image resolution to train at
     - name: resolution
       value: '512'
+    # Run a serialization step after finetuning and deserialize it when starting the inference service.
+    # Provides significant performance increase in start up times of inference pods
+    - name: use_tensorizer
+      value: true
     # Inference service configuration.
     - name: run_inference
       value: true
@@ -89,11 +93,15 @@ spec:
     - name: finetuner_image
       value: 'navarrepratt/sd-finetuner'  # TODO: Update with CoreWeave hosted image
     - name: finetuner_tag
-      value: 'dreambooth'
+      value: 'dreambooth-2'
+    - name: serializer_image
+      value: 'navarrepratt/sd-serializer'  # TODO: Update with CoreWeave hosted image
+    - name: serializer_tag
+      value: '5'
     - name: inference_image
-      value: 'ghcr.io/coreweave/ml-containers/sd-inference'
+      value: 'navarrepratt/sd-inference'  # TODO: Update with CoreWeave hosted image
     - name: inference_tag
-      value: '34116b7'
+      value: '11'
 
   templates:
   - name: main
@@ -154,6 +162,16 @@ spec:
             value: "{{workflow.parameters.image_log_amount}}"
         when: "{{workflow.parameters.inference_only}} == false"
 
+    - - name: serializer
+        template: serializer
+        arguments:
+          parameters:
+            - name: model
+              value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.output}}"
+            - name: output_path
+              value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.output}}"
+        when: "{{workflow.parameters.use_tensorizer}} == true && {{workflow.parameters.inference_only}} == false"
+
     - - name: inference
         template: model-inference-service
         arguments:
@@ -162,6 +180,8 @@ spec:
               value: "/mnt/pvc/{{workflow.parameters.output}}"
             - name: hf_home
               value: ""
+            - name: command
+              value: '["python3", "/app/service.py"{{=workflow.parameters.use_tensorizer == "true" ? ", \"--tensorized\"" : ""}}]'
         when: "{{workflow.parameters.run_inference}} == true || {{workflow.parameters.inference_only}} == true"
 
   - name: model-downloader
@@ -313,11 +333,47 @@ spec:
             requests:
               nvidia.com/gpu: "{{inputs.parameters.gpu_count}}"
 
+  - name: serializer
+    inputs:
+      parameters:
+        - name: model
+        - name: output_path
+    container:
+      image: "{{workflow.parameters.serializer_image}}:{{workflow.parameters.serializer_tag}}"
+      command: ["python3", "/app/serialize.py"]
+      args:
+        - "--model-id={{inputs.parameters.model}}"
+        - "--save-path={{inputs.parameters.output_path}}"
+      resources:
+        requests:
+          cpu: 1
+          memory: 12Gi
+        limits:
+          cpu: 1
+          memory: 12Gi
+      volumeMounts:
+        - mountPath: "/{{workflow.parameters.pvc}}"
+          name: "{{workflow.parameters.pvc}}"
+    volumes:
+      - name: "{{workflow.parameters.pvc}}"
+        persistentVolumeClaim:
+           claimName: "{{workflow.parameters.pvc}}"
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: topology.kubernetes.io/region
+                  operator: In
+                  values:
+                    - "{{workflow.parameters.region}}"
+
   - name: model-inference-service
     inputs:
       parameters:
         - name: model_id
         - name: hf_home
+        - name: command
     resource:
       action: apply
       manifest: |
@@ -348,9 +404,7 @@ spec:
               - name: kfserving-container
                 image: "{{workflow.parameters.inference_image}}:{{workflow.parameters.inference_tag}}"
                 imagePullPolicy: IfNotPresent
-                command:
-                  - "python3"
-                  - "/app/service.py"
+                command: {{inputs.parameters.command}}
                 env:
                   - name: STORAGE_URI
                     value: pvc://{{ workflow.parameters.pvc }}/
