@@ -7,10 +7,10 @@ This can be useful when deploying off-the-shelf models that aren't available as 
 To follow along, clone the manifests from [GitHub](https://github.com/coreweave/kubernetes-cloud/tree/master/online-inference/custom-basnet).
 
 **Input**\
-![input](../../../../.gitbook/assets/test.png)
+![input](<../../../../.gitbook/assets/test (1).png>)
 
 **Output**\
-![output](../../../../../online-inference/custom-basnet/client/expected\_output.png)
+![output](../../../../.gitbook/assets/expected\_output.png)
 
 ## Getting Started
 

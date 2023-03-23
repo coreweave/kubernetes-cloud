@@ -1,8 +1,14 @@
 # Jupyter Notebook with TensorFlow
 
+{% hint style="warning" %}
+**Deprecated**
+
+Our team is revising this example to work with the current version of TensorFlow and this will be updated soon.
+{% endhint %}
+
 To follow along, please clone the [GitHub repository](https://github.com/coreweave/kubernetes-cloud/tree/master/tensorflow-jupyter) with the example manifests.
 
-![Screenshot](../../tensorflow-jupyter/screenshot.png)
+![Screenshot](<../../docs/.gitbook/assets/screenshot (1).png>)
 
 This example leverages a [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) to always maintain one instance of [Tensorflow](https://www.tensorflow.org) with Jupyter. Tensorflow is a highly popular deep learning framework that is greatly accelerated by GPUs. Each instance, in Kubernetes terminology called a [Pod](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/) is allocated 2 GPUs.
 

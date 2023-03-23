@@ -121,7 +121,7 @@ Navigating to the **Logs** tab will give you a full output of the experiment's l
 
 Navigating to **Overview** will give you access to a metrics visualization of the experiment and checkpoint reference.
 
-![Metrics visualization in the DeterminedAI Web UI](<../../.gitbook/assets/image (16) (1).png>)
+![Metrics visualization in the DeterminedAI Web UI](<../../.gitbook/assets/image (16) (1) (1).png>)
 
 ## Training
 
@@ -177,7 +177,7 @@ Upload your data as a single JSONL file called `data.jsonl` to filebrowser under
 
 Using the filebrowser app, create a new folder called `gpt_finetune` under the `finetune-gpt-neox` folder.
 
-![Creating the gpt\_finetune directory in filebrowser](<../../.gitbook/assets/image (5) (3) (1).png>)
+![Creating the gpt\_finetune directory in filebrowser](<../../.gitbook/assets/image (5) (1) (2) (1) (1) (1).png>)
 
 You can now pre-tokenize your data using `tools/preprocess_data.py`. The arguments for this utility are listed below.
 
@@ -498,7 +498,7 @@ You should see an "Active" status for your experiment:
 
 You can visualize and monitor logs:
 
-![](<../../.gitbook/assets/Screen Shot 2022-08-01 at 12.46.41 PM.png>)
+![](<../../.gitbook/assets/Screen Shot 2022-08-01 at 12.46.41 PM (1).png>)
 
 Once training is completed, you will have access to the checkpoint in your S3 bucket for downstream tasks such as inference, transfer learning or model ensembles.
 
