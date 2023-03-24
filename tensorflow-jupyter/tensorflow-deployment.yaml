@@ -71,7 +71,7 @@ spec:
               - key: failure-domain.beta.kubernetes.io/region
                 operator: In
                 values:
-                  - ORD1
+                  - LGA1
 
           # As ML testing doesn't require a lot of network throughput, we try to play nice and only schedule
           # the Pod on systems with only 1G network connections. We also desire decent CPUs. This is a preference, not a requirement.
