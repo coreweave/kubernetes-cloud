@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: tf
-          image: tensorflow/tensorflow:1.15.0-gpu-py3-jupyter
+          image: tensorflow/tensorflow:2.12.0-gpu-jupyter
 
           ports:
             - name: notebook
@@ -44,11 +44,11 @@ spec:
 
           resources:
             requests:
-              cpu: 500m # The CPU unit is mili-cores. 500m is 0.5 cores
-              memory: 256Mi
+              cpu: 500m # The CPU unit is milli-cores. 500m is 0.5 cores
+              memory: 16Gi
             limits:
               cpu: 2000m
-              memory: 2048Mi
+              memory: 16Gi
               # GPUs can only be allocated as a limit, which both reserves and limits the number of GPUs the Pod will have access to
               # Making individual Pods resource light is advantageous for bin-packing. In the case of Jupyter, we stick to two GPUs for
               # demonstration purposes
@@ -67,7 +67,7 @@ spec:
               - key: gpu.nvidia.com/class
                 operator: In
                 values:
-                  - NV_Pascal
+                  - A40
               - key: failure-domain.beta.kubernetes.io/region
                 operator: In
                 values:
@@ -78,16 +78,16 @@ spec:
           # If systems with i5 / i9 / Xeon CPUs and/or 1G ethernet are not available to fulfill the requested resources, the Pods
           # will be scheduled on higher end systems.
           preferredDuringSchedulingIgnoredDuringExecution:
-            - weight: 10
-              preference:
-                matchExpressions:
-                - key: cpu.atlantic.cloud/family
-                  operator: In
-                  values:
-                    - i7
-                    - i5
-                    - i9
-                    - xeon
+#            - weight: 10
+#              preference:
+#                matchExpressions:
+#                - key: cpu.atlantic.cloud/family
+#                  operator: In
+#                  values:
+#                    - i7
+#                    - i5
+#                    - i9
+#                    - xeon
             - weight: 10
               preference:
                 matchExpressions:
