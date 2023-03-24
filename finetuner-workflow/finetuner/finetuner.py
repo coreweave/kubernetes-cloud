@@ -4,6 +4,9 @@
 import json
 import gc
 import resource
+import mmap
+
+import numpy
 import psutil
 import pynvml
 import os
@@ -488,9 +491,10 @@ class ModelSampler(TrainerCallback):
             )
             model.eval()
             sys.stderr.flush()
-            with open(self.prompt_file, "r") as f:
+            with open(self.prompt_file, "rb") as f:
+                prompt_contents = f.read().decode("utf-8").split("\n")
                 prompts = [
-                    i.rstrip("\n").replace("\\n", "\n") for i in f.readlines()
+                    i.rstrip("\n").replace("\\n", "\n") for i in prompt_contents
                 ]
                 for prompt in prompts:
                     main_process_print("=============================")
@@ -545,10 +549,13 @@ class TokenizedDataset(Dataset):
 
     def __init__(self, path: str, context_length: int = 2048):
         file_stat = os.stat(path)
-        self.file = open(path, "rb")
+        file_handle = os.open(path, os.O_RDONLY)
+        self._mmap = mmap.mmap(
+            file_handle, file_stat.st_size, access=mmap.ACCESS_READ
+        )
+        self._context_length = context_length
+        self._context_size = context_length * 2
         self.length = int(file_stat.st_size / 2 / context_length)
-        self.formatstr = "%sH" % context_length
-        self.context_length = context_length
         length_mb = os.stat(path).st_size / (1 << 20)
         num_tokens = self.length * context_length
         if is_main_process():
@@ -562,17 +569,19 @@ class TokenizedDataset(Dataset):
         return self.length
 
     def load(self, idx: int) -> Tuple[torch.Tensor, torch.Tensor]:
-        self.seek(idx)
-        input_ids = torch.tensor(
-            struct.unpack(
-                self.formatstr, self.file.read(self.context_length * 2)
-            )
-        )
-        mask = input_ids != tokenizer.pad_token_id
+        begin = idx * self._context_size
+        end = begin + self._context_size
+        mv = memoryview(self._mmap)[begin:end]
+        arr = numpy.ndarray.__new__(
+            numpy.memmap,
+            [self._context_length],
+            dtype=numpy.ushort,
+            buffer=mv,
+            offset=0,
+        ).astype(numpy.int_)
+        input_ids = torch.from_numpy(arr)
+        mask: torch.Tensor = input_ids != tokenizer.pad_token_id
         return input_ids, mask
-
-    def seek(self, idx):
-        self.file.seek(self.context_length * idx * 2)
 
     def __getitem__(self, idx) -> Tuple[torch.Tensor, torch.Tensor]:
         return self.load(idx)
