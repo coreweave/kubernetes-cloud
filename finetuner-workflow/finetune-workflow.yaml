@@ -148,15 +148,15 @@ spec:
     - name: downloader_image
       value: 'ghcr.io/wbrown/gpt_bpe/model_downloader'
     - name: downloader_tag
-      value: 'e526c65'
+      value: 'c3a00df'
     - name: tokenizer_image
       value: 'ghcr.io/wbrown/gpt_bpe/dataset_tokenizer'
     - name: tokenizer_tag
-      value: 'e526c65'
+      value: 'c3a00df'
     - name: finetuner_image
       value: 'gooseai/finetuner'
     - name: finetuner_tag
-      value: 'cuda-11-8-torch-2-rc2'
+      value: 'cuda-11-8-torch-2-rc3'
     - name: inference_image
       value: 'coreweave/ml-images'
     - name: inference_tag

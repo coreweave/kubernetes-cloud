@@ -25,7 +25,8 @@ from contextlib import closing, contextmanager
 import logging
 import validators
 import deepspeed
-
+from deepspeed.runtime.zero.stage_1_and_2 import estimate_zero2_model_states_mem_needs_all_live;
+from deepspeed.runtime.zero.stage3 import estimate_zero3_model_states_mem_needs_all_live;
 
 
 def find_free_port():
@@ -652,6 +653,7 @@ except Exception as e:
 logger.info(get_gpu_ram())
 
 
+
 @torch.no_grad()
 def evaluate(
     prompt,
@@ -726,6 +728,19 @@ else:
     ds_args["no_cuda"] = True
     ds_args["local_rank"] = -1
     os.environ["LOCAL_RANK"] = "-1"
+
+# Print our deepspeed estimates
+estimate_fn = None
+if args.zero_stage in [1, 2] and is_main_process():
+    logger.info("DeepSpeed ZeRO-1/2 Memory Estimates")
+    estimate_fn = estimate_zero2_model_states_mem_needs_all_live
+elif args.zero_stage == 3 and is_main_process():
+    logger.info("DeepSpeed ZeRO-3 Memory Estimates")
+    estimate_fn = estimate_zero3_model_states_mem_needs_all_live
+if estimate_fn:
+    estimate_fn(model=model,
+                num_nodes=1,
+                num_gpus_per_node=torch.cuda.device_count())
 
 # The latest deepspeed logging is pretty obnoxious, so we disable it.
 deepspeed.utils.logger.setLevel(logging.WARNING)
