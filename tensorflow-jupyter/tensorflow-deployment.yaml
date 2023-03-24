@@ -60,7 +60,7 @@ spec:
       # Read more about affinity at: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
       affinity:
         nodeAffinity:
-          # This will REQUIRE the Pod to be run on a system with a Pascal GPU
+          # This will REQUIRE the Pod to be run on a system with an NVIDIA A40 GPU
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
             - matchExpressions:
