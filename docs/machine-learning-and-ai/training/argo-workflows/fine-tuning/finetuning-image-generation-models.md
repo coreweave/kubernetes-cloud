@@ -166,7 +166,7 @@ Invoking `kubectl apply -f inference-role.yaml` will apply the permissions descr
 
 ## Getting and Running the Workflow
 
-To follow along, pull the latest version of [the demo code](https://github.com/coreweave/kubernetes-cloud/tree/amercurio/sd-finetuner/sd-finetuner-workflow).
+To follow along, pull the latest version of [the demo code](https://github.com/coreweave/kubernetes-cloud/tree/master/sd-finetuner-workflow).
 
 This repository includes the following files:
 
