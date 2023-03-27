@@ -171,6 +171,7 @@
 
 * [CoreWeave Vulnerability Disclosure Policy](security/coreweave-vulnerability-disclosure-policy.md)
 * [Information Security Advisories](security/information-security-advisories.md)
+* [CoreWeave Customer Asset Penetration Testing Policy](security/coreweave-customer-asset-penetration-testing-policy.md)
 
 ## Resources
 
