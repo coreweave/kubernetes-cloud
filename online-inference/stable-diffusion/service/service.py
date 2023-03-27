@@ -7,7 +7,7 @@ import kserve
 import logging
 import os
 from typing import Dict, Union, Optional
-from argparse import ArgumentParser
+from argparse import ArgumentParser, Namespace
 from io import BytesIO
 
 import tensorizer
@@ -22,60 +22,36 @@ from diffusers import (
 )
 from transformers import CLIPTextModel, CLIPTextConfig, CLIPTokenizer, AutoConfig, PreTrainedModel
 
-parser = ArgumentParser()
-parser.add_argument(
-    "--model-id", default="/mnt/models/CompVis/stable-diffusion-v1-4", type=str
-)
-parser.add_argument(
-    "--hf-id", default="CompVis/stable-diffusion-v1-4", type=str
-)
-parser.add_argument(
-    "--precision", choices=["float16", "float32"], default="float16", type=str
-)
-parser.add_argument("--guidance-scale", default=7.0, type=float)
-parser.add_argument("--num-inference-steps", default=50, type=int)
-parser.add_argument("--seed", default=None, type=int)
-parser.add_argument("--width", default=512, type=int)
-parser.add_argument("--height", default=512, type=int)
-parser.add_argument("--beta-start", default=0.00085, type=float)
-parser.add_argument("--beta-end", default=0.012, type=float)
-parser.add_argument("--num-train-timesteps", default=1000, type=int)
-parser.add_argument("--tensorized", default=False, action="store_true")
-args = parser.parse_args()
-
-options = {
-    "MODEL_ID": os.getenv("MODEL_ID", default=args.model_id),
-    "PRECISION": str(os.getenv("PRECISION", default=args.precision)),
-    "BETA_START": float(os.getenv("BETA_START", default=args.beta_start)),
-    "BETA_END": float(os.getenv("BETA_END", default=args.beta_end)),
-    "NUM_TRAIN_TIMESTEPS": int(
-        os.getenv("NUM_TRAIN_TIMESTEPS", default=args.num_train_timesteps)
-    ),
-}
-
-try:
-    MODEL_NAME = options["MODEL_ID"].split("/")[-1]
-except:
-    MODEL_NAME = options["MODEL_ID"]
-
 HF_TOKEN = os.getenv("HUGGING_FACE_HUB_TOKEN")
 
 logging.basicConfig(level=kserve.constants.KSERVE_LOGLEVEL)
-logger = logging.getLogger(MODEL_NAME)
-logger.info(f"Model Name: {MODEL_NAME}")
-logger.info(f'Model ID: {options["MODEL_ID"]}')
+logger = logging.getLogger()
 
-parameters = {
-    "GUIDANCE_SCALE": float(
-        os.getenv("CONDITION_SCALE", default=args.guidance_scale)
-    ),
-    "NUM_INFERENCE_STEPS": int(
-        os.getenv("NUM_INFERENCE_STEPS", default=args.num_inference_steps)
-    ),
-    "SEED": os.getenv("SEED", default=args.seed),
-    "WIDTH": int(os.getenv("WIDTH", default=args.width)),
-    "HEIGHT": int(os.getenv("HEIGHT", default=args.height)),
-}
+
+def get_args() -> Namespace:
+    parser = ArgumentParser()
+    parser.add_argument(
+        "--model-id", default=os.getenv("MODEL_ID", "/mnt/models/CompVis/stable-diffusion-v1-4"), type=str,
+    )
+    parser.add_argument(
+        "--precision", choices=["float16", "float32"], default="float16", type=str
+    )
+    parser.add_argument("--guidance-scale", default=float(os.getenv("CONDITION_SCALE", 7.0)), type=float)
+    parser.add_argument("--num-inference-steps", default=int(os.getenv("NUM_INFERENCE_STEPS", 50)), type=int)
+    parser.add_argument("--seed", default=os.getenv("SEED"), type=int)
+    parser.add_argument("--width", default=int(os.getenv("WIDTH", 512)), type=int)
+    parser.add_argument("--height", default=int(os.getenv("HEIGHT", 512)), type=int)
+    parser.add_argument("--tensorized", default=False, action="store_true")
+    args = parser.parse_args()
+
+    args.model_name = args.model_id.split("/")[-1]
+
+    return args
+
+
+def set_logger(name: str):
+    global logger
+    logger = logging.getLogger(name)
 
 
 def load_tensorizer_model(
@@ -84,7 +60,7 @@ def load_tensorizer_model(
     configclass: Optional[Union[ConfigMixin, AutoConfig]] = None,
     model_prefix: str = "model",
     device: torch.device = tensorizer.utils.get_device(),
-    dtype: str = None,
+    dtype: str = None
 ) -> torch.nn.Module:
     """
     Given a path prefix, load the model with a custom extension
@@ -157,38 +133,58 @@ def load_tensorizer_model(
 
 
 class Model(kserve.Model):
-    def __init__(self, name: str):
-        super().__init__(name)
-        self.name = name
+    def __init__(self,
+                 model_name: str,
+                 model_id: str,
+                 precision: str,
+                 guidance_scale: float,
+                 num_inference_steps: int,
+                 width: int,
+                 height: int,
+                 tensorized: bool,
+                 seed: int):
+        super().__init__(model_name)
+
         self.ready = False
         self.pipeline = None
-        self.model_name = name
+        self.model_name = model_name
+        self.model_id = model_id
+        self.precision = precision
+        self.tensorized = tensorized
+
+        self.parameters = {
+            "GUIDANCE_SCALE": guidance_scale,
+            "NUM_INFERENCE_STEPS": num_inference_steps,
+            "SEED": seed,
+            "WIDTH": width,
+            "HEIGHT": height,
+        }
 
     def load_diffusers(self):
         self.pipeline = StableDiffusionPipeline.from_pretrained(
-            options["MODEL_ID"],
-            torch_dtype=getattr(torch, options["PRECISION"]),
+            self.model_id,
+            torch_dtype=getattr(torch, self.precision),
             scheduler=LMSDiscreteScheduler.from_pretrained(
-                options["MODEL_ID"], subfolder="scheduler"
+                self.model_id, subfolder="scheduler"
             ),
             local_files_only=True,
         )
 
     def load_tensorizer(self):
-        vae = load_tensorizer_model(options["MODEL_ID"], AutoencoderKL, None, "vae")
+        vae = load_tensorizer_model(self.model_id, AutoencoderKL, None, "vae")
         unet = load_tensorizer_model(
-            options["MODEL_ID"], UNet2DConditionModel, None, "unet"
+            self.model_id, UNet2DConditionModel, None, "unet"
         )
         encoder = load_tensorizer_model(
-            options["MODEL_ID"], CLIPTextModel, CLIPTextConfig, "encoder"
+            self.model_id, CLIPTextModel, CLIPTextConfig, "encoder"
         )
 
         scheduler = LMSDiscreteScheduler.from_pretrained(
-            args.hf_id, subfolder="scheduler", use_auth_token=HF_TOKEN
+            self.model_id, subfolder="scheduler", use_auth_token=HF_TOKEN
         )
 
         tokenizer = CLIPTokenizer.from_pretrained(
-            args.hf_id, subfolder="tokenizer", use_auth_token=HF_TOKEN
+            self.model_id, subfolder="tokenizer", use_auth_token=HF_TOKEN
         )
 
         self.pipeline = StableDiffusionPipeline(
@@ -202,16 +198,16 @@ class Model(kserve.Model):
         )
 
     def load(self):
-        logger.info(f"Loading {MODEL_NAME}")
+        logger.info(f"Loading {self.model_name}")
 
-        if args.tensorized:
+        if self.tensorized:
             self.load_tensorizer()
         else:
             self.load_diffusers()
 
-        logger.info(f"Loaded {MODEL_NAME}")
+        logger.info(f"Loaded {self.model_name}")
 
-        logger.info(f"Loading {MODEL_NAME} to accelerator")
+        logger.info(f"Loading {self.model_name} to accelerator")
         self.pipeline.to("cuda")
         logger.info(f"Accelerator loaded")
 
@@ -230,7 +226,7 @@ class Model(kserve.Model):
         return request_parameters
 
     def predict(self, request: Dict) -> Dict:
-        request_parameters = parameters.copy()
+        request_parameters = self.parameters.copy()
         if "parameters" in request:
             logger.debug(f"Configuring request")
             request_parameters = self.configure_request(
@@ -264,7 +260,12 @@ class Model(kserve.Model):
 
 
 def main():
-    model = Model(name=MODEL_NAME)
+    args = get_args()
+    set_logger(args.model_name)
+    logger.info(f"Model Name: {args.model_name}")
+    logger.info(f'Model ID: {args.model_id}')
+
+    model = Model(**vars(args))
     model.load()
     kserve.ModelServer().start([model])
 

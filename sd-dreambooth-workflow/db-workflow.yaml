@@ -14,7 +14,7 @@ spec:
     # Training parameters. Model IDs are hugging face IDs to pull down, or
     # a path to your Diffusers model relative to the PVC root.
     - name: model
-      value: 'runwayml/stable-diffusion-v1-5'
+      value: 'stabilityai/stable-diffusion-2-1-base'
     # The path on the PVC to the instance data image folder
     - name: instance_dataset
       value: 'data/example-dog'
@@ -93,15 +93,15 @@ spec:
     - name: finetuner_image
       value: 'navarrepratt/sd-finetuner'  # TODO: Update with CoreWeave hosted image
     - name: finetuner_tag
-      value: 'dreambooth-2'
+      value: 'df-14'
     - name: serializer_image
       value: 'navarrepratt/sd-serializer'  # TODO: Update with CoreWeave hosted image
     - name: serializer_tag
-      value: '5'
+      value: 'df-14'
     - name: inference_image
       value: 'navarrepratt/sd-inference'  # TODO: Update with CoreWeave hosted image
     - name: inference_tag
-      value: '11'
+      value: 'df-14-3'
 
   templates:
   - name: main
@@ -176,12 +176,8 @@ spec:
         template: model-inference-service
         arguments:
           parameters:
-            - name: model_id
-              value: "/mnt/pvc/{{workflow.parameters.output}}"
-            - name: hf_home
-              value: ""
             - name: command
-              value: '["python3", "/app/service.py"{{=workflow.parameters.use_tensorizer == "true" ? ", \"--tensorized\"" : ""}}]'
+              value: '["python3", "/app/service.py", "--model-id", "/mnt/pvc/{{workflow.parameters.output}}"{{=workflow.parameters.use_tensorizer == "true" ? ", \"--tensorized\"" : ""}}]'
         when: "{{workflow.parameters.run_inference}} == true || {{workflow.parameters.inference_only}} == true"
 
   - name: model-downloader
@@ -371,8 +367,6 @@ spec:
   - name: model-inference-service
     inputs:
       parameters:
-        - name: model_id
-        - name: hf_home
         - name: command
     resource:
       action: apply
@@ -408,10 +402,6 @@ spec:
                 env:
                   - name: STORAGE_URI
                     value: pvc://{{ workflow.parameters.pvc }}/
-                  - name: MODEL_ID
-                    value: "{{ inputs.parameters.model_id }}"
-                  - name: HF_HOME
-                    value: "{{ inputs.parameters.hf_home }}"
                 resources:
                   requests:
                     nvidia.com/gpu: 1
