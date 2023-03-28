@@ -141,8 +141,6 @@
       * [Fine-tune Stable Diffusion Models with CoreWeave](machine-learning-and-ai/training/argo-workflows/fine-tuning/finetuning-image-generation-models.md)
       * [Fine-tune GPT Models with CoreWeave](machine-learning-and-ai/training/argo-workflows/fine-tuning/finetuning-machine-learning-models.md)
       * [Fine-tune GPT-NeoX-20B with Argo Workflows](compass/distributed-training-with-kubeflow-training-operators/finetune-gpt-neox-20b-with-argo-workflows.md)
-    * [CGI Rendering](machine-learning-and-ai/training/argo-workflows/cgi-rendering/README.md)
-      * [CGI Rendering Using Workflows](machine-learning-and-ai/training/argo-workflows/cgi-rendering/cgi-rendering.md)
 
 ## VFX & Rendering
 
@@ -156,7 +154,9 @@
 
 * [CoreWeave VFX Cloud Studio Reference Guide](cloud-studio-reference-guide/README.md)
   * [Virtual Workstations](cloud-studio-reference-guide/virtual-workstations.md)
-  * [Rendering](cloud-studio-reference-guide/vfx-studio-components-guide.md)
+  * [Rendering](cloud-studio-reference-guide/vfx-studio-components-guide/README.md)
+    * [CGI Rendering](cloud-studio-reference-guide/vfx-studio-components-guide/cgi-rendering/README.md)
+      * [CGI Rendering Using Workflows](cloud-studio-reference-guide/vfx-studio-components-guide/cgi-rendering/cgi-rendering.md)
   * [Storage](cloud-studio-reference-guide/storage.md)
   * [Networking](cloud-studio-reference-guide/networking.md)
   * [Management](cloud-studio-reference-guide/management.md)
