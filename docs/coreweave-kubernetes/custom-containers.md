@@ -292,7 +292,7 @@ The value of this field will need to exactly match the name of the storage volum
               claimName: "kobold-ai-data"
 ```
 
-Additionally, as shown in the same example manifest, the `volumeMounts` block immediately preceding the `volumes` block defines to which path on the container the storage volume will be mounted:
+Additionally, as shown in the same example manifest, the `volumeMounts` block immediately preceding the `volumes` block defines where on the container the storage volume will be mounted:
 
 ```yaml
           volumeMounts:
@@ -310,11 +310,17 @@ This dictates that the storage volume defined in `.spec.volumes` will be mounted
 
 ### Define the node types
 
-On CoreWeave Cloud, affinities are used to select [the CoreWeave node type](../../coreweave-kubernetes/node-types.md) you'd like a workload to run on.
+On CoreWeave Cloud, affinities are used to select the [CoreWeave node types](../../coreweave-kubernetes/node-types.md) where workloads will run.
 
-In [the example manifest](custom-containers.md#example-manifest) given above, the `spec.affinity` block declares that the type of GPU the workloads should run on is an `NVIDIA A40`. The `matchExpressions` list contains the key-value set `key: gpu.nvidia.com/class`, which defines that an NVIDIA GPU will be used for these workloads.
+In [the example manifest](custom-containers.md#example-manifest) given above, the `spec.affinity` stanza declares that workloads should run on an [`NVIDIA A40` GPU node](../../coreweave-kubernetes/node-types.md). First, the `matchExpressions` list in this stanza contains the key-value set:
 
-Below that, the `values` list includes one item, `A40`, declaring that the specific GPU node type to use will be `A40`.
+```yaml
+- key: gpu.nvidia.com/class
+```
+
+This specifies that an NVIDIA GPU will be used for these workloads.
+
+Then, below this, `values` list includes one item: `A40`. This declares that the specific GPU node type to use will be an `A40`.
 
 ```yaml
       affinity:
@@ -336,7 +342,7 @@ For more information on node types and their affinities for use with Deployment 
 
 #### Node type fallback options
 
-Fallback options can be included by adding other node type values to this list; node types will be selected in the order of the list. For example:
+Fallback options may be included by adding other node type values to the `spec.affinity.nodeSelectorTerms.matchExpressions.values` list. Node types will then be selected in order of this. For example, in this `.values` list, both `A40` and `A6000` are provided:
 
 ```yaml
   affinity:
@@ -351,7 +357,7 @@ Fallback options can be included by adding other node type values to this list; 
               - A6000
 ```
 
-In this case, an `A6000` will be selected as a fallback option should the container cannot be scheduled to an `A40` for some reason.
+In this case, an `A6000` will be selected as a fallback option should the `A40` node type not be usable for some reason.
 
 {% hint style="info" %}
 **Note**
