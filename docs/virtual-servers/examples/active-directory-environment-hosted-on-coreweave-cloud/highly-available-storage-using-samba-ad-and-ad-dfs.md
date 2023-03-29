@@ -8,15 +8,15 @@
 
 Before deploying our Samba-AD instance, we must first have storage volumes to present. Logging in to the [CoreWeave Cloud Dashboard](https://docs.coreweave.com/virtual-servers/deployment-methods/coreweave-apps#accessing-the-cloud-ui), navigate to the [Storage Volumes](https://cloud.coreweave.com/storage) management page to deploy a new volume:
 
-![](<../../../.gitbook/assets/image (89).png>)
+![](<../../../.gitbook/assets/image (148).png>)
 
 Our Samba-AD instance uses Shared Filesystem volumes:
 
-![](<../../../.gitbook/assets/image (79) (1).png>)
+![](<../../../.gitbook/assets/image (130).png>)
 
 In this example, we have three volumes we'll be using for our Samba-AD instance:
 
-![](<../../../.gitbook/assets/image (57) (1).png>)
+![](<../../../.gitbook/assets/image (57).png>)
 
 ## Deploy Samba-AD Instances
 
@@ -24,11 +24,11 @@ With our storage volumes allocated, we can now present them with Samba-AD.
 
 Via the CoreWeave Cloud Dashboard, navigate to the catalog:
 
-![](<../../../.gitbook/assets/image (81) (1).png>)
+![](<../../../.gitbook/assets/image (135).png>)
 
 Locate the Samba-AD chart:
 
-![](<../../../.gitbook/assets/image (75) (1).png>)
+![](<../../../.gitbook/assets/image (123).png>)
 
 Using the information from our [Configure Domain Services](provision-an-active-directory-domain-controller.md#install-and-configure-domain-services) example, fill out the form, including instance name. The volumes we created earlier are attached to our deployment example below:
 
@@ -40,7 +40,7 @@ Once deployed, we're taken to a status page indicating our deployment is running
 
 We will then follow the above steps to create another instance for high availability - called `smbad02`:
 
-![](<../../../.gitbook/assets/image (74) (1).png>)
+![](<../../../.gitbook/assets/image (122).png>)
 
 {% hint style="info" %}
 Samba-AD includes `podAntiAffinity`, which prevents multiple instances from scheduling on the same compute node.
@@ -124,7 +124,7 @@ Repeat this step for each share your Samba-AD instance presents. In this example
 
 Navigating to `\\ad\Shares`, we can see each of our DFS Folder Targets:
 
-![](<../../../.gitbook/assets/image (88).png>)
+![](<../../../.gitbook/assets/image (147).png>)
 
 Under properties, the DFS tab shows us `smbad02` is the current active file server:
 

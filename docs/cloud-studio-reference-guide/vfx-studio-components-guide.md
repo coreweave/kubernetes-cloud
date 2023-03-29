@@ -9,7 +9,7 @@ description: Set up and deploy a VFX studio on CoreWeave Cloud
 Before following the rest of this guide, ensure that the following are completed:
 
 * [ ] You have [a CoreWeave Cloud account](https://cloud.coreweave.com/request-account)
-* [ ] Your [management environment](../../coreweave-kubernetes/getting-started.md) is set up
+* [ ] Your [management environment](../coreweave-kubernetes/getting-started.md) is set up
 
 {% hint style="success" %}
 **Tip**
@@ -24,7 +24,7 @@ CoreWeave offers a fully managed, auto-scaled Thinkbox Deadline solution for han
 {% hint style="info" %}
 **Additional Resources**
 
-For more information about setting up Deadline within your namespace, refer to our [Managed ThinkBox Deadline guide](../../vfx-and-rendering/vfx/deadline.md).
+For more information about setting up Deadline within your namespace, refer to our [Managed ThinkBox Deadline guide](../vfx-and-rendering/vfx/deadline.md).
 {% endhint %}
 
 One modification we may choose to make in our Worker values is to ensure that our shared storage is mounted into our Deadline workers. This is as simple as adding the following [volume mount definitions](https://kubernetes.io/docs/concepts/storage/volumes/) to our Worker manifest:

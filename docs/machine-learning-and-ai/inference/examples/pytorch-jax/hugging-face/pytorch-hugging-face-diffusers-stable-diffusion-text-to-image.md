@@ -223,7 +223,7 @@ Depending on use case, GPUs with less VRAM will also work down to 8GB GPUs, such
 
 The graph and table below compare recent GPU benchmark inference speeds for Stable Diffusion processing on different GPUs:
 
-<figure><img src="../../../../../.gitbook/assets/image (7) (2) (2).png" alt="A graph displaying a comparison of benchmark inference times for Stable Diffusion on different GPUs"><figcaption></figcaption></figure>
+<figure><img src="../../../../../.gitbook/assets/image (7) (1).png" alt="A graph displaying a comparison of benchmark inference times for Stable Diffusion on different GPUs"><figcaption></figcaption></figure>
 
 | GPU              | Seconds |
 | ---------------- | ------- |
