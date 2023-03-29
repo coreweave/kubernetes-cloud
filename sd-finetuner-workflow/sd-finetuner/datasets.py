@@ -1,5 +1,6 @@
 import abc
 from pathlib import Path
+import random
 from typing import Optional, Dict, Callable, List, Union
 
 import PIL
@@ -177,10 +178,14 @@ class LocalBase(DiffusionDataset):
     def get_input_ids(self, text_path: Path) -> torch.Tensor:
         """Read and tokenize image prompt from a .txt file."""
 
-        with open(text_path, "rb") as f:
-            text = f.read().decode("utf-8")
+        if random.random() < self.ucg:
+            text = ""
+        else:
+            with open(text_path, "rb") as f:
+                text = f.read().decode("utf-8")
 
-        text = text.replace("  ", " ").replace("\n", " ").strip()
+            text = text.replace("  ", " ").replace("\n", " ").strip()
+
         return self.tokenizer(text,
                               max_length=self.tokenizer.model_max_length,
                               padding="do_not_pad",

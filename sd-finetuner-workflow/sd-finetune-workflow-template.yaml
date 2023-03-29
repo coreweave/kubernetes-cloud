@@ -107,7 +107,7 @@ spec:
     - name: finetuner_image
       value: 'navarrepratt/sd-finetuner'  # TODO: Update with CoreWeave hosted image
     - name: finetuner_tag
-      value: 'df-14'
+      value: 'ucg'
     - name: serializer_image
       value: 'navarrepratt/sd-serializer'  # TODO: Update with CoreWeave hosted image
     - name: serializer_tag

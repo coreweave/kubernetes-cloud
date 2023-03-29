@@ -190,6 +190,13 @@ def parse_args() -> argparse.Namespace:
         required=False,
         help="The path to the dataset to use for finetuning.",
     )
+    parser.add_argument(
+        "--ucg",
+        type=float,
+        default=0.1,
+        help="Percentage chance of dropping out the text condition per sample. Ranges from 0.0 to 1.0 where 1.0 means "
+             "100% text condition dropout."
+    )
 
     # Dreambooth finetuning args
     parser.add_argument(
@@ -731,6 +738,7 @@ def main() -> None:
             size=args.resolution,
             interpolation=args.resize_interp,
             shuffle=args.shuffle,
+            ucg=args.ucg
         )
 
     train_dataloader = torch.utils.data.DataLoader(
