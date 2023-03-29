@@ -156,7 +156,7 @@ spec:
     - name: finetuner_image
       value: 'gooseai/finetuner'
     - name: finetuner_tag
-      value: 'cuda-11-8-torch-2-rc3'
+      value: 'cuda-11-8-torch-2-rc10'
     - name: inference_image
       value: 'coreweave/ml-images'
     - name: inference_tag
@@ -355,10 +355,12 @@ spec:
               memory: "{{workflow.parameters.trainer_ram}}Gi"
               cpu: "{{workflow.parameters.trainer_cores}}"
               nvidia.com/gpu: "{{workflow.parameters.trainer_gpus}}"
+              ephemeral-storage: 512Gi
             limits:
               memory: "{{workflow.parameters.trainer_ram}}Gi"
               cpu: "{{workflow.parameters.trainer_cores}}"
               nvidia.com/gpu: "{{workflow.parameters.trainer_gpus}}"
+              ephemeral-storage: 512Gi
     container:
       image: "{{workflow.parameters.finetuner_image}}:{{workflow.parameters.finetuner_tag}}"
       command: ["/usr/bin/bash", "-c"]
