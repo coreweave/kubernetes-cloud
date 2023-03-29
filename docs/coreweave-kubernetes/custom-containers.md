@@ -8,11 +8,9 @@ This guide walks through the steps necessary to deploy a basic containerized app
 
 ## Prerequisites
 
-This guide presumes that you:
+This guide presumes that you have:
 
-* already have [an active CoreWeave Cloud account](getting-started.md),
-* have already [configured and installed a kubeconfig file](getting-started.md#generate-the-kubeconfig-file) for use with CoreWeave Kubernetes,
-* have an application that has already successfully been containerized using Docker or a similar container runtime.
+<table data-view="cards"><thead><tr><th></th><th data-hidden></th><th data-hidden></th></tr></thead><tbody><tr><td><a href="getting-started.md">An active CoreWeave Cloud account</a></td><td></td><td></td></tr><tr><td><a href="getting-started.md#generate-the-kubeconfig-file">Configured and installed a kubeconfig file</a> for use with CoreWeave Kubernetes</td><td></td><td></td></tr><tr><td>An application that has already successfully been containerized using Docker or a similar container runtime</td><td></td><td></td></tr></tbody></table>
 
 If you have not already completed these steps, first visit [Get Started with CoreWeave](getting-started.md).
 
