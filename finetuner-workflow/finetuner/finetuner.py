@@ -214,10 +214,23 @@ parser.add_argument(
     help="For distributed training: local_rank",
     default=-1,
 )
+parser.add_argument(
+    "--fp16-full-eval",
+    dest="fp16_full_eval",
+    default=False,
+    action="store_true",
+)
+parser.add_argument(
+    "--log-level",
+    type=str,
+    help="Log level to use",
+    default="INFO",
+    choices=["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"],
+)
 args = parser.parse_args()
 
 logger = logging.getLogger(__name__)
-logger.setLevel(level=logging.INFO)
+logger.setLevel(args.log_level.upper())
 fh = logging.StreamHandler()
 if args.local_rank != -1:
     fh_formatter = logging.Formatter(
@@ -332,7 +345,6 @@ try:
 except Exception as e:
     logger.error(e)
     sys.exit(1)
-
 
 @contextmanager
 def no_init():
@@ -485,6 +497,10 @@ class ModelSampler(TrainerCallback):
         self.context_size = context_size
         self.tokens_per_step = batch_size * context_size
         self.table_data = []
+        try:
+            self.num_gpus = torch.cuda.device_count()
+        except AssertionError:
+            self.num_gpus = 1
 
     def on_step_end(
         self, args, state, control, model: PreTrainedModel = None, **kwargs
@@ -493,7 +509,7 @@ class ModelSampler(TrainerCallback):
             return
         if state.global_step % self.report_every == 0 or state.global_step == 1:
             curr_tokens_step = (
-                state.global_step * self.train_batch_size * self.gas
+                state.global_step * self.train_batch_size * self.gas * self.num_gpus
             )
             main_process_print(
                 f"\nSTEP {state.global_step}: Evaluating on {self.prompt_file}...",
@@ -506,6 +522,8 @@ class ModelSampler(TrainerCallback):
                     i.rstrip("\n").replace("\\n", "\n") for i in prompt_contents
                 ]
                 for prompt in prompts:
+                    if not prompt:
+                        continue
                     main_process_print("=============================")
                     main_process_print(f"PROMPT: {prompt}")
                     start = time.time()
@@ -600,13 +618,29 @@ class TokenizedDataset(Dataset):
 torch.cuda.set_device(args.local_rank)
 if is_main_process():
     logger.info(f"RUN_NAME: {args.run_name}")
+    logger.info(f"PROJECT ID {args.project_id}")
     logger.info(f"HOST: {socket.gethostname()}")
     logger.info(f"CUDA: {torch.version.cuda}")
     logger.info(f"TORCH: {torch.__version__}")
     logger.info(f"TRANSFORMERS: {transformers.__version__}")
     logger.info(get_gpu_ram())
     logger.info(f"MODEL: {args.model}")
+    logger.info(f"TRAIN_RATIO: {args.train_ratio}")
+    logger.info(f"CONTEXT LENGTH: {args.context_size} tokens")
     logger.info(f"SHUFFLE: {not args.no_shuffle}")
+    logger.info(f"EPOCHS {args.epochs}")
+    logger.info(f"CHECKPOINT STEPS: {args.checkpoint_steps}")
+    logger.info(f"TOKENIZER: {tokenizer}")
+    logger.info(f"TOKENIZER SPECIAL TOKENS: {tokenizer.special_tokens_map}")
+    logger.info(f"TRAIN_RATIO: {args.train_ratio}")
+    logger.info(f"PROMPT FILE: {args.prompt_file}")
+    logger.info(f"PROMPT EVERY: {args.prompt_every}")
+    logger.info(f"PROMPT SAMPLES: {args.prompt_samples}")
+    logger.info(f"PROMPT TOKENS: {args.prompt_tokens}")
+    logger.info(f"FORCE FP16: {args.fp16}")
+    logger.info(f"FP16 FULL EVAL: {args.fp16_full_eval}")
+    logger.info(f"LOG LEVEL: {args.log_level}")
+
 
 # Set random seed, for ML research purposes and reproducibility, it's important
 # that we set this to a consistent value.
@@ -627,13 +661,16 @@ else:
     )
 
 # Determine if we train in fp32 or fp16 mode.
-fp16_arg = {"fp16": True} if args.fp16 else {}
+trainer_fp16_args = {}
+if args.fp16:
+    trainer_fp16_args["fp16"] = True
+if args.fp16_full_eval:
+    trainer_fp16_args["fp16_full_eval"] = True
 
 if is_main_process():
     logger.info(f"TRAIN_DATASET: {len(train_dataset):,} examples")
     logger.info(f"VALUE_DATASET: {len(val_dataset):,} examples")
     logger.info(f"RANDOM SEED: {args.seed}")
-    logger.info(f"FORCE FP16: {args.fp16}")
 
 
 # Load our model that we're training. This may fetch via HTTP if not cached
@@ -655,13 +692,16 @@ try:
         model.train()
     else:
         with no_init():
+            model_fp16_args = {"torch_dtype": torch.float16}
+            model_args = {"eos_token_id": tokenizer.eos_token_id,
+                        "pad_token_id": tokenizer.pad_token_id,
+                        "cache_dir": args.cache,
+                        "use_cache": False,
+                        "low_cpu_mem_usage": True}
             model = AutoModelForCausalLM.from_pretrained(
                 args.model,  # Can be a HuggingFace ID or directory.
-                eos_token_id=tokenizer.eos_token_id,
-                pad_token_id=tokenizer.pad_token_id,
-                cache_dir=args.cache,
-                use_cache=False,
-                low_cpu_mem_usage=True,
+                **model_args,
+                **model_fp16_args,
             )  # Gradient checkpointing needs this off.
             if lastCheckpoint is None:
                 model = model.to(device)
@@ -718,11 +758,6 @@ def evaluate(
 
     return output_texts
 
-
-# log out the tokenizer and model
-if is_main_process():
-    logger.info(f"TOKENIZER: {tokenizer}")
-
 model.config.gradient_checkpointing = True
 model.resize_token_embeddings(len(tokenizer))
 model.config.use_cache = False
@@ -735,6 +770,18 @@ if args.bs == -1:
     bs = estimate_batch_size(args.bs_divisor)
 else:
     bs = args.bs
+
+if is_main_process():
+    logger.info(f"BS: {bs}")
+    logger.info(f"GAS: {args.gradients}")
+    devices_repr = device
+    if device != "cpu":
+        try:
+            devices_repr = (f"{torch.cuda.device_count()}x"
+                            f"{torch.cuda.get_device_name(0)}")
+        except Exception:
+            pass
+    logger.info(f"DEVICES: {devices_repr}")
 
 # Rewrite our `ds_config` to match arguments passed in.
 ds_args = {}
@@ -812,7 +859,7 @@ training_args = TrainingArguments(
     gradient_checkpointing=True,
     disable_tqdm=False,
     **ds_args,
-    **fp16_arg,
+    **trainer_fp16_args,
 )
 
 collector = lambda data: {
