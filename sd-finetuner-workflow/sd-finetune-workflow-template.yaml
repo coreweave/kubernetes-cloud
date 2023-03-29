@@ -1,85 +1,99 @@
 apiVersion: argoproj.io/v1alpha1
-kind: Workflow
+kind: WorkflowTemplate
 metadata:
-  generateName: "db-finetune-"
+  name: "sd-finetune-template"
 spec:
   entrypoint: main
+  serviceAccountName: inference
   arguments:
     parameters:
     # run_name should be unique on a per-run basis, especially if reporting
     # to wandb or sharing PVCs between runs.
     - name: run_name
     - name: pvc
-      value: 'db-finetune-data'
+      value: 'sd-finetune-data'
     # Training parameters. Model IDs are hugging face IDs to pull down, or
     # a path to your Diffusers model relative to the PVC root.
     - name: model
-      value: 'stabilityai/stable-diffusion-2-1-base'
-    # The path on the PVC to the instance data image folder
-    - name: instance_dataset
-      value: 'data/example-dog'
-    # Prompt used to describe the instance images
-    - name: instance_prompt
-      value: 'a photo of sks dog'
-    # Prior preventions loss weight
-    - name: prior_loss_weight
-      value: 1.0
-    # The path on the PVC to the class data image folder
-    - name: class_dataset
-      value: 'generic/dogs-2'
-    - name: class_prompt
-      value: 'a photo of dog'
-    # Number of class images to generate if they don't already exist
-    - name: num_class_images
-      value: 100
-    # The path on the PVC to the folder where the finetuned model will be saved.
-    - name: output
-      value: 'finetunes/example-dog'
+      value: 'stabilityai/stable-diffusion-2'
+    # The directory to read your dataset in.
+    - name: dataset
+      value: 'dataset'
     # The learning rate to use.
     - name: lr
-      value: '2e-6'
-    # Learning rate scheduler
-    - name: lr_scheduler
-      value: "constant"
-    # Number of steps to use to warm up the leanring rate
-    - name: lr_warmup_steps
-      value: 0
+      value: '5e-6'
+    # The amount of epochs to use.
+    - name: epochs
+      value: '10'
     # Batch size
     - name: batch_size
       value: '1'
-    - name: epochs
-      value: 4
+    # Whether or not to use EMA (Exponential Moving Average) for the model during training.
+    - name: use_ema
+      value: 'False'
+    # Whether or not to use Gradient Checkpointing. This is a memory optimization that trades off compute for memory.
+    - name: gradient_checkpointing
+      value: 'False'
+    # 8-bit Adam Optimizer - Only works on certain GPUs.
+    - name: use_8bit_adam
+      value: 'False'
+    # Adam beta 1
+    - name: adam_beta1
+      value: '0.9'
+    # Adam beta 2
+    - name: adam_beta2
+      value: '0.999'
+    # Adam weight decay
+    - name: adam_weight_decay
+      value: '1e-2'
+    # Adam epsilon
+    - name: adam_epsilon
+      value: '1e-8'
     # Seed for reproducibility
     - name: seed
-      value: 42
+      value: '42'
     # Checkpointing steps to save the model at.
-    - name: checkpointing_steps
-      value: 200
-    # How often to generate validation images
-    - name: image_log_steps
-      value: 100
-    # How many validation images to generate
-    - name: image_log_amount
-      value: 4
+    - name: save_steps
+      value: '500'
     # Image resolution to train at
     - name: resolution
       value: '512'
+    # Whether or not to resize the images during training.
+    - name: resize
+      value: 'False'
+    # Center crop the images during training.
+    - name: center_crop
+      value: 'False'
+    # Resizing interpolation method.
+    - name: resize_interp
+      value: 'lanczos'
+    # Whether or not to shuffle the dataset.
+    - name: shuffle
+      value: 'True'
+    # Image logging steps to log images at.
+    - name: image_log_steps
+      value: '500'
+    # Amount of images to log at every image logging step.
+    - name: image_log_amount
+      value: '4'
+    - name: project_id
+      value: 'sd-finetune'
     # Run a serialization step after finetuning and deserialize it when starting the inference service.
     # Provides significant performance increase in start up times of inference pods
     - name: use_tensorizer
       value: true
     # Inference service configuration.
     - name: run_inference
-      value: true
+      value: false
     # Skip training and only run inference.
     - name: inference_only
       value: false
     # CoreWeave region to default to; ORD1 has most of the GPUs.
     - name: region
-      value: 'LAS1'
+      value: 'ORD1'
     # Training GPU - A6000, 48gb VRAM
     - name: trainer_gpu
-      value: 'A40'
+      value: 'RTX_A6000'
     - name: trainer_gpu_count
       value: '1'
     # Inference GPU - Quadro RTX 5000, 16gb VRAM
@@ -89,7 +103,7 @@ spec:
     - name: downloader_image
       value: 'ghcr.io/wbrown/gpt_bpe/model_downloader'
     - name: downloader_tag
-      value: 'e2ef65f'
+      value: 'e526c65'
     - name: finetuner_image
       value: 'navarrepratt/sd-finetuner'  # TODO: Update with CoreWeave hosted image
     - name: finetuner_tag
@@ -128,38 +142,50 @@ spec:
             value: "{{workflow.parameters.run_name}}"
           - name: model
             value: "/{{workflow.parameters.pvc}}/models/{{workflow.parameters.model}}"
-          - name: output_path
-            value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.output}}"
-          - name: instance_dataset
-            value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.instance_dataset}}"
-          - name: instance_prompt
-            value: "{{workflow.parameters.instance_prompt}}"
-          - name: class_dataset
-            value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.class_dataset}}"
-          - name: class_prompt
-            value: "{{workflow.parameters.class_prompt}}"
-          - name: num_class_images
-            value: "{{workflow.parameters.num_class_images}}"
-          - name: resolution
-            value: "{{workflow.parameters.resolution}}"
-          - name: prior_loss_weight
-            value: "{{workflow.parameters.prior_loss_weight}}"
-          - name: batch_size
-            value: "{{workflow.parameters.batch_size}}"
-          - name: learning_rate
+          - name: dataset
+            value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.dataset}}"
+          - name: lr
             value: "{{workflow.parameters.lr}}"
-          - name: lr_scheduler
-            value: "{{workflow.parameters.lr_scheduler}}"
-          - name: lr_warmup_steps
-            value: "{{workflow.parameters.lr_warmup_steps}}"
           - name: epochs
             value: "{{workflow.parameters.epochs}}"
-          - name: checkpointing_steps
-            value: "{{workflow.parameters.checkpointing_steps}}"
+          - name: batch_size
+            value: "{{workflow.parameters.batch_size}}"
+          - name: use_ema
+            value: "{{workflow.parameters.use_ema}}"
+          - name: gradient_checkpointing
+            value: "{{workflow.parameters.gradient_checkpointing}}"
+          - name: use_8bit_adam
+            value: "{{workflow.parameters.use_8bit_adam}}"
+          - name: adam_beta1
+            value: "{{workflow.parameters.adam_beta1}}"
+          - name: adam_beta2
+            value: "{{workflow.parameters.adam_beta2}}"
+          - name: adam_weight_decay
+            value: "{{workflow.parameters.adam_weight_decay}}"
+          - name: adam_epsilon
+            value: "{{workflow.parameters.adam_epsilon}}"
+          - name: seed
+            value: "{{workflow.parameters.seed}}"
+          - name: output_path
+            value: "/{{workflow.parameters.pvc}}/finetunes/{{workflow.parameters.run_name}}"
+          - name: save_steps
+            value: "{{workflow.parameters.save_steps}}"
+          - name: resolution
+            value: "{{workflow.parameters.resolution}}"
+          - name: resize
+            value: "{{workflow.parameters.resize}}"
+          - name: center_crop
+            value: "{{workflow.parameters.center_crop}}"
+          - name: resize_interp
+            value: "{{workflow.parameters.resize_interp}}"
+          - name: shuffle
+            value: "{{workflow.parameters.shuffle}}"
           - name: image_log_steps
             value: "{{workflow.parameters.image_log_steps}}"
           - name: image_log_amount
             value: "{{workflow.parameters.image_log_amount}}"
+          - name: project_id
+            value: "{{workflow.parameters.project_id}}"
         when: "{{workflow.parameters.inference_only}} == false"
 
     - - name: serializer
@@ -167,17 +193,17 @@ spec:
         arguments:
           parameters:
             - name: model
-              value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.output}}"
+              value: "/{{workflow.parameters.pvc}}/finetunes/{{workflow.parameters.run_name}}"
             - name: output_path
-              value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.output}}"
+              value: "/{{workflow.parameters.pvc}}/finetunes/{{workflow.parameters.run_name}}"
         when: "{{workflow.parameters.use_tensorizer}} == true && {{workflow.parameters.inference_only}} == false"
-
+      
     - - name: inference
         template: model-inference-service
         arguments:
           parameters:
             - name: command
-              value: '["python3", "/app/service.py", "--model-id", "/mnt/pvc/{{workflow.parameters.output}}"{{=workflow.parameters.use_tensorizer == "true" ? ", \"--tensorized\"" : ""}}]'
+              value: '["python3", "/app/service.py", "--model-id", "/mnt/pvc/finetunes/{{workflow.parameters.run_name}}"{{=workflow.parameters.use_tensorizer == "true" ? ", \"--tensorized\"" : ""}}]'
         when: "{{workflow.parameters.run_inference}} == true || {{workflow.parameters.inference_only}} == true"
 
   - name: model-downloader
@@ -205,6 +231,12 @@ spec:
       args: ["--model", "{{inputs.parameters.model}}",
              "--dest", "{{inputs.parameters.dest}}",
              "--type", "{{inputs.parameters.type}}"]
+      env:
+        - name: HF_API_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: huggingface-token-secret
+              key: token
       resources:
         requests:
           memory: 512Mi
@@ -232,67 +264,78 @@ spec:
   - name: model-finetuner
     inputs:
       parameters:
-          - name: gpu_count
-          - name: run_name
-          - name: model
-          - name: output_path
-          - name: instance_dataset
-          - name: instance_prompt
-          - name: class_dataset
-          - name: class_prompt
-          - name: num_class_images
-          - name: resolution
-          - name: prior_loss_weight
-          - name: batch_size
-          - name: learning_rate
-          - name: lr_scheduler
-          - name: lr_warmup_steps
-          - name: epochs
-          - name: checkpointing_steps
-          - name: image_log_steps
-          - name: image_log_amount
+        - name: gpu_count
+        - name: run_name
+        - name: model
+        - name: dataset
+        - name: lr
+        - name: epochs
+        - name: batch_size
+        - name: use_ema
+        - name: gradient_checkpointing
+        - name: use_8bit_adam
+        - name: adam_beta1
+        - name: adam_beta2
+        - name: adam_weight_decay
+        - name: adam_epsilon
+        - name: seed
+        - name: output_path
+        - name: save_steps
+        - name: resolution
+        - name: resize
+        - name: center_crop
+        - name: resize_interp
+        - name: shuffle
+        - name: image_log_steps
+        - name: image_log_amount
+        - name: project_id
     container:
       image: "{{workflow.parameters.finetuner_image}}:{{workflow.parameters.finetuner_tag}}"
       command: [ "/usr/bin/python3",
                  "-m", "accelerate.commands.launch",
                  "--config", "/app/accelerate_config.yaml",
-                 "--num_processes", "1",
+                 "--num_processes", "{{inputs.parameters.gpu_count}}",
                  "/app/finetuner.py" ]
-      args: [ "--run_name", "{{inputs.parameters.run_name}}",
+      args: ["--run_name", "{{inputs.parameters.run_name}}",
               "--model", "{{inputs.parameters.model}}",
-              "--gradient_checkpointing", "true",
-              "--instance_dataset", "{{inputs.parameters.instance_dataset}}",
-              "--class_dataset", "{{inputs.parameters.class_dataset}}",
-              "--instance_prompt", "{{inputs.parameters.instance_prompt}}",
-              "--class_prompt", "{{inputs.parameters.class_prompt}}",
-              "--num_class_images", "{{inputs.parameters.num_class_images}}",
-              "--output_path", "{{inputs.parameters.output_path}}",
-              "--prior_loss_weight", "{{inputs.parameters.prior_loss_weight}}",
-              "--resolution", "{{inputs.parameters.resolution}}",
-              "--batch_size", "{{inputs.parameters.batch_size}}",
-              "--lr", "{{inputs.parameters.learning_rate}}",
-              "--lr_scheduler", "{{inputs.parameters.lr_scheduler}}",
-              "--lr_warmup_steps", "{{inputs.parameters.lr_warmup_steps}}",
+              "--dataset", "{{inputs.parameters.dataset}}",
+              "--lr", "{{inputs.parameters.lr}}",
               "--epochs", "{{inputs.parameters.epochs}}",
-              "--save_steps", "{{inputs.parameters.checkpointing_steps}}",
+              "--batch_size", "{{inputs.parameters.batch_size}}",
+              "--use_ema", "{{inputs.parameters.use_ema}}",
+              "--gradient_checkpointing", "{{inputs.parameters.gradient_checkpointing}}",
+              "--use_8bit_adam", "{{inputs.parameters.use_8bit_adam}}",
+              "--adam_beta1", "{{inputs.parameters.adam_beta1}}",
+              "--adam_beta2", "{{inputs.parameters.adam_beta2}}",
+              "--adam_weight_decay", "{{inputs.parameters.adam_weight_decay}}",
+              "--adam_epsilon", "{{inputs.parameters.adam_epsilon}}",
+              "--seed", "{{inputs.parameters.seed}}",
+              "--output_path", "{{inputs.parameters.output_path}}",
+              "--save_steps", "{{inputs.parameters.save_steps}}",
+              "--resolution", "{{inputs.parameters.resolution}}",
+              "--resize", "{{inputs.parameters.resize}}",
+              "--center_crop", "{{inputs.parameters.center_crop}}",
+              "--resize_interp", "{{inputs.parameters.resize_interp}}",
+              "--shuffle", "{{inputs.parameters.shuffle}}",
               "--image_log_steps", "{{inputs.parameters.image_log_steps}}",
-              "--image_log_amount", "{{inputs.parameters.image_log_amount}}"]
+              "--image_log_amount", "{{inputs.parameters.image_log_amount}}",
+              "--project_id", "{{inputs.parameters.project_id}}"]
       tty: true
       env:
-        - name: WANDB_API_KEY
-          valueFrom:
-            secretKeyRef:
-              name: wandb-token-secret
-              key: token
-        - name: HF_API_TOKEN
-          valueFrom:
-            secretKeyRef:
-              name: huggingface-token-secret
-              key: token
-        - name: PYTHONUNBUFFERED
-          value: "1"
-        - name: GPU_COUNT
-          value: "{{inputs.parameters.gpu_count}}"
+      - name: PYTHONUNBUFFERED
+        value: "1"
+      - name: WANDB_API_KEY
+        valueFrom:
+          secretKeyRef:
+            name: wandb-token-secret
+            key: token
+      - name: HF_API_TOKEN
+        valueFrom:
+          secretKeyRef:
+            name: huggingface-token-secret
+            key: token
+      - name: GPU_COUNT
+        value: "{{workflow.parameters.trainer_gpu_count}}"
       resources:
         requests:
           memory: 32Gi
@@ -364,12 +407,14 @@ spec:
                   values:
                     - "{{workflow.parameters.region}}"
 
+  
   - name: model-inference-service
     inputs:
       parameters:
         - name: command
     resource:
       action: apply
+      successCondition: status.conditions.3.status == True
       manifest: |
         apiVersion: serving.kubeflow.org/v1beta1
         kind: InferenceService

@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowEventBinding
+metadata:
+  name: db-finetune-event-binding
+spec:
+  event:
+    selector: discriminator == "db-finetune"
+  submit:
+    workflowTemplateRef:
+      name: db-finetune-template
+    arguments:
+      parameters:
+        - name: run_name
+          valueFrom:
+            event: payload.run_name
+        - name: instance_dataset
+          valueFrom:
+            event: payload.instance_dataset
+        - name: instance_prompt
+          valueFrom:
+            event: payload.instance_prompt
+        - name: class_dataset
+          valueFrom:
+            event: payload.class_dataset
+        - name: class_prompt
+          valueFrom:
+            event: payload.class_prompt
+        - name: output
+          valueFrom:
+            event: payload.output
+        - name: num_class_images
+          valueFrom:
+            event: "payload.num_class_images == null ? 100: payload.num_class_images"
+        - name: run_inference
+          valueFrom:
+            event: "payload.run_inference == null ? true : payload.run_inference"
+        - name: inference_only
+          valueFrom:
+            event: "payload.inference_only == null ? false : payload.inference_only"
