@@ -27,7 +27,8 @@ import validators
 import deepspeed
 from deepspeed.runtime.zero.stage_1_and_2 import estimate_zero2_model_states_mem_needs_all_live;
 from deepspeed.runtime.zero.stage3 import estimate_zero3_model_states_mem_needs_all_live;
-
+from collections import OrderedDict
+from tensorizer import TensorDeserializer, utils
 
 def find_free_port():
     with closing(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) as s:
@@ -44,6 +45,7 @@ sys.path.append(thisPath + "/transformers/src")
 import transformers
 from transformers import (
     AutoTokenizer,
+    AutoConfig,
     TrainingArguments,
     Trainer,
     AutoModelForCausalLM,
@@ -74,6 +76,12 @@ parser.add_argument(
 )
 parser.add_argument(
     "--dataset", type=str, help="pre-tokenized dataset to use", required=True
+)
+parser.add_argument(
+    "--tensorizer_uri",
+    type=str,
+    help="An S3 or path to use to extract pretrained weights for Tensorizer.",
+    default=""
 )
 parser.add_argument("--lr", type=float, help="learning rate", default=5e-5)
 parser.add_argument(
@@ -633,17 +641,30 @@ if is_main_process():
 model: PreTrainedModel
 
 try:
-    with no_init():
-        model = AutoModelForCausalLM.from_pretrained(
-            args.model,  # Can be a HuggingFace ID or directory.
-            eos_token_id=tokenizer.eos_token_id,
-            pad_token_id=tokenizer.pad_token_id,
-            cache_dir=args.cache,
-            use_cache=False,
-            low_cpu_mem_usage=True,
-        )  # Gradient checkpointing needs this off.
-        if lastCheckpoint is None:
-            model = model.to(device)
+    if args.tensorizer_uri:
+        config = AutoConfig.from_pretrained(args.model)
+        model = utils.no_init_or_tensor(
+            lambda: AutoModelForCausalLM.from_pretrained(
+                None, config=config, state_dict=OrderedDict()
+            )
+        )
+
+        deserializer = TensorDeserializer(args.tensorizer_uri)
+        deserializer.load_into_module(model)
+        deserializer.close()
+        model.train()
+    else:
+        with no_init():
+            model = AutoModelForCausalLM.from_pretrained(
+                args.model,  # Can be a HuggingFace ID or directory.
+                eos_token_id=tokenizer.eos_token_id,
+                pad_token_id=tokenizer.pad_token_id,
+                cache_dir=args.cache,
+                use_cache=False,
+                low_cpu_mem_usage=True,
+            )  # Gradient checkpointing needs this off.
+            if lastCheckpoint is None:
+                model = model.to(device)
     sys.stderr.flush()
     sys.stdout.flush()
 except Exception as e:

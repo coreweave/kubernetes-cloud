@@ -11,3 +11,4 @@ psutil==5.9.4
 validators
 requests
 accelerate~=0.17.1
+tensorizer==1.0.1

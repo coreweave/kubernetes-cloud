@@ -18,6 +18,9 @@ spec:
     # The directory to read your dataset in, and tokenize for training.
     - name: dataset
       value: 'dataset'
+    # An S3 or path to use to extract pretrained weights for Tensorizer.
+    - name: tensorizer_uri
+      value: ''
     # Whether to retokenize the data on each run. It is strongly recommended to
     # NOT enable this if you are making multiple runs on the same dataset.
     - name: retokenize
@@ -172,6 +175,8 @@ spec:
               value: "{{workflow.parameters.model}}"
             - name: dest
               value: "/{{workflow.parameters.pvc}}/models/{{workflow.parameters.model}}"
+        # only run when tensorizer_uri is empty
+        when: "'{{workflow.parameters.tensorizer_uri}}' == ''"
 
     - - name: tokenizer
         template: model-tokenizer
@@ -207,6 +212,7 @@ spec:
               --run_name {{workflow.parameters.run_name}}
               --model /{{workflow.parameters.pvc}}/models/{{workflow.parameters.model}}
               --dataset /{{workflow.parameters.pvc}}/{{workflow.parameters.dataset}}-{{=sprig.replace('/', '_', sprig.replace('.','_', sprig.replace('-','_', workflow.parameters.model)))}}-{{workflow.parameters.context}}-{{workflow.parameters.tokenizer_tag}}.tokens
+              --tensorizer_uri '{{workflow.parameters.tensorizer_uri}}'
               --eot '{{workflow.parameters.eot_token}}'
               --pad '{{workflow.parameters.pad_token}}'
               --bs {{workflow.parameters.batch_size}}
