@@ -109,7 +109,7 @@ Select how many **CPU** **cores** you'd like the Virtual Server to have using th
 
 Select how many **GPUs** you'd like the Virtual Server to have using the **GPU Count** slider.
 
-![](<../../.gitbook/assets/image (52) (1) (1).png>)
+![](<../../.gitbook/assets/image (52) (1) (1) (1).png>)
 
 **Memory**
 
@@ -121,7 +121,7 @@ Determine the amount of **memory** (in Gebibytes) the Virtual Server will have u
 
 The resources' `definition` defaults to the `a` character, but can be changed to any descriptive string you'd like. In the Cloud UI, the resource definition string is set in the YAML manifest.
 
-![Screenshot of the resources.definition field.](<../../.gitbook/assets/image (103).png>)
+![Screenshot of the resources.definition field.](<../../.gitbook/assets/image (49) (2).png>)
 
 **Example**
 
@@ -245,7 +245,7 @@ You can read more about virtual hardware firmware configuration in [the Kubevirt
 
 ***
 
-![Example of firmware configuration in the YAML manifest tab of the Cloud UI.](<../../.gitbook/assets/image (9) (1).png>)
+![Example of firmware configuration in the YAML manifest tab of the Cloud UI.](<../../.gitbook/assets/image (9) (1) (2).png>)
 {% endtab %}
 
 {% tab title="CLI" %}

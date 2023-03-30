@@ -2,7 +2,7 @@
 
 ## Exporting GPT-2 Model with Jupyter
 
-![Screenshot](../../../../../../online-inference/gpt-2/jupyter-pvc/screenshot.png)
+![Screenshot](../../../../../.gitbook/assets/screenshot.png)
 
 ### Introduction
 

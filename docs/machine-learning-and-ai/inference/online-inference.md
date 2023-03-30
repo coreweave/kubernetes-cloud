@@ -11,7 +11,7 @@ CoreWeave Cloud's Inference stack is backed by well-supported Open Source tools:
 * [Knative Serving](https://knative.dev/docs/serving/) acts as the serverless runtime, which manages autoscaling, revision control, and canary deployments.
 * [KServe](https://www.kubeflow.org/docs/components/serving/kfserving/) provides an easy to use interface via [Kubernetes resource definitions](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/) for deploying models without the fuss of correctly configuring the underlying framework (i.e., Tensorflow).
 
-<figure><img src="../../.gitbook/assets/image (48).png" alt=""><figcaption><p>The flow of a request in the Inference engine</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (48) (2).png" alt=""><figcaption><p>The flow of a request in the Inference engine</p></figcaption></figure>
 
 ### Knative default parameters
 
