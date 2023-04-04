@@ -677,9 +677,20 @@ if is_main_process():
 # already.
 model: PreTrainedModel
 
+model_fp16_args = {"torch_dtype": torch.float16}
+model_args = {"eos_token_id": tokenizer.eos_token_id,
+            "pad_token_id": tokenizer.pad_token_id,
+            "cache_dir": args.cache,
+            "use_cache": False,
+            "low_cpu_mem_usage": True}
+
 try:
     if args.tensorizer_uri:
-        config = AutoConfig.from_pretrained(args.model)
+        config = AutoConfig.from_pretrained(
+            args.model,
+            **model_args,
+            **model_fp16_args,
+        )
         model = utils.no_init_or_tensor(
             lambda: AutoModelForCausalLM.from_pretrained(
                 None, config=config, state_dict=OrderedDict()
@@ -692,12 +703,6 @@ try:
         model.train()
     else:
         with no_init():
-            model_fp16_args = {"torch_dtype": torch.float16}
-            model_args = {"eos_token_id": tokenizer.eos_token_id,
-                        "pad_token_id": tokenizer.pad_token_id,
-                        "cache_dir": args.cache,
-                        "use_cache": False,
-                        "low_cpu_mem_usage": True}
             model = AutoModelForCausalLM.from_pretrained(
                 args.model,  # Can be a HuggingFace ID or directory.
                 **model_args,
