@@ -167,6 +167,14 @@ spec:
   templates:
   - name: main
     steps:
+    - - name: check-model
+        template: check-model
+        arguments:
+          parameters:
+            - name: model
+              value: "{{workflow.parameters.model}}"
+        when: "'{{workflow.parameters.tensorizer_uri}}' == ''"
+            
     - - name: downloader
         template: model-downloader
         arguments:
@@ -175,9 +183,7 @@ spec:
               value: "{{workflow.parameters.model}}"
             - name: dest
               value: "/{{workflow.parameters.pvc}}/models/{{workflow.parameters.model}}"
-        # only run when tensorizer_uri is empty
-        when: "'{{workflow.parameters.tensorizer_uri}}' == ''"
-
+        when: "'{{workflow.parameters.tensorizer_uri}}' == '' && '{{steps.check-model.outputs.result}}' == 'false'"
     - - name: tokenizer
         template: model-tokenizer
         arguments:
@@ -257,6 +263,22 @@ spec:
             - name: model_path
               value: "finetunes/results-{{workflow.parameters.run_name}}"
         when: "{{workflow.parameters.run_inference}} == true"
+  - name: check-model
+    inputs:
+      parameters:
+        - name: model
+    retryStrategy:
+      limit: 1
+    container:
+      image: "alpine:3.12"
+      command: [ "/bin/sh", "-c" ]
+      args: [ "curl -I -XGET -s -o /dev/null -w \"%{http_code}\" https://accel-object.ord1.coreweave.com/tensorized/{{inputs.parameters.model}}/model.tensors | grep -q 200 && echo -n 'true' > /tmp/output.txt || echo -n 'false' > /tmp/output.txt" ]
+    outputs:
+      parameters:
+        - name: result
+          valueFrom:
+            path: /tmp/output.txt
+
   - name: model-downloader
     inputs:
       parameters:
