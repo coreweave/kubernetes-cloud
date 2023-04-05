@@ -28,7 +28,7 @@ import deepspeed
 from deepspeed.runtime.zero.stage_1_and_2 import estimate_zero2_model_states_mem_needs_all_live;
 from deepspeed.runtime.zero.stage3 import estimate_zero3_model_states_mem_needs_all_live;
 from collections import OrderedDict
-from tensorizer import TensorDeserializer, utils
+from tensorizer import TensorDeserializer, utils, stream_io
 
 def find_free_port():
     with closing(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) as s:
@@ -683,6 +683,19 @@ model_args = {"eos_token_id": tokenizer.eos_token_id,
             "cache_dir": args.cache,
             "use_cache": False,
             "low_cpu_mem_usage": True}
+
+# we evaluate if args.model is already tensorized under a public s3 bucket.
+try:
+    if not args.tensorizer_uri:
+        model_id = '/'.join(args.model.split('/')[-2:])
+        stream_io.CURLStreamFile(
+            uri=f"https://accel-object.ord1.coreweave.com/tensorized/{model_id}/model.tensors"
+        ).read(1)
+        uri_dtype = 'fp16/' if args.fp16 else ''
+        args.model = model_id
+        args.tensorizer_uri=f"s3://tensorized/{args.model}/{uri_dtype}model.tensors"
+except OSError:
+    pass
 
 try:
     if args.tensorizer_uri:
