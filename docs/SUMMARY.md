@@ -125,7 +125,7 @@
       * [FasterTransformer GPT-J and GPT: NeoX 20B](machine-learning-and-ai/inference/examples/triton-inference/triton-inference-server-fastertransformer.md)
 * [Training](machine-learning-and-ai/training/README.md)
   * [Get Started with Training](machine-learning-and-ai/training/get-started-with-training.md)
-  * [Determined AI Examples](machine-learning-and-ai/training/determined-ai/README.md)
+  * [Determined AI](machine-learning-and-ai/training/determined-ai/README.md)
     * [Install Determined AI](compass/determined-ai/install-determined-ai.md)
     * [Shell for Machine Learning on Determined AI](machine-learning-and-ai/training/determined-ai/shell-for-machine-learning-on-determined-ai.md)
     * [Launch Jupyter Notebook on CoreWeave via Determined AI](machine-learning-and-ai/training/determined-ai/launch-jupyter-notebook-on-coreweave-via-determined-ai.md)
