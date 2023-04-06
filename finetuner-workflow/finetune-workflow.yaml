@@ -148,11 +148,11 @@ spec:
     - name: downloader_image
       value: 'ghcr.io/wbrown/gpt_bpe/model_downloader'
     - name: downloader_tag
-      value: 'c3a00df'
+      value: '73cceb0'
     - name: tokenizer_image
       value: 'ghcr.io/wbrown/gpt_bpe/dataset_tokenizer'
     - name: tokenizer_tag
-      value: 'c3a00df'
+      value: '73cceb0'
     - name: finetuner_image
       value: 'gooseai/finetuner'
     - name: finetuner_tag
