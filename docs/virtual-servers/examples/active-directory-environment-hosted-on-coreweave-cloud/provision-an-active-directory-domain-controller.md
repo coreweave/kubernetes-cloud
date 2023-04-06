@@ -6,7 +6,7 @@
 ## Create Primary Domain Controller Virtual Server
 
 {% hint style="success" %}
-Be sure to review [Getting Started](../../../../coreweave-kubernetes/getting-started.md#obtain-access-credentials) and the [kubectl Virtual Server deployment method](../../deployment-methods/kubectl.md#deploying-a-virtual-server) before starting this guide.
+Be sure to review [Getting Started](../../../coreweave-kubernetes/getting-started.md#obtain-access-credentials) and the [kubectl Virtual Server deployment method](../../deployment-methods/kubectl.md#deploying-a-virtual-server) before starting this guide.
 {% endhint %}
 
 We'll start out using [this Virtual Server manifest](../../../../virtual-server/examples/kubectl/virtual-server-windows-internal-ip-only.yaml) to create a Windows Server 2022 Virtual Server in our Chicago datacenter:
@@ -89,7 +89,7 @@ We can monitor the Virtual Server spinning up with `kubectl get pods --watch`
 
 Once our VS has reached "Running" status, we can get an External IP to connect to it with `k get vs`
 
-![Output of kubectl get vs](<../../../.gitbook/assets/image (8) (2).png>)
+![Output of kubectl get vs](<../../../.gitbook/assets/image (8) (2) (1).png>)
 
 {% hint style="info" %}
 Allow \~5 minutes after "Running" status for the Virtual Server to complete initial start procedures.
@@ -187,7 +187,7 @@ After rebooting, your Windows Virtual Server will now be joined to your Active D
 
 Confirm connectivity by performing a policy update:
 
-![Group Policy update](<../../../.gitbook/assets/image (12) (2) (1).png>)
+![Group Policy update](<../../../.gitbook/assets/image (12) (2) (1) (1) (1).png>)
 
 ## Adding a secondary Domain Controller
 

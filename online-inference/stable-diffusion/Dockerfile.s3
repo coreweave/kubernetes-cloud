@@ -1,0 +1,9 @@
+FROM ubuntu:22.04
+ENV DEBIAN_FRONTEND=noninteractive
+
+ADD uploader/ /root
+
+RUN apt update && apt upgrade -y && \
+    apt update && apt install -y s3cmd ca-certificates
+
+CMD ["s3cmd"]

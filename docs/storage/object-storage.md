@@ -16,27 +16,19 @@ CoreWeave's Object Storage features include:
 
 Currently, Object Storage is configured and accessed either by:
 
-<table data-card-size="large" data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><p><strong>User CRDs</strong></p><p><strong></strong></p><p>Use CoreWeave's Kubernetes <a href="object-storage.md#user-crd">Custom Resource Definitions (CRD) for Users </a>to create a Custom Resource with the appropriate permissions.</p></td><td></td><td></td><td><a href="object-storage.md#the-user-crd">#the-user-crd</a></td></tr><tr><td><p><strong>Cloud UI</strong></p><p></p><p>Use the <a href="object-storage.md#generating-object-storage-tokens-via-cloud-ui">CoreWeave Cloud UI </a>to generate a config file, which is then manually passed to <code>s3cmd</code> to authenticate to Object Storage.</p></td><td></td><td></td><td><a href="object-storage.md#using-the-cloud-ui-and-s3cmd">#using-the-cloud-ui-and-s3cmd</a></td></tr></tbody></table>
+<table data-card-size="large" data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><p><strong></strong><a href="object-storage.md#the-user-crd"><strong>User CRDs</strong></a><strong></strong></p><p><strong></strong></p><p>Use CoreWeave's Kubernetes <a href="object-storage.md#the-user-crd">Custom Resource Definitions (CRD) for Users </a>to create a Custom Resource with the appropriate permissions.</p></td><td></td><td></td><td></td></tr><tr><td><p><strong></strong><a href="object-storage.md#using-the-cloud-ui-and-s3cmd"><strong>Cloud UI</strong></a><strong></strong></p><p></p><p>Use the <a href="object-storage.md#using-the-cloud-ui-and-s3cmd">CoreWeave Cloud UI </a>to generate a config file, which is then manually passed to <code>s3cmd</code> to authenticate to Object Storage.</p></td><td></td><td></td><td></td></tr></tbody></table>
 
 ## Using the Cloud UI and s3cmd
 
-{% hint style="warning" %}
-**Important**
+Using the CoreWeave Cloud UI, an Object Storage configuration file can be generated to authenticate to Object Storage using `s3cmd`. To access Object Storage using the [CoreWeave Cloud UI](../../virtual-servers/deployment-methods/coreweave-apps.md), log in to your CoreWeave Cloud account, then navigate to the Object Storage page.
 
-Currently, tokens generated via the Cloud UI are **full access tokens**, meaning they are granted [full permissions](object-storage.md#permissions-levels). Permission customization via the Cloud UI will be available soon.
-{% endhint %}
+<figure><img src="../.gitbook/assets/image (9) (2) (2).png" alt="Screenshot of the Object Storage link on the side nav of the Cloud UI"><figcaption><p>The Object Storage link is located on the left-hand menu on the Cloud UI</p></figcaption></figure>
 
-Using the CoreWeave Cloud UI, an Object Storage configuration file can be generated to authenticate to Object Storage using `s3cmd`.
+To create a new token, click the button labelled **Create a New Token**. This will bring up the **New Storage Token** modal, which prompts you to assign a name, a default [S3 region](../data-center-regions.md) (which can be changed later), and [an access level](object-storage.md#identity-and-access-management-iam-and-access-levels) to the token.
 
-To access Object Storage using the [CoreWeave Cloud UI](../../virtual-servers/deployment-methods/coreweave-apps.md), log in to your CoreWeave Cloud account, then navigate to the Object Storage page.
+<figure><img src="../.gitbook/assets/image (52) (1).png" alt="Screenshot of the new storage token modal"><figcaption><p>The New Storage Token modal</p></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/image (9) (2).png" alt="Screenshot of the Object Storage link on the side nav of the Cloud UI"><figcaption><p>The Object Storage link on the side nav of the Cloud UI</p></figcaption></figure>
-
-To create a new token, click the button labelled **Create a New Token**. This will bring up the **New Storage Token** options. You will be prompted to assign a name to the token, which is required. You may also select a default Object Storage region from the drop-down list. This region may be changed at any time.
-
-<figure><img src="../.gitbook/assets/image (1) (1).png" alt="Screenshot: Generate a new Object Storage token by assigning a token name and selecting a default storage region"><figcaption><p>Generate a new Object Storage token by assigning a token name and selecting a default storage region</p></figcaption></figure>
-
-Finally, clicking the **Generate** button will generate a token configuration file, which will look like the following:
+Finally, clicking the **Generate** button generates the token's configuration file:
 
 ```ini
 [default]
@@ -49,20 +41,33 @@ check_ssl_certificate = True
 check_ssl_hostname = True
 ```
 
+This generated config file is used to authenticate to Object Storage by using [the free `s3cmd` CLI tool](https://s3tools.org/s3cmd).
+
 ### Authentication
 
-The generated config file is used to authenticate to Object Storage by using [the free `s3cmd` CLI tool](https://s3tools.org/s3cmd).
-
-After the `s3cmd` tool is installed, place the configuration file in the home directory with the filename `.s3cfg` (for example: `/home/.s3cfg`). The `s3cmd` tool look for the config file at this path by default, but other filepaths may alternatively be passed directly to `s3cmd` using the `-config=` option.
+After the `s3cmd` tool is installed, place the configuration file generated previously in the home directory with the filename `.s3cfg` (for example: `/home/myuser/.s3cfg`). The `s3cmd` tool looks for the config file at this path by default, but other filepaths may alternatively be passed directly to `s3cmd` using the `-config=` option.
 
 **Example `s3cmd` usage**
 
-```bash
-$ s3cmd mb s3://my-new-bucket
-$ s3cmd put my-file.txt s3://my-new-bucket
-$ s3cmd --config=my-cfg-file mb s3://my-new-bucket
-$ s3cmd get s3://my-new-bucket/my-file.txt
+Make a bucket
+
 ```
+s3cmd mb s3://BUCKET
+```
+
+Remove a bucket
+
+```
+s3cmd rb s3://BUCKET
+```
+
+List the object inside a bucket
+
+```
+s3cmd ls [s3://BUCKET[/PREFIX]]
+```
+
+A list of all s3cmd commands may be found in [the s3cmd official documentation](https://s3tools.org/usage#commands).
 
 {% hint style="info" %}
 **Note**
@@ -70,7 +75,7 @@ $ s3cmd get s3://my-new-bucket/my-file.txt
 When using AWS SDKs, the variable `AWS_REGION` is defined within the V4 signature headers. The object storage region for CoreWeave is named `default`.
 {% endhint %}
 
-## Using Custom Resource Definitions
+## Using Custom Resource Definitions (CRDs)
 
 CoreWeave provides [Kubernetes Custom Resource Definitions (CRDs)](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/) for programmatic and automated methods of generating access to Object Storage clusters.
 
@@ -185,11 +190,9 @@ $ aws s3 --endpoint-url=https://object.las1.coreweave.com \
     --sse-c AES256
 ```
 
-## Identity and Access Management (IAM)
+## Identity and Access Management (IAM) and access levels
 
-When an initial key pair is created for Object Storage access, that key pair is considered a **Full User** with access to read, write, and modify policies of the buckets which it owns. Each key pair is considered an individual user for access, and can be used to provide granular access to applications or users.
-
-When using CRDs for Object Storage access, the user's permission levels are defined using the corresponding key in the CRD's `spec.access` field.
+When an initial key pair is created for Object Storage access, that key pair is given the permissions specified on creation in order to read, write, and modify policies of the buckets which it owns. Each key pair is considered an individual user for access, and can be used to provide granular access to applications or users.
 
 Permission levels that may be granted are:
 
@@ -200,9 +203,19 @@ Permission levels that may be granted are:
 | Read/Write       | `readwrite` | Grants access to both read and write to buckets you own and have created                         |
 | Full             | `full`      | Grant Write/Read access, as well as admin access to create buckets and apply policies to buckets |
 
+### Access levels via Cloud UI
+
+Alternatively, key pair permissions may be specified via the Cloud UI on the Object Storage page.
+
+From the Object Storage page, the **Access Level** field displays the key's current access level. The access of a new Object Storage token is set during creation by selecting an access level from the **Select an access level** drop-down menu located at the bottom of the New Storage Token module.
+
+<figure><img src="../.gitbook/assets/image (4) (5).png" alt=""><figcaption><p>Access levels are displayed on the Object Storage page</p></figcaption></figure>
+
+<figure><img src="../.gitbook/assets/image (3).png" alt="Screenshot: Access levels drop-down"><figcaption><p>Any access level may be chosen from this drop-down</p></figcaption></figure>
+
 ### IAM actions
 
-Currently, CoreWeave Cloud supports the following IAM bucket policy actions.&#x20;
+Currently, CoreWeave Cloud supports the following IAM bucket policy actions:
 
 <details>
 
@@ -285,8 +298,9 @@ for read, write/read, or full control access, respectively.
 
 #### **Supported S3 Bucket Operations**
 
-| `s3:createBucket`       | `s3:x-amz-acl`, `s3:x-amz-grant-<perm>` |
+| Permission              | Condition Keys                          |
 | ----------------------- | --------------------------------------- |
+| `s3:createBucket`       | `s3:x-amz-acl`, `s3:x-amz-grant-<perm>` |
 | `s3:ListBucket`         | `s3:<prefix>`                           |
 | `s3:ListBucketVersions` | N/A                                     |
 | `s3:delimiter`          | N/A                                     |
@@ -295,8 +309,9 @@ for read, write/read, or full control access, respectively.
 
 #### Supported S3 Object Operations
 
-| `s3:PutObject`                                   | `s3:x-amz-acl` and `s3:x-amz-grant-<perm>`                                              |
+| Permission                                       | Condition Keys                                                                          |
 | ------------------------------------------------ | --------------------------------------------------------------------------------------- |
+| `s3:PutObject`                                   | `s3:x-amz-acl` and `s3:x-amz-grant-<perm>`                                              |
 | `s3:x-amz-copy-source`                           | N/A                                                                                     |
 | `s3:x-amz-server-side-encryption`                | N/A                                                                                     |
 | `s3:x-amz-server-side-encryption-aws-kms-key-id` | N/A                                                                                     |
@@ -348,8 +363,8 @@ $ s3cmd setpolicy examplepol s3://happybucket
 
 Once the policy is applied, the data in your bucket may be accessed without credentials, for example, by using `curl`:
 
-```
-curl -v https://happybucket.object.las1.coreweave.com/my-new-file.txt
+```bash
+$ curl -v https://happybucket.object.las1.coreweave.com/my-new-file.txt
 ```
 
 Finally, the policy is deleted using `s3cmd delpolicy`:
@@ -363,10 +378,6 @@ $ s3cmd delpolicy s3://happybucket
 
 Bucket policies do not yet support string interpolation.
 {% endhint %}
-
-### Pricing
-
-The current price for Object Storage is `$0.03` per GB per month.
 
 ## Accelerated Object Storage
 
@@ -382,7 +393,7 @@ For example, if your models are hosted in `ORD1` (Chicago), but have a deploymen
 You do not need to change the endpoint for every region your application is deployed in - this is the beauty of it!
 {% endhint %}
 
-**Use of CoreWeave's Accelerated Object Storage is completely free.** To use Accelerated Object Storage, simply modify your Object Storage endpoint to one of the addresses that corresponds to your Data Center region.
+**Use of CoreWeave's Accelerated Object Storage is available at no additional cost.** To use Accelerated Object Storage, simply modify your Object Storage endpoint to one of the addresses that corresponds to your Data Center region.
 
 | Region | Endpoint                          |
 | ------ | --------------------------------- |
@@ -390,36 +401,44 @@ You do not need to change the endpoint for every region your application is depl
 | LGA1   | `accel-object.lga1.coreweave.com` |
 | ORD1   | `accel-object.ord1.coreweave.com` |
 
-## s3cmd Alternatives
+## s3cmd alternatives
 
-There are a number of alternatives to the standard s3cmd client. One of which is [s5cmd](https://github.com/peak/s5cmd). s5cmd an interface for running **highly parallelized operations**. Benchmarks show s5cmd performs excellent for tasks involving moving large numbers of files to and from buckets.&#x20;
+There are a few alternative clients to s3cmd, one of which is [s5cmd](https://github.com/peak/s5cmd). s5cmd is an interface ideal for running **** highly parallelized operations. As benchmarks have shown, s5cmd performs very well for tasks that involve moving large numbers of files to and from buckets.&#x20;
 
-To use s5cmd with CoreWeave Object Storage you must specify an endpoint URL, for example:
+To use s5cmd with CoreWeave Object Storage, first create a file at `~/.aws/credentials` that contains the following parameters:
 
-```yaml
+```toml
+[default]
+aws_access_key_id=<Your object storage access key>
+aws_secret_access_key=<Your object storage secret key>
+```
+
+To use s5cmd with CoreWeave Object Storage, the `--endpoint-url` option must be included during use to specify the CoreWeave Object Storage endpoint URL:
+
+```bash
 --endpoint-url=https://object.lga1.coreweave.com
 ```
 
-In addition you will need to create a file at \~/.aws/credentials containing the following:
+It may be helpful to define an `alias` so as to avoid providing the endpoint URL every time.&#x20;
 
-```
-[default]
-aws_access_key_id=<Your access key>
-aws_secret_access_key=<Your secret key>
+```bash
+$ alias s5="s5cmd --endpoint-url https://object.lga1.coreweave.com"
 ```
 
-You can then run s5cmd normally, for example:
+Once the `~/.aws/credentials` file above is in place, run s5cmd. The full command, without an alias, looks like:
 
+{% code overflow="wrap" %}
+```bash
+$ s5cmd --endpoint-url=https://object.lga1.coreweave.com cp ./my-local-directory/* s3://my-bucket/my-prefix/
 ```
-s5cmd --endpoint-url https://object.lga1.coreweave.com cp ./my-local-directory/* s3://my-bucket/my-prefix/
-```
+{% endcode %}
 
-It may also be helpful to define an alias to avoid providing an endpoint url every time, for example:&#x20;
+{% hint style="info" %}
+**Note**
 
-```
-alias s5="s5cmd --endpoint-url https://object.lga1.coreweave.com"
-```
+With extremely large filesystems ( >1 million files) s5cmd may exhibit unwanted behavior.  In these cases, reducing concurrency using the `--concurrency` option, or selecting standard endpoints instead of accelerated endpoints, may help.
+{% endhint %}
 
-This can be installed by simply adding the line to the end of your `.bashrc` or `.zshrc` file and reloading your terminal session.
+## Pricing
 
-**Note:** with extremely large filesystems ( >1 million files ) s5cmd may exhibit unwanted behavior,  in those cases, reducing concurrency using the `--concurrency` flag or selecting standard instead of accelerated endpoints may help.
+The current price for Object Storage is `$0.03` per GB per month.

@@ -1,0 +1,54 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: imagenet-download
+spec:
+  template:
+    spec:
+      containers:
+        - name: model-downloader
+          image: python:3.8
+          imagePullPolicy: IfNotPresent
+          command: [ "bash", "-c" ]
+          args:
+            - apt-get install unzip;
+              pip install kaggle;
+              mkdir /mnt/pvc/dataset;
+              kaggle competitions download -c imagenet-object-localization-challenge -p /mnt/pvc/dataset;
+              unzip /mnt/pvc/dataset/imagenet-object-localization-challenge.zip -d /mnt/pvc/dataset;
+              rm /mnt/pvc/dataset/imagenet-object-localization-challenge.zip;
+              cd /mnt/pvc/dataset/ILSVRC/Data/CLS-LOC/val/;
+              wget -qO- https://raw.githubusercontent.com/soumith/imagenetloader.torch/master/valprep.sh | bash
+          env:
+            - name: KAGGLE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: kaggle-token-secret
+                  key: token
+            - name: KAGGLE_USERNAME
+              value: navarreprattcw
+          volumeMounts:
+            - name: kubeflow-imagenet
+              mountPath: /mnt/pvc
+          resources:
+            requests:
+              cpu: 1
+              memory: 4Gi
+            limits:
+              cpu: 1
+              memory: 4Gi
+      volumes:
+        - name: kubeflow-imagenet
+          persistentVolumeClaim:
+            claimName: kubeflow-imagenet
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: topology.kubernetes.io/region
+                    operator: In
+                    values:
+                      - LAS1
+      restartPolicy: Never
+  backoffLimit: 2

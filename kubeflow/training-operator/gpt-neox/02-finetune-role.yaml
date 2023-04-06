@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: finetune
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: role:finetune
+rules:
+  # Permissions for the config map step
+  - apiGroups:
+      - ""
+    resources:
+      - "configmaps"
+    verbs:
+      - 'patch'
+      - 'create'
+      - 'get'
+
+  # Permissions for the finetune step
+  - apiGroups:
+      - "kubeflow.org"
+    resources:
+      - "mpijobs"
+    verbs:
+      - "create"
+      - "get"
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: rolebinding:finetune-finetune
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: role:finetune
+subjects:
+  - kind: ServiceAccount
+    name: finetune

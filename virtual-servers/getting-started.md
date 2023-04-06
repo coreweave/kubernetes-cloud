@@ -32,7 +32,7 @@ CoreWeave Virtual Servers provide all the isolation and control benefits that co
 
 <summary>Create virtual desktops and developer workstations accessible from anywhere</summary>
 
-Virtual Servers can be deployed with **virtual desktop environments**, providing developer workstations running Linux or Windows. Using applications like [Parsec](https://parsec.app/) for Windows machines and [Teradici](https://www.teradici.com/) for Linux, developers can log in to their workstations to access their work from anywhere!
+Virtual Servers can be deployed with virtual desktop environments, also known as **virtual desktop infrastructures** or VDIs, which provide developer workstations running either Linux or Windows. By using applications like [Parsec](https://parsec.app/) (for Windows machines) and [Teradici](https://www.teradici.com/) (for Linux), developers can log in to their workstations to access their work from anywhere!
 
 </details>
 

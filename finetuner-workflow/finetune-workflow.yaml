@@ -28,9 +28,16 @@ spec:
       value: ''
     # How should the tokenizer order the dataset inputs? Options available are:
     # `size_ascending`, `size_descending`, `name_ascending`, `name_descending`,
-    # `random`, and `none`.
+    # `random`, and `none`. `shuffle` implements `none` while also assigning 
+    # chunks randomly to file instead of sequentially, useful for large
+    # sequential datasets like novels.
     - name: reorder
       value: ''
+    # What % of chunks to throw out, to reduce redundancy 
+    # (randomly throws them out)
+    # valid values are between 0-100, 100 disables argument
+    - name: sampling
+      value: 100
     # eot and pad tokens, it is suggested not to change this value, but usual
     # values are `<|padding|>` or `<|endoftext|>`
     - name: eot_token
@@ -110,7 +117,7 @@ spec:
       value: '3'
     # Whether to *not* resume from checkpoints.
     - name: no_resume
-      value: 'false'
+      value: false
     # Where we store our training logs on the PVC.
     - name: logs
       value: 'logs'
@@ -122,9 +129,12 @@ spec:
     # Inference service configuration.
     - name: run_inference
       value: false
-    # Skip tokenization and training and only run inference, presumably
+    # Skip dataset download, tokenization, and training to only run inference, presumably
     # you have a model already ready to go under `model_run` name.
     - name: inference_only
+      value: false
+    # Download a dataset of Western Romance books from SmashWords.com
+    - name: download_dataset
       value: false
     # CoreWeave region to default to; ORD1 has most of the GPUs.
     - name: region
@@ -145,14 +155,18 @@ spec:
     - name: inference_gpu
       value: 'RTX_A5000'
     # Container images -- generally, don't alter this.
-    - name: downloader_image
+    - name: model_downloader_image
       value: 'ghcr.io/wbrown/gpt_bpe/model_downloader'
-    - name: downloader_tag
+    - name: model_downloader_tag
       value: '73cceb0'
     - name: tokenizer_image
       value: 'ghcr.io/wbrown/gpt_bpe/dataset_tokenizer'
     - name: tokenizer_tag
       value: '73cceb0'
+    - name: dataset_downloader_image
+      value: 'ghcr.io/coreweave/dataset-downloader/smashwords-downloader'
+    - name: dataset_downloader_tag
+      value: '7dba2c7'
     - name: finetuner_image
       value: 'gooseai/finetuner'
     - name: finetuner_tag
@@ -164,7 +178,7 @@ spec:
   templates:
   - name: main
     steps:
-    - - name: downloader
+    - - name: model-downloader
         template: model-downloader
         arguments:
           parameters:
@@ -172,6 +186,14 @@ spec:
               value: "{{workflow.parameters.model}}"
             - name: dest
               value: "/{{workflow.parameters.pvc}}/models/{{workflow.parameters.model}}"
+
+    - - name: dataset-downloader
+        template: dataset-downloader
+        arguments:
+          parameters:
+            - name: output
+              value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.dataset}}"
+        when: "{{workflow.parameters.inference_only}} == false && {{workflow.parameters.download_dataset}} == true"
 
     - - name: tokenizer
         template: model-tokenizer
@@ -195,6 +217,10 @@ spec:
             value: "{{workflow.parameters.boundary_index}}"
           - name: reorder
             value: "{{workflow.parameters.reorder}}"
+          - name: sampling
+            value: "{{workflow.parameters.sampling}}"
+          - name: retokenize
+            value: "{{workflow.parameters.retokenize}}"
         when: "{{workflow.parameters.inference_only}} == false"
 
     - - name: finetuner
@@ -259,7 +285,7 @@ spec:
     retryStrategy:
       limit: 1
     container:
-      image: "{{workflow.parameters.downloader_image}}:{{workflow.parameters.downloader_tag}}"
+      image: "{{workflow.parameters.model_downloader_image}}:{{workflow.parameters.model_downloader_tag}}"
       command: [ "/ko-app/model_downloader" ]
       args: [ "-model", "{{inputs.parameters.model}}",
               "-dest", "{{inputs.parameters.dest}}" ]
@@ -270,6 +296,51 @@ spec:
         limits:
           memory: 512Mi
           cpu: "2"
+      volumeMounts:
+        - mountPath: "/{{workflow.parameters.pvc}}"
+          name: "{{workflow.parameters.pvc}}"
+    volumes:
+      - name: "{{workflow.parameters.pvc}}"
+        persistentVolumeClaim:
+           claimName: "{{workflow.parameters.pvc}}"
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: topology.kubernetes.io/region
+              operator: In
+              values:
+              - "{{workflow.parameters.region}}"
+
+  - name: dataset-downloader
+    inputs:
+      parameters:
+        - name: output
+    retryStrategy:
+      limit: 1
+    # The dataset downloader runs as the nonroot user so the dataset folder in the PVC
+    # needs the correct permissions.
+    initContainers:
+      - name: dataset-perms
+        image: alpine:3.17
+        command: [ "/bin/sh" ]
+        args:
+          - "-c"
+          - "mkdir -p {{inputs.parameters.output}};
+            chmod o+rw,g+s {{inputs.parameters.output}}"
+        mirrorVolumeMounts: true
+    container:
+      image: "{{workflow.parameters.dataset_downloader_image}}:{{workflow.parameters.dataset_downloader_tag}}"
+      command: ["/ko-app/smashwords-downloader"]
+      args: ["--data_dir", "{{inputs.parameters.output}}"]
+      resources:
+        requests:
+          memory: 256Mi
+          cpu: "4"
+        limits:
+          memory: 256Mi
+          cpu: "4"
       volumeMounts:
         - mountPath: "/{{workflow.parameters.pvc}}"
           name: "{{workflow.parameters.pvc}}"
@@ -298,6 +369,7 @@ spec:
         - name: output
         - name: boundary
         - name: boundary_index
+        - name: sampling
         - name: reorder
     retryStrategy:
       limit: 1
@@ -312,8 +384,9 @@ spec:
              "-output", "{{inputs.parameters.output}}",
              "-boundary", "{{inputs.parameters.boundary}}",
              "-boundary_overlap", "{{inputs.parameters.boundary_index}}",
-             "-reorder", "{{inputs.parameters.reorder}}"]
-             #"-retokenize"]
+             "-reorder", "{{inputs.parameters.reorder}}",
+             "-sampling", "{{inputs.parameters.sampling}}",
+             "-sanitize"]
       resources:
         requests:
           memory: 512Mi

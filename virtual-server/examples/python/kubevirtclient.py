@@ -1,4 +1,4 @@
-import os
+import time
 import six
 
 from kubernetes import client, config, watch
@@ -242,7 +242,12 @@ class KubeVirtClient:
         """
         kwargs['_return_http_data_only'] = True
         version = self.version(namespace, name)
-        return self.kubevirt_api(namespace, name, 'start', version=version, **kwargs)
+        while True:
+            ret = self.kubevirt_api(namespace, name, 'start', version=version, **kwargs)
+            if ret['code'] == 409:
+                time.sleep(2)
+                continue
+            return ret
 
     def stop(self, namespace, name, **kwargs):
         """
