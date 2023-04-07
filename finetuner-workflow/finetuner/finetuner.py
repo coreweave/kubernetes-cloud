@@ -798,8 +798,10 @@ if estimate_fn:
                 num_nodes=1,
                 num_gpus_per_node=torch.cuda.device_count())
 
-# The latest deepspeed logging is pretty obnoxious, so we disable it.
-deepspeed.utils.logger.setLevel(logging.WARNING)
+# The latest deepspeed logging is pretty obnoxious, so we disable it
+# unless debug-level logging is requested.
+if args.log_level.upper() != "DEBUG":
+    deepspeed.utils.logger.setLevel(logging.WARNING)
 
 # Change our current directory due to some packages assumptions.
 os.makedirs(args.output_path, exist_ok=True)
