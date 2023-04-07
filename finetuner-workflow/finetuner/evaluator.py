@@ -7,8 +7,7 @@ import pynvml
 import psutil
 import time
 import torch
-from transformers import AutoTokenizer, AutoModelForCausalLM, PreTrainedTokenizer, \
-    AutoConfig
+from transformers import AutoTokenizer, AutoModelForCausalLM, PreTrainedTokenizer
 from transformers.modeling_utils import no_init_weights, PreTrainedModel
 
 try:
@@ -21,6 +20,7 @@ if torch.cuda.is_available():
     device = torch.device("cuda")
 elif torch.backends.mps.is_available():
     device = torch.device("mps")
+
 
 def get_gpu_ram() -> str:
     """
@@ -63,6 +63,7 @@ def get_gpu_ram() -> str:
         f"{gpu_str}"
         f"{torch_str}"
     )
+
 
 parser = argparse.ArgumentParser(description='Simple Model Evaluator')
 

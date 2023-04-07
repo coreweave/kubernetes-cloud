@@ -11,7 +11,6 @@ import psutil
 import pynvml
 import os
 import sys
-import struct
 import time
 import math
 from decimal import Decimal
@@ -25,10 +24,9 @@ from typing import Tuple, List
 import socket
 from contextlib import closing, contextmanager
 import logging
-import validators
 import deepspeed
-from deepspeed.runtime.zero.stage_1_and_2 import estimate_zero2_model_states_mem_needs_all_live;
-from deepspeed.runtime.zero.stage3 import estimate_zero3_model_states_mem_needs_all_live;
+from deepspeed.runtime.zero.stage_1_and_2 import estimate_zero2_model_states_mem_needs_all_live
+from deepspeed.runtime.zero.stage3 import estimate_zero3_model_states_mem_needs_all_live
 
 
 def find_free_port():
@@ -267,7 +265,7 @@ if not args.no_resume:
         lastCheckpoint = sorted(
             output_dir_list, key=lambda x: int(x.split("-")[1])
         )[-1]
-    except:
+    except Exception:
         lastCheckpoint = None
 else:
     lastCheckpoint = None
@@ -340,6 +338,7 @@ except Exception as e:
     logger.error(e)
     sys.exit(1)
 
+
 @contextmanager
 def no_init():
     # `no_init_weights` doesn't suppress initialization of some layers by default
@@ -378,7 +377,7 @@ def estimate_batch_size(divisor: float = 1.0) -> int:
         nvml_device = pynvml.nvmlDeviceGetHandleByIndex(cudadev)
         gpu_info = pynvml.nvmlDeviceGetMemoryInfo(nvml_device)
         gpu_free = gpu_info.free
-        new_bs = int(math.ceil(gpu_free / (used_gpu * divisor)))
+        new_bs = math.ceil(gpu_free / (used_gpu * divisor))
     logger.info(get_gpu_ram())
     logger.info(f"Setting batch size to {new_bs}")
     # if new_bs == 1:
@@ -703,7 +702,6 @@ except Exception as e:
 logger.info(get_gpu_ram())
 
 
-
 @torch.no_grad()
 def evaluate(
     prompt,
@@ -746,6 +744,7 @@ def evaluate(
         output_texts.append(output_text)
 
     return output_texts
+
 
 model.config.gradient_checkpointing = True
 model.resize_token_embeddings(len(tokenizer))
@@ -851,11 +850,14 @@ training_args = TrainingArguments(
     **trainer_fp16_args,
 )
 
-collector = lambda data: {
-    "input_ids": torch.stack([f[0] for f in data]),
-    "attention_mask": torch.stack([f[1] for f in data]),
-    "labels": torch.stack([f[0] for f in data]),
-}
+
+def collector(data):
+    return {
+        "input_ids": torch.stack([f[0] for f in data]),
+        "attention_mask": torch.stack([f[1] for f in data]),
+        "labels": torch.stack([f[0] for f in data]),
+    }
+
 
 # Initialize our trainer object.
 trainer = ModifiedTrainer(
