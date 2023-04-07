@@ -14,9 +14,11 @@ import sys
 import struct
 import time
 import math
+from decimal import Decimal
+import random
 import torch
 from torch import Tensor
-from torch.utils.data import Dataset, random_split, RandomSampler
+from torch.utils.data import Dataset, random_split, Subset
 import argparse
 import pathlib
 from typing import Tuple, List
@@ -81,9 +83,9 @@ parser.add_argument(
 )
 parser.add_argument(
     "--train_ratio",
-    type=float,
+    type=Decimal,
     help="ratio of train to value from dataset",
-    default=0.9,
+    default=Decimal("0.9"),
 )
 parser.add_argument(
     "--eot",
@@ -624,7 +626,6 @@ if is_main_process():
     logger.info(f"CHECKPOINT STEPS: {args.checkpoint_steps}")
     logger.info(f"TOKENIZER: {tokenizer}")
     logger.info(f"TOKENIZER SPECIAL TOKENS: {tokenizer.special_tokens_map}")
-    logger.info(f"TRAIN_RATIO: {args.train_ratio}")
     logger.info(f"PROMPT FILE: {args.prompt_file}")
     logger.info(f"PROMPT EVERY: {args.prompt_every}")
     logger.info(f"PROMPT SAMPLES: {args.prompt_samples}")
@@ -637,20 +638,29 @@ if is_main_process():
 # Set random seed, for ML research purposes and reproducibility, it's important
 # that we set this to a consistent value.
 torch.manual_seed(args.seed)
+random.seed(args.seed)
+numpy.random.seed(args.seed)
 
 # Set up our dataset from our tokenized data files, and split into training
 # dataset and values dataset -- values dataset is used to test the outcome
 # and determine our loss rate.
 dataset = TokenizedDataset(args.dataset, context_length=args.context_size)
-train_size = int(args.train_ratio * float(len(dataset)))
+train_size = int(args.train_ratio * len(dataset))
+val_size = len(dataset) - train_size
 
 if args.no_shuffle:
-    train_dataset = dataset
-    val_dataset = RandomSampler(dataset, num_samples=len(dataset) - train_size)
-else:
-    train_dataset, val_dataset = random_split(
-        dataset, [train_size, len(dataset) - train_size]
+    # Pick a random contiguous subrange as the val_dataset
+    val_dataset_start = random.randrange(len(dataset) - val_size)
+    val_dataset_end = val_dataset_start + val_size
+    # The train_dataset is everything before joined with everything after
+    # the section dedicated to val_dataset, preserving the original ordering
+    train_dataset = Subset(
+        dataset,
+        (*range(val_dataset_start), *range(val_dataset_end, len(dataset)))
     )
+    val_dataset = Subset(dataset, range(val_dataset_start, val_dataset_end))
+else:
+    train_dataset, val_dataset = random_split(dataset, (train_size, val_size))
 
 # Determine if we train in fp32 or fp16 mode.
 trainer_fp16_args = {}
