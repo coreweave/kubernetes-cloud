@@ -165,6 +165,10 @@
 ## Cloud Account Management
 
 * [Organizations](cloud-account-management/organizations.md)
+* [SSO](cloud-account-management/sso/README.md)
+  * [Okta](cloud-account-management/sso/okta.md)
+  * [JumpCloud](cloud-account-management/sso/jumpcloud.md)
+  * [Generic IDP](cloud-account-management/sso/generic-idp.md)
 * [Namespace Management](cloud-account-management/namespace-management.md)
 * [Billing Portal](cloud-account-management/billing-portal.md)
 

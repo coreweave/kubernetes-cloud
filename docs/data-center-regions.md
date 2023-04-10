@@ -64,7 +64,7 @@ It's easy to schedule your workloads, whether they be containerized micro-servic
 
 To schedule a Virtual Server in a specific region, we've added an easy-to-use region selector on the [CoreWeave Cloud Virtual Server UI](https://cloud.coreweave.com/virtual-servers) when creating a new Virtual Server, which allows you to easily select the desired data center.
 
-<figure><img src=".gitbook/assets/image (9) (4) (1).png" alt="Data region selectors on CoreWeave Cloud UI"><figcaption><p>Data region selectors on CoreWeave Cloud UI</p></figcaption></figure>
+<figure><img src=".gitbook/assets/image (9) (4).png" alt="Data region selectors on CoreWeave Cloud UI"><figcaption><p>Data region selectors on CoreWeave Cloud UI</p></figcaption></figure>
 
 To schedule resources in a specific region using the Kubernetes API, simply add an affinity such as the one shown below to your deployment or other deployable resources:
 

@@ -103,15 +103,15 @@ The new tunnel interface will be listed under the **Physical Interface** you sel
 
 Select the **Tunnel Interface**, then click **Edit**.
 
-<figure><img src="../../../../../.gitbook/assets/interface1 (1).png" alt=""><figcaption><p>The network interfaces configuration menu</p></figcaption></figure>
+<figure><img src="../../../../../.gitbook/assets/interface1.png" alt=""><figcaption><p>The network interfaces configuration menu</p></figcaption></figure>
 
 Clicking **Edit** will open the **Edit Interface** menu. To configure the interface, refer to the table as well as the screenshots below.
 
-| Option                | Instructions                                                                                                                                         |
-| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| IP                    | The IP for the Fortinet end of the tunnel                                                                                                            |
-| Remote IP/Netmask     | The IP for the CoreWeave end of the tunnel, including the netmask (usually `/30`)                                                                    |
-| Administrative Access | <p>Select <code>PING</code><br><code></code>(This will allow you to <code>ping</code> the tunnel interface from the CoreWeave end of the tunnel)</p> |
+| Option                | Instructions                                                                                                                            |
+| --------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| IP                    | The IP for the Fortinet end of the tunnel                                                                                               |
+| Remote IP/Netmask     | The IP for the CoreWeave end of the tunnel, including the netmask (usually `/30`)                                                       |
+| Administrative Access | <p>Select <code>PING</code><br>(This will allow you to <code>ping</code> the tunnel interface from the CoreWeave end of the tunnel)</p> |
 
 <figure><img src="../../../../../.gitbook/assets/interface2.png" alt=""><figcaption><p>The interface configuration menu</p></figcaption></figure>
 

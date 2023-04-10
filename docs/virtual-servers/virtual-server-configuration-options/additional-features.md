@@ -313,7 +313,7 @@ Floating services, sometimes called floating IPs, allows users to create their o
 To configure Floating IPs on the Cloud UI, navigate to the YAML tab and find the `floatingIPs` field. This field is an array of load balancer Service names. If configured, the Virtual Server will be assigned floating IPs from the load balancer IP of each service.\
 
 
-![The floatingIPs option as exposed through the YAML tab on the Cloud UI](<../../.gitbook/assets/image (1) (4) (1).png>)
+![The floatingIPs option as exposed through the YAML tab on the Cloud UI](<../../.gitbook/assets/image (1) (4).png>)
 {% endtab %}
 
 {% tab title="CLI" %}

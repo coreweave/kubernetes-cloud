@@ -24,7 +24,7 @@ Once you have selected a machine to connect to, further configuration options fo
 Read more about video coding on [the Parsec website](https://parsec.app/blog/an-introduction-to-video-compression-c5061a5d075e).
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/image (10) (3) (2).png" alt="Screenshot: It is recommended to turn the H.265 (HEVC) setting to On"><figcaption><p>It is recommended to turn the H.265 (HEVC) setting to On</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (10) (3).png" alt="Screenshot: It is recommended to turn the H.265 (HEVC) setting to On"><figcaption><p>It is recommended to turn the H.265 (HEVC) setting to On</p></figcaption></figure>
 
 ### Always run Parsec in full screen
 
@@ -50,7 +50,7 @@ For most cases, matching your VDI resolution to your local display resolution wi
 
 If you are trying to set your VDI to a non-standard resolution (e.g. MacBook Pro's native resolution of `2880x1800`), use the NVIDIA Control Panel, as the Parsec menu only includes standard resolution options.
 
-<figure><img src="../.gitbook/assets/image (8) (3) (1).png" alt="Screenshot: It is recommended to set Parsec&#x27;s resoluton to your host machine&#x27;s native resolution"><figcaption><p>It is recommended to set Parsec's resoluton to your host machine's native resolution</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (8) (3).png" alt="Screenshot: It is recommended to set Parsec&#x27;s resoluton to your host machine&#x27;s native resolution"><figcaption><p>It is recommended to set Parsec's resoluton to your host machine's native resolution</p></figcaption></figure>
 
 #### Setting resolution using the NVIDIA control panel
 
@@ -61,7 +61,7 @@ If you'd prefer to set your resolution using the NVIDIA control panel, you can d
 3. On the list of enabled displays select the display you want to change resolution of, then below that, select the resolution you would like set.
 4. Click the **Apply** button.
 
-<figure><img src="../.gitbook/assets/image (5) (2) (2).png" alt="Screenshot: The NVIDIA control panel&#x27;s resolution menu"><figcaption><p>The NVIDIA control panel's resolution menu</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (5) (2).png" alt="Screenshot: The NVIDIA control panel&#x27;s resolution menu"><figcaption><p>The NVIDIA control panel's resolution menu</p></figcaption></figure>
 
 ### Prefer 4:4:4 color
 
@@ -75,7 +75,7 @@ Unless you have an [NVIDIA Turing](https://www.nvidia.com/en-us/geforce/turing/)
 You can learn more about how Parsec uses color encoding on [the Parsec website](https://support.parsec.app/hc/en-us/articles/4425688194189#444).
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/image (1) (1) (3) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (11) (4).png" alt=""><figcaption></figcaption></figure>
 
 ## Network
 

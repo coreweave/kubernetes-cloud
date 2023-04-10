@@ -425,7 +425,7 @@ The Media tab is where you can see images being generated during the fine-tuning
 
 In the performance tab you will see how fast the GPU is performing in a metric of samples per second.
 
-<figure><img src="../../../../.gitbook/assets/i0oCpjf (1) (1) (1).png" alt=""><figcaption><p>Finetuning metrics</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/i0oCpjf (2).png" alt=""><figcaption><p>Finetuning metrics</p></figcaption></figure>
 
 For the training tab, a multitude of fine-tuning metrics are recorded which indicates whether or not the workflow is making progress by reducing loss over time. These metrics can be very useful in determining whether or not the model has reached convergence.
 
