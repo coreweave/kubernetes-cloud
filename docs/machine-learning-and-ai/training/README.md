@@ -32,15 +32,15 @@ Our Kubernetes offering differs from most of the other leading cloud providers b
 
 A experiment-oriented MLOps platform featuring hyperparameter search. Determined.AI runs experiments in containers on CoreWeave Kubernetes, abstracting the DevOps portions via a simple CLI and UI. DeterminedAI can be deployed with a single click from the [CoreWeave application Catalog](https://apps.coreweave.com/). DeterminedAI is a great way to run large distributed training jobs with support for most popular frameworks.
 
-### ****:squid: **** [**Argo Workflows**](argo-workflows/fine-tuning/finetuning-machine-learning-models.md)
+### :squid: [**Argo Workflows**](argo-workflows/fine-tuning/finetuning-machine-learning-models.md)
 
 Our favorite workflow runner can easily be tasked to train or fine-tune a model and automatically deploy an [Inference endpoint](argo-workflows/fine-tuning/finetuning-machine-learning-models.md#inference-endpoint) when finished.
 
-### ****:person\_running: **** [**Training Operators**](broken-reference)
+### :person\_running: [**Training Operators**](broken-reference)
 
 A Kubernetes-native way to run distributed training jobs. Supports Tensorflow, PyTorch Distributed and any MPI style framework such as DeepSpeed.
 
-### ****:anchor: **Sunk: SLURM on Kubernetes**
+### :anchor: **Sunk: SLURM on Kubernetes**
 
 SLURM is the incumbent job scheduler of the HPC world. Sunk, CoreWeave's implementation of SLURM on Kubernetes, allows you to leverage the resource management of Sunk on Kubernetes.
 

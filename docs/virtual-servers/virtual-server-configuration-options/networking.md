@@ -24,7 +24,7 @@ Most networking options for Virtual Servers are currently configured by interact
 
 Attaching a public IP to the Virtual Server will allow it to be accessible through the Internet via an assigned IPv4 address by a created Kubernetes service.
 
-<mark style="background-color:blue;"></mark>
+
 
 !["Attach IP" option in the Cloud UI.](<../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1).png>)
 
@@ -263,7 +263,7 @@ Additionally, disabling CoreWeave Cloud Native Networking means loss of all regu
 
 Also note that if disableK8sNetworking is set to `true` and a VPC is designated, no k8s (paravirtual) NIC will be attached - only the VPC will be attached.
 
-****[**CoreWeave support**](https://cloud.coreweave.com/contact) **is available to help with any network design questions.**
+[**CoreWeave support**](https://cloud.coreweave.com/contact) **is available to help with any network design questions.**
 {% endhint %}
 
 [Layer 2 VPCs](../../coreweave-kubernetes/networking/layer-2-vpc-l2vpc/) can be attached to Virtual Servers using the following methods.

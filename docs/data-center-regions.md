@@ -8,9 +8,9 @@ CoreWeave Cloud is served from **three geographically diverse regions** in the U
 
 Our data centers are broken up into three geographical buckets, each of which service the regions for which they're named:
 
-* ****[**US East**](data-center-regions.md#us-east-lga1)****
-* ****[**US Central**](data-center-regions.md#us-central-ord1)****
-* ****[**US West**](data-center-regions.md#us-west-las1)****
+* [**US East**](data-center-regions.md#us-east-lga1)
+* [**US Central**](data-center-regions.md#us-central-ord1)
+* [**US West**](data-center-regions.md#us-west-las1)
 
 Each data center features redundant, **200Gbps+ public Internet connectivity** from Tier 1 global carriers, and are connected to each other with **400Gbps+ of dark fiber transport**, allowing for **easy,** **free data transfers** within CoreWeave Cloud.
 
@@ -30,7 +30,7 @@ CoreWeave's data center regions are:
 
 ## :cityscape: US East: `LGA1`
 
-****:round\_pushpin:**Weehawken, NJ**
+:round\_pushpin:**Weehawken, NJ**
 
 Located at the mouth of the Lincoln Tunnel, `LGA1` serves the Eastern US, and provides ultra-low latency to the NYC metropolitan area, covering **over 20 million people**. This **ISO 27001, SOC2 compliant** data center is packed with **NVIDIA GPU accelerated** Cloud Instances, with near-unlimited compute and storage infrastructure to go with it.
 
@@ -40,7 +40,7 @@ Located at the mouth of the Lincoln Tunnel, `LGA1` serves the Eastern US, and pr
 
 ## :baseball: US Central: `ORD1`
 
-****:round\_pushpin:**Chicago, IL**
+:round\_pushpin:**Chicago, IL**
 
 Located just outside downtown Chicago, `ORD1` serves the **Central US**. This **ISO 27001, SOC2, HIPAA** compliant data center is built for the most demanding workloads, including distributed training using **NVIDIA A100 NVLINK** accelerators connected with **Infiniband GPUDirect RDMA.**
 
@@ -50,7 +50,7 @@ Located just outside downtown Chicago, `ORD1` serves the **Central US**. This **
 
 ## :game\_die: US West: `LAS1`
 
-****:round\_pushpin:**Las Vegas, NV**
+:round\_pushpin:**Las Vegas, NV**
 
 Located in fabulous Las Vegas, `LAS1` serves the **Western US**. Powered by 100% renewable energy, LAS1's **ISO 27001, SOC2 and HIPAA** compliant infrastructure brings scaled **NVIDIA GPU** accelerated compute to the US West, serving both Las Vegas and the Los Angeles basin with low latency connectivity.
 

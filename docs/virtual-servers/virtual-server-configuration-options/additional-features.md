@@ -22,7 +22,8 @@ A shared filesystem volume, NFS, SMB, or Object storage should be used to store 
 
 {% tabs %}
 {% tab title="Cloud UI" %}
-**Deployment method:** <mark style="background-color:blue;">CoreWeave Cloud UI</mark>\ <mark style="background-color:green;"></mark>
+**Deployment method:** <mark style="background-color:blue;">CoreWeave Cloud UI</mark>\
+
 
 {% hint style="info" %}
 **Note**
@@ -34,9 +35,9 @@ It is not currently possible to deploy ephemeral root disks using the Cloud UI. 
 {% tab title="CLI" %}
 **Deployment method:** <mark style="background-color:green;">Kubernetes CLI</mark>
 
-****\
-****When configuring an ephemeral root storage disk, the source image is cloned into a `ReadOnlyMany` type volume, as shown in the example below.\
-****
+\
+When configuring an ephemeral root storage disk, the source image is cloned into a `ReadOnlyMany` type volume, as shown in the example below.\
+
 
 {% hint style="info" %}
 **Additional Resources**
@@ -104,7 +105,7 @@ spec:
 {% tab title="Terraform" %}
 **Deployment method:** <mark style="background-color:orange;">Terraform</mark>
 
-<mark style="background-color:orange;"></mark>
+
 
 {% hint style="info" %}
 **Note**
@@ -134,7 +135,7 @@ See [the Kubevirt documentation](https://kubevirt.io/user-guide/virtual\_machine
 {% tab title="Cloud UI" %}
 **Deployment method:** <mark style="background-color:blue;">Cloud UI</mark>
 
-<mark style="background-color:blue;"></mark>
+
 
 {% hint style="info" %}
 **Note**
@@ -162,11 +163,12 @@ To change the default RunStrategy for a Virtual Server, define the strategy to u
 {% endtab %}
 
 {% tab title="Terraform" %}
-**Deployment method:** <mark style="background-color:orange;">Terraform</mark>\ <mark style="background-color:orange;"></mark>
+**Deployment method:** <mark style="background-color:orange;">Terraform</mark>\
+
 
 {% hint style="info" %}
 **Note**\
-****It is not currently possible to configure runStrategy through Terraform. This feature may be configured in conjunction with the Cloud UI or Kubernetes CLI. Alternatively, [you may extend the Virtual Server Terraform module yourself](../../../virtual-server/examples/terraform/vs.tf).
+It is not currently possible to configure runStrategy through Terraform. This feature may be configured in conjunction with the Cloud UI or Kubernetes CLI. Alternatively, [you may extend the Virtual Server Terraform module yourself](../../../virtual-server/examples/terraform/vs.tf).
 {% endhint %}
 {% endtab %}
 {% endtabs %}
@@ -179,16 +181,18 @@ Enables virtio-transitional to support compatibility with older guest Operating 
 {% tab title="Cloud UI" %}
 **Deployment method:** <mark style="background-color:blue;">Cloud UI</mark>
 
-<mark style="background-color:green;"></mark>
+
 
 {% hint style="info" %}
 **Note**\
-****It is not currently possible to configure useVirtioTransitional through the Cloud UI. This feature may be configured in conjunction with the Kubernetes CLI.
+It is not currently possible to configure useVirtioTransitional through the Cloud UI. This feature may be configured in conjunction with the Kubernetes CLI.
 {% endhint %}
 {% endtab %}
 
 {% tab title="CLI" %}
-**Deployment method:** <mark style="background-color:green;">Kubernetes CLI</mark>\ <mark style="background-color:green;"></mark>\ <mark style="background-color:green;"></mark>Enabling virtio-transitional is done by configuring the Kubernetes manifest.
+**Deployment method:** <mark style="background-color:green;">Kubernetes CLI</mark>\
+\
+Enabling virtio-transitional is done by configuring the Kubernetes manifest.
 
 | Field name              | Field type |
 | ----------------------- | ---------- |
@@ -203,11 +207,12 @@ useVirtioTransitional: false
 {% endtab %}
 
 {% tab title="Terraform" %}
-**Deployment method:** <mark style="background-color:orange;">Terraform</mark>\ <mark style="background-color:orange;"></mark>
+**Deployment method:** <mark style="background-color:orange;">Terraform</mark>\
+
 
 {% hint style="info" %}
 **Note**\
-****It is not currently possible to configure useVirtioTransitional through Terraform. This feature may be configured in conjunction with the Kubernetes CLI. Alternatively, [you may extend the Virtual Server Terraform module yourself](../../../virtual-server/examples/terraform/vs.tf).
+It is not currently possible to configure useVirtioTransitional through Terraform. This feature may be configured in conjunction with the Kubernetes CLI. Alternatively, [you may extend the Virtual Server Terraform module yourself](../../../virtual-server/examples/terraform/vs.tf).
 {% endhint %}
 {% endtab %}
 {% endtabs %}
@@ -220,7 +225,7 @@ Specifies the number in seconds before the guest is killed, allowing the operati
 {% tab title="Cloud UI" %}
 {% hint style="info" %}
 **Note**\
-****It is not currently possible to configure useVirtioTransitional through the Cloud UI. This feature may be configured in conjunction with the Kubernetes CLI.
+It is not currently possible to configure useVirtioTransitional through the Cloud UI. This feature may be configured in conjunction with the Kubernetes CLI.
 {% endhint %}
 {% endtab %}
 
@@ -244,11 +249,12 @@ terminationGracePeriodSeconds: 60
 {% endtab %}
 
 {% tab title="Terraform" %}
-**Deployment method:** <mark style="background-color:orange;">Terraform</mark>\ <mark style="background-color:orange;"></mark>
+**Deployment method:** <mark style="background-color:orange;">Terraform</mark>\
+
 
 {% hint style="info" %}
 **Note**\
-****It is not currently possible to configure terminationGracePeriodSeconds through Terraform. This feature may be configured in conjunction with the Cloud UI or Kubernetes CLI. Alternatively, [you may extend the Virtual Server Terraform module yourself](../../../virtual-server/examples/terraform/vs.tf).
+It is not currently possible to configure terminationGracePeriodSeconds through Terraform. This feature may be configured in conjunction with the Cloud UI or Kubernetes CLI. Alternatively, [you may extend the Virtual Server Terraform module yourself](../../../virtual-server/examples/terraform/vs.tf).
 {% endhint %}
 {% endtab %}
 {% endtabs %}
@@ -263,7 +269,7 @@ Determines whether or not the Virtual Server should be started as soon as it is 
 
 {% hint style="info" %}
 **Note**\
-****It is not currently possible to configure `initializeRunning` through the Cloud UI. This feature may be configured in conjunction with the Kubernetes CLI.
+It is not currently possible to configure `initializeRunning` through the Cloud UI. This feature may be configured in conjunction with the Kubernetes CLI.
 {% endhint %}
 {% endtab %}
 
@@ -291,7 +297,7 @@ terminationGracePeriodSeconds: 60
 
 {% hint style="info" %}
 **Note**\
-****It is not currently possible to configure `initializeRunning` through the Cloud UI. This feature may be configured in conjunction with the Kubernetes CLI. Alternatively, [you may extend the Virtual Server Terraform module yourself](../../../virtual-server/examples/terraform/vs.tf).
+It is not currently possible to configure `initializeRunning` through the Cloud UI. This feature may be configured in conjunction with the Kubernetes CLI. Alternatively, [you may extend the Virtual Server Terraform module yourself](../../../virtual-server/examples/terraform/vs.tf).
 {% endhint %}
 {% endtab %}
 {% endtabs %}
@@ -302,7 +308,10 @@ Floating services, sometimes called floating IPs, allows users to create their o
 
 {% tabs %}
 {% tab title="Cloud UI" %}
-**Deployment method:** <mark style="background-color:blue;">CoreWeave Cloud UI</mark>\ <mark style="background-color:blue;"></mark>\ <mark style="background-color:blue;"></mark>To configure Floating IPs on the Cloud UI, navigate to the YAML tab and find the `floatingIPs` field. This field is an array of load balancer Service names. If configured, the Virtual Server will be assigned floating IPs from the load balancer IP of each service.\ <mark style="background-color:blue;"></mark>
+**Deployment method:** <mark style="background-color:blue;">CoreWeave Cloud UI</mark>\
+\
+To configure Floating IPs on the Cloud UI, navigate to the YAML tab and find the `floatingIPs` field. This field is an array of load balancer Service names. If configured, the Virtual Server will be assigned floating IPs from the load balancer IP of each service.\
+
 
 ![The floatingIPs option as exposed through the YAML tab on the Cloud UI](<../../.gitbook/assets/image (1) (4) (1).png>)
 {% endtab %}
@@ -331,7 +340,7 @@ To deploy a Floating IP service, configure the following fields.\
 {% tab title="Terraform" %}
 **Deployment method:** <mark style="background-color:orange;">Terraform</mark>
 
-<mark style="background-color:orange;"></mark>
+
 
 {% hint style="info" %}
 **Note**

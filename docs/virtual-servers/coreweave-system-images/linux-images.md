@@ -15,7 +15,7 @@ CoreWeave provides out of the box support for several popular Linux distribution
 * Ubuntu Linux 20.04
 * Ubuntu Linux 22.04
 * CentOS 7
-* _Rocky Linux 8 support coming soon!_ :calendar:__
+* _Rocky Linux 8 support coming soon!_ :calendar:
 
 {% hint style="info" %}
 Most "Generic Cloud" distribution images are drop-in compatible with the CoreWeave Cloud Virtual Server platform. \

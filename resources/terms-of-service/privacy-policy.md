@@ -226,7 +226,7 @@ You have the right to opt-out of the disclosure of your personal information wit
 
 #### **V. How We Respond to “Do Not Track” Signals**
 
-Some web browsers have a **** “Do Not Track” feature or similar features that allow you to tell each website you visit that you do not want your activities on that website tracked. At present, the Sites and Services do not respond to “Do Not Track” signals and consequently, the Sites and Services will continue to collect information about you even if your browser’s “Do Not Track” feature is activated.
+Some web browsers have a “Do Not Track” feature or similar features that allow you to tell each website you visit that you do not want your activities on that website tracked. At present, the Sites and Services do not respond to “Do Not Track” signals and consequently, the Sites and Services will continue to collect information about you even if your browser’s “Do Not Track” feature is activated.
 
 #### **VI. “Shine the Light” Law**
 

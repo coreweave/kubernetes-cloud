@@ -81,8 +81,8 @@ This example assumes a public docker registry. To use a private registry, an [im
 **Note**\
 Before continuing, you may either point the `image:` in the following manifests to the image we just built in the previous steps, or you may use the publicly-available image found in the following manifests:
 
-* ``[`01-model-download-job.yaml`](../../../../../../online-inference/dalle-mini/01-model-download-job.yaml)``
-* ``[`02-inference-service.yaml`](../../../../../../online-inference/dalle-mini/02-inference-service.yaml)``
+* [`01-model-download-job.yaml`](../../../../../../online-inference/dalle-mini/01-model-download-job.yaml)
+* [`02-inference-service.yaml`](../../../../../../online-inference/dalle-mini/02-inference-service.yaml)
 {% endhint %}
 
 To create a PVC in which to store the model, run the following command from the `kubernetes-cloud/online-inference/dalle-mini` directory:

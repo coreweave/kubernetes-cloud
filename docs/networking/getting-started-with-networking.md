@@ -32,7 +32,7 @@ These are all handled by the network layer, and concepts such as Services and Ne
 
 {% hint style="info" %}
 **Additional Resources**\
-****[Read more in our CoreWeave Cloud Native Networking (CCNN) documentation.](coreweave-cloud-native-networking-ccnn.md)
+[Read more in our CoreWeave Cloud Native Networking (CCNN) documentation.](coreweave-cloud-native-networking-ccnn.md)
 {% endhint %}
 
 ### [L2VPC: CoreWeave Layer 2 VPC](../coreweave-kubernetes/networking/layer-2-vpc-l2vpc/)
@@ -53,9 +53,9 @@ The L2VPC is enabled on a workload by workload basis. A workload (a Pod or Virtu
 Read more in [our L2VPC documentation](../coreweave-kubernetes/networking/layer-2-vpc-l2vpc/).
 {% endhint %}
 
-### [**HPC Interconnect**](../coreweave-kubernetes/networking/hpc-interconnect.md)****
+### [**HPC Interconnect**](../coreweave-kubernetes/networking/hpc-interconnect.md)
 
-****:white\_check\_mark: **Ideal for the following use cases:**
+:white\_check\_mark: **Ideal for the following use cases:**
 
 * Multi-node distributed Deep Neural Network Training
 * Multi-node HPC applications

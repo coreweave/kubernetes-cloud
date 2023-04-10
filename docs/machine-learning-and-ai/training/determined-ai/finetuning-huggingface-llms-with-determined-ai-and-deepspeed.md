@@ -10,7 +10,7 @@ DeepSpeed is an [open-source](https://en.wikipedia.org/wiki/Open\_source) [deep 
 
 The following example deploys[ Determined AI](https://www.determined.ai/) CoreWeave Cloud to perform distributed training of the OPT-125m model.
 
-## Source Code
+## Tutorial source code
 
 The code referenced throughout the rest of this tutorial can be found under the `examples/deepspeed/huggingface` folder in the `coreweave/determined_coreweave` repository.
 
@@ -20,27 +20,18 @@ Make sure to use the `coreweave` branch of the repository.
 Demo source code
 {% endembed %}
 
-## Cloud Resources
+## Prerequisites
 
-{% hint style="info" %}
-**Note**
+This guide assumes that the following are completed in advance.
 
-This guide makes several assumptions:\
-\
-• You have [set up the CoreWeave Kubernetes environment](../../../coreweave-kubernetes/getting-started.md).\
-• You have some experience launching and using [Determined AI on CoreWeave Cloud](https://www.determined.ai). (If you have not done so already, it is recommended to deploy Determined AI via the application Catalog to familiarize yourself with it).\
-• You have `git` installed on your terminal.
-{% endhint %}
+* You have [set up your CoreWeave Kubernetes environment](../../../coreweave-kubernetes/getting-started.md) locally
+* `git` is locally installed
+* [Determined AI is installed in your namespace](../../../compass/determined-ai/install-determined-ai.md), including installation prerequisites:
+  * [FileBrowser](../../../compass/determined-ai/install-determined-ai.md#install-filebrowser) is installed
+  * A [shared filesystem volume](../../../compass/determined-ai/install-determined-ai.md#create-a-shared-filesystem-volume) with an easily-recognizable name, such as `finetune-gpt-neox`, is created
+  * An [Object Storage bucket](../../../compass/determined-ai/install-determined-ai.md#create-an-object-storage-bucket) with an easily-recognizable name, such as `model-checkpoints`, is created
 
-### Create a Shared Filesystem storage volume
-
-First, create a **Shared Filesystem storage volume** from the **Storage** menu in the [CoreWeave Cloud UI](https://cloud.coreweave.com/storage?\_gl=1\*11x43xa\*\_ga\*MTY1MjQxMzI1Mi4xNjY4NDQwMTM1\*\_ga\_XKNHS53VYL\*MTY3MTAzMzkwMi41NC4xLjE2NzEwMzU2NjEuMC4wLjA.). This volume will be used to store the model and training data for fine-tuning. Shared storage volumes may be accessed by many nodes at once in CoreWeave, allowing for a massive amount of compute power to access the same dataset.
-
-If you're following along with this demo, you can use the values shown and described below.
-
-<figure><img src="../../../.gitbook/assets/image (14).png" alt=""><figcaption><p>Create a New Volume on the Storage menu from the Cloud UI</p></figcaption></figure>
-
-The values used for this demo are as follows:
+The values used for this demo's [shared filesystem volume](../../../compass/determined-ai/install-determined-ai.md#create-a-shared-filesystem-volume) are as follows:
 
 | Field Name       | Demo Value          |
 | ---------------- | ------------------- |
@@ -56,62 +47,17 @@ The values used for this demo are as follows:
 If needed, it is easy to [increase the size](https://docs.coreweave.com/coreweave-kubernetes/storage#resizing) of a storage volume later.
 {% endhint %}
 
-### **Install the Filebrowser application**
+### Attach the filesystem volume
 
-The **filebrowser** application, available through the [application Catalog](https://apps.coreweave.com/), allows you to access your storage volumes via a Web interface that allows you to upload and download files and folders.
-
-It is recommended that the name you give this filebrowser application be very short, or you will run into SSL CNAME issues. We recommend `finetune`.
-
-Simply select the `finetune-opt-125m` PVC that you created earlier. **Make sure that you actually add your PVC to the filebrowser list of mounts!**
-
-![The filebrowser application in the Cloud UI application Catalog](<../../../.gitbook/assets/Screen Shot 2022-07-26 at 4.10.34 PM.png>)
-
-{% hint style="info" %}
-**Note**\
-Installing the filebrowser application is **very helpful** to this process. As an alternative, it may be preferable to you to launch a Virtual Server or Kubernetes Pod to interact with their PVC via SSH or other mechanism.
-{% endhint %}
-
-## Install Determined AI
-
-[Follow the steps to install the Determined AI application](../../../compass/determined-ai/install-determined-ai.md). The values used for the configuration of Determined AI in this tutorial are as follows:
-
-#### Region
-
-`LAS1 (Las Vegas)`
-
-#### Default Resources
-
-| Field                 | Demo Value |
-| --------------------- | ---------- |
-| **Default resources** | 8 vCPUs    |
-| **Memory request**    | 256Gi      |
-| **GPU Type**          | A40        |
-
-#### Object Storage Configuration
-
-| Field           | Demo Value                                                                             |
-| --------------- | -------------------------------------------------------------------------------------- |
-| **Bucket Name** | `<YOUR_BUCKET_NAME>` - this should be replaced by your actual Object Storage bucket    |
-| **Access Key**  | `<YOUR_ACCESS_KEY>` - this should be replaced by your actual Object Storage access key |
-| **Secret Key**  | `<YOUR_SECRET_KEY>` - this should be replaced by your actual Object Storage secret key |
-
-#### Attaching the volume
-
-Click `+` to attach the `finetune-opt-125m` volume.
+When [installing Determined AI](../../../compass/determined-ai/install-determined-ai.md), ensure that the newly-created filesystem volume for this demo is attached. From the bottom of the application configuration screen, click `+` to attach the `finetune-opt-125m` volume.
 
 <figure><img src="../../../.gitbook/assets/image (28) (1) (2).png" alt=""><figcaption><p>The attachment configuration screen for the Determined AI application</p></figcaption></figure>
 
 As shown above, for this tutorial we are attaching the `finetune-opt-125m` volume on the mount path `/mnt/finetune-opt-125m`.
 
-{% hint style="warning" %}
-**Important**
-
-The default username is `admin` and there is no password. Make sure to add a password after logging into the application for the first time.
-{% endhint %}
-
 ## Prepare the Dataset
 
-HuggingFace has [many datasets available](https://huggingface.co/datasets) for training machine learning models. Since this example is finetuning OPT-125m, a language model, it will use the [wikitext dataset](https://huggingface.co/datasets/wikitext). This dataset contains text extracted from the set of verified Good and Feature articles on Wikipedia.
+Hugging Face has [many datasets available](https://huggingface.co/datasets) for training machine learning models. Since this example is finetuning OPT-125m, a language model, it will use the [wikitext dataset](https://huggingface.co/datasets/wikitext). This dataset contains text extracted from the set of verified Good and Feature articles on Wikipedia.
 
 {% hint style="info" %}
 **Note**
@@ -336,7 +282,7 @@ This experiment searches over only one parameter, but you can easily expend this
 
 ### The Determined experiment Web UI
 
-You'll find the running experiments in the "Uncategorized" section of Determined's Web UI.
+Find the running experiments in the "Uncategorized" section of Determined's Web UI.
 
 <figure><img src="../../../.gitbook/assets/image (7) (3) (1).png" alt=""><figcaption><p>Active experiments in Determined's Web UI</p></figcaption></figure>
 

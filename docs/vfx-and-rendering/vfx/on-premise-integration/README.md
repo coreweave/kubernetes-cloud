@@ -8,14 +8,14 @@ Connecting CoreWeave Cloud to existing on-premise infrastructure allows customer
 
 Three main areas of focus for a hybrid Cloud integration are:
 
-* ****:white\_check\_mark: **On-Premise Storage** - Let Render Nodes and Virtual Workstations in CoreWeave Cloud seamlessly access storage hosted outside of CoreWeave
-* ****:sparkles: **On-Premise Thinkbox Deadline** - Connect CoreWeave's auto-scaling render nodes to an existing on-premise Thinkbox Deadline installation
-* ****:muscle: **Local Access to CoreWeave Storage** - Efficiently access CoreWeave storage from local workstations
+* :white\_check\_mark: **On-Premise Storage** - Let Render Nodes and Virtual Workstations in CoreWeave Cloud seamlessly access storage hosted outside of CoreWeave
+* :sparkles: **On-Premise Thinkbox Deadline** - Connect CoreWeave's auto-scaling render nodes to an existing on-premise Thinkbox Deadline installation
+* :muscle: **Local Access to CoreWeave Storage** - Efficiently access CoreWeave storage from local workstations
 
 Integration is achieved using one or a combination of multiple technologies:
 
-* ****[**CoreWeave CloudLink with Transparent Cache**](./#coreweave-cloudlink) - A small service running on an on-premise server forwarding access to local NFS, SMB file servers and Deadline services. A [transparent cache](./#transparent-cache-for-cloudlink) running in CoreWeave Cloud also minimizes the upstream bandwidth need even when rendering on hundreds of Cloud nodes.
-* ****[**Site-to-Site VPN**](../../../coreweave-kubernetes/networking/site-to-site-connections/site-to-site-vpn/) - Site-to-Site VPN connections allow CoreWeave Cloud to act as a direct extension of an on-premise network, making it the ideal choice for more complex integrations. [Storage](../../../virtual-servers/virtual-server-configuration-options/storage.md) on CoreWeave can be accessed by on-premise nodes over NFS and SMB, and storage on premise can be accessed directly from CoreWeave Cloud. Transparent Caching can optionally be employed to minimize upstream bandwidth requirement from the on-premise location. Deadline workers can run both on-premise and in the cloud, with the actual deadline installation also residing on either location.
+* [**CoreWeave CloudLink with Transparent Cache**](./#coreweave-cloudlink) - A small service running on an on-premise server forwarding access to local NFS, SMB file servers and Deadline services. A [transparent cache](./#transparent-cache-for-cloudlink) running in CoreWeave Cloud also minimizes the upstream bandwidth need even when rendering on hundreds of Cloud nodes.
+* [**Site-to-Site VPN**](../../../coreweave-kubernetes/networking/site-to-site-connections/site-to-site-vpn/) - Site-to-Site VPN connections allow CoreWeave Cloud to act as a direct extension of an on-premise network, making it the ideal choice for more complex integrations. [Storage](../../../virtual-servers/virtual-server-configuration-options/storage.md) on CoreWeave can be accessed by on-premise nodes over NFS and SMB, and storage on premise can be accessed directly from CoreWeave Cloud. Transparent Caching can optionally be employed to minimize upstream bandwidth requirement from the on-premise location. Deadline workers can run both on-premise and in the cloud, with the actual deadline installation also residing on either location.
 * **Storage Synchronization** - In situations where direct storage access isn't performant, synchronizing all or partial on-premise storage to CoreWeave Cloud is the best option. This is also a common choice when integrating Virtual Workstations over geographically dispersed locations, providing the best user experience to all clients.
 
 ## CoreWeave CloudLink

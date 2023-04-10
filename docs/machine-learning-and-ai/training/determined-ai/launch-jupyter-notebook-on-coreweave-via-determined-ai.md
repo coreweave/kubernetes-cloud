@@ -6,7 +6,11 @@ description: Launch a Jupyter Notebook on CoreWeave using Determined AI
 
 ## Prerequisites
 
-Before continuing with this guide, first [install and configure the Determined AI application via the Cloud UI](../../../compass/determined-ai/install-determined-ai.md) into your namespace.
+This guide assumes that the following are completed in advance.
+
+* You have [set up your CoreWeave Kubernetes environment](../../../coreweave-kubernetes/getting-started.md) locally
+* `git` is locally installed
+* [Determined AI is installed in your namespace](../../../compass/determined-ai/install-determined-ai.md)
 
 ## Setup
 
@@ -14,9 +18,9 @@ Once the Determined application is launched, open the Determined AI Web UI. Clic
 
 <figure><img src="../../../.gitbook/assets/Screenshot from 2022-12-15 10-58-02.png" alt="Screenshot of &#x22;Launch Jupyter&#x22; button"><figcaption></figcaption></figure>
 
-Choose a number of **Slots** (that is, the number of GPUs to use) and set a **Name** for your Notebook. The rest of the fields can be left as their default values.
+Choose a number of **Slots** (that is, the number of GPUs to use) and set a **Name** for your Notebook, then [select a Resource Pool](../../../compass/determined-ai/install-determined-ai.md#resource-pools).
 
-<figure><img src="../../../.gitbook/assets/Screenshot from 2022-12-15 10-59-08.png" alt="Screenshot of The Launch JupyterLab configuration modal"><figcaption><p>The Launch JupyterLab configuration modal</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1).png" alt="Screenshot of the JupyterLab configuration modal"><figcaption></figcaption></figure>
 
 Once configuration is complete, click the **Launch** button in the bottom right-hand corner of the modal. This will prompt Determined to prepare [the JupyterLab environment](https://towardsdatascience.com/how-to-setup-your-jupyterlab-project-environment-74909dade29b).
 

@@ -38,7 +38,7 @@ For normal operations, instance remote access tools such as SSH, Teradici, Parse
 
 ### **Console**
 
-The best way to access Linux VMs **** is to invoke `virtctl console <my-vm>`.
+The best way to access Linux VMs is to invoke `virtctl console <my-vm>`.
 
 ### **VNC**
 
@@ -47,5 +47,5 @@ For accessing graphical interfaces such as GRUB and Windows you can invoke a VNC
 {% hint style="info" %}
 **Note**
 
-A compatible VNC client such as VNC Viewer will need to be installed on the local system **** prior to invoking this command.
+A compatible VNC client such as VNC Viewer will need to be installed on the local system prior to invoking this command.
 {% endhint %}

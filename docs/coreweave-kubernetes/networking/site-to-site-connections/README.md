@@ -21,6 +21,6 @@ Create a Virtual Private Network (VPN) between CoreWeave and the other site. Cor
 | --------------------------------------- |
 | [AWS](site-to-site-vpn/examples/aws.md) |
 
-### ****[**Direct Connect**](direct-connections.md)
+### [**Direct Connect**](direct-connections.md)
 
 Connect directly between a CoreWeave data center and an on-premise site.

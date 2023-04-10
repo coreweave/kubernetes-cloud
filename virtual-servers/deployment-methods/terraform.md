@@ -10,7 +10,7 @@ Virtual Servers are a [Kubernetes Custom Resource](https://kubernetes.io/docs/co
 
 **Before you can access CoreWeave Cloud, you must first** [**request an account**](https://cloud.coreweave.com/request-account)**.**
 
-To use the Terraform module as your deployment method, you will **** first need to obtain valid access credentials in the form of a `kubeconfig` file.
+To use the Terraform module as your deployment method, you will first need to obtain valid access credentials in the form of a `kubeconfig` file.
 
 {% hint style="info" %}
 **Note**

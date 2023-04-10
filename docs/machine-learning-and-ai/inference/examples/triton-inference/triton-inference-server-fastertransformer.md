@@ -105,7 +105,7 @@ $ kubectl apply -f model-storage-pvc.yml
 
 To use GRPC instead of HTTP, set\
 `model_transaction_policy { decoupled: True }`\
-``in the `download-weights-job-gpt-neox.yml` configuration file.
+in the `download-weights-job-gpt-neox.yml` configuration file.
 {% endhint %}
 
 
@@ -197,7 +197,7 @@ fastertransformer-triton-gptj     http://fastertransformer-triton-gptj.tenant-de
 
 To use GRPC instead of HTTP, set\
 `model_transaction_policy { decoupled: True }`\
-``in the `download-weights-job-gpt-neox.yml` configuration file.
+in the `download-weights-job-gpt-neox.yml` configuration file.
 {% endhint %}
 
 

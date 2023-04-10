@@ -22,7 +22,7 @@ Multiple VPCs can also be allocated to simulate the multiple VLANs (network segm
 
 ### :globe\_with\_meridians: Multi-Region or Single-Region
 
-L2VPCs can be either **Multi-Region** - spanning all CoreWeave data centers - or **Single-Region**, **** local to a single data center.
+L2VPCs can be either **Multi-Region** - spanning all CoreWeave data centers - or **Single-Region**, local to a single data center.
 
 A Single-Region VPC can be converted to a Multi-Region and vice versa, however this does require a restart of all workloads.
 

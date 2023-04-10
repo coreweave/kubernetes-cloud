@@ -38,7 +38,7 @@ Once installed, open the Docker application from the Synology main menu.
 
 <figure><img src="../../../.gitbook/assets/image (50) (1).png" alt=""><figcaption><p>The Docker application in the Synology main menu</p></figcaption></figure>
 
-Inside the Docker window, navigate to **Image**, then select **Add**, **** then **Add From URL**. Add `coreweave/cloud-link`. No username and password is needed.
+Inside the Docker window, navigate to **Image**, then select **Add**, then **Add From URL**. Add `coreweave/cloud-link`. No username and password is needed.
 
 ![Adding coreweave/cloud-link to the URL box in the Docker configuration screen](../../../.gitbook/assets/screen-shot-2021-03-05-at-2.43.55-pm.png)
 

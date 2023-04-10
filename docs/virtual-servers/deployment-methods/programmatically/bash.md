@@ -47,13 +47,13 @@ The script defines and leverages the following functions to call to the Kubevirt
 * `list_vmi()` - Lists all the Virtual Machine Instances (VMIs) in the designated namespace
 * `get_vmi()` - Prints formatted JSON details about the Virtual Machine Instance (VMI)
 
-### ****[**Virtual Server**](https://docs.coreweave.com/virtual-servers/getting-started)
+### [**Virtual Server**](https://docs.coreweave.com/virtual-servers/getting-started)
 
 A Kubernetes Custom Resource that allows deploying a virtual system and interacting with Kubevirt with ease.
 
 #### Functions calling the Virtual Server API
 
-The Bash **** script defines and leverages the following functions to call the Virtual Server API:
+The Bash script defines and leverages the following functions to call the Virtual Server API:
 
 * `create_vs()` - Creates a Virtual Server (VS)
 * `delete_vs()` - Deletes a Virtual Server (VS)

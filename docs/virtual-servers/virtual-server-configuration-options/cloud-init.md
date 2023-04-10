@@ -23,7 +23,8 @@ See [the cloud-init website](https://cloudinit.readthedocs.io/en/latest/topics/e
 
 {% tabs %}
 {% tab title="Cloud UI" %}
-**Deployment method:** <mark style="background-color:blue;">CoreWeave Cloud UI</mark>\ <mark style="background-color:blue;"></mark>
+**Deployment method:** <mark style="background-color:blue;">CoreWeave Cloud UI</mark>\
+
 
 Cloud-init configuration options must be configured in the YAML manifest, shown under the YAML tab on the Virtual Server creation screen.
 
@@ -33,7 +34,7 @@ The `cloudInit` block holds all the cloud-init configuration options.
 
 **Example**
 
-In this example, **** cloud-init is configured to create a file with a simple script that prints "Hello world!". It will be given the permission mask of `0744`, and owned by `myuser`.
+In this example, cloud-init is configured to create a file with a simple script that prints "Hello world!". It will be given the permission mask of `0744`, and owned by `myuser`.
 
 Additionally, a package update command will be run on the machine, and the `curl` and `git` packages will be installed on the machine.
 
@@ -113,7 +114,8 @@ In the example given below, cloud-init is given a few parameters to:
 {% endtab %}
 
 {% tab title="Terraform" %}
-**Deployment method:** <mark style="background-color:orange;">Terraform</mark>\ <mark style="background-color:orange;"></mark>
+**Deployment method:** <mark style="background-color:orange;">Terraform</mark>\
+
 
 {% hint style="info" %}
 **Note**

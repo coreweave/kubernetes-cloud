@@ -1,31 +1,22 @@
 # Fine-tune Stable Diffusion for Textual Inversion with Determined AI
 
-## Introduction
-
 This guide, based on Determined AI's article [Personalizing Stable Diffusion with Determined](https://www.determined.ai/blog/stable-diffusion-core-api),   explains how fine-tune a Stable Diffusion model on CoreWeave Cloud to do Textual Inversion, generating personalized images.
 
 [Stable Diffusion](https://stability.ai/blog/stable-diffusion-public-release) is the latest deep learning model to generate brilliant, eye-catching art based on simple input text. Built upon the ideas behind models such as [DALL·E 2](https://openai.com/dall-e-2/), [Imagen](https://imagen.research.google/), and [LDM](https://arxiv.org/abs/2112.10752), Stable Diffusion is the first architecture in this class which is small enough to run on typical consumer-grade GPUs.
 
 ## Prerequisites
 
-Before following this guide, you should have some experience with [Determined AI on CoreWeave Cloud](https://www.determined.ai) and:
+This guide assumes that the following are completed in advance.
 
-* a [CoreWeave Kubernetes environment](../../../coreweave-kubernetes/getting-started.md)
-* deployed the [Determined AI application](https://apps.coreweave.com/)
-* `git` installed on your terminal
+* You have [set up your CoreWeave Kubernetes environment](../../../coreweave-kubernetes/getting-started.md) locally
+* `git` is locally installed
+* [Determined AI is installed in your namespace](../../../compass/determined-ai/install-determined-ai.md)
 
-If you are new to Determined, see the [Quickstart guide](https://docs.determined.ai/latest/quickstart-mdldev.html).
+## Configure the experiment
 
-## Fine-tune images
+In a text editor, open the files in `/examples/diffusion/textual_inversion_stable_diffusion/`.  Change the values in `finetune_const.yaml` [config file](https://github.com/determined-ai/determined/blob/master/examples/diffusion/textual\_inversion\_stable\_diffusion/finetune\_const.yaml), as needed.
 
-To fine-tune images, [clone the Determined repository](https://github.com/determined-ai/determined) and follow these steps.
-
-1. Open the files in `examples/diffusion /textual_inversion_stable_diffusion` in a text editor.
-2. Create a Hugging Face [User Access Token](https://huggingface.co/docs/hub/security-tokens) (after making an account, if necessary) and accept the Stable Diffusion license at `CompVis/stable-diffusion-v1-4` by [clicking Access repository](https://huggingface.co/CompVis/stable-diffusion-v1-4).
-3. Place the desired training images in a new directory, in the root of the repository.
-4. Change the values in `finetune_const.yaml` [config file](https://github.com/determined-ai/determined/blob/master/examples/diffusion/textual\_inversion\_stable\_diffusion/finetune\_const.yaml), as needed.
-
-```
+```yaml
 environment:
    environment_variables:   
     - HF_AUTH_TOKEN=YOUR_HF_AUTH_TOKEN_HERE
@@ -41,24 +32,40 @@ hyperparameters:
           - det_logos
 ```
 
-An explanation of the entries:
+These values may be broken down as follows:
 
-* `YOUR_HF_AUTH_TOKEN_HERE`: replace this with your Hugging Face User Access Token
-* `learnable_properties`: either `object` or `style`, depending on whether you want to capture the object itself, or only its style
-* `concept_strs`: the string used to refer to new concept in prompts
-* `initializer_strs`: a short phrase which roughly describes the concept of interest and provides a warm-start for fine-tuning
-* `img_dirs`: the training image directory
+| Value name                | Description                                                                                               |
+| ------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `YOUR_HF_AUTH_TOKEN_HERE` | Your Hugging Face User Access Token                                                                       |
+| `learnable_properties`    | Either `object` or `style`, depending on whether you want to capture the object itself, or only its style |
 
-You can fine-tune more than one concept at a time by appending the relevant information to each of the lists above.
+More than one concept at a time may be fine-tuned by appending relevant information to the lists:
 
-Submit the fine-tuning [experiment](https://docs.determined.ai/latest/introduction.html?highlight=experiment#experiment) by navigating to the root of the repository in a terminal and execute:
+* `concept_strs` - the string used to refer to new concept in prompts
+* `initializer_strs` - a short phrase which roughly describes the concept of interest and provides a warm-start for fine-tuning
+
+### Clone the repository
+
+To fine-tune images, first [clone the Determined repository](https://github.com/determined-ai/determined).
+
+### Acquire a Hugging Face User Access Token
+
+Create a Hugging Face account if necessary, then generate a  [User Access Token](https://huggingface.co/docs/hub/security-tokens). Accept the Stable Diffusion license at `CompVis/stable-diffusion-v1-4` by [clicking "Access repository](https://huggingface.co/CompVis/stable-diffusion-v1-4)".
+
+### Place images
+
+In a new directory at the root of the repository, place the training images.
+
+## Submit the experiment
+
+Submit the fine-tuning experiment by navigating to the root of the repository, then create the experiment by running `det e create`:
 
 <pre class="language-bash"><code class="lang-bash"><strong>$ det e create finetune_const.yaml
 </strong></code></pre>
 
-The quickly test your configuration you can add your `HF_AUTH_TOKEN` and leave all other default values, then submit the experiment without further changes. A fine-tuning experiment using the Determined AI logo is set up in the repository by default.
+To quickly test your configuration, add the `HF_AUTH_TOKEN` value. Leave all other values at their defaults, then submit the experiment without any further changes. A fine-tuning experiment using the Determined AI logo is set up in the repository by default.
 
-After you launch the experiment, navigate to the Web UI and use the **Logs** tab to see training progress.
+After launching the experiment, navigate to the Web UI. Click the **Logs** tab to view training progress.
 
 <figure><img src="../../../.gitbook/assets/Screenshot from 2023-03-13 12-29-15.png" alt="Stable Diffusion with Textual Inversion running on CoreWeave infrastructure using Determined AI"><figcaption><p>Stable Diffusion with Textual Inversion running on CoreWeave infrastructure using Determined AI</p></figcaption></figure>
 
@@ -124,8 +131,6 @@ By default, you can submit a two-GPU experiment that creates nearly 500 total im
 ```bash
 det e create generate_grid.yaml .
 ```
-
-
 
 ## References
 

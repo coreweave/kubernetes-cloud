@@ -24,7 +24,7 @@ affinity: {}
 {% tab title="CLI" %}
 **Deployment method:** <mark style="background-color:green;">Kubernetes CLI</mark>
 
-<mark style="background-color:green;"></mark>
+
 
 **Type:** [Affinity](https://pkg.go.dev/k8s.io/kubernetes/pkg/apis/core#Affinity)
 
@@ -38,11 +38,11 @@ Defines the Kubernetes [affinity](https://kubernetes.io/docs/concepts/scheduling
 {% tab title="Terraform" %}
 **Deployment method:** <mark style="background-color:orange;">Terraform</mark>
 
-<mark style="background-color:orange;"></mark>
+
 
 {% hint style="info" %}
 **Note**\
-****It is not currently possible to configure Node Affinity using the Terraform module. This setting may be configured in conjunction with use of the Cloud UI or the Kubernetes CLI. Alternatively, [you may extend the Virtual Server Terraform module yourself](../../../virtual-server/examples/terraform/vs.tf).
+It is not currently possible to configure Node Affinity using the Terraform module. This setting may be configured in conjunction with use of the Cloud UI or the Kubernetes CLI. Alternatively, [you may extend the Virtual Server Terraform module yourself](../../../virtual-server/examples/terraform/vs.tf).
 {% endhint %}
 {% endtab %}
 {% endtabs %}

@@ -126,7 +126,7 @@ From the following configuration screen, be sure to specify the same data center
 If you require more advanced access permissions for your Samba volume, consider pairing our **samba-ad** option with your on-premise Active Directory domain services.&#x20;
 {% endhint %}
 
-Next, create a user for the volume share. Finally, from the **** volumes section at the bottom of the configuration menu, highlight the name of the storage volume created earlier, then click the blue plus sign to the right of its name. This will add the volume to the **Attach Volume** list.
+Next, create a user for the volume share. Finally, from the volumes section at the bottom of the configuration menu, highlight the name of the storage volume created earlier, then click the blue plus sign to the right of its name. This will add the volume to the **Attach Volume** list.
 
 If you would like to edit the YAML manifest for this application directly, navigate to the YAML tab from within the application's configuration screen. In this manifest example, the name of the mounted volume is specified, as is the related storage volume (PVC):
 

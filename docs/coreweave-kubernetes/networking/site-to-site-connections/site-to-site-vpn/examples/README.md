@@ -12,7 +12,7 @@ The following are some Cloud-specific example implementations of the Site-to-Sit
 
 {% hint style="info" %}
 **Additional Resources**\
-****Learn more about configuring a Site-to-Site VPN on CoreWeave Cloud on the [VPN Setup page](../).
+Learn more about configuring a Site-to-Site VPN on CoreWeave Cloud on the [VPN Setup page](../).
 {% endhint %}
 
 ## Cloud platform

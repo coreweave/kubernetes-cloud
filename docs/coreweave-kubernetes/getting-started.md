@@ -30,7 +30,7 @@ Once your account has been approved and is activated, [log in to the CoreWeave C
 **Warning**
 
 **The Kubeconfig and Access Token are shown** **only once!**\
-****Be sure to save this file and the token in a secure location. If you lose your Access Token, it can be found inside your [Kubeconfig file](getting-started.md#configure-kubernetes).
+Be sure to save this file and the token in a secure location. If you lose your Access Token, it can be found inside your [Kubeconfig file](getting-started.md#configure-kubernetes).
 {% endhint %}
 
 From the [API Access page](https://cloud.coreweave.com/api-access) on the Cloud UI, click the **API & KUBECONFIG** tab at the top right of the page, then click the **Create a New Token** button to the right.
@@ -59,7 +59,7 @@ For more information on Kubernetes installation and configuration, please refere
 {% tab title="Linux" %}
 ## Installing `kubectl` on a Linux system
 
-****
+
 
 **Downloading and installing the binary**
 
@@ -111,7 +111,7 @@ This should return `kubectl: OK` to confirm the file is indeed valid. If this re
 {% tab title="macOS" %}
 ## Installing `kubectl` on a macOS system
 
-****
+
 
 **Installing using Homebrew**
 
@@ -127,7 +127,7 @@ $ brew install kubectl
 {% tab title="Windows" %}
 ## Installing `kubectl` on a Windows system
 
-****
+
 
 **Installing using PowerShell**
 
@@ -148,7 +148,7 @@ Using PowerShell, `kubectl` can be installed by using the following the command:
 Add the `-Silent` flag to the end of this string for a non-interactive setup.
 {% endhint %}
 
-****\
+\
 **Installing using a Package Manager**
 
 You can also install `kubectl` on Windows using a package manager such as [Chocolatey](https://chocolatey.org) or [Scoop](https://scoop.sh).

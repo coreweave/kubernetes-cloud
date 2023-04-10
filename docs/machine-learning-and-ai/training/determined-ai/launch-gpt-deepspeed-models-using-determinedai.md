@@ -8,19 +8,9 @@ DeepSpeed is an [open-source](https://en.wikipedia.org/wiki/Open\_source) [deep 
 
 In the example below, a minimal GPT-NeoX DeepSpeed distributed training job is launched without the additional features such as tracking, metrics, and visualization that Determined AI offers.&#x20;
 
-## Prerequisites
+## Tutorial source code
 
-Before following this guide, you should have some experience with [Determined AI on CoreWeave Cloud](https://www.determined.ai) and:
-
-* a [CoreWeave Kubernetes environment](../../../coreweave-kubernetes/getting-started.md)
-* deployed the [Determined AI application](https://apps.coreweave.com/)
-* `git` installed on your terminal
-
-If you are new to Determined, see the [Quickstart guide](https://docs.determined.ai/latest/quickstart-mdldev.html).
-
-## Setup
-
-### Clone the repository
+{% embed url="https://github.com/coreweave/gpt-det-deepseed" %}
 
 To follow along with this example, first clone the [the CoreWeave GPT DeepSpeed repository](https://github.com/coreweave/gpt-det-deepseed) to your workstation:
 
@@ -28,16 +18,15 @@ To follow along with this example, first clone the [the CoreWeave GPT DeepSpeed 
 $ git clone --recurse-submodules https://github.com/coreweave/gpt-det-deepseed.git
 ```
 
-### Install Determined AI
+## Prerequisites
 
-[Follow the steps to install the Determined AI application](../../../compass/determined-ai/install-determined-ai.md).
+This guide assumes that the following are completed in advance.
 
-Then, in `gpt_neox_config/small.yml`, change these values to the appropriate paths:
+* You have [set up your CoreWeave Kubernetes environment](../../../coreweave-kubernetes/getting-started.md) locally
+* `git` is locally installed
+* [Determined AI is installed in your namespace](../../../compass/determined-ai/install-determined-ai.md)
 
-* `vocab_path`
-* `data_path`&#x20;
-* `load`
-* `save`&#x20;
+## Setup
 
 ### The launcher configuration file
 
@@ -54,7 +43,7 @@ Determined AI uses its own fork of DeepSpeed, so using [that image](https://gith
       gpu: liamdetermined/gpt-neox
 ```
 
-&#x20;In this example, we're using a wrapper around DeepSpeed called `determined.launch.deepspeed` in order to allow for safe handling of note failure and shutdown.
+In this example, a wrapper around DeepSpeed called `determined.launch.deepspeed` allows for safe handling of note failure and shutdown.
 
 ```yaml
 entrypoint:
@@ -85,7 +74,7 @@ The Dockerfile uses the following:
 
 <details>
 
-<summary>Click to Expand - Example Dockerfile</summary>
+<summary>Click to expand - Example Dockerfile</summary>
 
 {% code overflow="wrap" %}
 ```docker

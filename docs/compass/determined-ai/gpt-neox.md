@@ -18,35 +18,26 @@ This model is trained on CoreWeave infrastructure and the [weights](https://gith
 
 This guide will use [the DeterminedAI MLOps platform](https://www.determined.ai/blog/determined-algorithmia-integration) to run distributed finetuning jobs on the model.
 
-## Procedure
+## Prerequisites
 
-{% hint style="info" %}
-**Note**
+This guide assumes that the following are completed in advance.
 
-This guide makes several assumptions:\
-\
-• You have [set up the CoreWeave Kubernetes environment](../../coreweave-kubernetes/getting-started.md).\
-• You have some experience launching and using [DeterminedAI on CoreWeave Cloud](https://www.determined.ai). (If you have not done so already, it is recommended to [deploy DeterminedAI via the application Catalog](https://apps.coreweave.com/) to familiarize yourself with it).\
-• You have `git` installed on your terminal.
-{% endhint %}
+* You have [set up your CoreWeave Kubernetes environment](../../coreweave-kubernetes/getting-started.md) locally
+* `git` is locally installed
+* [Determined AI is installed in your namespace](install-determined-ai.md), including installation prerequisites:
+  * [FileBrowser](install-determined-ai.md#install-filebrowser) is installed
+  * A [shared filesystem volume](install-determined-ai.md#create-a-shared-filesystem-volume) with an easily-recognizable name, such as `finetune-gpt-neox`, is created
+  * An [Object Storage bucket](install-determined-ai.md#create-an-object-storage-bucket) with an easily-recognizable name, such as `model-checkpoints`, is created
 
-### Create a Shared Filesystem storage volume
+The values used for this demo's [shared filesystem volume](install-determined-ai.md#create-a-shared-filesystem-volume) are as follows:
 
-First, create a **Shared Filesystem storage volume** from [the Storage menu on the CoreWeave Cloud UI](https://cloud.coreweave.com/storage). This volume will be used to store the model weights as well as training data for finetuning. Shared storage volumes can be accessed by many nodes at once in CoreWeave, allowing for massive amounts of compute power to access the same dataset.
-
-You can use the values shown and described below for this tutorial.
-
-![Create a New Volume on the Storage menu from the Cloud UI](<../../.gitbook/assets/Screen Shot 2022-07-26 at 4.14.13 PM.png>)
-
-The values used for this demo are as follows:
-
-| Field name       | Demo value        |
-| ---------------- | ----------------- |
-| **Volume Name**  | finetune-gpt-neox |
-| **Region**       | LAS1              |
-| **Disk Class**   | HDD               |
-| **Storage Type** | Shared Filesystem |
-| **Size (Gi)**    | 1,000             |
+| Field name       | Demo value          |
+| ---------------- | ------------------- |
+| **Volume Name**  | `finetune-gpt-neox` |
+| **Region**       | `LAS1`              |
+| **Disk Class**   | `HDD`               |
+| **Storage Type** | Shared Filesystem   |
+| **Size (Gi)**    | `1000`              |
 
 {% hint style="info" %}
 **Note**
@@ -54,64 +45,21 @@ The values used for this demo are as follows:
 If needed, it is easy to [increase the size](https://docs.coreweave.com/coreweave-kubernetes/storage#resizing) of a storage volume later.
 {% endhint %}
 
-### **Install the Filebrowser application**
+### Attach the filesystem volume
 
-The **filebrowser** application, available through the [application Catalog](https://apps.coreweave.com/), allows you to access your storage volumes via a Web interface that allows you to upload and download files and folders.
+When [installing Determined AI](install-determined-ai.md), ensure that the newly-created filesystem volume for this demo is attached. From the bottom of the application configuration screen, click `+` to attach the `finetune-gpt-neox` volume.
 
-It is recommended that the name you give this filebrowser application be very short, or you will run into SSL CNAME issues. We recommend `finetune`.
+<figure><img src="../../.gitbook/assets/Screen Shot 2022-07-26 at 4.26.14 PM.png" alt="Screenshot of The attachment configuration screen for the DeterminedAI application"><figcaption><p>The new <code>finetune-gpt-neox</code> volume is mounted to <code>/mnt/finetune-gpt-neox</code></p></figcaption></figure>
 
-Simply select the `finetune-gpt-neox` PVC that you created earlier. **Make sure that you actually add your PVC to the filebrowser list of mounts!**
-
-![The filebrowser application in the Cloud UI application Catalog](<../../.gitbook/assets/Screen Shot 2022-07-26 at 4.10.34 PM.png>)
-
-{% hint style="info" %}
-**Note**\
-Installing the filebrowser application is **very helpful** to this process. As an alternative, it may be preferable to you to launch a Virtual Server or Kubernetes Pod to interact with their PVC via SSH or other mechanism.
-{% endhint %}
-
-### Create an Object Storage bucket
-
-Before installing the Determined AI application, first [create an Object Storage bucket](../../storage/object-storage.md). Retain the given values for your **access key** and **secret key**, then continue with this guide.
-
-### Install the Determined application
-
-[Follow the steps to install the Determined AI application](install-determined-ai.md). The values used for the configuration of Determined AI in this tutorial are as follows:
-
-#### Region
-
-`LAS1 (Las Vegas)`
-
-#### Default Resources
-
-| Field                 | Demo Value |
-| --------------------- | ---------- |
-| **Default resources** | 8 vCPUs    |
-| **Memory request**    | 256Gi      |
-| **GPU Type**          | A40        |
-
-#### Object Storage Configuration
-
-| Field           | Demo Value                                                                             |
-| --------------- | -------------------------------------------------------------------------------------- |
-| **Bucket Name** | model-checkpoints                                                                      |
-| **Access Key**  | `<YOUR_ACCESS_KEY>` - this should be replaced by your actual Object Storage access key |
-| **Secret Key**  | `<YOUR_SECRET_KEY>` - this should be replaced by your actual Object Storage secret key |
-
-#### Attaching the volume
-
-Click `+` to attach the `finetune-gpt-neox` volume.
-
-![The attachment configuration screen for the DeterminedAI application](<../../.gitbook/assets/Screen Shot 2022-07-26 at 4.26.14 PM.png>)
-
-As shown above, for this tutorial we are attaching the `finetune-gpt-neox` volume on the mount path `/mnt/finetune-gpt-neox`.
+As shown above, for this tutorial we are attaching the `finetune-gpt-neox` volume to mount path `/mnt/finetune-gpt-neox`.
 
 ### Determined Web UI
 
-After deploying the DeterminedAI application, a URL to the Web UI will be provided to you. You can use this UI to monitor experiments and check logs.
+After deploying the DeterminedAI application, a URL to the Web UI will be provided. Navigate here to use the Determined AI Web UI, which may be used to monitor experiments and to check logs.
 
 ![The DeterminedAI Web UI](<../../.gitbook/assets/image (17) (1).png>)
 
-As an example, here is what a live experiment looks like when viewed from the Web UI:
+As an example, here is what a live experiment looks like when viewed from the Web UI.
 
 ![A live experiment running in the DeterminedAI Web UI](<../../.gitbook/assets/image (20) (3).png>)
 
@@ -175,7 +123,7 @@ Upload your data as a single JSONL file called `data.jsonl` to filebrowser under
 
 ![](<../../.gitbook/assets/Screen Shot 2022-08-01 at 5.43.47 PM.png>)
 
-Using the filebrowser app, create a new folder called `gpt_finetune` under the `finetune-gpt-neox` folder.
+Using the FileBrowser app, create a new folder called `gpt_finetune` under the `finetune-gpt-neox` folder.
 
 ![Creating the gpt\_finetune directory in filebrowser](<../../.gitbook/assets/image (5) (1) (2) (1) (1) (1).png>)
 
@@ -554,7 +502,7 @@ entrypoint:
 {% hint style="info" %}
 **Additional Resources**
 
-* [GPT-NeoX](https://github.com/EleutherAI/gpt-neox#using-custom-data)
-* [Determined.ai Documentation](https://docs.determined.ai/latest/)
-* [Determined.ai Github](https://github.com/determined-ai/determined)
+* [GPT-NeoX on GitHub](https://github.com/EleutherAI/gpt-neox)
+* [Determined AI Documentation](https://docs.determined.ai/latest/)
+* [Determined AI on Github](https://github.com/determined-ai/determined)
 {% endhint %}

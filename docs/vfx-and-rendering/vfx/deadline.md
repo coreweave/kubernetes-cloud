@@ -15,7 +15,7 @@ The CoreWeave implementation of Deadline is delivered as a "High Availability Se
 {% hint style="info" %}
 **Note**
 
-Containerization **** comes at the cost of needing to convert existing Deadline Worker images. In this document, we provide the names of a few images you can pull today.
+Containerization comes at the cost of needing to convert existing Deadline Worker images. In this document, we provide the names of a few images you can pull today.
 
 If you are interested in seeing examples of Dockerfiles used in the process of building and configuring Deadline Worker groups, [reach out to your CoreWeave support specialist](https://cloud.coreweave.com/contact).
 {% endhint %}

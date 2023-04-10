@@ -61,7 +61,9 @@ User accounts are created using the Kubernetes CLI by adding their information t
 {% endtab %}
 
 {% tab title="Terraform" %}
-**Deployment method:** <mark style="background-color:orange;">Terraform</mark>\ <mark style="background-color:orange;"></mark>\ <mark style="background-color:orange;"></mark>The Virtual Server's user account options are configured as variables passed into the [Virtual Server Terraform module](https://github.com/coreweave/kubernetes-cloud/tree/master/virtual-server/examples/terraform).
+**Deployment method:** <mark style="background-color:orange;">Terraform</mark>\
+\
+The Virtual Server's user account options are configured as variables passed into the [Virtual Server Terraform module](https://github.com/coreweave/kubernetes-cloud/tree/master/virtual-server/examples/terraform).
 
 
 
@@ -77,7 +79,7 @@ The table below describes all available configuration options for user accounts 
 | `vs_password`          | String        | <p>User-defined password for the user account.<br><span data-gb-custom-inline data-tag="emoji" data-code="26a0">⚠</span><strong><code>vs_generate_password</code> must be set to <code>false</code>.</strong></p> | `ubuntu2004-docker-master-20210601-ord1` (The Ubuntu 20.04 image stored in the Chicago region.) |
 | `vs_generate_password` | Boolean       | Whether or not to randomly generate a user password for the user account.                                                                                                                                         | `true`                                                                                          |
 
-****\
+\
 **Example**
 
 ```json

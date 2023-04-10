@@ -6,7 +6,11 @@ description: Build your own images for running machine learning models on Determ
 
 ## Prerequisites
 
-Before continuing with this guide, [install the Determined AI application](../../../compass/determined-ai/install-determined-ai.md) in your namespace.
+This guide assumes that the following are completed in advance.
+
+* You have [set up your CoreWeave Kubernetes environment](../../../coreweave-kubernetes/getting-started.md) locally
+* `git` is locally installed
+* [Determined AI is installed in your namespace](../../../compass/determined-ai/install-determined-ai.md)
 
 ## Standard images
 

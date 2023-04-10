@@ -11,7 +11,8 @@ description: >-
 To connect a Pod to a Layer 2 VPC, a Kubernetes annotation is used. A Pod can be attached to one or multiple VPC as well as the regular CoreWeave Cloud Native Kubernetes network. Each VPC will be represented as a separate network interface inside the Pod, in addition to the regular pod network. The VPCs are listed in the annotation separated by commas.
 
 <pre class="language-yaml"><code class="lang-yaml"><strong>annotations:
-</strong><strong>    vpc.coreweave.cloud/name: &#x3C;your-vpc-name>,&#x3C;optional-second-vpc></strong></code></pre>
+</strong><strong>    vpc.coreweave.cloud/name: &#x3C;your-vpc-name>,&#x3C;optional-second-vpc>
+</strong></code></pre>
 
 By default, CoreWeave Cloud Native Kubernetes Pod networking is enabled. To disable Kubernetes Pod networking, add the following annotation:
 
@@ -27,7 +28,7 @@ CoreWeave Cloud Native Networking is designed with low latency and high isolatio
 
 Additionally, disabling CoreWeave Cloud Native Networking means loss of all regular Kubernetes networking functionality, such as Services, Load Balancers and internet access. The Pod will only be able to communicate on the specified VPCs. For internet access, a virtual firewall can be deployed bridging a VPC and a regular CCNN interface. For most Kubernetes use cases, it is not recommended to disable the standard network.
 
-****[**CoreWeave support**](https://cloud.coreweave.com/contact) **is available to help with any network design questions.**
+[**CoreWeave support**](https://cloud.coreweave.com/contact) **is available to help with any network design questions.**
 {% endhint %}
 
 ## Usage with Virtual Servers

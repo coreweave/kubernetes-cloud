@@ -43,7 +43,7 @@ This is the primary method of exposing services to the world, alongside Ingresse
 {% hint style="info" %}
 **Note**
 
-If **** you are unfamiliar with load balancing concepts, it may help to understand that the traffic is forwarded, similar to the kind of port forwarding found in a traditional NAT firewall.
+If you are unfamiliar with load balancing concepts, it may help to understand that the traffic is forwarded, similar to the kind of port forwarding found in a traditional NAT firewall.
 {% endhint %}
 
 ### Direct Attach (Service)

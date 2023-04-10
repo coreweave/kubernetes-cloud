@@ -46,7 +46,7 @@ During the deployment of the application, you will be redirected to the applicat
 
 <figure><img src="../.gitbook/assets/image (65).png" alt="Screenshot: For this example, the default login credentials have been removed, but in a real scenario, will be shown here"><figcaption><p>For this example, the default login credentials have been removed, but in a real scenario, will be shown here</p></figcaption></figure>
 
-****
+
 
 ## Access FileBrowser
 
