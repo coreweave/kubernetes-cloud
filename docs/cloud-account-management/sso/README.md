@@ -22,7 +22,7 @@ A single organization may have multiple SSO configurations, which is convenient 
 Only CoreWeave organization admins may configure SSO. Additionally, organization admins will not be able to log in using SSO; this is to ensure that admins do not get locked out of CoreWeave Cloud in the event that an SSO configuration encounters an issue.
 {% endhint %}
 
-To add or edit SSO configurations, first [log in to your CoreWeave Cloud account](https://cloud.coreweave.com), then navigate to the [Organization Management page](https://cloud.staging.coreweave.com/organization). Below the **Users** section, find the **SSO Configurations** section.
+To add or edit SSO configurations, first [log in to your CoreWeave Cloud account](https://cloud.coreweave.com), then navigate to the [Organization Management page](https://cloud.coreweave.com/organization). Below the **Users** section, find the **SSO Configurations** section.
 
 <figure><img src="../../.gitbook/assets/image (58).png" alt="Screenshot of the SSO Configurations area on the CoreWeave Cloud UI"><figcaption><p>The SSO Configurations area on the CoreWeave Cloud UI</p></figcaption></figure>
 
