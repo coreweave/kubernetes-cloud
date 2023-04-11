@@ -415,6 +415,7 @@ spec:
     resource:
       action: apply
       successCondition: status.conditions.3.status == True
+      failureCondition: status.conditions.3.status == False
       manifest: |
         apiVersion: serving.kubeflow.org/v1beta1
         kind: InferenceService
