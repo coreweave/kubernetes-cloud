@@ -118,7 +118,6 @@ model.eval()
 
 duration = time.time() - start
 print(f"Loaded model in {duration:.2f}s")
-print(MemoryUsage.now())
 torch.cuda.memory.empty_cache()
 print(MemoryUsage.now())
 

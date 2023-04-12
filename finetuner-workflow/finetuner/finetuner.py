@@ -543,7 +543,7 @@ if is_main_process():
     logger.info(f"TRANSFORMERS: {transformers.__version__}")
     logger.info(MemoryUsage.now())
     logger.info(f"MODEL: {args.model}")
-    logger.info(f"TRAIN_RATIO: {args.train_ratio}")
+    logger.info(f"TRAIN RATIO: {args.train_ratio}")
     logger.info(f"CONTEXT LENGTH: {args.context_size} tokens")
     logger.info(f"SHUFFLE: {not args.no_shuffle}")
     logger.info(f"EPOCHS {args.epochs}")
@@ -751,9 +751,6 @@ if args.prompt_file:
     ]
 else:
     sampler_callbacks = None
-
-if is_main_process():
-    logger.info(f"PROMPT FILE: {args.prompt_file}")
 
 # Parametrize our training based on provided arguments.
 training_args = TrainingArguments(
