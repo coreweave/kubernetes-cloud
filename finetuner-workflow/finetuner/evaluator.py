@@ -138,9 +138,9 @@ def evaluate(
     """
     output_texts: List[str] = []
     input_tokens: Tensor = (
-        torch.LongTensor(tokenizer.encode(prompt)).unsqueeze(0).to(device)
+        torch.LongTensor(eval_tokenizer.encode(prompt)).unsqueeze(0).to(device)
     )
-    attention_mask: Tensor = input_tokens != tokenizer.pad_token_id
+    attention_mask: Tensor = input_tokens != eval_tokenizer.pad_token_id
     max_length = input_tokens.shape[1] + generate_tokens
 
     generated_tokens = eval_model.generate(
