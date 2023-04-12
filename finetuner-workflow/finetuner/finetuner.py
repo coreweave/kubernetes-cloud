@@ -699,7 +699,8 @@ if is_main_process():
 # Rewrite our `ds_config` to match arguments passed in.
 ds_args = {}
 if device != "cpu":
-    ds_config = json.load(open(args.ds_config))
+    with open(args.ds_config) as ds_config_file:
+        ds_config = json.load(ds_config_file)
     if "zero_optimization" in ds_config:
         ds_config["zero_optimization"]["stage"] = args.zero_stage
     ds_args["deepspeed"] = ds_config
