@@ -14,8 +14,6 @@ From the Cloud UI, the affinity for the Virtual Server can be configured in the 
 
 ![YAML manifest screenshot of affinity field.](<../../.gitbook/assets/image (14) (2).png>)
 
-**Example**
-
 ```json
 affinity: {}
 ```
@@ -23,8 +21,6 @@ affinity: {}
 
 {% tab title="CLI" %}
 **Deployment method:** <mark style="background-color:green;">Kubernetes CLI</mark>
-
-
 
 **Type:** [Affinity](https://pkg.go.dev/k8s.io/kubernetes/pkg/apis/core#Affinity)
 
@@ -37,8 +33,6 @@ Defines the Kubernetes [affinity](https://kubernetes.io/docs/concepts/scheduling
 
 {% tab title="Terraform" %}
 **Deployment method:** <mark style="background-color:orange;">Terraform</mark>
-
-
 
 {% hint style="info" %}
 **Note**\

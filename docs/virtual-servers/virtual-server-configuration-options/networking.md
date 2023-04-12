@@ -16,8 +16,6 @@ To learn more about general networking on CoreWeave cloud, see [Networking](brok
 {% tab title="Cloud UI" %}
 **Deployment method:** <mark style="background-color:blue;">CoreWeave Cloud UI</mark>
 
-
-
 ### Attach Public IP
 
 Most networking options for Virtual Servers are currently configured by interacting directly with the YAML manifest from the YAML tab, but **Attach IP** is currently also exposed via graphical toggle, which can simply be switched on and off according to whether or not you want the Virtual Server to be publicly accessible.
@@ -28,22 +26,15 @@ Attaching a public IP to the Virtual Server will allow it to be accessible throu
 
 !["Attach IP" option in the Cloud UI.](<../../.gitbook/assets/image (2) (1) (1) (1).png>)
 
-
-
 #### Public networking **via direct attach Load Balancer IP**
 
 The graphical toggle for the **Attach IP** setting discussed above affects the `network.directAttachLoadBalancerIP` and `network.public` options in the YAML manifest, mutually toggling them between `true` and `false` respectively.\
 \
 When both options are set to `true`, public networking is provided via an automatically-provisioned public IP address. When both are `false`, public networking is disabled, and no public IP will be provisioned.
 
-
-
 ![network.directAttachLoadBalancerIP configurations found in the YAML tab on the Cloud UI](<../../.gitbook/assets/image (97).png>)
 
-
-
-When `network.directAttachLoadBalancerIP` is `true`, a new Service will be created, and its load balancer IP will be directly attached to the Virtual Server.\
-
+When `network.directAttachLoadBalancerIP` is `true`, a new Service will be created, and its load balancer IP will be directly attached to the Virtual Server.
 
 {% hint style="info" %}
 **Note**
@@ -53,22 +44,15 @@ When both `network.directAttachLoadBalancerIP` and `network.public` are set to `
 When `network.directAttachLoadBalancerIP` is set to `true`, custom UDP and TCP ports may **not** be set.
 {% endhint %}
 
-###
-
 ### Additional networking options
 
 All other networking options for Virtual Servers provisioned through the CoreWeave Cloud UI must be configured through the YAML manifest.
 
-
-
 ![All networking options for Virtual Servers, exposed through the YAML manifest on the Cloud UI](<../../.gitbook/assets/image (115).png>)
 
-####
+### Setting a custom MAC address
 
-#### Setting a custom MAC address
-
-By default, a persistent MAC address, derived from the Virtual Server's name, is assigned to the Virtual Server. To override this, you may include MAC address configurations in the `macAddress` field.\
-
+By default, a persistent MAC address, derived from the Virtual Server's name, is assigned to the Virtual Server. To override this, you may include MAC address configurations in the `macAddress` field.
 
 ![The custom MAC address field in the YAML manifest.](<../../.gitbook/assets/image (102).png>)
 
@@ -78,16 +62,14 @@ Custom MAC addresses for Virtual Servers are configured with dashes separating e
 macAddress: A2-1F-EE-09-06-5D
 ```
 
-####
-
-#### DNS policy
+### DNS policy
 
 DNS policies for Virtual Servers refer to the [Kubernetes Pod DNS policies](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-s-dns-policy). By default, Virtual Servers have a DNS policy of `ClusterFirst`.
 
 ![The dnsPolicy field in the YAML manifest.
 ](<../../.gitbook/assets/image (107).png>)
 
-#### TCP and UDP ports
+### TCP and UDP ports
 
 The TCP and UDP ports to expose on the Virtual Server are configured using the `tcp.ports` and `udp.ports` lists in the YAML manifest respectively.\
 
@@ -97,8 +79,6 @@ The TCP and UDP ports to expose on the Virtual Server are configured using the `
 
 When `network.directAttachLoadBalancerIP` is set to `true`, custom UDP and TCP ports may not be set.
 {% endhint %}
-
-
 
 ![The tcp.ports and udp.ports arrays exposed in the YAML manifest.](<../../.gitbook/assets/image (106).png>)
 
@@ -112,25 +92,17 @@ udp:
   ports: [3389, 4172]
 ```
 
-####
-
-#### Floating IPs
+### Floating IPs
 
 Floating IPs allow the provisioning of stable IP addresses, assigned from the load balancer IP of each Service. These allow for custom DNS configurations and predictable addressing.
 
-
-
 ![The floatingIPs option in the YAML manifest.](<../../.gitbook/assets/image (7) (2).png>)
 
-Floating IPs can be specified in the YAML manifest in a YAML list.\
-\
-**Example**
+Floating IPs can be specified in the YAML manifest in a YAML list:
 
 ```yaml
 floatingIPs: [240.141.77.141, 82.110.59.244]
 ```
-
-
 
 {% hint style="info" %}
 **Additional Resources**
@@ -144,8 +116,6 @@ Learn more about [Floating IPs](additional-features.md#floating-ips).
 
 To configure networking options for Virtual Servers deployed using the Kubernetes CLI, configure the options under the `network` stanza of the `spec`:
 
-
-
 ```yaml
   network:
     public: true
@@ -154,11 +124,7 @@ To configure networking options for Virtual Servers deployed using the Kubernete
         - 22
 ```
 
-
-
 The table below describes all available configuration options for user accounts on Virtual Servers:
-
-
 
 | Field name                           | Field type                                                         | Description                                                                                                                              |
 | ------------------------------------ | ------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
@@ -173,24 +139,16 @@ The table below describes all available configuration options for user accounts 
 | `network.dnsConfig`                  | [PodDNSConfig](https://pkg.go.dev/k8s.io/api/core/v1#PodDNSConfig) | Defines the DNS parameters of the VS. Defult value is [DNSClusterFirst](https://pkg.go.dev/k8s.io/kubernetes/pkg/apis/core#DNSPolicy).   |
 | `network.dnsPolicy`                  | [DNSPolicy](https://pkg.go.dev/k8s.io/api/core/v1#DNSPolicy)       | Set the DNS policy for VS. The default value is `ClustrFirst`                                                                            |
 
-####
-
-#### Floating IPs
+### Floating IPs
 
 Floating IPs allow the provisioning of stable IP addresses, assigned from the load balancer IP of each Service. These allow for custom DNS configurations and predictable addressing.
 
-Floating IPs can be specified in the YAML manifest as an array.
-
-
-
-**Example**
+Floating IPs can be specified in the YAML manifest as an array:
 
 ```yaml
 network: 
   floatingIPs: [240.141.77.141, 82.110.59.244]
 ```
-
-
 
 {% hint style="info" %}
 **Additional Resources**
@@ -206,8 +164,6 @@ The Virtual Server's networking options are configured as variables passed into 
 
 The table below describes all available configuration options for user accounts on Virtual Servers.
 
-
-
 | Variable name            | Variable type | Description                                                                                                                                                                                                                                                 | Default value                  |
 | ------------------------ | ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
 | `vs_public_networking`   | Boolean       | Whether or not to allow the Virtual Server to be publicly accessible to the Internet.                                                                                                                                                                       | `true`                         |
@@ -215,9 +171,7 @@ The table below describes all available configuration options for user accounts 
 | `vs_tcp_ports`           | List          | Which TCP ports to expose on the Virtual Server.                                                                                                                                                                                                            | `[22, 443, 60443, 4172, 3389]` |
 | `vs_udp_ports`           | List          | Which UDP ports to expose on the Virtual Server.                                                                                                                                                                                                            | `[4172, 3389]`                 |
 
-\
-\
-**Example**
+Terraform example:
 
 ```json
 variable "vs_public_networking" {

@@ -33,19 +33,16 @@ It is not currently possible to deploy ephemeral root disks using the Cloud UI. 
 {% endtab %}
 
 {% tab title="CLI" %}
-**Deployment method:** <mark style="background-color:green;">Kubernetes CLI</mark>
+**Deployment method:** <mark style="background-color:green;">Kubernetes CLI</mark>\
 
-\
-When configuring an ephemeral root storage disk, the source image is cloned into a `ReadOnlyMany` type volume, as shown in the example below.\
 
+When configuring an ephemeral root storage disk, the source image is cloned into a `ReadOnlyMany` type volume, as shown in the example below.
 
 {% hint style="info" %}
 **Additional Resources**
 
 [View this snippet on our GitHub](../../../virtual-server/examples/kubectl/virtual-server-ephemeral-root-disk.yaml) for further context.
 {% endhint %}
-
-
 
 ```yaml
 ---
@@ -104,8 +101,6 @@ spec:
 
 {% tab title="Terraform" %}
 **Deployment method:** <mark style="background-color:orange;">Terraform</mark>
-
-
 
 {% hint style="info" %}
 **Note**

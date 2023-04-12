@@ -168,7 +168,9 @@ Each of the following fields will be configured underneath the `resources` block
 {% endtab %}
 
 {% tab title="Terraform" %}
-**Deployment method:** <mark style="background-color:orange;">Terraform</mark>\ \ The Virtual Server's hardware and resource options are configured as variables passed into the [Virtual Server Terraform module](https://github.com/coreweave/kubernetes-cloud/tree/master/virtual-server/examples/terraform).
+**Deployment method:** <mark style="background-color:orange;">Terraform</mark>
+
+The Virtual Server's hardware and resource options are configured as variables passed into the [Virtual Server Terraform module](https://github.com/coreweave/kubernetes-cloud/tree/master/virtual-server/examples/terraform).
 
 #### Hardware and resource configuration options
 
@@ -239,11 +241,9 @@ You can read more about virtual hardware firmware configuration in [the Kubevirt
 
 {% tabs %}
 {% tab title="Cloud UI" %}
-**Deployment method:** <mark style="background-color:blue;">CoreWeave Cloud UI</mark>\ \ Firmware options must be set in the YAML tab from the Cloud UI. Firmware options are not currently exposed through the YAML manifest by default, so they must be added to the key-value map in the manifest.\
-\*\*\*\*\
-**Example**\\
+**Deployment method:** <mark style="background-color:blue;">CoreWeave Cloud UI</mark>
 
-***
+Firmware options must be set in the YAML tab from the Cloud UI. Firmware options are not currently exposed through the YAML manifest by default, so they must be added to the key-value map in the manifest.
 
 ![Example of firmware configuration in the YAML manifest tab of the Cloud UI.](<../../.gitbook/assets/image (9) (1).png>)
 {% endtab %}
@@ -269,7 +269,7 @@ Firmware options for Virtual Servers are configured under the `firmware` stanza.
 {% endtab %}
 
 {% tab title="Terraform" %}
-**Deployment method:** <mark style="background-color:orange;">Terraform</mark>\\
+**Deployment method:** <mark style="background-color:orange;">Terraform</mark>
 
 {% hint style="info" %}
 **Note**

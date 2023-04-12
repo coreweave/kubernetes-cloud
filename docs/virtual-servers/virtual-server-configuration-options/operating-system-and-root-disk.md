@@ -28,8 +28,6 @@ If you are using a custom image, and need to configure UEFI bootloader options f
 
 This option can be configured in the `os.uefi` field in the YAML manifest under the YAML tab.
 
-**Example**
-
 ![The os.uefi option configured under the YAML tab in the configuration screen.](<../../.gitbook/assets/image (56) (1) (1).png>)
 
 #### Operating System add**itions**
@@ -46,9 +44,7 @@ See [**System Images**](../coreweave-system-images/) for more information on Ter
 | `os.type`           | String  | The Operating System type, whether Linux or Windows.                                                            |
 | `os.enableUEFIBoot` | Boolean | <p>Whether or not to enable</p><p>the <a href="https://wiki.ubuntu.com/EFIBootLoaders">UEFI bootloader</a>.</p> |
 
-
-
-**Example**
+YAML example:
 
 ```yaml
   os:
@@ -60,15 +56,13 @@ See [**System Images**](../coreweave-system-images/) for more information on Ter
 {% tab title="Terraform" %}
 **Deployment method:** <mark style="background-color:orange;">Terraform</mark>
 
-\ The Virtual Server's Operating System options are configured as variables passed into the [Virtual Server Terraform module](https://github.com/coreweave/kubernetes-cloud/tree/master/virtual-server/examples/terraform).
+The Virtual Server's Operating System options are configured as variables passed into the [Virtual Server Terraform module](https://github.com/coreweave/kubernetes-cloud/tree/master/virtual-server/examples/terraform).
 
 {% hint style="info" %}
 **Note**
 
 You can find the name of Operating System images (`vs_image`) in [the System Images section](https://docs.coreweave.com/virtual-servers/coreweave-system-images).
 {% endhint %}
-
-####
 
 #### Operating System and root disk storage configuration options
 
@@ -85,8 +79,7 @@ The table below describes all available configuration options for the Operating 
 UEFI bootloading options are not currently available through use of this Terraform module.
 {% endhint %}
 
-\*\*\*\*\
-**Example**
+Terraform example:
 
 ```json
 variable "vs_os_type" {

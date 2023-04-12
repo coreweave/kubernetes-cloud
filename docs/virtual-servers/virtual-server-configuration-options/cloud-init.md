@@ -23,18 +23,13 @@ See [the cloud-init website](https://cloudinit.readthedocs.io/en/latest/topics/e
 
 {% tabs %}
 {% tab title="Cloud UI" %}
-**Deployment method:** <mark style="background-color:blue;">CoreWeave Cloud UI</mark>\
-
+**Deployment method:** <mark style="background-color:blue;">CoreWeave Cloud UI</mark>
 
 Cloud-init configuration options must be configured in the YAML manifest, shown under the YAML tab on the Virtual Server creation screen.
 
 The `cloudInit` block holds all the cloud-init configuration options.
 
-
-
-**Example**
-
-In this example, cloud-init is configured to create a file with a simple script that prints "Hello world!". It will be given the permission mask of `0744`, and owned by `myuser`.
+In the following example, cloud-init is configured to create a file with a simple script that prints "Hello world!". It will be given the permission mask of `0744`, and owned by `myuser`.
 
 Additionally, a package update command will be run on the machine, and the `curl` and `git` packages will be installed on the machine.
 
@@ -44,9 +39,7 @@ Lastly, the system will run the commands shown under `runcmd` to list out the am
 
 ![An example Cloud-init configuration, as shown in the YAML tab on the Cloud UI](<../../.gitbook/assets/image (95).png>)
 
-
-
-The example above in plaintext:
+The example above, given in plaintext:
 
 ```
 cloudInit: |
@@ -74,19 +67,15 @@ cloudInit: |
 
 [Cloud-init](https://cloudinit.readthedocs.io/en/latest/) parameters are configured for Virtual Servers using the `cloudInit` field.
 
+| `cloudInit` | String | Define [cloud-init](https://cloudinit.readthedocs.io/en/latest/) parameter |
+| ----------- | ------ | -------------------------------------------------------------------------- |
 
+In the example given below, cloud-init is given a few parameters, which accomplish the following:
 
-| cloudInit | String | Define [cloud-init](https://cloudinit.readthedocs.io/en/latest/) parameter |
-| --------- | ------ | -------------------------------------------------------------------------- |
-
-#### **Example**
-
-In the example given below, cloud-init is given a few parameters to:
-
-* write an in-line script that prints `"Hello world!"`
-* updates packages on the server
-* installs `curl` and `git`
-* runs additional commands (such as `df -h`)
+* write an in-line script to print `"Hello world!"`
+* update packages on the server
+* install `curl` and `git`
+* run additional commands (such as `df -h`)
 
 ```yaml
   cloudInit: |
@@ -114,8 +103,7 @@ In the example given below, cloud-init is given a few parameters to:
 {% endtab %}
 
 {% tab title="Terraform" %}
-**Deployment method:** <mark style="background-color:orange;">Terraform</mark>\
-
+**Deployment method:** <mark style="background-color:orange;">Terraform</mark>
 
 {% hint style="info" %}
 **Note**
