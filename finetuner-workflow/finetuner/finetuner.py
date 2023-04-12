@@ -533,7 +533,7 @@ class TokenizedDataset(Dataset):
 
 
 # Inform the user of host, and various versions -- useful for debugging issues.
-torch.cuda.set_device(args.local_rank)
+torch.cuda.set_device(args.local_rank if args.local_rank != -1 else 0)
 if is_main_process():
     logger.info(f"RUN_NAME: {args.run_name}")
     logger.info(f"PROJECT ID {args.project_id}")
