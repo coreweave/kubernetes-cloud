@@ -30,7 +30,9 @@ From the **Geographic Location** menu on the CoreWeave Cloud UI, select the one 
 {% endtab %}
 
 {% tab title="CLI" %}
-**Deployment method:** <mark style="background-color:green;">Kubernetes CLI</mark>\ \ Selecting a region for your Virtual Server is simple using the **Kubernetes manifest file**.
+**Deployment method:** <mark style="background-color:green;">Kubernetes CLI</mark>
+
+Selecting a region for your Virtual Server is simple using the **Kubernetes manifest file**.
 
 The data center region you'd like to use is configured by setting its label under the `region` selector in the `spec` section of the manifest.
 
@@ -40,9 +42,7 @@ The data center region you'd like to use is configured by setting its label unde
 | ------------- | ------------- | ------------------------------------------------------------------------------ | ------------- |
 | `region`      | String        | The label of the data center in which you'd like to deploy the Virtual Server. | `3`           |
 
-**Example**
-
-In this example, the Chicago (`ORD1`) data center is chosen under `spec.region`.
+In the example below, the Chicago (`ORD1`) data center is chosen under `spec.region`.
 
 ```yaml
 ---
@@ -58,7 +58,7 @@ spec:
 {% tab title="Terraform" %}
 **Deployment method:** <mark style="background-color:orange;">Terraform</mark>
 
-\ The data center region for the Virtual Server can be defined in the `vs_region` variable in your `variables.tf` file.\\
+The data center region for the Virtual Server can be defined in the `vs_region` variable in your `variables.tf` file.
 
 #### Data center region configuration options
 
@@ -66,9 +66,7 @@ spec:
 | ------------- | ------------- | ------------------------------------------------------------- | ---------------- |
 | `vs_region`   | String        | The data center region in which to deploy the Virtual Server. | `ORD1` (Chicago) |
 
-\
-\
-**Example**
+Terraform example:
 
 ```json
 variable "vs_region" {
