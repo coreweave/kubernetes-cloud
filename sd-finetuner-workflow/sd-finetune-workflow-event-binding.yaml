@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowEventBinding
+metadata:
+  name: sd-finetune-event-binding
+spec:
+  event:
+    selector: discriminator == "sd-finetune"
+  submit:
+    workflowTemplateRef:
+      name: sd-finetune-template
+    arguments:
+      parameters:
+        - name: run_name
+          valueFrom:
+            event: payload.run_name
+        - name: dataset
+          valueFrom:
+            event: payload.dataset
+        - name: run_inference
+          valueFrom:
+            event: "payload.run_inference == null ? true : payload.run_inference"
+        - name: inference_only
+          valueFrom:
+            event: "payload.inference_only == null ? false : payload.inference_only"

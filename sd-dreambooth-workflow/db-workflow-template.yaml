@@ -1,0 +1,416 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: "db-finetune-template"
+spec:
+  entrypoint: main
+  serviceAccountName: inference
+  arguments:
+    parameters:
+    # run_name should be unique on a per-run basis, especially if reporting
+    # to wandb or sharing PVCs between runs.
+    - name: run_name
+    - name: pvc
+      value: 'db-finetune-data'
+    # Training parameters. Model IDs are hugging face IDs to pull down, or
+    # a path to your Diffusers model relative to the PVC root.
+    - name: model
+      value: 'stabilityai/stable-diffusion-2-1-base'
+    # The path on the PVC to the instance data image folder
+    - name: instance_dataset
+      value: 'data/example-dog'
+    # Prompt used to describe the instance images
+    - name: instance_prompt
+      value: 'a photo of sks dog'
+    # Prior preventions loss weight
+    - name: prior_loss_weight
+      value: 1.0
+    # The path on the PVC to the class data image folder
+    - name: class_dataset
+      value: 'generic/dogs-2'
+    - name: class_prompt
+      value: 'a photo of dog'
+    # Number of class images to generate if they don't already exist
+    - name: num_class_images
+      value: 100
+    # The path on the PVC to the folder where the finetuned model will be saved.
+    - name: output
+      value: 'finetunes/example-dog'
+    # The learning rate to use.
+    - name: lr
+      value: '2e-6'
+    # Learning rate scheduler
+    - name: lr_scheduler
+      value: "constant"
+    # Number of steps to use to warm up the leanring rate
+    - name: lr_warmup_steps
+      value: 0
+    # Batch size
+    - name: batch_size
+      value: '1'
+    - name: epochs
+      value: 4
+    # Seed for reproducibility
+    - name: seed
+      value: 42
+    # Checkpointing steps to save the model at.
+    - name: checkpointing_steps
+      value: 200
+    # How often to generate validation images
+    - name: image_log_steps
+      value: 100
+    # How many validation images to generate
+    - name: image_log_amount
+      value: 4
+    # Image resolution to train at
+    - name: resolution
+      value: '512'
+    # Run a serialization step after finetuning and deserialize it when starting the inference service.
+    # Provides significant performance increase in start up times of inference pods
+    - name: use_tensorizer
+      value: true
+    # Inference service configuration.
+    - name: run_inference
+      value: true
+    # Skip training and only run inference.
+    - name: inference_only
+      value: false
+    # CoreWeave region to default to; ORD1 has most of the GPUs.
+    - name: region
+      value: 'LAS1'
+    # Training GPU - A6000, 48gb VRAM
+    - name: trainer_gpu
+      value: 'A40'
+    - name: trainer_gpu_count
+      value: '1'
+    # Inference GPU - Quadro RTX 5000, 16gb VRAM
+    - name: inference_gpu
+      value: 'Quadro_RTX_5000'
+    # Container images -- generally, don't alter this.
+    - name: downloader_image
+      value: 'ghcr.io/wbrown/gpt_bpe/model_downloader'
+    - name: downloader_tag
+      value: 'e2ef65f'
+    - name: finetuner_image
+      value: 'navarrepratt/sd-finetuner'  # TODO: Update with CoreWeave hosted image
+    - name: finetuner_tag
+      value: 'df-14'
+    - name: serializer_image
+      value: 'navarrepratt/sd-serializer'  # TODO: Update with CoreWeave hosted image
+    - name: serializer_tag
+      value: 'df-14'
+    - name: inference_image
+      value: 'navarrepratt/sd-inference'  # TODO: Update with CoreWeave hosted image
+    - name: inference_tag
+      value: 'df-14-3'
+
+  templates:
+  - name: main
+    steps:
+    - - name: downloader
+        template: model-downloader
+        arguments:
+          parameters:
+            - name: model
+              value: "{{workflow.parameters.model}}"
+            - name: dest
+              value: "/{{workflow.parameters.pvc}}/models/{{workflow.parameters.model}}"
+            - name: type
+              value: "diffusers"
+        when: "{{workflow.parameters.inference_only}} == false"
+
+    - - name: finetuner
+        template: model-finetuner
+        arguments:
+          parameters:
+          - name: gpu_count
+            value: "{{workflow.parameters.trainer_gpu_count}}"
+          - name: run_name
+            value: "{{workflow.parameters.run_name}}"
+          - name: model
+            value: "/{{workflow.parameters.pvc}}/models/{{workflow.parameters.model}}"
+          - name: output_path
+            value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.output}}"
+          - name: instance_dataset
+            value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.instance_dataset}}"
+          - name: instance_prompt
+            value: "{{workflow.parameters.instance_prompt}}"
+          - name: class_dataset
+            value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.class_dataset}}"
+          - name: class_prompt
+            value: "{{workflow.parameters.class_prompt}}"
+          - name: num_class_images
+            value: "{{workflow.parameters.num_class_images}}"
+          - name: resolution
+            value: "{{workflow.parameters.resolution}}"
+          - name: prior_loss_weight
+            value: "{{workflow.parameters.prior_loss_weight}}"
+          - name: batch_size
+            value: "{{workflow.parameters.batch_size}}"
+          - name: learning_rate
+            value: "{{workflow.parameters.lr}}"
+          - name: lr_scheduler
+            value: "{{workflow.parameters.lr_scheduler}}"
+          - name: lr_warmup_steps
+            value: "{{workflow.parameters.lr_warmup_steps}}"
+          - name: epochs
+            value: "{{workflow.parameters.epochs}}"
+          - name: checkpointing_steps
+            value: "{{workflow.parameters.checkpointing_steps}}"
+          - name: image_log_steps
+            value: "{{workflow.parameters.image_log_steps}}"
+          - name: image_log_amount
+            value: "{{workflow.parameters.image_log_amount}}"
+        when: "{{workflow.parameters.inference_only}} == false"
+
+    - - name: serializer
+        template: serializer
+        arguments:
+          parameters:
+            - name: model
+              value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.output}}"
+            - name: output_path
+              value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.output}}"
+        when: "{{workflow.parameters.use_tensorizer}} == true && {{workflow.parameters.inference_only}} == false"
+
+    - - name: inference
+        template: model-inference-service
+        arguments:
+          parameters:
+            - name: command
+              value: '["python3", "/app/service.py", "--model-id", "/mnt/pvc/{{workflow.parameters.output}}"{{=workflow.parameters.use_tensorizer == "true" ? ", \"--tensorized\"" : ""}}]'
+        when: "{{workflow.parameters.run_inference}} == true || {{workflow.parameters.inference_only}} == true"
+
+  - name: model-downloader
+    inputs:
+      parameters:
+        - name: model
+        - name: dest
+        - name: type
+    retryStrategy:
+      limit: 1
+    # The model downloader runs as the nonroot user so the dataset folder in the PVC
+    # needs the correct permissions.
+    initContainers:
+      - name: dataset-perms
+        image: alpine:3.17
+        command: [ "/bin/sh" ]
+        args:
+          - "-c"
+          - "mkdir -p {{inputs.parameters.dest}};
+            chmod o+rw,g+s {{inputs.parameters.dest}}"
+        mirrorVolumeMounts: true
+    container:
+      image: "{{workflow.parameters.downloader_image}}:{{workflow.parameters.downloader_tag}}"
+      command: ["/ko-app/model_downloader"]
+      args: ["--model", "{{inputs.parameters.model}}",
+             "--dest", "{{inputs.parameters.dest}}",
+             "--type", "{{inputs.parameters.type}}"]
+      resources:
+        requests:
+          memory: 512Mi
+          cpu: "2"
+        limits:
+          memory: 512Mi
+          cpu: "2"
+      volumeMounts:
+        - mountPath: "/{{workflow.parameters.pvc}}"
+          name: "{{workflow.parameters.pvc}}"
+    volumes:
+      - name: "{{workflow.parameters.pvc}}"
+        persistentVolumeClaim:
+           claimName: "{{workflow.parameters.pvc}}"
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: topology.kubernetes.io/region
+              operator: In
+              values:
+              - "{{workflow.parameters.region}}"
+
+  - name: model-finetuner
+    inputs:
+      parameters:
+          - name: gpu_count
+          - name: run_name
+          - name: model
+          - name: output_path
+          - name: instance_dataset
+          - name: instance_prompt
+          - name: class_dataset
+          - name: class_prompt
+          - name: num_class_images
+          - name: resolution
+          - name: prior_loss_weight
+          - name: batch_size
+          - name: learning_rate
+          - name: lr_scheduler
+          - name: lr_warmup_steps
+          - name: epochs
+          - name: checkpointing_steps
+          - name: image_log_steps
+          - name: image_log_amount
+    container:
+      image: "{{workflow.parameters.finetuner_image}}:{{workflow.parameters.finetuner_tag}}"
+      command: [ "/usr/bin/python3",
+                 "-m", "accelerate.commands.launch",
+                 "--config", "/app/accelerate_config.yaml",
+                 "--num_processes", "1",
+                 "/app/finetuner.py" ]
+      args: [ "--run_name", "{{inputs.parameters.run_name}}",
+              "--model", "{{inputs.parameters.model}}",
+              "--gradient_checkpointing", "true",
+              "--instance_dataset", "{{inputs.parameters.instance_dataset}}",
+              "--class_dataset", "{{inputs.parameters.class_dataset}}",
+              "--instance_prompt", "{{inputs.parameters.instance_prompt}}",
+              "--class_prompt", "{{inputs.parameters.class_prompt}}",
+              "--num_class_images", "{{inputs.parameters.num_class_images}}",
+              "--output_path", "{{inputs.parameters.output_path}}",
+              "--prior_loss_weight", "{{inputs.parameters.prior_loss_weight}}",
+              "--resolution", "{{inputs.parameters.resolution}}",
+              "--batch_size", "{{inputs.parameters.batch_size}}",
+              "--lr", "{{inputs.parameters.learning_rate}}",
+              "--lr_scheduler", "{{inputs.parameters.lr_scheduler}}",
+              "--lr_warmup_steps", "{{inputs.parameters.lr_warmup_steps}}",
+              "--epochs", "{{inputs.parameters.epochs}}",
+              "--save_steps", "{{inputs.parameters.checkpointing_steps}}",
+              "--image_log_steps", "{{inputs.parameters.image_log_steps}}",
+              "--image_log_amount", "{{inputs.parameters.image_log_amount}}"]
+      tty: true
+      env:
+        - name: WANDB_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: wandb-token-secret
+              key: token
+        - name: HF_API_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: huggingface-token-secret
+              key: token
+        - name: PYTHONUNBUFFERED
+          value: "1"
+        - name: GPU_COUNT
+          value: "{{inputs.parameters.gpu_count}}"
+      resources:
+        requests:
+          memory: 32Gi
+          cpu: "8"
+        limits:
+          memory: 96Gi
+          cpu: "16"
+      volumeMounts:
+        - mountPath: "/{{workflow.parameters.pvc}}"
+          name: "{{workflow.parameters.pvc}}"
+    volumes:
+      - name: "{{workflow.parameters.pvc}}"
+        persistentVolumeClaim:
+           claimName: "{{workflow.parameters.pvc}}"
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: gpu.nvidia.com/class
+                  operator: In
+                  values:
+                    - "{{workflow.parameters.trainer_gpu}}"
+                - key: topology.kubernetes.io/region
+                  operator: In
+                  values:
+                    - "{{workflow.parameters.region}}"
+    podSpecPatch: |
+      containers:
+        - name: main
+          resources:
+            limits:
+              nvidia.com/gpu: "{{inputs.parameters.gpu_count}}"
+            requests:
+              nvidia.com/gpu: "{{inputs.parameters.gpu_count}}"
+
+  - name: serializer
+    inputs:
+      parameters:
+        - name: model
+        - name: output_path
+    container:
+      image: "{{workflow.parameters.serializer_image}}:{{workflow.parameters.serializer_tag}}"
+      command: ["python3", "/app/serialize.py"]
+      args:
+        - "--model-id={{inputs.parameters.model}}"
+        - "--save-path={{inputs.parameters.output_path}}"
+      resources:
+        requests:
+          cpu: 1
+          memory: 12Gi
+        limits:
+          cpu: 1
+          memory: 12Gi
+      volumeMounts:
+        - mountPath: "/{{workflow.parameters.pvc}}"
+          name: "{{workflow.parameters.pvc}}"
+    volumes:
+      - name: "{{workflow.parameters.pvc}}"
+        persistentVolumeClaim:
+           claimName: "{{workflow.parameters.pvc}}"
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: topology.kubernetes.io/region
+                  operator: In
+                  values:
+                    - "{{workflow.parameters.region}}"
+
+  - name: model-inference-service
+    inputs:
+      parameters:
+        - name: command
+    resource:
+      action: apply
+      successCondition: status.conditions.3.status == True
+      failureCondition: status.conditions.3.status == False
+      manifest: |
+        apiVersion: serving.kubeflow.org/v1beta1
+        kind: InferenceService
+        metadata:
+          name: inference-{{ workflow.parameters.run_name }}
+          annotations:
+            autoscaling.knative.dev/scaleToZeroPodRetentionPeriod: 20m
+        spec:
+          predictor:
+            minReplicas: 0
+            maxReplicas: 1
+            affinity:
+              nodeAffinity:
+                requiredDuringSchedulingIgnoredDuringExecution:
+                  nodeSelectorTerms:
+                    - matchExpressions:
+                        - key: gpu.nvidia.com/class
+                          operator: In
+                          values:
+                            - "{{workflow.parameters.inference_gpu}}"
+                        - key: topology.kubernetes.io/region
+                          operator: In
+                          values:
+                            - "{{workflow.parameters.region}}"
+            containers:
+              - name: kfserving-container
+                image: "{{workflow.parameters.inference_image}}:{{workflow.parameters.inference_tag}}"
+                imagePullPolicy: IfNotPresent
+                command: {{inputs.parameters.command}}
+                env:
+                  - name: STORAGE_URI
+                    value: pvc://{{ workflow.parameters.pvc }}/
+                resources:
+                  requests:
+                    nvidia.com/gpu: 1
+                    cpu: 4
+                    memory: 8Gi
+                  limits:
+                    nvidia.com/gpu: 1
+                    cpu: 12
+                    memory: 60Gi

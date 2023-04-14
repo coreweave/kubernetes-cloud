@@ -1,4 +1,4 @@
-diffusers==0.10.0
+diffusers==0.14.0
 numpy==1.23.4
 wandb==0.13.4
 torch
