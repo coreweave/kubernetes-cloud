@@ -46,7 +46,7 @@ From the Virtual Servers dashboard, you can configure a Virtual Server to your d
 Not every Virtual Server configuration option is exposed through the options displayed graphically on the configuration screen. For more fine-tuned control, or to save the Virtual Server configuration file to replicate additional Virtual Servers, you can view the generated YAML chart under the **YAML** tab.
 {% endhint %}
 
-![The Virtual Server configuration screen in the CoreWeave Cloud UI](<../../docs/.gitbook/assets/image (69).png>)
+![The Virtual Server configuration screen in the CoreWeave Cloud UI](<../../docs/.gitbook/assets/image (69) (3).png>)
 
 ### Configuration
 
@@ -56,7 +56,7 @@ To learn about configure your Virtual Server, see [Virtual Server Configuration 
 
 Once your Virtual Server has begun deploying, you will be automatically redirected to the **status page**. From here, the Virtual Server can be **restarted**, **upgraded** (or changed), **deleted**, or **stopped**.
 
-![Virtual Server state controls](<../../docs/.gitbook/assets/image (49) (1) (1).png>)
+![Virtual Server state controls](<../../docs/.gitbook/assets/image (49) (1).png>)
 
 ### Virtual terminal
 

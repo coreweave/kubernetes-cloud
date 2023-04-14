@@ -24,7 +24,7 @@ Attaching a public IP to the Virtual Server will allow it to be accessible throu
 
 
 
-!["Attach IP" option in the Cloud UI.](<../../.gitbook/assets/image (2) (1) (1) (1).png>)
+!["Attach IP" option in the Cloud UI.](<../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1).png>)
 
 #### Public networking **via direct attach Load Balancer IP**
 
@@ -96,7 +96,7 @@ udp:
 
 Floating IPs allow the provisioning of stable IP addresses, assigned from the load balancer IP of each Service. These allow for custom DNS configurations and predictable addressing.
 
-![The floatingIPs option in the YAML manifest.](<../../.gitbook/assets/image (7) (2).png>)
+![The floatingIPs option in the YAML manifest.](<../../.gitbook/assets/image (7) (2) (1).png>)
 
 Floating IPs can be specified in the YAML manifest in a YAML list:
 
@@ -232,7 +232,7 @@ VPC names are configured inside the `network.vpcs` stanza inside this manifest:
 
 
 
-<figure><img src="../../.gitbook/assets/image (2) (4).png" alt="The networking.vpcs stanza in the Cloud UI YAML manifest editor"><figcaption><p>The <code>networking.vpcs</code> stanza in the Cloud UI YAML manifest editor</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (4) (1).png" alt="The networking.vpcs stanza in the Cloud UI YAML manifest editor"><figcaption><p>The <code>networking.vpcs</code> stanza in the Cloud UI YAML manifest editor</p></figcaption></figure>
 
 
 

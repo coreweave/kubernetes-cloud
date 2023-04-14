@@ -64,7 +64,7 @@ To install the Docker Registry application, first [log in to your CoreWeave Clou
 
 From the Catalog homepage, search for `docker`. Then, select the version of the Docker Registry application that you'd like to deploy.
 
-<figure><img src="../.gitbook/assets/image (8) (1).png" alt="Screenshot of docker-registry in the applications Catalog"><figcaption><p>Locate the docker-registry application in the applications Catalog</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (8) (4).png" alt="Screenshot of docker-registry in the applications Catalog"><figcaption><p>Locate the docker-registry application in the applications Catalog</p></figcaption></figure>
 
 Clicking on the application's card will open its deployment page, which contains further information about the application itself. Click the **Deploy** button to navigate to the application's configuration screen, which is used to configure the instance.
 
@@ -142,7 +142,7 @@ $ docker push <URL>/<APP NAME>:<TAG VERSION>
 
 For the purposes of this example walkthrough, the application requires backend storage. [Create a storage volume](../storage/storage/using-storage-cloud-ui.md#creating-storage-volumes) from the Cloud UI, and give it a name that will be easy to associate with the application later.
 
-<figure><img src="../.gitbook/assets/image (76).png" alt=""><figcaption><p>In this example, a storage volume with the name <code>kobold-ai</code> is created</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption><p>In this example, a storage volume with the name <code>kobold-ai</code> is created</p></figcaption></figure>
 
 {% hint style="warning" %}
 **Important**

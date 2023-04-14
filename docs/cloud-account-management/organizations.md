@@ -8,13 +8,13 @@ description: >-
 
 CoreWeave Cloud allows you to share all of your Cloud resources with the rest of your team by inviting new users to join your organization via [the organization management page](https://cloud.coreweave.com/organization):
 
-<figure><img src="../.gitbook/assets/image (1) (2) (1) (1).png" alt="Screenshot of the organization management page"><figcaption><p>The organization management page</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (2) (1).png" alt="Screenshot of the organization management page"><figcaption><p>The organization management page</p></figcaption></figure>
 
 ## Invite users
 
 Inviting a user is simple. From the Organization Management page in CoreWeave Cloud, click the **Invite a User** button. A form will appear prompting for the email of the person you'd like to invite. Enter this address, then click **Send Invite.**
 
-<figure><img src="../.gitbook/assets/image (142).png" alt="Screenshot of the user invite modal"><figcaption><p>The user invite modal</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (84) (1).png" alt="Screenshot of the user invite modal"><figcaption><p>The user invite modal</p></figcaption></figure>
 
 After a user accepts their invitation and completes the signup process, they will be added to the organization, and will show up as an accepted user. They will now have full access to your namespace and will have the ability to allocate storage, create a deployment, and provision a Virtual Server. To remove a user from your organization completely, please [contact support](https://cloud.coreweave.com/contact).
 

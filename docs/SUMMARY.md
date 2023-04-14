@@ -139,7 +139,7 @@
   * [Argo Workflows](machine-learning-and-ai/training/argo-workflows/README.md)
     * [Get Started with Workflows](machine-learning-and-ai/training/argo-workflows/argo.md)
     * [Fine-tuning](machine-learning-and-ai/training/argo-workflows/fine-tuning/README.md)
-      * [Fine-tune Stable Diffusion Models with CoreWeave](machine-learning-and-ai/training/argo-workflows/fine-tuning/finetuning-image-generation-models.md)
+      * [Fine-tune Stable Diffusion Models with CoreWeave Cloud](machine-learning-and-ai/training/argo-workflows/fine-tuning/fine-tune-stable-diffusion-models-with-coreweave-cloud.md)
       * [Fine-tune GPT Models with CoreWeave](machine-learning-and-ai/training/argo-workflows/fine-tuning/finetuning-machine-learning-models.md)
       * [Fine-tune GPT-NeoX-20B with Argo Workflows](compass/distributed-training-with-kubeflow-training-operators/finetune-gpt-neox-20b-with-argo-workflows.md)
 

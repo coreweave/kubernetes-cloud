@@ -103,7 +103,7 @@ The new tunnel interface will be listed under the **Physical Interface** you sel
 
 Select the **Tunnel Interface**, then click **Edit**.
 
-<figure><img src="../../../../../.gitbook/assets/interface1.png" alt=""><figcaption><p>The network interfaces configuration menu</p></figcaption></figure>
+<figure><img src="../../../../../.gitbook/assets/interface1 (1).png" alt=""><figcaption><p>The network interfaces configuration menu</p></figcaption></figure>
 
 Clicking **Edit** will open the **Edit Interface** menu. To configure the interface, refer to the table as well as the screenshots below.
 
