@@ -108,8 +108,6 @@ To use GRPC instead of HTTP, set\
 in the `download-weights-job-gpt-neox.yml` configuration file.
 {% endhint %}
 
-
-
 ## Model job download
 
 To deploy the job to download the model to the PVC, navigate to the `kubernetes-cloud/online-inference/fastertransformer/` directory, then run:
@@ -119,7 +117,7 @@ $ kubectl apply -f download-weights-job-gptj.yml
 ```
 
 \
-This job:
+This job accomplishes the following:
 
 * downloads the GPT-J weights into the PVC at `/mnt/pvc/models/gptj-store`
 * installs the required packages to convert them to the FasterTransformer format
@@ -127,16 +125,13 @@ This job:
 * passes the `config.pbtxt` file to set important parameters, such as:
   * `tensor_para_size=1`
   * `pipeline_para_size=1`(1 GPU per 1 Pod), and
-  * `model_transaction_policy { decoupled: False }`, which allows for streaming if set to `True`.\
-
+  * `model_transaction_policy { decoupled: False }`, which allows for streaming if set to `True`.
 
 {% hint style="info" %}
 **Note**
 
 The model is quite large at \~`23Gi`. It may take around 15-20 minutes for the download job to complete.
 {% endhint %}
-
-
 
 To check if the model has finished downloading, wait for the job to be in a `Completed` state:
 
@@ -147,15 +142,11 @@ NAME                        COMPLETIONS   DURATION      AGE
 gptj-download                 1/1            24m        1h
 ```
 
-
-
 Or, follow the job logs to monitor progress:
 
 ```bash
 kubectl logs -l job-name=gptj-download --follow
 ```
-
-####
 
 ### Inference Service
 
@@ -165,26 +156,22 @@ kubectl logs -l job-name=gptj-download --follow
 To use GRPC or HTTP, ensure that the port is configured correctly in the file `ft-inference-service-gptj.yml`. Please uncomment the port you would like to use. **Use only one port.**
 {% endhint %}
 
-
-
 Once the model is downloaded, the `InferenceService` can be deployed by invoking:
 
 ```bash
 $ kubectl apply -f ft-inference-service-gptj.yml
 ```
 
-\
 Due to the size of the model, loading into GPU memory can take around 5-10 minutes. To monitor the progress of this, you can wait to see the KServe workers start in the pod logs by invoking:
 
 ```bash
 $ kubectl logs -f -l serving.kubeflow.org/inferenceservice=fastertransformer-triton-gptj kfserving-container
 ```
 
-\
 Alternatively, you can wait for the `InferenceService` to show that `READY` is `True`, and that it has a URL, such as in this example:
 
 ```bash
-$ kubectl get isvc
+$ kubectl get ksvc
 
 NAME                             URL                                                                                                          READY   PREV   LATEST   PREVROLLEDOUTREVISION   LATESTREADYREVISION                                        AGE
 fastertransformer-triton-gptj     http://fastertransformer-triton-gptj.tenant-demo.knative.chi.coreweave.com                                  True           100                              fastertransformer-triton-gptj-predictor-default-00001      2d5h
@@ -200,8 +187,6 @@ To use GRPC instead of HTTP, set\
 in the `download-weights-job-gpt-neox.yml` configuration file.
 {% endhint %}
 
-
-
 ## Model job download
 
 To deploy the job to download the model to the PVC, navigate to the `kubernetes-cloud/online-inference/fastertransformer/` directory, then run:
@@ -210,8 +195,7 @@ To deploy the job to download the model to the PVC, navigate to the `kubernetes-
 $ kubectl apply -f download-weights-job-gpt-neox.yml
 ```
 
-\
-This job:
+This job accomplishes the following:
 
 * downloads the GPT-NeoX weights into the PVC at `/mnt/pvc/models/gpt-neox`
 * installs the required packages to convert them to the FasterTransformer format
@@ -221,15 +205,11 @@ This job:
   * `pipeline_para_size=1`(1 GPU per 1 Pod), and
   * `model_transaction_policy { decoupled: False }`, which allows for streaming if set to `True`.
 
-
-
 {% hint style="info" %}
 **Note**
 
 The model is quite large at \~39Gi (mirror to pull from Europe), and may take around 3-5 hours for the download and conversion job to complete.
 {% endhint %}
-
-
 
 To check if the model has finished downloading, wait for the job to be in a `Completed` state:
 
@@ -240,15 +220,11 @@ NAME                           COMPLETIONS   DURATION      AGE
 gpt-neox-download                 1/1            24m        1h
 ```
 
-
-
 Or, follow the job logs to monitor progress:
 
 ```bash
 $ kubectl logs -l job-name=gpt-neox-download --follow
 ```
-
-####
 
 ### Inference Service
 
@@ -258,26 +234,22 @@ $ kubectl logs -l job-name=gpt-neox-download --follow
 To use GRPC or HTTP, ensure that the port is configured correctly in the file `ft-inference-service-neox.yml`. Please uncomment the port you would like to use. **Use one port.**
 {% endhint %}
 
-
-
 Once the model is downloaded, the `InferenceService` can be deployed by invoking:
 
 ```bash
 $ kubectl apply -f ft-inference-service-neox.yml
 ```
 
-\
 Due to the size of the model, loading into GPU memory can take around 5-10 minutes. To monitor the progress of this, you can wait to see the KServe workers start in the pod logs by invoking:
 
 ```bash
 $ kubectl logs -f -l serving.kubeflow.org/inferenceservice=fastertransformer-triton-neox -c kfserving-container
 ```
 
-\
 Alternatively, you can wait for the `InferenceService` to show that `READY` is `True`, and that it has a URL:
 
 ```bash
-$ kubectl get isvc
+$ kubectl get ksvc
 
 NAME                             URL                                                                                                          READY   PREV   LATEST   PREVROLLEDOUTREVISION   LATESTREADYREVISION                                      AGE
 fastertransformer-triton-neox     http://fastertransformer-triton-neox.tenant-demo.knative.chi.coreweave.com     True           100                              fastertransformer-triton-neox-predictor-default-00001     5h54m
