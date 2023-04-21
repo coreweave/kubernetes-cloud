@@ -666,7 +666,7 @@ if is_main_process():
     logger.info(f"CONTEXT LENGTH: {args.context_size} tokens")
     logger.info(f"SHUFFLE: {not args.no_shuffle}")
     logger.info(f"EPOCHS {args.epochs}")
-    logger.info(f"CHECKPOINT STEPS: {args.checkpoint_steps}")
+    logger.info(f"CHECKPOINT STEPS: {args.save_steps}")
     logger.info(f"TOKENIZER: {tokenizer}")
     logger.info(f"TOKENIZER SPECIAL TOKENS: {tokenizer.special_tokens_map}")
     logger.info(f"TRAIN_RATIO: {args.train_ratio}")
