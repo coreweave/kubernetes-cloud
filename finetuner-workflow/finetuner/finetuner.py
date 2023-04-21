@@ -462,6 +462,43 @@ class ModifiedTrainer(Trainer):
         return results
 
 
+class PerformanceCallback(TrainerCallback):
+    def __init__(self) -> None:
+        super().__init__()
+        self.start_time = None
+        self.opt_step = None
+        self.ff_step = None
+
+    def on_step_begin(self, args, state, control, **kwargs):
+        if self.start_time is None:
+            self.start_time = time.time()
+            self.opt_step = 0
+            self.ff_step = 0
+    
+    def on_substep_end(self, args, state, control, **kwargs):
+        self.ff_step = time.time()
+    
+    def on_step_end(self, args, state, control, **kwargs):
+        self.opt_step = time.time()
+        if is_main_process():
+            # report to wandb
+            rank_samples_per_second = args.per_device_train_batch_size * args.gradient_accumulation_steps * (1 / (self.opt_step - self.start_time))
+            world_samples_per_second = torch.distributed.get_world_size() * rank_samples_per_second
+            wandb.log(
+                {
+                    "perf/opt_time": self.opt_step - self.ff_step,
+                    "perf/gas_time": self.ff_step - self.start_time,
+                    "perf/total_time_per_step": self.opt_step - self.start_time,
+                    "perf/rank_samples_per_second": rank_samples_per_second,
+                    "perf/world_samples_per_second": world_samples_per_second,
+                },
+                step=state.global_step,
+            )
+        self.start_time = None
+        self.opt_step = None
+        self.ff_step = None
+
+
 class ModelSampler(TrainerCallback):
     """
     Test the model on one or more prompts every so often and report to the
@@ -835,12 +872,16 @@ deepspeed.utils.logger.setLevel(logging.WARNING)
 os.makedirs(args.output_path, exist_ok=True)
 os.chdir(args.output_path)
 
+callbacks = [
+    PerformanceCallback()
+]
+
 # Set up our prompt testing callback if we were given a prompt file.
 if args.prompt_file:
     if args.prompt_every == -1:
         args.prompt_every = args.save_steps
 
-    sampler_callbacks = [
+    callbacks += [
         ModelSampler(
             args.prompt_file,
             tokenizer,
@@ -853,7 +894,7 @@ if args.prompt_file:
         )
     ]
 else:
-    sampler_callbacks = None
+    callbacks = None
 
 if is_main_process():
     logger.info(f"PROMPT FILE: {args.prompt_file}")
@@ -893,7 +934,7 @@ trainer = ModifiedTrainer(
     train_dataset=train_dataset,
     eval_dataset=val_dataset,
     data_collator=collector,
-    callbacks=sampler_callbacks,
+    callbacks=callbacks,
 )
 
 # Finally, do our training!
