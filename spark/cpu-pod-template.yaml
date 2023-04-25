@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cpu-job
+spec:
+  terminationGracePeriodSeconds: 10
+  containers:
+    - name: cpu-job
+      volumeMounts:
+        - mountPath: /dev/shm
+          name: dshm
+        - name: spark-pvc
+          mountPath: /mnt/pvc
+          readOnly: false
+
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: topology.kubernetes.io/region
+                operator: In
+                values:
+                  - "LGA1"
+              - key: node.coreweave.cloud/cpu
+                operator: In
+                values:
+                  - amd-epyc-rome
+                  - amd-epyc-milan
+                  - intel-xeon-v3
+                  - intel-xeon-v4
+  volumes:
+    - name: dshm
+      emptyDir:
+        medium: Memory
+    - name: spark-pvc
+      persistentVolumeClaim:
+        claimName: spark-pvc
+        readOnly: false
+  restartPolicy: Always

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: spark-pvc
+spec:
+  storageClassName: shared-nvme-lga1
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: "400Gi"
