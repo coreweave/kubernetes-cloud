@@ -4,10 +4,10 @@ metadata:
   name: jupyter-pv-claim
 spec:
   # Available storage classes at time of writing are
-  # block-nvme-ord1 - Chicago - NVMe Storage with 3 Replicas
-  # block-hdd-ord1 - Chicago - HDD Storage with 3 Replicas
+  # block-nvme-lga1 - New York - NVMe Storage with 3 Replicas
+  # block-hdd-lga1 - New York - HDD Storage with 3 Replicas
   # Other data centers currently available [ewr1, las1]
-  storageClassName: block-nvme-ord1
+  storageClassName: block-nvme-lga1
   accessModes:
     - ReadWriteOnce
   resources:

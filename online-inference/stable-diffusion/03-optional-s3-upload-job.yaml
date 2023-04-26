@@ -1,0 +1,61 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: stable-diffusion-uploader
+spec:
+  template:
+    spec:
+      containers:
+      - name: model-uploader
+        image: harubaru1/s3cmd:4
+        imagePullPolicy: IfNotPresent
+        command: ["/bin/sh", "-c"]
+        args:
+          - >
+            /usr/bin/s3cmd
+            --access_key=${AWS_KEY}
+            --secret_key=${AWS_SECRET}
+            put --recursive --acl-public
+            /mnt/models/CompVis/stable-diffusion-v1-4
+            s3://<BUCKET URL>/
+        env:
+        - name: AWS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: s3-access-key
+              key: access_key
+        - name: AWS_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: s3-secret-key
+              key: secret_key
+        - name: AWS_HOST
+          valueFrom:
+            secretKeyRef:
+              name: s3-host-url
+              key: url
+        volumeMounts:
+          - name: model-cache
+            mountPath: /mnt/models
+        resources:
+          requests:
+            cpu: 1
+            memory: 2Gi 
+          limits:
+            cpu: 1
+            memory: 2Gi 
+      volumes:
+        - name: model-cache
+          persistentVolumeClaim:
+            claimName: stable-diffusion-model-cache
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: topology.kubernetes.io/region
+                operator: In
+                values: 
+                - ORD1
+      restartPolicy: Never
+  backoffLimit: 2

@@ -3,32 +3,32 @@
 # automated workflow.
 import json
 import gc
-import resource
 import mmap
 
 import numpy
-import psutil
-import pynvml
 import os
 import sys
-import struct
 import time
 import math
+from decimal import Decimal
+import random
 import torch
 from torch import Tensor
-from torch.utils.data import Dataset, random_split, RandomSampler
+from torch.utils.data import Dataset, random_split, Subset
 import argparse
 import pathlib
 from typing import Tuple, List
 import socket
-from contextlib import closing, contextmanager
+from contextlib import closing
 import logging
-import validators
 import deepspeed
-from deepspeed.runtime.zero.stage_1_and_2 import estimate_zero2_model_states_mem_needs_all_live;
-from deepspeed.runtime.zero.stage3 import estimate_zero3_model_states_mem_needs_all_live;
+from deepspeed.runtime.zero.stage_1_and_2 import estimate_zero2_model_states_mem_needs_all_live
+from deepspeed.runtime.zero.stage3 import estimate_zero3_model_states_mem_needs_all_live
 from collections import OrderedDict
 from tensorizer import TensorDeserializer, utils, stream_io
+
+from utils import *
+
 
 def find_free_port():
     with closing(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) as s:
@@ -53,16 +53,12 @@ from transformers import (
     TrainerCallback,
     PreTrainedTokenizer,
 )
-from transformers.modeling_utils import no_init_weights, PreTrainedModel
-
-try:
-    pynvml.nvmlInit()
-except pynvml.nvml.NVMLError_LibraryNotFound:
-    pynvml = None
+from transformers.modeling_utils import PreTrainedModel
 
 device = "cpu"
 if torch.cuda.is_available():
     device = "cuda"
+
 
 parser = argparse.ArgumentParser(description="Simple Text Model Finetuner")
 parser.add_argument(
@@ -89,9 +85,9 @@ parser.add_argument(
 )
 parser.add_argument(
     "--train_ratio",
-    type=float,
+    type=Decimal,
     help="ratio of train to value from dataset",
-    default=0.9,
+    default=Decimal("0.9"),
 )
 parser.add_argument(
     "--eot",
@@ -273,7 +269,7 @@ if not args.no_resume:
         lastCheckpoint = sorted(
             output_dir_list, key=lambda x: int(x.split("-")[1])
         )[-1]
-    except:
+    except Exception:
         lastCheckpoint = None
 else:
     lastCheckpoint = None
@@ -312,6 +308,19 @@ else:
         project=args.project_id, name=args.run_name, mode="disabled"
     )
 
+# we evaluate if args.model is already tensorized under a public s3 bucket.
+try:
+    if not args.tensorizer_uri:
+        model_id = '/'.join(args.model.split('/')[-2:])
+        stream_io.CURLStreamFile(
+            uri=f"https://accel-object.ord1.coreweave.com/tensorized/{model_id}/model.tensors"
+        ).read(1)
+        uri_dtype = 'fp16/' if args.fp16 else ''
+        args.model = model_id
+        args.tensorizer_uri=f"s3://tensorized/{args.model}/{uri_dtype}model.tensors"
+except OSError:
+    pass
+
 # Set up our tokenizer.
 tokenizer: PreTrainedTokenizer
 try:
@@ -346,26 +355,6 @@ except Exception as e:
     logger.error(e)
     sys.exit(1)
 
-@contextmanager
-def no_init():
-    # `no_init_weights` doesn't suppress initialization of some layers by default
-    # See https://github.com/huggingface/transformers/issues/18505
-    def dummy(self):
-        return
-
-    modules = [torch.nn.Linear, torch.nn.Embedding, torch.nn.LayerNorm]
-    original = {}
-    for mod in modules:
-        original[mod] = mod.reset_parameters
-        mod.reset_parameters = dummy
-
-    try:
-        with no_init_weights():
-            yield
-    finally:
-        for mod in modules:
-            mod.reset_parameters = original[mod]
-
 
 def estimate_batch_size(divisor: float = 1.0) -> int:
     """
@@ -376,61 +365,17 @@ def estimate_batch_size(divisor: float = 1.0) -> int:
     """
     gc.collect()
     new_bs = 1
-    if torch.cuda.is_available() and pynvml:
+    if torch.cuda.is_available():
         torch.cuda.synchronize()
         torch.cuda.empty_cache()
-        cudadev = torch.cuda.current_device()
-        used_gpu = torch.cuda.memory_allocated()
-        nvml_device = pynvml.nvmlDeviceGetHandleByIndex(cudadev)
-        gpu_info = pynvml.nvmlDeviceGetMemoryInfo(nvml_device)
-        gpu_free = gpu_info.free
-        new_bs = int(math.ceil(gpu_free / (used_gpu * divisor)))
-    logger.info(get_gpu_ram())
+    mem = MemoryUsage.now()
+    if None not in (mem.gpu, mem.torch):
+        new_bs = math.ceil(mem.gpu.free / (mem.torch.used * divisor))
+    logger.info(mem)
     logger.info(f"Setting batch size to {new_bs}")
     # if new_bs == 1:
     #    gc.set_threshold(10)
     return new_bs
-
-
-def get_gpu_ram() -> str:
-    """
-    Returns memory usage statistics for the CPU, GPU, and Torch.
-
-    :return:
-    """
-    gpu_str = ""
-    torch_str = ""
-    try:
-        cudadev = torch.cuda.current_device()
-        nvml_device = pynvml.nvmlDeviceGetHandleByIndex(cudadev)
-        gpu_info = pynvml.nvmlDeviceGetMemoryInfo(nvml_device)
-        gpu_total = gpu_info.total >> 20
-        gpu_free = gpu_info.free >> 20
-        gpu_used = gpu_info.used >> 20
-        gpu_str = (
-            f"GPU: (U: {gpu_used:,}MiB F: {gpu_free:,}MiB T: {gpu_total:,}MiB) "
-        )
-        torch_reserved_gpu = torch.cuda.memory.memory_reserved() >> 20
-        torch_reserved_max = torch.cuda.memory.max_memory_reserved() >> 20
-        torch_used_gpu = torch.cuda.memory_allocated() >> 20
-        torch_max_used_gpu = torch.cuda.max_memory_allocated() >> 20
-        torch_str = (
-            f"TORCH: (R: {torch_reserved_gpu:,}MiB/"
-            f"{torch_reserved_max:,}MiB, "
-            f"A: {torch_used_gpu:,}MiB/{torch_max_used_gpu:,}MiB)"
-        )
-    except AssertionError:
-        pass
-    cpu_maxrss = (
-        resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
-        + resource.getrusage(resource.RUSAGE_CHILDREN).ru_maxrss
-    ) >> 10
-    cpu_vmem = psutil.virtual_memory()
-    cpu_free = cpu_vmem.free >> 20
-    return (
-        f"CPU: (maxrss: {cpu_maxrss:,}MiB F: {cpu_free:,}MiB) "
-        f"{gpu_str}{torch_str}"
-    )
 
 
 class ModifiedTrainer(Trainer):
@@ -455,8 +400,8 @@ class ModifiedTrainer(Trainer):
         self.report_idx = getattr(self, "report_idx", 0) + 1
         if self.report_idx % (2 * self.args.gradient_accumulation_steps) == 0:
             if is_main_process():
-                print(f"\nLOSS: {loss:.3f} {get_gpu_ram()}", file=sys.stderr,
-                      flush=True)
+                print(f"\nLOSS: {loss:.3f} {MemoryUsage.now()}",
+                      file=sys.stderr, flush=True)
                 sys.stderr.flush()
 
         return results
@@ -553,38 +498,33 @@ class ModelSampler(TrainerCallback):
             )
             model.eval()
             sys.stderr.flush()
-            with open(self.prompt_file, "rb") as f:
-                prompt_contents = f.read().decode("utf-8").split("\n")
-                prompts = [
-                    i.rstrip("\n").replace("\\n", "\n") for i in prompt_contents
-                ]
-                for prompt in prompts:
-                    if not prompt:
-                        continue
-                    main_process_print("=============================")
-                    main_process_print(f"PROMPT: {prompt}")
-                    start = time.time()
-                    outputs = evaluate(
-                        prompt,
-                        self.generate_tokens,
-                        self.num_samples,
-                        model,
-                        self.tokenizer,
+            with open(self.prompt_file, "r", encoding="utf-8") as f:
+                prompts = [line.rstrip("\n").replace("\\n", "\n") for line in f]
+            for prompt in filter(None, prompts):
+                main_process_print("=============================")
+                main_process_print(f"PROMPT: {prompt}")
+                start = time.time()
+                outputs = evaluate(
+                    prompt,
+                    self.generate_tokens,
+                    self.num_samples,
+                    model,
+                    self.tokenizer,
+                )
+                end = time.time()
+                main_process_print(f"INFERENCE TIME: {end - start:.2f}s")
+                for output_text in outputs:
+                    self.table_data.append(
+                        [
+                            self.run_name,
+                            state.global_step,
+                            curr_tokens_step,
+                            prompt,
+                            output_text,
+                        ]
                     )
-                    end = time.time()
-                    main_process_print(f"INFERENCE TIME: {end - start:.2f}s")
-                    for output_text in outputs:
-                        self.table_data.append(
-                            [
-                                self.run_name,
-                                state.global_step,
-                                curr_tokens_step,
-                                prompt,
-                                output_text,
-                            ]
-                        )
-                        main_process_print("-----------------------------")
-                        main_process_print(f"RESPONSE: {output_text}")
+                    main_process_print("-----------------------------")
+                    main_process_print(f"RESPONSE: {output_text}")
             # it is still useful to collect evaluations on other ranks in their
             # respective wandb runs.
             wandb.log(
@@ -652,7 +592,7 @@ class TokenizedDataset(Dataset):
 
 
 # Inform the user of host, and various versions -- useful for debugging issues.
-torch.cuda.set_device(args.local_rank)
+torch.cuda.set_device(args.local_rank if args.local_rank != -1 else 0)
 if is_main_process():
     logger.info(f"RUN_NAME: {args.run_name}")
     logger.info(f"PROJECT ID {args.project_id}")
@@ -660,16 +600,15 @@ if is_main_process():
     logger.info(f"CUDA: {torch.version.cuda}")
     logger.info(f"TORCH: {torch.__version__}")
     logger.info(f"TRANSFORMERS: {transformers.__version__}")
-    logger.info(get_gpu_ram())
+    logger.info(MemoryUsage.now())
     logger.info(f"MODEL: {args.model}")
-    logger.info(f"TRAIN_RATIO: {args.train_ratio}")
+    logger.info(f"TRAIN RATIO: {args.train_ratio}")
     logger.info(f"CONTEXT LENGTH: {args.context_size} tokens")
     logger.info(f"SHUFFLE: {not args.no_shuffle}")
     logger.info(f"EPOCHS {args.epochs}")
     logger.info(f"CHECKPOINT STEPS: {args.save_steps}")
     logger.info(f"TOKENIZER: {tokenizer}")
     logger.info(f"TOKENIZER SPECIAL TOKENS: {tokenizer.special_tokens_map}")
-    logger.info(f"TRAIN_RATIO: {args.train_ratio}")
     logger.info(f"PROMPT FILE: {args.prompt_file}")
     logger.info(f"PROMPT EVERY: {args.prompt_every}")
     logger.info(f"PROMPT SAMPLES: {args.prompt_samples}")
@@ -682,20 +621,29 @@ if is_main_process():
 # Set random seed, for ML research purposes and reproducibility, it's important
 # that we set this to a consistent value.
 torch.manual_seed(args.seed)
+random.seed(args.seed)
+numpy.random.seed(args.seed)
 
 # Set up our dataset from our tokenized data files, and split into training
 # dataset and values dataset -- values dataset is used to test the outcome
 # and determine our loss rate.
 dataset = TokenizedDataset(args.dataset, context_length=args.context_size)
-train_size = int(args.train_ratio * float(len(dataset)))
+train_size = int(args.train_ratio * len(dataset))
+val_size = len(dataset) - train_size
 
 if args.no_shuffle:
-    train_dataset = dataset
-    val_dataset = RandomSampler(dataset, num_samples=len(dataset) - train_size)
-else:
-    train_dataset, val_dataset = random_split(
-        dataset, [train_size, len(dataset) - train_size]
+    # Pick a random contiguous subrange as the val_dataset
+    val_dataset_start = random.randrange(len(dataset) - val_size)
+    val_dataset_end = val_dataset_start + val_size
+    # The train_dataset is everything before joined with everything after
+    # the section dedicated to val_dataset, preserving the original ordering
+    train_dataset = Subset(
+        dataset,
+        (*range(val_dataset_start), *range(val_dataset_end, len(dataset)))
     )
+    val_dataset = Subset(dataset, range(val_dataset_start, val_dataset_end))
+else:
+    train_dataset, val_dataset = random_split(dataset, (train_size, val_size))
 
 # Determine if we train in fp32 or fp16 mode.
 trainer_fp16_args = {}
@@ -720,19 +668,6 @@ model_args = {"eos_token_id": tokenizer.eos_token_id,
             "cache_dir": args.cache,
             "use_cache": False,
             "low_cpu_mem_usage": True}
-
-# we evaluate if args.model is already tensorized under a public s3 bucket.
-try:
-    if not args.tensorizer_uri:
-        model_id = '/'.join(args.model.split('/')[-2:])
-        stream_io.CURLStreamFile(
-            uri=f"https://accel-object.ord1.coreweave.com/tensorized/{model_id}/model.tensors"
-        ).read(1)
-        uri_dtype = 'fp16/' if args.fp16 else ''
-        args.model = model_id
-        args.tensorizer_uri=f"s3://tensorized/{args.model}/{uri_dtype}model.tensors"
-except OSError:
-    pass
 
 try:
     if args.tensorizer_uri:
@@ -764,10 +699,9 @@ try:
     sys.stdout.flush()
 except Exception as e:
     logger.error(e)
-    logger.error(get_gpu_ram())
+    logger.error(MemoryUsage.now())
     sys.exit(1)
-logger.info(get_gpu_ram())
-
+logger.info(MemoryUsage.now())
 
 
 @torch.no_grad()
@@ -787,9 +721,9 @@ def evaluate(
     """
     output_texts: List[str] = []
     input_tokens: Tensor = (
-        torch.LongTensor(tokenizer.encode(prompt)).unsqueeze(0).to(device)
+        torch.LongTensor(eval_tokenizer.encode(prompt)).unsqueeze(0).to(device)
     )
-    attention_mask: Tensor = input_tokens != tokenizer.pad_token_id
+    attention_mask: Tensor = input_tokens != eval_tokenizer.pad_token_id
     max_length = input_tokens.shape[1] + generate_tokens
     generated_tokens = eval_model.generate(
         input_tokens,
@@ -812,6 +746,7 @@ def evaluate(
         output_texts.append(output_text)
 
     return output_texts
+
 
 model.config.gradient_checkpointing = True
 model.resize_token_embeddings(len(tokenizer))
@@ -841,7 +776,8 @@ if is_main_process():
 # Rewrite our `ds_config` to match arguments passed in.
 ds_args = {}
 if device != "cpu":
-    ds_config = json.load(open(args.ds_config))
+    with open(args.ds_config) as ds_config_file:
+        ds_config = json.load(ds_config_file)
     if "zero_optimization" in ds_config:
         ds_config["zero_optimization"]["stage"] = args.zero_stage
     ds_args["deepspeed"] = ds_config
@@ -865,8 +801,10 @@ if estimate_fn:
                 num_nodes=1,
                 num_gpus_per_node=torch.cuda.device_count())
 
-# The latest deepspeed logging is pretty obnoxious, so we disable it.
-deepspeed.utils.logger.setLevel(logging.WARNING)
+# The latest deepspeed logging is pretty obnoxious, so we disable it
+# unless debug-level logging is requested.
+if args.log_level.upper() != "DEBUG":
+    deepspeed.utils.logger.setLevel(logging.WARNING)
 
 # Change our current directory due to some packages assumptions.
 os.makedirs(args.output_path, exist_ok=True)
@@ -896,9 +834,6 @@ if args.prompt_file:
 else:
     callbacks = None
 
-if is_main_process():
-    logger.info(f"PROMPT FILE: {args.prompt_file}")
-
 # Parametrize our training based on provided arguments.
 training_args = TrainingArguments(
     output_dir=output_dir,
@@ -921,11 +856,14 @@ training_args = TrainingArguments(
     **trainer_fp16_args,
 )
 
-collector = lambda data: {
-    "input_ids": torch.stack([f[0] for f in data]),
-    "attention_mask": torch.stack([f[1] for f in data]),
-    "labels": torch.stack([f[0] for f in data]),
-}
+
+def collector(data):
+    return {
+        "input_ids": torch.stack([f[0] for f in data]),
+        "attention_mask": torch.stack([f[1] for f in data]),
+        "labels": torch.stack([f[0] for f in data]),
+    }
+
 
 # Initialize our trainer object.
 trainer = ModifiedTrainer(

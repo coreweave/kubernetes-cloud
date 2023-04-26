@@ -6,8 +6,6 @@ description: SSH server with root disk persistence useful for development and te
 
 To follow along, please clone the [GitHub repository](https://github.com/coreweave/kubernetes-cloud/tree/master/cuda-ssh) with the example manifests.
 
-### Introduction
-
 This example deploys a Kubernetes Deployment with a Linux container including the CUDA Runtime and development tools, including CUDNN as well as running an SSH server. The Deployment allocates 6 GPUs. The Pod includes an `initContainer` that copies the entire root system to a persistent volume on boot, and then mounts all directories on subsequent boots. This gives a VM-like container where manually installed applications will survive a restart.
 
 The Kubenetes Control-Plane in the CoreWeave Cloud will ensure that the Deployment is continuously running. The Control-Plane will reserve GPU, CPU and RAM on CoreWeaves compute nodes. The example Deployment does showcase some node affinity rules. These are purely for demonstration purposes, and the entire affinity section can be removed without breaking the example.

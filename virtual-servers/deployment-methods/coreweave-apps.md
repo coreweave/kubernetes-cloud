@@ -23,7 +23,7 @@ Once you have an account and account credentials, log in to the dashboard from t
 {% hint style="info" %}
 **Note**
 
-See [Obtain Access Credentials](../../coreweave-kubernetes/getting-started.md#obtain-access-credentials) for more information.
+See [Obtain Access Credentials](../../docs/coreweave-kubernetes/getting-started.md#obtain-access-credentials) for more information.
 {% endhint %}
 
 ![The CoreWeave Cloud UI sign-in page](<../../docs/.gitbook/assets/image (78).png>)
@@ -46,7 +46,7 @@ From the Virtual Servers dashboard, you can configure a Virtual Server to your d
 Not every Virtual Server configuration option is exposed through the options displayed graphically on the configuration screen. For more fine-tuned control, or to save the Virtual Server configuration file to replicate additional Virtual Servers, you can view the generated YAML chart under the **YAML** tab.
 {% endhint %}
 
-![The Virtual Server configuration screen in the CoreWeave Cloud UI](<../../docs/.gitbook/assets/image (69).png>)
+![The Virtual Server configuration screen in the CoreWeave Cloud UI](<../../docs/.gitbook/assets/image (69) (3).png>)
 
 ### Configuration
 

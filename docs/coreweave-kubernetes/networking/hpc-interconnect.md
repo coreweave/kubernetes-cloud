@@ -12,7 +12,7 @@ In these applications, connectivity between compute hardware as well as storage 
 
 [CoreWeave Cloud Native Networking (CCNN)](../../networking/coreweave-cloud-native-networking-ccnn.md) and [Layer 2 VPC (L2VPC)](layer-2-vpc-l2vpc/) are both optimized for high throughput and low latency.
 
-The CoreWeave Ethernet fabrics employ a cut-through design with sub-microsecond switching. Many HPC workloads perform well over vanilla networking, with no further optimizations or configuration necessary. Many customers successfully train and finetune Large Language Models (LLMs) using the standard Cloud Native Networking to underpin their distributed training, running [NVIDIA NCCL ](https://developer.nvidia.com/nccl)over IP transport. NCCL is supported across all CoreWeave GPUs.
+The CoreWeave Ethernet fabrics employ a cut-through design with sub-microsecond switching. Many HPC workloads perform well over vanilla networking, with no further optimizations or configuration necessary. Many customers successfully train and fine-tune Large Language Models (LLMs) using the standard Cloud Native Networking to underpin their distributed training, running [NVIDIA NCCL ](https://developer.nvidia.com/nccl)over IP transport. NCCL is supported across all CoreWeave GPUs.
 
 {% hint style="info" %}
 **Additional Resources**\
@@ -27,11 +27,11 @@ CoreWeave has partnered with NVIDIA in its design of interconnect for A100 HGX t
 
 GPUDirect allows GPUs to communicate directly with other GPUs across an InfiniBand fabric, without passing through the host system CPU and operating system kernel, which significantly lowers synchronization latency.
 
-![NVIDIA Mellanox Quantum leaf switches in the CoreWeave LAS1 datacenter](<../../.gitbook/assets/image (1) (1) (2) (2).png>)
+![NVIDIA Mellanox Quantum leaf switches in the CoreWeave LAS1 datacenter](<../../.gitbook/assets/image (1) (1) (2) (1) (1) (1) (1) (1) (1) (2).png>)
 
 ## **Node Topology**
 
-![](<../../.gitbook/assets/image (4) (2).png>)
+![](<../../.gitbook/assets/image (11) (2) (1).png>)
 
 The A100 HGX nodes are each equipped with 8x NVIDIA A100 80GB GPUs. These GPUs connect to an [NVIDIA NVSWITCH](https://www.nvidia.com/en-us/data-center/nvlink/) baseboard for 600GB/s of intra-node interconnect. The GPUs are also connected to NVIDIA Mellanox CX-6 InfinBand HCAs for connection to the inter-node InfiniBand fabric. Each compute node is uplinked with 1.6Tbps of effective bandwidth with SHARP optimizations.
 
@@ -39,11 +39,11 @@ The A100 HGX nodes are each equipped with 8x NVIDIA A100 80GB GPUs. These GPUs c
 
 The InfiniBand fabric itself consists exclusively of [NVIDIA Quantum](https://www.nvidia.com/en-us/networking/quantum2/) HDR and NDR InfiniBand Switches. Network topology is carefully designed to match the highest standards found in NVIDIA DGX clusters. The network is laid out in a non-blocking, Fat Tree architecture. In addition to no oversubscribed links, the topology is rail-optimized allowing for [even further latency optimizations ](https://developer.nvidia.com/blog/doubling-all2all-performance-with-nvidia-collective-communication-library-2-12/)in all-reduce style operations.
 
-![Rail-Optimized design](<../../.gitbook/assets/Screen Shot 2022-06-16 at 10.09.10 PM.png>)
+![Rail-Optimized design](<../../.gitbook/assets/Screen Shot 2022-06-16 at 10.09.10 PM (1).png>)
 
 Fabrics provide hundreds of terabits of aggregate bandwidth. Each high-performance link is carefully monitored and optimized using best of breed NVIDIA tooling.
 
-![Topology of typical CoreWeave HGX A100 Cluster](<../../.gitbook/assets/image (10) (1) (1) (3).png>)
+![Topology of typical CoreWeave HGX A100 Cluster](<../../.gitbook/assets/image (10) (1) (1) (1) (1) (1) (1) (1) (1).png>)
 
 ## NVIDIA Mellanox SHARP
 
@@ -51,20 +51,20 @@ Traditionally, communication requirements scale proportionally with number of no
 
 By processing data as it traverses the network, NVIDIA Quantum switches eliminate the need to send data multiple times between server endpoints. They also support the aggregation of large data vectors at wire speed, which are crucial for machine learning applications. CoreWeave's InfiniBand topology is fully SHARP compliant, and all components to leverage SHARP are implemented in the network control-plane, such as Adaptive Routing and Aggregation Managers.
 
-![](<../../.gitbook/assets/Screen Shot 2022-07-20 at 9.35.44 PM.png>)
+![](<../../.gitbook/assets/Screen Shot 2022-07-20 at 9.35.44 PM (1).png>)
 
 {% hint style="success" %}
 **Tip**\
-SHARP effectively **doubles** the performance of a compliant InfiniBand network compared to a network with similar specifications without in-network computing such as RDMA over Converged Ethernet (RoCE).
+SHARP effectively **doubles** **the performance** of a compliant InfiniBand network compared to a network with similar specifications without in-network computing such as RDMA over Converged Ethernet (RoCE).
 
-\-> [Read more about SHARP](https://on-demand.gputechconf.com/ai-conference-2019/T6-5\_\_Qingchung%20Song\(Mellanox\)\_Mellanox%20In-Network%20Computing%20for%20AI%20and%20the%20development%20with%20NVIDIA\_Final.pdf).
+[Read more about SHARP](https://on-demand.gputechconf.com/ai-conference-2019/T6-5\_\_Qingchung%20Song\(Mellanox\)\_Mellanox%20In-Network%20Computing%20for%20AI%20and%20the%20development%20with%20NVIDIA\_Final.pdf).
 {% endhint %}
 
 ## Bare Metal Environment
 
 Training, Rendering and Simulation workloads execute in CoreWeave's bare metal container environment. GPU Drivers, NIC drivers and InfiniBand configuration are handled on the host node without any customer interaction required.
 
-Customers schedule workloads via Kubernetes, potentially leveraging distributed task managers such as [Determined.ai](https://www.determined.ai/), [MPI Operator](https://github.com/kubeflow/mpi-operator) and[ Argo Workflows](../../../workflows/argo.md), all of which are available out of the box on CoreWeave Cloud.
+Customers schedule workloads via Kubernetes, potentially leveraging distributed task managers such as [Determined.ai](https://www.determined.ai/), [MPI Operator](https://github.com/kubeflow/mpi-operator) and[ Argo Workflows](../../machine-learning-and-ai/training/argo-workflows/argo.md), all of which are available out of the box on CoreWeave Cloud.
 
 [A repository of template Docker images and Dockerfiles](https://github.com/coreweave/nccl-tests) is available for customers to use as a base for their own images. These base images include all libraries necessary to optimally leverage NCCL with SHARP:
 

@@ -7,12 +7,13 @@ spec:
     spec:
       containers:
       - name: model-downloader
-        image: tweldoncw/model-downloader:10
+        image: ghcr.io/wbrown/gpt_bpe/model_downloader:6d77d9c
         imagePullPolicy: IfNotPresent
         command: 
-          - "python3"
-          - "/app/download.py"
-          - "--model-id=CompVis/stable-diffusion-v1-4"
+          - "/ko-app/model_downloader"
+          - "--model=CompVis/stable-diffusion-v1-4"
+          - "--dest=/mnt/models/CompVis/stable-diffusion-v1-4"
+          - "--type=diffusers"
         env:
         - name: HF_HOME
           value: /mnt/models/

@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: tf
-          image: tensorflow/tensorflow:1.15.0-gpu-py3-jupyter
+          image: tensorflow/tensorflow:2.12.0-gpu-jupyter
 
           ports:
             - name: notebook
@@ -44,11 +44,11 @@ spec:
 
           resources:
             requests:
-              cpu: 500m # The CPU unit is mili-cores. 500m is 0.5 cores
-              memory: 256Mi
+              cpu: 500m # The CPU unit is milli-cores. 500m is 0.5 cores
+              memory: 16Gi
             limits:
               cpu: 2000m
-              memory: 2048Mi
+              memory: 16Gi
               # GPUs can only be allocated as a limit, which both reserves and limits the number of GPUs the Pod will have access to
               # Making individual Pods resource light is advantageous for bin-packing. In the case of Jupyter, we stick to two GPUs for
               # demonstration purposes
@@ -60,34 +60,34 @@ spec:
       # Read more about affinity at: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
       affinity:
         nodeAffinity:
-          # This will REQUIRE the Pod to be run on a system with a Pascal GPU
+          # This will REQUIRE the Pod to be run on a system with an NVIDIA A40 GPU
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
             - matchExpressions:
               - key: gpu.nvidia.com/class
                 operator: In
                 values:
-                  - NV_Pascal
+                  - A40
               - key: failure-domain.beta.kubernetes.io/region
                 operator: In
                 values:
-                  - ORD1
+                  - LGA1
 
           # As ML testing doesn't require a lot of network throughput, we try to play nice and only schedule
           # the Pod on systems with only 1G network connections. We also desire decent CPUs. This is a preference, not a requirement.
           # If systems with i5 / i9 / Xeon CPUs and/or 1G ethernet are not available to fulfill the requested resources, the Pods
           # will be scheduled on higher end systems.
           preferredDuringSchedulingIgnoredDuringExecution:
-            - weight: 10
-              preference:
-                matchExpressions:
-                - key: cpu.atlantic.cloud/family
-                  operator: In
-                  values:
-                    - i7
-                    - i5
-                    - i9
-                    - xeon
+#            - weight: 10
+#              preference:
+#                matchExpressions:
+#                - key: cpu.atlantic.cloud/family
+#                  operator: In
+#                  values:
+#                    - i7
+#                    - i5
+#                    - i9
+#                    - xeon
             - weight: 10
               preference:
                 matchExpressions:

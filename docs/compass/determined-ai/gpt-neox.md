@@ -1,10 +1,8 @@
 ---
-description: >-
-  Learn how to train or finetune a GPT-NeoX 20B parameter model on CoreWeave
-  Cloud
+description: Learn how to fine-tune a GPT-NeoX 20B parameter model on CoreWeave Cloud
 ---
 
-# Finetune GPT-NeoX 20B using DeterminedAI
+# Fine-tune GPT-NeoX 20B with Determined AI
 
 [GPT-NeoX](https://blog.eleuther.ai/announcing-20b/) is a 20B parameter autoregressive model trained on [the Pile dataset](https://arxiv.org/abs/2101.00027).
 
@@ -27,7 +25,7 @@ This guide will use [the DeterminedAI MLOps platform](https://www.determined.ai/
 
 This guide makes several assumptions:\
 \
-• You have [set up the CoreWeave Kubernetes environment](../../../coreweave-kubernetes/getting-started.md).\
+• You have [set up the CoreWeave Kubernetes environment](../../coreweave-kubernetes/getting-started.md).\
 • You have some experience launching and using [DeterminedAI on CoreWeave Cloud](https://www.determined.ai). (If you have not done so already, it is recommended to [deploy DeterminedAI via the application Catalog](https://apps.coreweave.com/) to familiarize yourself with it).\
 • You have `git` installed on your terminal.
 {% endhint %}
@@ -115,7 +113,7 @@ After deploying the DeterminedAI application, a URL to the Web UI will be provid
 
 As an example, here is what a live experiment looks like when viewed from the Web UI:
 
-![A live experiment running in the DeterminedAI Web UI](<../../.gitbook/assets/image (20).png>)
+![A live experiment running in the DeterminedAI Web UI](<../../.gitbook/assets/image (20) (3).png>)
 
 Navigating to the **Logs** tab will give you a full output of the experiment's logs:
 
@@ -123,7 +121,7 @@ Navigating to the **Logs** tab will give you a full output of the experiment's l
 
 Navigating to **Overview** will give you access to a metrics visualization of the experiment and checkpoint reference.
 
-![Metrics visualization in the DeterminedAI Web UI](<../../.gitbook/assets/image (16) (1).png>)
+![Metrics visualization in the DeterminedAI Web UI](<../../.gitbook/assets/image (16) (1) (1).png>)
 
 ## Training
 
@@ -143,13 +141,15 @@ det cmd run 'git clone https://github.com/EleutherAI/gpt-neox.git /mnt/finetune-
 
 Then, download the [Vocab](https://s3.amazonaws.com/models.huggingface.co/bert/gpt2-vocab.json) and [Merge](https://s3.amazonaws.com/models.huggingface.co/bert/gpt2-merges.txt) files to your CoreWeave Cloud Storage in a terminal:
 
-```bash
-det cmd run 'wget https://s3.amazonaws.com/models.huggingface.co/bert/gpt2-vocab.json
+<pre class="language-bash"><code class="lang-bash">det cmd run 'wget https://s3.amazonaws.com/models.huggingface.co/bert/gpt2-vocab.json
 -O /mnt/finetune-gpt-neox/gpt2-vocab.json'
 
 det cmd run 'wget https://s3.amazonaws.com/models.huggingface.co/bert/gpt2-merges.txt
 -O /mnt/finetune-gpt-neox/gpt2-merges.txt'
-```
+
+<strong>det cmd run 'wget https://the-eye.eu/public/AI/models/GPT-NeoX-20B/slim_weights/20B_tokenizer.json 
+</strong><strong>-O /mnt/finetune-gpt-neox/20B_tokenizer.json'
+</strong></code></pre>
 
 ### Dataset Format
 
@@ -177,7 +177,7 @@ Upload your data as a single JSONL file called `data.jsonl` to filebrowser under
 
 Using the filebrowser app, create a new folder called `gpt_finetune` under the `finetune-gpt-neox` folder.
 
-![Creating the gpt\_finetune directory in filebrowser](<../../.gitbook/assets/image (5) (3) (1).png>)
+![Creating the gpt\_finetune directory in filebrowser](<../../.gitbook/assets/image (5) (1) (2) (1) (1) (1).png>)
 
 You can now pre-tokenize your data using `tools/preprocess_data.py`. The arguments for this utility are listed below.
 
@@ -227,18 +227,21 @@ The command to tokenize your data and output it to `gpt_finetune` is below:
 ```shell
 python tools/preprocess_data.py \
             --input /mnt/finetune-gpt-neox/data.jsonl \
-            --output-prefix ./gpt_finetune/mydataset \
-            --vocab /mnt/finetune-gpt-neox/gpt2-vocab.json \
-            --merge-file /mnt/finetune-gpt-neox/gpt2-merges.txt \
-            --dataset-impl mmap \
-            --tokenizer-type GPT2BPETokenizer \
-            --append-eod
+            --output-prefix /mnt/gpt_finetune/mydataset \
+            --vocab /mnt/finetune-gpt-neox/20B_tokenizer.json \
+            --tokenizer-type HFTokenizer
 ```
 
 **Run** this command to pre-process and tokenize your data:
 
 ```shell
-det cmd run 'apt-get -y install libopenmpi-dev; pip install -r /mnt/finetune-gpt-neox/gpt-neox/requirements/requirements.txt; pip install protobuf==3.20; python /mnt/finetune-gpt-neox/gpt-neox/tools/preprocess_data.py --input /mnt/finetune-gpt-neox/data.jsonl --output-prefix /mnt/finetune-gpt-neox/gpt_finetune/mydataset --vocab /mnt/finetune-gpt-neox/gpt2-vocab.json --merge-file /mnt/finetune-gpt-neox/gpt2-merges.txt --dataset-impl mmap --tokenizer-type GPT2BPETokenizer --append-eod'
+det cmd run 'apt-get -y install libopenmpi-dev; 
+            pip install -r /mnt/finetune-gpt-neox/gpt-neox/requirements/requirements.txt; 
+            python tools/preprocess_data.py \
+            --input /mnt/finetune-gpt-neox/data.jsonl \
+            --output-prefix /mnt/gpt_finetune/mydataset \
+            --vocab /mnt/finetune-gpt-neox/20B_tokenizer.json \
+            --tokenizer-type HFTokenizer'
 ```
 
 {% hint style="warning" %}
@@ -317,6 +320,7 @@ Review and replace the contents of the original `determined-cluster.yml` file wi
   # across the node boundaries )
   "pipe-parallel-size": 4,
   "model-parallel-size": 2,
+  "finetune": true, 
 
   # model settings
   "num-layers": 44,
@@ -441,6 +445,8 @@ hyperparameters:
   conf_dir: /gpt-neox/configs
   conf_file:
       - determined_cluster.yml
+  overwrite_values:
+    pipe_parallel_size: 4
   wandb_group: null
   wandb_team: null
   user_script: null
@@ -475,7 +481,7 @@ entrypoint:
 {% hint style="info" %}
 **Note**
 
-Many of the parameters in the above configuration can be changed, such as `batches`, and `slots_per_trail.` We use default values of `100` batches to finetune on with `50` batches before validation or early stopping, and `96 A40 GPUs` .
+Many of the parameters in the above configuration can be changed, such as `batches`, and `slots_per_trail.` We use default values of `100` batches to fine-tune on with `50` batches before validation or early stopping, and `96 A40 GPUs` .
 {% endhint %}
 
 Run the following command to launch the experiment:
@@ -492,7 +498,7 @@ You should see an "Active" status for your experiment:
 
 You can visualize and monitor logs:
 
-![](<../../.gitbook/assets/Screen Shot 2022-08-01 at 12.46.41 PM.png>)
+![](<../../.gitbook/assets/Screen Shot 2022-08-01 at 12.46.41 PM (1).png>)
 
 Once training is completed, you will have access to the checkpoint in your S3 bucket for downstream tasks such as inference, transfer learning or model ensembles.
 
@@ -533,9 +539,9 @@ searcher:
   metric: lm_loss
   smaller_is_better: false
   max_length:
-    batches: 1000
+    batches: 100
 min_validation_period:
-    batches: 500
+    batches: 50
 max_restarts: 0
 entrypoint:
   - python3

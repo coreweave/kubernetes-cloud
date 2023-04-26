@@ -146,7 +146,7 @@ func main() {
 	// sourced in the vd-images namespace
 	err = virtualServer.ConfigureStorageRootWithPVCSource(vsv1alpha.VirtualServerStorageRootPVCSource{
 		Size:             "40Gi",
-		PVCName:          "ubuntu2004-nvidia-515-43-04-1-docker-master-20220708-ord1",
+		PVCName:          "ubuntu2004-nvidia-515-86-01-1-docker-master-20221205-ord1",
 		PVCNamespace:     "vd-images",
 		StorageClassName: "block-nvme-ord1",
 	})

@@ -87,10 +87,10 @@ spec:
       value: 'sd-finetune'
     # Inference service configuration.
     - name: run_inference
-      value: 'False'
+      value: false
     # Skip training and only run inference.
     - name: inference_only
-      value: 'False'
+      value: false
     # CoreWeave region to default to; ORD1 has most of the GPUs.
     - name: region
       value: 'ORD1'
@@ -114,7 +114,7 @@ spec:
     - name: inference_image
       value: 'ghcr.io/coreweave/ml-containers/sd-inference'
     - name: inference_tag
-      value: '01320dd'
+      value: '34116b7'
 
   templates:
   - name: main
@@ -129,6 +129,7 @@ spec:
               value: "/{{workflow.parameters.pvc}}/models/{{workflow.parameters.model}}"
             - name: type
               value: "diffusers"
+        when: "{{workflow.parameters.inference_only}} == false"
 
     - - name: finetuner
         template: model-finetuner
@@ -188,7 +189,7 @@ spec:
             value: "{{workflow.parameters.hf_token}}"
           - name: project_id
             value: "{{workflow.parameters.project_id}}"
-        when: "{{workflow.parameters.inference_only}} == 'False'"
+        when: "{{workflow.parameters.inference_only}} == false"
       
     - - name: inference
         template: model-inference-service
@@ -198,7 +199,7 @@ spec:
               value: "/mnt/pvc/finetunes/{{workflow.parameters.run_name}}"
             - name: hf_home
               value: ""
-        when: "{{workflow.parameters.run_inference}} == 'True'"
+        when: "{{workflow.parameters.run_inference}} == true || {{workflow.parameters.inference_only}} == true"
 
   - name: model-downloader
     inputs:
@@ -208,6 +209,17 @@ spec:
         - name: type
     retryStrategy:
       limit: 1
+    # The model downloader runs as the nonroot user so the dataset folder in the PVC
+    # needs the correct permissions.
+    initContainers:
+      - name: dataset-perms
+        image: alpine:3.17
+        command: [ "/bin/sh" ]
+        args:
+          - "-c"
+          - "mkdir -p {{inputs.parameters.dest}};
+            chmod o+rw,g+s {{inputs.parameters.dest}}"
+        mirrorVolumeMounts: true
     container:
       image: "{{workflow.parameters.downloader_image}}:{{workflow.parameters.downloader_tag}}"
       command: ["/ko-app/model_downloader"]
