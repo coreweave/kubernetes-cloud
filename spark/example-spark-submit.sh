@@ -4,11 +4,10 @@
 NAMESPACE=$(kubectl config view --minify -o jsonpath='{..namespace}')
 echo "Using the namespace: $NAMESPACE"
 
-# TODO: Change the master back from staging
 $SPARK_HOME/bin/spark-submit \
     --master k8s://https://k8s.ord1.coreweave.com \
     --deploy-mode cluster \
-    --name download-imgdataset-wandb-16-64 \
+    --name download-mscoco-16-64 \
     --conf spark.driver.cores=16 \
     --conf spark.kubernetes.driver.limit.cores=16 \
     --conf spark.driver.memory="64G" \
