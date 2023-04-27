@@ -24,7 +24,11 @@ spec:
     # Whether to retokenize the data on each run. It is strongly recommended to
     # NOT enable this if you are making multiple runs on the same dataset.
     - name: retokenize
-      value: 'false'
+      value: 'true'
+    # Whether to sanitize the data during tokenization,
+    # fixing common whitespace and line-ending issues automatically.
+    - name: sanitize
+      value: 'true'
     # Which tokenizer to use - the dataset_tokenizer internally supports `gpt2`
     # and `pile`. It defaults to the model's tokenizer data if not provided.
     - name: tokenizer
@@ -232,6 +236,8 @@ spec:
             value: "{{workflow.parameters.reorder}}"
           - name: sampling
             value: "{{workflow.parameters.sampling}}"
+          - name: sanitize
+            value: "{{workflow.parameters.sanitize}}"
           - name: retokenize
             value: "{{workflow.parameters.retokenize}}"
         when: "{{workflow.parameters.inference_only}} == false"
@@ -401,6 +407,8 @@ spec:
         - name: boundary_index
         - name: sampling
         - name: reorder
+        - name: sanitize
+        - name: retokenize
     retryStrategy:
       limit: 1
     container:
@@ -416,7 +424,8 @@ spec:
              "-boundary_overlap", "{{inputs.parameters.boundary_index}}",
              "-reorder", "{{inputs.parameters.reorder}}",
              "-sampling", "{{inputs.parameters.sampling}}",
-             "-sanitize"]
+             "-sanitize={{inputs.parameters.sanitize}}",
+             "-retokenize={{inputs.parameters.retokenize}}"]
       resources:
         requests:
           memory: 512Mi
