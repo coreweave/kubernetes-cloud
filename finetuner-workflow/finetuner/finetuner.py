@@ -660,6 +660,15 @@ numpy.random.seed(args.seed)
 # dataset and values dataset -- values dataset is used to test the outcome
 # and determine our loss rate.
 dataset = TokenizedDataset(args.dataset, context_length=args.context_size)
+# FIXME: val_dataset isn't used anywhere, so it is disabled for now.
+if args.train_ratio != 1:
+    logger.warning("Validation statistics are not yet implemented,"
+                   " but data was requested to be set aside"
+                   " for the validation set"
+                   f" (--train_ratio was set to {args.train_ratio})."
+                   " Setting --train_ratio to 1.0"
+                   " to not discard training data.")
+    args.train_ratio = 1
 train_size = int(args.train_ratio * len(dataset))
 val_size = len(dataset) - train_size
 

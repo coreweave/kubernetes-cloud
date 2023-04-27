@@ -89,8 +89,9 @@ spec:
     - name: repetition_penalty
       value: 1.1
     # Model training parameters
-    - name: train_ratio
-      value: '0.9'
+    # Note: train_ratio is not yet implemented, so it is always 1.0.
+    # - name: train_ratio
+    #  value: '0.9'
     # Batch size. `-1` will let it do a reasonable and relatively conservative
     # guess.
     - name: batch_size
@@ -251,7 +252,7 @@ spec:
               --bs {{workflow.parameters.batch_size}}
               --seed {{workflow.parameters.random_seed}}
               --lr {{workflow.parameters.learn_rate}}
-              --tr {{workflow.parameters.train_ratio}}
+              --train_ratio 1.0
               --output /{{workflow.parameters.pvc}}/finetunes/
               --cache /{{workflow.parameters.pvc}}/cache/
               --logs /{{workflow.parameters.pvc}}/{{workflow.parameters.logs}}
