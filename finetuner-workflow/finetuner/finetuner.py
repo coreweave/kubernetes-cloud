@@ -810,16 +810,14 @@ if args.log_level.upper() != "DEBUG":
 os.makedirs(args.output_path, exist_ok=True)
 os.chdir(args.output_path)
 
-callbacks = [
-    PerformanceCallback()
-]
+callbacks = [PerformanceCallback()]
 
 # Set up our prompt testing callback if we were given a prompt file.
 if args.prompt_file:
     if args.prompt_every == -1:
         args.prompt_every = args.save_steps
 
-    callbacks += [
+    callbacks.append(
         ModelSampler(
             args.prompt_file,
             tokenizer,
@@ -830,9 +828,7 @@ if args.prompt_file:
             report_every=args.prompt_every or args.save_steps,
             context_size=args.context_size,
         )
-    ]
-else:
-    callbacks = None
+    )
 
 # Parametrize our training based on provided arguments.
 training_args = TrainingArguments(
