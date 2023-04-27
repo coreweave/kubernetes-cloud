@@ -417,9 +417,7 @@ class ModifiedTrainer(Trainer):
 
     def compute_loss(self, model, inputs, return_outputs=False):
         if "labels" in inputs:
-            inputs["labels"].masked_fill_(
-                inputs["labels"] == tokenizer.pad_token_id, -100
-            )
+            inputs["labels"].masked_fill_(inputs["attention_mask"], -100)
 
         results = super().compute_loss(model, inputs, return_outputs)
         loss = results[0] if return_outputs else results
@@ -594,6 +592,8 @@ class TokenizedDataset(Dataset):
         self.length = int(file_stat.st_size / 2 / context_length)
         length_mb = os.stat(path).st_size / (1 << 20)
         num_tokens = self.length * context_length
+        self._padding_is_ambiguous = tokenizer.pad_token_id == tokenizer.eos_token_id
+        self._pad_token_id = tokenizer.pad_token_id
         if is_main_process():
             logger.info(f"DATASET: {path}")
             logger.info(
@@ -616,7 +616,24 @@ class TokenizedDataset(Dataset):
             offset=0,
         ).astype(numpy.int_)
         input_ids = torch.from_numpy(arr)
-        mask: torch.Tensor = input_ids != tokenizer.pad_token_id
+        if self._padding_is_ambiguous and idx != self.length - 1:
+            # Assume only the final context has padding if the padding token
+            # is indistinguishable from the end-of-sentence token
+            # to not accidentally mask away any semantically relevant
+            # end-of-sentence tokens.
+            #
+            # For gpt_bpe outputs, only the final context generated is padded,
+            # so this is an accurate heuristic so long as the contexts
+            # were not shuffled when they were written.
+            #
+            # An alternative implementation of this could instead probe
+            # the last two token IDs in each retrieved context
+            # to check for consecutive end-of-sentence tokens
+            # as an indicator that padding is present.
+
+            mask = torch.ones_like(input_ids, dtype=torch.bool)
+        else:
+            mask: torch.Tensor = input_ids != self._pad_token_id
         return input_ids, mask
 
     def __getitem__(self, idx) -> Tuple[torch.Tensor, torch.Tensor]:
@@ -766,7 +783,12 @@ def evaluate(
     input_tokens: Tensor = (
         torch.LongTensor(eval_tokenizer.encode(prompt)).unsqueeze(0).to(device)
     )
-    attention_mask: Tensor = input_tokens != eval_tokenizer.pad_token_id
+    if eval_tokenizer.pad_token_id != eval_tokenizer.eos_token_id:
+        attention_mask: Tensor = input_tokens != eval_tokenizer.pad_token_id
+    else:
+        # If padding is indistinguishable from end-of-sentence,
+        # we can't tell which to mask, so mask nothing.
+        attention_mask = torch.ones_like(input_tokens, dtype=torch.bool)
     max_length = input_tokens.shape[1] + generate_tokens
     generated_tokens = eval_model.generate(
         input_tokens,
