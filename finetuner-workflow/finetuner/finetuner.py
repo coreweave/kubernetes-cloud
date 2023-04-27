@@ -24,6 +24,8 @@ import logging
 import deepspeed
 from deepspeed.runtime.zero.stage_1_and_2 import estimate_zero2_model_states_mem_needs_all_live
 from deepspeed.runtime.zero.stage3 import estimate_zero3_model_states_mem_needs_all_live
+from collections import OrderedDict
+from tensorizer import TensorDeserializer, utils, stream_io
 
 from utils import *
 
@@ -43,6 +45,7 @@ sys.path.append(thisPath + "/transformers/src")
 import transformers
 from transformers import (
     AutoTokenizer,
+    AutoConfig,
     TrainingArguments,
     Trainer,
     AutoModelForCausalLM,
@@ -69,6 +72,12 @@ parser.add_argument(
 )
 parser.add_argument(
     "--dataset", type=str, help="pre-tokenized dataset to use", required=True
+)
+parser.add_argument(
+    "--tensorizer_uri",
+    type=str,
+    help="An S3 or path to use to extract pretrained weights for Tensorizer.",
+    default=""
 )
 parser.add_argument("--lr", type=float, help="learning rate", default=5e-5)
 parser.add_argument(
@@ -299,6 +308,19 @@ else:
         project=args.project_id, name=args.run_name, mode="disabled"
     )
 
+# we evaluate if args.model is already tensorized under a public s3 bucket.
+try:
+    if not args.tensorizer_uri:
+        model_id = '/'.join(args.model.split('/')[-2:])
+        stream_io.CURLStreamFile(
+            uri=f"https://accel-object.ord1.coreweave.com/tensorized/{model_id}/model.tensors"
+        ).read(1)
+        uri_dtype = 'fp16/' if args.fp16 else ''
+        args.model = model_id
+        args.tensorizer_uri=f"s3://tensorized/{args.model}/{uri_dtype}model.tensors"
+except OSError:
+    pass
+
 # Set up our tokenizer.
 tokenizer: PreTrainedTokenizer
 try:
@@ -383,6 +405,43 @@ class ModifiedTrainer(Trainer):
                 sys.stderr.flush()
 
         return results
+
+
+class PerformanceCallback(TrainerCallback):
+    def __init__(self) -> None:
+        super().__init__()
+        self.start_time = None
+        self.opt_step = None
+        self.ff_step = None
+
+    def on_step_begin(self, args, state, control, **kwargs):
+        if self.start_time is None:
+            self.start_time = time.time()
+            self.opt_step = 0
+            self.ff_step = 0
+    
+    def on_substep_end(self, args, state, control, **kwargs):
+        self.ff_step = time.time()
+    
+    def on_step_end(self, args, state, control, **kwargs):
+        self.opt_step = time.time()
+        if is_main_process():
+            # report to wandb
+            rank_samples_per_second = args.per_device_train_batch_size * args.gradient_accumulation_steps * (1 / (self.opt_step - self.start_time))
+            world_samples_per_second = torch.distributed.get_world_size() * rank_samples_per_second
+            wandb.log(
+                {
+                    "perf/opt_time": self.opt_step - self.ff_step,
+                    "perf/gas_time": self.ff_step - self.start_time,
+                    "perf/total_time_per_step": self.opt_step - self.start_time,
+                    "perf/rank_samples_per_second": rank_samples_per_second,
+                    "perf/world_samples_per_second": world_samples_per_second,
+                },
+                step=state.global_step,
+            )
+        self.start_time = None
+        self.opt_step = None
+        self.ff_step = None
 
 
 class ModelSampler(TrainerCallback):
@@ -603,21 +662,39 @@ if is_main_process():
 # already.
 model: PreTrainedModel
 
+model_fp16_args = {"torch_dtype": torch.float16}
+model_args = {"eos_token_id": tokenizer.eos_token_id,
+            "pad_token_id": tokenizer.pad_token_id,
+            "cache_dir": args.cache,
+            "use_cache": False,
+            "low_cpu_mem_usage": True}
+
 try:
-    with no_init():
-        model_fp16_args = {"torch_dtype": torch.float16}
-        model_args = {"eos_token_id": tokenizer.eos_token_id,
-                      "pad_token_id": tokenizer.pad_token_id,
-                      "cache_dir": args.cache,
-                      "use_cache": False,
-                      "low_cpu_mem_usage": True}
-        model = AutoModelForCausalLM.from_pretrained(
-            args.model,  # Can be a HuggingFace ID or directory.
+    if args.tensorizer_uri:
+        config = AutoConfig.from_pretrained(
+            args.model,
             **model_args,
             **model_fp16_args,
-        )  # Gradient checkpointing needs this off.
-        if lastCheckpoint is None:
-            model = model.to(device)
+        )
+        model = utils.no_init_or_tensor(
+            lambda: AutoModelForCausalLM.from_pretrained(
+                None, config=config, state_dict=OrderedDict()
+            )
+        )
+
+        deserializer = TensorDeserializer(args.tensorizer_uri)
+        deserializer.load_into_module(model)
+        deserializer.close()
+        model.train()
+    else:
+        with no_init():
+            model = AutoModelForCausalLM.from_pretrained(
+                args.model,  # Can be a HuggingFace ID or directory.
+                **model_args,
+                **model_fp16_args,
+            )  # Gradient checkpointing needs this off.
+            if lastCheckpoint is None:
+                model = model.to(device)
     sys.stderr.flush()
     sys.stdout.flush()
 except Exception as e:
@@ -733,12 +810,16 @@ if args.log_level.upper() != "DEBUG":
 os.makedirs(args.output_path, exist_ok=True)
 os.chdir(args.output_path)
 
+callbacks = [
+    PerformanceCallback()
+]
+
 # Set up our prompt testing callback if we were given a prompt file.
 if args.prompt_file:
     if args.prompt_every == -1:
         args.prompt_every = args.save_steps
 
-    sampler_callbacks = [
+    callbacks += [
         ModelSampler(
             args.prompt_file,
             tokenizer,
@@ -751,7 +832,7 @@ if args.prompt_file:
         )
     ]
 else:
-    sampler_callbacks = None
+    callbacks = None
 
 # Parametrize our training based on provided arguments.
 training_args = TrainingArguments(
@@ -791,7 +872,7 @@ trainer = ModifiedTrainer(
     train_dataset=train_dataset,
     eval_dataset=val_dataset,
     data_collator=collector,
-    callbacks=sampler_callbacks,
+    callbacks=callbacks,
 )
 
 # Finally, do our training!
