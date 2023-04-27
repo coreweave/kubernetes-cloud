@@ -13,6 +13,7 @@ import math
 from decimal import Decimal
 import random
 import torch
+import torch.distributed
 from torch import Tensor
 from torch.utils.data import Dataset, random_split, Subset
 import argparse
@@ -25,7 +26,7 @@ import deepspeed
 from deepspeed.runtime.zero.stage_1_and_2 import estimate_zero2_model_states_mem_needs_all_live
 from deepspeed.runtime.zero.stage3 import estimate_zero3_model_states_mem_needs_all_live
 from collections import OrderedDict
-from tensorizer import TensorDeserializer, utils, stream_io
+from tensorizer import TensorDeserializer, utils as tensorizer_utils, stream_io
 
 from utils import *
 
@@ -249,6 +250,34 @@ def main_process_print(*args, **kwargs):
         logger.info(*args, **kwargs)
 
 
+# Determine the number of processes being used for training.
+# First, try to get the DeepSpeed/PyTorch configured world size
+world_size = os.getenv("WORLD_SIZE", None)
+if world_size is not None:
+    # The environment variable is an int stored as a string
+    try:
+        world_size = int(world_size)
+    except ValueError:
+        world_size = None
+
+# Fall back to asking PyTorch
+if world_size is None:
+    # If distributed training is enabled, torch.distributed
+    # should be able to query the world size.
+    if torch.distributed.is_initialized():
+        world_size = torch.distributed.get_world_size()
+        if world_size == -1:
+            world_size = None
+
+    # Otherwise, assume the world comprises all visible GPUs on this node
+    if world_size is None and torch.cuda.is_available():
+        world_size = torch.cuda.device_count()
+    else:
+        # If no other information is available,
+        # just assume this is the only process.
+        world_size = 1
+
+
 # Where we write our training checkpoints and final model.
 output_dir = os.path.abspath(
     os.path.join(args.output_path, "results-" + args.run_name)
@@ -312,9 +341,11 @@ else:
 try:
     if not args.tensorizer_uri:
         model_id = '/'.join(args.model.split('/')[-2:])
-        stream_io.CURLStreamFile(
-            uri=f"https://accel-object.ord1.coreweave.com/tensorized/{model_id}/model.tensors"
-        ).read(1)
+        with stream_io.CURLStreamFile(
+            uri=f"https://accel-object.ord1.coreweave.com/tensorized/{model_id}/model.tensors",
+            end=1
+        ) as test_stream:
+            test_stream.read(1)
         uri_dtype = 'fp16/' if args.fp16 else ''
         args.model = model_id
         args.tensorizer_uri=f"s3://tensorized/{args.model}/{uri_dtype}model.tensors"
@@ -419,21 +450,26 @@ class PerformanceCallback(TrainerCallback):
             self.start_time = time.time()
             self.opt_step = 0
             self.ff_step = 0
-    
+
     def on_substep_end(self, args, state, control, **kwargs):
         self.ff_step = time.time()
-    
+
     def on_step_end(self, args, state, control, **kwargs):
         self.opt_step = time.time()
         if is_main_process():
             # report to wandb
-            rank_samples_per_second = args.per_device_train_batch_size * args.gradient_accumulation_steps * (1 / (self.opt_step - self.start_time))
-            world_samples_per_second = torch.distributed.get_world_size() * rank_samples_per_second
+            step_time = self.opt_step - self.start_time
+            rank_samples_per_second = (
+                args.per_device_train_batch_size
+                * args.gradient_accumulation_steps
+                / step_time
+            )
+            world_samples_per_second = world_size * rank_samples_per_second
             wandb.log(
                 {
                     "perf/opt_time": self.opt_step - self.ff_step,
                     "perf/gas_time": self.ff_step - self.start_time,
-                    "perf/total_time_per_step": self.opt_step - self.start_time,
+                    "perf/total_time_per_step": step_time,
                     "perf/rank_samples_per_second": rank_samples_per_second,
                     "perf/world_samples_per_second": world_samples_per_second,
                 },
@@ -479,10 +515,6 @@ class ModelSampler(TrainerCallback):
         self.context_size = context_size
         self.tokens_per_step = batch_size * context_size
         self.table_data = []
-        try:
-            self.num_gpus = torch.cuda.device_count()
-        except AssertionError:
-            self.num_gpus = 1
 
     def on_step_end(
         self, args, state, control, model: PreTrainedModel = None, **kwargs
@@ -491,7 +523,7 @@ class ModelSampler(TrainerCallback):
             return
         if state.global_step % self.report_every == 0 or state.global_step == 1:
             curr_tokens_step = (
-                state.global_step * self.train_batch_size * self.gas * self.num_gpus
+                state.global_step * self.train_batch_size * self.gas * world_size
             )
             main_process_print(
                 f"\nSTEP {state.global_step}: Evaluating on {self.prompt_file}...",
@@ -663,11 +695,13 @@ if is_main_process():
 model: PreTrainedModel
 
 model_fp16_args = {"torch_dtype": torch.float16}
-model_args = {"eos_token_id": tokenizer.eos_token_id,
-            "pad_token_id": tokenizer.pad_token_id,
-            "cache_dir": args.cache,
-            "use_cache": False,
-            "low_cpu_mem_usage": True}
+model_args = {
+    "eos_token_id": tokenizer.eos_token_id,
+    "pad_token_id": tokenizer.pad_token_id,
+    "cache_dir": args.cache,
+    "use_cache": False,
+    "low_cpu_mem_usage": True,
+}
 
 try:
     if args.tensorizer_uri:
@@ -676,7 +710,7 @@ try:
             **model_args,
             **model_fp16_args,
         )
-        model = utils.no_init_or_tensor(
+        model = tensorizer_utils.no_init_or_tensor(
             lambda: AutoModelForCausalLM.from_pretrained(
                 None, config=config, state_dict=OrderedDict()
             )
