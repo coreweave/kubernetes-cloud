@@ -862,9 +862,20 @@ elif args.zero_stage == 3 and is_main_process():
     logger.info("DeepSpeed ZeRO-3 Memory Estimates")
     estimate_fn = estimate_zero3_model_states_mem_needs_all_live
 if estimate_fn:
-    estimate_fn(model=model,
-                num_nodes=1,
-                num_gpus_per_node=torch.cuda.device_count())
+    # Try to use DeepSpeed/PyTorch's configuration for GPUs per node
+    num_gpus_per_node = os.getenv("LOCAL_WORLD_SIZE", None)
+    if num_gpus_per_node is not None:
+        try:
+            num_gpus_per_node = int(num_gpus_per_node)
+            if num_gpus_per_node == -1:
+                num_gpus_per_node = None
+        except ValueError:
+            num_gpus_per_node = None
+    if num_gpus_per_node is None:
+        # Fall back to manually counting visible GPUs
+        num_gpus_per_node = torch.cuda.device_count()
+
+    estimate_fn(model=model, num_nodes=1, num_gpus_per_node=num_gpus_per_node)
 
 # The latest deepspeed logging is pretty obnoxious, so we disable it
 # unless debug-level logging is requested.
