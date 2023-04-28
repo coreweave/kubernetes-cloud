@@ -23,8 +23,12 @@ import socket
 from contextlib import closing
 import logging
 import deepspeed
-from deepspeed.runtime.zero.stage_1_and_2 import estimate_zero2_model_states_mem_needs_all_live
-from deepspeed.runtime.zero.stage3 import estimate_zero3_model_states_mem_needs_all_live
+from deepspeed.runtime.zero.stage_1_and_2 import (
+    estimate_zero2_model_states_mem_needs_all_live,
+)
+from deepspeed.runtime.zero.stage3 import (
+    estimate_zero3_model_states_mem_needs_all_live,
+)
 from collections import OrderedDict
 from tensorizer import TensorDeserializer, utils as tensorizer_utils, stream_io
 
@@ -78,7 +82,7 @@ parser.add_argument(
     "--tensorizer_uri",
     type=str,
     help="An S3 or path to use to extract pretrained weights for Tensorizer.",
-    default=""
+    default="",
 )
 parser.add_argument("--lr", type=float, help="learning rate", default=5e-5)
 parser.add_argument(
@@ -231,8 +235,8 @@ logger.setLevel(args.log_level.upper())
 fh = logging.StreamHandler()
 if args.local_rank != -1:
     fh_formatter = logging.Formatter(
-        f"%(asctime)s %(levelname)s %(filename)s(%(process)d) - RANK {args.local_rank}"
-        " - %(message)s"
+        "%(asctime)s %(levelname)s %(filename)s(%(process)d)"
+        f" - RANK {args.local_rank} - %(message)s"
     )
 else:
     fh_formatter = logging.Formatter("%(asctime)s %(levelname)s - %(message)s")
@@ -337,18 +341,20 @@ else:
         project=args.project_id, name=args.run_name, mode="disabled"
     )
 
-# we evaluate if args.model is already tensorized under a public s3 bucket.
+# We evaluate if args.model is already tensorized under a public s3 bucket.
 try:
     if not args.tensorizer_uri:
-        model_id = '/'.join(args.model.split('/')[-2:])
+        model_id = "/".join(args.model.split("/")[-2:])
         with stream_io.CURLStreamFile(
             uri=f"https://accel-object.ord1.coreweave.com/tensorized/{model_id}/model.tensors",
-            end=1
+            end=1,
         ) as test_stream:
             test_stream.read(1)
-        uri_dtype = 'fp16/' if args.fp16 else ''
+        uri_dtype = "fp16/" if args.fp16 else ""
         args.model = model_id
-        args.tensorizer_uri=f"s3://tensorized/{args.model}/{uri_dtype}model.tensors"
+        args.tensorizer_uri = (
+            f"s3://tensorized/{args.model}/{uri_dtype}model.tensors"
+        )
 except OSError:
     pass
 
@@ -455,7 +461,7 @@ class PerformanceCallback(TrainerCallback):
     def on_step_end(self, args, state, control, **kwargs):
         self.opt_step = time.time()
         if is_main_process():
-            # report to wandb
+            # Report to WandB
             step_time = self.opt_step - self.start_time
             rank_samples_per_second = (
                 args.per_device_train_batch_size
@@ -481,7 +487,7 @@ class PerformanceCallback(TrainerCallback):
 class ModelSampler(TrainerCallback):
     """
     Test the model on one or more prompts every so often and report to the
-    console, and to each rank's WanDB run.
+    console, and to each rank's WandB run.
     """
 
     def __init__(
@@ -555,8 +561,8 @@ class ModelSampler(TrainerCallback):
                     )
                     main_process_print("-----------------------------")
                     main_process_print(f"RESPONSE: {output_text}")
-            # it is still useful to collect evaluations on other ranks in their
-            # respective wandb runs.
+            # It is still useful to collect evaluations on other ranks in their
+            # respective WandB runs.
             wandb.log(
                 {
                     "Generations": wandb.Table(
@@ -679,12 +685,14 @@ numpy.random.seed(args.seed)
 dataset = TokenizedDataset(args.dataset, context_length=args.context_size)
 # FIXME: val_dataset isn't used anywhere, so it is disabled for now.
 if args.train_ratio != 1:
-    logger.warning("Validation statistics are not yet implemented,"
-                   " but data was requested to be set aside"
-                   " for the validation set"
-                   f" (--train_ratio was set to {args.train_ratio})."
-                   " Setting --train_ratio to 1.0"
-                   " to not discard training data.")
+    logger.warning(
+        "Validation statistics are not yet implemented,"
+        " but data was requested to be set aside"
+        " for the validation set"
+        f" (--train_ratio was set to {args.train_ratio})."
+        " Setting --train_ratio to 1.0"
+        " to not discard training data."
+    )
     args.train_ratio = 1
 train_size = int(args.train_ratio * len(dataset))
 val_size = len(dataset) - train_size
@@ -832,8 +840,9 @@ if is_main_process():
     devices_repr = device
     if device != "cpu":
         try:
-            devices_repr = (f"{torch.cuda.device_count()}x"
-                            f"{torch.cuda.get_device_name(0)}")
+            devices_repr = (
+                f"{torch.cuda.device_count()}x{torch.cuda.get_device_name(0)}"
+            )
         except Exception:
             pass
     logger.info(f"DEVICES: {devices_repr}")
