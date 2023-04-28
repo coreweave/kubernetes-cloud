@@ -720,7 +720,7 @@ if is_main_process():
 # already.
 model: PreTrainedModel
 
-model_fp16_args = {"torch_dtype": torch.float16}
+model_fp16_args = {"torch_dtype": torch.float16} if args.fp16 else {}
 model_args = {
     "eos_token_id": tokenizer.eos_token_id,
     "pad_token_id": tokenizer.pad_token_id,
