@@ -140,7 +140,12 @@ def evaluate(
     input_tokens: Tensor = (
         torch.LongTensor(eval_tokenizer.encode(prompt)).unsqueeze(0).to(device)
     )
-    attention_mask: Tensor = input_tokens != eval_tokenizer.pad_token_id
+    if eval_tokenizer.pad_token_id != eval_tokenizer.eos_token_id:
+        attention_mask: Tensor = input_tokens != eval_tokenizer.pad_token_id
+    else:
+        # If padding is indistinguishable from end-of-sentence,
+        # we can't tell which to mask, so mask nothing.
+        attention_mask = torch.ones_like(input_tokens, dtype=torch.bool)
     max_length = input_tokens.shape[1] + generate_tokens
 
     generated_tokens = eval_model.generate(

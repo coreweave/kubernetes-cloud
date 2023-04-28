@@ -13,6 +13,7 @@ import math
 from decimal import Decimal
 import random
 import torch
+import torch.distributed
 from torch import Tensor
 from torch.utils.data import Dataset, random_split, Subset
 import argparse
@@ -22,10 +23,14 @@ import socket
 from contextlib import closing
 import logging
 import deepspeed
-from deepspeed.runtime.zero.stage_1_and_2 import estimate_zero2_model_states_mem_needs_all_live
-from deepspeed.runtime.zero.stage3 import estimate_zero3_model_states_mem_needs_all_live
+from deepspeed.runtime.zero.stage_1_and_2 import (
+    estimate_zero2_model_states_mem_needs_all_live,
+)
+from deepspeed.runtime.zero.stage3 import (
+    estimate_zero3_model_states_mem_needs_all_live,
+)
 from collections import OrderedDict
-from tensorizer import TensorDeserializer, utils, stream_io
+from tensorizer import TensorDeserializer, utils as tensorizer_utils, stream_io
 
 from utils import *
 
@@ -77,7 +82,7 @@ parser.add_argument(
     "--tensorizer_uri",
     type=str,
     help="An S3 or path to use to extract pretrained weights for Tensorizer.",
-    default=""
+    default="",
 )
 parser.add_argument("--lr", type=float, help="learning rate", default=5e-5)
 parser.add_argument(
@@ -230,8 +235,8 @@ logger.setLevel(args.log_level.upper())
 fh = logging.StreamHandler()
 if args.local_rank != -1:
     fh_formatter = logging.Formatter(
-        f"%(asctime)s %(levelname)s %(filename)s(%(process)d) - RANK {args.local_rank}"
-        " - %(message)s"
+        "%(asctime)s %(levelname)s %(filename)s(%(process)d)"
+        f" - RANK {args.local_rank} - %(message)s"
     )
 else:
     fh_formatter = logging.Formatter("%(asctime)s %(levelname)s - %(message)s")
@@ -247,6 +252,34 @@ def is_main_process() -> bool:
 def main_process_print(*args, **kwargs):
     if is_main_process():
         logger.info(*args, **kwargs)
+
+
+# Determine the number of processes being used for training.
+# First, try to get the DeepSpeed/PyTorch configured world size
+world_size = os.getenv("WORLD_SIZE", None)
+if world_size is not None:
+    # The environment variable is an int stored as a string
+    try:
+        world_size = int(world_size)
+    except ValueError:
+        world_size = None
+
+# Fall back to asking PyTorch
+if world_size is None:
+    # If distributed training is enabled, torch.distributed
+    # should be able to query the world size.
+    if torch.distributed.is_initialized():
+        world_size = torch.distributed.get_world_size()
+        if world_size == -1:
+            world_size = None
+
+    # Otherwise, assume the world comprises all visible GPUs on this node
+    if world_size is None and torch.cuda.is_available():
+        world_size = torch.cuda.device_count()
+    else:
+        # If no other information is available,
+        # just assume this is the only process.
+        world_size = 1
 
 
 # Where we write our training checkpoints and final model.
@@ -308,16 +341,20 @@ else:
         project=args.project_id, name=args.run_name, mode="disabled"
     )
 
-# we evaluate if args.model is already tensorized under a public s3 bucket.
+# We evaluate if args.model is already tensorized under a public s3 bucket.
 try:
     if not args.tensorizer_uri:
-        model_id = '/'.join(args.model.split('/')[-2:])
-        stream_io.CURLStreamFile(
-            uri=f"https://accel-object.ord1.coreweave.com/tensorized/{model_id}/model.tensors"
-        ).read(1)
-        uri_dtype = 'fp16/' if args.fp16 else ''
+        model_id = "/".join(args.model.split("/")[-2:])
+        with stream_io.CURLStreamFile(
+            uri=f"https://accel-object.ord1.coreweave.com/tensorized/{model_id}/model.tensors",
+            end=1,
+        ) as test_stream:
+            test_stream.read(1)
+        uri_dtype = "fp16/" if args.fp16 else ""
         args.model = model_id
-        args.tensorizer_uri=f"s3://tensorized/{args.model}/{uri_dtype}model.tensors"
+        args.tensorizer_uri = (
+            f"s3://tensorized/{args.model}/{uri_dtype}model.tensors"
+        )
 except OSError:
     pass
 
@@ -386,9 +423,7 @@ class ModifiedTrainer(Trainer):
 
     def compute_loss(self, model, inputs, return_outputs=False):
         if "labels" in inputs:
-            inputs["labels"].masked_fill_(
-                inputs["labels"] == tokenizer.pad_token_id, -100
-            )
+            inputs["labels"].masked_fill_(~inputs["attention_mask"], -100)
 
         results = super().compute_loss(model, inputs, return_outputs)
         loss = results[0] if return_outputs else results
@@ -419,21 +454,26 @@ class PerformanceCallback(TrainerCallback):
             self.start_time = time.time()
             self.opt_step = 0
             self.ff_step = 0
-    
+
     def on_substep_end(self, args, state, control, **kwargs):
         self.ff_step = time.time()
-    
+
     def on_step_end(self, args, state, control, **kwargs):
         self.opt_step = time.time()
         if is_main_process():
-            # report to wandb
-            rank_samples_per_second = args.per_device_train_batch_size * args.gradient_accumulation_steps * (1 / (self.opt_step - self.start_time))
-            world_samples_per_second = torch.distributed.get_world_size() * rank_samples_per_second
+            # Report to WandB
+            step_time = self.opt_step - self.start_time
+            rank_samples_per_second = (
+                args.per_device_train_batch_size
+                * args.gradient_accumulation_steps
+                / step_time
+            )
+            world_samples_per_second = world_size * rank_samples_per_second
             wandb.log(
                 {
                     "perf/opt_time": self.opt_step - self.ff_step,
                     "perf/gas_time": self.ff_step - self.start_time,
-                    "perf/total_time_per_step": self.opt_step - self.start_time,
+                    "perf/total_time_per_step": step_time,
                     "perf/rank_samples_per_second": rank_samples_per_second,
                     "perf/world_samples_per_second": world_samples_per_second,
                 },
@@ -447,7 +487,7 @@ class PerformanceCallback(TrainerCallback):
 class ModelSampler(TrainerCallback):
     """
     Test the model on one or more prompts every so often and report to the
-    console, and to each rank's WanDB run.
+    console, and to each rank's WandB run.
     """
 
     def __init__(
@@ -479,10 +519,6 @@ class ModelSampler(TrainerCallback):
         self.context_size = context_size
         self.tokens_per_step = batch_size * context_size
         self.table_data = []
-        try:
-            self.num_gpus = torch.cuda.device_count()
-        except AssertionError:
-            self.num_gpus = 1
 
     def on_step_end(
         self, args, state, control, model: PreTrainedModel = None, **kwargs
@@ -491,7 +527,7 @@ class ModelSampler(TrainerCallback):
             return
         if state.global_step % self.report_every == 0 or state.global_step == 1:
             curr_tokens_step = (
-                state.global_step * self.train_batch_size * self.gas * self.num_gpus
+                state.global_step * self.train_batch_size * self.gas * world_size
             )
             main_process_print(
                 f"\nSTEP {state.global_step}: Evaluating on {self.prompt_file}...",
@@ -525,8 +561,8 @@ class ModelSampler(TrainerCallback):
                     )
                     main_process_print("-----------------------------")
                     main_process_print(f"RESPONSE: {output_text}")
-            # it is still useful to collect evaluations on other ranks in their
-            # respective wandb runs.
+            # It is still useful to collect evaluations on other ranks in their
+            # respective WandB runs.
             wandb.log(
                 {
                     "Generations": wandb.Table(
@@ -562,6 +598,8 @@ class TokenizedDataset(Dataset):
         self.length = int(file_stat.st_size / 2 / context_length)
         length_mb = os.stat(path).st_size / (1 << 20)
         num_tokens = self.length * context_length
+        self._padding_is_ambiguous = tokenizer.pad_token_id == tokenizer.eos_token_id
+        self._pad_token_id = tokenizer.pad_token_id
         if is_main_process():
             logger.info(f"DATASET: {path}")
             logger.info(
@@ -584,7 +622,24 @@ class TokenizedDataset(Dataset):
             offset=0,
         ).astype(numpy.int_)
         input_ids = torch.from_numpy(arr)
-        mask: torch.Tensor = input_ids != tokenizer.pad_token_id
+        if self._padding_is_ambiguous and idx != self.length - 1:
+            # Assume only the final context has padding if the padding token
+            # is indistinguishable from the end-of-sentence token
+            # to not accidentally mask away any semantically relevant
+            # end-of-sentence tokens.
+            #
+            # For gpt_bpe outputs, only the final context generated is padded,
+            # so this is an accurate heuristic so long as the contexts
+            # were not shuffled when they were written.
+            #
+            # An alternative implementation of this could instead probe
+            # the last two token IDs in each retrieved context
+            # to check for consecutive end-of-sentence tokens
+            # as an indicator that padding is present.
+
+            mask = torch.ones_like(input_ids, dtype=torch.bool)
+        else:
+            mask: torch.Tensor = input_ids != self._pad_token_id
         return input_ids, mask
 
     def __getitem__(self, idx) -> Tuple[torch.Tensor, torch.Tensor]:
@@ -628,6 +683,16 @@ numpy.random.seed(args.seed)
 # dataset and values dataset -- values dataset is used to test the outcome
 # and determine our loss rate.
 dataset = TokenizedDataset(args.dataset, context_length=args.context_size)
+# FIXME: val_dataset isn't used anywhere, so it is disabled for now.
+if args.train_ratio != 1:
+    if is_main_process():
+        logger.warning(
+            "Validation statistics are not yet implemented,"
+            " but data was requested to be set aside for the validation set"
+            f" (--train_ratio was set to {args.train_ratio})."
+            " Setting --train_ratio to 1.0 to not discard training data."
+        )
+    args.train_ratio = 1
 train_size = int(args.train_ratio * len(dataset))
 val_size = len(dataset) - train_size
 
@@ -662,12 +727,14 @@ if is_main_process():
 # already.
 model: PreTrainedModel
 
-model_fp16_args = {"torch_dtype": torch.float16}
-model_args = {"eos_token_id": tokenizer.eos_token_id,
-            "pad_token_id": tokenizer.pad_token_id,
-            "cache_dir": args.cache,
-            "use_cache": False,
-            "low_cpu_mem_usage": True}
+model_fp16_args = {"torch_dtype": torch.float16} if args.fp16 else {}
+model_args = {
+    "eos_token_id": tokenizer.eos_token_id,
+    "pad_token_id": tokenizer.pad_token_id,
+    "cache_dir": args.cache,
+    "use_cache": False,
+    "low_cpu_mem_usage": True,
+}
 
 try:
     if args.tensorizer_uri:
@@ -676,7 +743,7 @@ try:
             **model_args,
             **model_fp16_args,
         )
-        model = utils.no_init_or_tensor(
+        model = tensorizer_utils.no_init_or_tensor(
             lambda: AutoModelForCausalLM.from_pretrained(
                 None, config=config, state_dict=OrderedDict()
             )
@@ -723,7 +790,12 @@ def evaluate(
     input_tokens: Tensor = (
         torch.LongTensor(eval_tokenizer.encode(prompt)).unsqueeze(0).to(device)
     )
-    attention_mask: Tensor = input_tokens != eval_tokenizer.pad_token_id
+    if eval_tokenizer.pad_token_id != eval_tokenizer.eos_token_id:
+        attention_mask: Tensor = input_tokens != eval_tokenizer.pad_token_id
+    else:
+        # If padding is indistinguishable from end-of-sentence,
+        # we can't tell which to mask, so mask nothing.
+        attention_mask = torch.ones_like(input_tokens, dtype=torch.bool)
     max_length = input_tokens.shape[1] + generate_tokens
     generated_tokens = eval_model.generate(
         input_tokens,
@@ -767,8 +839,9 @@ if is_main_process():
     devices_repr = device
     if device != "cpu":
         try:
-            devices_repr = (f"{torch.cuda.device_count()}x"
-                            f"{torch.cuda.get_device_name(0)}")
+            devices_repr = (
+                f"{torch.cuda.device_count()}x{torch.cuda.get_device_name(0)}"
+            )
         except Exception:
             pass
     logger.info(f"DEVICES: {devices_repr}")
@@ -797,9 +870,20 @@ elif args.zero_stage == 3 and is_main_process():
     logger.info("DeepSpeed ZeRO-3 Memory Estimates")
     estimate_fn = estimate_zero3_model_states_mem_needs_all_live
 if estimate_fn:
-    estimate_fn(model=model,
-                num_nodes=1,
-                num_gpus_per_node=torch.cuda.device_count())
+    # Try to use DeepSpeed/PyTorch's configuration for GPUs per node
+    num_gpus_per_node = os.getenv("LOCAL_WORLD_SIZE", None)
+    if num_gpus_per_node is not None:
+        try:
+            num_gpus_per_node = int(num_gpus_per_node)
+            if num_gpus_per_node == -1:
+                num_gpus_per_node = None
+        except ValueError:
+            num_gpus_per_node = None
+    if num_gpus_per_node is None:
+        # Fall back to manually counting visible GPUs
+        num_gpus_per_node = torch.cuda.device_count()
+
+    estimate_fn(model=model, num_nodes=1, num_gpus_per_node=num_gpus_per_node)
 
 # The latest deepspeed logging is pretty obnoxious, so we disable it
 # unless debug-level logging is requested.
@@ -810,16 +894,14 @@ if args.log_level.upper() != "DEBUG":
 os.makedirs(args.output_path, exist_ok=True)
 os.chdir(args.output_path)
 
-callbacks = [
-    PerformanceCallback()
-]
+callbacks = [PerformanceCallback()]
 
 # Set up our prompt testing callback if we were given a prompt file.
 if args.prompt_file:
     if args.prompt_every == -1:
         args.prompt_every = args.save_steps
 
-    callbacks += [
+    callbacks.append(
         ModelSampler(
             args.prompt_file,
             tokenizer,
@@ -830,9 +912,7 @@ if args.prompt_file:
             report_every=args.prompt_every or args.save_steps,
             context_size=args.context_size,
         )
-    ]
-else:
-    callbacks = None
+    )
 
 # Parametrize our training based on provided arguments.
 training_args = TrainingArguments(
