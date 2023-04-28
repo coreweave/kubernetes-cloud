@@ -423,7 +423,7 @@ class ModifiedTrainer(Trainer):
 
     def compute_loss(self, model, inputs, return_outputs=False):
         if "labels" in inputs:
-            inputs["labels"].masked_fill_(inputs["attention_mask"], -100)
+            inputs["labels"].masked_fill_(~inputs["attention_mask"], -100)
 
         results = super().compute_loss(model, inputs, return_outputs)
         loss = results[0] if return_outputs else results
