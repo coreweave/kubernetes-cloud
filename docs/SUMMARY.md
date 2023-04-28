@@ -24,6 +24,8 @@
 * [Examples](../coreweave-kubernetes/examples/README.md)
   * [Jupyter Notebook with TensorFlow](../coreweave-kubernetes/examples/tensorflow-jupyter.md)
   * [SSH Server with CUDA](../coreweave-kubernetes/examples/cuda-ssh.md)
+* [Partners](coreweave-kubernetes/partners/README.md)
+  * [Zeet](coreweave-kubernetes/partners/zeet.md)
 
 ## Networking
 
