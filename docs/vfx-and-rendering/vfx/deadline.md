@@ -59,7 +59,11 @@ First, to make things simpler, we will split our configuration into two sections
 
 To begin, we should specify the version of Deadline that we would like to deploy.
 
-**CoreWeave's currently supported versions are:**
+<details>
+
+<summary>Click to expand - Supported Deadline versions</summary>
+
+Currently supported versions of Deadline on CoreWeave Cloud are:
 
 * `10.1.9.2`
 * `10.1.10.6`
@@ -71,6 +75,9 @@ To begin, we should specify the version of Deadline that we would like to deploy
 * `10.1.15.2`
 * `10.1.17.4`
 * `10.1.18.5`
+* `10.1.23.6`
+
+</details>
 
 {% hint style="info" %}
 **Note**
