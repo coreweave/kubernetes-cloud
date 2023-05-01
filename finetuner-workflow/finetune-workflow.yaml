@@ -4,6 +4,7 @@ metadata:
   generateName: "finetune-"
 spec:
   entrypoint: main
+  serviceAccountName: finetune
   arguments:
     parameters:
     # run_name should be unique on a per-run basis, especially if reporting
@@ -304,9 +305,9 @@ spec:
     retryStrategy:
       limit: 1
     container:
-      image: "alpine:3.12"
+      image: "alpine/curl:3.14"
       command: [ "/bin/sh", "-c" ]
-      args: [ "curl -I -XGET -s -o /dev/null -w \"%{http_code}\" https://accel-object.ord1.coreweave.com/tensorized/{{inputs.parameters.model}}/model.tensors | grep -q 200 && echo -n 'true' > /tmp/output.txt || echo -n 'false' > /tmp/output.txt" ]
+      args: [ "/usr/bin/curl -I -XGET -s -o /dev/null -w \"%{http_code}\" https://accel-object.ord1.coreweave.com/tensorized/{{inputs.parameters.model}}/model.tensors | grep -q 200 && echo -n 'true' > /tmp/output.txt || echo -n 'false' > /tmp/output.txt" ]
     outputs:
       parameters:
         - name: result
