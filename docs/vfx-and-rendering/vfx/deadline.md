@@ -77,6 +77,8 @@ Currently supported versions of Deadline on CoreWeave Cloud are:
 * `10.1.18.5`
 * `10.1.23.6`
 
+Upon request, versions `10.2.1.0` and `10.2.10.1` may also be configured.
+
 </details>
 
 {% hint style="info" %}
