@@ -4,6 +4,7 @@ metadata:
   generateName: "finetune-"
 spec:
   entrypoint: main
+  serviceAccountName: finetune
   arguments:
     parameters:
     # run_name should be unique on a per-run basis, especially if reporting
