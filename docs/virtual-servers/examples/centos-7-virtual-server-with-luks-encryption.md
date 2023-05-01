@@ -1,5 +1,5 @@
 ---
-description: An example detailing a CentOS 7 Virtual Server deployed with LUKS encryption
+description: A Virtual Server example running CentOS 7 with LUKS encryption
 ---
 
 # CentOS 7 Virtual Server with LUKS Encryption

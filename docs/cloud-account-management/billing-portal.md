@@ -23,7 +23,7 @@ The billing portal has two main sections, **Subscriptions** and **Invoices**.&#x
 
 Here's an example of the Subscriptions section.
 
-<figure><img src="../.gitbook/assets/image (90) (1).png" alt="An example of the Subscriptions section of the billing portal."><figcaption><p>Subscriptions Section</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (153).png" alt="An example of the Subscriptions section of the billing portal."><figcaption><p>Subscriptions Section</p></figcaption></figure>
 
 ## How to get help
 

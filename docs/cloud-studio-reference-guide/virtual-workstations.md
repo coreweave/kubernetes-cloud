@@ -14,7 +14,7 @@ Virtual Workstations are deployed on top of the open source project [Kubevirt](h
 Before continuing with this guide, you may want to learn a bit more about [Virtual Servers](broken-reference) (upon which Workstations are built), or a bit more about how to leverage `virtctl` for fine-grained control over Virtual Workstations.
 {% endhint %}
 
-<table data-card-size="large" data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-cover data-type="files"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><p><strong>Get Started with Virtual Servers</strong></p><p></p><p>Learn all about CoreWeave <strong>Virtual Servers</strong> – what they are, how they work, and how to create them.</p></td><td></td><td></td><td><a href="../.gitbook/assets/virtualservers.jpeg">virtualservers.jpeg</a></td><td><a href="../../virtual-servers/getting-started.md">getting-started.md</a></td></tr><tr><td><strong>Managing Virtual Workstations using <code>virtctl</code></strong></td><td><p></p><p>The <a href="https://kubevirt.io/user-guide/operations/virtctl_client_tool/"><code>virtctl</code> tool</a> may be used for remotely controlling Virtual Workstations. If you require more <strong>fine-grained control</strong> over your Virtual Workstations, check out our Remote Access &#x26; Control guide.</p></td><td></td><td><a href="../.gitbook/assets/kubevirt.png">kubevirt.png</a></td><td><a href="../../virtual-servers/remote-access-and-control.md">remote-access-and-control.md</a></td></tr></tbody></table>
+<table data-card-size="large" data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-cover data-type="files"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><p><strong>Get Started with Virtual Servers</strong></p><p></p><p>Learn all about CoreWeave <strong>Virtual Servers</strong> – what they are, how they work, and how to create them.</p></td><td></td><td></td><td><a href="../.gitbook/assets/virtualservers (1).jpeg">virtualservers (1).jpeg</a></td><td><a href="../../virtual-servers/getting-started.md">getting-started.md</a></td></tr><tr><td><strong>Managing Virtual Workstations using <code>virtctl</code></strong></td><td><p></p><p>The <a href="https://kubevirt.io/user-guide/operations/virtctl_client_tool/"><code>virtctl</code> tool</a> may be used for remotely controlling Virtual Workstations. If you require more <strong>fine-grained control</strong> over your Virtual Workstations, check out our Remote Access &#x26; Control guide.</p></td><td></td><td><a href="../.gitbook/assets/kubevirt (1).png">kubevirt (1).png</a></td><td><a href="../../virtual-servers/remote-access-and-control.md">remote-access-and-control.md</a></td></tr></tbody></table>
 
 ## Operating Systems
 
@@ -57,7 +57,7 @@ Once you have [configured your Virtual Server](../../virtual-servers/getting-sta
 
 From here, uncomment the `filesystems` stanza to mount in a shared storage volume as a filesystem.
 
-<figure><img src="../.gitbook/assets/image (45).png" alt="Filesystems YAML stanza"><figcaption><p>Filesystems YAML stanza</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (45) (3).png" alt="Filesystems YAML stanza"><figcaption><p>Filesystems YAML stanza</p></figcaption></figure>
 
 A valid specification may look something like the following:
 

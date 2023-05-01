@@ -38,7 +38,7 @@ The following fields - **SAMLSubject NameID**, **SAMLSubject NameID Format**, an
 | SAMLSubject NameID Format | `urn:oasis:name:tc:SAML:1.1:nameid-format:unspecified` |
 | Signature Algorithm       | `RSA-SHA256`                                           |
 
-<figure><img src="../../.gitbook/assets/image (17) (4).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (17).png" alt=""><figcaption></figcaption></figure>
 
 Leave the **Sign Assertion** checkbox unchecked.
 
@@ -57,7 +57,7 @@ Under the **IDP URL** field in the **Attributes** section are several fields for
 | email                           | `email`                  |
 | login                           | `email`                  |
 
-<figure><img src="../../.gitbook/assets/image (56) (3).png" alt="Screenshot of JumpCloud SSO attributes"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (56).png" alt="Screenshot of JumpCloud SSO attributes"><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 **Note**

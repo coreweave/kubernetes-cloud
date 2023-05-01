@@ -100,4 +100,4 @@ To resize a Volume, first navigate to the Storage Volumes page. Click the pencil
 
 From this modal, it is possible to adjust the size and labels of the Volume. Adjust the size under the **size** field, then click the **Save** button to apply your changes.
 
-<figure><img src="../../.gitbook/assets/image (35) (1).png" alt="Screenshot of the storage volume edit module"><figcaption><p>Adjust the volume size</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (26) (1).png" alt="Screenshot of the storage volume edit module"><figcaption><p>Adjust the volume size</p></figcaption></figure>

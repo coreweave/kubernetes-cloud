@@ -1,58 +1,68 @@
+---
+description: >-
+  A Virtual Server example hosting a DFS namespace with multiple Samba-AD
+  deployments for high availability
+---
+
 # Highly Available Storage using Samba-AD and AD DFS
 
-**Objective:** Create a DFS namespace using multiple Samba-AD deployments for high availability.
+In this example, a [Distributed File System (DFS) Namespace](https://docs.microsoft.com/en-us/windows-server/storage/dfs-namespaces/dfs-overview) leveraging multiple Samba-AD deployments for high availability is provisioned onto CoreWeave Cloud.
 
-**Overview:** This process consists of adding the [Distributed File System](https://docs.microsoft.com/en-us/windows-server/storage/dfs-namespaces/dfs-overview) Namespace role to our [previously deployed Domain Controller](provision-an-active-directory-domain-controller.md#create-primary-domain-controller-virtual-server), as well as deploying multiple Samba-AD instances presenting [Shared Filesystem](https://docs.coreweave.com/coreweave-kubernetes/storage#shared-filesystem) storage volumes. We will add each Samba-AD instance to our DFS Namespace, so our shares are highly available.
+This process consists of adding the Distributed File System Namespace role to a [previously deployed Domain Controller](./), as well as deploying multiple Samba-AD instances presenting [Shared Filesystem storage volumes](../../../storage/storage/). Each Samba-AD instance is added to the DFS Namespace so that shares are highly available.
+
+## Prerequisites
+
+This example presumes that [a Windows Server with an Active Directory Domain](./) has already been deployed. It is also presumed that the user already [has an active CoreWeave account and has configured their user credentials](../../../coreweave-kubernetes/getting-started.md#create-an-account) such that resources may be deployed to their namespace.
 
 ## Create Storage Volumes
 
-Before deploying our Samba-AD instance, we must first have storage volumes to present. Logging in to the [CoreWeave Cloud Dashboard](https://docs.coreweave.com/virtual-servers/deployment-methods/coreweave-apps#accessing-the-cloud-ui), navigate to the [Storage Volumes](https://cloud.coreweave.com/storage) management page to deploy a new volume:
+Before deploying the Samba-AD instance, there must be storage volumes to present. The Samba-AD instance will use three Shared HDD Filesystems. To create these, the user navigates [to the Storage section of the CoreWeave Cloud UI](../../../storage/storage/using-storage-cloud-ui.md#create-a-new-storage-volume).
 
-![](<../../../.gitbook/assets/image (89).png>)
+![](<../../../.gitbook/assets/image (130).png>)
 
-Our Samba-AD instance uses Shared Filesystem volumes:
+In this example, three volumes are used for the Samba-AD instance. They are each titled `vol01`, `vol02`, and `vol03` respectively.
 
-![](<../../../.gitbook/assets/image (79) (1).png>)
-
-In this example, we have three volumes we'll be using for our Samba-AD instance:
-
-![](<../../../.gitbook/assets/image (57) (1).png>)
+<figure><img src="../../../.gitbook/assets/image (57) (1).png" alt="Screenshot of three HDD shared filesystem volumes in the Storage section of the Cloud UI"><figcaption></figcaption></figure>
 
 ## Deploy Samba-AD Instances
 
-With our storage volumes allocated, we can now present them with Samba-AD.
+With the storage volumes allocated, they may now be presented with Samba-AD.
 
-Via the CoreWeave Cloud Dashboard, navigate to the catalog:
+Samba-AD is installed from [the Cloud UI Applications Catalog](../../../coreweave-kubernetes/applications-catalog.md) by searching `samba-ad`. Click the **samba-ad** card, then click the **Deploy** button to configure and launch Samba-AD.
 
-![](<../../../.gitbook/assets/image (81) (1).png>)
+<figure><img src="../../../.gitbook/assets/image (3).png" alt="Screenshot: search for samba-ad in the applications catalog to find it"><figcaption></figcaption></figure>
 
-Locate the Samba-AD chart:
+### Configure Samba-AD
 
-![](<../../../.gitbook/assets/image (75) (1).png>)
-
-Using the information from our [Configure Domain Services](provision-an-active-directory-domain-controller.md#install-and-configure-domain-services) example, fill out the form, including instance name. The volumes we created earlier are attached to our deployment example below:
+The Samba-AD application requires some details prior to deploying. In this example, the same details provided in [the Windows Server with Active Directory Domain example](./) are used to fill out the form, including the instance name. At the bottom of the deployment form, the filesystem volumes created earlier (`vol01`, `vol02`, and `vol03`) are attached at the end of the form, before the application is deployed.
 
 ![](<../../../.gitbook/assets/image (68) (2).png>)
 
-Once deployed, we're taken to a status page indicating our deployment is running:
+The [post-deployment status page](../../../../virtual-servers/deployment-methods/coreweave-apps.md#cloud-ui-tools) indicates when the deployed Samba-AD Pods are in a `Ready` state.
 
 ![](<../../../.gitbook/assets/image (121).png>)
 
-We will then follow the above steps to create another instance for high availability - called `smbad02`:
+### Create a second Samba-AD instance
 
-![](<../../../.gitbook/assets/image (74) (1).png>)
+Repeating the steps above, a second Samba-AD instance is created, this one given the name `smbad02`.
+
+![](<../../../.gitbook/assets/image (122).png>)
 
 {% hint style="info" %}
-Samba-AD includes `podAntiAffinity`, which prevents multiple instances from scheduling on the same compute node.
+**Note**
+
+Samba-AD includes an `podAntiAffinity` to prevent multiple instances from being scheduled on the same compute node.
 {% endhint %}
 
-## Configure Distributed File System
+## Configure the Distributed File System
 
-With our instances deployed, we can set up our DFS namespace.
+With both Samba-AD instances deployed, the DFS Namespace can be configured.
 
-With an authenticated administrative Domain Account, start a new PowerShell session on your desired DFS namespace server. Usually, this is your Primary Domain Controller.
+A new PowerShell session on the desired DFS Namespace server - usually, the [Primary Domain Controller](./#create-a-primary-domain-controller-pdc) -  is opened with an authenticated administrative Domain Account. The following commands are issued to configure the DFS Namespace.
 
-#### Install the DFS Namespace Role
+### Install the DFS Namespace role
+
+First, the DFS Namespace role is created.
 
 ```powershell
 Install-WindowsFeature -Name FS-DFS-Namespace,FS-DFS-Replication  -IncludeManagementTools
@@ -62,7 +72,9 @@ Success Restart Needed Exit Code      Feature Result
 True    No             Success        {DFS Namespaces, DFS Replication, DFS Mana...
 ```
 
-#### Setup DFS Root Folder Structure
+### Setup DFS root folder structure
+
+Next, the DFS root folder structure is created.
 
 ```powershell
 New-Item -ItemType Directory $env:SystemDrive\DFSRoots\Shares -Force
@@ -76,7 +88,9 @@ Mode                 LastWriteTime         Length Name
 d-----         3/31/2022  12:57 AM                Shares
 ```
 
-#### Create DFS Root SMB Share
+### Create DFS root SMB share
+
+Then, a DFS root SMB share is provisioned.
 
 ```powershell
 New-SmbShare -Name "Shares" -Path $env:SystemDrive\DFSRoots\Shares
@@ -86,7 +100,9 @@ Name   ScopeName Path               Description
 Shares *         C:\DFSRoots\Shares
 ```
 
-#### Create DFS Namespace Root
+### Create the DFS Namespace root
+
+In this example, `vs-pdc` is the Domain Controller we are using for our DFS Namespace host. The directory `Shares` is the directory created and shared previously.
 
 ```powershell
 New-DfsnRoot -TargetPath "\\vs-pdc\Shares" -Type DomainV2 -Path "\\ad\Shares"
@@ -96,11 +112,9 @@ Path        Type      Properties TimeToLiveSec State  Description
 \\ad\Shares Domain V2            300           Online
 ```
 
-{% hint style="info" %}
-Note in this example, `vs-pdc` is the Domain Controller we are using for our DFS Namespace host. `Shares` is the directory we created and shared above.
-{% endhint %}
+### Create DFS Targets
 
-#### Create DFS Target for each Samba-AD Instance
+For each Samba-AD instance created, a [DFS folder target](https://learn.microsoft.com/en-us/windows-server/storage/dfs-namespaces/add-folder-targets) is created. This process is repeated for each share the Samba-AD instance presents. In this example, the process must be replicated for volumes `vol02` and `vol03`.
 
 ```powershell
 New-DfsnFolderTarget -Path "\\ad\shares\vol01" -TargetPath "\\smbad01\vol01"
@@ -116,43 +130,34 @@ Path              TargetPath      State  ReferralPriorityClass ReferralPriorityR
 \\ad\shares\vol01 \\smbad02\vol01 Online sitecost-normal       0
 ```
 
-{% hint style="info" %}
-Repeat this step for each share your Samba-AD instance presents. In this example, we need to perform the above for `vol02` and `vol03`.
-{% endhint %}
+### Verify the results
 
-### Verify the Results
+Navigating to `\\ad\Shares`, each DFS folder target should now exist, as shown here:
 
-Navigating to `\\ad\Shares`, we can see each of our DFS Folder Targets:
+<figure><img src="../../../.gitbook/assets/image (147).png" alt="A screenshot of a filesystem directory listing"><figcaption></figcaption></figure>
 
-![](<../../../.gitbook/assets/image (88).png>)
-
-Under properties, the DFS tab shows us `smbad02` is the current active file server:
+Under **Properties**, in the DFS tab, `smbad02` is shown as the currently active file server.
 
 ![](<../../../.gitbook/assets/image (62) (2).png>)
 
-Copying a file to our DFS Root Folder path, we can see it's actually been copied to the shares presented by the Samba-AD instances:
+Copying a file to the DFS Root Folder path demonstrates that the file gets copied to the shares presented by the Samba-AD instances:
 
-![](<../../../.gitbook/assets/image (65) (2).png>)
-
-![](<../../../.gitbook/assets/image (66) (2).png>)
-
-![](<../../../../.gitbook/assets/image (63).png>)
+<figure><img src="../../../.gitbook/assets/image (2).png" alt="" width="375"><figcaption></figcaption></figure>
 
 ### Adding a secondary DFS Namespace Server
 
-To mitigate points of failure, we will use our [secondary domain controller](provision-an-active-directory-domain-controller.md#adding-a-secondary-domain-controller) as an additional DFS Server.
+To mitigate any points of failure, we will use [the secondary domain controller](./#add-a-secondary-domain-controller) created earlier as an additional DFS Namespace server.
 
-We will follow the above steps on our `vs-dc2` server:
+The following steps will be repeated in order to accomplish this:
 
-* [Install the DFS Namespace Role](highly-available-storage-using-samba-ad-and-ad-dfs.md#install-the-dfs-namespace-role)
-* [Setup DFS Root Folder Structure](highly-available-storage-using-samba-ad-and-ad-dfs.md#setup-dfs-root-folder-structure)
-* [Create DFS Root SMB Share](highly-available-storage-using-samba-ad-and-ad-dfs.md#create-dfs-root-smb-share)
-* [Create DFS Namespace Root](highly-available-storage-using-samba-ad-and-ad-dfs.md#create-dfs-namespace-root)
-  * Here, we will substitute `vs-pdc` with `vs-dc2`
+1. [Install the DFS Namespace Role](highly-available-storage-using-samba-ad-and-ad-dfs.md#install-the-dfs-namespace-role)
+2. [Setup DFS Root Folder Structure](highly-available-storage-using-samba-ad-and-ad-dfs.md#setup-dfs-root-folder-structure)
+3. [Create DFS Root SMB Share](highly-available-storage-using-samba-ad-and-ad-dfs.md#create-dfs-root-smb-share)
+4. [Create DFS Namespace Root](highly-available-storage-using-samba-ad-and-ad-dfs.md#create-dfs-namespace-root) (In this step, `vs-pdc` is substituted with `vs-dc2`)
 
-Once complete, we can see multiple Root Target Paths:
+Once complete, multiple Root Target Paths are visible by using `Get-DfsnRootTarget \\ad\shares`:
 
-```
+```powershell
 Get-DfsnRootTarget \\ad\shares
 
 Path        TargetPath                                                           State  ReferralPriorityClass ReferralPriorityRank
