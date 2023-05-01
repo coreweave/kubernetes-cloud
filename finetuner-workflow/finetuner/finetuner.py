@@ -302,7 +302,7 @@ logger.info(f"LAST CHECKPOINT: {last_checkpoint}")
 
 # Set up `wandb` reporting if we have an API key, and resume reporting
 # if we are resuming a checkpoint.
-report_to = "none"
+report_to = ["none"]
 wandb_key = os.getenv("WANDB_API_KEY", "").strip()
 if not wandb_key:
     logger.warning("WANDB_API_KEY: No WANDB_API_KEY found, not reporting to wandb.")
@@ -311,7 +311,7 @@ if not wandb_key:
 import wandb
 
 if wandb_key and is_main_process():
-    report_to = "wandb"
+    report_to = ["wandb"]
 
     if last_checkpoint is not None:
         wandb_api = wandb.Api(overrides={"project": args.project_id})
@@ -744,7 +744,6 @@ try:
         deserializer = TensorDeserializer(args.tensorizer_uri)
         deserializer.load_into_module(model)
         deserializer.close()
-        model.train()
     else:
         with no_init():
             model = AutoModelForCausalLM.from_pretrained(
@@ -760,6 +759,7 @@ except Exception as e:
     logger.error(e)
     logger.error(MemoryUsage.now())
     sys.exit(1)
+model.train()
 logger.info(MemoryUsage.now())
 
 
@@ -907,22 +907,46 @@ if args.prompt_file:
     )
 
 # Parametrize our training based on provided arguments.
+
+# The grouping of arguments is based on the TrainingArguments.set_<...>
+# family of functions, but set instead during initialization
+# for compatibility with DeepSpeed.
 training_args = TrainingArguments(
-    output_dir=output_dir,
-    num_train_epochs=args.epochs,
-    logging_steps=10,
-    save_strategy=IntervalStrategy.STEPS,
-    per_device_train_batch_size=bs,
-    per_device_eval_batch_size=bs,
-    gradient_accumulation_steps=args.gradients,
+    # Training arguments
+    do_train=True,
     learning_rate=args.lr,
-    warmup_steps=8,
+    per_device_train_batch_size=bs,
     weight_decay=0.01,
-    save_steps=args.save_steps,
-    logging_dir=args.logs,
-    report_to=report_to,
-    run_name=args.run_name,
+    num_train_epochs=args.epochs,
+    gradient_accumulation_steps=args.gradients,
     gradient_checkpointing=True,
+
+    # Learning rate scheduler arguments
+    warmup_steps=8,
+
+    # Evaluation arguments
+    # (Evaluation loss tracking is not finished, so these are disabled)
+    # do_eval=True,
+    # evaluation_strategy=...,        # Undetermined
+    # eval_steps=...,                 # Undetermined
+    # per_device_eval_batch_size=bs,
+    # eval_accumulation_steps=...,    # Undetermined
+    # eval_delay=...,                 # Undetermined
+    # prediction_loss_only=False,
+
+    # Logging arguments
+    logging_dir=args.logs,
+    logging_strategy=IntervalStrategy.STEPS,
+    logging_steps=10,
+    report_to=report_to,
+
+    # Save arguments
+    save_strategy=IntervalStrategy.STEPS,
+    save_steps=args.save_steps,
+
+    # Miscellaneous arguments
+    output_dir=output_dir,
+    run_name=args.run_name,
     disable_tqdm=False,
     **ds_args,
     **trainer_fp16_args,
