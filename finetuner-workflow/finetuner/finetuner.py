@@ -948,6 +948,7 @@ training_args = TrainingArguments(
     output_dir=output_dir,
     run_name=args.run_name,
     disable_tqdm=False,
+    seed=args.seed,
     **ds_args,
     **trainer_fp16_args,
 )
