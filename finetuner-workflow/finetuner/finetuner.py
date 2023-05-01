@@ -20,7 +20,6 @@ import argparse
 import pathlib
 from typing import Tuple, List
 import socket
-from contextlib import closing
 import logging
 import deepspeed
 from deepspeed.runtime.zero.stage_1_and_2 import (
@@ -35,17 +34,10 @@ from tensorizer import TensorDeserializer, utils as tensorizer_utils, stream_io
 from utils import *
 
 
-def find_free_port():
-    with closing(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) as s:
-        s.bind(("", 0))
-        s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        return s.getsockname()[1]
-
-
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
-thisPath = str(pathlib.Path(__file__).parent.resolve())
-sys.path.append(thisPath + "/transformers/src")
+this_path = str(pathlib.Path(__file__).parent.resolve())
+sys.path.append(this_path + "/transformers/src")
 
 import transformers
 from transformers import (
@@ -299,14 +291,14 @@ args.no_resume = args.no_resume.lower() not in FALSE
 if not args.no_resume:
     try:
         output_dir_list = os.listdir(output_dir)
-        lastCheckpoint = sorted(
+        last_checkpoint = sorted(
             output_dir_list, key=lambda x: int(x.split("-")[1])
         )[-1]
     except Exception:
-        lastCheckpoint = None
+        last_checkpoint = None
 else:
-    lastCheckpoint = None
-logger.info(f"LAST CHECKPOINT: {lastCheckpoint}")
+    last_checkpoint = None
+logger.info(f"LAST CHECKPOINT: {last_checkpoint}")
 
 # Set up `wandb` reporting if we have an API key, and resume reporting
 # if we are resuming a checkpoint.
@@ -321,9 +313,9 @@ import wandb
 if wandb_key and is_main_process():
     report_to = "wandb"
 
-    if lastCheckpoint is not None:
-        wandbApi = wandb.Api(overrides={"project": args.project_id})
-        for run in wandbApi.runs(path=args.project_id):
+    if last_checkpoint is not None:
+        wandb_api = wandb.Api(overrides={"project": args.project_id})
+        for run in wandb_api.runs(path=args.project_id):
             logger.info(f"PRIOR RUN: {run} {run.name} {run.id} {run.state}")
             if run.state in ["crashed", "failed"] and run.name == args.run_name:
                 logger.info(f"CHECKPOINT: Resuming {run.id}")
@@ -760,7 +752,7 @@ try:
                 **model_args,
                 **model_fp16_args,
             )  # Gradient checkpointing needs this off.
-            if lastCheckpoint is None:
+            if last_checkpoint is None:
                 model = model.to(device)
     sys.stderr.flush()
     sys.stdout.flush()
@@ -956,8 +948,8 @@ trainer = ModifiedTrainer(
 )
 
 # Finally, do our training!
-if lastCheckpoint is not None:
-    trainer.train(str(os.path.join(output_dir, lastCheckpoint)))
+if last_checkpoint is not None:
+    trainer.train(str(os.path.join(output_dir, last_checkpoint)))
 else:
     trainer.train()
 

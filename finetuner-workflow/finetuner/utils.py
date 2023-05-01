@@ -96,7 +96,7 @@ class MemoryUsage(NamedTuple):
         return cls(CPUMemoryUsage.now(), gpu_info, torch_info)
 
     def __str__(self):
-        return " ".join(map(str, filter(None, self)))
+        return " ".join(str(item) for item in self if item)
 
 
 @contextmanager
