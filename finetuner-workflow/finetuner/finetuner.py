@@ -28,7 +28,6 @@ from deepspeed.runtime.zero.stage_1_and_2 import (
 from deepspeed.runtime.zero.stage3 import (
     estimate_zero3_model_states_mem_needs_all_live,
 )
-from collections import OrderedDict
 from tensorizer import TensorDeserializer, utils as tensorizer_utils, stream_io
 
 from utils import *
@@ -736,9 +735,7 @@ try:
             **model_fp16_args,
         )
         model = tensorizer_utils.no_init_or_tensor(
-            lambda: AutoModelForCausalLM.from_pretrained(
-                None, config=config, state_dict=OrderedDict()
-            )
+            lambda: AutoModelForCausalLM.from_config(config)
         )
 
         deserializer = TensorDeserializer(args.tensorizer_uri)
