@@ -203,7 +203,9 @@ spec:
               value: "{{workflow.parameters.model}}"
             - name: dest
               value: "/{{workflow.parameters.pvc}}/models/{{workflow.parameters.model}}"
-        when: "'{{workflow.parameters.tensorizer_uri}}' == '' && '{{steps.check-model.outputs.result}}' == 'false'"
+            - name: tokenizer_only
+              value: "{{steps.check-model.outputs.result}}"
+        when: "'{{workflow.parameters.tensorizer_uri}}' == ''"
 
     - - name: dataset-downloader
         template: dataset-downloader
@@ -319,13 +321,15 @@ spec:
       parameters:
         - name: model
         - name: dest
+        - name: tokenizer_only
     retryStrategy:
       limit: 1
     container:
       image: "{{workflow.parameters.model_downloader_image}}:{{workflow.parameters.model_downloader_tag}}"
       command: [ "/ko-app/model_downloader" ]
       args: [ "-model", "{{inputs.parameters.model}}",
-              "-dest", "{{inputs.parameters.dest}}" ]
+              "-dest", "{{inputs.parameters.dest}}",
+              "-tokenizer-only", "{{inputs.parameters.tokenizer_only}}" ]
       resources:
         requests:
           memory: 512Mi
