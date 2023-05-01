@@ -20,7 +20,7 @@ Once the Determined application is launched, open the Determined AI Web UI. Clic
 
 Choose a number of **Slots** (that is, the number of GPUs to use) and set a **Name** for your Notebook, then [select a Resource Pool](../../../compass/determined-ai/install-determined-ai.md#resource-pools).
 
-<figure><img src="../../../.gitbook/assets/image (1) (7).png" alt="Screenshot of the JupyterLab configuration modal"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1).png" alt="Screenshot of the JupyterLab configuration modal"><figcaption></figcaption></figure>
 
 <figure><img src="../../../.gitbook/assets/image (13) (1).png" alt="Screenshot of Notebook configuration screen"><figcaption></figcaption></figure>
 
@@ -38,7 +38,7 @@ Once the environment is ready, you will be redirected to the JupyterLab home scr
 To learn more about Jupyter and how to use Notebooks and JupyterLab, refer to [the Jupyter documentation](https://docs.jupyter.org/en/latest/).
 {% endhint %}
 
-<figure><img src="../../../.gitbook/assets/image (12) (5).png" alt="The Jupyter-lab homescreen"><figcaption><p>The Jupyter-lab homescreen</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (12).png" alt="The Jupyter-lab homescreen"><figcaption><p>The Jupyter-lab homescreen</p></figcaption></figure>
 
 To shut down the notebook, navigate to the **File** menu, then select **Shut Down**.
 
