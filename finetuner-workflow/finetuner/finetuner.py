@@ -20,7 +20,6 @@ import argparse
 import pathlib
 from typing import Tuple, List
 import socket
-from contextlib import closing
 import logging
 import deepspeed
 from deepspeed.runtime.zero.stage_1_and_2 import (
@@ -29,23 +28,15 @@ from deepspeed.runtime.zero.stage_1_and_2 import (
 from deepspeed.runtime.zero.stage3 import (
     estimate_zero3_model_states_mem_needs_all_live,
 )
-from collections import OrderedDict
 from tensorizer import TensorDeserializer, utils as tensorizer_utils, stream_io
 
 from utils import *
 
 
-def find_free_port():
-    with closing(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) as s:
-        s.bind(("", 0))
-        s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        return s.getsockname()[1]
-
-
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
-thisPath = str(pathlib.Path(__file__).parent.resolve())
-sys.path.append(thisPath + "/transformers/src")
+this_path = str(pathlib.Path(__file__).parent.resolve())
+sys.path.append(this_path + "/transformers/src")
 
 import transformers
 from transformers import (
@@ -299,18 +290,18 @@ args.no_resume = args.no_resume.lower() not in FALSE
 if not args.no_resume:
     try:
         output_dir_list = os.listdir(output_dir)
-        lastCheckpoint = sorted(
+        last_checkpoint = sorted(
             output_dir_list, key=lambda x: int(x.split("-")[1])
         )[-1]
     except Exception:
-        lastCheckpoint = None
+        last_checkpoint = None
 else:
-    lastCheckpoint = None
-logger.info(f"LAST CHECKPOINT: {lastCheckpoint}")
+    last_checkpoint = None
+logger.info(f"LAST CHECKPOINT: {last_checkpoint}")
 
 # Set up `wandb` reporting if we have an API key, and resume reporting
 # if we are resuming a checkpoint.
-report_to = "none"
+report_to = ["none"]
 wandb_key = os.getenv("WANDB_API_KEY", "").strip()
 if not wandb_key:
     logger.warning("WANDB_API_KEY: No WANDB_API_KEY found, not reporting to wandb.")
@@ -319,11 +310,11 @@ if not wandb_key:
 import wandb
 
 if wandb_key and is_main_process():
-    report_to = "wandb"
+    report_to = ["wandb"]
 
-    if lastCheckpoint is not None:
-        wandbApi = wandb.Api(overrides={"project": args.project_id})
-        for run in wandbApi.runs(path=args.project_id):
+    if last_checkpoint is not None:
+        wandb_api = wandb.Api(overrides={"project": args.project_id})
+        for run in wandb_api.runs(path=args.project_id):
             logger.info(f"PRIOR RUN: {run} {run.name} {run.id} {run.state}")
             if run.state in ["crashed", "failed"] and run.name == args.run_name:
                 logger.info(f"CHECKPOINT: Resuming {run.id}")
@@ -744,15 +735,12 @@ try:
             **model_fp16_args,
         )
         model = tensorizer_utils.no_init_or_tensor(
-            lambda: AutoModelForCausalLM.from_pretrained(
-                None, config=config, state_dict=OrderedDict()
-            )
+            lambda: AutoModelForCausalLM.from_config(config)
         )
 
         deserializer = TensorDeserializer(args.tensorizer_uri)
         deserializer.load_into_module(model)
         deserializer.close()
-        model.train()
     else:
         with no_init():
             model = AutoModelForCausalLM.from_pretrained(
@@ -760,7 +748,7 @@ try:
                 **model_args,
                 **model_fp16_args,
             )  # Gradient checkpointing needs this off.
-            if lastCheckpoint is None:
+            if last_checkpoint is None:
                 model = model.to(device)
     sys.stderr.flush()
     sys.stdout.flush()
@@ -768,6 +756,7 @@ except Exception as e:
     logger.error(e)
     logger.error(MemoryUsage.now())
     sys.exit(1)
+model.train()
 logger.info(MemoryUsage.now())
 
 
@@ -915,23 +904,48 @@ if args.prompt_file:
     )
 
 # Parametrize our training based on provided arguments.
+
+# The grouping of arguments is based on the TrainingArguments.set_<...>
+# family of functions, but set instead during initialization
+# for compatibility with DeepSpeed.
 training_args = TrainingArguments(
-    output_dir=output_dir,
-    num_train_epochs=args.epochs,
-    logging_steps=10,
-    save_strategy=IntervalStrategy.STEPS,
-    per_device_train_batch_size=bs,
-    per_device_eval_batch_size=bs,
-    gradient_accumulation_steps=args.gradients,
+    # Training arguments
+    do_train=True,
     learning_rate=args.lr,
-    warmup_steps=8,
+    per_device_train_batch_size=bs,
     weight_decay=0.01,
-    save_steps=args.save_steps,
-    logging_dir=args.logs,
-    report_to=report_to,
-    run_name=args.run_name,
+    num_train_epochs=args.epochs,
+    gradient_accumulation_steps=args.gradients,
     gradient_checkpointing=True,
+
+    # Learning rate scheduler arguments
+    warmup_steps=8,
+
+    # Evaluation arguments
+    # (Evaluation loss tracking is not finished, so these are disabled)
+    # do_eval=True,
+    # evaluation_strategy=...,        # Undetermined
+    # eval_steps=...,                 # Undetermined
+    # per_device_eval_batch_size=bs,
+    # eval_accumulation_steps=...,    # Undetermined
+    # eval_delay=...,                 # Undetermined
+    # prediction_loss_only=False,
+
+    # Logging arguments
+    logging_dir=args.logs,
+    logging_strategy=IntervalStrategy.STEPS,
+    logging_steps=10,
+    report_to=report_to,
+
+    # Save arguments
+    save_strategy=IntervalStrategy.STEPS,
+    save_steps=args.save_steps,
+
+    # Miscellaneous arguments
+    output_dir=output_dir,
+    run_name=args.run_name,
     disable_tqdm=False,
+    seed=args.seed,
     **ds_args,
     **trainer_fp16_args,
 )
@@ -956,8 +970,8 @@ trainer = ModifiedTrainer(
 )
 
 # Finally, do our training!
-if lastCheckpoint is not None:
-    trainer.train(str(os.path.join(output_dir, lastCheckpoint)))
+if last_checkpoint is not None:
+    trainer.train(str(os.path.join(output_dir, last_checkpoint)))
 else:
     trainer.train()
 
