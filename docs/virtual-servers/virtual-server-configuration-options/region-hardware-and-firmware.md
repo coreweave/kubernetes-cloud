@@ -119,7 +119,7 @@ Determine the amount of **memory** (in Gebibytes) the Virtual Server will have u
 
 The resources' `definition` defaults to the `a` character, but can be changed to any descriptive string you'd like. In the Cloud UI, the resource definition string is set in the YAML manifest.
 
-![Screenshot of the resources.definition field.](<../../.gitbook/assets/image (103).png>)
+![Screenshot of the resources.definition field.](<../../.gitbook/assets/image (49).png>)
 
 **Example**
 
@@ -243,7 +243,7 @@ You can read more about virtual hardware firmware configuration in [the Kubevirt
 
 Firmware options must be set in the YAML tab from the Cloud UI. Firmware options are not currently exposed through the YAML manifest by default, so they must be added to the key-value map in the manifest.
 
-![Example of firmware configuration in the YAML manifest tab of the Cloud UI.](<../../.gitbook/assets/image (9) (1).png>)
+![Example of firmware configuration in the YAML manifest tab of the Cloud UI.](<../../.gitbook/assets/image (9) (1) (2).png>)
 {% endtab %}
 
 {% tab title="CLI" %}

@@ -4,7 +4,7 @@ description: Deploy code simply on CoreWeave Cloud with Zeet
 
 # Zeet
 
-<figure><img src="../../.gitbook/assets/image (11).png" alt="The Zeet logo - a black octopus-like shape inside a green square"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (11) (1).png" alt="The Zeet logo - a black octopus-like shape inside a green square"><figcaption></figcaption></figure>
 
 [Zeet](https://zeet.co) is a DevOps automation platform that helps teams deploy and scale ML infrastructure across cloud providers. By empowering Developers to self-serve production-ready infrastructure and enabling DevOps and infrastructure teams  to templatize and right-size infrastructure components, Zeet fosters higher levels of iteration and collaboration within your team.
 
@@ -45,7 +45,7 @@ If you already have an API token to give to Zeet, skip this step. API tokens can
 
 After signing in to your CoreWeave Cloud account, navigate to the **API Access page**, or navigate directly to [`https://cloud.coreweave.com/api-access`](https://cloud.coreweave.com/api-access) in your browser.
 
-<figure><img src="../../.gitbook/assets/image (2) (8).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (2).png" alt=""><figcaption></figcaption></figure>
 
 From this page, click the **Create a new token** button in the upper right-hand corner. This will generate a new API access token as well as a new `cw-kubeconfig` file embedding the same token.
 
@@ -73,6 +73,6 @@ Once the file is uploaded, the credentials run through a verification check. Onc
 
 Once the Cloud has been connected, navigate to [`https://zeet.co/account/cloud`](https://zeet.co/account/cloud). From here, information about your CoreWeave cluster and all current integrations will be displayed.
 
-<figure><img src="../../.gitbook/assets/image (1) (9).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (2).png" alt=""><figcaption></figcaption></figure>
 
 For more information on configuring CoreWeave or to deploy applications onto CoreWeave using Zeet, visit [Zeet's CoreWeave official integration docs](https://docs.zeet.co/0.1.0/cloud/coreweave/#3-configure-coreweave-cluster).

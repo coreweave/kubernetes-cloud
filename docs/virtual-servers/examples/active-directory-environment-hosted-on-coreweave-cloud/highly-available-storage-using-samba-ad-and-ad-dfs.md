@@ -18,7 +18,7 @@ This example presumes that [a Windows Server with an Active Directory Domain](./
 
 Before deploying the Samba-AD instance, there must be storage volumes to present. The Samba-AD instance will use three Shared HDD Filesystems. To create these, the user navigates [to the Storage section of the CoreWeave Cloud UI](../../../storage/storage/using-storage-cloud-ui.md#create-a-new-storage-volume).
 
-![](<../../../.gitbook/assets/image (130).png>)
+![](<../../../.gitbook/assets/image (79) (1).png>)
 
 In this example, three volumes are used for the Samba-AD instance. They are each titled `vol01`, `vol02`, and `vol03` respectively.
 
@@ -46,7 +46,7 @@ The [post-deployment status page](../../../../virtual-servers/deployment-methods
 
 Repeating the steps above, a second Samba-AD instance is created, this one given the name `smbad02`.
 
-![](<../../../.gitbook/assets/image (122).png>)
+![](<../../../.gitbook/assets/image (74) (1).png>)
 
 {% hint style="info" %}
 **Note**
@@ -134,7 +134,7 @@ Path              TargetPath      State  ReferralPriorityClass ReferralPriorityR
 
 Navigating to `\\ad\Shares`, each DFS folder target should now exist, as shown here:
 
-<figure><img src="../../../.gitbook/assets/image (147).png" alt="A screenshot of a filesystem directory listing"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (88).png" alt="A screenshot of a filesystem directory listing"><figcaption></figcaption></figure>
 
 Under **Properties**, in the DFS tab, `smbad02` is shown as the currently active file server.
 

@@ -41,19 +41,19 @@ Adding or editing a configuration is done through the **SAML SSO Setup** modal. 
 
 ### Select an Identity Provider (IDP)
 
-<figure><img src="../../.gitbook/assets/image (53).png" alt="Screenshot of the SAML SSO Setup modal, with the IDP drop-down highlighted"><figcaption><p>The IDP selector menu</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (53) (3).png" alt="Screenshot of the SAML SSO Setup modal, with the IDP drop-down highlighted"><figcaption><p>The IDP selector menu</p></figcaption></figure>
 
 From the **Your IDP** drop-down menu, select your IDP.
 
 ### Configure the IDP
 
-<figure><img src="../../.gitbook/assets/image (55).png" alt="Screenshot of the CoreWeave-specific configuration values in the SSO module"><figcaption><p>The CoreWeave-specific configuration values in the SSO module</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (55) (1).png" alt="Screenshot of the CoreWeave-specific configuration values in the SSO module"><figcaption><p>The CoreWeave-specific configuration values in the SSO module</p></figcaption></figure>
 
 The Assertion Consumer Service (ACS) URL and the service provider (SP) entity ID are provided in the following two fields. These values are required to complete your IDP's configuration.
 
 ### Configure CoreWeave SSO
 
-<figure><img src="../../.gitbook/assets/image (24).png" alt="Screenshot of the IDP-provided fields, and the Display Name, in the SSO module"><figcaption><p>IDP-provided fields, and the Display Name, in the SSO module</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (24) (1).png" alt="Screenshot of the IDP-provided fields, and the Display Name, in the SSO module"><figcaption><p>IDP-provided fields, and the Display Name, in the SSO module</p></figcaption></figure>
 
 The fields **Entity ID provided by the IDP, Single Sign-On URL**, and **X.509 Certificate provided by IDP** are provided by your IDP. See the guide for [JumpCloud](jumpcloud.md), [Okta](okta.md), or [the generic IDP setup instructions](generic-idp.md) for further details.
 

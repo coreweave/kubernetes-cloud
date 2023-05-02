@@ -6,11 +6,11 @@ description: Manage Storage Volumes using the CoreWeave Cloud UI
 
 [The CoreWeave Cloud UI](../../../virtual-servers/deployment-methods/coreweave-apps.md) provides an easy-to-use storage configuration page. To access it, first log in to your CoreWeave Cloud account. Then, from the left-hand menu, navigate to **Storage Volumes**. To create a new Storage Volume, click the **New Volume** button in the upper right-hand corner or center of the page.
 
-<figure><img src="../../.gitbook/assets/image (5) (2).png" alt="Screenshot: The Storage Volumes management page"><figcaption><p>The Storage Volumes management page</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5) (3).png" alt="Screenshot: The Storage Volumes management page"><figcaption><p>The Storage Volumes management page</p></figcaption></figure>
 
 ## Create a new Storage Volume
 
-<figure><img src="../../.gitbook/assets/image (39).png" alt=""><figcaption><p>The Storage Volume modal opens when the <strong>New Volume</strong> button is clicked</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (39) (1).png" alt=""><figcaption><p>The Storage Volume modal opens when the <strong>New Volume</strong> button is clicked</p></figcaption></figure>
 
 ### Volume name
 
@@ -100,4 +100,4 @@ To resize a Volume, first navigate to the Storage Volumes page. Click the pencil
 
 From this modal, it is possible to adjust the size and labels of the Volume. Adjust the size under the **size** field, then click the **Save** button to apply your changes.
 
-<figure><img src="../../.gitbook/assets/image (26) (1).png" alt="Screenshot of the storage volume edit module"><figcaption><p>Adjust the volume size</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (35).png" alt="Screenshot of the storage volume edit module"><figcaption><p>Adjust the volume size</p></figcaption></figure>
