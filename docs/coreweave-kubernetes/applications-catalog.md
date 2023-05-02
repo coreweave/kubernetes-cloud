@@ -12,7 +12,7 @@ The [CoreWeave Cloud applications Catalog](https://apps.coreweave.com) offers ma
 
 To access the Catalog, first log in to your CoreWeave Cloud account, then navigate to the **Applications** page on the left-hand menu.
 
-<figure><img src="../.gitbook/assets/image (10) (2) (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (10) (2) (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## Find applications
 
@@ -26,7 +26,7 @@ From here, you can either search for an application by directly entering its nam
 
 ### About page
 
-<figure><img src="../.gitbook/assets/image (14) (4).png" alt="Screenshot of application preview page"><figcaption><p>Application package information will be displayed on the left-hand side</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (14) (4) (1) (1).png" alt="Screenshot of application preview page"><figcaption><p>Application package information will be displayed on the left-hand side</p></figcaption></figure>
 
 After clicking on the application you'd like to deploy, you'll be brought to the application's **about page**, where you can learn all about the application. From this page, you can also select the application's **Package Version** from the upper right-hand corner of the screen. Additional summary information will be included on the left-hand side of the screen.
 

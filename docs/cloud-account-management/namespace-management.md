@@ -42,7 +42,7 @@ Learn more about how to configure Kubernetes namespace contexts in [the official
 
 ### Billing
 
-For each namespace, your organization holds a subscription. Each subscription belongs to a **subscription group**. Subscription groups, and per-namespace subscriptions, are accessible via the [**billing portal**](billing-portal.md)**.** All namespaces belonging to the same organization will be billed together.
+For each namespace, your organization holds a subscription. Each subscription belongs to a **subscription group**. Subscription groups, and per-namespace subscriptions, are accessible via the [**billing portal**](billing-portal/)**.** All namespaces belonging to the same organization will be billed together.
 
 ### Limitations
 
@@ -62,6 +62,6 @@ To create and manage your account's namespaces, first [log in to your CoreWeave 
 
 To create a new namespace, click the **Create New Namespace** button in the upper right-hand corner. This will open the **New Namespace** modal.
 
-<figure><img src="../.gitbook/assets/image (4) (1).png" alt="Screenshot of The new namespace modal"><figcaption><p>Example of the new namespace modal</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (4) (6).png" alt="Screenshot of The new namespace modal"><figcaption><p>Example of the new namespace modal</p></figcaption></figure>
 
 The **namespace identifier** will be used as the value of `<namespace-id>` shown in the preview window in the modal. As namespaces are often used to separate workloads by development phase, some common identifiers include things like `staging`, `dev`, or `prod` for the value of the namespace identifier.

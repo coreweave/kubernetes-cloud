@@ -26,7 +26,7 @@ When the **filebrowser** application appears, click on it. This will open the ap
 It is recommended that the name you give the FileBrowser application be very short, or else you may run into SSL CNAME issues.
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/image (54) (1).png" alt="Screenshot: Select your data center region"><figcaption><p>Select your data center region</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (54).png" alt="Screenshot: Select your data center region"><figcaption><p>Select your data center region</p></figcaption></figure>
 
 ### Attach volumes
 
@@ -54,7 +54,7 @@ In the **Access URLs** box on the status page, you will find an Ingress URL (for
 
 This Ingress URL may be used to access the FileBrowser application in a browser.
 
-![The FileBrowser login screen](<../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (2).png>)
+![The FileBrowser login screen](<../../.gitbook/assets/image (3) (1) (1) (1).png>)
 
 **It is strongly recommended to change the password for your FileBrowser instance as soon as possible.** Do this by logging into your new FileBrowser instance, navigating to **Settings** on the left-hand side, and changing the password from that page.
 

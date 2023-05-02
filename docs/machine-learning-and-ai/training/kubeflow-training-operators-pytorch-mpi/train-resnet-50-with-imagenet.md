@@ -428,7 +428,7 @@ The hyperparameters used haven't been properly tuned to produce a "state of the 
 
 The data in the chart below shows samples per second numbers throughout 3 epochs of training on **each** GPU. This means that the total samples per second is the value shown in the chart times the number of GPUs used. Each line represents a different combination of PytorchJob and MPIJob and half-full A40 nodes (8 and 16 GPUs).
 
-<figure><img src="../../../.gitbook/assets/image (7) (1) (2).png" alt=""><figcaption><p>Training throughput for distributed training with the kubeflow training operators</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (7) (1) (2) (1).png" alt=""><figcaption><p>Training throughput for distributed training with the kubeflow training operators</p></figcaption></figure>
 
 As you can see, the per-GPU throughput hardly drops when moving to two nodes. This means the total throughput is almost doubled when using twice as many GPUs. You can expect the scaling efficiency to decrease as you increase the model size and total number of GPUs.
 

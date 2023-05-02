@@ -79,7 +79,7 @@ Select the tab that corresponds to your filesystem type.
 {% tab title="SMB" %}
 From the Control Panel, navigate to **File Services**. If you are primarily using **SMB (Windows File Sharing)** to access your data, SMB is likely already enabled. CoreWeave CloudLink will then use SMB to connect to your storage.
 
-<figure><img src="../../../.gitbook/assets/image (26) (1).png" alt=""><figcaption><p>Adjusting shared folder permissions for SMB</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (26) (1) (1).png" alt=""><figcaption><p>Adjusting shared folder permissions for SMB</p></figcaption></figure>
 
 
 

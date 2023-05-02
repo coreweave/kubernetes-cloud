@@ -20,7 +20,7 @@ Once the Determined application is launched, open the Determined AI Web UI. Clic
 
 Choose a number of **Slots** (that is, the number of GPUs to use) and set a **Name** for your Notebook, then [select a Resource Pool](../../../compass/determined-ai/install-determined-ai.md#resource-pools).
 
-<figure><img src="../../../.gitbook/assets/image (1) (1).png" alt="Screenshot of the JupyterLab configuration modal"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (3).png" alt="Screenshot of the JupyterLab configuration modal"><figcaption></figcaption></figure>
 
 <figure><img src="../../../.gitbook/assets/image (13) (1).png" alt="Screenshot of Notebook configuration screen"><figcaption></figcaption></figure>
 

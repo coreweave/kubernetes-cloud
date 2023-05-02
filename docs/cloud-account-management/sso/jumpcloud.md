@@ -20,7 +20,7 @@ It's recommended to keep the CoreWeave Cloud window open so that you may referen
 
 From your JumpCloud admin dashboard, navigate to the **SSO** page. From here, navigate to **User Authentication >** **SSO** to set up the configuration.
 
-<figure><img src="../../.gitbook/assets/image (52) (4).png" alt="Screenshot of JumpCloud&#x27;s SSO configuration screen"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (52).png" alt="Screenshot of JumpCloud&#x27;s SSO configuration screen"><figcaption></figcaption></figure>
 
 The **IdP Entity ID** field refers to the identity provider's entity ID. Take this value and input it into the **Entity ID provided by the IDP** field in [the CoreWeave Cloud SSO configuration module](./#the-saml-sso-modal).
 
@@ -67,7 +67,7 @@ The `email` attribute is what uniquely identifies users.
 
 ### Entity certificate
 
-<figure><img src="../../.gitbook/assets/image (35) (1).png" alt="Screenshot of the certificate status on JumpCloud SSO"><figcaption><p>The certificate status is found on the left-hand side of the SSO configuration box</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (35).png" alt="Screenshot of the certificate status on JumpCloud SSO"><figcaption><p>The certificate status is found on the left-hand side of the SSO configuration box</p></figcaption></figure>
 
 To acquire and provide the SSO certificate from JumpCloud to CoreWeave, first locate the certificate status field on the left-hand side of the JumpCloud SSO configuration modal. Click the small triangle to the right of the certificate status, then select **Download certificate**. An XML file will download, which contains the body of the x.509 certificate.
 

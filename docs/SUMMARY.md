@@ -172,7 +172,9 @@
   * [JumpCloud](cloud-account-management/sso/jumpcloud.md)
   * [Generic IDP](cloud-account-management/sso/generic-idp.md)
 * [Namespace Management](cloud-account-management/namespace-management.md)
-* [Billing Portal](cloud-account-management/billing-portal.md)
+* [Billing and Usage Information](cloud-account-management/billing-portal/README.md)
+  * [View Resources with Grafana](cloud-account-management/billing-portal/view-resources-with-grafana.md)
+  * [View Kubernetes Resources with kubectl](cloud-account-management/billing-portal/view-kubernetes-resources-with-kubectl.md)
 
 ## Security
 

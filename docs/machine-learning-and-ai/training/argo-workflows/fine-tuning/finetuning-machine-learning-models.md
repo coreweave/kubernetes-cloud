@@ -75,7 +75,7 @@ echo $ARGO_TOKEN
 
 Then, inside the box for **client authentication**, copy and paste the newly generated token into the Argo UI:
 
-![The Argo Workflow UI with a Bearer token pasted into the client authentication box](<../../../../.gitbook/assets/image (2) (2) (1) (1) (1) (1).png>)
+![The Argo Workflow UI with a Bearer token pasted into the client authentication box](<../../../../.gitbook/assets/image (2) (2) (1) (1) (1) (1) (1) (1).png>)
 
 Finally, to log in, click the **Login** button after adding the token.
 
@@ -128,7 +128,7 @@ Simply select the `finetune-data` PVC that you created earlier. **Make sure that
 Some people may prefer to use a [Virtual Server](../../../../compass/broken-reference/) to interact with their PVC via `ssh` or another mechanism. This flexibility is one of the key advantages of CoreWeave.
 {% endhint %}
 
-![The filebrowser application](<../../../../.gitbook/assets/image (127) (1) (1) (2).png>)
+![The filebrowser application](<../../../../../.gitbook/assets/image (60) (1) (1).png>)
 
 ## Dataset Setup
 

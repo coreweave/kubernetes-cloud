@@ -12,7 +12,7 @@ Workflows on CoreWeave Cloud run on [Argo Workflows](https://argoproj.github.io/
 
 After logging into [CoreWeave Cloud](https://cloud.coreweave.com), navigate to the CoreWeave application **Catalog**.
 
-![The Catalog link on the Cloud UI](<../../../.gitbook/assets/image (17) (2) (1) (1) (1) (3).png>)
+![The Catalog link on the Cloud UI](<../../../../.gitbook/assets/image (17) (2) (1) (1) (1).png>)
 
 A new window will open onto the Catalog, where you can browse all available applications. In the search field, type `argo-workflows`. Then, select the **argo-workflows** application once it appears:
 
@@ -32,7 +32,7 @@ The following deployment form will prompt you to enter a name for the applicatio
 [See the **Security** section below for more information](argo.md#security).
 {% endhint %}
 
-![The Argo Workflows configuration screen](<../../../.gitbook/assets/image (1) (3) (1) (1) (1) (1) (1) (3).png>)
+![The Argo Workflows configuration screen](<../../../.gitbook/assets/image (1) (3) (1) (1) (1) (1) (1) (1) (3).png>)
 
 After a few minutes, the deployment will be ready. If you selected `Expose UI via public Ingress`, Argo Workflows will be accessible outside the cluster.
 
@@ -275,7 +275,7 @@ Write-Host "Bearer $([Text.Encoding]::Utf8.GetString([Convert]::FromBase64String
 
 Then, inside the box for **client authentication**, copy and paste the newly generated token into the Argo UI:
 
-![The Argo Workflow UI with a Bearer token pasted into the client authentication box](<../../../.gitbook/assets/image (2) (2) (1) (1) (1) (1).png>)
+![The Argo Workflow UI with a Bearer token pasted into the client authentication box](<../../../.gitbook/assets/image (2) (2) (1) (1) (1) (1) (1) (1).png>)
 
 Finally, to log in, click the **Login** button after adding the token.
 

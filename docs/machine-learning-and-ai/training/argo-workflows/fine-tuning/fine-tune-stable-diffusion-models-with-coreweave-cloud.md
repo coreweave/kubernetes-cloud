@@ -288,7 +288,7 @@ Select the tab for your chosen fine-tuning method.
 
 For each dataset you want to use, create a directory with a meaningful name such as `data/example-dog` and place your dataset images in that directory.
 
-<figure><img src="../../../../.gitbook/assets/image (10) (2).png" alt=""><figcaption><p>An example dataset containing images of a dog</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (10).png" alt=""><figcaption><p>An example dataset containing images of a dog</p></figcaption></figure>
 
 The fine-tuner will use Prior Preservation loss which means "generic" images (AKA class images) will be used during fine-tuning. The fine-tuner will generate these "generic" images prior to starting the training loop using the base model and a provided prompt, but you can also upload these images to a separate folder in the PVC. For example, if you are fine-tuning the model based on pictures of your dog, you would want to use images of random dogs for the "generic" images. By default, the workflow will use 100 class images.
 
@@ -410,7 +410,7 @@ You can trigger runs of the workflow from the Argo UI, or by setting up a webhoo
 
 Once deployed, you should see the workflow template in the Argo Workflows UI. An example of Textual Inversion method is shown below. If you use the DreamBooth method, everything is the same except the name will be `db-finetune-template`.
 
-<figure><img src="../../../../.gitbook/assets/image (9).png" alt=""><figcaption><p>Deployed Workflow Template in the Argo UI</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (9) (1).png" alt=""><figcaption><p>Deployed Workflow Template in the Argo UI</p></figcaption></figure>
 
 To trigger a new run of the workflow through the UI, click on the template, then the submit button, then change the necessary parameters. The most common parameters are shown below, but there are many other workflow parameters you may want to review.
 
@@ -719,7 +719,7 @@ The Media tab is where you can see images being generated during the fine-tuning
 
 In the performance tab you will see how fast the GPU is performing in a metric of samples per second.
 
-<figure><img src="../../../../.gitbook/assets/i0oCpjf (1) (1).png" alt=""><figcaption><p>Fine-tuning metrics</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/i0oCpjf (1) (1) (1).png" alt=""><figcaption><p>Fine-tuning metrics</p></figcaption></figure>
 
 For the training tab, a multitude of fine-tuning metrics are recorded which indicates whether or not the workflow is making progress by reducing loss over time. These metrics can be very useful in determining whether or not the model has reached convergence.
 
