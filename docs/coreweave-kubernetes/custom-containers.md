@@ -180,7 +180,7 @@ The following is a complete example manifest deploying an instance of Kobold AI.
 
 <details>
 
-<summary>Click to expand - <code>kobol-ai.yaml</code></summary>
+<summary>Click to expand - <code>kobold-ai.yaml</code></summary>
 
 <pre class="language-yaml"><code class="lang-yaml">apiVersion: apps/v1
 kind: Deployment
