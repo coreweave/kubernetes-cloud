@@ -167,11 +167,11 @@ spec:
     - name: model_downloader_image
       value: 'ghcr.io/wbrown/gpt_bpe/model_downloader'
     - name: model_downloader_tag
-      value: 'fd6ec51'
+      value: '24c9362'
     - name: tokenizer_image
       value: 'ghcr.io/wbrown/gpt_bpe/dataset_tokenizer'
     - name: tokenizer_tag
-      value: 'fd6ec51'
+      value: '24c9362'
     - name: dataset_downloader_image
       value: 'ghcr.io/coreweave/dataset-downloader/smashwords-downloader'
     - name: dataset_downloader_tag
