@@ -330,6 +330,8 @@ spec:
       args: [ "-model", "{{inputs.parameters.model}}",
               "-dest", "{{inputs.parameters.dest}}",
               "-tokenizer-only", "{{inputs.parameters.tokenizer_only}}" ]
+      securityContext:
+        runAsUser: 0
       resources:
         requests:
           memory: 512Mi
