@@ -19,25 +19,25 @@ This article covers both **DreamBooth** and **Textual Inversion** training metho
 
 ## Prerequisites
 
-This guide contains all the information required to train Stable Diffusion, but assumes that you have already followed the process to set up the CoreWeave Kubernetes environment. If you have not done so already, follow the [Get Started with CoreWeave](../../../../coreweave-kubernetes/getting-started.md) steps before proceeding.
+This guide contains all the information required to train Stable Diffusion, but assumes that you have already followed the process to set up the CoreWeave Kubernetes environment. If you have not done so already, follow the [Get Started with CoreWeave](../../../coreweave-kubernetes/getting-started.md) steps before proceeding.
 
 It also assumes you are familiar with the topics covered in these articles.
 
-* [Get Started with Inference](../../../inference/online-inference.md)
-* [Tensorizer](../../../inference/tensorizer.md)
-* [Get Started with Workflows](../argo.md)
+* [Get Started with Inference](../../inference/online-inference.md)
+* [Tensorizer](../../inference/tensorizer.md)
+* [Get Started with Workflows](../../../cloud-tools/argo/)
 
 ## Resources
 
 ### Hardware
 
-This reference example uses the following optimal container configuration for training Stable Diffusion models, but you can use any configuration you wish, as long as it meets the minimum requirements. This configuration is currently $1.52 per hour using CoreWeave's [resource based pricing](../../../../../resources/resource-based-pricing.md) model.
+This reference example uses the following optimal container configuration for training Stable Diffusion models, but you can use any configuration you wish, as long as it meets the minimum requirements. This configuration is currently $1.52 per hour using CoreWeave's [resource based pricing](../../../../resources/resource-based-pricing.md) model.
 
 * 8 vCPU (AMD EPYC)
 * 32GB RAM
 * NVIDIA A40/A6000 GPUs (48GB VRAM)
 
-There is an optional test [Inference endpoint](../../../inference/examples/pytorch-jax/hugging-face/pytorch-hugging-face-diffusers-stable-diffusion-text-to-image.md) that can be enabled and deployed automatically when the model completes fine-tuning. This Inference container defaults to the following configuration, which currently costs $0.65 per hour with [resource based pricing](../../../../../resources/resource-based-pricing.md).
+There is an optional test [Inference endpoint](../../inference/examples/pytorch-jax/hugging-face/pytorch-hugging-face-diffusers-stable-diffusion-text-to-image.md) that can be enabled and deployed automatically when the model completes fine-tuning. This Inference container defaults to the following configuration, which currently costs $0.65 per hour with [resource based pricing](../../../../resources/resource-based-pricing.md).
 
 * 4 vCPU
 * 8GB RAM
@@ -167,7 +167,7 @@ Deploy Argo Workflows using the [Application Catalog](https://apps.coreweave.com
 
 From the application deployment menu, click on the **Catalog** tab, then search for `argo-workflows` to find and deploy the application.
 
-<figure><img src="../../../../.gitbook/assets/argos.png" alt=""><figcaption><p>Argo Workflows</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/argos.png" alt=""><figcaption><p>Argo Workflows</p></figcaption></figure>
 
 ### PVC
 
@@ -177,7 +177,7 @@ Create a `ReadWriteMany` PVC storage volume from the [Storage](broken-reference)
 
 The PVC can be shared between multiple fine-tune runs. We recommend using HDD type storage, because the fine-tuner does not require high performance storage.
 
-<figure><img src="../../../../.gitbook/assets/pvc.png" alt=""><figcaption><p>Configuring a PVC storage volume from the Cloud UI</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/pvc.png" alt=""><figcaption><p>Configuring a PVC storage volume from the Cloud UI</p></figcaption></figure>
 
 By default, this workflow uses a specific PVC depending on your fine-tune method:
 
@@ -274,7 +274,7 @@ We recommend using a short name, such as `finetune`, for the filebrowser applica
 You may prefer to use a Virtual Server to interact with the PVC via ssh, or use some other mechanism. This flexibility is one of CoreWeave's key advantages.
 {% endhint %}
 
-<figure><img src="../../../../.gitbook/assets/filebrowser.png" alt=""><figcaption><p>The filebrowser application</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/filebrowser.png" alt=""><figcaption><p>The filebrowser application</p></figcaption></figure>
 
 ## Dataset Setup
 
@@ -288,11 +288,11 @@ Select the tab for your chosen fine-tuning method.
 
 For each dataset you want to use, create a directory with a meaningful name such as `data/example-dog` and place your dataset images in that directory.
 
-<figure><img src="../../../../.gitbook/assets/image (10).png" alt=""><figcaption><p>An example dataset containing images of a dog</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (10).png" alt=""><figcaption><p>An example dataset containing images of a dog</p></figcaption></figure>
 
 The fine-tuner will use Prior Preservation loss which means "generic" images (AKA class images) will be used during fine-tuning. The fine-tuner will generate these "generic" images prior to starting the training loop using the base model and a provided prompt, but you can also upload these images to a separate folder in the PVC. For example, if you are fine-tuning the model based on pictures of your dog, you would want to use images of random dogs for the "generic" images. By default, the workflow will use 100 class images.
 
-<figure><img src="../../../../.gitbook/assets/image (6) (1).png" alt=""><figcaption><p>An example class images dataset of generic dogs</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (6) (1).png" alt=""><figcaption><p>An example class images dataset of generic dogs</p></figcaption></figure>
 
 {% hint style="info" %}
 **Note**
@@ -310,7 +310,7 @@ The data will be text-image pairs, where each pair has the same filename. The ca
 
 Here is an example dataset, in the directory named `dataset`, with six text-image pairs. Each image has its caption in a corresponding `.txt` file.
 
-<figure><img src="../../../../.gitbook/assets/dataset-example.png" alt=""><figcaption><p>A dataset with text-image pairs</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/dataset-example.png" alt=""><figcaption><p>A dataset with text-image pairs</p></figcaption></figure>
 {% endtab %}
 {% endtabs %}
 
@@ -410,7 +410,7 @@ You can trigger runs of the workflow from the Argo UI, or by setting up a webhoo
 
 Once deployed, you should see the workflow template in the Argo Workflows UI. An example of Textual Inversion method is shown below. If you use the DreamBooth method, everything is the same except the name will be `db-finetune-template`.
 
-<figure><img src="../../../../.gitbook/assets/image (9) (1).png" alt=""><figcaption><p>Deployed Workflow Template in the Argo UI</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (9) (1).png" alt=""><figcaption><p>Deployed Workflow Template in the Argo UI</p></figcaption></figure>
 
 To trigger a new run of the workflow through the UI, click on the template, then the submit button, then change the necessary parameters. The most common parameters are shown below, but there are many other workflow parameters you may want to review.
 
@@ -478,7 +478,7 @@ The namespace in the URL is the Kubernetes namespace where you've deployed all o
 kubectl config view --minify --output 'jsonpath={..namespace}'
 ```
 
-The Argo API uses the same authentication that you used to login to the UI. For more information about generating the token, see [Get Started with Workflows](../argo.md#generate-the-token).
+The Argo API uses the same authentication that you used to login to the UI. For more information about generating the token, see [Get Started with Workflows](../../../cloud-tools/argo/#generate-the-token).
 
 Use the information you've collected above to complete the bash commands below, which will hit the endpoint to trigger workflow runs.
 
@@ -711,15 +711,15 @@ You can instantly watch a submitted workflow by using the `--watch` option when 
 
 Logs for the fine-tuning workflow can be tracked and visualized using [Weights & Biases (WandB)](https://wandb.ai/).&#x20;
 
-<figure><img src="../../../../.gitbook/assets/UsbKtmS.png" alt=""><figcaption><p>Generated samples during fine-tuning</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/UsbKtmS.png" alt=""><figcaption><p>Generated samples during fine-tuning</p></figcaption></figure>
 
 The Media tab is where you can see images being generated during the fine-tuning process for every `image_log_steps` amount of steps. This can also be adjusted depending on how often you want to sample from the model during fine-tuning.&#x20;
 
-<figure><img src="../../../../.gitbook/assets/eP1wSTg.png" alt=""><figcaption><p>Performance metrics</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/eP1wSTg.png" alt=""><figcaption><p>Performance metrics</p></figcaption></figure>
 
 In the performance tab you will see how fast the GPU is performing in a metric of samples per second.
 
-<figure><img src="../../../../.gitbook/assets/i0oCpjf (1) (1) (1).png" alt=""><figcaption><p>Fine-tuning metrics</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/i0oCpjf (1) (1) (1).png" alt=""><figcaption><p>Fine-tuning metrics</p></figcaption></figure>
 
 For the training tab, a multitude of fine-tuning metrics are recorded which indicates whether or not the workflow is making progress by reducing loss over time. These metrics can be very useful in determining whether or not the model has reached convergence.
 
@@ -727,7 +727,7 @@ For the training tab, a multitude of fine-tuning metrics are recorded which indi
 
 You can access your Argo Workflow application via the web UI to see all the fine-tuner jobs, and to check their statuses.
 
-<figure><img src="../../../../.gitbook/assets/webui.png" alt=""><figcaption><p>Argo Workflow Web UI</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/webui.png" alt=""><figcaption><p>Argo Workflow Web UI</p></figcaption></figure>
 
 ## Artifacts and Inference
 
@@ -780,7 +780,7 @@ curl https://inference-example-dog-predictor-default.tenant-sta-nav-npratt.knati
 
 The above command should produce an image similar to:
 
-<figure><img src="../../../../.gitbook/assets/beach_dog.png" alt=""><figcaption><p>A photo of sks dog at the beach</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/beach_dog.png" alt=""><figcaption><p>A photo of sks dog at the beach</p></figcaption></figure>
 {% endtab %}
 
 {% tab title="Textual Inversion" %}
@@ -794,7 +794,7 @@ curl http://inference-test-predictor-default.tenant-sta-amercurio-amercurio.knat
 
 The above command should produce an image similar to:
 
-<figure><img src="../../../../.gitbook/assets/sunset (1).png" alt=""><figcaption><p>California sunset on the beach, red clouds, Nikon DSLR, professional photography</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/sunset (1).png" alt=""><figcaption><p>California sunset on the beach, red clouds, Nikon DSLR, professional photography</p></figcaption></figure>
 {% endtab %}
 {% endtabs %}
 

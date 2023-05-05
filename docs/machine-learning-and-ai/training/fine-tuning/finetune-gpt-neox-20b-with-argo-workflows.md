@@ -6,7 +6,7 @@ description: >-
 
 # Fine-tune GPT-NeoX-20B with Argo Workflows
 
-Similarly to the [Fine-tuning Machine Learning Models](../../machine-learning-and-ai/training/argo-workflows/fine-tuning/finetuning-machine-learning-models.md) tutorial, the following walkthrough provides an example of using Argo Workflows to fine-tune a smaller model (GPT-J) on a smaller dataset. If you are new to fine-tuning and Argo Workflows, this is a great place to start.
+Similarly to the [Fine-tuning Machine Learning Models](finetuning-machine-learning-models.md) tutorial, the following walkthrough provides an example of using Argo Workflows to fine-tune a smaller model (GPT-J) on a smaller dataset. If you are new to fine-tuning and Argo Workflows, this is a great place to start.
 
 This example uses two A100 nodes (16 total GPUs) using NVIDIA's [NVLINK](https://www.nvidia.com/en-us/data-center/nvlink/) and [Infiniband](https://www.nvidia.com/en-us/networking/products/infiniband/) technologies for highly performant distributed training.
 
@@ -43,7 +43,7 @@ The Argo workflow for fine-tuning is defined in the `04-finetune-workflow.yaml` 
 * [the directed-acyclic graph (DAG) definition](https://argoproj.github.io/argo-workflows/walk-through/dag/#dag),
 * and the step definitions.
 
-<figure><img src="../../.gitbook/assets/image (3) (1) (3).png" alt="Visualization of the DAG defined by the Argo workflow"><figcaption><p>Visualization of the DAG defined by the Argo workflow</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (3) (1) (3).png" alt="Visualization of the DAG defined by the Argo workflow"><figcaption><p>Visualization of the DAG defined by the Argo workflow</p></figcaption></figure>
 
 ### Parameters
 
@@ -101,7 +101,7 @@ resources:
 
 As is shown in this example, the `rdma/ib` resource requests that Remote Direct Memory Access (RDMA) be performed using InfiniBand. RDMA allows for direct memory access from the memory of one computer into that of another without involving the Operating System of either machine, which is accomplished using InfiniBand packets over Ethernet.
 
-Requesting this resource offers a big boost to distributed training performance, however it is currently **only available for A100 and H100 GPU node types on CoreWeave Cloud.** Learn more about [InfiniBand on CoreWeave Cloud](../../coreweave-kubernetes/networking/hpc-interconnect.md).
+Requesting this resource offers a big boost to distributed training performance, however it is currently **only available for A100 and H100 GPU node types on CoreWeave Cloud.** Learn more about [InfiniBand on CoreWeave Cloud](../../../coreweave-kubernetes/networking/hpc-interconnect.md).
 
 ## Setup
 
@@ -110,12 +110,12 @@ Before running the Workflow, a few things need to be created in your namespace.&
 {% hint style="info" %}
 **Note**
 
-This guide assumes that you have already followed the process to set up the CoreWeave Kubernetes environment. If you have not done so already, [follow our Getting Started guide](../../coreweave-kubernetes/getting-started.md) before proceeding with this guide.
+This guide assumes that you have already followed the process to set up the CoreWeave Kubernetes environment. If you have not done so already, [follow our Getting Started guide](../../../coreweave-kubernetes/getting-started.md) before proceeding with this guide.
 {% endhint %}
 
 ### Argo Workflows
 
-To run an Argo workflow, first deploy the Argo Workflows application in your namespace via the CoreWeave's [application Catalog](../../coreweave-kubernetes/applications-catalog.md).
+To run an Argo workflow, first deploy the Argo Workflows application in your namespace via the CoreWeave's [application Catalog](../../../coreweave-kubernetes/applications-catalog.md).
 
 {% hint style="info" %}
 **Additional Information**
@@ -134,7 +134,7 @@ kubectl apply -f 01-pvc.yaml
 {% hint style="info" %}
 **Optional**
 
-You can deploy [a FileBrowser application](../../storage/filebrowser.md) attaching the newly created PVCs to be able to inspect their contents in your browser.
+You can deploy [a FileBrowser application](../../../storage/filebrowser.md) attaching the newly created PVCs to be able to inspect their contents in your browser.
 {% endhint %}
 
 ### Fine-tune role
@@ -193,7 +193,7 @@ Once the Workflow is submitted, its progress may be monitored from the Argo Work
 
 Pod logs may be acquired via CLI using `kubectl logs <pod name>`, or by clicking on the relevant stage in the Argo Workflows Web UI.
 
-<figure><img src="../../.gitbook/assets/image (2) (7) (1).png" alt=""><figcaption><p>Argo Workflow right after submission</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (7) (1).png" alt=""><figcaption><p>Argo Workflow right after submission</p></figcaption></figure>
 
 The logs from the fine-tuning training script are available from the launcher Pod. They can be accessed via `kubectl`:
 

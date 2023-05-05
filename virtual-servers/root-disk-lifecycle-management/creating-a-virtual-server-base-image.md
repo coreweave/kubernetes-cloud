@@ -180,7 +180,7 @@ We can now safely delete our Virtual Server with `k delete vs vs-windows10-sourc
 
 With `k get pvc`, we can see our original Virtual Server PVC is now deleted, and only the clone remains:
 
-![Output of "kubectl get pvc"](<../../docs/.gitbook/assets/image (29).png>)
+![Output of "kubectl get pvc"](<../../docs/.gitbook/assets/image (29) (3).png>)
 
 We'll adjust our Virtual Server spec to suit:
 

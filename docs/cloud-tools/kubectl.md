@@ -1,6 +1,10 @@
-# View Kubernetes Resources with kubectl
+---
+description: View Kubernetes resources with kubectl
+---
 
-The standard Kubernetes command line tool, `kubectl`, is a flexible way to inspect the active resources in your account. Here are some useful commands.
+# Kubectl
+
+The standard Kubernetes command line tool, `kubectl`, is a flexible way to inspect the active resources in your account. Here are some useful commands you can use to view your resources.&#x20;
 
 ## **View Pods**
 

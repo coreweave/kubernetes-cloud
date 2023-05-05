@@ -14,7 +14,6 @@
 * [Useful Commands](../coreweave-kubernetes/useful-commands.md)
 * [Sealed Secrets](coreweave-kubernetes/sealed-secrets.md)
 * [Node Types](../coreweave-kubernetes/node-types.md)
-* [Nydus](coreweave-kubernetes/nydus.md)
 * [Advanced Label Selectors](../coreweave-kubernetes/label-selectors.md)
 * [CoSchedulers](coreweave-kubernetes/coschedulers.md)
 * [Metrics](../coreweave-kubernetes/prometheus/README.md)
@@ -27,6 +26,18 @@
   * [SSH Server with CUDA](../coreweave-kubernetes/examples/cuda-ssh.md)
 * [Partners](coreweave-kubernetes/partners/README.md)
   * [Zeet](coreweave-kubernetes/partners/zeet.md)
+
+## Cloud Tools
+
+* [Argo Workflows](cloud-tools/argo/README.md)
+  * [Use the Argo Workflows CLI](cloud-tools/argo/use-the-argo-workflows-cli.md)
+  * [Use the Argo Workflows REST API](cloud-tools/argo/use-the-argo-workflows-rest-api.md)
+  * [Use Argo Workflows with Helm](cloud-tools/argo/use-argo-workflows-with-helm.md)
+  * [Security Best Practices for Argo Workflows](cloud-tools/argo/security-best-practices-for-argo-workflows.md)
+  * [Optimize Argo Workflows Performance and Resilience](cloud-tools/argo/optimize-argo-workflows-performance-and-resilience.md)
+* [Grafana](cloud-tools/grafana.md)
+* [Kubectl](cloud-tools/kubectl.md)
+* [Nydus](cloud-tools/nydus.md)
 
 ## Networking
 
@@ -138,12 +149,10 @@
     * [Custom Images for Determined AI](machine-learning-and-ai/training/determined-ai/custom-images-for-determined-ai.md)
   * [Kubeflow Training Operators - PyTorch/MPI](machine-learning-and-ai/training/kubeflow-training-operators-pytorch-mpi/README.md)
     * [Train ResNet-50 with ImageNet](machine-learning-and-ai/training/kubeflow-training-operators-pytorch-mpi/train-resnet-50-with-imagenet.md)
-  * [Argo Workflows](machine-learning-and-ai/training/argo-workflows/README.md)
-    * [Get Started with Workflows](machine-learning-and-ai/training/argo-workflows/argo.md)
-    * [Fine-tuning](machine-learning-and-ai/training/argo-workflows/fine-tuning/README.md)
-      * [Fine-tune Stable Diffusion Models with CoreWeave Cloud](machine-learning-and-ai/training/argo-workflows/fine-tuning/fine-tune-stable-diffusion-models-with-coreweave-cloud.md)
-      * [Fine-tune GPT Models with CoreWeave](machine-learning-and-ai/training/argo-workflows/fine-tuning/finetuning-machine-learning-models.md)
-      * [Fine-tune GPT-NeoX-20B with Argo Workflows](compass/distributed-training-with-kubeflow-training-operators/finetune-gpt-neox-20b-with-argo-workflows.md)
+  * [Fine-tuning](machine-learning-and-ai/training/fine-tuning/README.md)
+    * [Fine-tune Stable Diffusion Models with CoreWeave Cloud](machine-learning-and-ai/training/fine-tuning/fine-tune-stable-diffusion-models-with-coreweave-cloud.md)
+    * [Fine-tune GPT Models with CoreWeave](machine-learning-and-ai/training/fine-tuning/finetuning-machine-learning-models.md)
+    * [Fine-tune GPT-NeoX-20B with Argo Workflows](machine-learning-and-ai/training/fine-tuning/finetune-gpt-neox-20b-with-argo-workflows.md)
 
 ## VFX & Rendering
 
@@ -172,9 +181,7 @@
   * [JumpCloud](cloud-account-management/sso/jumpcloud.md)
   * [Generic IDP](cloud-account-management/sso/generic-idp.md)
 * [Namespace Management](cloud-account-management/namespace-management.md)
-* [Billing and Usage Information](cloud-account-management/billing-portal/README.md)
-  * [View Resources with Grafana](cloud-account-management/billing-portal/view-resources-with-grafana.md)
-  * [View Kubernetes Resources with kubectl](cloud-account-management/billing-portal/view-kubernetes-resources-with-kubectl.md)
+* [Billing and Usage Information](cloud-account-management/billing-portal.md)
 
 ## Security
 

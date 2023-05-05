@@ -42,7 +42,7 @@ Learn more about how to configure Kubernetes namespace contexts in [the official
 
 ### Billing
 
-For each namespace, your organization holds a subscription. Each subscription belongs to a **subscription group**. Subscription groups, and per-namespace subscriptions, are accessible via the [**billing portal**](billing-portal/)**.** All namespaces belonging to the same organization will be billed together.
+For each namespace, your organization holds a subscription. Each subscription belongs to a **subscription group**. Subscription groups, and per-namespace subscriptions, are accessible via the [**billing portal**](billing-portal.md)**.** All namespaces belonging to the same organization will be billed together.
 
 ### Limitations
 

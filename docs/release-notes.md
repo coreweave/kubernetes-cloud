@@ -34,7 +34,7 @@ In SUNK, Slurm images are derived from OCI container images, which execute on ba
 CoreWeave maintains several base images for different CUDA versions, including [all dependencies for InfiniBand and SHARP](https://www.github.com/coreweave/nccl-tests). If you'd like to implement SUNK in your cluster, please contact [CoreWeave support](https://cloud.coreweave.com/contact) for engineering support for cluster design and deployment.
 {% endhint %}
 
-### :zap:[ Nydus is now on CoreWeave!](coreweave-kubernetes/nydus.md)
+### :zap:[ Nydus is now on CoreWeave!](cloud-tools/nydus.md)
 
 Embedding machine learning models directly into images has become a popular ease-of-use technique, but it has made image pull times slower due to the increased size of container images. As a result, pulling images is often the most time-consuming aspect of spinning up new containers, and for those who rely on fast autoscaling to respond to changes in demand, the time it takes to create new containers can pose as a major hurdle.
 
@@ -52,7 +52,7 @@ Nydus on CoreWeave is currently an **alpha offering**, with limited, node-specif
 
 The[ Kubeflow project](https://www.kubeflow.org/) is dedicated to making deployments of Machine Learning (ML) workflows on Kubernetes simple, portable, and scalable. The goal is not to recreate other services, but to provide a straightforward way to deploy best-of-breed open-source systems for ML to diverse infrastructures. Anywhere you are running Kubernetes, you should be able to run Kubeflow.
 
-CoreWeave is pleased to present [new tutorials](machine-learning-and-ai/training/kubeflow-training-operators-pytorch-mpi/) on using Kubeflow training operators for distributed training on CoreWeave Cloud! Follow along with these walkthroughs to train [ResNet-50 with ImageNet](machine-learning-and-ai/training/kubeflow-training-operators-pytorch-mpi/train-resnet-50-with-imagenet.md), or [fine-tune GPT-NeoX-20B with Argo Workflows](compass/distributed-training-with-kubeflow-training-operators/finetune-gpt-neox-20b-with-argo-workflows.md)!
+CoreWeave is pleased to present [new tutorials](machine-learning-and-ai/training/kubeflow-training-operators-pytorch-mpi/) on using Kubeflow training operators for distributed training on CoreWeave Cloud! Follow along with these walkthroughs to train [ResNet-50 with ImageNet](machine-learning-and-ai/training/kubeflow-training-operators-pytorch-mpi/train-resnet-50-with-imagenet.md), or [fine-tune GPT-NeoX-20B with Argo Workflows](machine-learning-and-ai/training/fine-tuning/finetune-gpt-neox-20b-with-argo-workflows.md)!
 
 ### :minidisc:[ Import disk images using CoreWeave Object Storage](virtual-servers/root-disk-lifecycle-management/importing-a-qcow2-image.md#using-coreweave-object-storage)
 
