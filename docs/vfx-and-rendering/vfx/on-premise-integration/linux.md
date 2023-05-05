@@ -4,6 +4,12 @@ description: Install CloudLink on a Linux server
 
 # CoreWeave CloudLink on Linux
 
+{% hint style="danger" %}
+**Important**
+
+CloudLink has been deprecated in favor of Site-to-Site VPN connections.
+{% endhint %}
+
 [CoreWeave CloudLink](./#coreweave-cloudlink) can be run on any Linux server or Virtual Machine capable of running [Docker Containers](https://www.docker.com). The following guide will walk through how to install CloudLink on any such Linux system.
 
 This guide will also explain how to expose both **Windows File Sharing (SMB/CIFS)** and **NFS** to CoreWeave. You are likely already using one of the two, and will want to expose whichever protocol you are currently using.
