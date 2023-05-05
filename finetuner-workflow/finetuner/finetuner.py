@@ -67,6 +67,12 @@ parser.add_argument(
     required=True,
 )
 parser.add_argument(
+   "--trust-remote-code",
+   type=bool,
+   help="whether to trust remote code coming with the model",
+   default=False,
+)
+parser.add_argument(
     "--dataset", type=str, help="pre-tokenized dataset to use", required=True
 )
 parser.add_argument(
@@ -725,6 +731,7 @@ model_args = {
     "cache_dir": args.cache,
     "use_cache": False,
     "low_cpu_mem_usage": True,
+    "trust_remote_code": args.trust_remote_code,
 }
 
 try:

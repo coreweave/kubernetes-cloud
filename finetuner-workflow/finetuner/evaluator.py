@@ -21,6 +21,10 @@ parser = argparse.ArgumentParser(description="Simple Model Evaluator")
 parser.add_argument("--model", type=str, help="the model to evaluate against"
                                               " (directory, or HuggingFace ID)",
                     required=True)
+parser.add_argument("--trust-remote-code", type=bool,
+                    help="whether to trust remote code coming with the model",
+                    default=False,
+)
 parser.add_argument("--tokenizer", type=str, help="the tokenizer to use")
 parser.add_argument("--eot", type=str, help="EOT token to use",
                     default="")  # default is model-dependent
@@ -89,6 +93,8 @@ tokenizer = AutoTokenizer.from_pretrained(
     **tokens_to_add,
     cache_dir=args.cache,
     padding_side="left"
+    trust_remote_code=args.trust_remote_code,
+    init_device=str(device),
 )
 
 tokens_to_add.clear()
