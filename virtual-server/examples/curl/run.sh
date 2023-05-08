@@ -3,7 +3,7 @@
 # Enable to trace the script
 # set -x
 
-APISERVER=k8s.ord1.staging.coreweave.com
+APISERVER=k8s.ord1.coreweave.com
 
 if [ -z ${NAMESPACE} ] || [ -z ${TOKEN} ]; then
   echo "NAMESPACE and TOKEN variable must be set: TOKEN=<token> NAMESPACE=<namespace> ./$(basename $BASH_SOURCE)"
