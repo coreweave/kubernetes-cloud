@@ -10,7 +10,7 @@ CoreWeave provides a managed Grafana instance where you can view predefined dash
 
 To access the managed Grafana instance, use the menu in the Account Details section of [CoreWeave Cloud](https://cloud.coreweave.com) or navigate directly to [https://grafana.coreweave.com](https://grafana.coreweave.com).
 
-<figure><img src="../.gitbook/assets/image (24).png" alt="Screenshot of Grafana menu in CoreWeave Cloud"><figcaption><p>Grafana menu</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (24) (4).png" alt="Screenshot of Grafana menu in CoreWeave Cloud"><figcaption><p>Grafana menu</p></figcaption></figure>
 
 You cannot modify these dashboards or create new ones in this Grafana instance. However, if you'd like complete control, deploy your own self-hosted Grafana instance on CoreWeave Cloud.
 
@@ -18,7 +18,7 @@ You cannot modify these dashboards or create new ones in this Grafana instance. 
 
 To build custom dashboards from CoreWeave's [Prometheus metrics](../../coreweave-kubernetes/prometheus/), you can deploy your own Grafana instance with [CoreWeave Apps](https://apps.coreweave.com).
 
-<figure><img src="../.gitbook/assets/image (21).png" alt="Grafana in the application catalog"><figcaption><p>Grafana</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (21) (3).png" alt="Grafana in the application catalog"><figcaption><p>Grafana</p></figcaption></figure>
 
 ### How to deploy Grafana
 
@@ -31,7 +31,7 @@ To build custom dashboards from CoreWeave's [Prometheus metrics](../../coreweave
 
 Wait for the Pods to deploy, then click the Ingress URL to log in with the username and password in the upper-right corner.
 
-<figure><img src="../.gitbook/assets/image (13).png" alt="Screenshot of deployment screen"><figcaption><p>Deployment screen</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (13) (5).png" alt="Screenshot of deployment screen"><figcaption><p>Deployment screen</p></figcaption></figure>
 
 ### Connect to Prometheus
 

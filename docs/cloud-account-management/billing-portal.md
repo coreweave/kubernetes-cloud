@@ -35,7 +35,7 @@ Further down the page, you'll find the **Subscriptions** and **Invoices** tabs.
 
 The Subscriptions tab shows the billing details for your CoreWeave namespaces each month. The information is organized by plan and updated every 24 hours.
 
-<figure><img src="../.gitbook/assets/image (90) (1).png" alt="Subscriptions tab of the billing portal"><figcaption><p>Subscriptions tab</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (153).png" alt="Subscriptions tab of the billing portal"><figcaption><p>Subscriptions tab</p></figcaption></figure>
 
 * **Plan Details** shows the date the when namespace plan was created, followed by the current charges, credits, and the billable resources.&#x20;
 * **Subscription Settings** shows the namespace for this plan. This is for informational purposes only and you shouldn't need to modify it.

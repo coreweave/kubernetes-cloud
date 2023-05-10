@@ -4,7 +4,13 @@ description: Learn more about other configurations available for Virtual Servers
 
 # Additional Features
 
-Discussed below are the additional features Virtual Servers offer for finer-grained control and niche use cases.
+Below are some additional features Virtual Servers offering even finer-grained control and configuration options for niche use cases.
+
+{% hint style="info" %}
+**Note**
+
+All additional features discussed in this document must be configured using the YAML editor if deploying a Virtual Server using the Cloud UI.
+{% endhint %}
 
 ## Ephemeral root disks
 
@@ -22,31 +28,12 @@ A shared filesystem volume, NFS, SMB, or Object storage should be used to store 
 
 {% tabs %}
 {% tab title="Cloud UI" %}
-**Deployment method:** <mark style="background-color:blue;">CoreWeave Cloud UI</mark>\
+## **Deployment method:** <mark style="background-color:blue;">CoreWeave Cloud UI</mark>
 
+When configuring an ephemeral root storage disk on the Cloud UI, the source image is cloned into a `ReadOnlyMany` type volume, as shown in the example below. Use the Cloud UI YAML editor to incorporate the configuration into the Virtual Server's manifest.
 
-{% hint style="info" %}
-**Note**
-
-It is not currently possible to deploy ephemeral root disks using the Cloud UI. See the CLI option.
-{% endhint %}
-{% endtab %}
-
-{% tab title="CLI" %}
-**Deployment method:** <mark style="background-color:green;">Kubernetes CLI</mark>\
-
-
-When configuring an ephemeral root storage disk, the source image is cloned into a `ReadOnlyMany` type volume, as shown in the example below.
-
-{% hint style="info" %}
-**Additional Resources**
-
-[View this snippet on our GitHub](../../../virtual-server/examples/kubectl/virtual-server-ephemeral-root-disk.yaml) for further context.
-{% endhint %}
-
-```yaml
----
-apiVersion: v1
+<pre class="language-yaml"><code class="lang-yaml"><strong>---
+</strong>apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: image-rox
@@ -55,7 +42,7 @@ spec:
   - ReadOnlyMany
   dataSource:
     kind: PersistentVolumeClaim
-    name: <source-root-disk-pvc> # This name will be the same name as a DataVolume/VirtualServer used as the source.
+    name: &#x3C;source-root-disk-pvc> # This name will be the same name as a DataVolume/VirtualServer used as the source.
   resources:
     requests:
       storage: 40Gi # Must match the size of the source volume
@@ -96,7 +83,78 @@ spec:
   #    ssh-rsa AAAAB3NzaC1yc2EAAAA ... user@hostname
   network:
     public: false
-```
+</code></pre>
+
+{% hint style="info" %}
+**Additional Resources**
+
+[View this snippet on our GitHub](../../../virtual-server/examples/kubectl/virtual-server-ephemeral-root-disk.yaml) for further context.
+{% endhint %}
+{% endtab %}
+
+{% tab title="CLI" %}
+## **Deployment method:** <mark style="background-color:green;">Kubernetes CLI</mark>
+
+When configuring an ephemeral root storage disk, the source image is cloned into a `ReadOnlyMany` type volume, as shown in the example below.
+
+<pre class="language-yaml"><code class="lang-yaml"><strong>---
+</strong>apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: image-rox
+spec:
+  accessModes:
+  - ReadOnlyMany
+  dataSource:
+    kind: PersistentVolumeClaim
+    name: &#x3C;source-root-disk-pvc> # This name will be the same name as a DataVolume/VirtualServer used as the source.
+  resources:
+    requests:
+      storage: 40Gi # Must match the size of the source volume
+  storageClassName: block-nvme-ord1
+  volumeMode: Block
+---
+apiVersion: virtualservers.coreweave.com/v1alpha1
+kind: VirtualServer
+metadata:
+  name: example-vs
+spec:
+  region: ORD1
+  os:
+    type: linux
+  resources:
+    gpu:
+      type: Quadro_RTX_4000
+      count: 1
+    cpu:
+      count: 4
+    memory: 16Gi
+  storage:
+    root:
+      size: 40Gi
+      storageClassName: block-nvme-ord1
+      ephemeral: true
+      source:
+        pvc:
+          namespace: tenant-example # Replace with your namespace
+          name: image-rox
+  # Change user name and pasword
+  # User is on the sudoers list
+  #  users:
+  #    - username: SET YOUR USERNAME HERE
+  #      password: SET YOUR PASSWORD HERE  
+  # To use key-based authentication replace and uncomment ssh-rsa below with your public ssh key
+  #  sshpublickey: |
+  #    ssh-rsa AAAAB3NzaC1yc2EAAAA ... user@hostname
+  network:
+    public: false
+</code></pre>
+
+{% hint style="info" %}
+**Additional Resources**
+
+[View this snippet on our GitHub](../../../virtual-server/examples/kubectl/virtual-server-ephemeral-root-disk.yaml) for further context.
+{% endhint %}
 {% endtab %}
 
 {% tab title="Terraform" %}
@@ -116,10 +174,12 @@ Configuring the [RunStrategy](https://kubevirt.io/user-guide/virtual\_machines/r
 \
 All available RunStrategy options:
 
-* `Always`: A Virtual Server will always be present. If the Virtual Server crashed, a new one will be spawned.
-* `RerunOnFailure`: A VirtualMachineInstance will be respawned if the previous instance failed in an error state. It will not be re-created if the guest stopped successfully (e.g. shut down from inside guest).
-* `Manual`: The presence of a VirtualMachineInstance or lack thereof is controlled exclusively by the start/stop/restart VirtualMachine subresource endpoints.
-* `Halted`: No VirtualMachineInstance will be present. If a guest is already running, it will be stopped. This is the same behavior as `spec.running: false`.
+| Option           | Description                                                                                                                                                                                                                                           |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Always`         | A Virtual Server will always be present. If the Virtual Server crashed, a new one will be spawned.                                                                                                                                                    |
+| `RerunOnFailure` | <mark style="background-color:green;">Default.</mark> A `VirtualMachineInstance` will be respawned if the previous instance failed in an error state. It will not be re-created if the guest stopped successfully (e.g. shut down from inside guest). |
+| `Manual`         | The presence of a `VirtualMachineInstance` or lack thereof is controlled exclusively by the start/stop/restart VirtualMachine subresource endpoints.                                                                                                  |
+| `Halted`         | No VirtualMachineInstance will be present. If a guest is already running, it will be stopped. This is the same behavior as `spec.running: false`.                                                                                                     |
 
 {% hint style="info" %}
 **Additional Resources**\
@@ -128,19 +188,23 @@ See [the Kubevirt documentation](https://kubevirt.io/user-guide/virtual\_machine
 
 {% tabs %}
 {% tab title="Cloud UI" %}
-**Deployment method:** <mark style="background-color:blue;">Cloud UI</mark>
+## **Deployment method:** <mark style="background-color:blue;">Cloud UI</mark>
 
+To change the default RunStrategy for a Virtual Server, define the strategy to use in the `spec.runStrategy` field using the YAML editor.
 
+| Field name    | Field type                                                                                             | Description                                                                                                                                           |
+| ------------- | ------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `runStrategy` | [VirtualMachineRunStrategy](https://pkg.go.dev/kubevirt.io/client-go/api/v1#VirtualMachineRunStrategy) | Defines [RunStrategy](https://kubevirt.io/user-guide/virtual\_machines/run\_strategies/#run-strategies) parameter. Default value is `RerunOnFailure`. |
 
-{% hint style="info" %}
-**Note**
+Example in plain text:
 
-It is not currently possible to configure RunStrategy from the Cloud UI. See the CLI option.
-{% endhint %}
+```yaml
+  runStrategy: Always
+```
 {% endtab %}
 
 {% tab title="CLI" %}
-**Deployment method:** <mark style="background-color:green;">Kubernetes CLI</mark>
+## **Deployment method:** <mark style="background-color:green;">Kubernetes CLI</mark>
 
 To change the default RunStrategy for a Virtual Server, define the strategy to use in the `spec.runStrategy` field.
 
@@ -148,9 +212,7 @@ To change the default RunStrategy for a Virtual Server, define the strategy to u
 | ------------- | ------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `runStrategy` | [VirtualMachineRunStrategy](https://pkg.go.dev/kubevirt.io/client-go/api/v1#VirtualMachineRunStrategy) | Defines [RunStrategy](https://kubevirt.io/user-guide/virtual\_machines/run\_strategies/#run-strategies) parameter. Default value is `RerunOnFailure`. |
 
-
-
-**Example**
+Example in plain text:
 
 ```yaml
   runStrategy: Always
@@ -158,8 +220,7 @@ To change the default RunStrategy for a Virtual Server, define the strategy to u
 {% endtab %}
 
 {% tab title="Terraform" %}
-**Deployment method:** <mark style="background-color:orange;">Terraform</mark>\
-
+## **Deployment method:** <mark style="background-color:orange;">Terraform</mark>
 
 {% hint style="info" %}
 **Note**\
@@ -174,19 +235,24 @@ Enables virtio-transitional to support compatibility with older guest Operating 
 
 {% tabs %}
 {% tab title="Cloud UI" %}
-**Deployment method:** <mark style="background-color:blue;">Cloud UI</mark>
+## **Deployment method:** <mark style="background-color:blue;">Cloud UI</mark>
 
+Open the YAML editor to configure virtio-transitional.
 
+| Field name              | Field type |
+| ----------------------- | ---------- |
+| `useVirtioTransitional` | Boolean    |
 
-{% hint style="info" %}
-**Note**\
-It is not currently possible to configure useVirtioTransitional through the Cloud UI. This feature may be configured in conjunction with the Kubernetes CLI.
-{% endhint %}
+Example in plain text:
+
+```yaml
+useVirtioTransitional: false
+```
 {% endtab %}
 
 {% tab title="CLI" %}
-**Deployment method:** <mark style="background-color:green;">Kubernetes CLI</mark>\
-\
+## **Deployment method:** <mark style="background-color:green;">Kubernetes CLI</mark>
+
 Enabling virtio-transitional is done by configuring the Kubernetes manifest.
 
 | Field name              | Field type |
@@ -194,7 +260,7 @@ Enabling virtio-transitional is done by configuring the Kubernetes manifest.
 | `useVirtioTransitional` | Boolean    |
 
 \
-**Example**
+Example in plain text:
 
 ```yaml
 useVirtioTransitional: false
@@ -202,8 +268,7 @@ useVirtioTransitional: false
 {% endtab %}
 
 {% tab title="Terraform" %}
-**Deployment method:** <mark style="background-color:orange;">Terraform</mark>\
-
+## **Deployment method:** <mark style="background-color:orange;">Terraform</mark>
 
 {% hint style="info" %}
 **Note**\
@@ -218,25 +283,31 @@ Specifies the number in seconds before the guest is killed, allowing the operati
 
 {% tabs %}
 {% tab title="Cloud UI" %}
-{% hint style="info" %}
-**Note**\
-It is not currently possible to configure useVirtioTransitional through the Cloud UI. This feature may be configured in conjunction with the Kubernetes CLI.
-{% endhint %}
+## Deployment method: <mark style="background-color:blue;">CoreWeave Cloud UI</mark>
+
+Open the YAML editor to configure `terminationGracePeriodSeconds`.
+
+| Field name                      | Field type | Default values                                                               |
+| ------------------------------- | ---------- | ---------------------------------------------------------------------------- |
+| `terminationGracePeriodSeconds` | Integer    | <p><code>60</code> - Linux systems<br><code>300</code> - Windows systems</p> |
+
+Example in plain text:
+
+```yaml
+terminationGracePeriodSeconds: 60
+```
 {% endtab %}
 
 {% tab title="CLI" %}
-**Deployment method:** <mark style="background-color:green;">Kubernetes CLI</mark>\
+## **Deployment method:** <mark style="background-color:green;">Kubernetes CLI</mark>
 
-
-Configuring the termination grace period is done through the Kubernetes manifest.\
-
+Configuring the termination grace period is done through the Kubernetes manifest.
 
 | Field name                      | Field type | Default value                                                                |
 | ------------------------------- | ---------- | ---------------------------------------------------------------------------- |
 | `terminationGracePeriodSeconds` | Integer    | <p><code>60</code> - Linux systems<br><code>300</code> - Windows systems</p> |
 
-\
-**Example**
+Example in plain text:
 
 ```yaml
 terminationGracePeriodSeconds: 60
@@ -260,27 +331,31 @@ Determines whether or not the Virtual Server should be started as soon as it is 
 
 {% tabs %}
 {% tab title="Cloud UI" %}
-**Deployment method:** <mark style="background-color:blue;">Cloud UI</mark>
+## **Deployment method:** <mark style="background-color:blue;">CoreWeave Cloud UI</mark>
 
-{% hint style="info" %}
-**Note**\
-It is not currently possible to configure `initializeRunning` through the Cloud UI. This feature may be configured in conjunction with the Kubernetes CLI.
-{% endhint %}
-{% endtab %}
-
-{% tab title="CLI" %}
-**Deployment method:** <mark style="background-color:green;">Kubernetes CLI</mark>\
-
-
-Configuring `initializeRunning` is done through the Kubernetes manifest.\
-
+Open the YAML editor to configure `initializeRunning`.
 
 | Field name          | Field type |
 | ------------------- | ---------- |
 | `initializeRunning` | Boolean    |
 
-\
-**Example**
+Example in plain text:
+
+```yaml
+terminationGracePeriodSeconds: 60
+```
+{% endtab %}
+
+{% tab title="CLI" %}
+## **Deployment method:** <mark style="background-color:green;">Kubernetes CLI</mark>
+
+Configuring `initializeRunning` is done through the Kubernetes manifest.
+
+| Field name          | Field type |
+| ------------------- | ---------- |
+| `initializeRunning` | Boolean    |
+
+Example in plain text:
 
 ```yaml
 terminationGracePeriodSeconds: 60
@@ -303,27 +378,35 @@ Floating services, sometimes called floating IPs, allows users to create their o
 
 {% tabs %}
 {% tab title="Cloud UI" %}
-**Deployment method:** <mark style="background-color:blue;">CoreWeave Cloud UI</mark>\
-\
-To configure Floating IPs on the Cloud UI, navigate to the YAML tab and find the `floatingIPs` field. This field is an array of load balancer Service names. If configured, the Virtual Server will be assigned floating IPs from the load balancer IP of each service.\
+## **Deployment method:** <mark style="background-color:blue;">CoreWeave Cloud UI</mark>
 
-
-![The floatingIPs option as exposed through the YAML tab on the Cloud UI](<../../.gitbook/assets/image (1) (4) (1).png>)
-{% endtab %}
-
-{% tab title="CLI" %}
-**Deployment method:** <mark style="background-color:green;">Kubernetes CLI</mark>
-
-To deploy a Floating IP service, configure the following fields.\
-
+Open the YAML editor to configure floating services under the `.network.floatingIPs` stanza . This field is a list of load balancer Service names. If configured, the Virtual Server will be assigned floating IPs from the load balancer IP of each service.
 
 | Field name                           | Field type | Description                                              |
 | ------------------------------------ | ---------- | -------------------------------------------------------- |
 | `network.floatingIPs`                | List       | A list of Service references to be added as floating IPs |
 | `network.floatingIPs[ ].serviceName` | String     | <p>The name of the Service<br></p>                       |
 
-\
-**Example**
+Example in plain text:
+
+```yaml
+  network:
+    floatingIPs:
+    - <svc-name>
+```
+{% endtab %}
+
+{% tab title="CLI" %}
+## **Deployment method:** <mark style="background-color:green;">Kubernetes CLI</mark>
+
+To deploy a Floating IP service, configure the following fields.
+
+| Field name                           | Field type | Description                                              |
+| ------------------------------------ | ---------- | -------------------------------------------------------- |
+| `network.floatingIPs`                | List       | A list of Service references to be added as floating IPs |
+| `network.floatingIPs[ ].serviceName` | String     | <p>The name of the Service<br></p>                       |
+
+Example in plain text:
 
 ```yaml
   network:
@@ -333,9 +416,7 @@ To deploy a Floating IP service, configure the following fields.\
 {% endtab %}
 
 {% tab title="Terraform" %}
-**Deployment method:** <mark style="background-color:orange;">Terraform</mark>
-
-
+## **Deployment method:** <mark style="background-color:orange;">Terraform</mark>
 
 {% hint style="info" %}
 **Note**

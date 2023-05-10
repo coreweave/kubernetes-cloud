@@ -2,41 +2,75 @@
 description: Learn more about the Operating Systems available for Virtual Servers.
 ---
 
-# Operating System & Root Disk
+# Operating System and Root Disk
 
-CoreWeave Cloud supports a variety of both [Linux distributions](https://docs.coreweave.com/virtual-servers/coreweave-system-images/linux-images?q=system+images) and [Windows versions](https://docs.coreweave.com/virtual-servers/coreweave-system-images/windows-images?q=system+images) system images for Virtual Servers.
+CoreWeave Cloud supports a variety of [Linux distributions](https://docs.coreweave.com/virtual-servers/coreweave-system-images/linux-images?q=system+images) and [Windows versions](https://docs.coreweave.com/virtual-servers/coreweave-system-images/windows-images?q=system+images) system images for Virtual Servers.
+
+## Available Operating System versions
+
+Click the OS type tab to see all currently available OS versions.
+
+{% tabs %}
+{% tab title="Linux" %}
+### Linux
+
+| Name   | Versions            |
+| ------ | ------------------- |
+| Rocky  | 8                   |
+| CentOS | 7                   |
+| Ubuntu | 18.04, 20.04, 22.04 |
+{% endtab %}
+
+{% tab title="Windows" %}
+### Windows
+
+| Name                    | Version |
+| ----------------------- | ------- |
+| Windows Professional    | 10      |
+| Windows Professional    | 11      |
+| Windows Server Standard | 2019    |
+| Windows Server Standard | 2022    |
+{% endtab %}
+{% endtabs %}
 
 {% hint style="info" %}
 **Note**
 
-The size of the Virtual Server's root disk size can be _**increased**_ after initialization, and the operating system will automatically expand to accommodate. However, the root disk size **cannot be \_reduced**\_ after initial deployment.
+The size of the Virtual Server's root disk size can be _**increased**_ after initialization, and the operating system will automatically expand to accommodate. However, the root disk size **cannot be reduced** after initial deployment.
 {% endhint %}
 
 {% tabs %}
 {% tab title="Cloud UI" %}
-**Deployment method:** <mark style="background-color:blue;">CoreWeave Cloud UI</mark>
+## **Deployment method:** <mark style="background-color:blue;">CoreWeave Cloud UI</mark>
 
-From the **Operating System / Root Disk Storage** menu, you can select and configure the desired operating system image (CentOS, Ubuntu, or Windows) for the Virtual Server.
+From the [CoreWeave Cloud UI](../../../virtual-servers/deployment-methods/coreweave-apps.md) Virtual Server deployment menu, click the **Operating System** expandable.
 
-You can also configure the size of the **root disk** of the Virtual Server from here using the **Root Disk Size** slider.
+Select the Operating System you'd like to run (CentOS, Rocky, Ubuntu, or Windows), and a corresponding version. Then, set the **Root Disk Size** using the provided slider.
 
-![The Operating System and Root Disk Size configuration section.](<../../.gitbook/assets/image (56) (2).png>)
+<figure><img src="../../.gitbook/assets/image (46).png" alt="Screenshot of OS selection menu"><figcaption><p>Linux configuration example</p></figcaption></figure>
 
-#### **UEFI bootloader**
+You can also configure the size of the **root disk** of the Virtual Server from here using the **Root Disk Size** slider. To add a [system image](../coreweave-system-images/) addition such as NVIDIA Drivers or Teradici, click the slider into the "on" position for each desired add-on.
 
-If you are using a custom image, and need to configure UEFI bootloader options for the Virtual Server, you must do so from the YAML tab on the configuration screen.
+<figure><img src="../../.gitbook/assets/image (42).png" alt=""><figcaption><p>Windows configuration example</p></figcaption></figure>
 
-This option can be configured in the `os.uefi` field in the YAML manifest under the YAML tab.
+### **UEFI bootloader**
 
-![The os.uefi option configured under the YAML tab in the configuration screen.](<../../.gitbook/assets/image (56) (1).png>)
+If you are using a custom disk image, and need to configure UEFI bootloader options, you must do so from the YAML tab on the configuration screen. This option is configured in the `os.enableUEFIboot` field, which can be set to either `true` or `false`.
 
-#### Operating System add**itions**
+<figure><img src="../../.gitbook/assets/image (73).png" alt="" width="491"><figcaption></figcaption></figure>
 
-See [**System Images**](../coreweave-system-images/) for more information on Teradici, Parsec, and NVIDIA drivers.
+Example in plaintext:
+
+```yaml
+  os:
+    definition: a
+    enableUEFIBoot: false
+    type: linux
+```
 {% endtab %}
 
 {% tab title="CLI" %}
-**Deployment method:** <mark style="background-color:green;">Kubernetes CLI</mark>
+## **Deployment method:** <mark style="background-color:green;">Kubernetes CLI</mark>
 
 | Field name          | Type    | Description                                                                                                     |
 | ------------------- | ------- | --------------------------------------------------------------------------------------------------------------- |
@@ -54,7 +88,7 @@ YAML example:
 {% endtab %}
 
 {% tab title="Terraform" %}
-**Deployment method:** <mark style="background-color:orange;">Terraform</mark>
+## **Deployment method:** <mark style="background-color:orange;">Terraform</mark>
 
 The Virtual Server's Operating System options are configured as variables passed into the [Virtual Server Terraform module](https://github.com/coreweave/kubernetes-cloud/tree/master/virtual-server/examples/terraform).
 
@@ -68,10 +102,10 @@ You can find the name of Operating System images (`vs_image`) in [the System Ima
 
 The table below describes all available configuration options for the Operating System.
 
-| Variable name | Variable type | Description                                                                                 | Default value                                                                                   |
-| ------------- | ------------- | ------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| `vs_os_type`  | String        | The type (Windows or Linux) of Operating System with which to provision the Virtual Server. | `linux`                                                                                         |
-| `vs_image`    | String        | The name of the image to be used for the Operating System.                                  | `ubuntu2004-docker-master-20210601-ord1` (The Ubuntu 20.04 image stored in the Chicago region.) |
+| Variable name | Variable type | Description                                                                                 | Default value                                                                                                            |
+| ------------- | ------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `vs_os_type`  | String        | The type (Windows or Linux) of Operating System with which to provision the Virtual Server. | `linux`                                                                                                                  |
+| `vs_image`    | String        | The name of the image to be used for the Operating System.                                  | <p><code>ubuntu2004-docker-master-20210601-ord1</code> </p><p>(The Ubuntu 20.04 image stored in the Chicago region.)</p> |
 
 {% hint style="info" %}
 **Note**
@@ -79,7 +113,7 @@ The table below describes all available configuration options for the Operating 
 UEFI bootloading options are not currently available through use of this Terraform module.
 {% endhint %}
 
-Terraform example:
+Example in plain text:
 
 ```json
 variable "vs_os_type" {

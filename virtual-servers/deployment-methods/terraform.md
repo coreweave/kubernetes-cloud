@@ -1,5 +1,5 @@
 ---
-description: Deploying and managing Virtual Servers with Terraform
+description: Deploy and manage Virtual Servers using Terraform
 ---
 
 # Terraform

@@ -6,9 +6,7 @@ description: >-
 
 # Bash
 
-## Implementation
-
-### Using `curl` and `jq` to deploy a Virtual Server
+## Overview
 
 Follow along with this example by pulling [the example script](https://github.com/coreweave/kubernetes-cloud/tree/master/virtual-server/examples/curl).
 
@@ -18,22 +16,20 @@ The example script
 
 In [this example](https://github.com/coreweave/kubernetes-cloud/tree/master/virtual-server/examples/curl), the `curl` and [`jq`](https://stedolan.github.io/jq/) tools are used to perform the following actions via the Kubernetes REST API using Bash:
 
-1. **Create a CoreWeave Virtual Server** with the following attributes:\
-   \- Running the Ubuntu 20.04 Operating System\
-   \- 2 CPUs\
-   \- 2Gi of memory
+1. **Create a CoreWeave Virtual Server,** which:
+   1. Runs Ubuntu 20.04
+   2. Has 2 CPUs
+   3. Has 2Gi of memory
 2. **List** the created Virtual Server.
 3. **Delete** the created Virtual Server.
 
-The way this script works is by making calls to two different API endpoints separately:
+### Using `curl` and `jq` to deploy a Virtual Server
 
-### [**Kubevirt**](https://kubevirt.io/)
+This script makes calls to two different API endpoints separately:
 
-An open-source project that allows running virtual systems on the Kubernetes cluster.
+### The **Kubevirt endpoint**
 
-#### Functions calling the Kubevirt API
-
-The script defines and leverages the following functions to call to the Kubevirt API:
+[Kubevirt](https://kubevirt.io/) is an open-source project that allows running virtual systems on the Kubernetes cluster. The script defines and leverages the following functions to call to the Kubevirt API:
 
 **VM**
 
@@ -47,9 +43,9 @@ The script defines and leverages the following functions to call to the Kubevirt
 * `list_vmi()` - Lists all the Virtual Machine Instances (VMIs) in the designated namespace
 * `get_vmi()` - Prints formatted JSON details about the Virtual Machine Instance (VMI)
 
-### [**Virtual Server**](https://docs.coreweave.com/virtual-servers/getting-started)
+### **The** Virtual Server **endpoint**
 
-A Kubernetes Custom Resource that allows deploying a virtual system and interacting with Kubevirt with ease.
+The [Virtual Server endpoint](https://docs.coreweave.com/virtual-servers/getting-started) is a Kubernetes Custom Resource that allows deploying a virtual system and interacting with Kubevirt with ease.
 
 #### Functions calling the Virtual Server API
 
@@ -67,7 +63,7 @@ Before invoking [the script](https://github.com/coreweave/kubernetes-cloud/tree/
 
 ### Environment variables
 
-In invoking this script, `TOKEN` and `NAMESPACE` will be exported as environment variables. The value of `NAMESPACE` should be set to the desired namespace. The value of `TOKEN` should be replaced with the value of `'token:'` generated in the `kubeconfig` file.
+In invoking this script, `TOKEN` and `NAMESPACE` are exported as environment variables. The value of `NAMESPACE` should be set to the desired namespace. The value of `TOKEN` should be replaced with the value of `'token:'` generated in the `kubeconfig` file.
 
 ## Run
 

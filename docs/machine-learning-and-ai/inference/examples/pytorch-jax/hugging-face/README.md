@@ -1,6 +1,6 @@
 # Hugging Face
 
-<figure><img src="../../../../../.gitbook/assets/image (42) (2).png" alt="The Hugging Face logo"><figcaption></figcaption></figure>
+<figure><img src="../../../../../.gitbook/assets/image (42) (1) (2).png" alt="The Hugging Face logo"><figcaption></figcaption></figure>
 
 [Hugging Face](https://huggingface.co/) provides open source, state-of-the-art Machine Learning resources for [JAX](broken-reference), [PyTorch](../) and [TensorFlow](../../tensorflow/), via projects such as [Diffusers](https://github.com/huggingface/diffusers) and [Transformers](https://github.com/huggingface/transformers).
 

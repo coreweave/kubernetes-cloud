@@ -1,42 +1,36 @@
 ---
-description: >-
-  Learn more about the Virtual Server configuration options for data center
-  regions.
+description: Select the data center region, hardware, and firmware for a Virtual Server
 ---
 
-# Region, Hardware & Firmware
+# Region, Hardware and Firmware
 
 ## Region
 
-Broken up into three geographical buckets - **US East**, **Central** and **West** - our data centers each have redundant 200Gbps+ public internet connectivity from Tier 1 global carriers, and are connected to each other with 400Gbps+ of dark fiber transport to allow for easy, free transfers of data within CoreWeave Cloud.
-
-Virtual Servers can be deployed across any of [CoreWeave's three data center regions](../../data-center-regions.md). It is generally advisable to select the data center region closest to your location.
+Virtual Servers may be deployed across any of data center regions. CoreWeave's [data center regions](../../data-center-regions.md) are broken up into three geographical buckets - **US East**, **Central** and **West.** Each provides redundant 200Gbps+ public Internet connectivity from Tier 1 global carriers, and are connected to each other using 400Gbps+ of dark fiber transport to allow for easy, free transfers of data within CoreWeave Cloud.
 
 {% hint style="info" %}
-**Additional Resources**
+**Note**
 
-See [Data Center Regions](https://docs.coreweave.com/data-center-regions) for more information on each data center, and to look up region labels for use in the following configuration methods.
+It is generally advised to select the data center region closest to your location.
 {% endhint %}
 
 {% tabs %}
 {% tab title="Cloud UI" %}
-**Deployment method:** <mark style="background-color:blue;">CoreWeave Cloud UI</mark>
+## **Deployment method:** <mark style="background-color:blue;">CoreWeave Cloud UI</mark>
 
-Selecting the data region for your Virtual Server is easily done by choosing a center from the **Geographic Location** section of the Virtual Server deployment screen.
+From the [CoreWeave Cloud UI](../../../virtual-servers/deployment-methods/coreweave-apps.md) Virtual Server deployment menu, click the **Region** expandable, then select the region in which to host the Virtual Server by clicking on it.
 
-From the **Geographic Location** menu on the CoreWeave Cloud UI, select the one in which you'd like the Virtual Server to be hosted[.](../../data-center-regions.md)
-
-![Data center region selector in the CoreWeave Cloud UI.](<../../.gitbook/assets/image (110).png>)
+<figure><img src="../../.gitbook/assets/image (86).png" alt="Screenshot of region selector"><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="CLI" %}
-**Deployment method:** <mark style="background-color:green;">Kubernetes CLI</mark>
+## **Deployment method:** <mark style="background-color:green;">Kubernetes CLI</mark>
 
 Selecting a region for your Virtual Server is simple using the **Kubernetes manifest file**.
 
 The data center region you'd like to use is configured by setting its label under the `region` selector in the `spec` section of the manifest.
 
-#### Data center region configuration options
+### Data center region configuration options
 
 | Variable name | Variable type | Description                                                                    | Default value |
 | ------------- | ------------- | ------------------------------------------------------------------------------ | ------------- |
@@ -56,11 +50,11 @@ spec:
 {% endtab %}
 
 {% tab title="Terraform" %}
-**Deployment method:** <mark style="background-color:orange;">Terraform</mark>
+## **Deployment method:** <mark style="background-color:orange;">Terraform</mark>
 
 The data center region for the Virtual Server can be defined in the `vs_region` variable in your `variables.tf` file.
 
-#### Data center region configuration options
+### Data center region configuration options
 
 | Variable name | Variable type | Description                                                   | Default value    |
 | ------------- | ------------- | ------------------------------------------------------------- | ---------------- |
@@ -83,54 +77,44 @@ CoreWeave Cloud offers [several high-performance NVIDIA GPUs and CPUs](https://d
 
 {% tabs %}
 {% tab title="Cloud UI" %}
-**Deployment method:** <mark style="background-color:blue;">CoreWeave Cloud UI</mark>
+## **Deployment method:** <mark style="background-color:blue;">CoreWeave Cloud UI</mark>
 
-#### Hardware configuration options
+From the [CoreWeave Cloud UI](../../../virtual-servers/deployment-methods/coreweave-apps.md) Virtual Server deployment menu, click the **Hardware** expandable, then select the hardware kind (GPU or CPU) and the hardware itself. Clicking the GPU tab will display all available GPU options, and clicking the CPU tab will do the same for CPU types.
 
-CoreWeave Cloud offers [several high-performance NVIDIA GPUs and CPUs](https://docs.coreweave.com/resources/resource-based-pricing#gpu-instance-resource-pricing) for Virtual Servers. From the **Hardware Selection** menu, you can select and configure which of CoreWeave's CPU and GPU options for the Virtual Server.
+{% hint style="info" %}
+**Note**
 
-![The Hardware Selection menu options for hardware.](<../../.gitbook/assets/image (96).png>)
+For more information on hardware, see [Node Types](../../../coreweave-kubernetes/node-types.md).
+{% endhint %}
 
-####
+The **GPU Count**, **Core Count**, and **Memory** amount (in `Gi`) are chosen using the sliders at the bottom of the section.
 
-#### Resource configuration options
+<figure><img src="../../.gitbook/assets/image (51).png" alt="Screenshot of the Virtual Server hardware configuration menu"><figcaption></figcaption></figure>
 
-The Virtual Server's **GPU and CPU resource specifications** are configured just below the hardware selection menu. Here, you can select whether the instance is **GPU-enabled, the GPU count, the CPU core count,** and allocated memory resources.
+Each hardware selector also displays a meter registering the availability of that hardware type per region.
 
-**CPU**
+### Resource definition (YAML only)
 
-Select how many **CPU** **cores** you'd like the Virtual Server to have using the **Core Count** slider.
+In the CRD's YAML manifest, the `.spec.resources.definition` field is used as a way to describe the chosen resources. The default value of this field is `a` - this is just a placeholder, which can be changed to any string.
 
-![](<../../.gitbook/assets/image (114).png>)
+<figure><img src="../../.gitbook/assets/image (3).png" alt="Screenshot of the .spec.resources.definition field, mirrored in plain text below"><figcaption></figcaption></figure>
 
-**GPU**
-
-Select how many **GPUs** you'd like the Virtual Server to have using the **GPU Count** slider.
-
-![](<../../.gitbook/assets/image (52) (1) (1) (1).png>)
-
-**Memory**
-
-Determine the amount of **memory** (in Gebibytes) the Virtual Server will have using the **Memory** slider.
-
-![](<../../.gitbook/assets/image (10) (3) (1).png>)
-
-#### Definition
-
-The resources' `definition` defaults to the `a` character, but can be changed to any descriptive string you'd like. In the Cloud UI, the resource definition string is set in the YAML manifest.
-
-![Screenshot of the resources.definition field.](<../../.gitbook/assets/image (49) (2).png>)
-
-**Example**
+Example in plain text:
 
 ```yaml
-resources:
-  definition: This is a high-intensity compute machine with a lot of GPUs.
+  spec:
+    region: LAS1
+    resources:
+      cpu:
+        count: 4
+        type: amd-epyc-milan
+      definition: a
+      memory: 12Gi
 ```
 {% endtab %}
 
 {% tab title="CLI" %}
-**Deployment method:** <mark style="background-color:green;">Kubernetes CLI</mark>
+## **Deployment method:** <mark style="background-color:green;">Kubernetes CLI</mark>
 
 Using the Kubernetes CLI deployment method, hardware options are configured under the `resources` block in the Virtual Server manifest (e.g., `virtual-server.yaml`).
 
@@ -140,17 +124,17 @@ In this method, **hardware designations are defined as a kind of `resource`**, j
 
 Each of the following fields will be configured underneath the `resources` block in the YAML manifest.
 
-| Field name             | Type   | Description                                                                                       | Default value |
-| ---------------------- | ------ | ------------------------------------------------------------------------------------------------- | ------------- |
-| `resources`            | Array  | <p>The top-level field.<br>Defines the resources and devices allocated to the Virtual Server.</p> | N/A           |
-| `resources.definition` | String | The resource definition.                                                                          | `a`           |
-| `resources.cpu`        | Array  | All CPU configuration fields.                                                                     | N/A           |
-| `resources.cpu.type`   | String | The type of CPU to allocate.                                                                      | N/A           |
-| `resources.cpu.count`  | Int    | The number of CPU cores to allocate.                                                              | N/A           |
-| `resources.gpu`        | Array  | All GPU configuration fields.                                                                     | N/A           |
-| `resources.gpu.type`   | String | The type of GPU to allocate.                                                                      | N/A           |
-| `resources.gpu.count`  | Int    | The number of GPU units to allocate.                                                              | N/A           |
-| `resources.memory`     | String | The amount of memory to allocate.                                                                 | N/A           |
+| Field name             | Type   | Description                                                                                       |
+| ---------------------- | ------ | ------------------------------------------------------------------------------------------------- |
+| `resources`            | Array  | <p>The top-level field.<br>Defines the resources and devices allocated to the Virtual Server.</p> |
+| `resources.definition` | String | The resource definition. Defaults to `a`.                                                         |
+| `resources.cpu`        | Array  | All CPU configuration fields.                                                                     |
+| `resources.cpu.type`   | String | The type of CPU to allocate.                                                                      |
+| `resources.cpu.count`  | Int    | The number of CPU cores to allocate.                                                              |
+| `resources.gpu`        | Array  | All GPU configuration fields.                                                                     |
+| `resources.gpu.type`   | String | The type of GPU to allocate.                                                                      |
+| `resources.gpu.count`  | Int    | The number of GPU units to allocate.                                                              |
+| `resources.memory`     | String | The amount of memory to allocate.                                                                 |
 
 **Example**
 
@@ -166,7 +150,7 @@ Each of the following fields will be configured underneath the `resources` block
 {% endtab %}
 
 {% tab title="Terraform" %}
-**Deployment method:** <mark style="background-color:orange;">Terraform</mark>
+## **Deployment method:** <mark style="background-color:orange;">Terraform</mark>
 
 The Virtual Server's hardware and resource options are configured as variables passed into the [Virtual Server Terraform module](https://github.com/coreweave/kubernetes-cloud/tree/master/virtual-server/examples/terraform).
 
@@ -227,9 +211,11 @@ variable "vs_gpu_count" {
 
 ## Firmware
 
-The firmware identification information for Virtual Servers is set by the Virtual Machine Instance (VMI) BIOS in the case of the firmware's UUID (that is, its MAC address), and by the VMI's SMBIOS in the case of the system-serial number. The firmware's UUID is by default a randomly-generated alphanumeric string. Both numbers are static across Virtual Server restarts.
+Firmware identification information for Virtual Servers is set by the Virtual Machine Instance (VMI). The firmware's UUID (MAC address) is set by the BIOS, and its system-serial number is set by the VMI's SMBIOS.
 
-It is **optional** to set them to anything other than their randomly-generated defaults.
+The firmware's UUID defaults a randomly-generated alphanumeric string. Both numbers are static across Virtual Server restarts.
+
+It is optional to set these; if not set, they will have randomly-generated defaults.
 
 {% hint style="info" %}
 **Note**
@@ -239,11 +225,17 @@ You can read more about virtual hardware firmware configuration in [the Kubevirt
 
 {% tabs %}
 {% tab title="Cloud UI" %}
-**Deployment method:** <mark style="background-color:blue;">CoreWeave Cloud UI</mark>
+## **Deployment method:** <mark style="background-color:blue;">CoreWeave Cloud UI</mark>
 
-Firmware options must be set in the YAML tab from the Cloud UI. Firmware options are not currently exposed through the YAML manifest by default, so they must be added to the key-value map in the manifest.
+In the Cloud UI, firmware options must be set using the YAML editor. Firmware options are not currently exposed through the YAML manifest by default, so they must be added to the key-value map in the manifest.
 
-![Example of firmware configuration in the YAML manifest tab of the Cloud UI.](<../../.gitbook/assets/image (9) (1) (2).png>)
+Example in plain text:
+
+```yaml
+firmware:
+  uuid: 5d307ca9-b3ef-428c-8861-06e72d69f223
+  serial: e4686d2c-6e8d-4335-b8fd-81bee22f4815
+```
 {% endtab %}
 
 {% tab title="CLI" %}
@@ -254,10 +246,10 @@ Firmware options for Virtual Servers are configured under the `firmware` stanza.
 | Field name                           | Field type | Description                                                       |
 | ------------------------------------ | ---------- | ----------------------------------------------------------------- |
 | <p><code>firmware</code><br><br></p> | Array      | Top-level field for firmware definitions                          |
-| `firmware.uuid`                      | String     | UUID of the firmware to be deployed                               |
+| `firmware.uuid`                      | String     | The UUID of the firmware to be deployed                           |
 | `firmware.serial`                    | String     | The system-serial-number in SMBIOS of the firmware to be deployed |
 
-\ **Example**
+Example in plain text:
 
 ```yaml
   firmware:

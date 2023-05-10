@@ -12,7 +12,7 @@ This guide provides an introduction to Argo Workflows, outlines the steps needed
 If you already have experience with Argo Workflows and just need to deploy it on CoreWeave Cloud, you can [skip ahead to the deployment section](./#how-to-deploy-argo-workflows).
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (35).png" alt="Screenshot of Argor Workflows in Application catalog"><figcaption><p>Argo Workflows</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (35) (2).png" alt="Screenshot of Argor Workflows in Application catalog"><figcaption><p>Argo Workflows</p></figcaption></figure>
 
 After you've successfully deployed Argo Workflows, see our other guides with deeper dives into [security best practices](security-best-practices-for-argo-workflows.md), Argo's [Command Line Interface (CLI)](use-the-argo-workflows-cli.md), the [REST API](use-the-argo-workflows-rest-api.md), and how to submit workflows with [Helm](use-argo-workflows-with-helm.md). We also have valuable tips to [enhance performance](optimize-argo-workflows-performance-and-resilience.md) and ensure your workflows are resilient.&#x20;
 
@@ -54,7 +54,7 @@ To deploy Argo Workflows, navigate to [CoreWeave Applications](https://apps.core
 Although you can change these parameters, we strongly suggest using **client** authentication as a [security best practice](security-best-practices-for-argo-workflows.md).
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (36).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (36) (2).png" alt=""><figcaption></figcaption></figure>
 
 When ready, click the **Deploy** button at the bottom of the page.
 
@@ -118,11 +118,11 @@ You can submit and manage jobs through the web UI, an interactive way to manage 
 
 To get started, navigate to your Argo Workflows deployment in the [Applications Catalog](https://apps.coreweave.com/), then click the **Access URL** to open the login page.&#x20;
 
-<figure><img src="../../.gitbook/assets/image (14).png" alt="Screenshot of Access URL"><figcaption><p>Access URL</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (14) (7).png" alt="Screenshot of Access URL"><figcaption><p>Access URL</p></figcaption></figure>
 
 Paste the Bearer token you retrieved earlier into the **client authentication** box, then click **Login**.&#x20;
 
-<figure><img src="../../.gitbook/assets/image (26).png" alt="Screenshot of Argo login screen"><figcaption><p>Screenshot of Argo login screen</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (26) (4).png" alt="Screenshot of Argo login screen"><figcaption><p>Screenshot of Argo login screen</p></figcaption></figure>
 
 ### How to submit a new workflow
 
@@ -204,7 +204,7 @@ spec:
 
 You'll see the Pods spinning up:
 
-<figure><img src="../../.gitbook/assets/image (37).png" alt="Screenshot of Workflow Pods starting"><figcaption><p>Workflow Pods starting</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (37) (2).png" alt="Screenshot of Workflow Pods starting"><figcaption><p>Workflow Pods starting</p></figcaption></figure>
 
 A short time later, the workflow should complete.
 

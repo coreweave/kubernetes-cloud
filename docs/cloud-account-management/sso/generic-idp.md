@@ -8,7 +8,7 @@ To configure CoreWeave SSO using a generic IDP as your identity provider, first 
 
 On the configuration screen, select **Generic IDP** from the **Your IDP** drop-down menu.
 
-<figure><img src="../../.gitbook/assets/image (30) (2).png" alt="Screenshot of the IDP selector menu"><figcaption><p>Select "Generic IDP" from the "Your IDP" drop-down</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (30) (3).png" alt="Screenshot of the IDP selector menu"><figcaption><p>Select "Generic IDP" from the "Your IDP" drop-down</p></figcaption></figure>
 
 Using the information provided in the setup modal, complete your IDP's SSO configuration. Ensure that all fields in the CoreWeave SSO modal are also filled in using the information provided by your IDP.
 

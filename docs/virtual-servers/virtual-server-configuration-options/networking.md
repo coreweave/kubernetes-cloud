@@ -4,37 +4,41 @@ description: Learn more about network options for Virtual Servers.
 
 # Networking
 
-Networking for Virtual Servers can be as simplistic or as fine-grained as your use case dictates.
+Networking for Virtual Servers can be as simplistic or as fine-grained as your use case dictates. If you'd like to attach a Public IP or LoadBalancer IP to your Virtual Server, this is the section to do it.
 
 {% hint style="info" %}
 **Additional Resources**
 
-To learn more about general networking on CoreWeave cloud, see [Networking](broken-reference).
+To learn more about networking on CoreWeave cloud, see [Networking](broken-reference).
 {% endhint %}
 
 {% tabs %}
 {% tab title="Cloud UI" %}
-**Deployment method:** <mark style="background-color:blue;">CoreWeave Cloud UI</mark>
+## **Deployment method:** <mark style="background-color:blue;">CoreWeave Cloud UI</mark>
 
-### Attach Public IP
+From the [CoreWeave Cloud UI](../../../virtual-servers/deployment-methods/coreweave-apps.md) Virtual Server deployment menu, click the **Network** expandable.
 
-Most networking options for Virtual Servers are currently configured by interacting directly with the YAML manifest from the YAML tab, but **Attach IP** is currently also exposed via graphical toggle, which can simply be switched on and off according to whether or not you want the Virtual Server to be publicly accessible.
+<figure><img src="../../.gitbook/assets/network.png" alt=""><figcaption></figcaption></figure>
 
-Attaching a public IP to the Virtual Server will allow it to be accessible through the Internet via an assigned IPv4 address by a created Kubernetes service.
+### Attaching IPs
 
+More advanced networking options for Virtual Servers are configured by interacting directly with the YAML editor, but **Public IP** and **LoadBalancer IP** configuration options are also exposed via graphical toggles in this expandable. These toggles are switched on and off according to whether or not you want the Virtual Server to have either kind of IP address provisioned to it.
 
+Attaching a **Public IP** to the Virtual Server will allow it to be accessible through the Internet via an assigned IPv4 address by a created Kubernetes service. When `network.directAttachLoadBalancerIP` is turned on (`true`) a new Service will be created, and its LoadBalancer IP will be directly attached to the Virtual Server.
 
-!["Attach IP" option in the Cloud UI.](<../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1).png>)
-
-#### Public networking **via direct attach Load Balancer IP**
-
-The graphical toggle for the **Attach IP** setting discussed above affects the `network.directAttachLoadBalancerIP` and `network.public` options in the YAML manifest, mutually toggling them between `true` and `false` respectively.\
+The graphical toggles affect the `network.directAttachLoadBalancerIP` and `.network.public` options in the CRD manifest respectively, toggling their values between `true` and `false`.\
 \
 When both options are set to `true`, public networking is provided via an automatically-provisioned public IP address. When both are `false`, public networking is disabled, and no public IP will be provisioned.
 
-![network.directAttachLoadBalancerIP configurations found in the YAML tab on the Cloud UI](<../../.gitbook/assets/image (97).png>)
+<figure><img src="../../.gitbook/assets/image (24).png" alt=""><figcaption></figcaption></figure>
 
-When `network.directAttachLoadBalancerIP` is `true`, a new Service will be created, and its load balancer IP will be directly attached to the Virtual Server.
+Example in plain text:
+
+```yaml
+  network:
+    public: true
+    directAttachLoadBalancerIP: true
+```
 
 {% hint style="info" %}
 **Note**
@@ -48,13 +52,9 @@ When `network.directAttachLoadBalancerIP` is set to `true`, custom UDP and TCP p
 
 All other networking options for Virtual Servers provisioned through the CoreWeave Cloud UI must be configured through the YAML manifest.
 
-![All networking options for Virtual Servers, exposed through the YAML manifest on the Cloud UI](<../../.gitbook/assets/image (115).png>)
+#### Custom MAC addresses
 
-### Setting a custom MAC address
-
-By default, a persistent MAC address, derived from the Virtual Server's name, is assigned to the Virtual Server. To override this, you may include MAC address configurations in the `macAddress` field.
-
-![The custom MAC address field in the YAML manifest.](<../../.gitbook/assets/image (102).png>)
+By default, a persistent MAC address, derived from the Virtual Server's name, is assigned to the Virtual Server. To override this, you may include MAC address configurations in the `.network.macAddress` field.
 
 Custom MAC addresses for Virtual Servers are configured with dashes separating each octet:
 
@@ -62,17 +62,13 @@ Custom MAC addresses for Virtual Servers are configured with dashes separating e
 macAddress: A2-1F-EE-09-06-5D
 ```
 
-### DNS policy
+#### DNS policy
 
 DNS policies for Virtual Servers refer to the [Kubernetes Pod DNS policies](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-s-dns-policy). By default, Virtual Servers have a DNS policy of `ClusterFirst`.
 
-![The dnsPolicy field in the YAML manifest.
-](<../../.gitbook/assets/image (107).png>)
+#### TCP and UDP ports
 
-### TCP and UDP ports
-
-The TCP and UDP ports to expose on the Virtual Server are configured using the `tcp.ports` and `udp.ports` lists in the YAML manifest respectively.\
-
+The TCP and UDP ports to expose on the Virtual Server are configured using the `tcp.ports` and `udp.ports` lists in the YAML manifest respectively.
 
 {% hint style="info" %}
 **Note**
@@ -80,25 +76,32 @@ The TCP and UDP ports to expose on the Virtual Server are configured using the `
 When `network.directAttachLoadBalancerIP` is set to `true`, custom UDP and TCP ports may not be set.
 {% endhint %}
 
-![The tcp.ports and udp.ports arrays exposed in the YAML manifest.](<../../.gitbook/assets/image (106).png>)
-
-\
 Desired ports may be configured in their respective lists, as seen in this example:
 
+<figure><img src="../../.gitbook/assets/image (56).png" alt=""><figcaption></figcaption></figure>
+
+Example in plain text:
+
 ```yaml
-tcp:
-  ports: [22, 443, 3389]
-udp:
-  ports: [3389, 4172]
+  network:
+    public: true
+    directAttachLoadBalancerIP: false
+    tcp:
+      ports:
+        - 22
+        - 443
+        - 3389
+    udp:
+      ports:
+        - 3389
+        - 4172
 ```
 
-### Floating IPs
+#### Floating IPs
 
-Floating IPs allow the provisioning of stable IP addresses, assigned from the load balancer IP of each Service. These allow for custom DNS configurations and predictable addressing.
+Floating IPs allow stable IP addresses to be assigned from the load balancer IP of each Service. These allow for custom DNS configurations, and predictable addressing.
 
-![The floatingIPs option in the YAML manifest.](<../../.gitbook/assets/image (7) (2) (1).png>)
-
-Floating IPs can be specified in the YAML manifest in a YAML list:
+Floating IPs can be specified in the YAML manifest using a YAML list:
 
 ```yaml
 floatingIPs: [240.141.77.141, 82.110.59.244]
@@ -107,12 +110,12 @@ floatingIPs: [240.141.77.141, 82.110.59.244]
 {% hint style="info" %}
 **Additional Resources**
 
-Learn more about [Floating IPs](additional-features.md#floating-ips).
+Learn more about [Floating Services](additional-features.md#floating-services).
 {% endhint %}
 {% endtab %}
 
 {% tab title="CLI" %}
-**Deployment method:** <mark style="background-color:green;">Kubernetes CLI</mark>
+## **Deployment method:** <mark style="background-color:green;">Kubernetes CLI</mark>
 
 To configure networking options for Virtual Servers deployed using the Kubernetes CLI, configure the options under the `network` stanza of the `spec`:
 
@@ -158,7 +161,7 @@ Learn more about [Floating IPs](additional-features.md#floating-ips).
 {% endtab %}
 
 {% tab title="Terraform" %}
-**Deployment method:** <mark style="background-color:orange;">Terraform</mark>
+## **Deployment method:** <mark style="background-color:orange;">Terraform</mark>
 
 The Virtual Server's networking options are configured as variables passed into the [Virtual Server Terraform module](https://github.com/coreweave/kubernetes-cloud/tree/master/virtual-server/examples/terraform).
 
@@ -198,12 +201,14 @@ variable "vs_udp_ports" {
 
 ## Attaching a Layer 2 VPC
 
-A Virtual Server can be attached to one or multiple VPCs, as well as the regular [CoreWeave Cloud Native Kubernetes](../../networking/coreweave-cloud-native-networking-ccnn.md) (CCNN) network. Each VPC will be represented as a separate Network Interface Card (NIC) inside the Virtual Server, in addition to the regular CoreWeave network (CCNN). The NICs inside a Virtual Server will be in the same order as the VPCs are specified; the order is deterministic to ensure that a NIC inside the Virtual Server always connects to the same VPC, even through reboots and migrations.
+A Virtual Server may be attached to one or multiple VPCs, as well as to the regular [CoreWeave Cloud Native Kubernetes](../../networking/coreweave-cloud-native-networking-ccnn.md) (CCNN) network.
+
+Each VPC will be represented as a separate Network Interface Card (NIC) inside the Virtual Server, in addition to the CoreWeave network (CCNN). The NICs inside a Virtual Server will be in the same order as the VPCs are specified - the order is deterministic to ensure that a NIC inside the Virtual Server always connects to the same VPC, even through reboots and migrations.
 
 {% hint style="info" %}
 **Additional Resources**
 
-[Learn more about CoreWeave Layer 2 VPCs](../../coreweave-kubernetes/networking/layer-2-vpc-l2vpc/).
+Learn more about[ CoreWeave Layer 2 VPCs](../../coreweave-kubernetes/networking/layer-2-vpc-l2vpc/).
 {% endhint %}
 
 By default, [CoreWeave Cloud Native Networking](../../networking/coreweave-cloud-native-networking-ccnn.md) is **enabled**. To disable CoreWeave networking, set `disableK8sNetworking` to `true`.
@@ -220,23 +225,15 @@ Also note that if disableK8sNetworking is set to `true` and a VPC is designated,
 [**CoreWeave support**](https://cloud.coreweave.com/contact) **is available to help with any network design questions.**
 {% endhint %}
 
-[Layer 2 VPCs](../../coreweave-kubernetes/networking/layer-2-vpc-l2vpc/) can be attached to Virtual Servers using the following methods.
+[Layer 2 VPCs](../../coreweave-kubernetes/networking/layer-2-vpc-l2vpc/) may be attached to Virtual Servers using the following methods:
 
 {% tabs %}
 {% tab title="Cloud UI" %}
-**Deployment method:** <mark style="background-color:blue;">CoreWeave Cloud UI</mark>
+## **Deployment method:** <mark style="background-color:blue;">CoreWeave Cloud UI</mark>
 
 VPCs that are deployed in the client namespace are associated with Virtual Servers by configuring their addresses within the YAML spec of the Virtual Server to be associated.
 
-VPC names are configured inside the `network.vpcs` stanza inside this manifest:
-
-
-
-<figure><img src="../../.gitbook/assets/image (2) (4) (1).png" alt="The networking.vpcs stanza in the Cloud UI YAML manifest editor"><figcaption><p>The <code>networking.vpcs</code> stanza in the Cloud UI YAML manifest editor</p></figcaption></figure>
-
-
-
-The plain text representation of this configuration is:
+VPC names are configured inside the `.network.vpcs` stanza in the YAML manifest:
 
 ```yaml
 network:
@@ -249,7 +246,7 @@ network:
 {% endtab %}
 
 {% tab title="CLI" %}
-**Deployment method:** <mark style="background-color:green;">Kubernetes CLI</mark>
+## **Deployment method:** <mark style="background-color:green;">Kubernetes CLI</mark>
 
 Using Kubernetes, Virtual Server Layer 2 VPC connections are configured inside the `spec.network.vpcs` stanza in the Virtual Server spec.
 

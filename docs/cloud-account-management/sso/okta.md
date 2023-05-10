@@ -8,7 +8,7 @@ To configure CoreWeave SSO using [Okta](https://www.okta.com/) as your identity 
 
 On the configuration screen, select **Okta** from the **Your IDP** drop-down menu.
 
-<figure><img src="../../.gitbook/assets/image (43) (3).png" alt="Screenshot of the SSO configuration modal, set up for Okta"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (43) (1).png" alt="Screenshot of the SSO configuration modal, set up for Okta"><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 **Note**
@@ -30,7 +30,7 @@ From the SAML integration screen, enter an application name (such as `CoreWeave 
 For more information on Okta's SAML integration fields, refer to [Okta's Application Integration Wizard SAML field reference](https://help.okta.com/en-us/Content/Topics/Apps/aiw-saml-reference.htm).
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (10) (2).png" alt=""><figcaption><p>The Okta IDP configuration page</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (10) (1).png" alt=""><figcaption><p>The Okta IDP configuration page</p></figcaption></figure>
 
 ### Configure SAML
 
@@ -54,7 +54,7 @@ The general configuration fields should be set to the following values:
 | Application username          | `Okta username`                                                         |
 | Update applicaton username on | `Create and update`                                                     |
 
-<figure><img src="../../.gitbook/assets/image (3) (1) (1).png" alt="Screenshot of a complete SAML integration for CoreWeave Cloud on the Okta side"><figcaption><p>A complete SAML integration for CoreWeave Cloud on the Okta side</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3) (1).png" alt="Screenshot of a complete SAML integration for CoreWeave Cloud on the Okta side"><figcaption><p>A complete SAML integration for CoreWeave Cloud on the Okta side</p></figcaption></figure>
 
 ### Attribute statements
 
@@ -67,7 +67,7 @@ Next, on the same page, configure the **Attribute Statements** for the SAML inte
 | email       | Unspecified | `user.email`     |
 | login       | Unspecified | `user.login`     |
 
-<figure><img src="../../.gitbook/assets/image (40).png" alt="Screenshot of the attribute statements formatted for Okta"><figcaption><p>Attribute statements formatted for Okta</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (40) (2).png" alt="Screenshot of the attribute statements formatted for Okta"><figcaption><p>Attribute statements formatted for Okta</p></figcaption></figure>
 
 {% hint style="info" %}
 **Note**
@@ -79,11 +79,11 @@ The `email` attribute is what uniquely identifies users.
 
 To acquire the identity provider URL, the IDP Single sign-on URL, and the X.509 certificate, click the **View SAML setup instructions** button on the right-hand side of the "Configure SAML" page.
 
-<figure><img src="../../.gitbook/assets/image (2) (4).png" alt=""><figcaption><p>The "View SAML setup instructions" button is on the right-hand side of the SAML configuration screen</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (81).png" alt=""><figcaption><p>The "View SAML setup instructions" button is on the right-hand side of the SAML configuration screen</p></figcaption></figure>
 
 This will redirect to a "How to" page, which contains all values for these fields.
 
-<figure><img src="../../.gitbook/assets/image (14) (1).png" alt="Screenshot of Okta setup"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (14).png" alt="Screenshot of Okta setup"><figcaption></figcaption></figure>
 
 The provided values in these fields must be added to their associated fields in [the CoreWeave SSO configuration menu](./#configure-coreweave-sso).
 
@@ -91,7 +91,7 @@ The provided values in these fields must be added to their associated fields in 
 
 The final portion of the Okta SAML integration is a feedback form for Okta, and may be filled out as you wish - this feedback is used by Okta. Once this section is complete, click **Finish**.
 
-<figure><img src="../../.gitbook/assets/image (7) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (7) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## Configure CoreWeave SSO
 

@@ -188,7 +188,7 @@ It is recommended that the name you give the Filebrowser application be very sho
 
 When configuring the application instance, select the `kubeflow-mnist` PVC that you created earlier. **Make sure that you actually add your PVC to the filebrowser list of mounts!**
 
-<figure><img src="../../../.gitbook/assets/image (7) (3) (2).png" alt=""><figcaption><p>The filebrowser application</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (8).png" alt=""><figcaption><p>The filebrowser application</p></figcaption></figure>
 
 ### Docker images
 
@@ -233,7 +233,7 @@ The ImageNet dataset is publicly available via a [Kaggle Object Localization Cha
 
 After you have signed in to your new account, navigate to the [Kaggle competition](https://www.kaggle.com/competitions/imagenet-object-localization-challenge/data) and accept the competition rules. When all of that is done, you should be be able to see a sample of the data in your browser:
 
-<figure><img src="../../../.gitbook/assets/image (6) (5).png" alt="Preview of ImageNet data from Kaggle"><figcaption><p>Preview of ImageNet data from Kaggle</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (4) (3).png" alt="Preview of ImageNet data from Kaggle"><figcaption><p>Preview of ImageNet data from Kaggle</p></figcaption></figure>
 
 Once your Kaggle account has access to the ImageNet dataset, create an API token by navigating to your profile page (`https://www.kaggle.com/<username>/account`). Click "Create API Token." This will trigger a download of a file named `kaggle.json`.
 
