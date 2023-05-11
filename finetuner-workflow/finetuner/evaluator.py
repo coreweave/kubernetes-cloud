@@ -1,5 +1,4 @@
 #!/bin/which python3
-import argparse
 from typing import List
 from torch import Tensor
 import time
@@ -16,41 +15,69 @@ elif torch.backends.mps.is_available():
     device = torch.device("mps")
 
 
-parser = argparse.ArgumentParser(description="Simple Model Evaluator")
+parser = DashParser(description="Simple Model Evaluator")
 
-parser.add_argument("--model", type=str, help="the model to evaluate against"
-                                              " (directory, or HuggingFace ID)",
-                    required=True)
-parser.add_argument("--trust-remote-code", type=bool,
-                    help="whether to trust remote code coming with the model",
-                    default=False,
+parser.add_argument(
+    "--model",
+    type=str,
+    help="The model to evaluate against (directory, or HuggingFace ID)",
+    required=True,
 )
-parser.add_argument("--tokenizer", type=str, help="the tokenizer to use")
-parser.add_argument("--eot", type=str, help="EOT token to use",
-                    default="")  # default is model-dependent
-parser.add_argument("--pad", type=str, help="Pad token to use",
-                    default="")  # default is model-dependent
-parser.add_argument("--cache", type=str, help="Huggingface cache location",
-                    default="/tmp")
-parser.add_argument("--fp16", dest="fp16", default=False, action="store_true",
-                    help="Force training in fp16.")
+parser.add_argument(
+    "--trust-remote-code",
+    action=FuzzyBoolAction,
+    help="Whether to trust remote code coming with the model",
+    default=False,
+)
+parser.add_argument("--tokenizer", type=str, help="The tokenizer to use")
+parser.add_argument(
+    "--eot", type=str, help="EOT token to use", default=""
+)  # default is model-dependent
+parser.add_argument(
+    "--pad", type=str, help="Pad token to use", default=""
+)  # default is model-dependent
+parser.add_argument(
+    "--cache", type=str, help="HuggingFace cache location", default="/tmp"
+)
+parser.add_argument(
+    "--fp16",
+    action=FuzzyBoolAction,
+    help="Force evaluation in fp16",
+    default=False,
+)
 parser.add_argument("--prompt", type=str, help="Prompt to use")
-parser.add_argument("--prompt_file", type=str, help="File containing prompts")
-parser.add_argument("--prompt_tokens", type=int, help="Number of tokens to generate",
-                    default=200)
-parser.add_argument("--seed", type=int, help="Random seed value",
-                    default=None)
-parser.add_argument("--prompt_samples", type=int, help="Number of samples to generate",
-                    default=1)
-parser.add_argument("--top_k", type=int, help="Top K to use for sampling",
-                    default=16)
-parser.add_argument("--top_p", type=float, help="Top P to use for sampling",
-                    default=0.95)
-parser.add_argument("--temperature", type=float, help="Temperature to use for sampling",
-                    default=1.0)
-parser.add_argument("--repetition_penalty", type=float,
-                    help="Repetition penalty to use for sampling",
-                    default=1.1)
+parser.add_argument("--prompt-file", type=str, help="File containing prompts")
+parser.add_argument(
+    "--prompt-tokens",
+    type=int,
+    help="Number of tokens to generate",
+    default=200,
+)
+parser.add_argument("--seed", type=int, help="Random seed value", default=None)
+parser.add_argument(
+    "--prompt-samples",
+    type=int,
+    help="Number of samples to generate",
+    default=1,
+)
+parser.add_argument(
+    "--top-k", type=int, help="Top K to use for sampling", default=16
+)
+parser.add_argument(
+    "--top-p", type=float, help="Top P to use for sampling", default=0.95
+)
+parser.add_argument(
+    "--temperature",
+    type=float,
+    help="Temperature to use for sampling",
+    default=1.0,
+)
+parser.add_argument(
+    "--repetition-penalty",
+    type=float,
+    help="Repetition penalty to use for sampling",
+    default=1.1,
+)
 
 args = parser.parse_args()
 if args.tokenizer is None:
@@ -92,7 +119,7 @@ tokenizer = AutoTokenizer.from_pretrained(
     args.tokenizer,
     **tokens_to_add,
     cache_dir=args.cache,
-    padding_side="left"
+    padding_side="left",
     trust_remote_code=args.trust_remote_code,
     init_device=str(device),
 )

@@ -1,5 +1,5 @@
 #!/bin/which python3
-# A simple Huggingface-based text-model finetuner meant to be used in an
+# A simple HuggingFace-based text-model finetuner meant to be used in an
 # automated workflow.
 import json
 import gc
@@ -16,7 +16,6 @@ import torch
 import torch.distributed
 from torch import Tensor
 from torch.utils.data import Dataset, random_split, Subset
-import argparse
 import pathlib
 from typing import Tuple, List
 import socket
@@ -56,39 +55,40 @@ if torch.cuda.is_available():
     device = "cuda"
 
 
-parser = argparse.ArgumentParser(description="Simple Text Model Finetuner")
+parser = DashParser(description="Simple Text Model Finetuner")
+
 parser.add_argument(
-    "--run_name", type=str, help="the run name to use", required=True
+    "--run-name", type=str, help="The run name to use", required=True
 )
 parser.add_argument(
     "--model",
     type=str,
-    help="the model to train against" + " (directory, or HuggingFace ID)",
+    help="The model to train against (directory, or HuggingFace ID)",
     required=True,
 )
 parser.add_argument(
    "--trust-remote-code",
-   type=bool,
-   help="whether to trust remote code coming with the model",
+   action=FuzzyBoolAction,
+   help="Whether to trust remote code coming with the model",
    default=False,
 )
 parser.add_argument(
-    "--dataset", type=str, help="pre-tokenized dataset to use", required=True
+    "--dataset", type=str, help="Pre-tokenized dataset to use", required=True
 )
 parser.add_argument(
-    "--tensorizer_uri",
+    "--tensorizer-uri",
     type=str,
-    help="An S3 or path to use to extract pretrained weights for Tensorizer.",
+    help="An S3 or path to use to extract pretrained weights for Tensorizer",
     default="",
 )
-parser.add_argument("--lr", type=float, help="learning rate", default=5e-5)
+parser.add_argument("--lr", type=float, help="Learning rate", default=5e-5)
 parser.add_argument(
-    "--epochs", type=int, help="number of epochs to train for", default=1
+    "--epochs", type=int, help="Number of epochs to train for", default=1
 )
 parser.add_argument(
-    "--train_ratio",
+    "--train-ratio",
     type=Decimal,
-    help="ratio of train to value from dataset",
+    help="Ratio of train to value from dataset",
     default=Decimal("0.9"),
 )
 parser.add_argument(
@@ -107,7 +107,7 @@ parser.add_argument(
     "--bs", type=int, help="Batch size (-1 == autosize)", default=-1
 )
 parser.add_argument(
-    "--bs_divisor",
+    "--bs-divisor",
     type=float,
     help="Batch size divisor for automatically determining batch size",
     default=1.0,
@@ -116,83 +116,88 @@ parser.add_argument(
     "--gradients", type=int, help="Gradient accumulation steps", default=5
 )
 parser.add_argument(
-    "--zero_stage", type=int, help="ZeRO optimizer stage", default=3
+    "--zero-stage", type=int, help="ZeRO optimizer stage", default=3
 )
 parser.add_argument("--seed", type=int, help="Random seed value", default=42)
 parser.add_argument(
-    "--output_path", type=str, help="Root path of all output", default="./"
+    "--output-path", type=str, help="Root path of all output", default="./"
 )
 parser.add_argument(
-    "--no_resume",
-    type=str,
-    default="False",
+    "--no-resume",
+    action=FuzzyBoolAction,
     help="Do not resume from last checkpoint",
-)
-parser.set_defaults(no_resume="False")
-parser.add_argument(
-    "--cache", type=str, help="Huggingface cache location", default="/tmp"
+    dest="resume",
+    default=True,  # resume=True
 )
 parser.add_argument(
-    "--save_steps",
+    "--cache", type=str, help="HuggingFace cache location", default="/tmp"
+)
+parser.add_argument(
+    "--save-steps",
     type=int,
     help="# of steps between checkpoint saves",
     default=500,
 )
 parser.add_argument(
-    "--context_size", type=int, help="Dataset context sizes", default=2048
+    "--context-size", type=int, help="Dataset context sizes", default=2048
 )
 parser.add_argument(
-    "--project_id",
+    "--project-id",
     type=str,
     help="Project ID for reporting",
     default="huggingface",
 )
 parser.add_argument(
-    "--logs", type=str, help="log directory location", default="./logs"
+    "--logs", type=str, help="Log directory location", default="./logs"
 )
 parser.add_argument(
-    "--ds_config",
+    "--ds-config",
     type=str,
     help="DeepSpeed configuration",
     default="./ds_config.json",
 )
 parser.add_argument(
     "--fp16",
-    dest="fp16",
+    action=FuzzyBoolAction,
+    help="Force training in fp16",
     default=False,
-    action="store_true",
-    help="Force training in fp16.",
 )
 parser.add_argument(
-    "--no_shuffle",
-    dest="no_shuffle",
+    "--fp16-full-eval",
+    action=FuzzyBoolAction,
+    help="Evaluate in fp16, not in fp32 or mixed precision",
     default=False,
-    action="store_true",
+)
+parser.add_argument(
+    "--no-shuffle",
+    action=FuzzyBoolAction,
     help="Disable shuffling contexts",
+    dest="shuffle",
+    default=True,  # shuffle=True
 )
 parser.add_argument(
-    "--prompt_file", type=str, help="Prompt file to use for checkpoint sampling"
+    "--prompt-file", type=str, help="Prompt file to use for checkpoint sampling"
 )
 parser.add_argument(
-    "--prompt_every", type=int, default=0, help="Prompt every N steps"
+    "--prompt-every", type=int, default=0, help="Prompt every N steps"
 )
 parser.add_argument(
-    "--prompt_tokens",
+    "--prompt-tokens",
     type=int,
     default=200,
     help="Number of tokens to sample from prompt",
 )
 parser.add_argument(
-    "--prompt_samples",
+    "--prompt-samples",
     type=int,
     help="Number of samples to generate",
     default=5,
 )
 parser.add_argument(
-    "--top_k", type=int, help="Top K to use for prompt sampling", default=50
+    "--top-k", type=int, help="Top K to use for prompt sampling", default=50
 )
 parser.add_argument(
-    "--top_p", type=float, help="Top P to use for prompt sampling", default=0.95
+    "--top-p", type=float, help="Top P to use for prompt sampling", default=0.95
 )
 parser.add_argument(
     "--temperature",
@@ -201,22 +206,16 @@ parser.add_argument(
     default=1.0,
 )
 parser.add_argument(
-    "--repetition_penalty",
+    "--repetition-penalty",
     type=float,
     help="Repetition penalty to use for prompt sampling",
     default=1.1,
 )
 parser.add_argument(
-    "--local_rank",
+    "--local-rank",
     type=int,
     help="For distributed training: local_rank",
     default=-1,
-)
-parser.add_argument(
-    "--fp16-full-eval",
-    dest="fp16_full_eval",
-    default=False,
-    action="store_true",
 )
 parser.add_argument(
     "--log-level",
@@ -228,7 +227,7 @@ parser.add_argument(
 args = parser.parse_args()
 
 logger = logging.getLogger(__name__)
-logger.setLevel(args.log_level.upper())
+logger.setLevel(args.log_level)
 fh = logging.StreamHandler()
 if args.local_rank != -1:
     fh_formatter = logging.Formatter(
@@ -245,7 +244,7 @@ def is_main_process() -> bool:
     return args.local_rank in [-1, 0]
 
 
-# To be used in cases where using if statements are ugly.
+# To be used in cases where using if statements is ugly.
 def main_process_print(*args, **kwargs):
     if is_main_process():
         logger.info(*args, **kwargs)
@@ -284,16 +283,8 @@ output_dir = os.path.abspath(
     os.path.join(args.output_path, "results-" + args.run_name)
 )
 
-# Properly type-cast the param (str to bool)
-FALSE = [
-    "false",
-    "f",
-    "0",
-]
-args.no_resume = args.no_resume.lower() not in FALSE
-
 # Discover if we have any checkpoints to resume from.
-if not args.no_resume:
+if args.resume:
     try:
         output_dir_list = os.listdir(output_dir)
         last_checkpoint = sorted(
@@ -656,7 +647,7 @@ if is_main_process():
     logger.info(f"MODEL: {args.model}")
     logger.info(f"TRAIN RATIO: {args.train_ratio}")
     logger.info(f"CONTEXT LENGTH: {args.context_size} tokens")
-    logger.info(f"SHUFFLE: {not args.no_shuffle}")
+    logger.info(f"SHUFFLE: {args.shuffle}")
     logger.info(f"EPOCHS {args.epochs}")
     logger.info(f"CHECKPOINT STEPS: {args.save_steps}")
     logger.info(f"TOKENIZER: {tokenizer}")
@@ -693,7 +684,9 @@ if args.train_ratio != 1:
 train_size = int(args.train_ratio * len(dataset))
 val_size = len(dataset) - train_size
 
-if args.no_shuffle:
+if args.shuffle:
+    train_dataset, val_dataset = random_split(dataset, (train_size, val_size))
+else:
     # Pick a random contiguous subrange as the val_dataset
     val_dataset_start = random.randrange(len(dataset) - val_size)
     val_dataset_end = val_dataset_start + val_size
@@ -704,8 +697,6 @@ if args.no_shuffle:
         (*range(val_dataset_start), *range(val_dataset_end, len(dataset)))
     )
     val_dataset = Subset(dataset, range(val_dataset_start, val_dataset_end))
-else:
-    train_dataset, val_dataset = random_split(dataset, (train_size, val_size))
 
 # Determine if we train in fp32 or fp16 mode.
 trainer_fp16_args = {}
