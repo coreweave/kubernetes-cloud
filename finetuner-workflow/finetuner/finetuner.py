@@ -748,6 +748,7 @@ try:
         deserializer = TensorDeserializer(args.tensorizer_uri)
         deserializer.load_into_module(model)
         deserializer.close()
+        del deserializer
     else:
         with no_init():
             model = AutoModelForCausalLM.from_pretrained(
@@ -847,8 +848,12 @@ ds_args = {}
 if device != "cpu":
     with open(args.ds_config) as ds_config_file:
         ds_config = json.load(ds_config_file)
-    if "zero_optimization" in ds_config:
-        ds_config["zero_optimization"]["stage"] = args.zero_stage
+    zero_config = ds_config.get("zero_optimization", None)
+    if zero_config is not None:
+        zero_config["stage"] = args.zero_stage
+        if args.zero_stage < 3:
+            # offload_param is only valid for ZeRO stage 3
+            zero_config.pop("offload_param", None)
     ds_args["deepspeed"] = ds_config
     ds_args["local_rank"] = args.local_rank
     os.environ["LOCAL_RANK"] = str(args.local_rank)
