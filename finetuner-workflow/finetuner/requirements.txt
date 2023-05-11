@@ -8,3 +8,4 @@ accelerate~=0.17.1
 tensorizer==1.0.1
 einops
 flash-attn
+kserve
