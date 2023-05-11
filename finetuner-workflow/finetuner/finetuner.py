@@ -220,7 +220,7 @@ parser.add_argument(
 )
 parser.add_argument(
     "--log-level",
-    type=str,
+    type=str.upper,
     help="Log level to use",
     default="INFO",
     choices=["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"],
