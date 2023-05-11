@@ -6,6 +6,6 @@ torch==2.0.0
 psutil==5.9.4
 accelerate~=0.17.1
 tensorizer==1.1.0
-einops
-flash-attn
+einops==0.6.1
+flash-attn==1.0.4
 kserve==0.10.1
