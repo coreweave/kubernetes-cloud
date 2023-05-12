@@ -8,7 +8,7 @@ Virtual Servers are deployed to CoreWeave Cloud as [Custom Resource Definitions 
 
 ## Prerequisites
 
-**Before you can access CoreWeave Cloud, you must first** [**request an account**](https://cloud.coreweave.com/request-account)**.**
+**Before you can access CoreWeave Cloud, you must first** [**request an account**](https://cloud.coreweave.com/signup)**.**
 
 To use the Kubernetes CLI as your deployment method, you will first need to obtain valid access credentials in the form of a `kubeconfig` file. See [Obtain Access Credentials](../../coreweave-kubernetes/getting-started.md#obtain-access-credentials) for more information.
 

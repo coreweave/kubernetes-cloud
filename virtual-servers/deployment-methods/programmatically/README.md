@@ -12,7 +12,7 @@ This approach is an alternative to using the [`kubectl`](https://kubernetes.io/d
 
 ## Prerequisites
 
-**Before you can access CoreWeave Cloud, you must first** [**request an account**](https://cloud.coreweave.com/request-account)**.**
+**Before you can access CoreWeave Cloud, you must first** [**request an account**](https://cloud.coreweave.com/signup)**.**
 
 To use programmatic deployment as your deployment method, you will first need to obtain valid access credentials in the form of a `kubeconfig` file. See [Obtain Access Credentials](../../../docs/coreweave-kubernetes/getting-started.md#obtain-access-credentials) for more information.
 

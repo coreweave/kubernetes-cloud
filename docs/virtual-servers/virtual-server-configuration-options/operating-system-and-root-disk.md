@@ -95,7 +95,7 @@ The Virtual Server's Operating System options are configured as variables passed
 {% hint style="info" %}
 **Note**
 
-You can find the name of Operating System images (`vs_image`) in [the System Images section](https://docs.coreweave.com/virtual-servers/coreweave-system-images).
+You can find the name of Operating System images (`vs_image`) in [the System Images section](../coreweave-system-images/).
 {% endhint %}
 
 #### Operating System and root disk storage configuration options

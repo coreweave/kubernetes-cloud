@@ -73,7 +73,7 @@ variable "vs_region" {
 
 ## Hardware
 
-CoreWeave Cloud offers [several high-performance NVIDIA GPUs and CPUs](https://docs.coreweave.com/resources/resource-based-pricing#gpu-instance-resource-pricing) for Virtual Servers. The amount of memory with which a Virtual Server runs can also be specified.
+CoreWeave Cloud offers [several high-performance NVIDIA GPUs and CPUs](../../../resources/resource-based-pricing.md) for Virtual Servers. The amount of memory with which a Virtual Server runs can also be specified.
 
 {% tabs %}
 {% tab title="Cloud UI" %}

@@ -45,7 +45,7 @@ This script makes calls to two different API endpoints separately:
 
 ### **The** Virtual Server **endpoint**
 
-The [Virtual Server endpoint](https://docs.coreweave.com/virtual-servers/getting-started) is a Kubernetes Custom Resource that allows deploying a virtual system and interacting with Kubevirt with ease.
+The [Virtual Server endpoint](../../../../virtual-servers/getting-started.md) is a Kubernetes Custom Resource that allows deploying a virtual system and interacting with Kubevirt with ease.
 
 #### Functions calling the Virtual Server API
 
