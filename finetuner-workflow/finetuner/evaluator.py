@@ -14,6 +14,7 @@ if torch.cuda.is_available():
 elif torch.backends.mps.is_available():
     device = torch.device("mps")
 
+val = validation
 
 parser = DashParser(description="Simple Model Evaluator")
 
@@ -46,35 +47,51 @@ parser.add_argument(
     default=False,
 )
 parser.add_argument("--prompt", type=str, help="Prompt to use")
-parser.add_argument("--prompt-file", type=str, help="File containing prompts")
+parser.add_argument(
+    "--prompt-file",
+    type=val.optional_extant_file,
+    help="File containing prompts",
+)
 parser.add_argument(
     "--prompt-tokens",
-    type=int,
+    type=val.non_negative(int),
     help="Number of tokens to generate",
     default=200,
 )
-parser.add_argument("--seed", type=int, help="Random seed value", default=None)
+parser.add_argument(
+    "--seed",
+    # Range restrictions are imposed by numpy.random.seed
+    type=val.at_most_32_bit(val.non_negative(int)),
+    help="Random seed value",
+    default=None,
+)
 parser.add_argument(
     "--prompt-samples",
-    type=int,
+    type=val.non_negative(int),
     help="Number of samples to generate",
     default=1,
 )
 parser.add_argument(
-    "--top-k", type=int, help="Top K to use for sampling", default=16
+    "--top-k",
+    type=val.non_negative(int),
+    help="Top K to use for sampling",
+    default=16,
 )
 parser.add_argument(
-    "--top-p", type=float, help="Top P to use for sampling", default=0.95
+    "--top-p",
+    type=val.at_most_1(val.non_negative(float)),
+    help="Top P to use for sampling",
+    default=0.95,
 )
 parser.add_argument(
     "--temperature",
-    type=float,
+    type=val.positive(float),
     help="Temperature to use for sampling",
     default=1.0,
 )
 parser.add_argument(
     "--repetition-penalty",
-    type=float,
+    type=val.positive(float),
     help="Repetition penalty to use for sampling",
     default=1.1,
 )

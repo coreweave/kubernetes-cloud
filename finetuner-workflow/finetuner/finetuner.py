@@ -54,6 +54,7 @@ device = "cpu"
 if torch.cuda.is_available():
     device = "cuda"
 
+val = validation
 
 parser = DashParser(description="Simple Text Model Finetuner")
 
@@ -73,21 +74,29 @@ parser.add_argument(
    default=False,
 )
 parser.add_argument(
-    "--dataset", type=str, help="Pre-tokenized dataset to use", required=True
+    "--dataset",
+    type=val.extant_file,
+    help="Pre-tokenized dataset to use",
+    required=True,
 )
 parser.add_argument(
     "--tensorizer-uri",
     type=str,
-    help="An S3 or path to use to extract pretrained weights for Tensorizer",
+    help="An S3 URI or path to use to load pretrained weights for Tensorizer",
     default="",
 )
-parser.add_argument("--lr", type=float, help="Learning rate", default=5e-5)
 parser.add_argument(
-    "--epochs", type=int, help="Number of epochs to train for", default=1
+    "--lr", type=val.non_negative(float), help="Learning rate", default=5e-5
+)
+parser.add_argument(
+    "--epochs",
+    type=val.positive(int),
+    help="Number of epochs to train for",
+    default=1,
 )
 parser.add_argument(
     "--train-ratio",
-    type=Decimal,
+    type=val.at_most_1(val.non_negative(Decimal)),
     help="Ratio of train to value from dataset",
     default=Decimal("0.9"),
 )
@@ -104,21 +113,37 @@ parser.add_argument(
     default="",  # default is model-dependent
 )
 parser.add_argument(
-    "--bs", type=int, help="Batch size (-1 == autosize)", default=-1
+    "--bs",
+    type=val.positive(int, special_val=-1),
+    help="Batch size (-1 == autosize)",
+    default=-1,
 )
 parser.add_argument(
     "--bs-divisor",
-    type=float,
+    type=val.positive(Decimal),
     help="Batch size divisor for automatically determining batch size",
-    default=1.0,
+    default=Decimal(1),
 )
 parser.add_argument(
-    "--gradients", type=int, help="Gradient accumulation steps", default=5
+    "--gradients",
+    type=val.positive(int),
+    help="Gradient accumulation steps",
+    default=5,
 )
 parser.add_argument(
-    "--zero-stage", type=int, help="ZeRO optimizer stage", default=3
+    "--zero-stage",
+    type=int,
+    help="ZeRO optimizer stage",
+    default=3,
+    choices=range(0, 4),
 )
-parser.add_argument("--seed", type=int, help="Random seed value", default=42)
+parser.add_argument(
+    "--seed",
+    # Range restrictions are imposed by numpy.random.seed
+    type=val.at_most_32_bit(val.non_negative(int)),
+    help="Random seed value",
+    default=42,
+)
 parser.add_argument(
     "--output-path", type=str, help="Root path of all output", default="./"
 )
@@ -134,12 +159,15 @@ parser.add_argument(
 )
 parser.add_argument(
     "--save-steps",
-    type=int,
+    type=val.non_negative(int),
     help="# of steps between checkpoint saves",
     default=500,
 )
 parser.add_argument(
-    "--context-size", type=int, help="Dataset context sizes", default=2048
+    "--context-size",
+    type=val.positive(int),
+    help="Dataset context sizes",
+    default=2048,
 )
 parser.add_argument(
     "--project-id",
@@ -152,7 +180,7 @@ parser.add_argument(
 )
 parser.add_argument(
     "--ds-config",
-    type=str,
+    type=val.optional_extant_file,
     help="DeepSpeed configuration",
     default="./ds_config.json",
 )
@@ -176,44 +204,55 @@ parser.add_argument(
     default=True,  # shuffle=True
 )
 parser.add_argument(
-    "--prompt-file", type=str, help="Prompt file to use for checkpoint sampling"
+    "--prompt-file",
+    type=val.optional_extant_file,
+    help="Prompt file to use for checkpoint sampling",
 )
 parser.add_argument(
-    "--prompt-every", type=int, default=0, help="Prompt every N steps"
+    "--prompt-every",
+    type=val.non_negative(int, special_val=-1),
+    default=0,
+    help="Prompt every N steps",
 )
 parser.add_argument(
     "--prompt-tokens",
-    type=int,
+    type=val.non_negative(int),
     default=200,
     help="Number of tokens to sample from prompt",
 )
 parser.add_argument(
     "--prompt-samples",
-    type=int,
+    type=val.non_negative(int),
     help="Number of samples to generate",
     default=5,
 )
 parser.add_argument(
-    "--top-k", type=int, help="Top K to use for prompt sampling", default=50
+    "--top-k",
+    type=val.non_negative(int),
+    help="Top K to use for prompt sampling",
+    default=50,
 )
 parser.add_argument(
-    "--top-p", type=float, help="Top P to use for prompt sampling", default=0.95
+    "--top-p",
+    type=val.at_most_1(val.non_negative(float)),
+    help="Top P to use for prompt sampling",
+    default=0.95,
 )
 parser.add_argument(
     "--temperature",
-    type=float,
+    type=val.positive(float),
     help="Temperature to use for prompt sampling",
     default=1.0,
 )
 parser.add_argument(
     "--repetition-penalty",
-    type=float,
+    type=val.positive(float),
     help="Repetition penalty to use for prompt sampling",
     default=1.1,
 )
 parser.add_argument(
     "--local-rank",
-    type=int,
+    type=val.non_negative(int, special_val=-1),
     help="For distributed training: local_rank",
     default=-1,
 )
@@ -222,7 +261,7 @@ parser.add_argument(
     type=str.upper,
     help="Log level to use",
     default="INFO",
-    choices=["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"],
+    choices=("DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"),
 )
 args = parser.parse_args()
 
@@ -238,6 +277,22 @@ else:
     fh_formatter = logging.Formatter("%(asctime)s %(levelname)s - %(message)s")
 fh.setFormatter(fh_formatter)
 logger.addHandler(fh)
+
+
+def read_prompts(prompt_file):
+    with open(prompt_file, "r", encoding="utf-8") as f:
+        prompts = (line.rstrip("\n").replace("\\n", "\n") for line in f)
+        return list(filter(None, prompts))
+
+
+try:
+    if args.prompt_file:
+        if not read_prompts(args.prompt_file):
+            parser.error(f"Provided prompt file was blank: {args.prompt_file}")
+except OSError:
+    parser.error(
+        f"Provided prompt file could not be read: {args.prompt_file}"
+    )
 
 
 def is_main_process() -> bool:
@@ -381,7 +436,7 @@ except Exception as e:
     sys.exit(1)
 
 
-def estimate_batch_size(divisor: float = 1.0) -> int:
+def estimate_batch_size(divisor: Decimal = Decimal(1)) -> int:
     """
     Attempts to estimate the batch size to use based on the amount of RAM
     that the model takes up, and RAM free.
@@ -522,9 +577,7 @@ class ModelSampler(TrainerCallback):
             )
             model.eval()
             sys.stderr.flush()
-            with open(self.prompt_file, "r", encoding="utf-8") as f:
-                prompts = [line.rstrip("\n").replace("\\n", "\n") for line in f]
-            for prompt in filter(None, prompts):
+            for prompt in read_prompts(self.prompt_file):
                 main_process_print("=============================")
                 main_process_print(f"PROMPT: {prompt}")
                 start = time.time()

@@ -52,11 +52,11 @@ spec:
     # retokenizing the dataset.
     - name: no_shuffle
       value: 'false'
-    # What % of chunks to throw out, to reduce redundancy 
-    # (randomly throws them out)
-    # valid values are between 0-100, 100 disables argument
+    # What % of contexts to keep while discarding the rest,
+    # to reduce redundancy. Picks contexts to discard
+    # in an alternating pattern. A value of 100 keeps all contexts.
     - name: sampling
-      value: '100'
+      value: '100'  # range: >= 0, <= 100
     # eot and pad tokens, it is suggested not to change this value, but usual
     # values are `<|padding|>` or `<|endoftext|>`
     - name: eot_token
@@ -78,7 +78,7 @@ spec:
     # you're training on is divided along logical boundaries and is split
     # using `boundary_token`.
     - name: context
-      value: '2048'
+      value: '2048'  # range: > 0
     # A prompts file to read in for testing the model, and reporting the
     # outputs. This is useful for monitoring the progress and effectiveness of
     # training. One prompt per line, newlines escaped with `\n` if the prompt
@@ -88,30 +88,31 @@ spec:
     # The interval of step counts to run the prompts tests. If we provide
     # it with `0`, it will perform these tests at each checkpoint.
     - name: prompt_every
-      value: '0'
+      value: '0'  # range: >= 0
     # The number of tokens to generate per prompt.
     - name: prompt_tokens
-      value: '200'
+      value: '200'  # range: >= 0
     # The number of times to run prompt evaluation for each prompt.
+
     - name: prompt_samples
-      value: '5'
+      value: '5'  # range: >= 0
     # The following are sampling parameters used during prompt evaluation.
     - name: top_k
-      value: '50'
+      value: '50'  # range: >= 0
     - name: top_p
-      value: '0.95'
+      value: '0.95'  # range: >= 0, <= 1
     - name: temperature
-      value: '1.0'
+      value: '1.0'  # range: > 0
     - name: repetition_penalty
-      value: '1.1'
+      value: '1.1'  # range: > 0
     # Model training parameters
     # Note: train_ratio is not yet implemented, so it is always 1.0.
     # - name: train_ratio
-    #  value: '0.9'
+    #  value: '0.9'  # range: >= 0, <= 1
     # Batch size. `-1` will let it do a reasonable and relatively conservative
     # guess.
     - name: batch_size
-      value: '-1'
+      value: '-1'  # range: > 0 or -1
     # Force `fp16` precision mode. By default, we train in the precision the
     # model provides as configuration option. But for less memory, and thus
     # faster training because of batch size, you might try this. This will
@@ -120,24 +121,24 @@ spec:
       value: 'false'
     # The batch size quotient for the batch size guess.
     - name: batch_size_divisor
-      value: '1.0'
+      value: '1.0'  # range: > 0
     - name: random_seed
-      value: '42'
+      value: '42'  # range: >= 0, < 2 ** 32
     # Learn rate, increase or decrease as needed.
     - name: learn_rate
-      value: '5e-5'
+      value: '5e-5'  # range: >= 0
     # Number of epochs, the number of times it will go through your dataset.
     - name: epochs
-      value: '1'
+      value: '1'  # range: > 0
     # The number of gradient checkpoint layers to work through on each batch.
     - name: gradients
-      value: '5'
+      value: '5'  # range: > 0
     # ZeRO optimizer stage -- ref: https://arxiv.org/abs/1910.02054
     - name: zero_stage
-      value: '3'
+      value: '3'  # range: >= 0, <= 3
     # Number of steps between intermediate checkpoints.
     - name: save_steps
-      value: '500'
+      value: '500'  # range: >= 0
     # Whether to *not* resume from checkpoints.
     - name: no_resume
       value: 'false'

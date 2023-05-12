@@ -1,8 +1,11 @@
 import argparse
 import copy
+import operator
+import os.path
 import resource
+import types
 from contextlib import contextmanager
-from functools import wraps
+from functools import wraps, partial
 
 from typing import NamedTuple, Optional
 
@@ -18,6 +21,7 @@ __all__ = (
     "no_init",
     "DashParser",
     "FuzzyBoolAction",
+    "validation",
 )
 
 
@@ -286,3 +290,67 @@ class FuzzyBoolAction(argparse.Action):
 
     def __call__(self, parser, namespace, values, option_string=None):
         setattr(namespace, self.dest, values)
+
+
+# Argparse validators
+
+def _compares(
+    numeric_type,
+    comparator,
+    threshold,
+    *,
+    condition: str,
+    special_val=None,
+):
+    if special_val:
+        condition = f"{condition} or {special_val}"
+
+    def check(s: str) -> numeric_type:
+        i = numeric_type(s)
+        valid = (
+            comparator(i, threshold)
+            or (special_val is not None and i == special_val)
+        )
+        if not valid:
+            raise argparse.ArgumentTypeError(f"must be {condition}, not {i}")
+        return i
+
+    return check
+
+
+def _extant_file(s: str, *, optional=False) -> str:
+    if not s:
+        if optional:
+            return ""
+        else:
+            raise argparse.ArgumentTypeError("must be specified")
+    if not os.path.isfile(s):
+        if os.path.lexists(s):
+            error = f"invalid file: {s} exists, but isn't a file"
+        else:
+            error = f"file not found: {s}"
+        raise argparse.ArgumentTypeError(error)
+    return s
+
+
+# Small in-line module to act as a namespace.
+validation = types.ModuleType("_validation")
+validation.__dict__.update(
+    positive=partial(
+        _compares, comparator=operator.gt, threshold=0, condition="positive"
+    ),
+    non_negative=partial(
+        _compares, comparator=operator.ge, threshold=0, condition="non-negative"
+    ),
+    at_most_1=partial(
+        _compares, comparator=operator.le, threshold=1, condition="at most 1"
+    ),
+    at_most_32_bit=partial(
+        _compares,
+        comparator=operator.le,
+        threshold=(1 << 32) - 1,
+        condition="at most 2 ** 32 - 1",
+    ),
+    extant_file=_extant_file,
+    optional_extant_file=partial(_extant_file, optional=True),
+)
