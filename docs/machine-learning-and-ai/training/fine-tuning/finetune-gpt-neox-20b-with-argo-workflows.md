@@ -193,7 +193,7 @@ Once the Workflow is submitted, its progress may be monitored from the Argo Work
 
 Pod logs may be acquired via CLI using `kubectl logs <pod name>`, or by clicking on the relevant stage in the Argo Workflows Web UI.
 
-<figure><img src="../../../.gitbook/assets/image (2) (7).png" alt=""><figcaption><p>Argo Workflow right after submission</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (7) (1).png" alt=""><figcaption><p>Argo Workflow right after submission</p></figcaption></figure>
 
 The logs from the fine-tuning training script are available from the launcher Pod. They can be accessed via `kubectl`:
 

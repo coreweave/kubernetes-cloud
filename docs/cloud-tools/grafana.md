@@ -10,7 +10,11 @@ CoreWeave provides a managed Grafana instance where you can view predefined dash
 
 To access the managed Grafana instance, use the menu in the Account Details section of [CoreWeave Cloud](https://cloud.coreweave.com) or navigate directly to [https://grafana.coreweave.com](https://grafana.coreweave.com).
 
-<figure><img src="../.gitbook/assets/image (24) (4).png" alt="Screenshot of Grafana menu in CoreWeave Cloud"><figcaption><p>Grafana menu</p></figcaption></figure>
+<div align="left">
+
+<figure><img src="../.gitbook/assets/image (24).png" alt="Screenshot of Grafana menu in CoreWeave Cloud"><figcaption><p>Grafana menu</p></figcaption></figure>
+
+</div>
 
 You cannot modify these dashboards or create new ones in this Grafana instance. However, if you'd like complete control, deploy your own self-hosted Grafana instance on CoreWeave Cloud.
 
@@ -18,7 +22,11 @@ You cannot modify these dashboards or create new ones in this Grafana instance. 
 
 To build custom dashboards from CoreWeave's [Prometheus metrics](../../coreweave-kubernetes/prometheus/), you can deploy your own Grafana instance with [CoreWeave Apps](https://apps.coreweave.com).
 
-<figure><img src="../.gitbook/assets/image (21) (3).png" alt="Grafana in the application catalog"><figcaption><p>Grafana</p></figcaption></figure>
+<div align="left">
+
+<figure><img src="../.gitbook/assets/image (21).png" alt="Grafana in the application catalog"><figcaption><p>Grafana</p></figcaption></figure>
+
+</div>
 
 ### How to deploy Grafana
 
@@ -31,7 +39,7 @@ To build custom dashboards from CoreWeave's [Prometheus metrics](../../coreweave
 
 Wait for the Pods to deploy, then click the Ingress URL to log in with the username and password in the upper-right corner.
 
-<figure><img src="../.gitbook/assets/image (13) (5).png" alt="Screenshot of deployment screen"><figcaption><p>Deployment screen</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (13).png" alt="Screenshot of deployment screen"><figcaption><p>Deployment screen</p></figcaption></figure>
 
 ### Connect to Prometheus
 
@@ -40,7 +48,11 @@ Our Prometheus scraping service offers many useful [billing metrics](../../corew
 1.  In your Grafana instance, go to **Configuration -> Data Sources** in the lower left menu.\
 
 
+    <div align="left">
+
     <figure><img src="../.gitbook/assets/image (9).png" alt="Data sources menu"><figcaption><p>Data sources menu</p></figcaption></figure>
+
+    </div>
 
 
 2. Click **Add New Datasource** and select **Prometheus**.
@@ -55,12 +67,20 @@ Our Prometheus scraping service offers many useful [billing metrics](../../corew
     Replace `[my-token]` with your API Access token.\
 
 
+    <div align="left">
+
     <figure><img src="../.gitbook/assets/image (11).png" alt="Connection settings"><figcaption><p>Connection settings</p></figcaption></figure>
+
+    </div>
 7.  Click **Save & Test** at the bottom of the page to verify and save the new datasource.\
     \
 
 
+    <div align="left">
+
     <figure><img src="../.gitbook/assets/image (8).png" alt="Successful connection"><figcaption><p>Successful connection</p></figcaption></figure>
+
+    </div>
 
 ### How to find your API Access Token
 
@@ -106,7 +126,11 @@ If you are building a Grafana dashboard for the first time, we suggest reading [
 
 If you have some experience with Grafana and need to know where to find the metrics, look for the  `billing` metrics in the CoreWeave datasource. You do not need to filter the namespace when adding these metrics to a dashboard.
 
+<div align="left">
+
 <figure><img src="../.gitbook/assets/image (4).png" alt="Billing metrics"><figcaption><p>Billing metrics</p></figcaption></figure>
+
+</div>
 
 {% hint style="success" %}
 There's no need to filter the `namespace` label to your namespace for any metric. It will be automatically inserted on all queries received.

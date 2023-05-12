@@ -6,7 +6,7 @@ description: Learn how to configure your CoreWeave Kubernetes setup to access th
 
 ## Create an account
 
-To generate access credentials for CoreWeave Cloud, first [sign up for an account](https://cloud.coreweave.com/request-account).
+To generate access credentials for CoreWeave Cloud, first [sign up for an account](https://cloud.coreweave.com/signup).
 
 After providing payment information, you will receive a verification email to the account provided. After verifying your address, your information will be submitted to our team to verify your account request. You will also be redirected to a page that confirms the request was received.
 
@@ -166,68 +166,65 @@ If you would prefer to download the `kubectl` executable directly, [follow the o
 
 Finally, once you [have `kubectl` installed](getting-started.md#installing-the-kubernetes-command-line-tools), and the `cw-kubeconfig` file has been [generated and obtained from your organization admin](getting-started.md#generate-the-kubeconfig-file), the next step is to move the config file to the right location.
 
-By default, `kubectl` looks for the Kubeconfig file in the `$HOME/.kube` directory, and anticipates that the file is named `config`.
+If this is your first time using Kubernetes, or you're using a system that has never had Kubernetes configured before, you probably don't have an existing kubeconfig.&#x20;
 
-<details>
-
-<summary>I do not have a <code>~/.kube/config</code> file</summary>
-
-If this is your first time using Kubernetes, or you're using a system that has never had Kubernetes configured before, you probably don't have a Kubeconfig file.
-
-You can check to see if you do by inspecting the Kubeconfig default path:
-
-```bash
-ls ~/.kube/config
-```
-
-If you **do not** have a Kubeconfig file, all you need to do is create the `~/.kube` directory if it does not already exist, and then move the downloaded `cw-kubeconfig` to the `~/.kube/config` path:
-
-```bash
-mkdir ~/.kube && mv ~/Downloads/cw-kubeconfig ~/.kube/config
-```
-
-If for some reason you would like to use a different path for the config file for your cluster, you can export the `$KUBECONFIG` environment variable. For example:
-
-```bash
-export KUBECONFIG=~/.kube/cw-kubeconfig
-```
-
-Or, you can specify a path using the `--kubeconfig` option with `kubectl`.
-
-</details>
-
-<details>
-
-<summary>I have an existing Kubeconfig file</summary>
-
-If you **already have an existing Kubeconfig file,** you can install the CoreWeave Kubernetes credentials by merging the `cw-kubeconfig` file into `~/.kube/config`.
-
-To do this, first create a backup copy of the original Kubeconfig file:
-
-```shell
-$ cp ~/.kube/config ~/.kube/config.bak
-```
-
-Next, merge the downloaded `cw-kubeconfig` file into the file at the default path using `kubectl`:
-
-```bash
-$ KUBECONFIG=~/.kube/config:~/Downloads/cw-kubeconfig \
-kubectl config view --merge --flatten > ~/.kube/config
-```
-
-</details>
-
-### Paths for Windows and macOS
-
-If you are working on a system other than a Linux system, replace `~/.kube/config` path with one of the corresponding paths below. Be sure to replace the `~/Downloads` path in this example with the actual location of your downloaded Kubeconfig file, and the default path with the one that is applicable to your system.
-
-#### Default Kubernetes configuration directories by OS
+To verify, check the default path for your operating system:
 
 | Operating System | Default path                     |
 | ---------------- | -------------------------------- |
 | Linux            | `~/.kube/config`                 |
-| macOS X          | `/Users/<username>/.kube/config` |
+| macOS            | `/Users/<username>/.kube/config` |
 | Windows          | `%USERPROFILE%\.kube\config`     |
+
+Also, check your environment and verify no value is set for `KUBECONFIG`:
+
+{% tabs %}
+{% tab title="Linux or macOS" %}
+```bash
+$ echo $KUBECONFIG
+```
+{% endtab %}
+
+{% tab title="Windows" %}
+```powershell
+> echo %KUBECONFIG%
+```
+{% endtab %}
+{% endtabs %}
+
+{% hint style="warning" %}
+**Existing kubeconfig**
+
+If a kubeconfig exists, [Advanced Kubeconfig Environments](../cloud-tools/advanced-kubeconfig-environments.md) explains how to merge them.
+{% endhint %}
+
+If you **do not** have an existing Kubeconfig file, follow the steps below for your operating system.&#x20;
+
+{% tabs %}
+{% tab title="Linux and macOS" %}
+Assuming that `cw-kubeconfig` was downloaded to `~/Downloads`, create the directory and move the file to the correct location.
+
+```
+$ mkdir ~/.kube
+$ mv ~/Downloads/cw-kubeconfig ~/.kube/config
+```
+{% endtab %}
+
+{% tab title="Windows" %}
+Assuming that `cw-kubeconfig` was downloaded to `%USERPROFILE%\Downloads`, create the directory and move the file to the correct location.
+
+```
+> mkdir %USERPROFILE%\.kube
+> mv %USERPROFILE%\Downloads\cw-kubeconfig %USERPROFILE%\.kube\config
+```
+{% endtab %}
+{% endtabs %}
+
+{% hint style="info" %}
+**Tip**
+
+To use a different kubeconfig path, see [Advanced Kubeconfig Environments](../cloud-tools/advanced-kubeconfig-environments.md). &#x20;
+{% endhint %}
 
 ### Verify Kubernetes credentials
 

@@ -56,7 +56,7 @@ The DreamBooth method is a way to teach a diffusion model about a specific objec
 
 Our partnership allows companies to tap into the industry’s broadest selection of on-demand GPU compute resources and DevOps expertise.
 
-<table data-card-size="large" data-view="cards"><thead><tr><th></th><th data-hidden></th><th data-hidden></th></tr></thead><tbody><tr><td><span data-gb-custom-inline data-tag="emoji" data-code="1f449">👉</span> Learn more about Zeet</td><td></td><td></td></tr><tr><td><span data-gb-custom-inline data-tag="emoji" data-code="1f91d">🤝</span> Integrate CoreWeave with Zeet</td><td></td><td></td></tr></tbody></table>
+<table data-card-size="large" data-view="cards"><thead><tr><th></th><th data-hidden></th><th data-hidden></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><span data-gb-custom-inline data-tag="emoji" data-code="1f449">👉</span> Learn more about Zeet</td><td></td><td></td><td><a href="coreweave-kubernetes/partners/zeet.md">zeet.md</a></td></tr><tr><td><span data-gb-custom-inline data-tag="emoji" data-code="1f91d">🤝</span> Integrate CoreWeave with Zeet</td><td></td><td></td><td><a href="coreweave-kubernetes/partners/zeet.md#integration">#integration</a></td></tr></tbody></table>
 
 ## March 2023
 
@@ -192,7 +192,7 @@ Some features are only available through an upgrade request. To increase your qu
 
 ### NVIDIA A100 80GB NVLINK with InfiniBand and SHARP:zap:
 
-<figure><img src=".gitbook/assets/image (3) (1) (1) (2).png" alt="NVIDIA Mellanox Quantum leaf switches in the CoreWeave LAS1 datacenter"><figcaption><p>NVIDIA Mellanox Quantum leaf switches in the CoreWeave LAS1 datacenter</p></figcaption></figure>
+<figure><img src=".gitbook/assets/image (3) (1) (2).png" alt="NVIDIA Mellanox Quantum leaf switches in the CoreWeave LAS1 datacenter"><figcaption><p>NVIDIA Mellanox Quantum leaf switches in the CoreWeave LAS1 datacenter</p></figcaption></figure>
 
 **A100 80GB NVLINK SXM4** GPUs are now available in the **LAS1** region. These GPUs are provisioned in large clusters, intended for distributed training and inference of LLMs such as [BLOOM 176B](machine-learning-and-ai/inference/examples/pytorch-jax/hugging-face/pytorch-hugging-face-transformers-bigscience-bloom-1.md#what-is-bloom).
 

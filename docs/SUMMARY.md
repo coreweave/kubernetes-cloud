@@ -29,6 +29,7 @@
 
 ## Cloud Tools
 
+* [Advanced Kubeconfig Environments](cloud-tools/advanced-kubeconfig-environments.md)
 * [Argo Workflows](cloud-tools/argo/README.md)
   * [Use the Argo Workflows CLI](cloud-tools/argo/use-the-argo-workflows-cli.md)
   * [Use the Argo Workflows REST API](cloud-tools/argo/use-the-argo-workflows-rest-api.md)

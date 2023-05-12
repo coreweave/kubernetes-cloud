@@ -47,7 +47,7 @@ From the [CoreWeave Cloud UI](../../../virtual-servers/deployment-methods/corewe
 
 Select the Operating System you'd like to run (CentOS, Rocky, Ubuntu, or Windows), and a corresponding version. Then, set the **Root Disk Size** using the provided slider.
 
-<figure><img src="../../.gitbook/assets/image (46).png" alt="Screenshot of OS selection menu"><figcaption><p>Linux configuration example</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (46) (1).png" alt="Screenshot of OS selection menu"><figcaption><p>Linux configuration example</p></figcaption></figure>
 
 You can also configure the size of the **root disk** of the Virtual Server from here using the **Root Disk Size** slider. To add a [system image](../coreweave-system-images/) addition such as NVIDIA Drivers or Teradici, click the slider into the "on" position for each desired add-on.
 

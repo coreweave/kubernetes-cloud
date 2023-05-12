@@ -74,7 +74,7 @@ Shared File System Volumes are resized online, without disruption to workloads.
 **Resizing** **Block Volumes** requires **stopping or restarting all workloads** that are attached the Volume in order for the resize to take effect.
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (55).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (55) (2).png" alt=""><figcaption></figcaption></figure>
 
 ## Attach a Storage Volume using the Cloud UI
 
@@ -92,7 +92,7 @@ To attach a filesystem or block volume, locate the volume in the list provided u
 
 The storage block volume information will be reflected in the YAML editor under the `.filesystems` block.
 
-<figure><img src="../../.gitbook/assets/image (34).png" alt=""><figcaption><p>An example of a mounted filesystem volume reflected </p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (34) (1).png" alt=""><figcaption><p>An example of a mounted filesystem volume reflected </p></figcaption></figure>
 
 Example in plain text:
 

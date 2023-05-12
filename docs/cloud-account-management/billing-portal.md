@@ -14,7 +14,11 @@ Our billing portal, provided by [Maxio](https://www.maxio.com/security), is audi
 
 To access the billing portal, [log in to CoreWeave Cloud](https://cloud.coreweave.com/) and click **Usage & Billing** in the **Account Details** section.
 
+<div align="left">
+
 <figure><img src="../.gitbook/assets/image (1) (6).png" alt="Screenshot of the Usage &#x26; Billing menu"><figcaption><p>Usage &#x26; Billing menu</p></figcaption></figure>
+
+</div>
 
 {% hint style="info" %}
 **Note**
@@ -24,7 +28,11 @@ To access the billing portal, [log in to CoreWeave Cloud](https://cloud.coreweav
 
 In the upper right corner of the portal, you will see two links, **My Account** and **Sign Out**.
 
+<div align="left">
+
 <figure><img src="../.gitbook/assets/image (5).png" alt="Screenshot of the Billing Portal"><figcaption><p>Billing Portal</p></figcaption></figure>
+
+</div>
 
 * Use **My Account** to edit your name, email, organization, and VAT number.
 * If you click **Sign Out**, you'll be prompted to sign in with your email. Please disregard these instructions because your Maxio account is integrated with CoreWeave. You must log in using the [Usage & Billing](https://cloud.coreweave.com/) menu from CoreWeave Cloud.
@@ -35,7 +43,11 @@ Further down the page, you'll find the **Subscriptions** and **Invoices** tabs.
 
 The Subscriptions tab shows the billing details for your CoreWeave namespaces each month. The information is organized by plan and updated every 24 hours.
 
-<figure><img src="../.gitbook/assets/image (153).png" alt="Subscriptions tab of the billing portal"><figcaption><p>Subscriptions tab</p></figcaption></figure>
+<div align="left">
+
+<figure><img src="../.gitbook/assets/image (90) (1).png" alt="Subscriptions tab of the billing portal"><figcaption><p>Subscriptions tab</p></figcaption></figure>
+
+</div>
 
 * **Plan Details** shows the date the when namespace plan was created, followed by the current charges, credits, and the billable resources.&#x20;
 * **Subscription Settings** shows the namespace for this plan. This is for informational purposes only and you shouldn't need to modify it.
@@ -56,7 +68,11 @@ Click an invoice in the list to view it or download as a PDF. If it's unpaid, yo
 
 If you have multiple subscriptions, you may see icons that indicate normal and consolidated invoices.&#x20;
 
+<div align="left">
+
 <figure><img src="../.gitbook/assets/image (7).png" alt="Examples of invoice icons"><figcaption><p>invoice icons</p></figcaption></figure>
+
+</div>
 
 To learn more about these invoice types, please visit the [Maxio Help Portal](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404980119949-Invoice-Consolidation), or contact our sales team at [sales@coreweave.com](mailto:sales@coreweave.com) if you have additional questions.
 

@@ -42,7 +42,7 @@ A Kubernetes-native way to run distributed training jobs. Supports Tensorflow, P
 
 ### :anchor: **Sunk: SLURM on Kubernetes**
 
-SLURM is the incumbent job scheduler of the HPC world. Sunk, CoreWeave's implementation of SLURM on Kubernetes, allows you to leverage the resource management of Sunk on Kubernetes.
+SLURM is the incumbent job scheduler of the HPC world. Sunk, CoreWeave's implementation of SLURM on Kubernetes, allows you to leverage the resource management of SLURM on Kubernetes.
 
 {% hint style="info" %}
 **Note**
