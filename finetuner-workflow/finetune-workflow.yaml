@@ -56,7 +56,7 @@ spec:
     # to reduce redundancy. Picks contexts to discard
     # in an alternating pattern. A value of 100 keeps all contexts.
     - name: sampling
-      value: '100'  # range: >= 0, <= 100
+      value: '100'  # range: >= 0, <= 100, granularity: 5
     # eot and pad tokens, it is suggested not to change this value, but usual
     # values are `<|padding|>` or `<|endoftext|>`
     - name: eot_token
@@ -123,7 +123,7 @@ spec:
     - name: batch_size_divisor
       value: '1.0'  # range: > 0
     - name: random_seed
-      value: '42'  # range: >= 0, < 2 ** 32
+      value: '42'  # range: >= 0, < 2^32
     # Learn rate, increase or decrease as needed.
     - name: learn_rate
       value: '5e-5'  # range: >= 0
