@@ -19,6 +19,8 @@ from torch.utils.data import Dataset, random_split, Subset
 import pathlib
 from typing import Tuple, List
 import socket
+import subprocess
+import shutil
 import logging
 import deepspeed
 from deepspeed.runtime.zero.stage_1_and_2 import (
@@ -690,7 +692,18 @@ class TokenizedDataset(Dataset):
 # Inform the user of host, and various versions -- useful for debugging issues.
 torch.cuda.set_device(args.local_rank if args.local_rank != -1 else 0)
 if is_main_process():
-    logger.info(f"RUN_NAME: {args.run_name}")
+    if logger.getEffectiveLevel() <= logging.INFO and device != "cpu":
+        nvidia_smi = shutil.which("nvidia-smi")
+        if nvidia_smi is not None:
+            try:
+                logger.info(
+                    "NVIDIA-SMI CHECK: "
+                    + subprocess.check_output([nvidia_smi], encoding="utf-8")
+                )
+            except subprocess.CalledProcessError as e:
+                logger.error(f"Failed to query nvidia-smi, error: {e}")
+                sys.exit(1)
+    logger.info(f"RUN NAME: {args.run_name}")
     logger.info(f"PROJECT ID {args.project_id}")
     logger.info(f"HOST: {socket.gethostname()}")
     logger.info(f"CUDA: {torch.version.cuda}")
