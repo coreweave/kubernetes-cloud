@@ -1,5 +1,6 @@
 PROGRAM compiler_wrapper
-    ! Wraps GCC invocations, replacing -D__AVX512__ preprocessor definitions
+    ! Wraps GCC invocations,
+    ! replacing -D__AVX512__ and -D__SCALAR__ preprocessor definitions
     ! with -D__AVX256__, and -march=native with -march=skylake,
     ! for better reproducibility and compatibility.
     IMPLICIT NONE
@@ -40,7 +41,7 @@ PROGRAM compiler_wrapper
             ! Turns [str] into [ 'str'] and replaces all
             ! internal ['] characters with ['"'"']
             IMPLICIT NONE
-            CHARACTER(len=:), ALLOCATABLE, INTENT(IN) :: str
+            CHARACTER(len=*), INTENT(IN) :: str
             CHARACTER(len=:), ALLOCATABLE :: out
             INTEGER :: i, out_i, old_len, out_len
 
@@ -56,6 +57,7 @@ PROGRAM compiler_wrapper
             END DO
             ALLOCATE(CHARACTER(len=out_len) :: out)
 
+            ! Copy over the string, performing necessary escapes.
             out(1:2) = " '"
             out_i = 3
             DO i = 1, old_len
