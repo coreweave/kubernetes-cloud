@@ -22,7 +22,7 @@ PROGRAM compiler_wrapper
         END DO
         IF (arg == "-march=native") THEN
             command = command // " '-march=skylake'"
-        ELSEIF (arg == "-D__AVX512__") THEN
+        ELSEIF (arg == "-D__AVX512__" .OR. arg == "-D__SCALAR__") THEN
             command = command // " '-D__AVX256__'"
         ELSE
             command = command // shell_escaped(arg)
