@@ -60,7 +60,7 @@ Learn more about general DHCP configuration options on [the ISC website](https:/
 
 At the bottom of the application's configuration screen are the **Network settings** for the DHCP server, in which you can adjust the settings for the server's VPC and network.
 
-![Network settings for DHCP server application.](<../../../.gitbook/assets/image (14) (3) (1).png>)
+![Network settings for DHCP server application.](<../../../.gitbook/assets/image (14) (3).png>)
 
 #### Configuration options
 

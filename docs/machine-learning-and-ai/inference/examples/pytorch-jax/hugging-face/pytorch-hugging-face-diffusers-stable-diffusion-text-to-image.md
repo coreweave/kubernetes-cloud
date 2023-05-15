@@ -34,23 +34,21 @@ For this tutorial, the following tools are required:
 
 Optionally, but highly recommended, is the use of CoreWeave's serialization library, [Tensorizer](pytorch-hugging-face-diffusers-stable-diffusion-text-to-image.md#tensorizer), which serializes the Stable Diffusion model in order to make model serving lightning fast and considerably more cost-effective.\
 \
-[Learn more -->](pytorch-hugging-face-diffusers-stable-diffusion-text-to-image.md#tensorizer)
+[Learn more about Tensorizer](../../../tensorizer.md).
 {% endhint %}
 
 ## Docker images
 
-The tutorial requires two images, which may either be built locally and pushed to a container image registry, or may be sourced from the publicly available images:
+The tutorial requires two images. The downloader image may be sourced from [its public image](https://github.com/wbrown/gpt\_bpe). The model image may either be built locally and pushed to a container image registry, or may also be sourced from the publicly available images.
 
 | Kind                     | Description                                                                                                                                                                                                                                                                                                                                                                                                                | Public image source                               |
 | ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- |
 | **The downloader image** | <p>This image downloads the model to a <a href="../../../../../storage/storage/">shared storage volume</a>. The individual inference Pods will load the model from this storage so as to avoid downloading it over the internet every time they scale up.</p><p></p><p>Referenced in the <a href="../../../../../../online-inference/stable-diffusion/02-model-download-job.yaml">02-model-download-job.yaml</a> file.</p> | `ghcr.io/wbrown/gpt_bpe/model_downloader:baa7df3` |
 | **The model image**      | <p>Runs the <code>CompVis/stable-diffusion-v1-4</code> model.</p><p></p><p>Referenced in the <a href="../../../../../../online-inference/stable-diffusion/03-inference-service.yaml">03-inference-service.yaml</a> file.</p>                                                                                                                                                                                               | `harubaru1/stable-diffusion:17`                   |
 
-Should you choose to utilize the publicly-available images listed above, you do not need to build the images from Dockerfiles. Instead, simply ensure that the `image:` field in the `02-model-download-job.yaml` file and the `03-inference-service.yaml` files matches the public image URLs given above.
+### Build the model image from a Dockerfile
 
-### Build the Docker images from Dockerfiles
-
-If you do choose to build the Docker images yourself, ensure you have already cloned [the tutorial's source code](pytorch-hugging-face-diffusers-stable-diffusion-text-to-image.md#tutorial-code). Then, change directories into the `kubernetes-cloud/online-inference/stable-diffusion`. From here, log in to Docker.
+To build the model image from a Dockerfile, first clone [the tutorial's source code](pytorch-hugging-face-diffusers-stable-diffusion-text-to-image.md#tutorial-code). Then, change directories into `kubernetes-cloud/online-inference/stable-diffusion`. From there, log in to Docker.
 
 ```bash
 $ docker login
@@ -63,12 +61,9 @@ $ export DOCKER_USER=coreweave
 The default Docker tag is `latest`. Using this tag is **strongly** **discouraged**, as containers are cached on the nodes and in other parts of the CoreWeave stack. Always use a unique tag; never push to the same tag twice. Once you have pushed to a tag, **do not** **push to that tag again**.
 {% endhint %}
 
-In building the images, a simple versioning scheme is implemented by using the tag `1` for the first iteration of the image, and so on.
-
-Next, build the `model-downloader` image and the `stable-diffusion` image respectively, using `docker build` in the current directory.
+A simple versioning scheme is implemented by using the tag `1` for the first iteration of the image, and so on. Build the `stable-diffusion` model image using `docker build` in the current directory.
 
 ```bash
-$ docker build -t $DOCKER_USER/model-downloader:1 -f Dockerfile.downloader . 
 $ docker build -t $DOCKER_USER/stable-diffusion:1 -f Dockerfile . 
 ```
 
@@ -78,14 +73,13 @@ $ docker build -t $DOCKER_USER/stable-diffusion:1 -f Dockerfile .
 This example assumes a public Docker registry. To use a private registry, an [`imagePullSecret` ](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/)must first be defined.
 {% endhint %}
 
-Finally, push both images with an initial tag of `1` (or whatever other simple tagging scheme you'd like to use).
+Finally, push both images with an initial tag of `1`, or whatever other simple tagging scheme you'd like to use.
 
 ```bash
-$ docker build -t $DOCKER_USER/model-downloader:1 -f Dockerfile.downloader . 
 $ docker build -t $DOCKER_USER/stable-diffusion:1 -f Dockerfile . 
 ```
 
-## Deploy the Kubernetes resources
+## Deploy Kubernetes resources
 
 In the manifests discussed below, you may either point the `image` in the following manifests to the image built earlier, or you may use the publicly-available images, as are referenced in the following manifests:
 
@@ -101,23 +95,22 @@ $ kubectl apply -f 00-model-pvc.yaml
 
 Due to the generative power of this model, it is necessary to register your contact information via Hugging Face before the model can be used. If you have not already done so, create a [Hugging Face](https://huggingface.co/) account and [API Token.](https://huggingface.co/settings/tokens)
 
-To do this, ensure you are logged in to the Hugging Face, then navigate to the[ HuggingFace Model Repository page](https://huggingface.co/CompVis/stable-diffusion-v1-4). Review the terms, then click the **Access Repository** button at the bottom of the page.
-
-<figure><img src="../../../../../.gitbook/assets/2022-09-07-145024_934x814_scrot.png" alt="Screenshot: Stable Diffusion HuggingFace repository registration"><figcaption><p>Stable Diffusion HuggingFace repository registration</p></figcaption></figure>
+To do this, ensure you are logged in to the Hugging Face, then navigate to the[ HuggingFace Model Repository page](https://huggingface.co/CompVis/stable-diffusion-v1-4).
 
 ### Secret
 
-Locate your Hugging Face API token. Copy it, then Base64-encode it using `base64`.
+From [the Access Token page in your Hugging Face profile settings](https://huggingface.co/settings/tokens), locate an existing token or generate a new token. Copy its contents, then Base64-encode it using `base64`.
 
 ```bash
 $  echo -n "<YOUR TOKEN>" | base64
+
 VE9LRU5fSEVSRQ==
 ```
 
 {% hint style="warning" %}
 **Important**
 
-The extra space before the `echo` command will prevent the command - and your HuggingFace API token - from being recorded in your shell history.
+The extra space preceding the `echo` command prevents the command - and your HuggingFace API token - from being recorded in your shell history.
 {% endhint %}
 
 In the `01-huggingface-secret.yaml` file, replace the `token` value with the newly generated Base64-encoded token. Then, create the secret using `kubectl create`.
@@ -223,7 +216,7 @@ Depending on use case, GPUs with less VRAM will also work down to 8GB GPUs, such
 
 The graph and table below compare recent GPU benchmark inference speeds for Stable Diffusion processing on different GPUs:
 
-<figure><img src="../../../../../.gitbook/assets/image (7) (2) (2).png" alt="A graph displaying a comparison of benchmark inference times for Stable Diffusion on different GPUs"><figcaption></figcaption></figure>
+<figure><img src="../../../../../.gitbook/assets/image (7) (1) (2).png" alt="A graph displaying a comparison of benchmark inference times for Stable Diffusion on different GPUs"><figcaption></figcaption></figure>
 
 | GPU              | Seconds |
 | ---------------- | ------- |

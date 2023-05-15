@@ -45,7 +45,7 @@ The Subscriptions tab shows the billing details for your CoreWeave namespaces ea
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (90) (1).png" alt="Subscriptions tab of the billing portal"><figcaption><p>Subscriptions tab</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (153).png" alt="Subscriptions tab of the billing portal"><figcaption><p>Subscriptions tab</p></figcaption></figure>
 
 </div>
 

@@ -18,11 +18,11 @@ This example presumes that [a Windows Server with an Active Directory Domain](./
 
 Before deploying the Samba-AD instance, there must be storage volumes to present. The Samba-AD instance will use three Shared HDD Filesystems. To create these, the user navigates [to the Storage section of the CoreWeave Cloud UI](../../../storage/storage/using-storage-cloud-ui.md#create-a-new-storage-volume).
 
-![](<../../../.gitbook/assets/image (79) (1).png>)
+![](<../../../.gitbook/assets/image (130).png>)
 
 In this example, three volumes are used for the Samba-AD instance. They are each titled `vol01`, `vol02`, and `vol03` respectively.
 
-<figure><img src="../../../.gitbook/assets/image (57) (1) (1).png" alt="Screenshot of three HDD shared filesystem volumes in the Storage section of the Cloud UI"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (57) (1).png" alt="Screenshot of three HDD shared filesystem volumes in the Storage section of the Cloud UI"><figcaption></figcaption></figure>
 
 ## Deploy Samba-AD Instances
 
@@ -30,7 +30,7 @@ With the storage volumes allocated, they may now be presented with Samba-AD.
 
 Samba-AD is installed from [the Cloud UI Applications Catalog](../../../coreweave-kubernetes/applications-catalog.md) by searching `samba-ad`. Click the **samba-ad** card, then click the **Deploy** button to configure and launch Samba-AD.
 
-<figure><img src="../../../.gitbook/assets/image (3) (3).png" alt="Screenshot: search for samba-ad in the applications catalog to find it"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (3) (2).png" alt="Screenshot: search for samba-ad in the applications catalog to find it"><figcaption></figcaption></figure>
 
 ### Configure Samba-AD
 
@@ -46,7 +46,7 @@ The [post-deployment status page](../../../../virtual-servers/deployment-methods
 
 Repeating the steps above, a second Samba-AD instance is created, this one given the name `smbad02`.
 
-![](<../../../.gitbook/assets/image (74) (1) (1).png>)
+![](<../../../.gitbook/assets/image (122).png>)
 
 {% hint style="info" %}
 **Note**
@@ -134,7 +134,7 @@ Path              TargetPath      State  ReferralPriorityClass ReferralPriorityR
 
 Navigating to `\\ad\Shares`, each DFS folder target should now exist, as shown here:
 
-<figure><img src="../../../.gitbook/assets/image (88).png" alt="A screenshot of a filesystem directory listing"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (147).png" alt="A screenshot of a filesystem directory listing"><figcaption></figcaption></figure>
 
 Under **Properties**, in the DFS tab, `smbad02` is shown as the currently active file server.
 
@@ -142,7 +142,7 @@ Under **Properties**, in the DFS tab, `smbad02` is shown as the currently active
 
 Copying a file to the DFS Root Folder path demonstrates that the file gets copied to the shares presented by the Samba-AD instances:
 
-<figure><img src="../../../.gitbook/assets/image (2) (2).png" alt="" width="375"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (3).png" alt="" width="375"><figcaption></figcaption></figure>
 
 ### Adding a secondary DFS Namespace Server
 

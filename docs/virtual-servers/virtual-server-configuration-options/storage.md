@@ -20,7 +20,7 @@ Existing storage volumes may be attached to Virtual Servers under the **Attach V
 
 **For more information, refer to** [**Using Storage - Cloud UI**](../../storage/storage/using-storage-cloud-ui.md#attach-a-storage-volume-using-the-cloud-ui)**.**
 
-<figure><img src="../../.gitbook/assets/image (47) (2).png" alt="The &#x22;Attach volumes&#x22; expandable"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (47).png" alt="The &#x22;Attach volumes&#x22; expandable"><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="CLI" %}
