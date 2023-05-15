@@ -12,13 +12,19 @@ spec:
     - name: run_name
     - name: pvc
       value: 'finetune-data'
-    # Training parameters. Model IDs are hugging face IDs to pull down, or
-    # a path to your model relative to the PVC root.
+    # Training parameters. Model IDs are HuggingFace identifiers to pull down,
+    # or a path to your model relative to the PVC root.
     - name: model
       value: 'EleutherAI/pythia-2.8b-deduped'
     # The directory to read your dataset in, and tokenize for training.
     - name: dataset
       value: 'dataset'
+    # Whether to allow running arbitrary code from HuggingFace model repos.
+    # Necessary for some exotic or very new models on HuggingFace.
+    # ONLY enable this if a run fails without it, AND you trust the code
+    # provided by the authors of the HuggingFace model you are using.
+    - name: trust_remote_code
+      value: 'false'
     # An S3 or path to use to extract pretrained weights for Tensorizer.
     - name: tensorizer_uri
       value: ''
@@ -41,11 +47,16 @@ spec:
     # sequential datasets like novels.
     - name: reorder
       value: ''
-    # What % of chunks to throw out, to reduce redundancy 
-    # (randomly throws them out)
-    # valid values are between 0-100, 100 disables argument
+    # Whether to *not* shuffle the training data contexts later, at runtime.
+    # This shuffling is subject to `random_seed` and can be changed without
+    # retokenizing the dataset.
+    - name: no_shuffle
+      value: 'false'
+    # What % of contexts to keep while discarding the rest,
+    # to reduce redundancy. Picks contexts to discard
+    # in an alternating pattern. A value of 100 keeps all contexts.
     - name: sampling
-      value: 100
+      value: '100'  # range: >= 0, <= 100, granularity: 5
     # eot and pad tokens, it is suggested not to change this value, but usual
     # values are `<|padding|>` or `<|endoftext|>`
     - name: eot_token
@@ -67,7 +78,7 @@ spec:
     # you're training on is divided along logical boundaries and is split
     # using `boundary_token`.
     - name: context
-      value: '2048'
+      value: '2048'  # range: > 0
     # A prompts file to read in for testing the model, and reporting the
     # outputs. This is useful for monitoring the progress and effectiveness of
     # training. One prompt per line, newlines escaped with `\n` if the prompt
@@ -77,56 +88,60 @@ spec:
     # The interval of step counts to run the prompts tests. If we provide
     # it with `0`, it will perform these tests at each checkpoint.
     - name: prompt_every
-      value: 0
+      value: '0'  # range: >= 0
     # The number of tokens to generate per prompt.
     - name: prompt_tokens
-      value: 200
+      value: '200'  # range: >= 0
     # The number of times to run prompt evaluation for each prompt.
+
     - name: prompt_samples
-      value: 5
+      value: '5'  # range: >= 0
     # The following are sampling parameters used during prompt evaluation.
     - name: top_k
-      value: 50
+      value: '50'  # range: >= 0
     - name: top_p
-      value: 0.95
+      value: '0.95'  # range: >= 0, <= 1
     - name: temperature
-      value: 1.0
+      value: '1.0'  # range: > 0
     - name: repetition_penalty
-      value: 1.1
+      value: '1.1'  # range: > 0
     # Model training parameters
     # Note: train_ratio is not yet implemented, so it is always 1.0.
     # - name: train_ratio
-    #  value: '0.9'
+    #  value: '0.9'  # range: >= 0, <= 1
     # Batch size. `-1` will let it do a reasonable and relatively conservative
     # guess.
     - name: batch_size
-      value: '-1'
+      value: '-1'  # range: > 0 or -1
     # Force `fp16` precision mode. By default, we train in the precision the
     # model provides as configuration option. But for less memory, and thus
     # faster training because of batch size, you might try this. This will
     # not work well with models such as Fairseq.
     - name: force_fp16
-      value: false
+      value: 'false'
     # The batch size quotient for the batch size guess.
     - name: batch_size_divisor
-      value: '1.0'
+      value: '1.0'  # range: > 0
     - name: random_seed
-      value: '42'
+      value: '42'  # range: >= 0, < 2^32
     # Learn rate, increase or decrease as needed.
     - name: learn_rate
-      value: '5e-5'
+      value: '5e-5'  # range: >= 0
     # Number of epochs, the number of times it will go through your dataset.
     - name: epochs
-      value: '1'
+      value: '1'  # range: > 0
     # The number of gradient checkpoint layers to work through on each batch.
     - name: gradients
-      value: '5'
+      value: '5'  # range: > 0
     # ZeRO optimizer stage -- ref: https://arxiv.org/abs/1910.02054
     - name: zero_stage
-      value: '3'
+      value: '3'  # range: >= 0, <= 3
+    # Number of steps between intermediate checkpoints.
+    - name: save_steps
+      value: '500'  # range: >= 0
     # Whether to *not* resume from checkpoints.
     - name: no_resume
-      value: false
+      value: 'false'
     # Where we store our training logs on the PVC.
     - name: logs
       value: 'logs'
@@ -137,14 +152,14 @@ spec:
       value: 'huggingface'
     # Inference service configuration.
     - name: run_inference
-      value: false
+      value: 'false'
     # Skip dataset download, tokenization, and training to only run inference, presumably
     # you have a model already ready to go under `model_run` name.
     - name: inference_only
-      value: false
+      value: 'false'
     # Download a dataset of Western Romance books from SmashWords.com
     - name: download_dataset
-      value: false
+      value: 'false'
     # CoreWeave region to default to; ORD1 has most of the GPUs.
     - name: region
       value: 'ORD1'
@@ -252,35 +267,38 @@ spec:
           - name: finetuner_params
             # Pass the params in as one string so we can template in the conditional flags
             value: >-
-              --run_name {{workflow.parameters.run_name}}
-              --model /{{workflow.parameters.pvc}}/models/{{workflow.parameters.model}}
-              --dataset /{{workflow.parameters.pvc}}/{{workflow.parameters.dataset}}-{{=sprig.replace('/', '_', sprig.replace('.','_', sprig.replace('-','_', workflow.parameters.model)))}}-{{workflow.parameters.context}}-{{workflow.parameters.tokenizer_tag}}.tokens
-              --tensorizer_uri '{{workflow.parameters.tensorizer_uri}}'
-              --eot '{{workflow.parameters.eot_token}}'
-              --pad '{{workflow.parameters.pad_token}}'
-              --bs {{workflow.parameters.batch_size}}
-              --seed {{workflow.parameters.random_seed}}
-              --lr {{workflow.parameters.learn_rate}}
-              --train_ratio 1.0
-              --output /{{workflow.parameters.pvc}}/finetunes/
-              --cache /{{workflow.parameters.pvc}}/cache/
-              --logs /{{workflow.parameters.pvc}}/{{workflow.parameters.logs}}
-              --bs_divisor {{workflow.parameters.batch_size_divisor}}
-              --gradients {{workflow.parameters.gradients}}
-              --zero_stage {{workflow.parameters.zero_stage}}
-              --no_resume {{workflow.parameters.no_resume}}
-              --project_id {{workflow.parameters.project_id}}
-              --epochs {{workflow.parameters.epochs}}
-              --context_size {{workflow.parameters.context}}
-              --prompt_file {{=workflow.parameters.prompt_file == '' ? '' : '/' + workflow.parameters.pvc + '/' + workflow.parameters.prompt_file}}
-              --prompt_every {{workflow.parameters.prompt_every}}
-              --prompt_tokens {{workflow.parameters.prompt_tokens}}
-              --prompt_samples {{workflow.parameters.prompt_samples}}
-              --top_k {{workflow.parameters.top_k}}
-              --top_p {{workflow.parameters.top_p}}
-              --temperature {{workflow.parameters.temperature}}
-              --repetition_penalty {{workflow.parameters.repetition_penalty}}
-              {{=workflow.parameters.force_fp16 == 'true' ? '--fp16' : ''}}
+              --run-name={{workflow.parameters.run_name}}
+              --model=/{{workflow.parameters.pvc}}/models/{{workflow.parameters.model}}
+              --trust-remote-code={{workflow.parameters.trust_remote_code}}
+              --dataset=/{{workflow.parameters.pvc}}/{{workflow.parameters.dataset}}-{{=sprig.replace('/', '_', sprig.replace('.','_', sprig.replace('-','_', workflow.parameters.model)))}}-{{workflow.parameters.context}}-{{workflow.parameters.tokenizer_tag}}.tokens
+              --tensorizer-uri='{{workflow.parameters.tensorizer_uri}}'
+              --lr={{workflow.parameters.learn_rate}}
+              --epochs={{workflow.parameters.epochs}}
+              --train-ratio=1.0
+              --eot='{{workflow.parameters.eot_token}}'
+              --pad='{{workflow.parameters.pad_token}}'
+              --bs={{workflow.parameters.batch_size}}
+              --bs-divisor={{workflow.parameters.batch_size_divisor}}
+              --gradients={{workflow.parameters.gradients}}
+              --zero-stage={{workflow.parameters.zero_stage}}
+              --seed={{workflow.parameters.random_seed}}
+              --output-path=/{{workflow.parameters.pvc}}/finetunes/
+              --no-resume={{workflow.parameters.no_resume}}
+              --cache=/{{workflow.parameters.pvc}}/cache/
+              --save-steps={{workflow.parameters.save_steps}}
+              --context-size={{workflow.parameters.context}}
+              --project-id={{workflow.parameters.project_id}}
+              --logs=/{{workflow.parameters.pvc}}/{{workflow.parameters.logs}}
+              --fp16={{workflow.parameters.force_fp16}}
+              --no-shuffle={{workflow.parameters.no_shuffle}}
+              --prompt-file={{=workflow.parameters.prompt_file == '' ? '' : '/' + workflow.parameters.pvc + '/' + workflow.parameters.prompt_file}}
+              --prompt-every={{workflow.parameters.prompt_every}}
+              --prompt-tokens={{workflow.parameters.prompt_tokens}}
+              --prompt-samples={{workflow.parameters.prompt_samples}}
+              --top-k={{workflow.parameters.top_k}}
+              --top-p={{workflow.parameters.top_p}}
+              --temperature={{workflow.parameters.temperature}}
+              --repetition-penalty={{workflow.parameters.repetition_penalty}}
           - name: wandb_key
             value: "{{workflow.parameters.wandb_key}}"
           - name: torch_cache
