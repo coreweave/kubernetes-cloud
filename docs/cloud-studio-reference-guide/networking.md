@@ -1,5 +1,5 @@
 ---
-description: Configure networking for your VFX Cloud Studio
+description: Configure networking for VFX Cloud Studio
 ---
 
 # Networking
@@ -52,7 +52,15 @@ spec:
 
 This Policy prevents connections originating from outside of the cluster from reaching our machines, except on port `3389`, which is an RDP port that provides admins access to troubleshoot machines externally using a separate account or login.
 
-If we want our Network Policy to have stricter policies, we would allow traffic only from our Active Directory Samba and from our [Teradici Connection Manager](https://www.teradici.com/web-help/pcoip\_connection\_manager\_security\_gateway/19.08/). This prevents any external or internal resource from connecting to our machines without going through the connection manager and [Leostream](https://leostream.com/) connection broker.
+{% hint style="info" %}
+**Tip**
+
+The [Network Policy Editor](https://editor.networkpolicy.io/) is a visual, interactive tool that assists composing these policies by working with diagrams like the example below.
+{% endhint %}
+
+<figure><img src="../.gitbook/assets/image.png" alt="NetworkPolicy visualization"><figcaption><p>Network Policy Editor diagram</p></figcaption></figure>
+
+If the Network Policy should have stricter policies, it can allow traffic only from our Active Directory Samba and from our [Teradici Connection Manager](https://www.teradici.com/web-help/pcoip\_connection\_manager\_security\_gateway/19.08/). This prevents any external or internal resource from connecting to our machines without going through the connection manager and [Leostream](https://leostream.com/) connection broker.
 
 {% hint style="info" %}
 **Additional Resources**
@@ -107,7 +115,7 @@ labels:
   user.group: "artist"
 ```
 
-After restarting your virtual server you will notice that the launcher pod now contains this label and the network policy will be applied.
+After restarting the virtual server, notice that the launcher pod now contains this label and the network policy will be applied.
 
 Next we can create another network policy for our administrators. This policy should likely be the opposite: enable internet access but disable access to other internal resources.
 
@@ -169,7 +177,7 @@ spec:
   - {}
 ```
 
-It is suggested that if you add a wide open network policy, pay close attention to whether or not a public IP address is assigned to avoid un-intended connections from external actors.
+When adding a wide-open network policy, pay close attention to whether or not a public IP address is assigned to avoid unintended connections from external actors.
 
 ## Firewalls
 
