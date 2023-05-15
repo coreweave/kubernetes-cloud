@@ -195,10 +195,6 @@ spec:
       value: 'gooseai/finetuner'
     - name: finetuner_tag
       value: 'cuda-11-8-torch-2-rc10'
-    - name: inference_image
-      value: 'coreweave/ml-images'
-    - name: inference_tag
-      value: 'pytorch-huggingface-81d5ce11'
   templates:
   - name: main
     steps:
@@ -316,7 +312,9 @@ spec:
         arguments:
           parameters:
             - name: model_path
-              value: "finetunes/results-{{workflow.parameters.run_name}}"
+              value: "finetunes/results-{{workflow.parameters.run_name}}/final"
+            - name: model_name
+              value: "final"
         when: "{{workflow.parameters.run_inference}} == true"
   - name: check-model
     inputs:
@@ -547,6 +545,7 @@ spec:
     inputs:
       parameters:
         - name: model_path
+        - name: model_name
     resource:
       action: apply
       manifest: |
@@ -574,17 +573,14 @@ spec:
                           values:
                             - "{{workflow.parameters.region}}"
             containers:
-              - name: kfserving-container
-                image: "{{workflow.parameters.inference_image}}:{{workflow.parameters.inference_tag}}"
+              - name: kserve-container
+                image: "{{workflow.parameters.finetuner_image}}:{{workflow.parameters.finetuner_tag}}"
                 imagePullPolicy: IfNotPresent
-                command:
-                  - "python3"
-                  - "/inference/huggingface.py"
+                command: ["/usr/bin/bash", "-c"]
+                args: ["/usr/bin/python3 /app/inference.py"]
                 env:
                   - name: MODEL_NAME
-                    value: "final"
-                  - name: MODEL_PRECISION
-                    value: "fp16"
+                    value: "{{inputs.parameters.model_name}}"
                   - name: STORAGE_URI # KFServing mounts the PVC at /mnt/pvc/
                     value: pvc://{{ workflow.parameters.pvc }}/
                   - name: MODEL_PATH
