@@ -1,18 +1,20 @@
 # Use the Argo Workflows REST API
 
-The Argo Workflows [REST API](https://argoproj.github.io/argo-workflows/rest-api/) allows you to use the workflow engine programmatically with other systems and applications. With the API, you can create, submit, and manage workflows, monitor their status, retrieve results, build custom applications, and integrating Argo Workflows into existing CI/CD pipelines and automation.
+The Argo Workflows [REST API](https://argoproj.github.io/argo-workflows/rest-api/) allows the workflow engine to work programmatically with other systems and applications to create, submit, and manage workflows, monitor their status, retrieve results, build custom applications, and integrating Argo Workflows into existing CI/CD pipelines and automation.
 
 ## Use the API
 
 To demonstrate how to use the [Argo Workflows API](https://argoproj.github.io/argo-workflows/swagger/), we'll use `curl` to send an HTTP request to the Argo server.&#x20;
 
-First, we'll assume you've already followed the [Argo Workflows guide](./) to deploy a workflow server.
+This guide assumed a workflow server has been deployed by following [Argo Workflows guide](./).
 
-Next, you'll use the same workflow YAML we used in the [CLI guide](use-the-argo-workflows-cli.md). If you don't have it yet, create a file named `workflow.yaml`, expand the section below, and copy/paste the contents into your file.
+This uses the same workflow YAML as the [CLI guide](use-the-argo-workflows-cli.md).&#x20;
+
+Create a file named `workflow.yaml`, expand the section below, and copy/paste the contents into the file.
 
 <details>
 
-<summary>workflow.yaml</summary>
+<summary>Click to expand - <code>workflow.yaml</code></summary>
 
 ```yaml
 apiVersion: argoproj.io/v1alpha1
@@ -81,18 +83,18 @@ spec:
 
 </details>
 
-For the API, you need to convert your workflow from YAML to JSON. Assuming you have `yq` installed, you can do it this way:
+The API needs the workflow to be converted from YAML to JSON. Assuming `yq` is installed:
 
 ```bash
 yq eval -o=json workflow.yaml > workflow.json  
 ```
 
-You'll also need a Bearer token. To retrieve the Bearer token for your deployment, run the commands below for your OS.
+Retrieve the Bearer token for the deployment by running the commands below for the client OS.
 
 {% tabs %}
 {% tab title="macOS or Linux (bash or zsh)" %}
 ```bash
-# Replace my-workflow with your deployment name.
+# Replace my-workflow with the deployment name.
 export ARGO_NAME=my-workflow
 # Use kubectl to find the name of the secret for the ${ARGO_NAME}-argo-client ServiceAccount.
 export SECRET=$(kubectl get sa ${ARGO_NAME}-argo-client -o=jsonpath='{.secrets[0].name}')
@@ -105,7 +107,7 @@ echo $ARGO_TOKEN
 
 {% tab title="Windows PowerShell" %}
 ```powershell
-# Replace "my-workflow" with your deployment name.
+# Replace "my-workflow" with the deployment name.
 $ARGO_NAME="my-workflow"
 # Use kubectl to find the name of the secret for the ${ARGO_NAME}-argo-client ServiceAccount.
 $SECRET=$(kubectl get sa $ARGO_NAME-argo-client -o=jsonpath='{.secrets[0].name}')
@@ -124,18 +126,18 @@ Write-Output $ARGO_TOKEN
 Submit the workflow to the API with `curl`.
 
 ```bash
-curl -X POST -H "Content-Type: application/json" \
-     -H "Authorization: Bearer <your-token-here>" \
-     -d @workflow.json \
-     http://<argo-server-address>/api/v1/workflows/<namespace>/submit
-
+$ curl --request POST \
+    --url http://<argo-server-address>/api/v1/workflows/<namespace>/submit \
+    --header "Content-Type: application/json" \
+    --header "Authorization: Bearer <the-token-here>" \
+    --data @workflow.json
 ```
 
-* Replace `<your-token-here>` with the Bearer token you retrieved.
-* Replace `<argo-server-address>` with the Access URL of your Argo server. You'll find this in [CoreWeave Applications](https://apps.coreweave.com/), see the [Argo Workflows guide](./) for more details.
-* Replace `<namespace>` with your workflow namespace.
+* Replace `<argo-server-address>` with the Access URL of the Argo server. This is available in [CoreWeave Applications](https://apps.coreweave.com/), see the [Argo Workflows guide](./) for more details.
+* Replace `<namespace>` with the workflow namespace.
+* Replace `<the-token-here>` with the Bearer token.
 
-You can find your namespace by running:
+Find the namespace by running:
 
 ```bash
 $ kubectl get deployments | grep argo-server
@@ -144,31 +146,19 @@ my-example-argo-server           1/1     1            1           3d20h
 
 The namespace is `my-example-argo-server`.
 
-You'll find more examples in the [Argo API documentation](https://argoproj.github.io/argo-workflows/rest-examples/).
+More examples are available in the [Argo API documentation](https://argoproj.github.io/argo-workflows/rest-examples/).
 
 ## Override parameters with the API
 
-The API can also override parameters, similar to the [ability of the CLI](use-the-argo-workflows-cli.md#how-to-override-parameters).
-
-First, create a `params.json` file with the values you want to override:
-
-{% code title="params.json" %}
-```json
-{
-  "messages": "[\"CoreWeave\",\"Is\",\"Fun\"]"
-}
-```
-{% endcode %}
-
-Then, include it in your request to the API with `curl`.
+Parameters can be overridden with the API, by passing JSON key-value pairs. To override `foo` with the value `curl is fun`, use this:
 
 ```bash
-curl -X POST -H "Content-Type: application/json" \
-     -H "Authorization: Bearer <your-token-here>" \
-     -d @workflow.json \
-     --data-urlencode parameters@params.json \
-     http://<argo-server-address>/api/v1/workflows/<namespace>/submit
-
+$ curl --request POST \
+    --url http://<argo-server-address>/api/v1/workflows/<namespace>/submit \
+    --header "Content-Type: application/json" \
+    --header "Authorization: Bearer <the-token-here>" \
+    --data @workflow.json \
+    --data "{ \"foo\": \"curl is fun\" }"
 ```
 
 ## More information

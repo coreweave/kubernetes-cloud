@@ -4,7 +4,7 @@ description: View Kubernetes resources with kubectl
 
 # Kubectl
 
-The standard Kubernetes command line tool, `kubectl`, is a flexible way to inspect the active resources in your account. Here are some useful commands you can use to view your resources.&#x20;
+The standard Kubernetes command line tool, `kubectl`, is a flexible way to inspect the active resources in an account. Here are some useful commands for viewing resources.&#x20;
 
 ## **View Pods**
 
@@ -17,7 +17,7 @@ kubectl get pods
 ### In a specific namespace
 
 ```bash
-kubectl get pods --namespace your-namespace
+kubectl get pods --namespace the-namespace
 ```
 
 ### In all namespaces
@@ -41,19 +41,19 @@ kubectl describe pods
 ### Details about a specific Pod
 
 ```bash
-kubectl describe pod your-pod
+kubectl describe pod the-pod
 ```
 
 ### YAML configuration of a specific Pod
 
 ```bash
-kubectl get pod your-pod -o yaml
+kubectl get pod the-pod -o yaml
 ```
 
 ### **Resources requested by Pods**
 
 List the number of CPUs, GPUs, and memory requested by each Pod. \
-**Note**: This assumes you have installed `jq` .
+**Note**: This assumes `jq` is installed.
 
 {% code overflow="wrap" %}
 ```bash
@@ -80,7 +80,7 @@ kubectl get services
 ### In a specific namespace
 
 ```bash
-kubectl get services --namespace your-namespace
+kubectl get services --namespace the-namespace
 ```
 
 ### Services sorted by name
@@ -100,5 +100,5 @@ kubectl get deployments
 ### Specific deployment
 
 ```bash
-kubectl get deployment your-deployment
+kubectl get deployment the-deployment
 ```

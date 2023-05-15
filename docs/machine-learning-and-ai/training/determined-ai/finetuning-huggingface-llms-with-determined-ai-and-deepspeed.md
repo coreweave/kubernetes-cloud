@@ -51,7 +51,7 @@ If needed, it is easy to [increase the size](https://docs.coreweave.com/coreweav
 
 When [installing Determined AI](../../../compass/determined-ai/install-determined-ai.md), ensure that the newly-created filesystem volume for this demo is attached. From the bottom of the application configuration screen, click `+` to attach the `finetune-opt-125m` volume.
 
-<figure><img src="../../../.gitbook/assets/image (28) (1).png" alt=""><figcaption><p>The attachment configuration screen for the Determined AI application</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (28) (1) (2).png" alt=""><figcaption><p>The attachment configuration screen for the Determined AI application</p></figcaption></figure>
 
 As shown above, for this tutorial we are attaching the `finetune-opt-125m` volume on the mount path `/mnt/finetune-opt-125m`.
 
@@ -128,7 +128,7 @@ det cmd run 'pip install -r /mnt/finetune-opt-125m/requirements.txt; \
 
 The logs from the script will be output to your terminal window, but you can also view them from the Determined UI under the Tasks page.
 
-<figure><img src="../../../.gitbook/assets/image (13) (2).png" alt=""><figcaption><p>Prepare Dataset Task running in Determined AI</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (13) (3).png" alt=""><figcaption><p>Prepare Dataset Task running in Determined AI</p></figcaption></figure>
 
 Once the task is complete you should see the processed dataset files in the PVC via the FileBrowser.
 
@@ -296,7 +296,7 @@ The trial overview shows a lot of important info in one tab. You can see a graph
 
 All checkpoints may be seen in the **Overview** tab, but each checkpoint is also given its own tab.
 
-<figure><img src="../../../.gitbook/assets/image (37).png" alt=""><figcaption><p>Checkpoints tab in the Determined Web UI</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (37) (2).png" alt=""><figcaption><p>Checkpoints tab in the Determined Web UI</p></figcaption></figure>
 
 Viewing a specific checkpoint's information will show you additional information like the file sizes and location of the checkpoint.
 
@@ -318,7 +318,7 @@ s3cmd get -r s3://$BUCKET_NAME/2923ac08-0f11-4391-945e-6de03e424a61/
 
 The profiler was enabled in both of the experiments that were created, but this is not the case by default. When the profiler is enabled, Determined will automatically track a number of system metrics.
 
-<figure><img src="../../../.gitbook/assets/image (45) (1) (1).png" alt=""><figcaption><p>Profiler Tab for a Running Experiment in Determined's Web UI</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (45) (1) (1) (1).png" alt=""><figcaption><p>Profiler Tab for a Running Experiment in Determined's Web UI</p></figcaption></figure>
 
 For the grid search experiment, it is important to compare the throughput metrics, GPU free memory, and GPU utilization across the different micro batch size. Notice that the higher micro batch sizes use more of the GPUs memory getting higher utilization and samples per second.
 
@@ -326,7 +326,7 @@ For the grid search experiment, it is important to compare the throughput metric
 
 The values used for the trial may be viewed in the hyperparameter tab. This tab is more important when performing hyperparameter searches and you want to know the specific values for that trial compared to the others.
 
-<figure><img src="../../../.gitbook/assets/image (10) (4) (1).png" alt=""><figcaption><p>Hyperparameter Tab for a Trial in Determined's Web UI</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (10) (4).png" alt=""><figcaption><p>Hyperparameter Tab for a Trial in Determined's Web UI</p></figcaption></figure>
 
 #### Experiment with Multiple Trials Overview
 
@@ -338,7 +338,7 @@ From the overview of an experiment that is running multiple trials, you can trac
 
 You can see more information about each specific trial in the **Trials** tab. Each individual trial may also be inspected from here by clicking into them.
 
-<figure><img src="../../../.gitbook/assets/image (1) (5).png" alt=""><figcaption><p>Trials Tab in the Determined Web UI</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (19) (2) (1).png" alt=""><figcaption><p>Trials Tab in the Determined Web UI</p></figcaption></figure>
 
 {% hint style="info" %}
 **Note**

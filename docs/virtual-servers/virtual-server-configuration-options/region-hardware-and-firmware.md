@@ -97,7 +97,7 @@ Each hardware selector also displays a meter registering the availability of tha
 
 In the CRD's YAML manifest, the `.spec.resources.definition` field is used as a way to describe the chosen resources. The default value of this field is `a` - this is just a placeholder, which can be changed to any string.
 
-<figure><img src="../../.gitbook/assets/image (3).png" alt="Screenshot of the .spec.resources.definition field, mirrored in plain text below"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3) (4).png" alt="Screenshot of the .spec.resources.definition field, mirrored in plain text below"><figcaption></figcaption></figure>
 
 Example in plain text:
 

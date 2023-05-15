@@ -26,7 +26,7 @@ A username and password is presented as the default - to switch to using an SSH 
 
 Additional user accounts may either be added using the UI, or they may be provisioned in the YAML manifest editor under the `users` block:
 
-<figure><img src="../../.gitbook/assets/image (21).png" alt="The &#x60;users&#x60; block in the YAML manifest"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (21) (1).png" alt="The &#x60;users&#x60; block in the YAML manifest"><figcaption></figcaption></figure>
 
 This `users` block is a YAML list, in which usernames and passwords or SSH public keys can be included. Multiple users in this configuration may look something like this example:
 

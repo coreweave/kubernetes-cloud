@@ -30,7 +30,7 @@ Users within an organization may be managed from [the organization management pa
 
 To invite new users, navigate to the organization management page in CoreWeave Cloud, then click the **Invite a User** button. A form will appear, prompting for the email of the person you'd like to invite. Enter this address, then click **Send Invite.**
 
-<figure><img src="../.gitbook/assets/image (142).png" alt="Screenshot of the user invite modal"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (84) (1).png" alt="Screenshot of the user invite modal"><figcaption></figcaption></figure>
 
 The organization management page also allows admins to perform the following actions:
 

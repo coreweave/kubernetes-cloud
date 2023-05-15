@@ -1,22 +1,20 @@
 # Use Argo Workflows with Helm
 
-[Helm](https://helm.sh/) is a popular package manager for Kubernetes that streamlines the deployment and management of applications on Kubernetes clusters. With a Helm-based workflow you can submit Argo Workflows with ease, enabling you to concentrate on building and running workflows through a familiar tool instead of grappling with the complexities of manual deployment.
+[Helm](https://helm.sh/) is a popular package manager for Kubernetes that streamlines the deployment and management of applications on Kubernetes clusters. A Helm-based workflow can submit Argo Workflows with ease, enabling users to focus on building and running workflows rather than dealing with the complexities of manual deployment.
 
 {% hint style="info" %}
 **Tip**
 
-If you aren't familiar with Argo Workflows, [read our introductory guide](./) to learn about parameters before you add the Helm abstraction layer.&#x20;
+It's helpful to know how to use parameters with Argo Workflows before adding the Helm abstraction layer. [Read the introductory guide](./) to learn more.
 {% endhint %}
 
-This guide assumes you are using a Linux workstation, and [already have Helm installed](https://helm.sh/docs/intro/install/). You may need to adapt these commands for macOS or Windows.
+This guide assumes the client workstation is Linux and [already has Helm installed](https://helm.sh/docs/intro/install/).&#x20;
 
 ## Submit an Argo workflow with a Helm chart
 
 This example uses is a basic Helm chart to submit an Argo workflow with parameters supplied by Helm.
 
 First, create a new project directory and change into it.&#x20;
-
-> We show it in your home directory to make this easier to follow, but you can do this anywhere in your file system.
 
 ```bash
 $ mkdir ~/my-helm-projects
@@ -37,11 +35,11 @@ $ cd ~/my-helm-projects/helm-example/templates/
 $ nano workflow.yaml
 ```
 
-Expand the section below and copy/paste the contents into your `workflow.yaml` file.&#x20;
+Expand the section below and copy/paste the contents into the `workflow.yaml` file.&#x20;
 
 <details>
 
-<summary>workflow.yaml</summary>
+<summary>Click to expand - <code>workflow.yaml</code></summary>
 
 <pre class="language-yaml" data-line-numbers><code class="lang-yaml">apiVersion: argoproj.io/v1alpha1
 kind: Workflow
@@ -148,7 +146,7 @@ helmfoo: "Hello from Helm!"
 ```
 {% endcode %}
 
-Go to your Helm project folder and install the chart as `my-deployment`.
+Go to the Helm project folder and install the chart as `my-deployment`.
 
 ```bash
 $ cd ~/my-helm-projects
@@ -185,22 +183,22 @@ gpu-say-main-2758790358: Foo was: Hello from Helm!
 
 ### How to pass Helm options on the command line
 
-You've seen that we can create an Argo workflow that receives values from a Helm `values.yaml` file. But, sometimes you need to supply the values on the command line. We'll do that with the `helmfoo` value in this example.
+An Argo workflow can receive values from a Helm `values.yaml` file. But, sometimes it's better to supply the values on the command line. This is demonstrated with the `helmfoo` value in this example.
 
-In Helm, values passed on the command line do not override the `values.yaml` file, so you'll need to remove this line from the file first:
+In Helm, values passed on the command line do not override the `values.yaml` file, so remove this value from the file before proceeding:
 
 ```
 helmfoo: "Hello from Helm!"
 ```
 
-Then, you can use the `--set` command line option to pass the value, like this:
+Then, use the `--set` command line option to pass the value, like this:
 
 ```bash
 $ helm install my-deployment helm-example \
      --set helmfoo="Command lines are fun!"
 ```
 
-Remember, we are passing in the Helm value, `helmfoo`, which is received by Argo as `foo`. You'll see it in the Argo log:
+Remember, the Helm value, `helmfoo`  is received by Argo as `foo`, as shown in the Argo log:
 
 ```
 $ argo logs gpu-say
@@ -210,7 +208,7 @@ gpu-say-main-2758790358: Foo was: Command lines are fun!
 ...
 ```
 
-With the power of Helm and the versatility of Argo Workflows combined, you can streamline your application deployment, and improve the efficiency of your development process.
+With the power of Helm and the versatility of Argo Workflows combine to streamline application deployment, and improve the efficiency of the development process.
 
 ## More information
 

@@ -4,21 +4,21 @@ description: Use the power of the command line to control Argo Workflows
 
 # Use the Argo Workflows CLI
 
-The Argo Command Line Interface (CLI) is a powerful tool you can use to create, submit, manage, and monitor workflows directly from the command line. The CLI also allows you to create reusable templates, making it easier to define and share common workflow patterns. Many of [CoreWeave's example projects](./#practical-examples) use Argo CLI as the primary way to demonstrate different techniques.
+The Argo Command Line Interface (CLI) is a powerful tool used to create, submit, manage, and monitor workflows directly from the command line. The CLI also allows creating reusable templates, making it easier to define and share common workflow patterns. Many of [CoreWeave's example projects](./#practical-examples) use Argo CLI as the primary way to demonstrate different techniques.
 
 ## Use Argo CLI
 
-To submit a job with the CLI, first verify you've [set up your CoreWeave Kubernetes environment.](../../coreweave-kubernetes/getting-started.md#setup-kubernetes-config)
+To submit a job with the CLI, first verify the [CoreWeave Kubernetes environment](../../coreweave-kubernetes/getting-started.md#setup-kubernetes-config) is set up.
 
 Next, download the latest Argo CLI from [the GitHub releases](https://github.com/argoproj/argo-workflows/releases) page and follow their Quick Start installation instructions.&#x20;
 
-To test your installation, run:
+To test the installation, run:
 
 ```bash
 argo version
 ```
 
-You should see a result similar to:
+The result should be similar to:
 
 ```
 argo: v3.4.7
@@ -39,11 +39,11 @@ $ cd example
 $ nano workflow.yaml
 ```
 
-Expand the section below, and copy/paste the contents into your file.&#x20;
+Expand the section below, and copy/paste the contents into the file.&#x20;
 
 <details>
 
-<summary>workflow.yaml</summary>
+<summary>Click to expand - <code>workflow.yaml</code></summary>
 
 ```yaml
 apiVersion: argoproj.io/v1alpha1
@@ -143,11 +143,9 @@ There are two parameters in this file:
 
 One technique used often in [CoreWeave examples](./#practical-examples) is setting default values in the workflow YAML, and then overriding a few of them on the command line or with a parameters file.&#x20;
 
-You've already seen how to set two parameters in the YAML, now we'll explain how to override them.
-
 ### Override parameters on the command line
 
-You can override workflow parameters on the command line with the `-p` option:
+Override workflow parameters on the command line with the `-p` option:
 
 ```bash
 argo submit workflow.yaml \
@@ -171,7 +169,7 @@ Parameters:
 
 ### Override parameters with a YAML file
 
-You can also use a [parameters file](https://argoproj.github.io/argo-workflows/walk-through/parameters/) to override them. To do that, create `params.yaml` in your example folder and paste this into it.
+Another technique is using a [YAML file](https://argoproj.github.io/argo-workflows/walk-through/parameters/) to override parameters. To do that, create `params.yaml` in the example folder and paste this into it.
 
 ```yaml
 messages: ["Use", "Anything", "Here"]
@@ -200,22 +198,20 @@ Parameters:
 
 ## List workflows
 
-After you've submitted a job, you can interact with it.&#x20;
+After submitting a job, use the `argo` command to interact with it.&#x20;
 
-First, you'll need to find its name with the `list` command.
+To find a job's name, use the `list` command.
 
 ```bash
 argo list
 ```
 
-The output shows the name, `gpu-sayn5p6w` in this case. Take note of this name, because we'll use it for the examples below.&#x20;
+The output shows the name, `gpu-sayn5p6w` in this case.
 
 ```
 NAME             STATUS      AGE   DURATION   PRIORITY   MESSAGE
 gpu-sayn5p6w     Succeeded   41m   37s        0          
 ```
-
-If you are following along in your terminal, your name will be different.
 
 ## View Argo logs
 
@@ -229,7 +225,7 @@ Expand the log output below to see the result:
 
 <details>
 
-<summary>Example argo log output</summary>
+<summary>Click to expand - Argo log output</summary>
 
 ```
 gpu-sayn5p6w-gpu-echo-1273146457: Wed May  3 21:30:56 2023       
@@ -304,13 +300,13 @@ gpu-sayn5p6w-gpu-echo-2418828045: time="2023-05-03T21:31:23.231Z" level=info msg
 
 ## Watch the submission
 
-You can use the `--watch` option if you want to observe the workflow in progress.
+Use the `--watch` option to observe the workflow in progress.
 
 ```
 argo submit workflow.yaml --watch
 ```
 
-If you didn't use the `--watch` option when you submitted the workflow, and later want to see it in progress, use the `watch` command with the workflow name to observe it.
+If the `--watch` option wasn't used when submitting the workflow, the `watch` command is used with the workflow name to observe it.
 
 ```bash
 argo watch gpu-sayn5p6w
@@ -349,15 +345,15 @@ In the previous example, notice that the third line says:
 ServiceAccount:      unset (will run with the default ServiceAccount)
 ```
 
-If you don't declare a specific Kubernetes ServiceAccount, the workflow uses the default one for the namespace. If you want to use a specific ServiceAccount, you need to create one and then use the `--serviceaccount` option.&#x20;
+If no specific Kubernetes ServiceAccount was declared, the workflow uses the default one for the namespace. To use a specific ServiceAccount, create one and then use the `--serviceaccount` option by following the steps that follow. The [security best practices guide](security-best-practices-for-argo-workflows.md) has more details.
 
-We'll briefly describe that here, and you can learn more in our [security best practices guide](security-best-practices-for-argo-workflows.md).
+First, define a ServiceAccount and assign it some defined Roles. Then, define a RoleBinding to bind them together.&#x20;
 
-First, you'll need to create a ServiceAccount, assign it some Roles, and then use a RoleBinding to bind them together. You can define all these in a single YAML file.&#x20;
+This can be done in a single YAML file. Create `my-example-sa.yaml` and paste the contents below.
 
-### Define the ServiceAccount
+<details>
 
-Create a file named `my-example-sa.yaml` and paste the contents below.
+<summary>Click to expand - <code>my-example-sa.yaml</code></summary>
 
 {% code title="my-example-sa.yaml" %}
 ```yaml
@@ -405,7 +401,9 @@ subjects:
 ```
 {% endcode %}
 
-There are three sections in this file, separated by `---`.&#x20;
+</details>
+
+There are three sections in this file, separated with `---`.&#x20;
 
 * First, it creates a new ServiceAccount named `my-example`.&#x20;
 * Next, it creates a Role named `my-example-role` with several permissions.&#x20;
@@ -413,7 +411,7 @@ There are three sections in this file, separated by `---`.&#x20;
 
 ### Create the ServiceAccount
 
-Apply the YAML you just created to your cluster with `kubectl`.
+Apply the YAML to the cluster with `kubectl`.
 
 ```
 kubectl apply -f my-example-sa.yaml
@@ -429,7 +427,7 @@ rolebinding.rbac.authorization.k8s.io/my-example-rolebinding created
 
 ### Use the ServiceAccount
 
-Now, you can use the new ServiceAccount with Argo, like this:
+Now, use the new ServiceAccount with Argo, like this:
 
 ```bash
 argo submit workflow.yaml --serviceaccount my-example
@@ -453,7 +451,7 @@ Notice that the third line now shows the new ServiceAccount name. Using a specif
 
 ## More information
 
-These are only a few of the most common Argo CLI commands, and you'll see these often in CoreWeave's examples and demonstrations. For a full list, please see the [Argo documentation](https://argoproj.github.io/argo-workflows/cli/argo/) or see these Argo Workflows resources:
+These are only a few of the most common Argo CLI commands used in CoreWeave's examples and demonstrations. For a full list, please see the [Argo documentation](https://argoproj.github.io/argo-workflows/cli/argo/) or see these Argo Workflows resources:
 
 * [Examples on GitHub](https://github.com/argoproj/argo-workflows/tree/master/examples)
 * [Slack](https://argoproj.github.io/community/join-slack/)

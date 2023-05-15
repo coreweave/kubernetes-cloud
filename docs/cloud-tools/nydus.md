@@ -35,15 +35,15 @@ For a list of additional features and official benchmarks, refer to [the Nydus p
 
 ## Setup
 
-Nydus configures the container runtime (conatinerd), to inspect the given container image at runtime. If Nydus recognizes the image as a Nydus-formatted image, then it will pull it using the Nydus image service.
+Nydus configures the container runtime (containerd), to inspect the given container image at runtime. If Nydus recognizes the image as a Nydus-formatted image, then it will pull it using the Nydus image service.
 
 Nydus is also backwards-compatible - if Nydus recognizes that the image being pulled is a standard OCI image, then it will pull it normally; just as a normal configuration of the containerd runtime would.
 
-To use Nydus on CoreWeave Cloud, **you do not need to change your Kubernetes manifests**, but you will need to **reformat your base images** to the Nydus format.
+To use Nydus on CoreWeave Cloud, **it is not required to change the Kubernetes manifests**, but the **base images must be reformatted** to the Nydus format.
 
 ### Convert images to Nydus format
 
-To convert your images to Nydus format, use the [Nydusify conversion tool](https://github.com/dragonflyoss/image-service/blob/master/docs/nydusify.md#nydusify). Converting base images is as easy as either targeting an OCI image in a repository:
+To convert the images to Nydus format, use the [Nydusify conversion tool](https://github.com/dragonflyoss/image-service/blob/master/docs/nydusify.md#nydusify). Converting base images is as easy as either targeting an OCI image in a repository:
 
 ```bash
 nydusify convert \
