@@ -1,6 +1,6 @@
 # How-To Guides and Tutorials
 
-The following guides provide step-by-step tutorials for deploying CoreWeave Cloud VFX Studios.
+The following guides provide step-by-step instructions for deploying CoreWeave Cloud VFX Studios.
 
 ## Prerequisites
 
