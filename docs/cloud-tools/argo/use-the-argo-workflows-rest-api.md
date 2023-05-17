@@ -127,24 +127,24 @@ Submit the workflow to the API with `curl`.
 
 ```bash
 $ curl --request POST \
-    --url http://<argo-server-address>/api/v1/workflows/<namespace>/submit \
+    --url http://<argo-server-address>/api/v1/workflows/<deployment-name>/submit \
     --header "Content-Type: application/json" \
     --header "Authorization: Bearer <the-token-here>" \
     --data @workflow.json
 ```
 
 * Replace `<argo-server-address>` with the Access URL of the Argo server. This is available in [CoreWeave Applications](https://apps.coreweave.com/), see the [Argo Workflows guide](./) for more details.
-* Replace `<namespace>` with the workflow namespace.
+* Replace `<deployment-name>` with the name.
 * Replace `<the-token-here>` with the Bearer token.
 
-Find the namespace by running:
+Find the deployment name by running:
 
 ```bash
 $ kubectl get deployments | grep argo-server
 my-example-argo-server           1/1     1            1           3d20h
 ```
 
-The namespace is `my-example-argo-server`.
+The deployment is `my-example-argo-server`.
 
 More examples are available in the [Argo API documentation](https://argoproj.github.io/argo-workflows/rest-examples/).
 
