@@ -1,5 +1,5 @@
 ---
-description: Install a filesystem browser to use with storage volumes
+description: Expose storage volumes using FileBrowser
 ---
 
 # FileBrowser
@@ -26,7 +26,7 @@ When the **filebrowser** application appears, click on it. This will open the ap
 It is recommended that the name you give the FileBrowser application be very short, or else you may run into SSL CNAME issues.
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/image (54) (2).png" alt="Screenshot: Select your data center region"><figcaption><p>Select your data center region</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (54).png" alt="Screenshot: Select your data center region"><figcaption><p>Select your data center region</p></figcaption></figure>
 
 ### Attach volumes
 
@@ -44,7 +44,7 @@ Once you are ready, click the **Deploy** button.
 
 During the deployment of the application, you will be redirected to the application's status page, which will let you know when the FileBrowser application is ready. This status page also provides the default login credentials for the FileBrowser application.
 
-<figure><img src="../.gitbook/assets/image (65) (4).png" alt="Screenshot: For this example, the default login credentials have been removed, but in a real scenario, will be shown here"><figcaption><p>For this example, the default login credentials have been removed, but in a real scenario, will be shown here</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (65).png" alt="Screenshot: For this example, the default login credentials have been removed, but in a real scenario, will be shown here"><figcaption><p>For this example, the default login credentials have been removed, but in a real scenario, will be shown here</p></figcaption></figure>
 
 
 

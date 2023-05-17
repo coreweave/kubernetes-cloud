@@ -1,20 +1,39 @@
 ---
-description: Create your own Blender render farm using thousands of GPUs
+description: >-
+  Create your own Blender render farm with thousands of GPUs using Argo
+  Workflows
 ---
 
-# CGI Rendering Using Workflows
+# CGI Rendering with Argo Workflows
 
-This example walks through the setup of a complete Cloud rendering solution for GPU rendering using Blender on CoreWeave Cloud. The example uses node affinity rules to select the type and quantity of hardware we use for our render, and even passes in a custom `artifact` to the container.
+In this example, a complete Cloud rendering solution is deployed onto a CoreWeave Virtual Workstation. This tutorial uses [Argo Workflows](../../../cloud-tools/argo/) for GPU-rendering jobs with [Blender](https://www.blender.org/).
 
-If you are following along with this example, by the end of it you will have a Web-based file management solution for uploading assets and downloading render output, as well as a highly parallel workflow template with which to launch your render jobs.
+By following along with this example, at the end you will have:
 
-<figure><img src="../../../../.gitbook/assets/cars.png" alt=""><figcaption><p>Image of a CGI-rendered car</p></figcaption></figure>
+* a Web-based file management solution for uploading assets and downloading render output, and
+* a highly parallel workflow template with which to launch your render jobs.
 
-## Configure the Persistent Volume Claim
+In this tutorial, all resources are deployed using [the Kubernetes command line (Kubectl)](../../../virtual-servers/deployment-methods/kubectl.md).
 
-First, we will need a place for all of our render assets and outputs to reside that is accessible to multiple workers and other services in our namespace. To do this, we will create a shared filesystem [Persistent Volume Claim](https://docs.coreweave.com/coreweave-kubernetes/storage#shared-filesystem).
+## Prerequisites
 
-In this example, the resource storage request is `100Gi`; you may adjust as necessary.
+This guide assumes that the [Argo CLI tools](../../../cloud-tools/argo/) have already been configured in your CoreWeave Cloud namespace.
+
+## Overview
+
+This tutorial covers the following procedure:
+
+1. [Create a storage volume f](cgi-rendering.md#create-a-storage-volume)or assets
+2. [Install FileBrowser](cgi-rendering.md#install-filebrowser)
+3. [Create the render Workflow](cgi-rendering.md#create-the-render-workflow)
+
+<figure><img src="../../../.gitbook/assets/cars.png" alt=""><figcaption><p>Image of a CGI-rendered car</p></figcaption></figure>
+
+## Create a storage volume
+
+Render assets and outputs must be stored somewhere that is accessible to multiple workers and to other services in our namespace. For this purpose, a shared filesystem is created by way of a [Persistent Volume Claim](https://docs.coreweave.com/coreweave-kubernetes/storage#shared-filesystem).
+
+In the example manifest below, the resource storage request is set to create a storage volume with a size of `100Gi`.
 
 {% code title="pvc.yaml" %}
 ```yaml
@@ -28,11 +47,11 @@ spec:
     - ReadWriteMany
   resources:
     requests:
-      storage: 100Gi # 100GB total volume size
+      storage: 100Gi # 100Gi total volume size
 ```
 {% endcode %}
 
-Once the PVC is created and saved in a clearly-named file (we named ours `pvc.yaml`), run `kubectl apply` to create the claim:
+Once the PVC is created and saved in a clearly-named file, such as `pvc.yaml`, run `kubectl apply` to deploy it:
 
 ```bash
 $ kubectl apply -f pvc.yaml
@@ -40,34 +59,29 @@ $ kubectl apply -f pvc.yaml
 persistentvolumeclaim/shared-data-pvc created
 ```
 
-We now have a shared filesystem of `100GB`, named `shared-data-pvc`, which we can utilize throughout this rendering example.
+A shared filesystem of `100Gi` is now deployed in the namespace with the name `shared-data-pvc`. This volume is utilized throughout this rendering example.
 
-## Install the FileBrowser application
+## Install FileBrowser
 
-Because we are attempting to create an easy-to-use service to render our Blender animation, we will also quickly setup a Web-based file management platform to upload and download any assets and render output we have. To accomplish this, we will be using the open-source utility [FileBrowser](http://www.filebrowser.xyz), available through [the CoreWeave Cloud application Catalog](https://apps.coreweave.com) as **filebrowser**.
+The end goal of this tutorial is to create an easy-to-use service for rendering a Blender animation. The simplest solution for accessing output assets is to use the open-source utility [FileBrowser](http://www.filebrowser.xyz), which is available through [the Applications Catalog](../../../coreweave-kubernetes/applications-catalog.md) by searching for **filebrowser**.
 
-<figure><img src="../../../../.gitbook/assets/image (24) (1) (1) (1).png" alt=""><figcaption><p>The filebrowser application</p></figcaption></figure>
-
-To install and configure the FileBrowser application:
-
-1. Navigate to the application Catalog through the CoreWeave Cloud UI, then search for `filebrowser`.
-2. Select the application, which will open the first configuration screen.
-3. Under **Node Selection**, select your datacenter region.
-4. As we want our new PVC to act as the storage for FileBrowser, under the "Attach existing volumes to your FileBrowser" list, select the newly created PVC (in this case, `shared-data-pvc`) by clicking the small blue plus sign to the right of the Volume name:
-
-<figure><img src="../../../../.gitbook/assets/image (21) (1) (1) (1) (1).png" alt=""><figcaption><p>The FileBrowser configuration screen, including a list of "Available Volumes"</p></figcaption></figure>
-
-Configure how you'd like the Volume to appear once mounted, then click the **Deploy** button.
+For more information on installing and using FileBrowser, see [the FileBrowser installation guide](../../../storage/filebrowser.md).
 
 {% hint style="info" %}
 **Note**
 
-It is recommended that the name you give this FileBrowser application be very short, or you will run into SSL CNAME issues.
+It is recommended that the name of the FileBrowser application be kept short. Names that are too long may run into SSL CNAME issues.
 {% endhint %}
 
-During the deployment of the application, you'll be redirected to a status page, which will let you know when the Pod running the FileBrowser application is ready.
+<figure><img src="../../../.gitbook/assets/image (24) (1) (1) (1).png" alt=""><figcaption><p>The filebrowser application in the Applications Catalog</p></figcaption></figure>
 
-This status page also provides default login credentials for the FileBrowser application.
+The newly-created storage volume (PVC) is used as the backend for FileBrowser. Under the "Attach existing volumes to your FileBrowser," select the new volume (here, `shared-data-pvc`) by clicking the small blue plus sign to the right of the Volume name.
+
+<figure><img src="../../../.gitbook/assets/image (21) (1) (1) (1) (1).png" alt=""><figcaption><p>The FileBrowser configuration screen, including a list of "Available Volumes"</p></figcaption></figure>
+
+Configure how you'd like the volume to appear once mounted, then click the **Deploy** button.
+
+During the deployment of the application, you'll be redirected to the application's status page. This status page also provides the default login credentials for the FileBrowser application.
 
 {% hint style="warning" %}
 **Important**
@@ -75,35 +89,30 @@ This status page also provides default login credentials for the FileBrowser app
 It is **strongly recommended** to change the default login credentials for FileBrowser.
 {% endhint %}
 
-In the **Access URLs** box on the status page, you will find an Ingress URL (such as `https://filebrowser-name.tenant-sta-coreweave-clientname.ord1.ingress.coreweave.cloud/`). This Ingress URL may be used to access the FileBrowser application in a browser.
+Navigate to the **Access URLs** box on the status page to find the Ingress URL (for example, `https://filebrowser-name.tenant-coreweave-clientname.ord1.ingress.coreweave.cloud/`).
 
-![The FileBrowser login screen](<../../../../../.gitbook/assets/image (3) (1) (1) (1).png>)
+This Ingress URL is used to access the FileBrowser application in using a Web browser.
 
-#### **Rendering example**
+![The FileBrowser login screen](<../../../../.gitbook/assets/image (3) (1) (1) (1).png>)
 
-For this example, we want to render something that quickly in order to showcase the power of CoreWeave Cloud, so we're going to take one of the typical Blender benchmarks, [BMW\_27](https://download.blender.org/demo/test/BMW27\_2.blend.zip), and upload the unpacked file `bmw27_gpu.blend` to our root path in the FileBrowser application.
+In this example, one of the typical Blender benchmarks, [BMW\_27](https://download.blender.org/demo/test/BMW27\_2.blend.zip), is uploaded as the unpacked file `bmw27_gpu.blend` to the root path in the FileBrowser application. Once logged into FileBrowser, the file may be uploaded using its Web UI.
 
-![The FileBrowser UI, displaying the uploaded bmw27\_gpu.blend file](<../../../../../.gitbook/assets/image (2) (1) (1).png>)
+![The FileBrowser UI displaying the uploaded bmw27\_gpu.blend file](<../../../../.gitbook/assets/image (2) (1) (1).png>)
 
 ## Create the render workflow
 
-{% hint style="info" %}
-**Note**
+The [Argo workflow file](https://argoproj.github.io/argo-workflows/workflow-concepts/) provided below does a number of things. First, it defines the parameters of the overall job, including the name of the file to render, the frame range, how many frames to render per Pod, and the maximum number of parallel Pods.
 
-This portion of the example assumes that you've already set up [Argo CLI tools](../../../../cloud-tools/argo/) on CoreWeave Cloud.
-{% endhint %}
+Next, it auto-generates "slices" to render in parallel on each Pod, defines the type of hardware on which we would like our job to be executed, supplies Blender commands, and finally passes in a custom Python script to ensure we render on GPU.
 
-The following [Argo workflow file](https://argoproj.github.io/argo-workflows/workflow-concepts/) allows us to:
+Some of the workflow steps included in this file may be considered advanced. Comments are included where possible to clarify their purpose.
 
-* define the parameters of the overall job, including the name of the file to render, the frame range, how many frames to render per Pod, and the maximum number of parallel Pods.
-* auto-generate "slices" to render in parallel on each Pod
-* define the type of hardware on which we would like our job to be executed
-* supply Blender commands, and
-* pass in a custom python script to ensure we render on GPU.
+The complete Workflow file is saved as `blender-gpu-render.yaml`, and is now set up to render in parallel using `10` Pods using four `NV_Pascal GPUs` per instance.
 
-Some of the workflow steps detailed in this file are a little advanced; we've commented them where possible to clarify their purpose:
+<details>
 
-{% code title="blender-gpu-render.yaml" %}
+<summary>Click to expand - <code>blender-gpu-render.yaml</code></summary>
+
 ```yaml
 apiVersion: argoproj.io/v1alpha1
 kind: Workflow
@@ -234,31 +243,30 @@ spec:
               values: # This is where we identify what GPU type we want to run on.
               - Quadro_RTX_4000
 ```
-{% endcode %}
+
+</details>
 
 {% hint style="info" %}
 **Note**
 
-Argo's [retry logic](https://argoproj.github.io/argo-workflows/retries/) is considered a best practice when running rendering in parallel. Due to the constant advancements in CGI rendering platforms and GPU compute, sometimes these things break "for no reason." Retries as defined in your Argo Workflow template will ensure you aren't hunting for frames lost due to some unknown cause.
+Argo's [retry logic](https://argoproj.github.io/argo-workflows/retries/) is considered a best practice when running rendering in parallel. Due to the constant advancements in CGI rendering platforms and GPU compute, sometimes these things break "for no reason." Retries as defined in the Argo Workflow template will ensure frames are lost due to an unknown cause.
 {% endhint %}
 
-Our completed Workflow file, which we will save as `blender-gpu-render.yaml`, is now set up to render in parallel using 10 Pods of `4x NV_Pascal` GPUs.
+To begin rendering, pass this Workflow file to `argo submit`:
 
-To begin rendering, invoke `argo submit` and specify the Workflow file:
-
-```
+```bash
 $ argo submit --watch blender-gpu-render.yaml
 ```
 
-Immediately after this command is invoked, you should see the Argo command line begin processing, showing the inputs and the status of your Workflow.
+Immediately after the command is invoked, the Argo command line will begin processing, while displaying the inputs and the status of the Workflow.
 
 {% hint style="info" %}
 **Note**
 
-You may see some `Unschedulable` warnings at first; this is just because Kubernetes is evicting idle containers in order to get your systems ready to run.
+You may see some `Unschedulable` warnings at first; this is due to Kubernetes evicting idle containers in order to prepare the specified systems to run.
 {% endhint %}
 
-After about 1 minute, you should see output similar to the following:
+After about a minute, output similar to the following should be generated:
 
 ```bash
 Name:                render-sjf6t
@@ -291,8 +299,10 @@ STEP                                                   PODNAME                  
    └-✔ render(9:start:10,stop:10)(0) (render-blender)  render-sjf6t-2756728893  1m
 ```
 
-This output shows the status of the 10 frames you've specified being rendered on 10 different GPU instances with `4x NV_Pascal GPUs` each. You can now browse to your FileBrowser site via the Ingress URL provided in the application status page, where you should see a new folder named `outputs` with a sub-directory - in this example named `bmw27_gpu`. This directory should now contain the 10 newly rendered frames!
+This output shows the status of the 10 frames specified being rendered on 10 different GPU instances with four `NV_Pascal GPUs` per instance.
 
-<figure><img src="../../../../../.gitbook/assets/image (1) (1).png" alt="Newly rendered frames in the file browser"><figcaption><p>Newly rendered frames in the file browser</p></figcaption></figure>
+Now, using FileBrowser via the provided Ingress URL, a new folder named `outputs` has been generated, along with a subdirectory inside of it that contains the newly rendered frames. In this example, the subdirectory is named `bmw27_gpu`.
 
-With just some small changes to the Argo workflow we just built and used, you can now run your Blender GPU rendering on thousands of GPUs simultaneously!
+<figure><img src="../../../../.gitbook/assets/image (1) (1).png" alt="Newly rendered frames in the file browser"><figcaption><p>Newly rendered frames viewed in FileBrowser</p></figcaption></figure>
+
+Using this Argo Workflow as a template or starting point, it is easy to run Blender GPU rendering on thousands of GPUs simultaneously!

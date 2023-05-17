@@ -46,7 +46,7 @@ Once an invitation is accepted and the new user has completed registration, thei
 
 Under the **Actions** column, users may be deactivated and reactivated. Deactivating users will prevent them from accessing their account, but user accounts may be reactivated at any time. To manage the activation status of a user's account, click the button located on the left side of the user row.
 
-<figure><img src="../.gitbook/assets/image (19).png" alt=""><figcaption><p>Click the <strong>Deactivate</strong> button beside a user to deactivate their account</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (19) (2).png" alt=""><figcaption><p>Click the <strong>Deactivate</strong> button beside a user to deactivate their account</p></figcaption></figure>
 
 {% hint style="danger" %}
 **Warning**
@@ -66,4 +66,4 @@ As the organization admin, expand a user's details on the organization managemen
 
 At this time, organization admins can grant users all permissions in a given namespace with the exception of `w:pods` (write to Pods) and `w:full` (full `write` access). If users other than the organization admin require these permissions, please [contact support](https://cloud.coreweave.com/contact).
 
-<figure><img src="../.gitbook/assets/image (18).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (18) (1).png" alt=""><figcaption></figcaption></figure>

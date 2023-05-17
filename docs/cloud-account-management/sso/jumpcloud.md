@@ -8,7 +8,7 @@ To configure CoreWeave SSO using [JumpCloud](https://jumpcloud.com/) as your ide
 
 On the configuration screen, select **JumpCloud** from the **Your IDP** drop-down menu.
 
-<figure><img src="../../.gitbook/assets/image (22) (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (22) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 **Note**
@@ -20,7 +20,7 @@ It's recommended to keep the CoreWeave Cloud window open so that you may referen
 
 From your JumpCloud admin dashboard, navigate to the **SSO** page. From here, navigate to **User Authentication >** **SSO** to set up the configuration.
 
-<figure><img src="../../.gitbook/assets/image (52).png" alt="Screenshot of JumpCloud&#x27;s SSO configuration screen"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (52) (4).png" alt="Screenshot of JumpCloud&#x27;s SSO configuration screen"><figcaption></figcaption></figure>
 
 The **IdP Entity ID** field refers to the identity provider's entity ID. Take this value and input it into the **Entity ID provided by the IDP** field in [the CoreWeave Cloud SSO configuration module](./#the-saml-sso-modal).
 
@@ -38,7 +38,7 @@ The following fields - **SAMLSubject NameID**, **SAMLSubject NameID Format**, an
 | SAMLSubject NameID Format | `urn:oasis:name:tc:SAML:1.1:nameid-format:unspecified` |
 | Signature Algorithm       | `RSA-SHA256`                                           |
 
-<figure><img src="../../.gitbook/assets/image (17) (4).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (17) (4) (1).png" alt=""><figcaption></figcaption></figure>
 
 Leave the **Sign Assertion** checkbox unchecked.
 
@@ -67,7 +67,7 @@ The `email` attribute is what uniquely identifies users.
 
 ### Entity certificate
 
-<figure><img src="../../.gitbook/assets/image (35) (3).png" alt="Screenshot of the certificate status on JumpCloud SSO"><figcaption><p>The certificate status is found on the left-hand side of the SSO configuration box</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (35).png" alt="Screenshot of the certificate status on JumpCloud SSO"><figcaption><p>The certificate status is found on the left-hand side of the SSO configuration box</p></figcaption></figure>
 
 To acquire and provide the SSO certificate from JumpCloud to CoreWeave, first locate the certificate status field on the left-hand side of the JumpCloud SSO configuration modal. Click the small triangle to the right of the certificate status, then select **Download certificate**. An XML file will download, which contains the body of the x.509 certificate.
 

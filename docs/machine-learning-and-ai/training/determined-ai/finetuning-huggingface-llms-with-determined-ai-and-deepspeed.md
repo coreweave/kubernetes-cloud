@@ -84,7 +84,7 @@ The original username and password for the FileBrowser UI are both`admin`.
 Make sure to update these after logging in for the first time.
 {% endhint %}
 
-<figure><img src="../../../.gitbook/assets/image (31) (1) (1).png" alt=""><figcaption><p>FileBrowser UI for the mounted PVC after the required files have been uploaded.</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (31) (1) (1) (1).png" alt=""><figcaption><p>FileBrowser UI for the mounted PVC after the required files have been uploaded.</p></figcaption></figure>
 
 ### Set up the Determined CLI
 
@@ -290,7 +290,7 @@ Find the running experiments in the "Uncategorized" section of Determined's Web 
 
 The trial overview shows a lot of important info in one tab. You can see a graph of the trial's performance over time, along with a chart of the raw number visible in the graph.
 
-<figure><img src="../../../.gitbook/assets/image (22) (1).png" alt=""><figcaption><p>Overview tab for a Running Trial in the Determined Web UI</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (22) (1) (2).png" alt=""><figcaption><p>Overview tab for a Running Trial in the Determined Web UI</p></figcaption></figure>
 
 #### Checkpoints
 
@@ -332,7 +332,7 @@ The values used for the trial may be viewed in the hyperparameter tab. This tab 
 
 From the overview of an experiment that is running multiple trials, you can track the progress of all trials.&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (25).png" alt=""><figcaption><p>Experiment Overview with Multiple Trials</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (25) (2).png" alt=""><figcaption><p>Experiment Overview with Multiple Trials</p></figcaption></figure>
 
 #### Trials
 

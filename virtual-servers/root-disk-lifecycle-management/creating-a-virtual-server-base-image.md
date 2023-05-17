@@ -101,7 +101,7 @@ Using `kubectl get vs`, we can confirm `Started: False`:
 
 We can see that the PVC created along with our source Virtual Server persists with it shut off:
 
-![Output of "kubectl get pvc"](<../../docs/.gitbook/assets/image (34).png>)
+![Output of "kubectl get pvc"](<../../docs/.gitbook/assets/image (34) (1).png>)
 
 We will reference this PVC to create a new Virtual Server:
 
@@ -180,7 +180,7 @@ We can now safely delete our Virtual Server with `k delete vs vs-windows10-sourc
 
 With `k get pvc`, we can see our original Virtual Server PVC is now deleted, and only the clone remains:
 
-![Output of "kubectl get pvc"](<../../docs/.gitbook/assets/image (29) (3).png>)
+![Output of "kubectl get pvc"](<../../docs/.gitbook/assets/image (29) (2).png>)
 
 We'll adjust our Virtual Server spec to suit:
 

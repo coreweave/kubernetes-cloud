@@ -6,7 +6,7 @@ description: Deploy applications onto CoreWeave Cloud with just a few button cli
 
 The [CoreWeave Cloud applications Catalog](https://apps.coreweave.com) offers many useful applications that can be deployed and ready to use in just a few clicks. Throughout CoreWeave's documentation, particularly in examples, there will be instructions to deploy an application from the Catalog. Here is a basic overview of how the Catalog works, and how to deploy applications from within it.
 
-<figure><img src="../.gitbook/assets/image (24) (2).png" alt="Screenshot: The Catalog home page"><figcaption><p>The Catalog home page</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (24) (2) (1).png" alt="Screenshot: The Catalog home page"><figcaption><p>The Catalog home page</p></figcaption></figure>
 
 ## Access the Catalog
 

@@ -45,7 +45,7 @@ If you already have an API token to give to Zeet, skip this step. API tokens can
 
 After signing in to your CoreWeave Cloud account, navigate to the **API Access page**, or navigate directly to [`https://cloud.coreweave.com/api-access`](https://cloud.coreweave.com/api-access) in your browser.
 
-<figure><img src="../../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (1) (2).png" alt=""><figcaption></figcaption></figure>
 
 From this page, click the **Create a new token** button in the upper right-hand corner. This will generate a new API access token as well as a new `cw-kubeconfig` file embedding the same token.
 

@@ -28,7 +28,7 @@ All [configuration options](coreweave-apps.md#configuration-options) for the Vir
 
 All configuration options for the Virtual Server are set from the **New Virtual Server screen**.
 
-<figure><img src="../../docs/.gitbook/assets/image (41) (4).png" alt="New Virtual Server configuration screen"><figcaption></figcaption></figure>
+<figure><img src="../../docs/.gitbook/assets/image (41) (1).png" alt="New Virtual Server configuration screen"><figcaption></figcaption></figure>
 
 In the upper right-hand corner of the Virtual Server configuration screen, there are three buttons:
 
@@ -76,7 +76,7 @@ For more fine-grained control over the Virtual Server configuration, click the *
 
 The YAML editor allows the Custom Resource Definition (CRD) of the Virtual Server to be edited directly, offering a high level of both flexible customization and transparency. The CRD's YAML may also be copied from here for future programmatic deployments using the CLI.
 
-<figure><img src="../../docs/.gitbook/assets/image (72) (1).png" alt="Screenshot demonstrating that the YAML editor button is on the right-hand side of the screen"><figcaption><p>The View/Hide YAML tab is located on the right-hand side of the screen</p></figcaption></figure>
+<figure><img src="../../docs/.gitbook/assets/image (72).png" alt="Screenshot demonstrating that the YAML editor button is on the right-hand side of the screen"><figcaption><p>The View/Hide YAML tab is located on the right-hand side of the screen</p></figcaption></figure>
 
 ### Deploy the Virtual Server
 
@@ -90,7 +90,7 @@ Once your Virtual Server has begun deploying, you will be automatically redirect
 
 Click the new Virtual Server to expand its menu for more information and to see all options.
 
-<figure><img src="../../docs/.gitbook/assets/image (67) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../docs/.gitbook/assets/image (67).png" alt=""><figcaption></figcaption></figure>
 
 ### Virtual terminal
 
@@ -114,4 +114,4 @@ A basic diagnostic log of all actions involving the Virtual Server are recorded 
 The events listed under **Events** are short-lived, so should mostly be used for diagnostic purposes or for tracing the status of the Virtual Server.
 {% endhint %}
 
-<figure><img src="../../docs/.gitbook/assets/image (48) (1).png" alt="Screenshot of the events list"><figcaption></figcaption></figure>
+<figure><img src="../../docs/.gitbook/assets/image (48).png" alt="Screenshot of the events list"><figcaption></figcaption></figure>

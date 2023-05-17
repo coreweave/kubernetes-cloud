@@ -30,7 +30,7 @@ With the storage volumes allocated, they may now be presented with Samba-AD.
 
 Samba-AD is installed from [the Cloud UI Applications Catalog](../../../coreweave-kubernetes/applications-catalog.md) by searching `samba-ad`. Click the **samba-ad** card, then click the **Deploy** button to configure and launch Samba-AD.
 
-<figure><img src="../../../.gitbook/assets/image (3) (3).png" alt="Screenshot: search for samba-ad in the applications catalog to find it"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (3) (2).png" alt="Screenshot: search for samba-ad in the applications catalog to find it"><figcaption></figcaption></figure>
 
 ### Configure Samba-AD
 
@@ -46,7 +46,7 @@ The [post-deployment status page](../../../../virtual-servers/deployment-methods
 
 Repeating the steps above, a second Samba-AD instance is created, this one given the name `smbad02`.
 
-![](<../../../.gitbook/assets/image (74) (1) (1).png>)
+![](<../../../.gitbook/assets/image (74) (1).png>)
 
 {% hint style="info" %}
 **Note**
@@ -142,7 +142,7 @@ Under **Properties**, in the DFS tab, `smbad02` is shown as the currently active
 
 Copying a file to the DFS Root Folder path demonstrates that the file gets copied to the shares presented by the Samba-AD instances:
 
-<figure><img src="../../../.gitbook/assets/image (2) (2).png" alt="" width="375"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (3).png" alt="" width="375"><figcaption></figcaption></figure>
 
 ### Adding a secondary DFS Namespace Server
 

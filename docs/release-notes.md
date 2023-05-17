@@ -24,7 +24,7 @@ CoreWeave currently supports Okta, JumpCloud, and general, generic IDP configura
 
 Our sleek new Cloud UI overhaul for Virtual Servers makes creating high-performance virtual machines even easier than ever! And, for those who want even finer-grained control, the new YAML editor allows users to edit the Custom Resource Definition (CRD) directly, allowing for extreme flexibility.
 
-<figure><img src=".gitbook/assets/image (83).png" alt="Screenshot of the new Virtual Server UI"><figcaption><p>The new Virtual Server UI features a side-by-side YAML editor</p></figcaption></figure>
+<figure><img src=".gitbook/assets/image (83) (1).png" alt="Screenshot of the new Virtual Server UI"><figcaption><p>The new Virtual Server UI features a side-by-side YAML editor</p></figcaption></figure>
 
 <table data-card-size="large" data-view="cards"><thead><tr><th></th><th data-hidden></th><th data-hidden></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><span data-gb-custom-inline data-tag="emoji" data-code="1f449">👉</span> Learn about the new UI</td><td></td><td></td><td><a href="../virtual-servers/deployment-methods/coreweave-apps.md">coreweave-apps.md</a></td></tr><tr><td><span data-gb-custom-inline data-tag="emoji" data-code="1f389">🎉</span> See the new UI in action</td><td></td><td></td><td><a href="https://cloud.coreweave.com/virtualservers">https://cloud.coreweave.com/virtualservers</a></td></tr></tbody></table>
 

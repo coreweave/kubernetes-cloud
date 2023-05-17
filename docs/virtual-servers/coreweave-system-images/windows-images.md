@@ -243,7 +243,7 @@ Selecting "Modify" will prompt for an action to perform when it is detected that
 
 After selecting the desired re-size disk option, an additional prompt appears to set an action for newly detected RAW disks. Automatic formatting can be enabled or disabled with `true` or `false`.
 
-![Disabling auto RAW disk format](<../../.gitbook/assets/image (72) (2).png>)
+![Disabling auto RAW disk format](<../../.gitbook/assets/image (72) (2) (1).png>)
 
 #### CoreWeave Auto Shutdown
 
@@ -271,7 +271,7 @@ In order to ensure system stability and predictability, native Windows Update is
 
 There are no user configurable options for CoreWeave Windows Update. To revert to the default Windows Update behavior, simply uninstall from Windows Apps and Features:
 
-![](<../../.gitbook/assets/image (60) (1).png>)
+![](<../../.gitbook/assets/image (60) (1) (1).png>)
 
 #### CoreWeave PowerShell Profile
 

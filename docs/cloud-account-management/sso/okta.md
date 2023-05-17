@@ -67,7 +67,7 @@ Next, on the same page, configure the **Attribute Statements** for the SAML inte
 | email       | Unspecified | `user.email`     |
 | login       | Unspecified | `user.login`     |
 
-<figure><img src="../../.gitbook/assets/image (40).png" alt="Screenshot of the attribute statements formatted for Okta"><figcaption><p>Attribute statements formatted for Okta</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (40) (2).png" alt="Screenshot of the attribute statements formatted for Okta"><figcaption><p>Attribute statements formatted for Okta</p></figcaption></figure>
 
 {% hint style="info" %}
 **Note**
@@ -83,7 +83,7 @@ To acquire the identity provider URL, the IDP Single sign-on URL, and the X.509 
 
 This will redirect to a "How to" page, which contains all values for these fields.
 
-<figure><img src="../../.gitbook/assets/image (14) (1).png" alt="Screenshot of Okta setup"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (14) (1) (1).png" alt="Screenshot of Okta setup"><figcaption></figcaption></figure>
 
 The provided values in these fields must be added to their associated fields in [the CoreWeave SSO configuration menu](./#configure-coreweave-sso).
 

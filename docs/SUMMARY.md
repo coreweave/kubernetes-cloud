@@ -158,22 +158,24 @@
 
 ## VFX & Rendering
 
-* [Get Started with VFX Studios](vfx-and-rendering/vfx/README.md)
-  * [Managed Thinkbox Deadline](vfx-and-rendering/vfx/deadline.md)
-  * [On-Premise Integrations](vfx-and-rendering/vfx/on-premise-integration/README.md)
-    * [CoreWeave CloudLink on Linux](vfx-and-rendering/vfx/on-premise-integration/linux.md)
-    * [Synology NAS](vfx-and-rendering/vfx/on-premise-integration/synology-nas.md)
-
-***
-
-* [CoreWeave VFX Cloud Studio Reference Guide](cloud-studio-reference-guide/README.md)
-  * [Virtual Workstations](cloud-studio-reference-guide/virtual-workstations.md)
-  * [Rendering](cloud-studio-reference-guide/vfx-studio-components-guide.md)
-    * [CGI Rendering](cloud-studio-reference-guide/vfx-studio-components-guide/cgi-rendering/README.md)
-      * [CGI Rendering Using Workflows](machine-learning-and-ai/training/argo-workflows/cgi-rendering/cgi-rendering.md)
-  * [Storage](cloud-studio-reference-guide/storage.md)
-  * [Networking](cloud-studio-reference-guide/networking.md)
-  * [Management](cloud-studio-reference-guide/management.md)
+* [Get Started with VFX Studios](vfx-and-rendering/vfx.md)
+* [Virtual Workstations](vfx-and-rendering/virtual-workstations.md)
+* [How-To Guides and Tutorials](vfx-and-rendering/how-to-guides-and-tutorials/README.md)
+  * [Create a Virtual Workstation](vfx-and-rendering/how-to-guides-and-tutorials/create-a-virtual-workstation/README.md)
+    * [Create and Access Storage](vfx-and-rendering/how-to-guides-and-tutorials/create-a-virtual-workstation/storage/README.md)
+      * [Samba](vfx-and-rendering/how-to-guides-and-tutorials/create-a-virtual-workstation/storage/samba.md)
+      * [NFS](vfx-and-rendering/how-to-guides-and-tutorials/create-a-virtual-workstation/storage/nfs.md)
+      * [FileBrowser](storage/filebrowser.md)
+      * [Synology NAS](vfx-and-rendering/how-to-guides-and-tutorials/create-a-virtual-workstation/storage/synology-nas.md)
+      * [Media Shuttle](vfx-and-rendering/how-to-guides-and-tutorials/create-a-virtual-workstation/storage/media-shuttle.md)
+    * [Configure Networking](vfx-and-rendering/how-to-guides-and-tutorials/create-a-virtual-workstation/networking.md)
+  * [Manage Cloud Studios](vfx-and-rendering/how-to-guides-and-tutorials/management.md)
+  * [Run Rendering Jobs](vfx-and-rendering/how-to-guides-and-tutorials/vfx-studio-components-guide/README.md)
+    * [Deploy Thinkbox Deadline](vfx-and-rendering/how-to-guides-and-tutorials/vfx-studio-components-guide/deadline.md)
+    * [CGI Rendering with Argo Workflows](vfx-and-rendering/how-to-guides-and-tutorials/vfx-studio-components-guide/cgi-rendering.md)
+* [On-Premise Integration for Studios](vfx-and-rendering/on-premise-integration-for-studios/README.md)
+  * [Site-to-Site VPN](coreweave-kubernetes/networking/site-to-site-connections/site-to-site-vpn/README.md)
+  * [Transparent Cache](vfx-and-rendering/on-premise-integration-for-studios/transparent-cache.md)
 
 ## Cloud Account Management
 
