@@ -194,7 +194,7 @@ spec:
     - name: finetuner_image
       value: 'gooseai/finetuner'
     - name: finetuner_tag
-      value: 'cuda-11-8-torch-2-rc10'
+      value: '6c10019'
   templates:
   - name: main
     steps:
