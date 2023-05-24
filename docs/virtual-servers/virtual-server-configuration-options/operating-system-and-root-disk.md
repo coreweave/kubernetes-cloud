@@ -14,11 +14,7 @@ Click the OS type tab to see all currently available OS versions.
 {% tab title="Linux" %}
 ### Linux
 
-| Name   | Versions            |
-| ------ | ------------------- |
-| Rocky  | 8                   |
-| CentOS | 7                   |
-| Ubuntu | 18.04, 20.04, 22.04 |
+<table><thead><tr><th width="340">Name</th><th>Versions</th></tr></thead><tbody><tr><td>Rocky</td><td>8</td></tr><tr><td>CentOS</td><td>7</td></tr><tr><td>Ubuntu</td><td>18.04, 20.04, 22.04</td></tr></tbody></table>
 {% endtab %}
 
 {% tab title="Windows" %}
@@ -72,11 +68,7 @@ Example in plaintext:
 {% tab title="CLI" %}
 ## **Deployment method:** <mark style="background-color:green;">Kubernetes CLI</mark>
 
-| Field name          | Type    | Description                                                                                                     |
-| ------------------- | ------- | --------------------------------------------------------------------------------------------------------------- |
-| `os`                | Array   | Top-level field. Defines the Operating System specifications for the Virtual Server.                            |
-| `os.type`           | String  | The Operating System type, whether Linux or Windows.                                                            |
-| `os.enableUEFIBoot` | Boolean | <p>Whether or not to enable</p><p>the <a href="https://wiki.ubuntu.com/EFIBootLoaders">UEFI bootloader</a>.</p> |
+<table><thead><tr><th>Field name</th><th width="129">Type</th><th>Description</th></tr></thead><tbody><tr><td><code>os</code></td><td>Array</td><td>Top-level field. Defines the Operating System specifications for the Virtual Server.</td></tr><tr><td><code>os.type</code></td><td>String</td><td>The Operating System type, whether Linux or Windows.</td></tr><tr><td><code>os.enableUEFIBoot</code></td><td>Boolean</td><td><p>Whether or not to enable</p><p>the <a href="https://wiki.ubuntu.com/EFIBootLoaders">UEFI bootloader</a>.</p></td></tr></tbody></table>
 
 YAML example:
 
@@ -102,10 +94,7 @@ You can find the name of Operating System images (`vs_image`) in [the System Ima
 
 The table below describes all available configuration options for the Operating System.
 
-| Variable name | Variable type | Description                                                                                 | Default value                                                                                                            |
-| ------------- | ------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `vs_os_type`  | String        | The type (Windows or Linux) of Operating System with which to provision the Virtual Server. | `linux`                                                                                                                  |
-| `vs_image`    | String        | The name of the image to be used for the Operating System.                                  | <p><code>ubuntu2004-docker-master-20210601-ord1</code> </p><p>(The Ubuntu 20.04 image stored in the Chicago region.)</p> |
+<table><thead><tr><th width="157">Variable name</th><th width="124">Variable type</th><th>Description</th><th>Default value</th></tr></thead><tbody><tr><td><code>vs_os_type</code></td><td>String</td><td>The type (Windows or Linux) of Operating System with which to provision the Virtual Server.</td><td><code>linux</code></td></tr><tr><td><code>vs_image</code></td><td>String</td><td>The name of the image to be used for the Operating System.</td><td><p><code>ubuntu2004-docker-master-20210601-ord1</code> </p><p>(The Ubuntu 20.04 image stored in the Chicago region.)</p></td></tr></tbody></table>
 
 {% hint style="info" %}
 **Note**

@@ -24,10 +24,7 @@ There are other contractual documents that apply to the Customer’s use of the 
 
 CoreWeave provides the CoreWeave Cloud Platform as a Covered Service to the Customer at the following service level objectives (the "Service Level Objective" or "SLO")
 
-| Covered Service               | Monthly Uptime Percentage |
-| ----------------------------- | ------------------------- |
-| Instances in Multiple Regions | >= 99.9%                  |
-| Instances in a Single Region  | >= 99%                    |
+<table><thead><tr><th width="283.3333333333333">Covered Service</th><th>Monthly Uptime Percentage</th></tr></thead><tbody><tr><td>Instances in Multiple Regions</td><td>>= 99.9%</td></tr><tr><td>Instances in a Single Region</td><td>>= 99%</td></tr></tbody></table>
 
 If CoreWeave does not meet the SLO, and if Customer is otherwise in good standing and meeting its obligations, Customer will be eligible to receive the Financial Credits described below. This TOS states Customer’s sole and exclusive remedy for any failure by CoreWeave to meet the SLO. If CoreWeave authorizes the resale or supply of the CoreWeave Cloud Platform as a Covered Service under a CoreWeave Cloud partner or reseller program, then all references to Customer in this TOS shall mean Partner or Reseller (as applicable), and any Financial Credit(s) will only apply for impacted Partner or Reseller order(s).
 

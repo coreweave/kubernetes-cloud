@@ -37,15 +37,7 @@ If you are primarily using **Linux**, you will want to select **NFS**. Under **A
 
 Ensure that permissions for all Shared Folders accessible from CoreWeave Cloud are setup as described below. Provide the Mount path of the shares to your CoreWeave Specialist.
 
-| Setting                                     | Value                                                                           |
-| ------------------------------------------- | ------------------------------------------------------------------------------- |
-| Client Hostname or IP                       | `127.0.0.1`                                                                     |
-| Privilege                                   | `Read/Write` or `Read-Only` if writing render outputs to CoreWeave storage only |
-| Squash                                      | Implementation-dependent, start out with `No mapping` if unsure                 |
-| Security                                    | `Sys`                                                                           |
-| Enable Asynchronous                         | `Yes`                                                                           |
-| Allow connections from non-privileged ports | `Yes`                                                                           |
-| Allow users to access mounted subfolders    | `Yes`                                                                           |
+<table><thead><tr><th width="315">Setting</th><th>Value</th></tr></thead><tbody><tr><td>Client Hostname or IP</td><td><code>127.0.0.1</code></td></tr><tr><td>Privilege</td><td><code>Read/Write</code> or <code>Read-Only</code> if writing render outputs to CoreWeave storage only</td></tr><tr><td>Squash</td><td>Implementation-dependent, start out with <code>No mapping</code> if unsure</td></tr><tr><td>Security</td><td><code>Sys</code></td></tr><tr><td>Enable Asynchronous</td><td><code>Yes</code></td></tr><tr><td>Allow connections from non-privileged ports</td><td><code>Yes</code></td></tr><tr><td>Allow users to access mounted subfolders</td><td><code>Yes</code></td></tr></tbody></table>
 
 
 

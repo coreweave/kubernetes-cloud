@@ -31,13 +31,7 @@ This guide assumes that the following are completed in advance.
 
 The values used for this demo's [shared filesystem volume](install-determined-ai.md#create-a-shared-filesystem-volume) are as follows:
 
-| Field name       | Demo value          |
-| ---------------- | ------------------- |
-| **Volume Name**  | `finetune-gpt-neox` |
-| **Region**       | `LAS1`              |
-| **Disk Class**   | `HDD`               |
-| **Storage Type** | Shared Filesystem   |
-| **Size (Gi)**    | `1000`              |
+<table><thead><tr><th width="283">Field name</th><th>Demo value</th></tr></thead><tbody><tr><td><strong>Volume Name</strong></td><td><code>finetune-gpt-neox</code></td></tr><tr><td><strong>Region</strong></td><td><code>LAS1</code></td></tr><tr><td><strong>Disk Class</strong></td><td><code>HDD</code></td></tr><tr><td><strong>Storage Type</strong></td><td>Shared Filesystem</td></tr><tr><td><strong>Size (Gi)</strong></td><td><code>1000</code></td></tr></tbody></table>
 
 {% hint style="info" %}
 **Note**

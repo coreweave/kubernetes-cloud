@@ -25,11 +25,7 @@ Not all port speeds are available for all carriers.
 
 In addition to dedicated connections to our data centers, CoreWeave also offers network POPs in select locations to support customer demand. These CoreWeave Cloud On-Ramps may provide a low cost option to connect with your cloud environment.
 
-| Region / Location   | On-Net Carriers                                                                | Port Speeds       |
-| ------------------- | ------------------------------------------------------------------------------ | ----------------- |
-| LAX1 (CoreSite LA2) | [https://www.coresite.com/carrier-list](https://www.coresite.com/carrier-list) | 1Gbps to 100Gbps  |
-| LAS1 (Megaport)     | [https://www.megaport.com/](https://www.megaport.com/)                         | 100Mbps to 10Gbps |
-| LGA1 (Megaport)     | [https://www.megaport.com/](https://www.megaport.com/)                         | 100Mbps to 10Gbps |
+<table><thead><tr><th width="230.30927835051548">Region / Location</th><th width="311.3333333333333">On-Net Carriers</th><th>Port Speeds</th></tr></thead><tbody><tr><td>LAX1 (CoreSite LA2)</td><td><a href="https://www.coresite.com/carrier-list">https://www.coresite.com/carrier-list</a></td><td>1Gbps to 100Gbps</td></tr><tr><td>LAS1 (Megaport)</td><td><a href="https://www.megaport.com/">https://www.megaport.com/</a></td><td>100Mbps to 10Gbps</td></tr><tr><td>LGA1 (Megaport)</td><td><a href="https://www.megaport.com/">https://www.megaport.com/</a></td><td>100Mbps to 10Gbps</td></tr></tbody></table>
 
 {% hint style="info" %}
 **Note**\

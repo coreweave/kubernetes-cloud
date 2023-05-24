@@ -141,10 +141,7 @@ This script is simply written to an outfile called `cw_adds_setup.ps1`.
 
 When executed, the script prompts the user to provide the following:
 
-| **Domain Name**                   | The name of the Active Directory Domain                                                                                               |
-| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| **CoreWeave Tenant Name**         | The name of the CoreWeave tenant - usually `tenant-<orgname>-<namespace>.` Used to integrate your DNS Suffix with Kubernetes Core DNS |
-| **SafeModeAdministratorPassword** | Used for [Directory Services Restore Mode](https://en.wikipedia.org/wiki/Directory\_Services\_Restore\_Mode)                          |
+<table data-header-hidden><thead><tr><th width="327">Prompt</th><th width="372">Description</th></tr></thead><tbody><tr><td><strong>Domain Name</strong></td><td>The name of the Active Directory Domain</td></tr><tr><td><strong>CoreWeave Tenant Name</strong></td><td>The name of the CoreWeave tenant - usually <code>tenant-&#x3C;orgname>-&#x3C;namespace>.</code> Used to integrate your DNS Suffix with Kubernetes Core DNS</td></tr><tr><td><strong>SafeModeAdministratorPassword</strong></td><td>Used for <a href="https://en.wikipedia.org/wiki/Directory_Services_Restore_Mode">Directory Services Restore Mode</a></td></tr></tbody></table>
 
 <figure><img src="../../../../.gitbook/assets/image (9).png" alt="The PowerShell script, executed"><figcaption></figcaption></figure>
 
@@ -152,11 +149,7 @@ When the script is finished executing, the server will automatically reboot as p
 
 In this example, the server is constructed with the following attributes:
 
-| **Domain Name**       | AD                                                      |
-| --------------------- | ------------------------------------------------------- |
-| **Search Realm**      | ad.tenant-orgname-namespace.svc.tenant.chi.local        |
-| **PDC/DNS Server IP** | 10.135.123.123                                          |
-| **PDC FQDN**          | vs-pdc.ad.tenant-orgname-namespace.svc.tenant.chi.local |
+<table data-header-hidden><thead><tr><th width="213"></th><th></th></tr></thead><tbody><tr><td><strong>Domain Name</strong></td><td>AD</td></tr><tr><td><strong>Search Realm</strong></td><td>ad.tenant-orgname-namespace.svc.tenant.chi.local</td></tr><tr><td><strong>PDC/DNS Server IP</strong></td><td>10.135.123.123</td></tr><tr><td><strong>PDC FQDN</strong></td><td>vs-pdc.ad.tenant-orgname-namespace.svc.tenant.chi.local</td></tr></tbody></table>
 
 The Windows Server is now fully provisioned!
 
@@ -232,10 +225,7 @@ As before, the script is printed to an output file, and then executed afterwards
 
 When executed, the script prompts the user to provide the following:
 
-| **Domain Name**                   | The name of the Active Directory Domain                                                                                               |
-| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| **CoreWeave Tenant Name**         | The name of the CoreWeave tenant - usually `tenant-<orgname>-<namespace>.` Used to integrate your DNS Suffix with Kubernetes Core DNS |
-| **SafeModeAdministratorPassword** | Used for [Directory Services Restore Mode](https://en.wikipedia.org/wiki/Directory\_Services\_Restore\_Mode)                          |
+<table data-header-hidden><thead><tr><th width="327">Prompt</th><th width="372">Description</th></tr></thead><tbody><tr><td><strong>Domain Name</strong></td><td>The name of the Active Directory Domain</td></tr><tr><td><strong>CoreWeave Tenant Name</strong></td><td>The name of the CoreWeave tenant - usually <code>tenant-&#x3C;orgname>-&#x3C;namespace>.</code> Used to integrate your DNS Suffix with Kubernetes Core DNS</td></tr><tr><td><strong>SafeModeAdministratorPassword</strong></td><td>Used for <a href="https://en.wikipedia.org/wiki/Directory_Services_Restore_Mode">Directory Services Restore Mode</a></td></tr></tbody></table>
 
 The server will automatically reboot. After rebooting, the Domain Controller status is confirmed using `Get-ADDomainController`:
 

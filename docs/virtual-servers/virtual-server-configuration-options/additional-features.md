@@ -174,12 +174,7 @@ Configuring the [RunStrategy](https://kubevirt.io/user-guide/virtual\_machines/r
 \
 All available RunStrategy options:
 
-| Option           | Description                                                                                                                                                                                                                                           |
-| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Always`         | A Virtual Server will always be present. If the Virtual Server crashed, a new one will be spawned.                                                                                                                                                    |
-| `RerunOnFailure` | <mark style="background-color:green;">Default.</mark> A `VirtualMachineInstance` will be respawned if the previous instance failed in an error state. It will not be re-created if the guest stopped successfully (e.g. shut down from inside guest). |
-| `Manual`         | The presence of a `VirtualMachineInstance` or lack thereof is controlled exclusively by the start/stop/restart VirtualMachine subresource endpoints.                                                                                                  |
-| `Halted`         | No VirtualMachineInstance will be present. If a guest is already running, it will be stopped. This is the same behavior as `spec.running: false`.                                                                                                     |
+<table><thead><tr><th width="243.5">Option</th><th>Description</th></tr></thead><tbody><tr><td><code>Always</code></td><td>A Virtual Server will always be present. If the Virtual Server crashed, a new one will be spawned.</td></tr><tr><td><code>RerunOnFailure</code></td><td><mark style="background-color:green;">Default.</mark> A <code>VirtualMachineInstance</code> will be respawned if the previous instance failed in an error state. It will not be re-created if the guest stopped successfully (e.g. shut down from inside guest).</td></tr><tr><td><code>Manual</code></td><td>The presence of a <code>VirtualMachineInstance</code> or lack thereof is controlled exclusively by the start/stop/restart VirtualMachine subresource endpoints.</td></tr><tr><td><code>Halted</code></td><td>No VirtualMachineInstance will be present. If a guest is already running, it will be stopped. This is the same behavior as <code>spec.running: false</code>.</td></tr></tbody></table>
 
 {% hint style="info" %}
 **Additional Resources**\
@@ -192,9 +187,7 @@ See [the Kubevirt documentation](https://kubevirt.io/user-guide/virtual\_machine
 
 To change the default RunStrategy for a Virtual Server, define the strategy to use in the `spec.runStrategy` field using the YAML editor.
 
-| Field name    | Field type                                                                                             | Description                                                                                                                                           |
-| ------------- | ------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `runStrategy` | [VirtualMachineRunStrategy](https://pkg.go.dev/kubevirt.io/client-go/api/v1#VirtualMachineRunStrategy) | Defines [RunStrategy](https://kubevirt.io/user-guide/virtual\_machines/run\_strategies/#run-strategies) parameter. Default value is `RerunOnFailure`. |
+<table><thead><tr><th width="202.05647618918073">Field name</th><th width="262.35377875136913">Field type</th><th>Description</th></tr></thead><tbody><tr><td><code>runStrategy</code></td><td><a href="https://pkg.go.dev/kubevirt.io/client-go/api/v1#VirtualMachineRunStrategy">VirtualMachineRunStrategy</a></td><td>Defines <a href="https://kubevirt.io/user-guide/virtual_machines/run_strategies/#run-strategies">RunStrategy</a> parameter. Default value is <code>RerunOnFailure</code>.</td></tr></tbody></table>
 
 Example in plain text:
 
@@ -208,9 +201,7 @@ Example in plain text:
 
 To change the default RunStrategy for a Virtual Server, define the strategy to use in the `spec.runStrategy` field.
 
-| Field name    | Field type                                                                                             | Description                                                                                                                                           |
-| ------------- | ------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `runStrategy` | [VirtualMachineRunStrategy](https://pkg.go.dev/kubevirt.io/client-go/api/v1#VirtualMachineRunStrategy) | Defines [RunStrategy](https://kubevirt.io/user-guide/virtual\_machines/run\_strategies/#run-strategies) parameter. Default value is `RerunOnFailure`. |
+<table><thead><tr><th width="199.05647618918073">Field name</th><th width="262.35377875136913">Field type</th><th>Description</th></tr></thead><tbody><tr><td><code>runStrategy</code></td><td><a href="https://pkg.go.dev/kubevirt.io/client-go/api/v1#VirtualMachineRunStrategy">VirtualMachineRunStrategy</a></td><td>Defines <a href="https://kubevirt.io/user-guide/virtual_machines/run_strategies/#run-strategies">RunStrategy</a> parameter. Default value is <code>RerunOnFailure</code>.</td></tr></tbody></table>
 
 Example in plain text:
 
@@ -239,9 +230,7 @@ Enables virtio-transitional to support compatibility with older guest Operating 
 
 Open the YAML editor to configure virtio-transitional.
 
-| Field name              | Field type |
-| ----------------------- | ---------- |
-| `useVirtioTransitional` | Boolean    |
+<table><thead><tr><th width="302.1730103806228">Field name</th><th>Field type</th></tr></thead><tbody><tr><td><code>useVirtioTransitional</code></td><td>Boolean</td></tr></tbody></table>
 
 Example in plain text:
 
@@ -255,9 +244,7 @@ useVirtioTransitional: false
 
 Enabling virtio-transitional is done by configuring the Kubernetes manifest.
 
-| Field name              | Field type |
-| ----------------------- | ---------- |
-| `useVirtioTransitional` | Boolean    |
+<table><thead><tr><th width="281.66666666666663">Field name</th><th>Field type</th></tr></thead><tbody><tr><td><code>useVirtioTransitional</code></td><td>Boolean</td></tr></tbody></table>
 
 \
 Example in plain text:
@@ -287,9 +274,7 @@ Specifies the number in seconds before the guest is killed, allowing the operati
 
 Open the YAML editor to configure `terminationGracePeriodSeconds`.
 
-| Field name                      | Field type | Default values                                                               |
-| ------------------------------- | ---------- | ---------------------------------------------------------------------------- |
-| `terminationGracePeriodSeconds` | Integer    | <p><code>60</code> - Linux systems<br><code>300</code> - Windows systems</p> |
+<table><thead><tr><th width="360.41564792176035">Field name</th><th width="119">Field type</th><th>Default values</th></tr></thead><tbody><tr><td><code>terminationGracePeriodSeconds</code></td><td>Integer</td><td><code>60</code> - Linux systems<br><code>300</code> - Windows systems</td></tr></tbody></table>
 
 Example in plain text:
 
@@ -303,9 +288,7 @@ terminationGracePeriodSeconds: 60
 
 Configuring the termination grace period is done through the Kubernetes manifest.
 
-| Field name                      | Field type | Default value                                                                |
-| ------------------------------- | ---------- | ---------------------------------------------------------------------------- |
-| `terminationGracePeriodSeconds` | Integer    | <p><code>60</code> - Linux systems<br><code>300</code> - Windows systems</p> |
+<table><thead><tr><th width="360.41564792176035">Field name</th><th width="150">Field type</th><th>Default value</th></tr></thead><tbody><tr><td><code>terminationGracePeriodSeconds</code></td><td>Integer</td><td><code>60</code> - Linux systems<br><code>300</code> - Windows systems</td></tr></tbody></table>
 
 Example in plain text:
 
@@ -335,9 +318,7 @@ Determines whether or not the Virtual Server should be started as soon as it is 
 
 Open the YAML editor to configure `initializeRunning`.
 
-| Field name          | Field type |
-| ------------------- | ---------- |
-| `initializeRunning` | Boolean    |
+<table><thead><tr><th width="283.74590044991317">Field name</th><th width="150">Field type</th></tr></thead><tbody><tr><td><code>initializeRunning</code></td><td>Boolean</td></tr></tbody></table>
 
 Example in plain text:
 
@@ -351,9 +332,7 @@ terminationGracePeriodSeconds: 60
 
 Configuring `initializeRunning` is done through the Kubernetes manifest.
 
-| Field name          | Field type |
-| ------------------- | ---------- |
-| `initializeRunning` | Boolean    |
+<table><thead><tr><th width="278.6519660994684">Field name</th><th width="150">Field type</th></tr></thead><tbody><tr><td><code>initializeRunning</code></td><td>Boolean</td></tr></tbody></table>
 
 Example in plain text:
 
@@ -382,10 +361,7 @@ Floating services, sometimes called floating IPs, allows users to create their o
 
 Open the YAML editor to configure floating services under the `.network.floatingIPs` stanza . This field is a list of load balancer Service names. If configured, the Virtual Server will be assigned floating IPs from the load balancer IP of each service.
 
-| Field name                           | Field type | Description                                              |
-| ------------------------------------ | ---------- | -------------------------------------------------------- |
-| `network.floatingIPs`                | List       | A list of Service references to be added as floating IPs |
-| `network.floatingIPs[ ].serviceName` | String     | <p>The name of the Service<br></p>                       |
+<table><thead><tr><th width="289.39440482720784">Field name</th><th width="92">Field type</th><th>Description</th></tr></thead><tbody><tr><td><code>network.floatingIPs</code></td><td>List</td><td>A list of Service references to be added as floating IPs</td></tr><tr><td><code>network.floatingIPs[ ].serviceName</code></td><td>String</td><td>The name of the Service<br></td></tr></tbody></table>
 
 Example in plain text:
 
@@ -401,10 +377,7 @@ Example in plain text:
 
 To deploy a Floating IP service, configure the following fields.
 
-| Field name                           | Field type | Description                                              |
-| ------------------------------------ | ---------- | -------------------------------------------------------- |
-| `network.floatingIPs`                | List       | A list of Service references to be added as floating IPs |
-| `network.floatingIPs[ ].serviceName` | String     | <p>The name of the Service<br></p>                       |
+<table><thead><tr><th width="289.39440482720784">Field name</th><th width="92">Field type</th><th>Description</th></tr></thead><tbody><tr><td><code>network.floatingIPs</code></td><td>List</td><td>A list of Service references to be added as floating IPs</td></tr><tr><td><code>network.floatingIPs[ ].serviceName</code></td><td>String</td><td>The name of the Service<br></td></tr></tbody></table>
 
 Example in plain text:
 

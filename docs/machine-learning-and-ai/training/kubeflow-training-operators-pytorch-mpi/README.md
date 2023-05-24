@@ -70,8 +70,5 @@ You might see the `launcher` pod fail a couple of times if the `worker` pod is s
 The names of MPIJobs are unique. An old job must be deleted before a new one can be created with the same name.
 {% endhint %}
 
-| Example title                                                               | Description                                          |
-| --------------------------------------------------------------------------- | ---------------------------------------------------- |
-| [ResNet-50](train-resnet-50-with-imagenet.md)                               | PyTorchJob and MPIJob to train ResNet-50 on ImageNet |
-| [GPT-NeoX-20B](../fine-tuning/finetune-gpt-neox-20b-with-argo-workflows.md) | Argo Workflow to fine-tune GPT-NeoX-20B with MPIJob  |
+<table><thead><tr><th width="184">Example title</th><th>Description</th></tr></thead><tbody><tr><td><a href="train-resnet-50-with-imagenet.md">ResNet-50</a></td><td>PyTorchJob and MPIJob to train ResNet-50 on ImageNet</td></tr><tr><td><a href="../fine-tuning/finetune-gpt-neox-20b-with-argo-workflows.md">GPT-NeoX-20B</a></td><td>Argo Workflow to fine-tune GPT-NeoX-20B with MPIJob</td></tr></tbody></table>
 

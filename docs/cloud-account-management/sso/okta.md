@@ -46,13 +46,7 @@ Check the box beside "Use this for the Recipient URL and the Destination URL."
 
 The general configuration fields should be set to the following values:
 
-| Field                         | Value                                                                   |
-| ----------------------------- | ----------------------------------------------------------------------- |
-| Single sign-on URL            | Provided by CoreWeave. (See: [Configure the IDP](./#configure-the-idp)) |
-| Audience URI (SP Entity ID)   | Provided by CoreWeave. (See: [Configure the IDP](./#configure-the-idp)) |
-| Name ID format                | `Unspecified`                                                           |
-| Application username          | `Okta username`                                                         |
-| Update applicaton username on | `Create and update`                                                     |
+<table><thead><tr><th width="336">Field</th><th>Value</th></tr></thead><tbody><tr><td>Single sign-on URL</td><td>Provided by CoreWeave. (See: <a href="./#configure-the-idp">Configure the IDP</a>)</td></tr><tr><td>Audience URI (SP Entity ID)</td><td>Provided by CoreWeave. (See: <a href="./#configure-the-idp">Configure the IDP</a>)</td></tr><tr><td>Name ID format</td><td><code>Unspecified</code></td></tr><tr><td>Application username</td><td><code>Okta username</code></td></tr><tr><td>Update applicaton username on</td><td><code>Create and update</code></td></tr></tbody></table>
 
 <figure><img src="../../.gitbook/assets/image (3) (1) (1).png" alt="Screenshot of a complete SAML integration for CoreWeave Cloud on the Okta side"><figcaption><p>A complete SAML integration for CoreWeave Cloud on the Okta side</p></figcaption></figure>
 
@@ -60,12 +54,7 @@ The general configuration fields should be set to the following values:
 
 Next, on the same page, configure the **Attribute Statements** for the SAML integration. The attribute statements fields should be set to the following:
 
-| Name        | Name format | Value            |
-| ----------- | ----------- | ---------------- |
-| first\_name | Unspecified | `user.firstName` |
-| last\_name  | Unspecified | `user.lastName`  |
-| email       | Unspecified | `user.email`     |
-| login       | Unspecified | `user.login`     |
+<table><thead><tr><th width="223">Name</th><th width="225.33333333333331">Name format</th><th>Value</th></tr></thead><tbody><tr><td>first_name</td><td>Unspecified</td><td><code>user.firstName</code></td></tr><tr><td>last_name</td><td>Unspecified</td><td><code>user.lastName</code></td></tr><tr><td>email</td><td>Unspecified</td><td><code>user.email</code></td></tr><tr><td>login</td><td>Unspecified</td><td><code>user.login</code></td></tr></tbody></table>
 
 <figure><img src="../../.gitbook/assets/image (40) (2).png" alt="Screenshot of the attribute statements formatted for Okta"><figcaption><p>Attribute statements formatted for Okta</p></figcaption></figure>
 

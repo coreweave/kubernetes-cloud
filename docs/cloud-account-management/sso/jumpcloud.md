@@ -32,11 +32,7 @@ Next, in the **ACS URL** field, enter the ACS URL provided in [the CoreWeave Clo
 
 The following fields - **SAMLSubject NameID**, **SAMLSubject NameID Format**, and **Signature Algorithm**, should match the following values to properly format the user attributes:
 
-| Field name                | Field value                                            |
-| ------------------------- | ------------------------------------------------------ |
-| SAMLSubject NameID        | `email`                                                |
-| SAMLSubject NameID Format | `urn:oasis:name:tc:SAML:1.1:nameid-format:unspecified` |
-| Signature Algorithm       | `RSA-SHA256`                                           |
+<table><thead><tr><th width="297">Field name</th><th>Field value</th></tr></thead><tbody><tr><td>SAMLSubject NameID</td><td><code>email</code></td></tr><tr><td>SAMLSubject NameID Format</td><td><code>urn:oasis:name:tc:SAML:1.1:nameid-format:unspecified</code></td></tr><tr><td>Signature Algorithm</td><td><code>RSA-SHA256</code></td></tr></tbody></table>
 
 <figure><img src="../../.gitbook/assets/image (17) (4) (1).png" alt=""><figcaption></figcaption></figure>
 
@@ -50,12 +46,7 @@ The **IDP URL** field will contain some value equivalent to `https://sso.jumpclo
 
 Under the **IDP URL** field in the **Attributes** section are several fields for **Attributes**. The given JumpCloud attributes should match the following formats:
 
-| Service Provider Attribute Name | JumpCloud Attribute Name |
-| ------------------------------- | ------------------------ |
-| first\_name                     | `firstname`              |
-| last\_name                      | `lastname`               |
-| email                           | `email`                  |
-| login                           | `email`                  |
+<table><thead><tr><th width="357">Service Provider Attribute Name</th><th>JumpCloud Attribute Name</th></tr></thead><tbody><tr><td>first_name</td><td><code>firstname</code></td></tr><tr><td>last_name</td><td><code>lastname</code></td></tr><tr><td>email</td><td><code>email</code></td></tr><tr><td>login</td><td><code>email</code></td></tr></tbody></table>
 
 <figure><img src="../../.gitbook/assets/image (56) (3).png" alt="Screenshot of JumpCloud SSO attributes"><figcaption></figcaption></figure>
 

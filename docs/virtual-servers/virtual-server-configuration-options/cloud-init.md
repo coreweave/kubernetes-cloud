@@ -61,8 +61,7 @@ Lastly, the system will run the commands given under the `runcmd` list:
 
 [Cloud-init](https://cloudinit.readthedocs.io/en/latest/) parameters are configured for Virtual Servers using the `cloudInit` field.
 
-| `cloudInit` | String | Define [cloud-init](https://cloudinit.readthedocs.io/en/latest/) parameter |
-| ----------- | ------ | -------------------------------------------------------------------------- |
+<table data-header-hidden><thead><tr><th width="221">Field name</th><th width="121">Field type</th><th>Description</th></tr></thead><tbody><tr><td><code>cloudInit</code></td><td>String</td><td>Define <a href="https://cloudinit.readthedocs.io/en/latest/">cloud-init</a> parameter</td></tr></tbody></table>
 
 ```yaml
   cloudInit: |

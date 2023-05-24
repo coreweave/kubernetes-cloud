@@ -20,11 +20,7 @@ Kubernetes tools like [kubectl](kubectl.md), Helm, and Argo Workflows follow an 
 
 This location is used unless overridden by another option.&#x20;
 
-| Operating System | Default path                     |
-| ---------------- | -------------------------------- |
-| Linux            | `~/.kube/config`                 |
-| macOS            | `/Users/<username>/.kube/config` |
-| Windows          | `%USERPROFILE%\.kube\config`     |
+<table><thead><tr><th width="253">Operating System</th><th>Default path</th></tr></thead><tbody><tr><td>Linux</td><td><code>~/.kube/config</code></td></tr><tr><td>macOS</td><td><code>/Users/&#x3C;username>/.kube/config</code></td></tr><tr><td>Windows</td><td><code>%USERPROFILE%\.kube\config</code></td></tr></tbody></table>
 
 ## Next priority: Environment variable
 

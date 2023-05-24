@@ -182,37 +182,19 @@ curl -d '{"parameters": {"min_length":50,"max_length":250}, "instances": ["Quest
 
 ### **General**
 
-| Parameter | Description                                                                                                                                                                                         |
-| --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `GPU`     | Select the proper GPU model. GPT-J-6B should fit into 16GB of VRAM. See [Node Types](../../../../../coreweave-kubernetes/node-types.md#component-availability) for a full list of available labels. |
+<table><thead><tr><th width="353">Parameter</th><th>Description</th></tr></thead><tbody><tr><td><code>GPU</code></td><td>Select the proper GPU model. GPT-J-6B should fit into 16GB of VRAM. See <a href="../../../../../coreweave-kubernetes/node-types.md#component-availability">Node Types</a> for a full list of available labels.</td></tr></tbody></table>
 
 ### **Model parameters**
 
-| Parameter            | Description                                                                                                                                                                                                                                                                              |
-| -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Precision.native`   | Uses the native model's precision.                                                                                                                                                                                                                                                       |
-| `Precision.ftp16`    | Increases the performance and occupies less memory in GPU.                                                                                                                                                                                                                               |
-| `Precision.bfloat16` | Increases the precession and occupies less memory in GPU. `bfloat16` provides better accuracy on Ampere platforms but can not be used on Turing or Volta. Please use `fp16` on those platforms.                                                                                          |
-| `min_length`         | A minimum number of tokens to generate.                                                                                                                                                                                                                                                  |
-| `max_length`         | A maximum number of tokens to generate. (**Note:** The maximum number of tokens for GPT-J-6B is 2048. Usually, the number of tokens is greater than the number of words. See [Summary of the tokenizers](https://huggingface.co/transformers/tokenizer\_summary.html) for more details.) |
-| `temperature`        | Controls the randomness of the response. A lower value means that the model generates a more deterministic output. A higher value means more explorative and risky output.                                                                                                               |
-| `top_k`              | GPT-J-6B generates several attempts to complete a prompt, and it assigns different probabilities to each attempt. `top_k` describes the number of the most likely attempts.                                                                                                              |
-| `top_p`              | It is an alternative method to `temperature`. A lower value means more likely and safe tokens, and a higher value returns more creative tokens.                                                                                                                                          |
-| `repetition_penalty` | Avoids sentences that repeat themselves without anything really interesting.                                                                                                                                                                                                             |
+<table><thead><tr><th width="351">Parameter</th><th>Description</th></tr></thead><tbody><tr><td><code>Precision.native</code></td><td>Uses the native model's precision.</td></tr><tr><td><code>Precision.ftp16</code></td><td>Increases the performance and occupies less memory in GPU.</td></tr><tr><td><code>Precision.bfloat16</code></td><td>Increases the precession and occupies less memory in GPU. <code>bfloat16</code> provides better accuracy on Ampere platforms but can not be used on Turing or Volta. Please use <code>fp16</code> on those platforms.</td></tr><tr><td><code>min_length</code></td><td>A minimum number of tokens to generate.</td></tr><tr><td><code>max_length</code></td><td>A maximum number of tokens to generate. (<strong>Note:</strong> The maximum number of tokens for GPT-J-6B is 2048. Usually, the number of tokens is greater than the number of words. See <a href="https://huggingface.co/transformers/tokenizer_summary.html">Summary of the tokenizers</a> for more details.)</td></tr><tr><td><code>temperature</code></td><td>Controls the randomness of the response. A lower value means that the model generates a more deterministic output. A higher value means more explorative and risky output.</td></tr><tr><td><code>top_k</code></td><td>GPT-J-6B generates several attempts to complete a prompt, and it assigns different probabilities to each attempt. <code>top_k</code> describes the number of the most likely attempts.</td></tr><tr><td><code>top_p</code></td><td>It is an alternative method to <code>temperature</code>. A lower value means more likely and safe tokens, and a higher value returns more creative tokens.</td></tr><tr><td><code>repetition_penalty</code></td><td>Avoids sentences that repeat themselves without anything really interesting.</td></tr></tbody></table>
 
 ### **Inference service setup**
 
-| Parameter                       | Description                                                                                                                                            |
-| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `minReplicas`                   | A number of minimum replicas, when 0, allows scaling to zero serving pods. Scale replicas up may take a few minutes before the service is fully ready. |
-| `maxReplicas`                   | A number of maximum replicas                                                                                                                           |
-| `scaleToZeroPodRetentionPeriod` | The minimum amount of time that the last pod remains active after the Autoscaler decides to scale pods to zero.                                        |
+<table><thead><tr><th width="350">Parameter</th><th>Description</th></tr></thead><tbody><tr><td><code>minReplicas</code></td><td>A number of minimum replicas, when 0, allows scaling to zero serving pods. Scale replicas up may take a few minutes before the service is fully ready.</td></tr><tr><td><code>maxReplicas</code></td><td>A number of maximum replicas</td></tr><tr><td><code>scaleToZeroPodRetentionPeriod</code></td><td>The minimum amount of time that the last pod remains active after the Autoscaler decides to scale pods to zero.</td></tr></tbody></table>
 
 ### **Cache parameters**
 
-| Parameter   | Description                                                       |
-| ----------- | ----------------------------------------------------------------- |
-| `Disk size` | The size of created PVC disk that stores the model and tokenizer. |
+<table><thead><tr><th width="353">Parameter</th><th>Description</th></tr></thead><tbody><tr><td><code>Disk size</code></td><td>The size of created PVC disk that stores the model and tokenizer.</td></tr></tbody></table>
 
 ## Benchmark
 
@@ -220,11 +202,7 @@ The option allows running a benchmark in a separate job. The benchmark runs a lo
 
 ### **Benchmark parameters**
 
-| Parameter          | Description                                                                                                                       |
-| ------------------ | --------------------------------------------------------------------------------------------------------------------------------- |
-| `Batch size`       | The maximum number of generations in a single query. The bigger batch, the more VRAM occupies. When 0, the benchmark won't start. |
-| `Warmup rounds`    | Run an additional number of warmups before the benchmark.                                                                         |
-| `Benchmark` `only` | When set, the application does not start the Inference Service, only the benchmark.                                               |
+<table><thead><tr><th width="359">Parameter</th><th>Description</th></tr></thead><tbody><tr><td><code>Batch size</code></td><td>The maximum number of generations in a single query. The bigger batch, the more VRAM occupies. When 0, the benchmark won't start.</td></tr><tr><td><code>Warmup rounds</code></td><td>Run an additional number of warmups before the benchmark.</td></tr><tr><td><code>Benchmark</code> <code>only</code></td><td>When set, the application does not start the Inference Service, only the benchmark.</td></tr></tbody></table>
 
 The following table contains the data for responses of the GPT-J6B model for various sequence lengths per second for half precision (`fp16`). Brain Floating Point (`bfloat16`) precision has the same performance as `fp16`, but offers higher accuracy. It is not available on Turing and Volta architectures.
 

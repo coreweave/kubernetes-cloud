@@ -8,9 +8,7 @@ The [Examples and Tutorials](../) section provides step-by-step guides for deplo
 
 ## Available One-Click Models
 
-| One-Click Models                          | Description                                                                                                        |
-| ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
-| [GPT-J-6B Inference Service](gpt-j-6b.md) | One-click deploy for [Eleuther AI scalable transformer model GPT-J-6B](https://huggingface.co/EleutherAI/gpt-j-6B) |
+<table><thead><tr><th width="340">One-Click Models</th><th>Description</th></tr></thead><tbody><tr><td><a href="gpt-j-6b.md">GPT-J-6B Inference Service</a></td><td>One-click deploy for <a href="https://huggingface.co/EleutherAI/gpt-j-6B">Eleuther AI scalable transformer model GPT-J-6B</a></td></tr></tbody></table>
 
 ## Deploy
 

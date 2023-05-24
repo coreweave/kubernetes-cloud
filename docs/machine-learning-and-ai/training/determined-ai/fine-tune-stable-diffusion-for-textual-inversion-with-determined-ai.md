@@ -34,10 +34,7 @@ hyperparameters:
 
 These values may be broken down as follows:
 
-| Value name                | Description                                                                                               |
-| ------------------------- | --------------------------------------------------------------------------------------------------------- |
-| `YOUR_HF_AUTH_TOKEN_HERE` | Your Hugging Face User Access Token                                                                       |
-| `learnable_properties`    | Either `object` or `style`, depending on whether you want to capture the object itself, or only its style |
+<table><thead><tr><th width="305">Value name</th><th>Description</th></tr></thead><tbody><tr><td><code>YOUR_HF_AUTH_TOKEN_HERE</code></td><td>Your Hugging Face User Access Token</td></tr><tr><td><code>learnable_properties</code></td><td>Either <code>object</code> or <code>style</code>, depending on whether you want to capture the object itself, or only its style</td></tr></tbody></table>
 
 More than one concept at a time may be fine-tuned by appending relevant information to the lists:
 

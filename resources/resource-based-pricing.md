@@ -20,32 +20,13 @@ All billing is based on the greater of resources requested in an instance. If th
 
 The following components are configurable in GPU based instances.
 
-| Description          | Label               | Cost per hour | VRAM       |
-| -------------------- | ------------------- | ------------- | ---------- |
-| H100 HGX (80GB)      | `H100_NVLINK_80GB`  | $4.78         | N/A        |
-| H100 for PCIe (80GB) | `H100_PCIE`         | $4.25         | N/A        |
-| A100 HGX (80GB)      | `A100_NVLINK_80GB`  | $2.21         | N/A        |
-| A100 HGX (40GB)      | `A100_NVLINK`       | $2.06         | 40GB HBM2e |
-| A100 for PCIe (40GB) | `A100_PCIE_40GB`    | $2.06         | 40GB HBM2e |
-| A100 for PCIe (80GB) | `A100_PCIE_80GB`    | $2.21         | N/A        |
-| V100 for NVLINK      | `Tesla_V100_NVLINK` | $0.80         | 16GB HBM2  |
-| A40                  | `A40`               | $1.28         | 48GB GDDR6 |
-| RTX A6000            | `RTX_A6000`         | $1.28         | 48GB GDDR6 |
-| RTX A5000            | `RTX_A5000`         | $0.77         | 24GB GDDR6 |
-| RTX A4000            | `RTX_A4000`         | $0.61         | 16GB GDDR6 |
-| Quadro RTX 5000      | `Quadro_RTX_5000`   | $0.57         | 16GB GDDR6 |
-| Quadro RTX 4000      | `Quadro_RTX_4000`   | $0.24         | 8GB GDDR6  |
+<table><thead><tr><th width="235">Description</th><th width="224">Label</th><th>Cost per hour</th><th>VRAM</th></tr></thead><tbody><tr><td>H100 HGX (80GB)</td><td><code>H100_NVLINK_80GB</code></td><td>$4.78</td><td>N/A</td></tr><tr><td>H100 for PCIe (80GB)</td><td><code>H100_PCIE</code></td><td>$4.25</td><td>N/A</td></tr><tr><td>A100 HGX (80GB)</td><td><code>A100_NVLINK_80GB</code></td><td>$2.21</td><td>N/A</td></tr><tr><td>A100 HGX (40GB)</td><td><code>A100_NVLINK</code></td><td>$2.06</td><td>40GB HBM2e</td></tr><tr><td>A100 for PCIe (40GB)</td><td><code>A100_PCIE_40GB</code></td><td>$2.06</td><td>40GB HBM2e</td></tr><tr><td>A100 for PCIe (80GB)</td><td><code>A100_PCIE_80GB</code></td><td>$2.21</td><td>N/A</td></tr><tr><td>V100 for NVLINK</td><td><code>Tesla_V100_NVLINK</code></td><td>$0.80</td><td>16GB HBM2</td></tr><tr><td>A40</td><td><code>A40</code></td><td>$1.28</td><td>48GB GDDR6</td></tr><tr><td>RTX A6000</td><td><code>RTX_A6000</code></td><td>$1.28</td><td>48GB GDDR6</td></tr><tr><td>RTX A5000</td><td><code>RTX_A5000</code></td><td>$0.77</td><td>24GB GDDR6</td></tr><tr><td>RTX A4000</td><td><code>RTX_A4000</code></td><td>$0.61</td><td>16GB GDDR6</td></tr><tr><td>Quadro RTX 5000</td><td><code>Quadro_RTX_5000</code></td><td>$0.57</td><td>16GB GDDR6</td></tr><tr><td>Quadro RTX 4000</td><td><code>Quadro_RTX_4000</code></td><td>$0.24</td><td>8GB GDDR6</td></tr></tbody></table>
 
 ## CPU component pricing
 
 The following CPU components are also configurable in GPU based instances. For CPU-only instances, see [CPU-only instance pricing](resource-based-pricing.md#cpu-only-instance-pricing).
 
-| Node type           | Label                 | Cost per hour |
-| ------------------- | --------------------- | ------------- |
-| AMD Epyc Milan vCPU | `amd-epyc-milan`      | $0.010        |
-| AMD Epyc Rome vCPU  | `amd-epyc-rome`       | $0.010        |
-| Intel Xeon Scalable | `intel-xeon-scalable` | $0.010        |
-| Intel Xeon v4       | `intel-xeon-v4`       | $0.010        |
+<table><thead><tr><th width="257">Node type</th><th width="241">Label</th><th>Cost per hour</th></tr></thead><tbody><tr><td>AMD Epyc Milan vCPU</td><td><code>amd-epyc-milan</code></td><td>$0.010</td></tr><tr><td>AMD Epyc Rome vCPU</td><td><code>amd-epyc-rome</code></td><td>$0.010</td></tr><tr><td>Intel Xeon Scalable</td><td><code>intel-xeon-scalable</code></td><td>$0.010</td></tr><tr><td>Intel Xeon v4</td><td><code>intel-xeon-v4</code></td><td>$0.010</td></tr></tbody></table>
 
 ## CPU-only instance pricing
 
@@ -53,21 +34,13 @@ Instances **without a GPU attached** are configurable as combinations of vCPU an
 
 For these instances, system RAM is included in the vCPU price. Combinations can be configured in multiples of the following.
 
-| CPU Type            | Label               | RAM per vCPU | Cost per vCPU per Hour |
-| ------------------- | ------------------- | ------------ | ---------------------- |
-| AMD Epyc Milan      | amd-epyc-milan      | 4GB          | $0.035                 |
-| AMD Epyc Rome       | amd-epyc-rome       | 4GB          | $0.030                 |
-| Intel Xeon Scalable | intel-xeon-scalable | 4GB          | $0.030                 |
-| Intel Xeon v4       | intel-xeon-v4       | 4GB          | $0.020                 |
-| Intel Xeon v3       | intel-xeon-v3       | 4GB          | $0.0125                |
+<table><thead><tr><th width="192">CPU Type</th><th width="189">Label</th><th width="150">RAM per vCPU</th><th>Cost per vCPU per Hour</th></tr></thead><tbody><tr><td>AMD Epyc Milan</td><td>amd-epyc-milan</td><td>4GB</td><td>$0.035</td></tr><tr><td>AMD Epyc Rome</td><td>amd-epyc-rome</td><td>4GB</td><td>$0.030</td></tr><tr><td>Intel Xeon Scalable</td><td>intel-xeon-scalable</td><td>4GB</td><td>$0.030</td></tr><tr><td>Intel Xeon v4</td><td>intel-xeon-v4</td><td>4GB</td><td>$0.020</td></tr><tr><td>Intel Xeon v3</td><td>intel-xeon-v3</td><td>4GB</td><td>$0.0125</td></tr></tbody></table>
 
 ## RAM
 
 RAM may be specified as an additional component on its own.
 
-| Component         | Label    | Cost per hour |
-| ----------------- | -------- | ------------- |
-| System RAM per GB | `memory` | $0.005        |
+<table><thead><tr><th width="259">Component</th><th width="242">Label</th><th>Cost per hour</th></tr></thead><tbody><tr><td>System RAM per GB</td><td><code>memory</code></td><td>$0.005</td></tr></tbody></table>
 
 ## Example configurations
 
@@ -103,9 +76,7 @@ In this example, the node type is chosen using an `affinity`. For more informati
 
 In this example, the requested resources are:
 
-| CPU amount | Instance type | Unit cost per hour | System RAM |
-| ---------- | ------------- | ------------------ | ---------- |
-| 6          | AMD Epyc Rome | $0.03              | `24Gi`     |
+<table><thead><tr><th width="148.33333333333331">CPU amount</th><th width="204">Instance type</th><th width="200">Unit cost per hour</th><th>System RAM</th></tr></thead><tbody><tr><td>6</td><td>AMD Epyc Rome</td><td>$0.03</td><td><code>24Gi</code></td></tr></tbody></table>
 
 The total per hour cost of this instance would be $0.03 x 6, equaling $0.18 per hour.
 
@@ -137,17 +108,11 @@ In this example, a hardware configuration of `4` Tesla V100 NVLINK GPUs with 32 
 
 In this example, the requested resources are:
 
-| Instance type     | Instance count | Unit cost per hour |
-| ----------------- | -------------- | ------------------ |
-| Tesla V100 NVLINK | 4              | $0.80              |
+<table><thead><tr><th width="216">Instance type</th><th width="166.33333333333331">Instance count</th><th>Unit cost per hour</th></tr></thead><tbody><tr><td>Tesla V100 NVLINK</td><td>4</td><td>$0.80</td></tr></tbody></table>
 
-| vCPU count | vCPU cost per hour |
-| ---------- | ------------------ |
-| 32         | $0.01              |
+<table><thead><tr><th width="219">vCPU count</th><th>vCPU cost per hour</th></tr></thead><tbody><tr><td>32</td><td>$0.01</td></tr></tbody></table>
 
-| RAM amount | RAM cost per hour |
-| ---------- | ----------------- |
-| `128Gi`    | $0.005            |
+<table><thead><tr><th width="221">RAM amount</th><th>RAM cost per hour</th></tr></thead><tbody><tr><td><code>128Gi</code></td><td>$0.005</td></tr></tbody></table>
 
 The per hour cost of these resources equals `($0.80 x 4) + ($0.01 x 32) + ($0.005 x 128)`, or $4.16 per hour.
 

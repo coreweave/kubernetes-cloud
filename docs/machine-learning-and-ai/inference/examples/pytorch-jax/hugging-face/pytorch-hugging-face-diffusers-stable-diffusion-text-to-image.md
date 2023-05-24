@@ -41,10 +41,7 @@ Optionally, but highly recommended, is the use of CoreWeave's serialization libr
 
 The tutorial requires two images. The downloader image may be sourced from [its public image](https://github.com/wbrown/gpt\_bpe). The model image may either be built locally and pushed to a container image registry, or may also be sourced from the publicly available images.
 
-| Kind                     | Description                                                                                                                                                                                                                                                                                                                                                                                                                | Public image source                               |
-| ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- |
-| **The downloader image** | <p>This image downloads the model to a <a href="../../../../../storage/storage/">shared storage volume</a>. The individual inference Pods will load the model from this storage so as to avoid downloading it over the internet every time they scale up.</p><p></p><p>Referenced in the <a href="../../../../../../online-inference/stable-diffusion/02-model-download-job.yaml">02-model-download-job.yaml</a> file.</p> | `ghcr.io/wbrown/gpt_bpe/model_downloader:baa7df3` |
-| **The model image**      | <p>Runs the <code>CompVis/stable-diffusion-v1-4</code> model.</p><p></p><p>Referenced in the <a href="../../../../../../online-inference/stable-diffusion/03-inference-service.yaml">03-inference-service.yaml</a> file.</p>                                                                                                                                                                                               | `harubaru1/stable-diffusion:17`                   |
+<table><thead><tr><th width="200.33333333333331">Kind</th><th width="335">Description</th><th>Public image source</th></tr></thead><tbody><tr><td><strong>The downloader image</strong></td><td><p>This image downloads the model to a <a href="../../../../../storage/storage/">shared storage volume</a>. The individual inference Pods will load the model from this storage so as to avoid downloading it over the internet every time they scale up.</p><p></p><p>Referenced in the <a href="../../../../../../online-inference/stable-diffusion/02-model-download-job.yaml">02-model-download-job.yaml</a> file.</p></td><td><code>ghcr.io/wbrown/gpt_bpe/model_downloader:baa7df3</code></td></tr><tr><td><strong>The model image</strong></td><td><p>Runs the <code>CompVis/stable-diffusion-v1-4</code> model.</p><p></p><p>Referenced in the <a href="../../../../../../online-inference/stable-diffusion/03-inference-service.yaml">03-inference-service.yaml</a> file.</p></td><td><code>harubaru1/stable-diffusion:17</code></td></tr></tbody></table>
 
 ### Build the model image from a Dockerfile
 
@@ -218,16 +215,7 @@ The graph and table below compare recent GPU benchmark inference speeds for Stab
 
 <figure><img src="../../../../../.gitbook/assets/image (7) (2) (2).png" alt="A graph displaying a comparison of benchmark inference times for Stable Diffusion on different GPUs"><figcaption></figcaption></figure>
 
-| GPU              | Seconds |
-| ---------------- | ------- |
-| Quadro RTX 4000  | 9.91    |
-| Quadro RTX 5000  | 7.94    |
-| A6000            | 4.45    |
-| A40              | 4.78    |
-| A100 40GB PCIE   | 3.35    |
-| A100 40GB NVLINK | 3.29    |
-| A100 80GB NVLINK | 3.19    |
-| AWS A100 40GB    | 4.10    |
+<table><thead><tr><th width="336">GPU</th><th>Seconds</th></tr></thead><tbody><tr><td>Quadro RTX 4000</td><td>9.91</td></tr><tr><td>Quadro RTX 5000</td><td>7.94</td></tr><tr><td>A6000</td><td>4.45</td></tr><tr><td>A40</td><td>4.78</td></tr><tr><td>A100 40GB PCIE</td><td>3.35</td></tr><tr><td>A100 40GB NVLINK</td><td>3.29</td></tr><tr><td>A100 80GB NVLINK</td><td>3.19</td></tr><tr><td>AWS A100 40GB</td><td>4.10</td></tr></tbody></table>
 
 {% hint style="info" %}
 **Additional Resources**

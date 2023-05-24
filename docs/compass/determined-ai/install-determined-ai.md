@@ -33,14 +33,7 @@ CoreWeave's shared filesystem volumes can also be accessed by many Nodes simulta
 
 For this tutorial, the following values are used when creating the storage volume. If needed, it is easy to [increase the size](https://docs.coreweave.com/coreweave-kubernetes/storage#resizing) of a storage volume later.
 
-| Field name       | Demo value          |
-| ---------------- | ------------------- |
-| **Volume Name**  | `finetune-gpt-neox` |
-| **Region**       | `LAS1`              |
-| **Disk Class**   | `HDD`               |
-| **Storage Type** | Shared Filesystem   |
-| **Size (Gi)**    | `1,000`             |
-| **Labels**       | None                |
+<table><thead><tr><th width="312">Field name</th><th>Demo value</th></tr></thead><tbody><tr><td><strong>Volume Name</strong></td><td><code>finetune-gpt-neox</code></td></tr><tr><td><strong>Region</strong></td><td><code>LAS1</code></td></tr><tr><td><strong>Disk Class</strong></td><td><code>HDD</code></td></tr><tr><td><strong>Storage Type</strong></td><td>Shared Filesystem</td></tr><tr><td><strong>Size (Gi)</strong></td><td><code>1,000</code></td></tr><tr><td><strong>Labels</strong></td><td>None</td></tr></tbody></table>
 
 ### **Install FileBrowser**
 
@@ -112,14 +105,7 @@ At this time, the following Resource Pools correspond to the GPU types and amoun
 For more information on Node Types, see [Node Types](../../../coreweave-kubernetes/node-types.md).
 {% endhint %}
 
-| Resource Pool name | Hardware type | CPU amount | Memory |
-| ------------------ | ------------- | ---------- | ------ |
-| `A40`              | NVIDIA A40    | 64         | 512 Gi |
-| `RTX_A5000`        | RTX A5000     | 32         | 200 Gi |
-| `RTX_A6000`        | RTX A6000     | 32         | 200 Gi |
-| `A100_NVLINK`      | A100 HGX      | 96         | 768 GI |
-| `A100_NVLINK_80GB` | A100 HGX      | 96         | 768 Gi |
-| `H100_NVLINK_80GB` | H100 HGX      | 96         | 768 Gi |
+<table><thead><tr><th width="259">Resource Pool name</th><th width="192">Hardware type</th><th width="132">CPU amount</th><th>Memory</th></tr></thead><tbody><tr><td><code>A40</code></td><td>NVIDIA A40</td><td>64</td><td>512 Gi</td></tr><tr><td><code>RTX_A5000</code></td><td>RTX A5000</td><td>32</td><td>200 Gi</td></tr><tr><td><code>RTX_A6000</code></td><td>RTX A6000</td><td>32</td><td>200 Gi</td></tr><tr><td><code>A100_NVLINK</code></td><td>A100 HGX</td><td>96</td><td>768 GI</td></tr><tr><td><code>A100_NVLINK_80GB</code></td><td>A100 HGX</td><td>96</td><td>768 Gi</td></tr><tr><td><code>H100_NVLINK_80GB</code></td><td>H100 HGX</td><td>96</td><td>768 Gi</td></tr></tbody></table>
 
 This tutorial uses the **Resource Pool** `A40`.
 

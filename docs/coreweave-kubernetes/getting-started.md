@@ -170,11 +170,7 @@ If this is your first time using Kubernetes, or you're using a system that has n
 
 To verify, check the default path for your operating system:
 
-| Operating System | Default path                     |
-| ---------------- | -------------------------------- |
-| Linux            | `~/.kube/config`                 |
-| macOS            | `/Users/<username>/.kube/config` |
-| Windows          | `%USERPROFILE%\.kube\config`     |
+<table><thead><tr><th width="253">Operating System</th><th>Default path</th></tr></thead><tbody><tr><td>Linux</td><td><code>~/.kube/config</code></td></tr><tr><td>macOS</td><td><code>/Users/&#x3C;username>/.kube/config</code></td></tr><tr><td>Windows</td><td><code>%USERPROFILE%\.kube\config</code></td></tr></tbody></table>
 
 Also, check your environment and verify no value is set for `KUBECONFIG`:
 

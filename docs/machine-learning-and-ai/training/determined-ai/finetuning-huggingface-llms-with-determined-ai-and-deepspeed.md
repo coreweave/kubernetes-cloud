@@ -179,10 +179,7 @@ One important value to make note of is the [ZeRO Optimization](https://www.deeps
 
 In total, there are three stages, each of which adds another level of parallelization:
 
-| **Stage 1**  | The optimizer state is partitioned across all devices |
-| ------------ | ----------------------------------------------------- |
-| **Stage 2**  | The gradients are partitioned across all devices      |
-| **Stage 3**  | The model weights are partitioned across all devices  |
+<table data-header-hidden><thead><tr><th width="181"></th><th></th></tr></thead><tbody><tr><td><strong>Stage 1</strong></td><td>The optimizer state is partitioned across all devices</td></tr><tr><td><strong>Stage 2</strong></td><td>The gradients are partitioned across all devices</td></tr><tr><td><strong>Stage 3</strong> </td><td>The model weights are partitioned across all devices</td></tr></tbody></table>
 
 
 
@@ -213,14 +210,7 @@ Two different kinds of searchers will be used in this tutorial: [`single`](https
 
 The hyperparameters that are used in these experiments are described below.
 
-| Variable                        | Description                                                                                                                           |
-| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `pretrained_model_name_or_path` | Name of the Hugging Face model that will be used.                                                                                     |
-| `cache_dir`                     | Path to the location where the model will be cached. **Important:** Use a PVC here, so every trial won't re-download the model        |
-| `use_pretrained_weights`        | Determines whether to train the model from scratch or to use the published, pretrained weights                                        |
-| `model_mode`                    | Used by `model_hub` when loading the necessary components                                                                             |
-| `deepspeed_config_file`         | Name of the DeepSpeed JSON config file                                                                                                |
-| `overwrite_deepspeed_args`      | Values that will override the matching values in the DeepSpeed config - useful when doing hyperparameter searches on DeepSpeed values |
+<table><thead><tr><th width="366.3333333333333">Variable</th><th>Description</th></tr></thead><tbody><tr><td><code>pretrained_model_name_or_path</code></td><td>Name of the Hugging Face model that will be used.</td></tr><tr><td><code>cache_dir</code></td><td>Path to the location where the model will be cached. <strong>Important:</strong> Use a PVC here, so every trial won't re-download the model</td></tr><tr><td><code>use_pretrained_weights</code></td><td>Determines whether to train the model from scratch or to use the published, pretrained weights</td></tr><tr><td><code>model_mode</code></td><td>Used by <code>model_hub</code> when loading the necessary components</td></tr><tr><td><code>deepspeed_config_file</code></td><td>Name of the DeepSpeed JSON config file</td></tr><tr><td><code>overwrite_deepspeed_args</code></td><td>Values that will override the matching values in the DeepSpeed config - useful when doing hyperparameter searches on DeepSpeed values</td></tr></tbody></table>
 
 All of the values used for these variables are selected based on choosing to finetune OPT-125M. However, you'll see in the experiment YAML files that in this demo, we are overriding the default DeepSpeed value for `train_micro_batch_size_per_gpu`. This value should be tuned based on the choice of your model, the kind of data being used, and the GPU that will be used.
 

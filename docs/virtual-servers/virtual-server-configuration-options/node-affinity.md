@@ -28,9 +28,7 @@ affinity: {}
 
 Defines the Kubernetes [affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity) for the Virtual Server, if there is one.
 
-| Field name | Type   | Description                                                                                                                                                                     | Default value |
-| ---------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
-| `affinity` | string | Defines the Kubernetes [affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity) for the Virtual Server, if there is one. | none          |
+<table><thead><tr><th width="153.79374110953057">Field name</th><th width="93">Type</th><th width="298.4722261690666">Description</th><th>Default value</th></tr></thead><tbody><tr><td><code>affinity</code></td><td>string</td><td>Defines the Kubernetes <a href="https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity">affinity</a> for the Virtual Server, if there is one.</td><td>none</td></tr></tbody></table>
 {% endtab %}
 
 {% tab title="Terraform" %}

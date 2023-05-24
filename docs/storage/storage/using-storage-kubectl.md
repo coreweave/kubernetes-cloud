@@ -8,14 +8,7 @@ description: Manage Storage Volumes using Kubectl
 
 Storage can be managed via the Kubernetes API natively using `kubectl`. Below are some example manifests to do this, as well as descriptions of the fields used.
 
-| Field name            | Field type | Description                                                                                                             |
-| --------------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------- |
-| `storageClassName`    | string     | Sets the storage class name for the volume's PVC; determines which kind of storage class the volume will be             |
-| `accessModes`         | list       | Sets the [access mode](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#access-modes) for the volume     |
-| `resources`           | array      | Defines which resources with which to provision the Volume                                                              |
-| `requests`            | array      | Defines the resource requests to create the volume                                                                      |
-| `storage`             | string     | Determines the size of the volume, in Gi                                                                                |
-| `storage.root.serial` | bool       | The root disk serial number. When not specified, a new serial number is generated, which is preserved between restarts. |
+<table><thead><tr><th width="247.33333333333331">Field name</th><th width="110">Field type</th><th>Description</th></tr></thead><tbody><tr><td><code>storageClassName</code></td><td>string</td><td>Sets the storage class name for the volume's PVC; determines which kind of storage class the volume will be</td></tr><tr><td><code>accessModes</code></td><td>list</td><td>Sets the <a href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/#access-modes">access mode</a> for the volume</td></tr><tr><td><code>resources</code></td><td>array</td><td>Defines which resources with which to provision the Volume</td></tr><tr><td><code>requests</code></td><td>array</td><td>Defines the resource requests to create the volume</td></tr><tr><td><code>storage</code></td><td>string</td><td>Determines the size of the volume, in Gi</td></tr><tr><td><code>storage.root.serial</code></td><td>bool</td><td>The root disk serial number. When not specified, a new serial number is generated, which is preserved between restarts.</td></tr></tbody></table>
 
 ### **All-NVMe volumes**
 
@@ -159,17 +152,13 @@ spec:
 
 `VirtualServer.spec.storage.additionalDisks[]` allows attaching disks as read-only.
 
-| Field                                 | Type | Description                                                                    |
-| ------------------------------------- | ---- | ------------------------------------------------------------------------------ |
-| `storage.additionalDisks[ ].readOnly` | bool | The additional disk is attached as a read-only device. Default set to `false`. |
+<table><thead><tr><th width="275.66666666666663">Field</th><th width="93">Type</th><th>Description</th></tr></thead><tbody><tr><td><code>storage.additionalDisks[ ].readOnly</code></td><td>bool</td><td>The additional disk is attached as a read-only device. Default set to <code>false</code>.</td></tr></tbody></table>
 
 If you are using a PVC, and the value of `persistentVolumeClaim.readOnly` on the PVC disk is set to `true`, the value of `VirtualServer.spec.storage.additionalDisks[].readOnly` **must also be set to `true`**.
 
 If it is not, the Virtual Server will report an error.
 
-| `readOnly` disk                       | Set the `vs.storage.additionalDisks.readOnly: true`.                                                                                                                                     |
-| ------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `readOnly` disk with a `readOnly` PVC | Set both the value for the storage disk to (`vs.storage.additionalDisks.readOnly`) to `true`, as well as the PVC claim (`additionalDisk.spec.persistentVolumeClaim.readOnly`) to `true`. |
+<table data-header-hidden><thead><tr><th width="293.3333333333333">Disk type</th><th>Action</th></tr></thead><tbody><tr><td><code>readOnly</code> disk</td><td>Set the <code>vs.storage.additionalDisks.readOnly: true</code>.</td></tr><tr><td><code>readOnly</code> disk with a <code>readOnly</code> PVC</td><td>Set both the value for the storage disk to (<code>vs.storage.additionalDisks.readOnly</code>) to <code>true</code>, as well as the PVC claim (<code>additionalDisk.spec.persistentVolumeClaim.readOnly</code>) to <code>true</code>.</td></tr></tbody></table>
 
 ## **Resizing Volumes**
 

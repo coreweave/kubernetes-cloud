@@ -129,31 +129,13 @@ The GitHub repository for this guide has template files for both training method
 {% tab title="DreamBooth" %}
 <mark style="background-color:green;">DreamBooth Templates</mark>
 
-| Filename                         | Description                                                        |
-| -------------------------------- | ------------------------------------------------------------------ |
-| `db-workflow-template.yaml`      | The Argo Workflow Template itself.                                 |
-| `db-workflow-event-binding.yaml` | The Event Binding used to trigger the Workflow via an API call.    |
-| `inference-role.yaml`            | The inference role you configured earlier.                         |
-| `db-finetune-pvc.yaml`           | The model storage volume described earlier.                        |
-| `huggingface-secret.yaml`        | The Hugging Face token used to download a base model.              |
-| `wandb-secret.yaml`              | The Weights and Biases token used for reporting during finetuning. |
+<table><thead><tr><th width="341">Filename</th><th>Description</th></tr></thead><tbody><tr><td><code>db-workflow-template.yaml</code></td><td>The Argo Workflow Template itself.</td></tr><tr><td><code>db-workflow-event-binding.yaml</code></td><td>The Event Binding used to trigger the Workflow via an API call.</td></tr><tr><td><code>inference-role.yaml</code></td><td>The inference role you configured earlier.</td></tr><tr><td><code>db-finetune-pvc.yaml</code></td><td>The model storage volume described earlier.</td></tr><tr><td><code>huggingface-secret.yaml</code></td><td>The Hugging Face token used to download a base model.</td></tr><tr><td><code>wandb-secret.yaml</code></td><td>The Weights and Biases token used for reporting during finetuning.</td></tr></tbody></table>
 {% endtab %}
 
 {% tab title="Textual Inversion" %}
 <mark style="background-color:orange;">Textual Inversion Templates</mark>
 
-| Filename                                  | Description                                                                                                       |
-| ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| `sd-finetune-workflow-template.yaml`      | The Argo Workflow Template itself                                                                                 |
-| `sd-finetune-workflow-event-binding.yaml` | The Event Binding used to trigger the Workflow via an API call.                                                   |
-| `inference-role.yaml`                     | The inference role you configured earlier in this demo                                                            |
-| `sd-finetune-pvc.yaml`                    | A model storage volume, as described earlier in this demo                                                         |
-| `sd-finetuner/Dockerfile`                 | A Dockerfile that can be used to build your own fine-tuner image, should you modify the fine-tuner code           |
-| `sd-finetuner/finetuner.py`               | The entry point for the Stable Diffusion fine-tuner.                                                              |
-| `sd-finetuner/datasets.py`                | Script that contains the functionality to handle different dataset formats (i.e. DreamBooth vs textual inversion) |
-| `sd-finetuner/requirements.txt`           | The Python requirements which list the dependencies for the fine-tuner                                            |
-| `huggingface-secret.yaml`                 | The Hugging Face token used to download a base model.                                                             |
-| `wandb-secret.yaml`                       | The Weights and Biases token used for reporting during finetuning.                                                |
+<table><thead><tr><th width="329">Filename</th><th>Description</th></tr></thead><tbody><tr><td><code>sd-finetune-workflow-template.yaml</code></td><td>The Argo Workflow Template itself</td></tr><tr><td><code>sd-finetune-workflow-event-binding.yaml</code></td><td>The Event Binding used to trigger the Workflow via an API call.</td></tr><tr><td><code>inference-role.yaml</code></td><td>The inference role you configured earlier in this demo</td></tr><tr><td><code>sd-finetune-pvc.yaml</code></td><td>A model storage volume, as described earlier in this demo</td></tr><tr><td><code>sd-finetuner/Dockerfile</code></td><td>A Dockerfile that can be used to build your own fine-tuner image, should you modify the fine-tuner code</td></tr><tr><td><code>sd-finetuner/finetuner.py</code></td><td>The entry point for the Stable Diffusion fine-tuner.</td></tr><tr><td><code>sd-finetuner/datasets.py</code></td><td>Script that contains the functionality to handle different dataset formats (i.e. DreamBooth vs textual inversion)</td></tr><tr><td><code>sd-finetuner/requirements.txt</code></td><td>The Python requirements which list the dependencies for the fine-tuner</td></tr><tr><td><code>huggingface-secret.yaml</code></td><td>The Hugging Face token used to download a base model.</td></tr><tr><td><code>wandb-secret.yaml</code></td><td>The Weights and Biases token used for reporting during finetuning.</td></tr></tbody></table>
 {% endtab %}
 {% endtabs %}
 

@@ -23,11 +23,7 @@ FROM determinedai/environments:cuda-11.3-pytorch-1.10-tf-2.8-gpu-0.19.10
 
 ### Determined AI default base images
 
-| Environment | Image                                                                | Framework      |
-| ----------- | -------------------------------------------------------------------- | -------------- |
-| CPUs        | `determinedai/environments:py-3.8-pytorch-1.10-tf-2.8-cpu-0.19.4`    | PyTorch 1.10   |
-| Nvidia GPUs | `determinedai/environments:cuda-11.3-pytorch-1.10-tf-2.8-gpu-0.19.4` | Cuda 11.3      |
-| AMD GPUs    | `determinedai/environments:rocm-5.0-pytorch-1.10-tf-2.7-rocm-0.19.4` | TensorFlow 2.8 |
+<table><thead><tr><th width="156">Environment</th><th width="375">Image</th><th>Framework</th></tr></thead><tbody><tr><td>CPUs</td><td><code>determinedai/environments:py-3.8-pytorch-1.10-tf-2.8-cpu-0.19.4</code></td><td>PyTorch 1.10</td></tr><tr><td>Nvidia GPUs</td><td><code>determinedai/environments:cuda-11.3-pytorch-1.10-tf-2.8-gpu-0.19.4</code></td><td>Cuda 11.3</td></tr><tr><td>AMD GPUs</td><td><code>determinedai/environments:rocm-5.0-pytorch-1.10-tf-2.7-rocm-0.19.4</code></td><td>TensorFlow 2.8</td></tr></tbody></table>
 
 {% hint style="danger" %}
 **Warning**

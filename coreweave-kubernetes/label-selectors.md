@@ -18,9 +18,7 @@ The following labels are attached to nodes on CoreWeave Cloud, and may be select
 
 ## CPU model
 
-| Label                      | Refers to                             | Value options                                                                                 |
-| -------------------------- | ------------------------------------- | --------------------------------------------------------------------------------------------- |
-| `node.coreweave.cloud/cpu` | The CPU family of the CPU on the node | See [CPU-only instances](node-types.md#cpu-availability) for a list of types and their values |
+<table><thead><tr><th width="291">Label</th><th>Refers to</th><th>Value options</th></tr></thead><tbody><tr><td><code>node.coreweave.cloud/cpu</code></td><td>The CPU family of the CPU on the node</td><td>See <a href="node-types.md#cpu-availability">CPU-only instances</a> for a list of types and their values</td></tr></tbody></table>
 
 ### Affinity usage example
 
@@ -45,9 +43,7 @@ affinity:
 Using this selector is not recommended. Instead, request GPU resources by setting the GPU count in the Deployment spec; see the guide on deploying [Custom Containers](../docs/coreweave-kubernetes/custom-containers.md#define-the-applications-resources) for examples.
 {% endhint %}
 
-| Label                  | Refers to                              | Value options                            |
-| ---------------------- | -------------------------------------- | ---------------------------------------- |
-| `gpu.nvidia.com/count` | Number of GPUs provisioned in the node | `4` to `8`; must be included as a string |
+<table><thead><tr><th width="286.3333333333333">Label</th><th>Refers to</th><th>Value options</th></tr></thead><tbody><tr><td><code>gpu.nvidia.com/count</code></td><td>Number of GPUs provisioned in the node</td><td><code>4</code> to <code>8</code>; must be included as a string</td></tr></tbody></table>
 
 ### Affinity usage example
 
@@ -65,9 +61,7 @@ affinity:
 
 ## GPU model
 
-| Label                  | Refers to                             | Value options                                                                               |
-| ---------------------- | ------------------------------------- | ------------------------------------------------------------------------------------------- |
-| `gpu.nvidia.com/class` | The GPU model provisioned in the node | See [Node Types](node-types.md#component-availability) for a list of types and their values |
+<table><thead><tr><th width="289.3333333333333">Label</th><th>Refers to</th><th>Value options</th></tr></thead><tbody><tr><td><code>gpu.nvidia.com/class</code></td><td>The GPU model provisioned in the node</td><td>See <a href="node-types.md#component-availability">Node Types</a> for a list of types and their values</td></tr></tbody></table>
 
 ### Affinity usage example
 
@@ -85,9 +79,7 @@ affinity:
 
 ## GPU VRAM
 
-| Label                 | Refers to                                                       | Value options                                                                                      |
-| --------------------- | --------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| `gpu.nvidia.com/vram` | The GPU VRAM, in Gigabytes, on the GPUs provisioned in the node | See the **VRAM** column in [the GPU-enabled Node Types list](node-types.md#component-availability) |
+<table><thead><tr><th width="289.3333333333333">Label</th><th>Refers to</th><th>Value options</th></tr></thead><tbody><tr><td><code>gpu.nvidia.com/vram</code></td><td>The GPU VRAM, in Gigabytes, on the GPUs provisioned in the node</td><td>See the <strong>VRAM</strong> column in <a href="node-types.md#component-availability">the GPU-enabled Node Types list</a></td></tr></tbody></table>
 
 ### Affinity usage example
 
@@ -105,9 +97,7 @@ affinity:
 
 ## Uplink speed
 
-| Label                            | Refers to                              | Value options        |
-| -------------------------------- | -------------------------------------- | -------------------- |
-| `ethernet.coreweave.cloud/speed` | Uplink speed from node to the backbone | `10G`, `40G`, `100G` |
+<table><thead><tr><th width="283.3333333333333">Label</th><th>Refers to</th><th>Value options</th></tr></thead><tbody><tr><td><code>ethernet.coreweave.cloud/speed</code></td><td>Uplink speed from node to the backbone</td><td><code>10G</code>, <code>40G</code>, <code>100G</code></td></tr></tbody></table>
 
 ### Affinity usage example
 
@@ -131,9 +121,7 @@ affinity:
 This label is currently applicable only for `Tesla_V100` nodes.
 {% endhint %}
 
-| Label                   | Refers to                                                  | Value options   |
-| ----------------------- | ---------------------------------------------------------- | --------------- |
-| `gpu.nvidia.com/nvlink` | Denotes whether or not GPUs are interconnected with NVLink | `true`, `false` |
+<table><thead><tr><th width="286">Label</th><th width="233.33333333333331">Refers to</th><th>Value options</th></tr></thead><tbody><tr><td><code>gpu.nvidia.com/nvlink</code></td><td>Denotes whether or not GPUs are interconnected with NVLink</td><td><code>true</code>, <code>false</code></td></tr></tbody></table>
 
 ### Affinity usage example
 
@@ -151,9 +139,7 @@ affinity:
 
 ## Data center region
 
-| Label                           | Refers to                        | Value options          |
-| ------------------------------- | -------------------------------- | ---------------------- |
-| `topology.kubernetes.io/region` | The region the node is placed in | `ORD1`, `LAS1`, `LGA1` |
+<table><thead><tr><th width="280.3333333333333">Label</th><th>Refers to</th><th>Value options</th></tr></thead><tbody><tr><td><code>topology.kubernetes.io/region</code></td><td>The region the node is placed in</td><td><code>ORD1</code>, <code>LAS1</code>, <code>LGA1</code></td></tr></tbody></table>
 
 ### Affinity usage example
 

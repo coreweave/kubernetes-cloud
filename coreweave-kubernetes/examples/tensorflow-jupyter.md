@@ -41,11 +41,7 @@ To follow along with this tutorial, first clone the manifests from [GitHub](http
 
 The `tensorflow-jupyter` directory contains three YAML files, each of which are [manifests](https://kubernetes.io/docs/reference/glossary/?all=true#term-manifest) used to deploy a different piece of this example.
 
-| Filename                                                                         | Description                                                                                     |
-| -------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| [`tensorflow-deployment.yaml`](tensorflow-jupyter.md#the-deployment-manifest)    | Defines the **Deployment**, which dictates how the TensorFlow with Jupyter Pods will be created |
-| [`tensorflow-service.yaml`](tensorflow-jupyter.md#the-service-manifest)          | Defines the **Service**, which handles networking and public publishing                         |
-| [`jupyter-pvc.yaml`](tensorflow-jupyter.md#the-persistent-volume-claim-manifest) | Defines the **PersistentVolumeClaim** used for Jupyter notebook storage                         |
+<table><thead><tr><th width="323.3333333333333">Filename</th><th>Description</th></tr></thead><tbody><tr><td><a href="tensorflow-jupyter.md#the-deployment-manifest"><code>tensorflow-deployment.yaml</code></a></td><td>Defines the <strong>Deployment</strong>, which dictates how the TensorFlow with Jupyter Pods will be created</td></tr><tr><td><a href="tensorflow-jupyter.md#the-service-manifest"><code>tensorflow-service.yaml</code></a></td><td>Defines the <strong>Service</strong>, which handles networking and public publishing</td></tr><tr><td><a href="tensorflow-jupyter.md#the-persistent-volume-claim-manifest"><code>jupyter-pvc.yaml</code></a></td><td>Defines the <strong>PersistentVolumeClaim</strong> used for Jupyter notebook storage</td></tr></tbody></table>
 
 ## The Deployment manifest
 

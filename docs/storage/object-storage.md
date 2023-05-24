@@ -102,11 +102,7 @@ spec:
 
 There are three designated storage classes for Object Storage formats, which correspond to regional Object Storage endpoints:
 
-| Storage class          | Object Storage endpoint     |
-| ---------------------- | --------------------------- |
-| `object-standard-ord1` | `object.ord1.coreweave.com` |
-| `object-standard-las1` | `object.las1.coreweave.com` |
-| `object-standard-lga1` | `object.lga1.coreweave.com` |
+<table><thead><tr><th width="324">Storage class</th><th>Object Storage endpoint</th></tr></thead><tbody><tr><td><code>object-standard-ord1</code></td><td><code>object.ord1.coreweave.com</code></td></tr><tr><td><code>object-standard-las1</code></td><td><code>object.las1.coreweave.com</code></td></tr><tr><td><code>object-standard-lga1</code></td><td><code>object.lga1.coreweave.com</code></td></tr></tbody></table>
 
 Each endpoint represents an independent, exclusive object store. This means that objects stored in `ORD1`buckets are not accessible from the `LAS1` region, and so on.
 
@@ -138,11 +134,7 @@ It is the client’s responsibility to manage all keys, and to remember which ke
 
 The following headers are utilized to specify SSE-C customizations.
 
-| Name                                              | Description                                                                                                                                                                                                                                                                             |
-| ------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `x-amz-server-side-encryption-customer-algorithm` | Use this header to specify the encryption algorithm. The header value must be `AES256`.                                                                                                                                                                                                 |
-| `x-amz-server-side​-encryption​-customer-key`     | Use this header to provide the 256-bit, base64-encoded encryption key to encrypt or decrypt your data.                                                                                                                                                                                  |
-| `x-amz-server-side​-encryption​-customer-key-MD5` | Use this header to provide the base64-encoded, 128-bit MD5 digest of the encryption key according to [RFC 1321](http://tools.ietf.org/html/rfc1321). This header is used for a message integrity check to ensure that the encryption key was transmitted without error or interference. |
+<table><thead><tr><th width="350">Name</th><th>Description</th></tr></thead><tbody><tr><td><code>x-amz-server-side-encryption-customer-algorithm</code></td><td>Use this header to specify the encryption algorithm. The header value must be <code>AES256</code>.</td></tr><tr><td><code>x-amz-server-side​-encryption​-customer-key</code></td><td>Use this header to provide the 256-bit, base64-encoded encryption key to encrypt or decrypt your data.</td></tr><tr><td><code>x-amz-server-side​-encryption​-customer-key-MD5</code></td><td>Use this header to provide the base64-encoded, 128-bit MD5 digest of the encryption key according to <a href="http://tools.ietf.org/html/rfc1321">RFC 1321</a>. This header is used for a message integrity check to ensure that the encryption key was transmitted without error or interference.</td></tr></tbody></table>
 
 #### Server Side Encryption example
 
@@ -196,12 +188,7 @@ When an initial key pair is created for Object Storage access, that key pair is 
 
 Permission levels that may be granted are:
 
-| Permission level | CRD key     | Description                                                                                      |
-| ---------------- | ----------- | ------------------------------------------------------------------------------------------------ |
-| Read             | `read`      | Gives access to only read from buckets you own and have created                                  |
-| Write            | `write`     | Gives access to only write to buckets you own and have created                                   |
-| Read/Write       | `readwrite` | Grants access to both read and write to buckets you own and have created                         |
-| Full             | `full`      | Grant Write/Read access, as well as admin access to create buckets and apply policies to buckets |
+<table><thead><tr><th width="177">Permission level</th><th width="135.33333333333331">CRD key</th><th>Description</th></tr></thead><tbody><tr><td>Read</td><td><code>read</code></td><td>Gives access to only read from buckets you own and have created</td></tr><tr><td>Write</td><td><code>write</code></td><td>Gives access to only write to buckets you own and have created</td></tr><tr><td>Read/Write</td><td><code>readwrite</code></td><td>Grants access to both read and write to buckets you own and have created</td></tr><tr><td>Full</td><td><code>full</code></td><td>Grant Write/Read access, as well as admin access to create buckets and apply policies to buckets</td></tr></tbody></table>
 
 ### Access levels via Cloud UI
 
@@ -298,39 +285,11 @@ for read, write/read, or full control access, respectively.
 
 #### **Supported S3 Bucket Operations**
 
-| Permission              | Condition Keys                          |
-| ----------------------- | --------------------------------------- |
-| `s3:createBucket`       | `s3:x-amz-acl`, `s3:x-amz-grant-<perm>` |
-| `s3:ListBucket`         | `s3:<prefix>`                           |
-| `s3:ListBucketVersions` | N/A                                     |
-| `s3:delimiter`          | N/A                                     |
-| `s3:max-keys`           | N/A                                     |
-| `s3:PutBucketAcl`       | `s3:x-amz-acl s3:x-amz-grant-<perm>`    |
+<table><thead><tr><th width="327">Permission</th><th>Condition Keys</th></tr></thead><tbody><tr><td><code>s3:createBucket</code></td><td><code>s3:x-amz-acl</code>, <code>s3:x-amz-grant-&#x3C;perm></code></td></tr><tr><td><code>s3:ListBucket</code></td><td><code>s3:&#x3C;prefix></code></td></tr><tr><td><code>s3:ListBucketVersions</code></td><td>N/A</td></tr><tr><td><code>s3:delimiter</code></td><td>N/A</td></tr><tr><td><code>s3:max-keys</code></td><td>N/A</td></tr><tr><td><code>s3:PutBucketAcl</code></td><td><code>s3:x-amz-acl s3:x-amz-grant-&#x3C;perm></code></td></tr></tbody></table>
 
 #### Supported S3 Object Operations
 
-| Permission                                       | Condition Keys                                                                          |
-| ------------------------------------------------ | --------------------------------------------------------------------------------------- |
-| `s3:PutObject`                                   | `s3:x-amz-acl` and `s3:x-amz-grant-<perm>`                                              |
-| `s3:x-amz-copy-source`                           | N/A                                                                                     |
-| `s3:x-amz-server-side-encryption`                | N/A                                                                                     |
-| `s3:x-amz-server-side-encryption-aws-kms-key-id` | N/A                                                                                     |
-| `s3:x-amz-metadata-directive`                    | Use `PUT` and `COPY` to overwrite or preserve metadata in `COPY` requests, respectively |
-| `s3:RequestObjectTag/<tag-key>`                  | N/A                                                                                     |
-| `s3:PutObjectAcl`                                | `s3:x-amz-acl` and `s3-amz-grant-<perm>`                                                |
-| `s3:PutObjectVersionAcl`                         | `s3:x-amz-acl` and `s3-amz-grant-<perm>`                                                |
-| `s3:ExistingObjectTag/<tag-key>`                 | N/A                                                                                     |
-| `s3:PutObjectTagging`                            | `s3:RequestObjectTag/<tag-key>`                                                         |
-| `s3:PutObjectVersionTagging`                     | `s3:RequestObjectTag/<tag-key>`                                                         |
-| `s3:ExistingObjectTag/<tag-key>`                 | N/A                                                                                     |
-| `s3:GetObject`                                   | `s3:ExistingObjectTag/<tag-key>`                                                        |
-| `s3:GetObjectVersion`                            | `s3:ExistingObjectTag/<tag-key>`                                                        |
-| `s3:GetObjectAcl`                                | `s3:ExistingObjectTag/<tag-key>`                                                        |
-| `s3:GetObjectVersionAcl`                         | `s3:ExistingObjectTag/<tag-key>`                                                        |
-| `s3:GetObjectTagging`                            | `s3:ExistingObjectTag/<tag-key>`                                                        |
-| `s3:GetObjectVersionTagging`                     | `s3:ExistingObjectTag/<tag-key>`                                                        |
-| `s3:DeleteObjectTagging`                         | `s3:ExistingObjectTag/<tag-key>`                                                        |
-| `s3:DeleteObjectVersionTagging`                  | `s3:ExistingObjectTag/<tag-key>`                                                        |
+<table><thead><tr><th width="371">Permission</th><th>Condition Keys</th></tr></thead><tbody><tr><td><code>s3:PutObject</code></td><td><code>s3:x-amz-acl</code> and <code>s3:x-amz-grant-&#x3C;perm></code></td></tr><tr><td><code>s3:x-amz-copy-source</code></td><td>N/A</td></tr><tr><td><code>s3:x-amz-server-side-encryption</code></td><td>N/A</td></tr><tr><td><code>s3:x-amz-server-side-encryption-aws-kms-key-id</code></td><td>N/A</td></tr><tr><td><code>s3:x-amz-metadata-directive</code></td><td>Use <code>PUT</code> and <code>COPY</code> to overwrite or preserve metadata in <code>COPY</code> requests, respectively</td></tr><tr><td><code>s3:RequestObjectTag/&#x3C;tag-key></code></td><td>N/A</td></tr><tr><td><code>s3:PutObjectAcl</code></td><td><code>s3:x-amz-acl</code> and <code>s3-amz-grant-&#x3C;perm></code></td></tr><tr><td><code>s3:PutObjectVersionAcl</code></td><td><code>s3:x-amz-acl</code> and <code>s3-amz-grant-&#x3C;perm></code></td></tr><tr><td><code>s3:ExistingObjectTag/&#x3C;tag-key></code></td><td>N/A</td></tr><tr><td><code>s3:PutObjectTagging</code></td><td><code>s3:RequestObjectTag/&#x3C;tag-key></code></td></tr><tr><td><code>s3:PutObjectVersionTagging</code></td><td><code>s3:RequestObjectTag/&#x3C;tag-key></code></td></tr><tr><td><code>s3:ExistingObjectTag/&#x3C;tag-key></code></td><td>N/A</td></tr><tr><td><code>s3:GetObject</code></td><td><code>s3:ExistingObjectTag/&#x3C;tag-key></code></td></tr><tr><td><code>s3:GetObjectVersion</code></td><td><code>s3:ExistingObjectTag/&#x3C;tag-key></code></td></tr><tr><td><code>s3:GetObjectAcl</code></td><td><code>s3:ExistingObjectTag/&#x3C;tag-key></code></td></tr><tr><td><code>s3:GetObjectVersionAcl</code></td><td><code>s3:ExistingObjectTag/&#x3C;tag-key></code></td></tr><tr><td><code>s3:GetObjectTagging</code></td><td><code>s3:ExistingObjectTag/&#x3C;tag-key></code></td></tr><tr><td><code>s3:GetObjectVersionTagging</code></td><td><code>s3:ExistingObjectTag/&#x3C;tag-key></code></td></tr><tr><td><code>s3:DeleteObjectTagging</code></td><td><code>s3:ExistingObjectTag/&#x3C;tag-key></code></td></tr><tr><td><code>s3:DeleteObjectVersionTagging</code></td><td><code>s3:ExistingObjectTag/&#x3C;tag-key></code></td></tr></tbody></table>
 
 ### Bucket policies
 
@@ -395,11 +354,7 @@ You do not need to change the endpoint for every region your application is depl
 
 **Use of CoreWeave's Accelerated Object Storage is available at no additional cost.** To use Accelerated Object Storage, simply modify your Object Storage endpoint to one of the addresses that corresponds to your Data Center region.
 
-| Region | Endpoint                          |
-| ------ | --------------------------------- |
-| LAS1   | `accel-object.las1.coreweave.com` |
-| LGA1   | `accel-object.lga1.coreweave.com` |
-| ORD1   | `accel-object.ord1.coreweave.com` |
+<table><thead><tr><th width="244">Region</th><th>Endpoint</th></tr></thead><tbody><tr><td>LAS1</td><td><code>accel-object.las1.coreweave.com</code></td></tr><tr><td>LGA1</td><td><code>accel-object.lga1.coreweave.com</code></td></tr><tr><td>ORD1</td><td><code>accel-object.ord1.coreweave.com</code></td></tr></tbody></table>
 
 ## s3cmd alternatives
 
