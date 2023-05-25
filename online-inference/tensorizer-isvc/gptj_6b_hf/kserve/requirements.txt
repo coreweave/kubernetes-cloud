@@ -1,0 +1,3 @@
+# Not pinned due to tensorizer package resolution 
+kserve
+transformers==4.27.1
