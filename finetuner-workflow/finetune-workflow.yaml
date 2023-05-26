@@ -577,14 +577,12 @@ spec:
                 image: "{{workflow.parameters.finetuner_image}}:{{workflow.parameters.finetuner_tag}}"
                 imagePullPolicy: IfNotPresent
                 command: ["/usr/bin/bash", "-c"]
-                args: ["/usr/bin/python3 /app/inference.py"]
+                args: ["/usr/bin/python3 /app/inference.py --model=${INFERENCE_MODEL} --port=${INFERENCE_PORT}"]
                 env:
                   - name: INFERENCE_PORT
                     value: "80"
                   - name: INFERENCE_MODEL
                     value: /mnt/pvc/{{ inputs.parameters.model_path }}
-                  - name: STORAGE_URI # KFServing mounts the PVC at /mnt/pvc/
-                    value: pvc://{{ workflow.parameters.pvc }}/
                 ports:
                   - protocol: TCP
                     containerPort: 80

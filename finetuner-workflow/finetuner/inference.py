@@ -1,4 +1,3 @@
-import os
 from typing import List, Optional
 
 import torch
@@ -7,6 +6,38 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from transformers import pipeline
+
+from utils import DashParser
+from utils import validation as val
+
+parser = DashParser(description="Text model inference HTTP server")
+
+parser.add_argument(
+    "--model",
+    type=str,
+    default="distilgpt2",
+    help="Model to use for inference (directory, or HuggingFace ID) [default = distilgpt2]",
+)
+parser.add_argument(
+    "--device-id",
+    type=val.non_negative(int, special_val=-1),
+    default=0,
+    help="GPU ID to use for inference or -1 for CPU [default = 0]",
+)
+parser.add_argument(
+    "--port",
+    type=val.non_negative(int),
+    default=80,
+    help="Port to listen on [default = 80 (http)]",
+)
+parser.add_argument(
+    "--ip",
+    type=str,
+    default="0.0.0.0",
+    help="IP address to listen on [default = 0.0.0.0 (all interfaces)]",
+)
+
+args = parser.parse_args()
 
 
 class Completion(BaseModel):
@@ -34,18 +65,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-args = {
-    "model": os.getenv("INFERENCE_MODEL", "distilgpt2"),
-    "device": int(os.getenv("INFERENCE_DEVICE", 0)),
-    "port": int(os.getenv("INFERENCE_PORT", 80)),
-    "ip": os.getenv("INFERENCE_IP", "0.0.0.0"),
-}
-
 model = pipeline(
     "text-generation",
-    model=args["model"],
-    torch_dtype=torch.float16,
-    device=args["device"],
+    model=args.model,
+    torch_dtype=None if args.device_id == -1 else torch.float16,
+    device=args.device_id,
 )
 
 
@@ -74,4 +98,4 @@ def completion(completion: Completion):
 
 
 if __name__ == "__main__":
-    uvicorn.run("inference:app", host=args["ip"], port=args["port"])
+    uvicorn.run("inference:app", host=args.ip, port=args.port)
