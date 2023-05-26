@@ -128,7 +128,7 @@ The Grafana `billing` metrics are in the CoreWeave datasource. There is no need 
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (4).png" alt="Billing metrics"><figcaption><p>Billing metrics</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (4) (1).png" alt="Billing metrics"><figcaption><p>Billing metrics</p></figcaption></figure>
 
 </div>
 

@@ -270,7 +270,7 @@ Select the tab for your chosen fine-tuning method.
 
 For each dataset you want to use, create a directory with a meaningful name such as `data/example-dog` and place your dataset images in that directory.
 
-<figure><img src="../../../.gitbook/assets/image (10).png" alt=""><figcaption><p>An example dataset containing images of a dog</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (10) (1).png" alt=""><figcaption><p>An example dataset containing images of a dog</p></figcaption></figure>
 
 The fine-tuner will use Prior Preservation loss which means "generic" images (AKA class images) will be used during fine-tuning. The fine-tuner will generate these "generic" images prior to starting the training loop using the base model and a provided prompt, but you can also upload these images to a separate folder in the PVC. For example, if you are fine-tuning the model based on pictures of your dog, you would want to use images of random dogs for the "generic" images. By default, the workflow will use 100 class images.
 

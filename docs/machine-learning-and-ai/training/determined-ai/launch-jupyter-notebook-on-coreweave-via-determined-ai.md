@@ -42,7 +42,7 @@ Once the environment is ready, you will be redirected to the JupyterLab home scr
 To learn more about Jupyter and how to use Notebooks and JupyterLab, refer to [the Jupyter documentation](https://docs.jupyter.org/en/latest/).
 {% endhint %}
 
-<figure><img src="../../../.gitbook/assets/image (12) (1) (3).png" alt="The Jupyter-lab homescreen"><figcaption><p>The Jupyter-lab homescreen</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (12) (1) (3) (1).png" alt="The Jupyter-lab homescreen"><figcaption><p>The Jupyter-lab homescreen</p></figcaption></figure>
 
 To shut down the notebook, navigate to the **File** menu, then select **Shut Down**.
 

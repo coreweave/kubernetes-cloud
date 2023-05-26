@@ -142,7 +142,7 @@ $ docker push <URL>/<APP NAME>:<TAG VERSION>
 
 For the purposes of this example walkthrough, the application requires backend storage. [Create a storage volume](../storage/storage/using-storage-cloud-ui.md#creating-storage-volumes) from the Cloud UI, and give it a name that will be easy to associate with the application later.
 
-<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption><p>In this example, a storage volume with the name <code>kobold-ai</code> is created</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (19).png" alt=""><figcaption><p>In this example, a storage volume with the name <code>kobold-ai</code> is created</p></figcaption></figure>
 
 {% hint style="warning" %}
 **Important**
@@ -158,7 +158,7 @@ If your application requires a lot of storage, it is recommended to configure a 
 
 In this example, the application will benefit from having a file browser, so we'll install [the FileBrowser application](../storage/filebrowser.md) from the Applications Catalog, and configure it with an equally recognizable name:
 
-<figure><img src="../.gitbook/assets/image (10) (1).png" alt="Screenshot: A FileBrowser instance named after the application to which it will be associated"><figcaption><p>A FileBrowser instance named after the application to which it will be associated</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (10) (1) (1).png" alt="Screenshot: A FileBrowser instance named after the application to which it will be associated"><figcaption><p>A FileBrowser instance named after the application to which it will be associated</p></figcaption></figure>
 
 ## Build the Deployment manifest
 

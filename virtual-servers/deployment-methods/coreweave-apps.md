@@ -4,13 +4,11 @@ description: Deploy Virtual Servers via the Cloud UI
 
 # CoreWeave Cloud UI
 
-The [CoreWeave Cloud UI](https://apps.coreweave.com/) is a responsive, Web-based dashboard enabling users to configure, deploy, and manage Virtual Servers using visual methods to deploy Virtual Servers.
+The [CoreWeave Cloud UI](https://apps.coreweave.com/) is a responsive, Web-based dashboard enabling users to configure, deploy, and manage Virtual Servers.
 
 ## Prerequisites
 
-This guide presumes you have [an active CoreWeave Cloud account](../../docs/coreweave-kubernetes/getting-started.md#create-an-account).
-
-Once you have an active account, log in to the Cloud UI dashboard at [`https://cloud.coreweave.com`](https://cloud.coreweave.com).
+This guide presumes you have [an active CoreWeave Cloud account](../../docs/coreweave-kubernetes/getting-started.md#create-an-account). Once you have an active account, log in to the Cloud UI dashboard at [`https://cloud.coreweave.com`](https://cloud.coreweave.com).
 
 ## Create a Virtual Server
 
@@ -18,61 +16,113 @@ Once signed in to your CoreWeave Cloud account, navigate to the **Virtual Server
 
 <figure><img src="../../docs/.gitbook/assets/image (45).png" alt="Screenshot of the CoreWeave Cloud UI main page"><figcaption><p>Navigate to the Virtual Server creation page either from the Deploy Now button or using the side navigation</p></figcaption></figure>
 
-The Virtual Server hub is where all existing Virtual Servers are listed. From here, you can manage current Virtual Servers, or create a new one. To create a new Virtual Server, click the **New Virtual Server** button.
+{% hint style="info" %}
+:tada: **New Virtual Server**
 
-<figure><img src="../../docs/.gitbook/assets/image (59).png" alt="Screenshot of the Virtual Server menu"><figcaption></figcaption></figure>
+[**CoreWeave Cloud**](https://cloud.coreweave.com/virtualservers) Virtual Server has more features than the [**CoreWeave Apps**](https://apps.coreweave.com) edition, but you can use either one. You may see a selection screen like this when deploying.
 
-### Create a new Virtual Server from scratch
+![Deploy a Virtual Server](<../../docs/.gitbook/assets/image (17).png>)&#x20;
 
-All [configuration options](coreweave-apps.md#configuration-options) for the Virtual Server may be set from the **New Virtual Server** screen. For more fine-grained control, click the **Show YAML Editor** button to directly interact with [the CRD YAML manifest](coreweave-apps.md#edit-the-crd-manifest-using-the-yaml-editor) of the Virtual Server.
+These instructions are for **CoreWeave Cloud** Virtual Server.
+{% endhint %}
 
-All configuration options for the Virtual Server are set from the **New Virtual Server screen**.
+The Virtual Server hub is where all existing Virtual Servers are listed. From here, you can manage current Virtual Servers, or create a new one.&#x20;
 
-<figure><img src="../../docs/.gitbook/assets/image (41) (1).png" alt="New Virtual Server configuration screen"><figcaption></figcaption></figure>
+To create a new Virtual Server, click the **New Virtual Server** button.
 
-In the upper right-hand corner of the Virtual Server configuration screen, there are three buttons:
+<figure><img src="../../docs/.gitbook/assets/image (59).png" alt="Screenshot of the Virtual Server menu"><figcaption><p>Deploy a Virtual Server</p></figcaption></figure>
 
-* **Magic wand:** Revert the form to the last valid configuration
-* **Arrow:** Reset the form, clearing all fields
-* **Load or clone from existing:** Load an existing Virtual Server as a [template, or clone](coreweave-apps.md#templates-and-clones) an existing Virtual Server
+## Deployment options
 
-<figure><img src="../../docs/.gitbook/assets/image (27).png" alt=""><figcaption></figcaption></figure>
+The Virtual Server hub has several deployment options. Choose the option that best suits your use-case.
 
-### Templates and clones
+<table data-card-size="large" data-view="cards"><thead><tr><th></th><th></th></tr></thead><tbody><tr><td><h3><span data-gb-custom-inline data-tag="emoji" data-code="1f9d1-1f373">🧑🍳</span> <a href="coreweave-apps.md#new-server-from-scratch-1">New server from scratch</a></h3></td><td>A <strong>new</strong> Virtual Server is the default option. Choose all the parameters from scratch to build a custom-configured machine tailored to your needs.</td></tr><tr><td><h3><span data-gb-custom-inline data-tag="emoji" data-code="1f46d">👭</span> <a href="coreweave-apps.md#clone-an-existing-server-1"><strong>Clone an existing server</strong></a></h3></td><td>A <strong>clone</strong> is a snapshot of an existing Virtual Server, including the PVC containing the OS and all files. Deploying a clone Virtual Server creates an exact duplicate of an existing Virtual Server in its current state.</td></tr><tr><td><h3><span data-gb-custom-inline data-tag="emoji" data-code="1f4dd">📝</span> <a href="coreweave-apps.md#deploy-from-a-template-1">Deploy from a t<strong>emplate</strong></a></h3></td><td>A <strong>template</strong> uses an existing Virtual Server as a model. Deploying from a template creates a new Virtual Server with the same configuration as the original, but without the state or a copy of the data.</td></tr><tr><td><h3><span data-gb-custom-inline data-tag="emoji" data-code="1f4c0">📀</span> <a href="coreweave-apps.md#deploy-custom-with-pvc-1">Deploy c<strong>ustom</strong></a></h3></td><td><p>A <strong>custom</strong> deployment is a special case. </p><p>Compared to a <em>clone</em> which is an exact copy, or a <em>template</em> that uses the same settings but no data, a <em>custom</em> deployment can use custom settings while copying the PVC from another Virtual Server, or load the disk image from a remote HTTP source.</p></td></tr></tbody></table>
 
-Virtual Servers may also be created as clones of an existing Virtual Server, or from an existing Virtual Server acting as its template.
+## :cook: New server from scratch
 
-#### **What are clones and templates?**
+A new Virtual Server is the default option. Choose all the parameters from scratch to build a custom-configured machine tailored to your needs.
 
-<table data-card-size="large" data-view="cards"><thead><tr><th></th><th></th><th data-hidden></th></tr></thead><tbody><tr><td><h3><span data-gb-custom-inline data-tag="emoji" data-code="1f46d">👭</span><strong>Clones</strong></h3></td><td>A <strong>clone</strong> uses the PVC of an existing Virtual Server with an OS snapshot. Creating a clone will create a new Virtual Server that will be an exact duplicate of an existing Virtual Machine in its current state.</td><td></td></tr><tr><td><h3><span data-gb-custom-inline data-tag="emoji" data-code="1f4dd">📝</span> <strong>Templates</strong></h3></td><td>A <strong>template</strong> uses the root PVC used to create an existing Virtual Server. This will produce a new Virtual Server with the same configurations as the previous Virtual Server, but the new Virtual Server will not be in the same state or contain the same data as the existing one.</td><td></td></tr></tbody></table>
+The deployment page has two panes: the web UI, and the [Custom Resource Definition (CRD) YAML manifest](coreweave-apps.md#edit-the-crd-manifest-using-the-yaml-editor). Changes made in either pane are reflected in both.
 
-To create a new Virtual Server as a clone or from a template, click the **Load or clone from existing** button in the upper right-hand corner of the screen.
+While [configuration options](coreweave-apps.md#configuration-options) can be made in either pane, not all options are exposed in the Web UI. For complete control over the Virtual Server configuration, edit the [YAML](coreweave-apps.md#edit-the-crd-manifest-using-the-yaml-editor) directly. The YAML manifest can be copied from here to use with the CLI, and pasted back to this page in later deployments.&#x20;
 
-<figure><img src="../../docs/.gitbook/assets/image (76).png" alt="Screenshot demonstrating that the load or copy from existing button is the third button on the top right"><figcaption><p>The <strong>Load or clone from existing button</strong> is represented by a copy icon</p></figcaption></figure>
+When the web editor has focus, sensitive values such as passwords are obscured with asterisks in the YAML editor. Click the YAML pane to give it focus and reveal the sensitive values, or click the **Hide YAML** button between the panes to close the YAML.
 
-This will open the **Select Template** modal.
+<figure><img src="../../docs/.gitbook/assets/image (4).png" alt="New Virtual Server deployment page"><figcaption><p>New Virtual Server deployment page</p></figcaption></figure>
 
-To use an existing Virtual Server as a template, select it from the drop-down presented. Or, toggle on the **Clone (use resource as source)** option to create an exact clone of the selected Virtual Server.
+There are three buttons in the upper-right corner of the web UI pane:
+
+<figure><img src="../../docs/.gitbook/assets/image (12).png" alt="Option buttons"><figcaption><p>Option buttons</p></figcaption></figure>
+
+* **Magic wand button:** Revert the form to the last valid configuration.
+* **Arrow button:** Reset the form, clearing all fields.
+* **Load or clone from existing button:** Deploy a new Virtual Server from a [template](coreweave-apps.md#deploy-from-a-template-1), or [clone](coreweave-apps.md#clone-an-existing-server-1) an existing Virtual Server.
+
+## :two\_women\_holding\_hands:**Clone an existing server**
+
+A clone is a snapshot of an existing Virtual Server, including the PVC containing the OS and all files. Deploying a clone Virtual Server creates an exact duplicate of an existing Virtual Server in its current state.
 
 {% hint style="info" %}
 **Note**
 
-There must already be at least one existing Virtual Server from which to make a clone or use as a template.
+Shut down the existing source server before cloning. The deployment page does not allow cloning a running server.&#x20;
 {% endhint %}
 
-<figure><img src="../../docs/.gitbook/assets/image (87).png" alt=""><figcaption></figcaption></figure>
+### Clone from the New Virtual Server form
 
-### Configuration options
+One way to initiate a clone deployment is to open the New Virtual Server form, as if [deploying from scratch](coreweave-apps.md#new-server-from-scratch-1). Then, click **Load or clone from existing** in the upper-right, which opens the **Select Template** modal.
 
-Click on any of the specification cards to learn more about each configuration option:
+Select an existing Virtual Server in the drop-down presented. Then toggle the **Clone (use resource as source)** option to create an exact clone of the selected Virtual Server.
+
+<figure><img src="../../docs/.gitbook/assets/image (10).png" alt="Clone server modal"><figcaption><p>Clone server modal</p></figcaption></figure>
+
+### Clone from an existing server entry
+
+Another way to deploy a clone is to select **Clone** from the **more** menu of an existing server. Or, expand the server details and click **Clone**.
+
+<figure><img src="../../docs/.gitbook/assets/image (3).png" alt="Deployment options"><figcaption><p>Deployment options</p></figcaption></figure>
+
+## :pencil: Deploy from a t**emplate**
+
+A template uses an existing Virtual Server as a model. Deploying from a template creates a new Virtual Server with the same configuration as the original, but without the state or a copy of the data.
+
+The steps to deploy as a template are similar to [deploying a clone](coreweave-apps.md#clone-an-existing-server-1), but choose the **Use As Template** option instead. In the Select Template modal, leave the Clone option untoggled:
+
+<figure><img src="../../docs/.gitbook/assets/image (18).png" alt="Leave Clone untoggled to create a template"><figcaption><p>Leave <strong>Clone</strong> untoggled to create a template</p></figcaption></figure>
+
+### Adjusting configuration when using a template
+
+Changing the configuration options before deployment is allowed when using a template. For example, change the Region when deploying from a template to use the same server configuration in a different datacenter.
+
+While this is also possible with cloning, there's less risk of deployment failure when using a template because templates don't copy the source server's files or state.&#x20;
+
+## :dvd: Deploy c**ustom**
+
+A custom deployment is a special case. Compared to a _clone_ which is an exact copy, or a _template_ that uses the same settings but no data, a _custom_ deployment can use custom settings while copying the PVC from another Virtual Server, or load the disk image from a remote HTTP source.
+
+To deploy a custom Virtual Server, follow the same steps as deploying a [new server from scratch](coreweave-apps.md#new-server-from-scratch-1), but select either **Custom OS with Remote Source**, or **Custom OS with PVC** in the Operating System section.&#x20;
+
+<figure><img src="../../docs/.gitbook/assets/image.png" alt="Choose a Custom option"><figcaption><p>Choose a Custom option</p></figcaption></figure>
+
+{% hint style="info" %}
+**Note**
+
+The **Custom OS with PVC** option does not appear unless you have an eligible PVC available.&#x20;
+{% endhint %}
+
+This option provides complete flexibility. You can supply your own OS image over HTTP in `qcow2`, `raw` and `iso` formats, optionally compressed with either `gz` or `xz`. You can also copy the PVC from existing Virtual Server in CoreWeave Cloud, or prepare a custom PVC image using any other procedure. See [Importing Disk Images](../../docs/virtual-servers/root-disk-lifecycle-management/importing-a-qcow2-image.md) for more details about these options.
+
+## Configuration options
+
+Click any of the specification cards to learn more about each configuration option.
 
 <table data-card-size="large" data-view="cards"><thead><tr><th>Specification</th><th>Description</th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><a href="../../docs/virtual-servers/virtual-server-configuration-options/region-hardware-and-firmware.md"><strong>Name</strong></a></td><td>The name of the <a href="../getting-started.md">Virtual Server</a></td><td><a href="../../docs/virtual-servers/virtual-server-configuration-options/region-hardware-and-firmware.md">region-hardware-and-firmware.md</a></td></tr><tr><td><a href="../../docs/virtual-servers/virtual-server-configuration-options/region-hardware-and-firmware-1.md#region"><strong>Region</strong></a></td><td>The <a href="../../docs/data-center-regions.md">data center region</a> in which to deploy the Virtual Server</td><td><a href="../../docs/virtual-servers/virtual-server-configuration-options/region-hardware-and-firmware-1.md#region">#region</a></td></tr><tr><td><a href="../../docs/virtual-servers/virtual-server-configuration-options/region-hardware-and-firmware-1.md#hardware"><strong>Hardware</strong></a></td><td>The type and number of <a href="../../coreweave-kubernetes/node-types.md">GPUs</a> to allocate to the Virtual Server</td><td><a href="../../docs/virtual-servers/virtual-server-configuration-options/region-hardware-and-firmware-1.md#hardware">#hardware</a></td></tr><tr><td><a href="../../docs/virtual-servers/virtual-server-configuration-options/operating-system-and-root-disk.md"><strong>Operating System</strong></a></td><td>The <a href="../../docs/virtual-servers/virtual-server-configuration-options/operating-system-and-root-disk.md">Operating System</a> to run on the Virtual Server</td><td><a href="../../docs/virtual-servers/virtual-server-configuration-options/operating-system-and-root-disk.md">operating-system-and-root-disk.md</a></td></tr><tr><td><a href="../../docs/virtual-servers/virtual-server-configuration-options/networking.md"><strong>Network</strong></a></td><td>Attach a <a href="../../docs/virtual-servers/virtual-server-configuration-options/networking.md">Public IP or a LoadBalancer IP</a> to the Virtual Server</td><td><a href="../../docs/virtual-servers/virtual-server-configuration-options/networking.md">networking.md</a></td></tr><tr><td><a href="../../docs/virtual-servers/virtual-server-configuration-options/storage.md"><strong>Attach Volumes</strong></a></td><td>Attach <a href="../../docs/virtual-servers/virtual-server-configuration-options/storage.md#attach-a-storage-volume">volumes</a> in the same namespace to the Virtual Server</td><td><a href="../../docs/storage/storage/using-storage-cloud-ui.md">using-storage-cloud-ui.md</a></td></tr><tr><td><a href="../../docs/virtual-servers/virtual-server-configuration-options/user-accounts.md"><strong>Users</strong></a></td><td>Create <a href="../../docs/virtual-servers/virtual-server-configuration-options/user-accounts.md">user accounts</a> on your Virtual Server</td><td><a href="../../docs/virtual-servers/virtual-server-configuration-options/user-accounts.md">user-accounts.md</a></td></tr></tbody></table>
 
 ### Edit the CRD manifest using the YAML editor
 
-Not all Virtual Server configuration options are exposed through the options displayed in the Web UI.
+Not all Virtual Server configuration options are exposed in the Web UI.
 
-For more fine-grained control over the Virtual Server configuration, click the **EDIT YAML** tab on the right-hand edge of the screen to expand the YAML editor.
+For more fine-grained control over the Virtual Server configuration, use the YAML pane on the right side of the screen.
 
 The YAML editor allows the Custom Resource Definition (CRD) of the Virtual Server to be edited directly, offering a high level of both flexible customization and transparency. The CRD's YAML may also be copied from here for future programmatic deployments using the CLI.
 
@@ -86,7 +136,7 @@ When you are ready to launch your new Virtual Server, click the **Deploy Now** b
 
 ### Virtual Server status page
 
-Once your Virtual Server has begun deploying, you will be automatically redirected to the **status page**. From here, the Virtual Server can be stopped (shut down), restarted, edited, [cloned](coreweave-apps.md#templates-and-clones), used as a [template](coreweave-apps.md#templates-and-clones), or deleted.
+Once your Virtual Server has begun deploying, you will be automatically redirected to the **status page**. From here, the Virtual Server can be stopped (shut down), restarted, edited, [cloned](coreweave-apps.md#clone-an-existing-server-1), used as a [template](coreweave-apps.md#deploy-from-a-template-1), or deleted.
 
 Click the new Virtual Server to expand its menu for more information and to see all options.
 

@@ -148,7 +148,7 @@ This ensures that only those machines that are labelled as `artist` machines wil
 
 Next, navigate to [the Virtual Server management page](https://cloud.coreweave.com/virtualservers). From here, Virtual Servers (Virtual Workstations) can be stopped, edited, and then started again. Stop the running artist machines, then edit the YAML manifest by clicking the **Edit** button and opening the YAML tab.
 
-<figure><img src="../../../.gitbook/assets/image (18).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (18) (1).png" alt=""><figcaption></figcaption></figure>
 
 Then, open the YAML editor by clicking the **EDIT YAML** tab on the right-hand side of the screen, and add the following `label` to the manifest:
 

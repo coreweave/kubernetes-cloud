@@ -328,7 +328,7 @@ From the overview of an experiment that is running multiple trials, you can trac
 
 You can see more information about each specific trial in the **Trials** tab. Each individual trial may also be inspected from here by clicking into them.
 
-<figure><img src="../../../.gitbook/assets/image (19) (2) (1).png" alt=""><figcaption><p>Trials Tab in the Determined Web UI</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (19) (2) (1) (1).png" alt=""><figcaption><p>Trials Tab in the Determined Web UI</p></figcaption></figure>
 
 {% hint style="info" %}
 **Note**

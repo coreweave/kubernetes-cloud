@@ -28,7 +28,7 @@ The Active Directory flavor of the Samba application will require a domain contr
 
 The Samba instance and the filesystem volume to expose should be deployed in the same data center region. When selecting a region for the Samba instance, ensure it matches the one chosen for the filesystem volume.
 
-<figure><img src="../../../../.gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (12) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 **Note**
