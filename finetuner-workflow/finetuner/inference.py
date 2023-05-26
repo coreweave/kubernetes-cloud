@@ -54,7 +54,7 @@ def get_health():
 
 
 @app.post("/completion")
-async def completion(completion: Completion):
+def completion(completion: Completion):
     try:
         return model(
             completion.prompt,
