@@ -42,7 +42,6 @@ args = parser.parse_args()
 
 class Completion(BaseModel):
     prompt: str
-    engine: Optional[str] = None
     max_new_tokens: Optional[int] = 10
     temperature: Optional[float] = None
     top_p: Optional[float] = None
