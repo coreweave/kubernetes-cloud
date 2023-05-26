@@ -5,8 +5,6 @@ import requests
 import aiohttp
 from argparse import ArgumentParser
 
-from asgiref import sync
-
 def timed(func):
     """
     records approximate durations of function calls
@@ -26,24 +24,6 @@ def timed(func):
 timed.durations = []
 
 @timed
-def async_requests_get_all(urls):
-    """
-    asynchronous wrapper around synchronous requests
-    """
-    session = requests.Session()
-    # wrap requests.get into an async function
-    def get(url):
-        return session.get(url).status_code
-    async_get = sync.sync_to_async(get)
-
-    async def get_all(urls):
-        return await asyncio.gather(*[
-            async_get(url) for url in urls
-        ])
-    # call get_all as a sync function to be used in a sync context
-    return sync.async_to_sync(get_all)(urls)
-
-@timed
 def async_aiohttp_get_all(urls):
     """
     performs asynchronous get requests
@@ -57,8 +37,9 @@ def async_aiohttp_get_all(urls):
             return await asyncio.gather(*[
                 fetch(url) for url in urls
             ])
+        
     # call get_all as a sync function to be used in a sync context
-    return sync.async_to_sync(get_all)(urls)
+    return (get_all)(urls)
 
 
 def parse_args():
@@ -69,7 +50,7 @@ def parse_args():
 
     return args
 
-inputs = ["Hello, how are you?", "What up dig dog?", "You are a killer!", "JCPenny is a bad store", "Life is great", "Chilling on a roof", "Love you", "Mox is cute", "You are my enemy", "Change is required", "Love the life"]
+inputs = ["Hello, how are you?", "What up dig dog?", "You are a killer!", "Live a good life", "Life is great", "Chilling on a roof", "Love you", "Mox is cute", "You are my enemy", "Change is required", "Love the life"]
 
 def main():
     args = parse_args()
@@ -77,10 +58,7 @@ def main():
     for _ in range(100):
         urls.append(f"{args.url}/predict/{random.choice(inputs)}")
     
-    async_aiohttp_get_all(urls)
-    # async_requests_get_all(urls)
-    print('----------------------')
-    [print(duration) for duration in timed.durations]
+    timed(asyncio.run)(async_aiohttp_get_all(urls))
 
 
 if __name__ == '__main__':

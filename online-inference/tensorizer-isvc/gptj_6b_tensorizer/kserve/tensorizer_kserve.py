@@ -39,7 +39,7 @@ class Model(kserve.Model):
 
         before_mem = get_mem_usage()
 
-        # Lazy load the tensors from S3 into the model.
+        # Lazy load the tensors from PVC into the model.
         start = time.time()
         deserializer = TensorDeserializer("/mnt/pvc/gptj.tensors", plaid_mode=True)
         deserializer.load_into_module(self.model)

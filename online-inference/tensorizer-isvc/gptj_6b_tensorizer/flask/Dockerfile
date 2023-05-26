@@ -10,6 +10,6 @@ RUN pip install -r requirements.txt
 RUN mkdir -p /transformer/
 WORKDIR /transformer
 
-COPY transformer_flask.py ./
+COPY tensorizer_flask.py ./
 
-ENTRYPOINT ["python", "transformer_flask.py"]
+ENTRYPOINT ["python", "tensorizer_flask.py"]

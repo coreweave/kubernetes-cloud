@@ -8,9 +8,6 @@ import torch
 from flask import Flask
 from transformers import AutoTokenizer, GPTJForCausalLM
 
-# The signature name is defined at time of export, in signature_def_map supplied to builder
-# Tensorflows default is serving_default
-
 class Transformer(object):
     def __init__(self):
         
