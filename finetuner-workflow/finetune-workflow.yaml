@@ -573,7 +573,7 @@ spec:
                           values:
                             - "{{workflow.parameters.region}}"
             containers:
-              - name: kfserving-container
+              - name: http-inference-container
                 image: "{{workflow.parameters.finetuner_image}}:{{workflow.parameters.finetuner_tag}}"
                 imagePullPolicy: IfNotPresent
                 command: ["/usr/bin/bash", "-c"]
