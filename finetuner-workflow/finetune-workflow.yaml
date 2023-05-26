@@ -577,7 +577,7 @@ spec:
                 image: "{{workflow.parameters.finetuner_image}}:{{workflow.parameters.finetuner_tag}}"
                 imagePullPolicy: IfNotPresent
                 command: ["/usr/bin/bash", "-c"]
-                args: ["/usr/bin/python3 /app/inference.py"]
+                args: ["/usr/bin/python3 /app/inference.py --model=${INFERENCE_MODEL} --port=${INFERENCE_PORT}"]
                 env:
                   - name: INFERENCE_PORT
                     value: "80"
