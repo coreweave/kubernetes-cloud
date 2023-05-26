@@ -22,7 +22,7 @@ parser.add_argument(
     "--device-id",
     type=val.non_negative(int, special_val=-1),
     default=0,
-    help="GPU ID to use for inference or -1 for CPU [default = 0]",
+    help="GPU ID to use for inference, or -1 for CPU [default = 0]",
 )
 parser.add_argument(
     "--port",
