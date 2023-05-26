@@ -17,7 +17,7 @@ from argparse import ArgumentParser
 #             if response.status_code != 200:
 #                 response.failure("Could not return response")
 
-inputs = ["Hello, how are you?", "What up dig dog?", "You are a killer!", "JCPenny is a bad store", "Life is great", "Chilling on a roof", "Love you", "Mox is cute", "You are my enemy", "Change is required", "Love the life"]
+inputs = ["Hello, how are you?", "What up dig dog?", "You are a killer!", "Live a good life", "Life is great", "Chilling on a roof", "Love you", "Mox is cute", "You are my enemy", "Change is required", "Love the life"]
 HF_ISVC=""
 T_ISVC=""
 
