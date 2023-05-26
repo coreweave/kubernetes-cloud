@@ -1,12 +1,13 @@
 import os
-import uvicorn
-import torch
+from typing import List, Optional
 
-from pydantic import BaseModel
-from typing import Optional, List
+import torch
+import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 from transformers import pipeline
+
 
 class Completion(BaseModel):
     prompt: str
@@ -23,9 +24,8 @@ class Completion(BaseModel):
     stop_sequence: Optional[str] = None
     bad_words: Optional[List] = None
 
-app = FastAPI(
-    title="Inference API"
-)
+
+app = FastAPI(title="Inference API")
 
 app.add_middleware(
     CORSMiddleware,
@@ -37,19 +37,21 @@ app.add_middleware(
 args = {
     "model": os.getenv("INFERENCE_MODEL", "distilgpt2"),
     "device": int(os.getenv("INFERENCE_DEVICE", 0)),
-    "port": int(os.getenv("INFERENCE_PORT", 80))
+    "port": int(os.getenv("INFERENCE_PORT", 80)),
 }
 
 model = pipeline(
     "text-generation",
     model=args["model"],
     torch_dtype=torch.float16,
-    device=args["device"]
+    device=args["device"],
 )
 
-@app.get('/') 
+
+@app.get("/")
 def get_health():
-    return 'OK'
+    return "OK"
+
 
 @app.post("/completion")
 async def completion(completion: Completion):
@@ -64,14 +66,11 @@ async def completion(completion: Completion):
             do_sample=completion.do_sample,
             penalty_alpha=completion.penalty_alpha,
             num_return_sequences=completion.num_return_sequences,
-            stop_sequence=completion.stop_sequence
+            stop_sequence=completion.stop_sequence,
         )
     except Exception as e:
         return {"error": str(e)}
 
+
 if __name__ == "__main__":
-    uvicorn.run(
-        "inference:app",
-        host="0.0.0.0",
-        port=args["port"]
-    )
+    uvicorn.run("inference:app", host="0.0.0.0", port=args["port"])
