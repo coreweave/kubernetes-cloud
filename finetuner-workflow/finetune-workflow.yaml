@@ -573,7 +573,7 @@ spec:
                           values:
                             - "{{workflow.parameters.region}}"
             containers:
-              - name: http-inference-container
+              - name: kfserving-container
                 image: "{{workflow.parameters.finetuner_image}}:{{workflow.parameters.finetuner_tag}}"
                 imagePullPolicy: IfNotPresent
                 command: ["/usr/bin/bash", "-c"]
@@ -583,6 +583,8 @@ spec:
                     value: "80"
                   - name: INFERENCE_MODEL
                     value: /mnt/pvc/{{ inputs.parameters.model_path }}
+                  - name: STORAGE_URI # KFServing mounts the PVC at /mnt/pvc/
+                    value: pvc://{{ workflow.parameters.pvc }}/
                 ports:
                   - protocol: TCP
                     containerPort: 80
