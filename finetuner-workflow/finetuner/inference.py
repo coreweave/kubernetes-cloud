@@ -38,6 +38,7 @@ args = {
     "model": os.getenv("INFERENCE_MODEL", "distilgpt2"),
     "device": int(os.getenv("INFERENCE_DEVICE", 0)),
     "port": int(os.getenv("INFERENCE_PORT", 80)),
+    "ip": os.getenv("INFERENCE_IP", "0.0.0.0"),
 }
 
 model = pipeline(
@@ -73,4 +74,4 @@ def completion(completion: Completion):
 
 
 if __name__ == "__main__":
-    uvicorn.run("inference:app", host="0.0.0.0", port=args["port"])
+    uvicorn.run("inference:app", host=args["ip"], port=args["port"])
