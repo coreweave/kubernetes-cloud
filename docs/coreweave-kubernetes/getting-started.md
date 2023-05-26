@@ -101,7 +101,7 @@ If you'd like to verify kubectl, you can verify it by running a checksum operati
 
 {% code overflow="wrap" %}
 ```bash
-curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
 echo "$(<kubectl.sha256) kubectl" | sha256sum --check
 ```
 {% endcode %}
