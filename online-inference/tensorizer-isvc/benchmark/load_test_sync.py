@@ -37,18 +37,19 @@ def benchmark(*urls):
     for isvc in urls:
         times = []
         count_s = count_f = 0
-        for _ in range(1000):
-            start = time.time()
-            res = requests.get(f"{isvc}/predict/{random.choice(inputs)}")
-            if res.status_code == 200:
-                times.append(time.time() - start)
-                logger.info(f"Good status code from {isvc}: {res.status_code}")
-                count_s += 1
-            else:
-                logger.warning(
-                    f"Bad status code from {isvc}: {res.status_code}"
-                )
-                count_f += 1
+        with requests.Session() as s:
+            for _ in range(1000):
+                start = time.time()
+                res = s.get(f"{isvc}/predict/{random.choice(inputs)}")
+                if res.status_code == 200:
+                    times.append(time.time() - start)
+                    logger.info(f"Good status code from {isvc}: {res.status_code}")
+                    count_s += 1
+                else:
+                    logger.warning(
+                        f"Bad status code from {isvc}: {res.status_code}"
+                    )
+                    count_f += 1
 
         print(f"Average Latency for {isvc}: {sum(times)/len(times)}")
         print(f"Successes for {isvc}: {count_s}")
