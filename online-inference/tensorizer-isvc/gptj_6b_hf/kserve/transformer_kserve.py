@@ -1,16 +1,12 @@
-import kserve
 import logging
-import os
 import time
 from typing import Dict
-from argparse import ArgumentParser
-from io import BytesIO
 
+import kserve
 import torch
+from transformers import AutoTokenizer, GPTJForCausalLM
 
-from transformers import GPTJForCausalLM, AutoTokenizer
-
-MODEL_NAME="gptj"
+MODEL_NAME = "gptj"
 
 logging.basicConfig(level=kserve.constants.KSERVE_LOGLEVEL)
 logger = logging.getLogger(MODEL_NAME)
@@ -27,13 +23,14 @@ class Model(kserve.Model):
 
     def load(self):
         logger.info(f"Loading {MODEL_NAME}")
-    
+
         device = "cuda"
         start = time.time()
-        self.model = GPTJForCausalLM.from_pretrained("/mnt/pvc", torch_dtype=torch.float16).to(device)
+        self.model = GPTJForCausalLM.from_pretrained(
+            "/mnt/pvc", torch_dtype=torch.float16
+        ).to(device)
         print(f"Start time : {time.time() - start} seconds")
-        self.tokenizer = AutoTokenizer.from_pretrained("EleutherAI/gpt-j-6B")        
-
+        self.tokenizer = AutoTokenizer.from_pretrained("EleutherAI/gpt-j-6B")
 
         self.ready = True
 
@@ -48,12 +45,12 @@ class Model(kserve.Model):
             ).to("cuda")
 
         eos = self.tokenizer.eos_token_id
-        
+
         output_ids = self.model.generate(
-        input_ids, max_new_tokens=50, do_sample=True, pad_token_id=eos
+            input_ids, max_new_tokens=50, do_sample=True, pad_token_id=eos
         )
 
-        print(f"tensor output IDS : {output_ids}")
+        print(f"tensor output IDs : {output_ids}")
 
         output = self.tokenizer.decode(output_ids[0], skip_special_tokens=True)
 
