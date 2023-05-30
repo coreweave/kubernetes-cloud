@@ -12,40 +12,29 @@ def timed(func):
     """
 
     def wrapper(*args, **kwargs):
+        name = func.__name__
         start = time.time()
-        print("{name:<30} started".format(name=func.__name__))
+        print(f"{name:<30} started")
         result = func(*args, **kwargs)
-        duration = "{name:<30} finished in {elapsed:.2f} seconds".format(
-            name=func.__name__, elapsed=time.time() - start
-        )
-        print(duration)
-        timed.durations.append(duration)
+        elapsed = time.time() - start
+        print(f"{name:<30} finished in {elapsed:.2f} seconds")
         return result
 
     return wrapper
 
 
-timed.durations = []
-
-
-@timed
-def async_aiohttp_get_all(urls):
+async def async_aiohttp_get_all(urls):
     """
-    performs asynchronous get requests
+    performs asynchronous get requests in bulk
     """
+    async with aiohttp.ClientSession() as session:
 
-    async def get_all(urls):
-        async with aiohttp.ClientSession() as session:
+        async def fetch(url):
+            async with session.get(url) as response:
+                print(response.status)
+                return await response.text()
 
-            async def fetch(url):
-                async with session.get(url) as response:
-                    print(response.status)
-                    return await response.text()
-
-            return await asyncio.gather(*[fetch(url) for url in urls])
-
-    # call get_all as a sync function to be used in a sync context
-    return (get_all)(urls)
+        return await asyncio.gather(*map(fetch, urls))
 
 
 def parse_args():
@@ -74,10 +63,7 @@ inputs = [
 
 def main():
     args = parse_args()
-    urls = []
-    for _ in range(100):
-        urls.append(f"{args.url}/predict/{random.choice(inputs)}")
-
+    urls = [f"{args.url}/predict/{random.choice(inputs)}" for _ in range(100)]
     timed(asyncio.run)(async_aiohttp_get_all(urls))
 
 

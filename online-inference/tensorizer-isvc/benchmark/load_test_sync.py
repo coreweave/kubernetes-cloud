@@ -29,23 +29,19 @@ inputs = [
 #             if response.status_code != 200:
 #                 response.failure("Could not return response")
 
-HF_ISVC = ""
-T_ISVC = ""
 
-
-def benchmark(url):
-    for isvc in [url]:
+def benchmark(*urls):
+    for isvc in urls:
         times = []
-        count_s, count_f = 0, 0
+        count_s = count_f = 0
         for _ in range(1000):
             start = time.time()
-            try:
-                res = requests.get(f"{isvc}/predict/{random.choice(inputs)}")
-                assert res.status_code == 200
-                count_s += 1
+            res = requests.get(f"{isvc}/predict/{random.choice(inputs)}")
+            if res.status_code == 200:
                 times.append(time.time() - start)
-            except:
-                print(f"res.status_code {isvc}: res.status_code")
+                count_s += 1
+            else:
+                print(f"Bad status code from {isvc}: {res.status_code}")
                 count_f += 1
 
         print(f"Average Latency for {isvc}: {sum(times)/len(times)}")
@@ -64,7 +60,7 @@ def parse_args():
 
 def main():
     args = parse_args()
-    benchmark(url=args.url)
+    benchmark(args.url)
 
 
 if __name__ == "__main__":
