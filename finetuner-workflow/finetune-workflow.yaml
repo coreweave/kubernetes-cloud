@@ -573,18 +573,33 @@ spec:
                           values:
                             - "{{workflow.parameters.region}}"
             containers:
-              - name: kserve-container
+              - name: kfserving-container
                 image: "{{workflow.parameters.finetuner_image}}:{{workflow.parameters.finetuner_tag}}"
                 imagePullPolicy: IfNotPresent
                 command: ["/usr/bin/bash", "-c"]
-                args: ["/usr/bin/python3 /app/inference.py"]
+                args: ["/usr/bin/python3 /app/inference.py --model=${INFERENCE_MODEL} --port=${INFERENCE_PORT}"]
                 env:
-                  - name: MODEL_NAME
-                    value: "{{inputs.parameters.model_name}}"
+                  - name: INFERENCE_PORT
+                    value: "80"
+                  - name: INFERENCE_MODEL
+                    value: /mnt/pvc/{{ inputs.parameters.model_path }}
                   - name: STORAGE_URI # KFServing mounts the PVC at /mnt/pvc/
                     value: pvc://{{ workflow.parameters.pvc }}/
-                  - name: MODEL_PATH
-                    value: /mnt/pvc/{{ inputs.parameters.model_path }}
+                ports:
+                  - protocol: TCP
+                    containerPort: 80
+                livenessProbe:
+                  httpGet:
+                    path: /
+                    port: 80
+                  initialDelaySeconds: 300
+                  periodSeconds: 30
+                readinessProbe:
+                  httpGet:
+                    path: /
+                    port: 80
+                  initialDelaySeconds: 300
+                  periodSeconds: 30
                 resources:
                   requests:
                     nvidia.com/gpu: 1

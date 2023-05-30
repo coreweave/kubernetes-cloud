@@ -5,5 +5,6 @@ torch==2.0.0
 psutil==5.9.4
 accelerate~=0.17.1
 tensorizer==1.1.0
-kserve==0.10.1
+fastapi==0.85.1
+uvicorn==0.19.0
 -r requirements-precompilable.txt

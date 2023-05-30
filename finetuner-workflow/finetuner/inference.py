@@ -1,71 +1,100 @@
-import os
-import kserve
-import logging
+from typing import List, Optional
+
 import torch
-from typing import Dict
-from transformers import pipeline, AutoModelForCausalLM, AutoTokenizer
+import uvicorn
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+from transformers import pipeline
 
-logging.basicConfig(level=kserve.constants.KSERVE_LOGLEVEL)
-logger = logging.getLogger(__name__)
+from utils import DashParser
+from utils import validation as val
 
-options = {
-    'MODEL_PATH': os.getenv('MODEL_PATH'),
-    'MODEL_NAME': os.getenv('MODEL_NAME'),
-}
+parser = DashParser(description="Text model inference HTTP server")
 
-default_params = {
-    'MIN_LENGTH': int(os.getenv('MIN_LENGTH', 1)),
-    'MAX_LENGTH': int(os.getenv('MAX_LENGTH', 100)),
-    'TEMPERATURE': float(os.getenv('TEMPERATURE', 1.0)),
-    'TOP_K': int(os.getenv('TOP_K', 50)),
-    'TOP_P': float(os.getenv('TOP_P', 0.95)),
-    'REPETITION_PENALTY': float(os.getenv('REPETITION_PENALTY', 1.0)),
-    'NUM_RETURN_SEQUENCES': int(os.getenv('NUM_RETURN_SEQUENCES', 1)),
-}
+parser.add_argument(
+    "--model",
+    type=str,
+    default="distilgpt2",
+    help="Model to use for inference (directory, or HuggingFace ID) [default = distilgpt2]",
+)
+parser.add_argument(
+    "--device-id",
+    type=val.non_negative(int, special_val=-1),
+    default=0,
+    help="GPU ID to use for inference, or -1 for CPU [default = 0]",
+)
+parser.add_argument(
+    "--port",
+    type=val.non_negative(int),
+    default=80,
+    help="Port to listen on [default = 80 (http)]",
+)
+parser.add_argument(
+    "--ip",
+    type=str,
+    default="0.0.0.0",
+    help="IP address to listen on [default = 0.0.0.0 (all interfaces)]",
+)
 
-class Model(kserve.Model):
-    def __init__(self, name: str) -> None:
-        super().__init__(name)
-        self.name = name
-        self.model_name = name
-        self.ready = False
-    
-    def load(self) -> None:
-        logger.info(f'Loading model from {options["MODEL_PATH"]}')
-        self.model = AutoModelForCausalLM.from_pretrained(options["MODEL_PATH"]).eval()
-        self.tokenizer = AutoTokenizer.from_pretrained(options["MODEL_PATH"])
-        self.generator = pipeline(
-            'text-generation',
-            model=self.model,
-            tokenizer=self.tokenizer,
-            device=0 if torch.cuda.is_available() else -1,
+args = parser.parse_args()
+
+
+class Completion(BaseModel):
+    prompt: str
+    max_new_tokens: Optional[int] = 10
+    temperature: Optional[float] = None
+    top_p: Optional[float] = None
+    top_k: Optional[int] = None
+    typical_p: Optional[float] = None
+    repetition_penalty: Optional[float] = None
+    do_sample: Optional[bool] = True
+    penalty_alpha: Optional[float] = None
+    num_return_sequences: Optional[int] = 1
+    stop_sequence: Optional[str] = None
+    bad_words: Optional[List] = None
+
+
+app = FastAPI(title="Inference API")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+model = pipeline(
+    "text-generation",
+    model=args.model,
+    torch_dtype=None if args.device_id == -1 else torch.float16,
+    device=args.device_id,
+)
+
+
+@app.get("/")
+def get_health():
+    return "OK"
+
+
+@app.post("/completion")
+def completion(completion: Completion):
+    try:
+        return model(
+            completion.prompt,
+            max_new_tokens=completion.max_new_tokens,
+            temperature=completion.temperature,
+            top_p=completion.top_p,
+            top_k=completion.top_k,
+            repetition_penalty=completion.repetition_penalty,
+            do_sample=completion.do_sample,
+            penalty_alpha=completion.penalty_alpha,
+            num_return_sequences=completion.num_return_sequences,
+            stop_sequence=completion.stop_sequence,
         )
-        self.ready = True
+    except Exception as e:
+        return {"error": str(e)}
 
-    def predict(self, request: Dict, headers: Dict) -> Dict:
-        request_params = default_params.copy()
 
-        if 'parameters' in request:
-            parameters = request['parameters']
-            for k, pv in parameters.items():
-                pk = k.upper()
-                if pk in request_params:
-                    logger.debug(f'Parameter {pk} changed from {request_params[pk]} to {pv}')
-                    request_params[pk] = pv
-        
-        return {'predictions': self.generator(
-            request['instances'],
-            do_sample=True,
-            min_length=request_params['MIN_LENGTH'],
-            max_length=request_params['MAX_LENGTH'],
-            temperature=request_params['TEMPERATURE'],
-            top_k=request_params['TOP_K'],
-            top_p=request_params['TOP_P'],
-            repetition_penalty=request_params['REPETITION_PENALTY'],
-        )}
-
-if __name__ == '__main__':
-    model = Model(options['MODEL_NAME'])
-    with torch.no_grad():
-        model.load()
-        kserve.ModelServer().start([model])
+if __name__ == "__main__":
+    uvicorn.run("inference:app", host=args.ip, port=args.port)
