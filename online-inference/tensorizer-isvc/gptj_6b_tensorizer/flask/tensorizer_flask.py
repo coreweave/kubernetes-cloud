@@ -1,7 +1,7 @@
 import time
 
 import torch
-from flask import Flask
+from flask import Flask, Response
 from tensorizer import TensorDeserializer
 from tensorizer.utils import no_init_or_tensor, convert_bytes, get_mem_usage
 from transformers import AutoModelForCausalLM, AutoTokenizer, AutoConfig
@@ -87,8 +87,8 @@ def predict(text):
     input_ids = llm.encode(text)
     output = llm.decode(input_ids)
 
-    return output, 200
+    return Response(output, mimetype="text/plain", status=200)
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8000, debug=True)
+    app.run(host="0.0.0.0", port=8000)
