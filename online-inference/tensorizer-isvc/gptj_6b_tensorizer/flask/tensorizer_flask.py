@@ -38,13 +38,14 @@ class Transformer(object):
         )
         print(f"Memory usage before: {before_mem}")
         print(f"Memory usage after: {after_mem}")
+        
+        self.model.eval()
+        torch.manual_seed(100)
 
         # Tokenize and generate
-        self.model.eval()
         self.tokenizer = AutoTokenizer.from_pretrained(self.model_ref)
-        torch.manual_seed(100)
         self.eos = self.tokenizer.eos_token_id
-        
+
     # Accept input either in base64 format or as a url
     def encode(self, input):
         input_ids = self.tokenizer.encode(input, return_tensors="pt").to("cuda")

@@ -30,9 +30,13 @@ class Model(kserve.Model):
             "/mnt/pvc", torch_dtype=torch.float16
         ).to(device)
         print(f"Start time : {time.time() - start} seconds")
-        self.tokenizer = AutoTokenizer.from_pretrained("EleutherAI/gpt-j-6B")
+        
+        self.model.eval()
         torch.manual_seed(100)
+        
+        self.tokenizer = AutoTokenizer.from_pretrained("EleutherAI/gpt-j-6B")
         self.eos = self.tokenizer.eos_token_id
+        
         self.ready = True
 
     def predict(self, request: Dict) -> Dict:

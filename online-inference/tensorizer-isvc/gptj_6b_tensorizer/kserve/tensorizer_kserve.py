@@ -54,10 +54,11 @@ class Model(kserve.Model):
         print(f"Memory usage before: {before_mem}")
         print(f"Memory usage after: {after_mem}")
 
-        # Tokenize and generate
         self.model.eval()
-        self.tokenizer = AutoTokenizer.from_pretrained(self.model_ref)
         torch.manual_seed(100)
+
+        # Tokenize and generate
+        self.tokenizer = AutoTokenizer.from_pretrained(self.model_ref)
         self.eos = self.tokenizer.eos_token_id
         self.ready = True
 
