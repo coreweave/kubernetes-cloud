@@ -63,12 +63,19 @@ def measure_sync_fetch_all(urls) -> Sequence[float]:
     with requests.Session() as s:
         for url in urls:
             start = time.time()
-            res = s.get(url)
-            if res.status_code == 200:
-                times.append(time.time() - start)
-                logger.info(f"Good status code from {url}: {res.status_code}")
-            else:
-                logger.warning(f"Bad status code from {url}: {res.status_code}")
+            try:
+                res = s.get(url)
+                if res.ok:
+                    times.append(time.time() - start)
+                    logger.info(
+                        f"Good status code from {url}: {res.status_code}"
+                    )
+                else:
+                    logger.warning(
+                        f"Bad status code from {url}: {res.status_code}"
+                    )
+            except requests.ConnectTimeout:
+                logger.warning(f"Request to {url} timed out")
 
     return times
 
@@ -115,15 +122,6 @@ def benchmark(base_url: str, trials: int, asynchronous: bool):
         )
     print(f"Successes: {successes}")
     print(f"Failures: {failures}")
-
-
-def benchmark_sync(base_url: str, trials: int):
-    urls = [
-        f"{base_url}/predict/{random.choice(inputs)}" for _ in range(trials)
-    ]
-    start = time.time()
-    measure_sync_fetch_all(urls)
-    duration = time.time() - start
 
 
 def parse_args():
