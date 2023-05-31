@@ -36,7 +36,9 @@ class Model(kserve.Model):
 
         # Lazy load the tensors from PVC into the model.
         start = time.time()
-        deserializer = TensorDeserializer("/mnt/pvc/gptj.tensors", plaid_mode=True)
+        deserializer = TensorDeserializer(
+            "/mnt/pvc/gptj.tensors", plaid_mode=True
+        )
         deserializer.load_into_module(self.model)
         end = time.time()
 
@@ -47,7 +49,8 @@ class Model(kserve.Model):
         after_mem = get_mem_usage()
         deserializer.close()
         print(
-            f"Deserialized {total_bytes_str} in {end - start:0.2f}s," f" {per_second}/s"
+            f"Deserialized {total_bytes_str} in {end - start:0.2f}s,"
+            f" {per_second}/s"
         )
         print(f"Memory usage before: {before_mem}")
         print(f"Memory usage after: {after_mem}")
@@ -62,9 +65,9 @@ class Model(kserve.Model):
 
     def predict(self, payload: Dict, headers: Dict[str, str] = None) -> Dict:
         if "text" in payload:
-            input_ids = self.tokenizer.encode(payload["text"], return_tensors="pt").to(
-                "cuda"
-            )
+            input_ids = self.tokenizer.encode(
+                payload["text"], return_tensors="pt"
+            ).to("cuda")
         else:
             input_ids = self.tokenizer.encode(
                 "Please input some text", return_tensors="pt"
