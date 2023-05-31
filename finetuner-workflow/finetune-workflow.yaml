@@ -40,6 +40,9 @@ spec:
     # and `pile`. It defaults to the model's tokenizer data if not provided.
     - name: tokenizer
       value: ''
+    # Save model checkpoint every N steps.
+    - name: save_steps
+      value: '500'
     # How should the tokenizer order the dataset inputs? Options available are:
     # `size_ascending`, `size_descending`, `name_ascending`, `name_descending`,
     # `random`, and `none`. `shuffle` implements `none` while also assigning 
@@ -93,7 +96,6 @@ spec:
     - name: prompt_tokens
       value: '200'  # range: >= 0
     # The number of times to run prompt evaluation for each prompt.
-
     - name: prompt_samples
       value: '5'  # range: >= 0
     # The following are sampling parameters used during prompt evaluation.
@@ -233,7 +235,7 @@ spec:
           - name: input
             value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.dataset}}"
           - name: output
-            value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.dataset}}-{{=sprig.replace('/', '_', sprig.replace('.','_', sprig.replace('-','_', workflow.parameters.model)))}}-{{workflow.parameters.context}}-{{workflow.parameters.tokenizer_tag}}.tokens"
+            value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.dataset}}-{{=sprig.replace('/', '_', sprig.replace('.','_', sprig.replace('-','_', workflow.parameters.model)))}}-{{workflow.parameters.context}}-b{{workflow.parameters.boundary_index}}-{{workflow.parameters.tokenizer_tag}}.tokens"
           - name: tokenizer
             value: "{{=sprig.default('/' + workflow.parameters.pvc + '/models/' + workflow.parameters.model, workflow.parameters.tokenizer)}}"
           - name: context
@@ -266,7 +268,7 @@ spec:
               --run-name={{workflow.parameters.run_name}}
               --model=/{{workflow.parameters.pvc}}/models/{{workflow.parameters.model}}
               --trust-remote-code={{workflow.parameters.trust_remote_code}}
-              --dataset=/{{workflow.parameters.pvc}}/{{workflow.parameters.dataset}}-{{=sprig.replace('/', '_', sprig.replace('.','_', sprig.replace('-','_', workflow.parameters.model)))}}-{{workflow.parameters.context}}-{{workflow.parameters.tokenizer_tag}}.tokens
+              --dataset /{{workflow.parameters.pvc}}/{{workflow.parameters.dataset}}-{{=sprig.replace('/', '_', sprig.replace('.','_', sprig.replace('-','_', workflow.parameters.model)))}}-{{workflow.parameters.context}}-b{{workflow.parameters.boundary_index}}-{{workflow.parameters.tokenizer_tag}}.tokens
               --tensorizer-uri='{{workflow.parameters.tensorizer_uri}}'
               --lr={{workflow.parameters.learn_rate}}
               --epochs={{workflow.parameters.epochs}}
