@@ -62,10 +62,10 @@ class Model(kserve.Model):
         self.eos = self.tokenizer.eos_token_id
         self.ready = True
 
-    def predict(self) -> Dict:
-        if "text" in request:
+    def predict(self, payload: Dict, headers: Dict[str, str] = None) -> Dict:
+        if "text" in payload:
             input_ids = self.tokenizer.encode(
-                request["text"], return_tensors="pt"
+                payload["text"], return_tensors="pt"
             ).to("cuda")
         else:
             input_ids = self.tokenizer.encode(
