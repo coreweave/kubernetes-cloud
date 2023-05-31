@@ -31,7 +31,8 @@ class Model(kserve.Model):
         ).to(device)
         print(f"Start time : {time.time() - start} seconds")
         self.tokenizer = AutoTokenizer.from_pretrained("EleutherAI/gpt-j-6B")
-
+        torch.manual_seed(100)
+        self.eos = self.tokenizer.eos_token_id
         self.ready = True
 
     def predict(self, request: Dict) -> Dict:
@@ -44,11 +45,10 @@ class Model(kserve.Model):
                 "Please input some text", return_tensors="pt"
             ).to("cuda")
 
-        eos = self.tokenizer.eos_token_id
-
-        output_ids = self.model.generate(
-            input_ids, max_new_tokens=50, do_sample=True, pad_token_id=eos
-        )
+        with torch.no_grad():
+            output_ids = self.model.generate(
+                input_ids, max_new_tokens=50, do_sample=True, pad_token_id=self.eos
+            )
 
         print(f"tensor output IDs : {output_ids}")
 

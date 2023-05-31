@@ -1,7 +1,7 @@
 import logging
 import time
 from typing import Dict
-
+import torch
 import kserve
 from tensorizer import TensorDeserializer
 from tensorizer.utils import no_init_or_tensor, convert_bytes, get_mem_usage
@@ -57,7 +57,8 @@ class Model(kserve.Model):
         # Tokenize and generate
         self.model.eval()
         self.tokenizer = AutoTokenizer.from_pretrained(self.model_ref)
-
+        torch.manual_seed(100)
+        self.eos = self.tokenizer.eos_token_id
         self.ready = True
 
     def predict(self) -> Dict:
@@ -70,11 +71,10 @@ class Model(kserve.Model):
                 "Please input some text", return_tensors="pt"
             ).to("cuda")
 
-        eos = self.tokenizer.eos_token_id
-
-        output_ids = self.model.generate(
-            input_ids, max_new_tokens=50, do_sample=True, pad_token_id=eos
-        )
+        with torch.no_grad():
+            output_ids = self.model.generate(
+                input_ids, max_new_tokens=50, do_sample=True, pad_token_id=self.eos
+            )
 
         print(f"tensor output IDs : {output_ids}")
 

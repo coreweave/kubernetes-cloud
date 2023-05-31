@@ -14,6 +14,8 @@ class Transformer:
         ).to(device)
         print(f"Start time : {time.time() - start} seconds")
         self.tokenizer = AutoTokenizer.from_pretrained("EleutherAI/gpt-j-6B")
+        torch.manual_seed(100)
+        self.eos = self.tokenizer.eos_token_id
 
     # Accept input either in base64 format or as a url
     def encode(self, input):
@@ -23,11 +25,10 @@ class Transformer:
 
     # Match up the most likely prediction to the labels
     def decode(self, input_ids):
-        eos = self.tokenizer.eos_token_id
-
-        output_ids = self.model.generate(
-            input_ids, max_new_tokens=50, do_sample=True, pad_token_id=eos
-        )
+        with torch.no_grad():
+            output_ids = self.model.generate(
+                input_ids, max_new_tokens=50, do_sample=True, pad_token_id=self.eos
+            )
 
         print(f"tensor output IDs : {output_ids}")
 

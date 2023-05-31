@@ -15,8 +15,18 @@ spec:
       env:
         - name: STORAGE_URI 
           value: pvc://model-storage/
-      readinessProbe: null
-      livenessProbe: null
+      readinessProbe:
+        httpGet:
+          path: /
+          port: 8000
+        initialDelaySeconds: 300
+        periodSeconds: 3
+      livenessProbe: 
+        httpGet:
+          path: /
+          port: 8000
+        initialDelaySeconds: 300
+        periodSeconds: 3
       resources:
         requests:
           cpu: 8
@@ -38,10 +48,4 @@ spec:
             - key: topology.kubernetes.io/region
               operator: In
               values:
-                - LAS1
-            # - key: node.coreweave.cloud/version
-            #   operator: NotIn
-            #   values:
-            #     - 1.20.0
-            #     - 1.19.1
-            #     - 1.18.0   
+                - LAS1 

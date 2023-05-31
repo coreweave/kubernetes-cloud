@@ -1,5 +1,5 @@
 import time
-
+import torch
 from flask import Flask
 from tensorizer import TensorDeserializer
 from tensorizer.utils import no_init_or_tensor, convert_bytes, get_mem_usage
@@ -42,7 +42,9 @@ class Transformer(object):
         # Tokenize and generate
         self.model.eval()
         self.tokenizer = AutoTokenizer.from_pretrained(self.model_ref)
-
+        torch.manual_seed(100)
+        self.eos = self.tokenizer.eos_token_id
+        
     # Accept input either in base64 format or as a url
     def encode(self, input):
         input_ids = self.tokenizer.encode(input, return_tensors="pt").to("cuda")
@@ -51,11 +53,10 @@ class Transformer(object):
 
     # Match up the most likely prediction to the labels
     def decode(self, input_ids):
-        eos = self.tokenizer.eos_token_id
-
-        output_ids = self.model.generate(
-            input_ids, max_new_tokens=50, do_sample=True, pad_token_id=eos
-        )
+        with torch.no_grad():
+            output_ids = self.model.generate(
+                input_ids, max_new_tokens=50, do_sample=True, pad_token_id=self.eos
+            )
 
         print(f"tensor output IDs : {output_ids}")
 
