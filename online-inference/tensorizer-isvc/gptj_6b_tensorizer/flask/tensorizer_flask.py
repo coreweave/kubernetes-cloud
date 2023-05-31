@@ -1,20 +1,15 @@
-from typing import List, Dict
-import logging
-import requests
-import numpy as np
-import base64
 import time
-import torch
+
 from flask import Flask
 from tensorizer import TensorDeserializer
-from tensorizer.stream_io import open_stream
 from tensorizer.utils import no_init_or_tensor, convert_bytes, get_mem_usage
 from transformers import AutoModelForCausalLM, AutoTokenizer, AutoConfig
+
 
 class Transformer(object):
     def __init__(self):
         self.model_ref = "EleutherAI/gpt-j-6B"
-        
+
         config = AutoConfig.from_pretrained(self.model_ref)
 
         # This ensures that the model is not initialized.
@@ -25,7 +20,9 @@ class Transformer(object):
 
         # Lazy load the tensors from PVC into the model.
         start = time.time()
-        deserializer = TensorDeserializer("/mnt/pvc/gptj.tensors", plaid_mode=True)
+        deserializer = TensorDeserializer(
+            "/mnt/pvc/gptj.tensors", plaid_mode=True
+        )
         deserializer.load_into_module(self.model)
         end = time.time()
 
@@ -35,7 +32,10 @@ class Transformer(object):
         per_second = convert_bytes(deserializer.total_tensor_bytes / duration)
         after_mem = get_mem_usage()
         deserializer.close()
-        print(f"Deserialized {total_bytes_str} in {end - start:0.2f}s, {per_second}/s")
+        print(
+            f"Deserialized {total_bytes_str} in {end - start:0.2f}s,"
+            f" {per_second}/s"
+        )
         print(f"Memory usage before: {before_mem}")
         print(f"Memory usage after: {after_mem}")
 
@@ -43,24 +43,21 @@ class Transformer(object):
         self.model.eval()
         self.tokenizer = AutoTokenizer.from_pretrained(self.model_ref)
 
-
     # Accept input either in base64 format or as a url
     def encode(self, input):
-        input_ids = self.tokenizer.encode(
-            input, return_tensors="pt"
-        ).to("cuda")
-            
+        input_ids = self.tokenizer.encode(input, return_tensors="pt").to("cuda")
+
         return input_ids
 
     # Match up the most likely prediction to the labels
     def decode(self, input_ids):
         eos = self.tokenizer.eos_token_id
-        
+
         output_ids = self.model.generate(
-        input_ids, max_new_tokens=50, do_sample=True, pad_token_id=eos
+            input_ids, max_new_tokens=50, do_sample=True, pad_token_id=eos
         )
 
-        print(f"tensor output IDS : {output_ids}")
+        print(f"tensor output IDs : {output_ids}")
 
         output = self.tokenizer.decode(output_ids[0], skip_special_tokens=True)
 
@@ -78,6 +75,7 @@ app = Flask(__name__)
 def index():
     return 200
 
+
 @app.route("/predict/<text>")
 def predict(text):
     input_ids = llm.encode(text)
@@ -87,5 +85,6 @@ def predict(text):
 
     return output, 200
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8000, debug=True)
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=8000, debug=True)
