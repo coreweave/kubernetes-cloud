@@ -1,9 +1,12 @@
 import asyncio
 import logging
 import random
+import statistics
 import sys
 import time
+import urllib.parse
 from argparse import ArgumentParser
+from typing import Optional, Sequence
 
 try:
     import aiohttp
@@ -20,67 +23,107 @@ with open("inputs.txt", "r", encoding="utf-8") as inputs_file:
     inputs = [line.strip() for line in inputs_file]
 
 
-def timed(func):
+async def measure_async_fetch_all(urls) -> Sequence[float]:
     """
-    records approximate durations of function calls
-    """
-
-    def wrapper(*args, **kwargs):
-        name = func.__name__
-        start = time.time()
-        print(f"{name:<30} started")
-        result = func(*args, **kwargs)
-        elapsed = time.time() - start
-        print(f"{name:<30} finished in {elapsed:.2f} seconds")
-        return result
-
-    return wrapper
-
-
-async def async_aiohttp_get_all(urls):
-    """
-    performs asynchronous get requests in bulk
+    performs asynchronous get requests in bulk,
+    returning the duration of each successful request
     """
     async with aiohttp.ClientSession() as session:
 
-        async def fetch(url):
-            async with session.get(url) as response:
-                log_level = logging.INFO if response.ok else logging.WARNING
-                logger.log(
-                    log_level, f"Status {response.status} response from {url}"
-                )
-                return await response.text()
+        async def time_fetch(url: str) -> Optional[float]:
+            start = time.time()
+            try:
+                async with session.get(url) as response:
+                    if response.ok:
+                        await response.text()
+                        duration = time.time() - start
+                        logger.info(
+                            f"Good status code from {url}: {response.status}"
+                        )
+                        return duration
+                    else:
+                        logger.warning(
+                            f"Bad status code from {url}: {response.status}"
+                        )
+                        return None
+            except asyncio.TimeoutError:
+                logger.warning(f"Request to {url} timed out")
+                return None
 
-        return await asyncio.gather(*map(fetch, urls))
+        results = await asyncio.gather(*map(time_fetch, urls))
+        return [r for r in results if isinstance(r, float)]
 
 
-def benchmark_async(base_url: str, trials: int):
-    urls = [f"{base_url}/predict/{random.choice(inputs)}" for _ in range(trials)]
-    timed(asyncio.run)(async_aiohttp_get_all(urls))
+def measure_sync_fetch_all(urls) -> Sequence[float]:
+    """
+    performs synchronous get requests in bulk,
+    returning the duration of each successful request
+    """
+    times = []
+    with requests.Session() as s:
+        for url in urls:
+            start = time.time()
+            res = s.get(url)
+            if res.status_code == 200:
+                times.append(time.time() - start)
+                logger.info(f"Good status code from {url}: {res.status_code}")
+            else:
+                logger.warning(f"Bad status code from {url}: {res.status_code}")
+
+    return times
+
+
+def random_inference_url(base_url: str) -> str:
+    query = urllib.parse.quote(random.choice(inputs))
+    return f"{base_url}/predict/{query}"
+
+
+def benchmark(base_url: str, trials: int, asynchronous: bool):
+    urls = [random_inference_url(base_url) for _ in range(trials)]
+    print("Started benchmark")
+
+    start = time.time()
+    if asynchronous:
+        individual_times = asyncio.run(measure_async_fetch_all(urls))
+    else:
+        individual_times = measure_sync_fetch_all(urls)
+    total_time = time.time() - start
+
+    # Compute statistics
+    successes = len(individual_times)
+    failures = trials - successes
+    if successes > 0:
+        average_latency = statistics.mean(individual_times)
+        latency_stddev = statistics.stdev(
+            individual_times, xbar=average_latency
+        )
+    else:
+        average_latency = latency_stddev = None
+    throughput = trials / total_time
+    goodput = successes / total_time
+    print(
+        f"Benchmark finished for {base_url} in {total_time:.2f} seconds."
+        " Statistics:"
+    )
+    print(f"Average throughput: {throughput:.4f} requests/second")
+    if throughput != goodput:
+        print(f"Average goodput: {goodput:.4f} successes/second")
+    if average_latency is not None:
+        print(
+            f"Average latency: {average_latency:.4f} seconds/request"
+            f" (sample standard deviation: {latency_stddev:.2f})"
+        )
+    print(f"Successes: {successes}")
+    print(f"Failures: {failures}")
 
 
 def benchmark_sync(base_url: str, trials: int):
-    times = []
-    count_s = count_f = 0
-    with requests.Session() as s:
-        for _ in range(trials):
-            start = time.time()
-            res = s.get(f"{base_url}/predict/{random.choice(inputs)}")
-            if res.status_code == 200:
-                times.append(time.time() - start)
-                logger.info(
-                    f"Good status code from {base_url}: {res.status_code}"
-                )
-                count_s += 1
-            else:
-                logger.warning(
-                    f"Bad status code from {base_url}: {res.status_code}"
-                )
-                count_f += 1
-
-    print(f"Average Latency for {base_url}: {sum(times) / len(times)}")
-    print(f"Successes for {base_url}: {count_s}")
-    print(f"Failures for {base_url}: {count_f}")
+    urls = [
+        f"{base_url}/predict/{random.choice(inputs)}" for _ in range(trials)
+    ]
+    start = time.time()
+    measure_sync_fetch_all(urls)
+    duration = time.time() - start
 
 
 def parse_args():
@@ -134,13 +177,13 @@ def parse_args():
     if args.asynchronous:
         if aiohttp is None:
             parser.error(
-                "--async mode requires aiohttp to be installed, but it could"
-                " not be found"
+                "--async mode requires aiohttp to be installed,"
+                " but it could not be found"
             )
     elif requests is None:
         parser.error(
-            "--sync mode requires requests to be installed, but it could not be"
-            " found"
+            "--sync mode requires requests to be installed,"
+            " but it could not be found"
         )
 
     return args
@@ -155,10 +198,7 @@ def setup_logger(level):
 def main():
     args = parse_args()
     setup_logger(args.log_level)
-    if args.asynchronous:
-        benchmark_async(args.url, args.requests)
-    else:
-        benchmark_sync(args.url, args.requests)
+    benchmark(args.url, args.requests, args.asynchronous)
 
 
 if __name__ == "__main__":
