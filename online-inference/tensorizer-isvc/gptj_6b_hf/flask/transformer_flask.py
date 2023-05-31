@@ -53,8 +53,6 @@ def predict(text):
     input_ids = llm.encode(text)
     output = llm.decode(input_ids)
 
-    print(f"Output for {text} : {output}")
-
     return output, 200
 
 

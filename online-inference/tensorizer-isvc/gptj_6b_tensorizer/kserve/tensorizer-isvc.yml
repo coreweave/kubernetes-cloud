@@ -39,9 +39,3 @@ spec:
               operator: In
               values:
                 - LAS1
-            # - key: node.coreweave.cloud/version
-            #   operator: NotIn
-            #   values:
-            #     - 1.20.0
-            #     - 1.19.1
-            #     - 1.18.0   
