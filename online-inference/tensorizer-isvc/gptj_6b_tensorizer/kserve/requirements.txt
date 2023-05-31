@@ -1,2 +1,3 @@
 kserve==0.10.1
-transformers==4.27.1tensorizer==1.1.0
+tensorizer==1.1.0
+transformers==4.27.1

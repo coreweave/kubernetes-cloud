@@ -7,9 +7,9 @@ RUN pip install --upgrade pip
 ADD requirements.txt .
 RUN pip install -r requirements.txt
 
-RUN mkdir -p /transformer/
-WORKDIR /transformer
+RUN mkdir -p /
+WORKDIR /
 
-COPY tensorizer_kserve.py ./
+COPY model_download.py ./
 
-ENTRYPOINT ["python", "tensorizer_kserve.py"]
+ENTRYPOINT ["python3", "model_download.py"]

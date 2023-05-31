@@ -11,22 +11,10 @@ spec:
     containerConcurrency: 1
     containers:
     - name: tensorizer-gptj
-      image: rtalaricw/gpt-tensorizer-pvc@sha256:fbf0d7f356e3aa71fca03dd63bafda6e9e78ce5232ae28e98cd1d0f2327b381f
+      image: rtalaricw/gpt-tensorizer-pvc-kserve:v1.1
       env:
         - name: STORAGE_URI 
           value: pvc://model-storage/
-      readinessProbe:
-        httpGet:
-          path: /
-          port: 8000
-        initialDelaySeconds: 300
-        periodSeconds: 3
-      livenessProbe: 
-        httpGet:
-          path: /
-          port: 8000
-        initialDelaySeconds: 300
-        periodSeconds: 3
       resources:
         requests:
           cpu: 8

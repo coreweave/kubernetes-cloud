@@ -3,7 +3,7 @@ kind: InferenceService
 metadata:
   labels:
     qos.coreweave.cloud/latency: low
-  name: tensorizer-flask-isvc
+  name: tensorizer-flask-isvc-1
 spec:
   predictor:
     maxReplicas: 100
@@ -11,22 +11,10 @@ spec:
     containerConcurrency: 1
     containers:
     - name: tensorizer-gptj
-      image: rtalaricw/gpt-tensorizer-pvc@sha256:20120a327a07e91e8d0de3989b0d7e1ecbf1556770ad5fdde7a7a5f02b35dd34
+      image: rtalaricw/gpt-tensorizer-pvc-flask:v1.0
       env:
         - name: STORAGE_URI 
           value: pvc://model-storage/
-      readinessProbe:
-        httpGet:
-          path: /
-          port: 8000
-        initialDelaySeconds: 300
-        periodSeconds: 3
-      livenessProbe: 
-        httpGet:
-          path: /
-          port: 8000
-        initialDelaySeconds: 300
-        periodSeconds: 3
       resources:
         requests:
           cpu: 8

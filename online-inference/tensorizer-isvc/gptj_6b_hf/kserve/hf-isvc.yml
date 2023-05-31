@@ -11,22 +11,10 @@ spec:
     containerConcurrency: 1
     containers:
     - name: hf-gptj
-      image: rtalaricw/gpt-hf-pvc:v2.0
+      image: rtalaricw/gpt-hf-pvc-kserve:v1.0
       env:
         - name: STORAGE_URI 
           value: pvc://model-storage/
-      readinessProbe:
-        httpGet:
-          path: /
-          port: 8000
-        initialDelaySeconds: 300
-        periodSeconds: 3
-      livenessProbe: 
-        httpGet:
-          path: /
-          port: 8000
-        initialDelaySeconds: 300
-        periodSeconds: 3
       resources:
         requests:
           cpu: 8

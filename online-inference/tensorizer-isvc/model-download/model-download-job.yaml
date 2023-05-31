@@ -1,0 +1,46 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: model-download
+spec:
+  template:
+    spec:
+      containers:
+      - name: model-downloader
+        image: rtalaricw/model-download-gptj:v1.3
+        imagePullPolicy: IfNotPresent
+        command: 
+          - "python3"
+          - "model_download.py"
+        volumeMounts:
+          - name: model-cache
+            mountPath: /mnt
+        resources:
+          requests:
+            cpu: 8
+            memory: 64Gi 
+            nvidia.com/gpu: 1
+          limits:
+            cpu: 8
+            memory: 64Gi 
+            nvidia.com/gpu: 1
+      volumes:
+        - name: model-cache
+          persistentVolumeClaim:
+            claimName: model-storage
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: gpu.nvidia.com/class
+                operator: In
+                values:
+                  - A40
+              - key: topology.kubernetes.io/region
+                operator: In
+                values:
+                  - LAS1
+              
+      restartPolicy: Never
+  backoffLimit: 1

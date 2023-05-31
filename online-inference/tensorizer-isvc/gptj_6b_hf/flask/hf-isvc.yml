@@ -3,7 +3,7 @@ kind: InferenceService
 metadata:
   labels:
     qos.coreweave.cloud/latency: low
-  name: hf-flask-isvc
+  name: hf-flask-isvc-1
 spec:
   predictor:
     maxReplicas: 100
@@ -11,22 +11,10 @@ spec:
     containerConcurrency: 1
     containers:
     - name: hf-gptj
-      image: rtalaricw/gpt-hf-pvc@sha256:72a638b88b9391f3ceab48cdc88f64bd1fab6f3c4782547520f4043ee4aa9ddf
+      image: rtalaricw/gpt-hf-pvc-flask:v1.0
       env:
         - name: STORAGE_URI 
           value: pvc://model-storage/
-      readinessProbe:
-        httpGet:
-          path: /
-          port: 8000
-        initialDelaySeconds: 300
-        periodSeconds: 3
-      livenessProbe: 
-        httpGet:
-          path: /
-          port: 8000
-        initialDelaySeconds: 300
-        periodSeconds: 3
       resources:
         requests:
           cpu: 8

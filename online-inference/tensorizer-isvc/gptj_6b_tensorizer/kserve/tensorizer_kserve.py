@@ -58,7 +58,7 @@ class Model(kserve.Model):
         torch.manual_seed(100)
 
         # Tokenize and generate
-        self.tokenizer = AutoTokenizer.from_pretrained(self.model_ref)
+        self.tokenizer = AutoTokenizer.from_pretrained("/mnt/pvc/")
         self.eos = self.tokenizer.eos_token_id
         self.ready = True
 
