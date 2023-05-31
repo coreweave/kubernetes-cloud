@@ -7,30 +7,9 @@ from argparse import ArgumentParser
 import requests
 
 logger = logging.getLogger(__name__)
-inputs = [
-    "Hello, how are you?",
-    "What up dig dog?",
-    "You are a killer!",
-    "Live a good life",
-    "Life is great",
-    "Chilling on a roof",
-    "Love you",
-    "Mox is cute",
-    "You are my enemy",
-    "Change is required",
-    "Love the life",
-]
 
-# Uncomment to use for Locust
-
-# from locust import HttpUser, task
-
-# class QuickstartUser(HttpUser):
-#     @task
-#     def predict(self):
-#         with self.client.get(f"/predict/{random.choice(inputs)}") as response:
-#             if response.status_code != 200:
-#                 response.failure("Could not return response")
+with open("inputs.txt", "r", encoding="utf-8") as inputs_file:
+    inputs = [line.strip() for line in inputs_file]
 
 
 def benchmark(*urls):
@@ -43,7 +22,9 @@ def benchmark(*urls):
                 res = s.get(f"{isvc}/predict/{random.choice(inputs)}")
                 if res.status_code == 200:
                     times.append(time.time() - start)
-                    logger.info(f"Good status code from {isvc}: {res.status_code}")
+                    logger.info(
+                        f"Good status code from {isvc}: {res.status_code}"
+                    )
                     count_s += 1
                 else:
                     logger.warning(

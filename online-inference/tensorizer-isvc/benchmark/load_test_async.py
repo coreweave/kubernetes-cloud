@@ -8,19 +8,9 @@ from argparse import ArgumentParser
 import aiohttp
 
 logger = logging.getLogger(__name__)
-inputs = [
-    "Hello, how are you?",
-    "What up dig dog?",
-    "You are a killer!",
-    "Live a good life",
-    "Life is great",
-    "Chilling on a roof",
-    "Love you",
-    "Mox is cute",
-    "You are my enemy",
-    "Change is required",
-    "Love the life",
-]
+
+with open("inputs.txt", "r", encoding="utf-8") as inputs_file:
+    inputs = [line.strip() for line in inputs_file]
 
 
 def timed(func):
