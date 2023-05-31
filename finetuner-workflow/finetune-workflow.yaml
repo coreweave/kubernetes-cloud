@@ -196,7 +196,7 @@ spec:
     - name: finetuner_image
       value: 'gooseai/finetuner'
     - name: finetuner_tag
-      value: '6c10019'
+      value: 'b32173f'
   templates:
   - name: main
     steps:
