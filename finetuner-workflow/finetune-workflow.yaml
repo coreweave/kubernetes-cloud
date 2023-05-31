@@ -192,7 +192,7 @@ spec:
     - name: dataset_downloader_image
       value: 'ghcr.io/coreweave/dataset-downloader/smashwords-downloader'
     - name: dataset_downloader_tag
-      value: '7dba2c7'
+      value: 'cd6408a'
     - name: finetuner_image
       value: 'gooseai/finetuner'
     - name: finetuner_tag
