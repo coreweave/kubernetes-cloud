@@ -33,13 +33,7 @@ class Model(kserve.Model):
 
         self.model.eval()
         torch.manual_seed(100)
-<<<<<<< HEAD
-        
         self.tokenizer = AutoTokenizer.from_pretrained("/mnt/pvc")
-=======
-
-        self.tokenizer = AutoTokenizer.from_pretrained("EleutherAI/gpt-j-6B")
->>>>>>> 53fd01a30bb8afe9cb2067f88144dd039b32e492
         self.eos = self.tokenizer.eos_token_id
 
         self.ready = True
