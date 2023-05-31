@@ -1,8 +1,9 @@
 import logging
 import time
 from typing import Dict
-import torch
+
 import kserve
+import torch
 from tensorizer import TensorDeserializer
 from tensorizer.utils import no_init_or_tensor, convert_bytes, get_mem_usage
 from transformers import AutoModelForCausalLM, AutoTokenizer, AutoConfig
@@ -74,14 +75,17 @@ class Model(kserve.Model):
 
         with torch.no_grad():
             output_ids = self.model.generate(
-                input_ids, max_new_tokens=50, do_sample=True, pad_token_id=self.eos
+                input_ids,
+                max_new_tokens=50,
+                do_sample=True,
+                pad_token_id=self.eos,
             )
 
-        print(f"tensor output IDs : {output_ids}")
+        print(f"tensor output IDs: {output_ids}")
 
         output = self.tokenizer.decode(output_ids[0], skip_special_tokens=True)
 
-        print(f"tensor output : {output}")
+        print(f"tensor output: {output}")
 
         return output
 

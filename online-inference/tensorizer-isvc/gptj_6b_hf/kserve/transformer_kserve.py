@@ -29,14 +29,14 @@ class Model(kserve.Model):
         self.model = GPTJForCausalLM.from_pretrained(
             "/mnt/pvc", torch_dtype=torch.float16
         ).to(device)
-        print(f"Start time : {time.time() - start} seconds")
-        
+        print(f"Start time: {time.time() - start} seconds")
+
         self.model.eval()
         torch.manual_seed(100)
-        
+
         self.tokenizer = AutoTokenizer.from_pretrained("EleutherAI/gpt-j-6B")
         self.eos = self.tokenizer.eos_token_id
-        
+
         self.ready = True
 
     def predict(self, payload: Dict, headers: Dict[str, str] = None) -> Dict:
@@ -51,14 +51,17 @@ class Model(kserve.Model):
 
         with torch.no_grad():
             output_ids = self.model.generate(
-                input_ids, max_new_tokens=50, do_sample=True, pad_token_id=self.eos
+                input_ids,
+                max_new_tokens=50,
+                do_sample=True,
+                pad_token_id=self.eos,
             )
 
-        print(f"tensor output IDs : {output_ids}")
+        print(f"tensor output IDs: {output_ids}")
 
         output = self.tokenizer.decode(output_ids[0], skip_special_tokens=True)
 
-        print(f"tensor output : {output}")
+        print(f"tensor output: {output}")
 
         return output
 
