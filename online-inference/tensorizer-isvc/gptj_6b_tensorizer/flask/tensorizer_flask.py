@@ -1,12 +1,13 @@
 import time
+
 import torch
-from flask import Flask
+from flask import Flask, Response
 from tensorizer import TensorDeserializer
 from tensorizer.utils import no_init_or_tensor, convert_bytes, get_mem_usage
 from transformers import AutoModelForCausalLM, AutoTokenizer, AutoConfig
 
 
-class Transformer(object):
+class Transformer:
     def __init__(self):
         self.model_ref = "EleutherAI/gpt-j-6B"
 
@@ -38,7 +39,7 @@ class Transformer(object):
         )
         print(f"Memory usage before: {before_mem}")
         print(f"Memory usage after: {after_mem}")
-        
+
         self.model.eval()
         torch.manual_seed(100)
 
@@ -56,14 +57,17 @@ class Transformer(object):
     def decode(self, input_ids):
         with torch.no_grad():
             output_ids = self.model.generate(
-                input_ids, max_new_tokens=50, do_sample=True, pad_token_id=self.eos
+                input_ids,
+                max_new_tokens=50,
+                do_sample=True,
+                pad_token_id=self.eos,
             )
 
-        print(f"tensor output IDs : {output_ids}")
+        print(f"tensor output IDs: {output_ids}")
 
         output = self.tokenizer.decode(output_ids[0], skip_special_tokens=True)
 
-        print(f"tensor output : {output}")
+        print(f"tensor output: {output}")
 
         return output
 
@@ -83,8 +87,8 @@ def predict(text):
     input_ids = llm.encode(text)
     output = llm.decode(input_ids)
 
-    return output, 200
+    return Response(output, mimetype="text/plain", status=200)
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8000, debug=True)
+    app.run(host="0.0.0.0", port=8000)
