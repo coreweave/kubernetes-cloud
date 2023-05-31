@@ -1,6 +1,6 @@
 import torch
 from tensorizer import TensorSerializer
-from transformers import GPTJForCausalLM, AutoTokenizer, AutoModelForCausalLM
+from transformers import AutoModelForCausalLM, AutoTokenizer, GPTJForCausalLM
 
 model_ref = "EleutherAI/gpt-j-6b"
 

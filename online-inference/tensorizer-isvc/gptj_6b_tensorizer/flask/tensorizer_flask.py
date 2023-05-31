@@ -3,8 +3,8 @@ import time
 import torch
 from flask import Flask, Response
 from tensorizer import TensorDeserializer
-from tensorizer.utils import no_init_or_tensor, convert_bytes, get_mem_usage
-from transformers import AutoModelForCausalLM, AutoTokenizer, AutoConfig
+from tensorizer.utils import convert_bytes, get_mem_usage, no_init_or_tensor
+from transformers import AutoConfig, AutoModelForCausalLM, AutoTokenizer
 
 
 class Transformer:
@@ -21,9 +21,7 @@ class Transformer:
 
         # Lazy load the tensors from PVC into the model.
         start = time.time()
-        deserializer = TensorDeserializer(
-            "/mnt/pvc/gptj.tensors", plaid_mode=True
-        )
+        deserializer = TensorDeserializer("/mnt/pvc/gptj.tensors", plaid_mode=True)
         deserializer.load_into_module(self.model)
         end = time.time()
 
@@ -34,8 +32,7 @@ class Transformer:
         after_mem = get_mem_usage()
         deserializer.close()
         print(
-            f"Deserialized {total_bytes_str} in {end - start:0.2f}s,"
-            f" {per_second}/s"
+            f"Deserialized {total_bytes_str} in {end - start:0.2f}s," f" {per_second}/s"
         )
         print(f"Memory usage before: {before_mem}")
         print(f"Memory usage after: {after_mem}")
@@ -47,7 +44,6 @@ class Transformer:
         self.tokenizer = AutoTokenizer.from_pretrained("/mnt/pvc/")
         self.eos = self.tokenizer.eos_token_id
 
-    # Accept input either in base64 format or as a url
     def encode(self, input):
         input_ids = self.tokenizer.encode(input, return_tensors="pt").to("cuda")
 
