@@ -176,3 +176,23 @@ Expanding storage volumes via `kubectl` is as simple as a single-line command:
 kubectl patch pvc <myvolume> -p \
 '{"spec":{"resources":{"requests":{"storage": "500Gi"}}}}'
 ```
+
+## Ephemeral Storage
+
+**All physical nodes are equipped with SSD or NVMe ephemeral (local) storage.** Ephemeral storage available ranges between `512GB` to `2TB`, depending upon node type.
+
+No volume claims are needed to allocate ephemeral storage - simply write anywhere in the container file system.
+
+If a larger amount (above `20Gi`) of ephemeral storage is used, it is recommended to include ephemeral storage in the workloads resource request. For example:
+
+```yaml
+spec:
+  containers:
+  - name: example
+    resources:
+      limits:
+        cpu: 3
+        memory: 16Gi
+        nvidia.com/gpu: 1
+        ephemeral-storage: 20Gi
+```
