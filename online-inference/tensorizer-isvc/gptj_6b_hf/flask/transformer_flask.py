@@ -51,7 +51,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return 200
+    return Response(status=200)
 
 
 @app.route("/predict/<text>")
