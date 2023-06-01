@@ -4,7 +4,7 @@ The following instructions will guide you through setting up an
 [InferenceService](https://docs.coreweave.com/machine-learning-and-ai/inference/online-inference)
 with [Tensorizer](https://github.com/coreweave/tensorizer)
 or [HuggingFace Transformers](https://huggingface.co/docs/transformers/index)
-serving [GPT-J-6B](https://huggingface.co/EleutherAI/gpt-j-6b):
+serving [GPT-J-6B](https://huggingface.co/EleutherAI/gpt-j-6b).
 
 From the root of `tensorizer-isvc`:
 
