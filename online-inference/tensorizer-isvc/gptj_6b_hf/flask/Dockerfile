@@ -9,4 +9,4 @@ RUN pip install --no-cache-dir --upgrade pip && \
 
 COPY transformer_flask.py ./
 
-ENTRYPOINT ["python", "-m", "gunicorn", "-w8", "-b0.0.0.0", "transformer_flask:app"]
+ENTRYPOINT ["python", "-m", "gunicorn", "-w1", "-b0.0.0.0", "transformer_flask:app"]
