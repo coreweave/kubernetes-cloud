@@ -72,7 +72,7 @@ To ensure optimal traffic routing, ensure that your Workload is only scheduled t
 
 The traditional Kubernetes pattern dictates that one or many Pods with dynamic internal IP addresses be exposed behind a Service or Ingress which itself has a static IP address.
 
-For certain use cases, such as where only be one Pod is behind a Service, it might make sense to attach the Service IP directly to the Pod. A Pod would then have a static public IP as its Pod IP.
+For certain use cases, such as where only one Pod is behind a Service, it might make sense to attach the Service IP directly to the Pod. A Pod would then have a static public IP as its Pod IP.
 
 All connections originating from the Pod will show this IP as its source address, and this address will serve as its local IP.
 
