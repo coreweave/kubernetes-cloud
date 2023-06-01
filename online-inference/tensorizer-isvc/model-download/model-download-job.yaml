@@ -9,9 +9,6 @@ spec:
       - name: model-downloader
         image: rtalaricw/model-download-gptj:v1.3
         imagePullPolicy: IfNotPresent
-        command: 
-          - "python3"
-          - "model_download.py"
         volumeMounts:
           - name: model-cache
             mountPath: /mnt

@@ -17,7 +17,7 @@ From the root of `tensorizer-isvc`:
 - Or, run the Tensorizer InferenceService (currently using Flask)
   - `kubectl apply -f gptj_6b_tensorizer/flask/tensorizer-isvc.yaml`
 - Run the benchmark
-  - `python3 benchmark/load_test.py --url=<ISVC_URL> --requests=<NUMBER_OF_REQUESTS>`
+  - `python benchmark/load_test.py --url=<ISVC_URL> --requests=<NUMBER_OF_REQUESTS>`
   - `load_test.py` defaults to running async requests with [`aiohttp`](https://pypi.org/project/aiohttp/)
   - `--sync` may be added to the command line to instead send requests sequentially
     using [`requests`](https://pypi.org/project/requests/)
