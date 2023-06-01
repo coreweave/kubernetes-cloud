@@ -14,4 +14,4 @@ RUN pip install --no-cache-dir --upgrade pip && \
 
 COPY tensorizer_flask.py ./
 
-ENTRYPOINT ["python", "tensorizer_flask.py"]
+ENTRYPOINT ["python", "-m", "gunicorn", "-w8", "-b0.0.0.0", "tensorizer_flask:app"]
