@@ -8,7 +8,7 @@ RUN apt-get -qq update && \
 RUN mkdir -p /downloader/
 WORKDIR /downloader
 
-ADD requirements.txt .
+COPY requirements.txt .
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 

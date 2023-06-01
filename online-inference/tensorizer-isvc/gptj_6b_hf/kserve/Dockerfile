@@ -3,7 +3,7 @@ FROM ghcr.io/coreweave/ml-containers/torch:bb02bee-base-cuda11.8.0-torch2.0.0-vi
 RUN mkdir -p /transformer/
 WORKDIR /transformer
 
-ADD requirements.txt .
+COPY requirements.txt .
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
