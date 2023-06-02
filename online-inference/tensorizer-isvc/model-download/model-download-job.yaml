@@ -14,13 +14,11 @@ spec:
             mountPath: /mnt
         resources:
           requests:
-            cpu: 8
-            memory: 64Gi 
-            nvidia.com/gpu: 1
+            cpu: 4
+            memory: 8Gi 
           limits:
-            cpu: 8
-            memory: 64Gi 
-            nvidia.com/gpu: 1
+            cpu: 4
+            memory: 8Gi 
       volumes:
         - name: model-cache
           persistentVolumeClaim:
@@ -30,10 +28,6 @@ spec:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
             - matchExpressions:
-              - key: gpu.nvidia.com/class
-                operator: In
-                values:
-                  - A40
               - key: topology.kubernetes.io/region
                 operator: In
                 values:
