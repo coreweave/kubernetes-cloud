@@ -3,10 +3,11 @@ FROM ghcr.io/coreweave/ml-containers/torch:bb02bee-base-cuda11.8.0-torch2.0.0-vi
 RUN mkdir -p /transformer/
 WORKDIR /transformer
 
-COPY requirements.txt .
+COPY kserve/requirements.txt .
+COPY kserve/kserve_api.py .
+COPY load_model.py .
+
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
-COPY transformer_flask.py ./
-
-ENTRYPOINT ["python", "-m", "gunicorn", "-w1", "-b0.0.0.0", "transformer_flask:app"]
+ENTRYPOINT ["python", "kserve_api.py"]

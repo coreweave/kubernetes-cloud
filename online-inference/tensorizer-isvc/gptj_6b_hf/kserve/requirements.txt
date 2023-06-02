@@ -1,2 +1,0 @@
-kserve==0.10.1
-transformers==4.27.1

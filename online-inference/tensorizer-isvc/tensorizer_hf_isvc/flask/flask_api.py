@@ -1,23 +1,19 @@
-import time
+import os
 
 import torch
 from flask import Flask, Response
-from transformers import AutoTokenizer, GPTJForCausalLM
+from load_model import load_model_based_on_type
+from transformers import AutoTokenizer
 
 
 class Transformer:
-    def __init__(self):
-        device = "cuda"
-        start = time.time()
-        self.model = GPTJForCausalLM.from_pretrained(
-            "/mnt/pvc", torch_dtype=torch.float16
-        ).to(device)
-        print(f"Start time: {time.time() - start} seconds")
+    def __init__(self, model_load_type):
+        self.model = load_model_based_on_type(model_load_type=model_load_type)
 
         self.model.eval()
         torch.manual_seed(100)
 
-        self.tokenizer = AutoTokenizer.from_pretrained("/mnt/pvc")
+        self.tokenizer = AutoTokenizer.from_pretrained("/mnt/pvc/tokenizer")
         self.eos = self.tokenizer.eos_token_id
 
     def encode(self, input):
@@ -44,7 +40,8 @@ class Transformer:
         return output
 
 
-llm = Transformer()
+model_load_type = os.getenv("MODEL_LOAD_TYPE")
+llm = Transformer(model_load_type=model_load_type)
 
 app = Flask(__name__)
 
@@ -63,4 +60,4 @@ def predict(text):
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8000)
+    app.run(host="0.0.0.0", port=8000, debug=True)

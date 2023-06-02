@@ -37,14 +37,10 @@ async def measure_async_fetch_all(urls) -> Sequence[float]:
                     if response.ok:
                         await response.text()
                         duration = time.time() - start
-                        logger.info(
-                            f"Good status code from {url}: {response.status}"
-                        )
+                        logger.info(f"Good status code from {url}: {response.status}")
                         return duration
                     else:
-                        logger.warning(
-                            f"Bad status code from {url}: {response.status}"
-                        )
+                        logger.warning(f"Bad status code from {url}: {response.status}")
                         return None
             except asyncio.TimeoutError:
                 logger.warning(f"Request to {url} timed out")
@@ -67,13 +63,9 @@ def measure_sync_fetch_all(urls) -> Sequence[float]:
                 res = s.get(url)
                 if res.ok:
                     times.append(time.time() - start)
-                    logger.info(
-                        f"Good status code from {url}: {res.status_code}"
-                    )
+                    logger.info(f"Good status code from {url}: {res.status_code}")
                 else:
-                    logger.warning(
-                        f"Bad status code from {url}: {res.status_code}"
-                    )
+                    logger.warning(f"Bad status code from {url}: {res.status_code}")
             except requests.ConnectTimeout:
                 logger.warning(f"Request to {url} timed out")
 
@@ -101,16 +93,13 @@ def benchmark(base_url: str, trials: int, asynchronous: bool):
     failures = trials - successes
     if successes > 0:
         average_latency = statistics.mean(individual_times)
-        latency_stddev = statistics.stdev(
-            individual_times, xbar=average_latency
-        )
+        latency_stddev = statistics.stdev(individual_times, xbar=average_latency)
     else:
         average_latency = latency_stddev = None
     throughput = trials / total_time
     goodput = successes / total_time
     print(
-        f"Benchmark finished for {base_url} in {total_time:.2f} seconds."
-        " Statistics:"
+        f"Benchmark finished for {base_url} in {total_time:.2f} seconds." " Statistics:"
     )
     print(f"Average throughput: {throughput:.4f} requests/second")
     if throughput != goodput:
@@ -146,9 +135,7 @@ def parse_args():
         dest="asynchronous",
         action="store_false",
     )
-    parser.add_argument(
-        "--requests", help="Number of requests to send", type=int
-    )
+    parser.add_argument("--requests", help="Number of requests to send", type=int)
     parser.set_defaults(log_level=logging.WARNING)
     parser.add_argument(
         "--verbose",
