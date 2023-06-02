@@ -13,7 +13,7 @@ class Transformer:
         self.model.eval()
         torch.manual_seed(100)
 
-        self.tokenizer = AutoTokenizer.from_pretrained("/mnt/pvc/tokenizer")
+        self.tokenizer = AutoTokenizer.from_pretrained("/mnt/pvc")
         self.eos = self.tokenizer.eos_token_id
 
     def encode(self, input):
