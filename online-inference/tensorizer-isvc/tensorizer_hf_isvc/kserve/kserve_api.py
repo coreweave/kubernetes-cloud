@@ -38,6 +38,9 @@ class Model(kserve.Model):
         self.ready = True
 
     def predict(self, payload: Dict, headers: Dict[str, str] = None) -> Dict:
+        # Ensure that the request has the appropriate type to process
+        assert type(payload) == Dict
+
         if "text" in payload:
             input_ids = self.tokenizer.encode(payload["text"], return_tensors="pt").to(
                 "cuda"
@@ -61,7 +64,7 @@ class Model(kserve.Model):
 
         print(f"tensor output: {output}")
 
-        return output
+        return {"output": output}
 
 
 if __name__ == "__main__":
