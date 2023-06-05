@@ -3,6 +3,7 @@ import os
 from typing import Dict
 
 import kserve
+import kserve.errors
 import torch
 from load_model import load_model_based_on_type
 from transformers import AutoTokenizer
@@ -37,34 +38,38 @@ class Model(kserve.Model):
 
         self.ready = True
 
-    def predict(self, payload: Dict, headers: Dict[str, str] = None) -> Dict:
+    def validate(self, payload: Dict):
         # Ensure that the request has the appropriate type to process
-        assert type(payload) == Dict
+        if not isinstance(payload, Dict):
+            raise kserve.errors.InvalidInput("Expected payload to be a dict")
+        return super().validate(payload)
 
-        if "text" in payload:
-            input_ids = self.tokenizer.encode(payload["text"], return_tensors="pt").to(
+    def predict(self, payload: Dict, headers: Dict[str, str] = None) -> Dict:
+        inputs = payload.get("instances") or ["Please input some text"]
+        outputs = []
+        for text in inputs:
+            input_ids = self.tokenizer.encode(text, return_tensors="pt").to(
                 "cuda"
             )
-        else:
-            input_ids = self.tokenizer.encode(
-                "Please input some text", return_tensors="pt"
-            ).to("cuda")
 
-        with torch.no_grad():
-            output_ids = self.model.generate(
-                input_ids,
-                max_new_tokens=50,
-                do_sample=True,
-                pad_token_id=self.eos,
+            with torch.no_grad():
+                output_ids = self.model.generate(
+                    input_ids,
+                    max_new_tokens=50,
+                    do_sample=True,
+                    pad_token_id=self.eos,
+                )
+
+            print(f"tensor output IDs: {output_ids}")
+
+            output = self.tokenizer.decode(
+                output_ids[0], skip_special_tokens=True
             )
+            outputs.append(output)
 
-        print(f"tensor output IDs: {output_ids}")
+            print(f"tensor output: {output}")
 
-        output = self.tokenizer.decode(output_ids[0], skip_special_tokens=True)
-
-        print(f"tensor output: {output}")
-
-        return {"output": output}
+        return {"predictions": outputs}
 
 
 if __name__ == "__main__":
