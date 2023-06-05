@@ -19,6 +19,9 @@ class Model(kserve.Model):
     def __init__(self, name: str):
         super().__init__(name)
         self.name = name
+        self.model = None
+        self.tokenizer = None
+        self.eos = None
         self.ready = False
 
     def load(self):

@@ -5,10 +5,12 @@ from flask import Flask, Response
 from load_model import load_model_based_on_type
 from transformers import AutoTokenizer
 
+MODEL_LOAD_TYPE = os.getenv("MODEL_LOAD_TYPE")
+
 
 class Transformer:
-    def __init__(self, model_load_type):
-        self.model = load_model_based_on_type(model_load_type=model_load_type)
+    def __init__(self):
+        self.model = load_model_based_on_type(model_load_type=MODEL_LOAD_TYPE)
 
         self.model.eval()
         torch.manual_seed(100)
@@ -40,9 +42,7 @@ class Transformer:
         return output
 
 
-model_load_type = os.getenv("MODEL_LOAD_TYPE")
-llm = Transformer(model_load_type=model_load_type)
-
+llm = Transformer()
 app = Flask(__name__)
 
 
