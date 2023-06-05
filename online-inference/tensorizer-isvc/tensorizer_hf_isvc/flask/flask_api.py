@@ -18,8 +18,8 @@ class Transformer:
         self.tokenizer = AutoTokenizer.from_pretrained("/mnt/pvc")
         self.eos = self.tokenizer.eos_token_id
 
-    def encode(self, input):
-        input_ids = self.tokenizer.encode(input, return_tensors="pt").to("cuda")
+    def encode(self, text):
+        input_ids = self.tokenizer.encode(text, return_tensors="pt").to("cuda")
 
         return input_ids
 
@@ -60,4 +60,4 @@ def predict(text):
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8000, debug=True)
+    app.run(host="0.0.0.0", port=8000)
