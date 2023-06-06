@@ -12,16 +12,16 @@ From the root of `tensorizer-isvc`:
   - `kubectl apply -f pvc.yaml`
 - Download the model to the PVC
   - `kubectl apply -f model-download/model-download-job.yaml`
-- Run the HuggingFace InferenceService (currently using Flask)
-  - `kubectl apply -f tensorizer_hf_isvc/flask/hf-isvc.yaml`
-- Or, run the Tensorizer InferenceService (currently using Flask)
-  - `kubectl apply -f tensorizer_hf_isvc/flask/tensorizer-isvc.yaml`
+- Run the HuggingFace InferenceService (currently using KServe)
+  - `kubectl apply -f tensorizer_hf_isvc/kserve/hf-isvc.yaml`
+- Or, run the Tensorizer InferenceService (currently using KServe)
+  - `kubectl apply -f tensorizer_hf_isvc/kserve/tensorizer-isvc.yaml`
 - Run the benchmark
-  - `python benchmark/load_test.py --url=<ISVC_URL> --requests=<NUMBER_OF_REQUESTS>`
+  - `python benchmark/load_test.py --kserve --url=<ISVC_URL> --requests=<NUMBER_OF_REQUESTS>`
   - `load_test.py` defaults to running async requests with [`aiohttp`](https://pypi.org/project/aiohttp/)
   - `--sync` may be added to the command line to instead send requests sequentially
     using [`requests`](https://pypi.org/project/requests/)
 
 Each InferenceService manifest (`*-isvc.yaml`) runs a container defined
-in a Dockerfile in its same directory, such as `tensorizer_hf_isvc/flask/Dockerfile`.
+in a Dockerfile in its same directory, such as `tensorizer_hf_isvc/kserve/Dockerfile`.
 These may be changed and rebuilt to customize the behavior of the InferenceService.
