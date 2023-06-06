@@ -979,10 +979,6 @@ if args.prompt_file:
         )
     )
 
-# Calculate how many warmup steps we need to do using the warmup ratio.
-training_steps = int((args.epochs * len(train_dataset)) / (args.gradients * bs * world_size))
-warmup_steps = int(args.warmup_ratio * training_steps)
-
 # Parametrize our training based on provided arguments.
 
 # The grouping of arguments is based on the TrainingArguments.set_<...>
@@ -999,7 +995,7 @@ training_args = TrainingArguments(
     gradient_checkpointing=True,
 
     # Learning rate scheduler arguments
-    warmup_steps=warmup_steps,
+    warmup_steps=float(args.warmup_ratio),
 
     # Evaluation arguments
     # (Evaluation loss tracking is not finished, so these are disabled)
