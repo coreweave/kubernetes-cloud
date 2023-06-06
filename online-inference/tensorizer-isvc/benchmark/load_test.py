@@ -9,7 +9,7 @@ import sys
 import time
 import urllib.parse
 from argparse import ArgumentParser
-from typing import Optional, Sequence, NamedTuple
+from typing import NamedTuple, Optional, Sequence
 
 try:
     import aiohttp
