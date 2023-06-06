@@ -103,6 +103,12 @@ parser.add_argument(
     default=Decimal("0.9"),
 )
 parser.add_argument(
+    "--warmup-ratio",
+    type=val.at_most_1(val.non_negative(Decimal)),
+    help="Ratio of warmup steps to total steps",
+    default=Decimal("0.1"),
+)
+parser.add_argument(
     "--eot",
     type=str,
     help="EOT token to use",
@@ -712,6 +718,7 @@ if is_main_process():
     logger.info(MemoryUsage.now())
     logger.info(f"MODEL: {args.model}")
     logger.info(f"TRAIN RATIO: {args.train_ratio}")
+    logger.info(f"WARMUP RATIO: {args.warmup_ratio}")
     logger.info(f"CONTEXT LENGTH: {args.context_size} tokens")
     logger.info(f"SHUFFLE: {args.shuffle}")
     logger.info(f"EPOCHS: {args.epochs}")
@@ -972,6 +979,10 @@ if args.prompt_file:
         )
     )
 
+# Calculate how many warmup steps we need to do using the warmup ratio.
+training_steps = int((args.epochs * len(train_dataset)) / (args.gradients * bs * world_size))
+warmup_steps = int(args.warmup_ratio * training_steps)
+
 # Parametrize our training based on provided arguments.
 
 # The grouping of arguments is based on the TrainingArguments.set_<...>
@@ -988,7 +999,7 @@ training_args = TrainingArguments(
     gradient_checkpointing=True,
 
     # Learning rate scheduler arguments
-    warmup_steps=8,
+    warmup_steps=warmup_steps,
 
     # Evaluation arguments
     # (Evaluation loss tracking is not finished, so these are disabled)
