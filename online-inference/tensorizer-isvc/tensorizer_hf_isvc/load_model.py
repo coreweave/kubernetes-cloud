@@ -39,8 +39,11 @@ def load_model_based_on_type(
 
         return model
 
-    model_ref = "EleutherAI/gpt-j-6B"
-    config = AutoConfig.from_pretrained(model_ref)
+    # If the config file were not pre-downloaded along with the HuggingFace
+    # model as in this example, this could use a HuggingFace model reference
+    # instead of a path for a small download of just the relevant config file.
+    # model_ref = "EleutherAI/gpt-j-6B"
+    config = AutoConfig.from_pretrained(model_path)
 
     # This ensures that the model is not initialized.
     with no_init_or_tensor():
