@@ -19,6 +19,15 @@ From the root of `tensorizer-isvc`:
 - View the InferenceService deployment information and URL
   - `kubectl get isvc`
   - `http://` may be required in place of `https://` when connecting to the displayed URL
+- Test the InferenceService
+  - The KServe services use [KServe's V1 protocol](https://kserve.github.io/website/0.10/modelserving/data_plane/v1_protocol/):
+    ```bash
+    curl http://<URL>/v1/models/gptj:predict -X POST -H 'Content-Type: application/json' -d '{"instances": ["Hello!"]}'
+    ```
+  - The Flask services simply encode queries into the URL path component:
+    ```bash
+    curl http://<URL>/predict/Hello%21
+    ```
 - Run the benchmark
   - `python benchmark/load_test.py --kserve --url=<ISVC_URL> --requests=<NUMBER_OF_REQUESTS>`
   - `load_test.py` defaults to running async requests with [`aiohttp`](https://pypi.org/project/aiohttp/)
@@ -34,6 +43,6 @@ These may be changed and rebuilt to customize the behavior of the InferenceServi
 
 > Note: The build context for each Dockerfile is its parent directory, so the build commands look like:
 > ```bash
-> docker build ./tensorizer_hf_isvc -f ./tensorizer_hf_isvc/flask/Dockerfile
 > docker build ./tensorizer_hf_isvc -f ./tensorizer_hf_isvc/kserve/Dockerfile
+> docker build ./tensorizer_hf_isvc -f ./tensorizer_hf_isvc/flask/Dockerfile
 > ```
