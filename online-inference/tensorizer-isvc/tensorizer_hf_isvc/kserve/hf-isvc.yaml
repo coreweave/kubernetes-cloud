@@ -20,6 +20,8 @@ spec:
           value: pvc://model-storage/
         - name: MODEL_LOAD_TYPE
           value: hf
+        - name: PYTHONUNBUFFERED
+          value: "1"
       resources:
         requests:
           cpu: 8

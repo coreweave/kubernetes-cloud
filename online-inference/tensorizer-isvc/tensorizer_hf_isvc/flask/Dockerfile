@@ -4,10 +4,11 @@ RUN mkdir -p /transformer/
 WORKDIR /transformer
 
 COPY flask/requirements.txt .
-COPY flask/flask_api.py .
-COPY load_model.py .
 
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
+
+COPY flask/flask_api.py .
+COPY load_model.py .
 
 ENTRYPOINT ["python", "-m", "gunicorn", "-w1", "-b0.0.0.0", "flask_api:app", "--timeout", "300"]
