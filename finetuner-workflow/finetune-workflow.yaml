@@ -275,7 +275,7 @@ spec:
               --train-ratio=1.0
               --eot='{{workflow.parameters.eot_token}}'
               --pad='{{workflow.parameters.pad_token}}'
-              --warmup_ratio={{workflow.parameters.warmup_ratio}}
+              --warmup-ratio={{workflow.parameters.warmup_ratio}}
               --bs={{workflow.parameters.batch_size}}
               --bs-divisor={{workflow.parameters.batch_size_divisor}}
               --gradients={{workflow.parameters.gradients}}
