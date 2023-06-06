@@ -1,5 +1,6 @@
 import asyncio
 import logging
+import os.path
 import random
 import statistics
 import sys
@@ -19,7 +20,11 @@ except ImportError:
 
 logger = logging.getLogger(__name__)
 
-with open("inputs.txt", "r", encoding="utf-8") as inputs_file:
+inputs_file_path = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)), "inputs.txt"
+)
+
+with open(inputs_file_path, "r", encoding="utf-8") as inputs_file:
     inputs = [line.strip() for line in inputs_file]
 
 

@@ -1,9 +1,14 @@
+import os.path
 import random
 import urllib.parse
 
 from locust import HttpUser, task
 
-with open("inputs.txt", "r", encoding="utf-8") as inputs_file:
+inputs_file_path = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)), "inputs.txt"
+)
+
+with open(inputs_file_path, "r", encoding="utf-8") as inputs_file:
     inputs = [line.strip() for line in inputs_file]
 
 
