@@ -14,11 +14,11 @@ spec:
             mountPath: /mnt
         resources:
           requests:
-            cpu: 4
-            memory: 8Gi 
+            cpu: 2
+            memory: 40Gi
           limits:
-            cpu: 4
-            memory: 8Gi 
+            cpu: 2
+            memory: 40Gi
       volumes:
         - name: model-cache
           persistentVolumeClaim:
