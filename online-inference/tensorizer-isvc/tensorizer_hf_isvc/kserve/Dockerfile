@@ -4,10 +4,11 @@ RUN mkdir -p /transformer/
 WORKDIR /transformer
 
 COPY kserve/requirements.txt .
-COPY kserve/kserve_api.py .
-COPY load_model.py .
 
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
+
+COPY kserve/kserve_api.py .
+COPY load_model.py .
 
 ENTRYPOINT ["python", "kserve_api.py"]
