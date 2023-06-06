@@ -3,14 +3,14 @@ kind: InferenceService
 metadata:
   labels:
     qos.coreweave.cloud/latency: low
-  name: tensorizer-flask-isvc-1
+  name: flask-tensorizer-gptj
 spec:
   predictor:
     maxReplicas: 100
     minReplicas: 1
     containerConcurrency: 1
     containers:
-    - name: tensorizer-gptj
+    - name: flask-tensorizer-gptj
       image: rtalaricw/gptj-hf-tensorizer-pvc:v2.0
       ports:
       - protocol: TCP

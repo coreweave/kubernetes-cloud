@@ -3,18 +3,15 @@ kind: InferenceService
 metadata:
   labels:
     qos.coreweave.cloud/latency: low
-  name: hf-kserve-isvc
+  name: kserve-hf-gptj
 spec:
   predictor:
     maxReplicas: 100
     minReplicas: 1
     containerConcurrency: 1
     containers:
-    - name: hf-gptj
+    - name: kserve-hf-gptj
       image: rtalaricw/gptj-hf-tensorizer-pvc-kserve:v1.0
-      ports:
-      - protocol: TCP
-        containerPort: 8000
       env:
         - name: STORAGE_URI 
           value: pvc://model-storage/
