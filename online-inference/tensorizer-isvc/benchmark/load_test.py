@@ -122,7 +122,8 @@ def parse_args():
     parser = ArgumentParser()
     parser.add_argument("--url", help="InferenceService URL", required=True)
     parser.set_defaults(asynchronous=True)
-    parser.add_argument(
+    synchronicity_group = parser.add_mutually_exclusive_group(required=False)
+    synchronicity_group.add_argument(
         "--async",
         help=(
             "Send overlapping, asynchronous requests (default)"
@@ -131,7 +132,7 @@ def parse_args():
         dest="asynchronous",
         action="store_true",
     )
-    parser.add_argument(
+    synchronicity_group.add_argument(
         "--sync",
         help=(
             "Send sequential, synchronous requests"
@@ -140,7 +141,12 @@ def parse_args():
         dest="asynchronous",
         action="store_false",
     )
-    parser.add_argument("--requests", help="Number of requests to send", type=int)
+    parser.add_argument(
+        "--requests",
+        help="Number of requests to send",
+        type=int,
+        default=100,
+    )
     parser.set_defaults(log_level=logging.WARNING)
     parser.add_argument(
         "--verbose",
