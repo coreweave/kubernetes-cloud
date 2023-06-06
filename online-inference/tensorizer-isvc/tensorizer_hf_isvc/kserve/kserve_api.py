@@ -67,7 +67,7 @@ class Model(kserve.Model):
             )
             outputs.append(output)
 
-            print(f"tensor output: {output}")
+            print(f"tensor output: {output}\n", flush=True)
 
         return {"predictions": outputs}
 

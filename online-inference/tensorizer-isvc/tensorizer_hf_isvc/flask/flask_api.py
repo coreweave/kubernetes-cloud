@@ -37,7 +37,7 @@ class Transformer:
 
         output = self.tokenizer.decode(output_ids[0], skip_special_tokens=True)
 
-        print(f"tensor output: {output}")
+        print(f"tensor output: {output}\n", flush=True)
 
         return output
 
