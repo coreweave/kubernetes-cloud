@@ -27,7 +27,9 @@ def load_model_based_on_type(
         model = GPTJForCausalLM.from_pretrained(
             model_path, torch_dtype=torch.float16
         ).to(DEVICE)
-        print(f"Start time for model load from HF: {time.time() - start} seconds")
+        print(
+            f"Start time for model load from HF: {time.time() - start} seconds"
+        )
 
         return model
 
@@ -42,7 +44,9 @@ def load_model_based_on_type(
 
     # Lazy load the tensors from PVC into the model.
     start = time.time()
-    deserializer = TensorDeserializer(f"{model_path}/gptj.tensors", plaid_mode=True)
+    deserializer = TensorDeserializer(
+        f"{model_path}/gptj.tensors", plaid_mode=True
+    )
     deserializer.load_into_module(model)
     end = time.time()
 
@@ -52,7 +56,10 @@ def load_model_based_on_type(
     per_second = convert_bytes(deserializer.total_tensor_bytes / duration)
     after_mem = get_mem_usage()
     deserializer.close()
-    print(f"Deserialized {total_bytes_str} in {end - start:0.2f}s," f" {per_second}/s")
+    print(
+        f"Deserialized {total_bytes_str} in {end - start:0.2f}s,"
+        f" {per_second}/s"
+    )
     print(f"Memory usage before: {before_mem}")
     print(f"Memory usage after: {after_mem}")
 

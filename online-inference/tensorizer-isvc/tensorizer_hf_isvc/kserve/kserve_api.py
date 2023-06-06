@@ -42,9 +42,9 @@ class Model(kserve.Model):
         assert type(payload) == Dict
 
         if "text" in payload:
-            input_ids = self.tokenizer.encode(payload["text"], return_tensors="pt").to(
-                "cuda"
-            )
+            input_ids = self.tokenizer.encode(
+                payload["text"], return_tensors="pt"
+            ).to("cuda")
         else:
             input_ids = self.tokenizer.encode(
                 "Please input some text", return_tensors="pt"
