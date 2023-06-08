@@ -40,9 +40,6 @@ spec:
     # and `pile`. It defaults to the model's tokenizer data if not provided.
     - name: tokenizer
       value: ''
-    # Save model checkpoint every N steps.
-    - name: save_steps
-      value: '500'
     # How should the tokenizer order the dataset inputs? Options available are:
     # `size_ascending`, `size_descending`, `name_ascending`, `name_descending`,
     # `random`, and `none`. `shuffle` implements `none` while also assigning 
@@ -111,6 +108,9 @@ spec:
     # Note: train_ratio is not yet implemented, so it is always 1.0.
     # - name: train_ratio
     #  value: '0.9'  # range: >= 0, <= 1
+    # Warmup ratio, the percentage of steps to warm up the learning rate for.
+    - name: warmup_ratio
+      value: '0.1'  # range: >= 0, <= 1
     # Batch size. `-1` will let it do a reasonable and relatively conservative
     # guess.
     - name: batch_size
@@ -275,6 +275,7 @@ spec:
               --train-ratio=1.0
               --eot='{{workflow.parameters.eot_token}}'
               --pad='{{workflow.parameters.pad_token}}'
+              --warmup-ratio={{workflow.parameters.warmup_ratio}}
               --bs={{workflow.parameters.batch_size}}
               --bs-divisor={{workflow.parameters.batch_size_divisor}}
               --gradients={{workflow.parameters.gradients}}
