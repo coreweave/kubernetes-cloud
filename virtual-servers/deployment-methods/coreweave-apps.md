@@ -17,9 +17,9 @@ Once signed in to your CoreWeave Cloud account, navigate to the **Virtual Server
 <figure><img src="../../docs/.gitbook/assets/image (45).png" alt="Screenshot of the CoreWeave Cloud UI main page"><figcaption><p>Navigate to the Virtual Server creation page either from the Deploy Now button or using the side navigation</p></figcaption></figure>
 
 {% hint style="info" %}
-:tada: **New Virtual Server**
+**CoreWeave Cloud vs. CoreWeave Apps**
 
-[**CoreWeave Cloud**](https://cloud.coreweave.com/virtualservers) Virtual Server has more features than the [**CoreWeave Apps**](https://apps.coreweave.com) edition, but you can use either one. You may see a selection screen like this when deploying.
+The [**CoreWeave Cloud**](https://cloud.coreweave.com/virtualservers) Virtual Server has more features than the [**CoreWeave Apps**](https://apps.coreweave.com) edition, but you can use either one. You may see a selection screen like this when deploying.
 
 ![Deploy a Virtual Server](<../../docs/.gitbook/assets/image (17).png>)&#x20;
 
@@ -36,9 +36,9 @@ To create a new Virtual Server, click the **New Virtual Server** button.
 
 The Virtual Server hub has several deployment options. Choose the option that best suits your use-case.
 
-<table data-card-size="large" data-view="cards"><thead><tr><th></th><th></th></tr></thead><tbody><tr><td><h3><span data-gb-custom-inline data-tag="emoji" data-code="1f9d1-1f373">🧑🍳</span> <a href="coreweave-apps.md#new-server-from-scratch-1">New server from scratch</a></h3></td><td>A <strong>new</strong> Virtual Server is the default option. Choose all the parameters from scratch to build a custom-configured machine tailored to your needs.</td></tr><tr><td><h3><span data-gb-custom-inline data-tag="emoji" data-code="1f46d">👭</span> <a href="coreweave-apps.md#clone-an-existing-server-1"><strong>Clone an existing server</strong></a></h3></td><td>A <strong>clone</strong> is a snapshot of an existing Virtual Server, including the PVC containing the OS and all files. Deploying a clone Virtual Server creates an exact duplicate of an existing Virtual Server in its current state.</td></tr><tr><td><h3><span data-gb-custom-inline data-tag="emoji" data-code="1f4dd">📝</span> <a href="coreweave-apps.md#deploy-from-a-template-1">Deploy from a t<strong>emplate</strong></a></h3></td><td>A <strong>template</strong> uses an existing Virtual Server as a model. Deploying from a template creates a new Virtual Server with the same configuration as the original, but without the state or a copy of the data.</td></tr><tr><td><h3><span data-gb-custom-inline data-tag="emoji" data-code="1f4c0">📀</span> <a href="coreweave-apps.md#deploy-custom-with-pvc-1">Deploy c<strong>ustom</strong></a></h3></td><td><p>A <strong>custom</strong> deployment is a special case. </p><p>Compared to a <em>clone</em> which is an exact copy, or a <em>template</em> that uses the same settings but no data, a <em>custom</em> deployment can use custom settings while copying the PVC from another Virtual Server, or load the disk image from a remote HTTP source.</p></td></tr></tbody></table>
+<table data-card-size="large" data-view="cards"><thead><tr><th></th><th></th></tr></thead><tbody><tr><td><h3><span data-gb-custom-inline data-tag="emoji" data-code="1f9d1-1f373">🧑🍳</span> <a href="coreweave-apps.md#new-server-1">New server</a></h3></td><td>A <strong>new</strong> deployment selects all settings from scratch to build a custom-configured Virtual Server.</td></tr><tr><td><h3><span data-gb-custom-inline data-tag="emoji" data-code="1f46d">👭</span> <a href="coreweave-apps.md#clone-an-existing-server-1"><strong>Clone an existing server</strong></a></h3></td><td>A <strong>clone</strong> deployment takes a complete snapshot of an existing Virtual Server's configuration, and all files.</td></tr><tr><td><h3><span data-gb-custom-inline data-tag="emoji" data-code="1f4dd">📝</span> <a href="coreweave-apps.md#deploy-from-a-template-1">Deploy from a t<strong>emplate</strong></a></h3></td><td>A <strong>template</strong> deployment copies the configuration from an existing Virtual Server, but doesn't copy the state or data.</td></tr><tr><td><h3><span data-gb-custom-inline data-tag="emoji" data-code="1f4c0">📀</span> <a href="coreweave-apps.md#deploy-custom-with-pvc-1">Deploy c<strong>ustom</strong></a></h3></td><td>A <strong>custom</strong> deployment loads the OS image from an existing PVC or a remote HTTP source.</td></tr></tbody></table>
 
-## :cook: New server from scratch
+## :cook: New server
 
 A new Virtual Server is the default option. Choose all the parameters from scratch to build a custom-configured machine tailored to your needs.
 
@@ -80,7 +80,7 @@ Select an existing Virtual Server in the drop-down presented. Then toggle the **
 
 Another way to deploy a clone is to select **Clone** from the **more** menu of an existing server. Or, expand the server details and click **Clone**.
 
-<figure><img src="../../docs/.gitbook/assets/image (3).png" alt="Deployment options"><figcaption><p>Deployment options</p></figcaption></figure>
+<figure><img src="../../docs/.gitbook/assets/image (3) (4).png" alt="Deployment options"><figcaption><p>Deployment options</p></figcaption></figure>
 
 ## :pencil: Deploy from a t**emplate**
 
@@ -98,19 +98,25 @@ While this is also possible with cloning, there's less risk of deployment failur
 
 ## :dvd: Deploy c**ustom**
 
-A custom deployment is a special case. Compared to a _clone_ which is an exact copy, or a _template_ that uses the same settings but no data, a _custom_ deployment can use custom settings while copying the PVC from another Virtual Server, or load the disk image from a remote HTTP source.
+A custom deployment loads the operating system image from an existing PVC or a remote HTTP source.
 
-To deploy a custom Virtual Server, follow the same steps as deploying a [new server from scratch](coreweave-apps.md#new-server-from-scratch-1), but select either **Custom OS with Remote Source**, or **Custom OS with PVC** in the Operating System section.&#x20;
+To deploy a custom Virtual Server, follow the same steps as if deploying a [new server from scratch](coreweave-apps.md#new-server-1), then select either **Image From Remote Source**, or **Image From PVC** in the Operating System section.&#x20;
 
 <figure><img src="../../docs/.gitbook/assets/image.png" alt="Choose a Custom option"><figcaption><p>Choose a Custom option</p></figcaption></figure>
+
+#### Image from remote source
+
+Supply an OS image over HTTP in `qcow2`, `raw` and `iso` formats, optionally compressed with either `gz` or `xz`.&#x20;
+
+#### Image from PVC
+
+This makes a copy of an existing PVC. This option isn't shown if there aren't any eligible PVC's deployed in your namespace. The PVC can be copied from an existing Virtual Server, or by [importing a disk image](../../docs/virtual-servers/root-disk-lifecycle-management/importing-a-qcow2-image.md).&#x20;
 
 {% hint style="info" %}
 **Note**
 
-The **Custom OS with PVC** option does not appear unless you have an eligible PVC available.&#x20;
+If copying an existing Virtual Server, make sure to shut down the server before using its PVC as an image.&#x20;
 {% endhint %}
-
-This option provides complete flexibility. You can supply your own OS image over HTTP in `qcow2`, `raw` and `iso` formats, optionally compressed with either `gz` or `xz`. You can also copy the PVC from existing Virtual Server in CoreWeave Cloud, or prepare a custom PVC image using any other procedure. See [Importing Disk Images](../../docs/virtual-servers/root-disk-lifecycle-management/importing-a-qcow2-image.md) for more details about these options.
 
 ## Configuration options
 

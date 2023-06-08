@@ -49,7 +49,7 @@ If you are utilizing Active Directory, you will have to put in a temporary user 
 
 To deploy a Windows 10 Workstation with Parsec, click the **Parsec Remote Desktop** toggle under **Operating System Additions**.
 
-<figure><img src="../../../.gitbook/assets/image (3) (4).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (3) (4) (1).png" alt=""><figcaption></figcaption></figure>
 
 Next, click the **Deploy** button to launch the Virtual Workstation in your namespace. Once the Virtual Workstation is running, log into it. Start Parsec, then enter your credentials.
 
