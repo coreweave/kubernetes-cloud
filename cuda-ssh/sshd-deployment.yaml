@@ -17,7 +17,7 @@ spec:
       terminationGracePeriodSeconds: 10
       initContainers:
       - name: init
-        image: ghcr.io/coreweave/ml-containers/cuda-ssh:es-cuda-ssh-87f59b9
+        image: ghcr.io/coreweave/ml-containers/cuda-ssh:es-cuda-ssh-8b9c879-torch-ceeb8c2-nccl-cuda11.8.0-nccl2.16.2-1-torch2.0.1-vision0.15.2-audio2.0.2
         command: ["/bin/bash", "-c"]
         args:
           - |
@@ -40,7 +40,7 @@ spec:
         command: ["/usr/bin/tini", "--"]
         args: ["service", "ssh", "start", "-D"]
         tty: true
-        image: ghcr.io/coreweave/ml-containers/cuda-ssh:es-cuda-ssh-87f59b9
+        image: ghcr.io/coreweave/ml-containers/cuda-ssh:es-cuda-ssh-8b9c879-torch-ceeb8c2-nccl-cuda11.8.0-nccl2.16.2-1-torch2.0.1-vision0.15.2-audio2.0.2
         ports:
           - name: sshd
             containerPort: 22
