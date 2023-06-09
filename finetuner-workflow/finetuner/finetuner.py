@@ -995,7 +995,7 @@ training_args = TrainingArguments(
     gradient_checkpointing=True,
 
     # Learning rate scheduler arguments
-    warmup_steps=float(args.warmup_ratio),
+    warmup_ratio=float(args.warmup_ratio),
 
     # Evaluation arguments
     # (Evaluation loss tracking is not finished, so these are disabled)
