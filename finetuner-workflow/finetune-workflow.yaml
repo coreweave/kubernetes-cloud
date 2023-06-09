@@ -525,11 +525,16 @@ spec:
       volumeMounts:
         - mountPath: "/{{workflow.parameters.pvc}}"
           name: "{{workflow.parameters.pvc}}"
+        - name: dshm
+          mountPath: /dev/shm
 
     volumes:
       - name: "{{workflow.parameters.pvc}}"
         persistentVolumeClaim:
            claimName: "{{workflow.parameters.pvc}}"
+      - emptyDir:
+          medium: Memory
+        name: dshm
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
