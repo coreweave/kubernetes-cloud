@@ -118,7 +118,7 @@ At this point, the secret contents of `mysealedsecret.json` are encrypted, so th
 kubectl create -f mysealedsecret.json
 ```
 
-jOnce deployed, the secret can be viewed using `kubectl get`:
+Once deployed, the secret can be viewed using `kubectl get`:
 
 {% code overflow="wrap" %}
 ```bash
