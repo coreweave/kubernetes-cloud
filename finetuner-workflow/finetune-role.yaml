@@ -1,13 +1,19 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: inference
+  name: finetune
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: role:inference
+  name: role:finetune
 rules:
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+    verbs:
+      - 'patch'
   - apiGroups:
       - serving.kubeflow.org
     resources:
@@ -25,11 +31,11 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: rolebinding:inference-inference
+  name: rolebinding:finetune-finetune
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: role:inference
+  name: role:finetune
 subjects:
   - kind: ServiceAccount
-    name: inference
+    name: finetune

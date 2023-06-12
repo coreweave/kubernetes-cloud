@@ -4,6 +4,7 @@ metadata:
   generateName: "finetune-"
 spec:
   entrypoint: main
+  serviceAccountName: finetune
   arguments:
     parameters:
     # run_name should be unique on a per-run basis, especially if reporting
@@ -11,29 +12,51 @@ spec:
     - name: run_name
     - name: pvc
       value: 'finetune-data'
-    # Training parameters. Model IDs are hugging face IDs to pull down, or
-    # a path to your model relative to the PVC root.
+    # Training parameters. Model IDs are HuggingFace identifiers to pull down,
+    # or a path to your model relative to the PVC root.
     - name: model
-      value: 'EleutherAI/gpt-neo-2.7B'
+      value: 'EleutherAI/pythia-2.8b-deduped'
     # The directory to read your dataset in, and tokenize for training.
     - name: dataset
       value: 'dataset'
+    # Whether to allow running arbitrary code from HuggingFace model repos.
+    # Necessary for some exotic or very new models on HuggingFace.
+    # ONLY enable this if a run fails without it, AND you trust the code
+    # provided by the authors of the HuggingFace model you are using.
+    - name: trust_remote_code
+      value: 'false'
+    # An S3 or path to use to extract pretrained weights for Tensorizer.
+    - name: tensorizer_uri
+      value: ''
     # Whether to retokenize the data on each run. It is strongly recommended to
     # NOT enable this if you are making multiple runs on the same dataset.
     - name: retokenize
-      value: 'false'
+      value: 'true'
+    # Whether to sanitize the data during tokenization,
+    # fixing common whitespace and line-ending issues automatically.
+    - name: sanitize
+      value: 'true'
+    # Which tokenizer to use - the dataset_tokenizer internally supports `gpt2`
+    # and `pile`. It defaults to the model's tokenizer data if not provided.
+    - name: tokenizer
+      value: ''
     # How should the tokenizer order the dataset inputs? Options available are:
     # `size_ascending`, `size_descending`, `name_ascending`, `name_descending`,
     # `random`, and `none`. `shuffle` implements `none` while also assigning 
     # chunks randomly to file instead of sequentially, useful for large
     # sequential datasets like novels.
     - name: reorder
-      value: 'none'
-    # What % of chunks to throw out, to reduce redundancy 
-    # (randomly throws them out)
-    # valid values are between 0-100, 100 disables argument
+      value: ''
+    # Whether to *not* shuffle the training data contexts later, at runtime.
+    # This shuffling is subject to `random_seed` and can be changed without
+    # retokenizing the dataset.
+    - name: no_shuffle
+      value: 'false'
+    # What % of contexts to keep while discarding the rest,
+    # to reduce redundancy. Picks contexts to discard
+    # in an alternating pattern. A value of 100 keeps all contexts.
     - name: sampling
-      value: 100
+      value: '100'  # range: >= 0, <= 100, granularity: 5
     # eot and pad tokens, it is suggested not to change this value, but usual
     # values are `<|padding|>` or `<|endoftext|>`
     - name: eot_token
@@ -46,69 +69,114 @@ spec:
     # range is used to start the next `context`.
     - name: boundary_token
       value: '\n'
-    # The context size to train. Most models have a default maximum of `2048`, but
-    # this can be adjusted downwards. This is most useful when the text you're
-    # training on is divided along logical boundaries and is split using
-    # `boundary_token`.
+    # token index in context to approximately overlap contexts on, -1 for last
+    # boundary token in context
+    - name: boundary_index
+      value: '-1'
+    # The context size to train. Most models have a default maximum of `2048`,
+    # but this can be adjusted downwards. This is most useful when the text
+    # you're training on is divided along logical boundaries and is split
+    # using `boundary_token`.
     - name: context
-      value: '2048'
+      value: '2048'  # range: > 0
+    # A prompts file to read in for testing the model, and reporting the
+    # outputs. This is useful for monitoring the progress and effectiveness of
+    # training. One prompt per line, newlines escaped with `\n` if the prompt
+    # is a multiline one.
+    - name: prompt_file
+      value: ''
+    # The interval of step counts to run the prompts tests. If we provide
+    # it with `0`, it will perform these tests at each checkpoint.
+    - name: prompt_every
+      value: '0'  # range: >= 0
+    # The number of tokens to generate per prompt.
+    - name: prompt_tokens
+      value: '200'  # range: >= 0
+    # The number of times to run prompt evaluation for each prompt.
+    - name: prompt_samples
+      value: '5'  # range: >= 0
+    # The following are sampling parameters used during prompt evaluation.
+    - name: top_k
+      value: '50'  # range: >= 0
+    - name: top_p
+      value: '0.95'  # range: >= 0, <= 1
+    - name: temperature
+      value: '1.0'  # range: > 0
+    - name: repetition_penalty
+      value: '1.1'  # range: > 0
     # Model training parameters
-    - name: train_ratio
-      value: '0.9'
+    # Note: train_ratio is not yet implemented, so it is always 1.0.
+    # - name: train_ratio
+    #  value: '0.9'  # range: >= 0, <= 1
+    # Warmup ratio, the percentage of steps to warm up the learning rate for.
+    - name: warmup_ratio
+      value: '0.1'  # range: >= 0, <= 1
     # Batch size. `-1` will let it do a reasonable and relatively conservative
     # guess.
     - name: batch_size
-      value: '-1'
+      value: '-1'  # range: > 0 or -1
     # Force `fp16` precision mode. By default, we train in the precision the
     # model provides as configuration option. But for less memory, and thus
     # faster training because of batch size, you might try this. This will
     # not work well with models such as Fairseq.
     - name: force_fp16
-      value: false
+      value: 'false'
     # The batch size quotient for the batch size guess.
     - name: batch_size_divisor
-      value: '1.0'
+      value: '1.0'  # range: > 0
     - name: random_seed
-      value: '42'
+      value: '42'  # range: >= 0, < 2^32
     # Learn rate, increase or decrease as needed.
     - name: learn_rate
-      value: '5e-5'
+      value: '5e-5'  # range: >= 0
     # Number of epochs, the number of times it will go through your dataset.
     - name: epochs
-      value: '1'
+      value: '1'  # range: > 0
     # The number of gradient checkpoint layers to work through on each batch.
     - name: gradients
-      value: '5'
+      value: '5'  # range: > 0
     # ZeRO optimizer stage -- ref: https://arxiv.org/abs/1910.02054
     - name: zero_stage
-      value: '3'
+      value: '3'  # range: >= 0, <= 3
+    # Number of steps between intermediate checkpoints.
+    - name: save_steps
+      value: '500'  # range: >= 0
     # Whether to *not* resume from checkpoints.
     - name: no_resume
-      value: false
+      value: 'false'
     # Where we store our training logs on the PVC.
     - name: logs
       value: 'logs'
-    # Project reporting/id
+    # WandB token.
     - name: wandb_key
       value: ''
     - name: project_id
       value: 'huggingface'
     # Inference service configuration.
     - name: run_inference
-      value: false
+      value: 'false'
     # Skip dataset download, tokenization, and training to only run inference, presumably
     # you have a model already ready to go under `model_run` name.
     - name: inference_only
-      value: false
+      value: 'false'
     # Download a dataset of Western Romance books from SmashWords.com
     - name: download_dataset
-      value: false
+      value: 'false'
     # CoreWeave region to default to; ORD1 has most of the GPUs.
     - name: region
       value: 'ORD1'
     # Training GPU - A40, 48gb VRAM
     - name: trainer_gpu
       value: 'A40'
+    # Training number of GPUs
+    - name: trainer_gpus
+      value: 1
+    # Training number of CPU cores
+    - name: trainer_cores
+      value: 8
+    # Training compute RAM in gigabytes
+    - name: trainer_ram
+      value: 192
     # Inference GPU - RTX A5000, 24gb VRAM
     - name: inference_gpu
       value: 'RTX_A5000'
@@ -116,27 +184,30 @@ spec:
     - name: model_downloader_image
       value: 'ghcr.io/wbrown/gpt_bpe/model_downloader'
     - name: model_downloader_tag
-      value: 'e2ef65f'
-    - name: dataset_downloader_image
-      value: 'ghcr.io/coreweave/dataset-downloader/smashwords-downloader'
-    - name: dataset_downloader_tag
-      value: '7dba2c7'
+      value: '7c82f97'
     - name: tokenizer_image
       value: 'ghcr.io/wbrown/gpt_bpe/dataset_tokenizer'
     - name: tokenizer_tag
-      value: 'baa7df3'
+      value: '7c82f97'
+    - name: dataset_downloader_image
+      value: 'ghcr.io/coreweave/dataset-downloader/smashwords-downloader'
+    - name: dataset_downloader_tag
+      value: 'cd6408a'
     - name: finetuner_image
-      value: 'docker.io/gooseai/finetuner'
+      value: 'gooseai/finetuner'
     - name: finetuner_tag
-      value: 'rc57'
-    - name: inference_image
-      value: 'coreweave/ml-images'
-    - name: inference_tag
-      value: 'pytorch-huggingface-81d5ce11'
-
+      value: 'b32173f'
   templates:
   - name: main
     steps:
+    - - name: check-model
+        template: check-model
+        arguments:
+          parameters:
+            - name: model
+              value: "{{workflow.parameters.model}}"
+        when: "'{{workflow.parameters.tensorizer_uri}}' == ''"
+
     - - name: model-downloader
         template: model-downloader
         arguments:
@@ -145,6 +216,9 @@ spec:
               value: "{{workflow.parameters.model}}"
             - name: dest
               value: "/{{workflow.parameters.pvc}}/models/{{workflow.parameters.model}}"
+            - name: tokenizer_only
+              value: "{{steps.check-model.outputs.result}}"
+        when: "'{{workflow.parameters.tensorizer_uri}}' == ''"
 
     - - name: dataset-downloader
         template: dataset-downloader
@@ -161,9 +235,9 @@ spec:
           - name: input
             value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.dataset}}"
           - name: output
-            value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.dataset}}-{{=sprig.replace('/', '_', sprig.replace('.','_', sprig.replace('-','_', workflow.parameters.model)))}}-{{workflow.parameters.context}}-{{workflow.parameters.tokenizer_tag}}.tokens"
-          - name: model
-            value: "/{{workflow.parameters.pvc}}/models/{{workflow.parameters.model}}"
+            value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.dataset}}-{{=sprig.replace('/', '_', sprig.replace('.','_', sprig.replace('-','_', workflow.parameters.model)))}}-{{workflow.parameters.context}}-b{{workflow.parameters.boundary_index}}-{{workflow.parameters.tokenizer_tag}}.tokens"
+          - name: tokenizer
+            value: "{{=sprig.default('/' + workflow.parameters.pvc + '/models/' + workflow.parameters.model, workflow.parameters.tokenizer)}}"
           - name: context
             value: "{{workflow.parameters.context}}"
           - name: eot
@@ -172,10 +246,14 @@ spec:
             value: "{{workflow.parameters.pad_token}}"
           - name: boundary
             value: "{{workflow.parameters.boundary_token}}"
+          - name: boundary_index
+            value: "{{workflow.parameters.boundary_index}}"
           - name: reorder
             value: "{{workflow.parameters.reorder}}"
           - name: sampling
             value: "{{workflow.parameters.sampling}}"
+          - name: sanitize
+            value: "{{workflow.parameters.sanitize}}"
           - name: retokenize
             value: "{{workflow.parameters.retokenize}}"
         when: "{{workflow.parameters.inference_only}} == false"
@@ -187,30 +265,49 @@ spec:
           - name: finetuner_params
             # Pass the params in as one string so we can template in the conditional flags
             value: >-
-              --run_name {{workflow.parameters.run_name}}
-              --model /{{workflow.parameters.pvc}}/models/{{workflow.parameters.model}}
-              --dataset /{{workflow.parameters.pvc}}/{{workflow.parameters.dataset}}-{{=sprig.replace('/', '_', sprig.replace('.','_', sprig.replace('-','_', workflow.parameters.model)))}}-{{workflow.parameters.context}}-{{workflow.parameters.tokenizer_tag}}.tokens
-              --eot '{{workflow.parameters.eot_token}}'
-              --pad '{{workflow.parameters.pad_token}}'
-              --bs {{workflow.parameters.batch_size}}
-              --seed {{workflow.parameters.random_seed}}
-              --lr {{workflow.parameters.learn_rate}}
-              --tr {{workflow.parameters.train_ratio}}
-              --output /{{workflow.parameters.pvc}}/finetunes/
-              --cache /{{workflow.parameters.pvc}}/cache/
-              --logs /{{workflow.parameters.pvc}}/{{workflow.parameters.logs}}
-              --bs_divisor {{workflow.parameters.batch_size_divisor}}
-              --gradients {{workflow.parameters.gradients}}
-              --zero_stage {{workflow.parameters.zero_stage}}
-              --no_resume {{workflow.parameters.no_resume}}
-              --project_id {{workflow.parameters.project_id}}
-              --epochs {{workflow.parameters.epochs}}
-              --context_size {{workflow.parameters.context}}
-              {{=workflow.parameters.force_fp16 == 'true' ? '--fp16' : ''}}
+              --run-name={{workflow.parameters.run_name}}
+              --model=/{{workflow.parameters.pvc}}/models/{{workflow.parameters.model}}
+              --trust-remote-code={{workflow.parameters.trust_remote_code}}
+              --dataset /{{workflow.parameters.pvc}}/{{workflow.parameters.dataset}}-{{=sprig.replace('/', '_', sprig.replace('.','_', sprig.replace('-','_', workflow.parameters.model)))}}-{{workflow.parameters.context}}-b{{workflow.parameters.boundary_index}}-{{workflow.parameters.tokenizer_tag}}.tokens
+              --tensorizer-uri='{{workflow.parameters.tensorizer_uri}}'
+              --lr={{workflow.parameters.learn_rate}}
+              --epochs={{workflow.parameters.epochs}}
+              --train-ratio=1.0
+              --eot='{{workflow.parameters.eot_token}}'
+              --pad='{{workflow.parameters.pad_token}}'
+              --warmup-ratio={{workflow.parameters.warmup_ratio}}
+              --bs={{workflow.parameters.batch_size}}
+              --bs-divisor={{workflow.parameters.batch_size_divisor}}
+              --gradients={{workflow.parameters.gradients}}
+              --zero-stage={{workflow.parameters.zero_stage}}
+              --seed={{workflow.parameters.random_seed}}
+              --output-path=/{{workflow.parameters.pvc}}/finetunes/
+              --no-resume={{workflow.parameters.no_resume}}
+              --cache=/{{workflow.parameters.pvc}}/cache/
+              --save-steps={{workflow.parameters.save_steps}}
+              --context-size={{workflow.parameters.context}}
+              --project-id={{workflow.parameters.project_id}}
+              --logs=/{{workflow.parameters.pvc}}/{{workflow.parameters.logs}}
+              --fp16={{workflow.parameters.force_fp16}}
+              --no-shuffle={{workflow.parameters.no_shuffle}}
+              --prompt-file={{=workflow.parameters.prompt_file == '' ? '' : '/' + workflow.parameters.pvc + '/' + workflow.parameters.prompt_file}}
+              --prompt-every={{workflow.parameters.prompt_every}}
+              --prompt-tokens={{workflow.parameters.prompt_tokens}}
+              --prompt-samples={{workflow.parameters.prompt_samples}}
+              --top-k={{workflow.parameters.top_k}}
+              --top-p={{workflow.parameters.top_p}}
+              --temperature={{workflow.parameters.temperature}}
+              --repetition-penalty={{workflow.parameters.repetition_penalty}}
           - name: wandb_key
             value: "{{workflow.parameters.wandb_key}}"
           - name: torch_cache
             value: "/{{workflow.parameters.pvc}}/torch/"
+          - name: trainer_ram
+            value: "{{workflow.parameters.trainer_ram}}"
+          - name: trainer_cores
+            value: "{{workflow.parameters.trainer_cores}}"
+          - name: trainer_gpus
+            value: "{{workflow.parameters.trainer_gpus}}"
         when: "{{workflow.parameters.inference_only}} == false"
 
     - - name: inference-service
@@ -218,21 +315,42 @@ spec:
         arguments:
           parameters:
             - name: model_path
-              value: "finetunes/results-{{workflow.parameters.run_name}}"
+              value: "finetunes/results-{{workflow.parameters.run_name}}/final"
+            - name: model_name
+              value: "final"
         when: "{{workflow.parameters.run_inference}} == true"
+  - name: check-model
+    inputs:
+      parameters:
+        - name: model
+    retryStrategy:
+      limit: 1
+    container:
+      image: "alpine/curl:3.14"
+      command: [ "/bin/sh", "-c" ]
+      args: [ "/usr/bin/curl -I -XGET -s -o /dev/null -w \"%{http_code}\" https://accel-object.ord1.coreweave.com/tensorized/{{inputs.parameters.model}}/model.tensors | grep -q 200 && echo -n 'true' > /tmp/output.txt || echo -n 'false' > /tmp/output.txt" ]
+    outputs:
+      parameters:
+        - name: result
+          valueFrom:
+            path: /tmp/output.txt
 
   - name: model-downloader
     inputs:
       parameters:
         - name: model
         - name: dest
+        - name: tokenizer_only
     retryStrategy:
       limit: 1
     container:
       image: "{{workflow.parameters.model_downloader_image}}:{{workflow.parameters.model_downloader_tag}}"
       command: [ "/ko-app/model_downloader" ]
       args: [ "-model", "{{inputs.parameters.model}}",
-              "-dest", "{{inputs.parameters.dest}}" ]
+              "-dest", "{{inputs.parameters.dest}}",
+              "-tokenizer-only", "{{inputs.parameters.tokenizer_only}}" ]
+      securityContext:
+        runAsUser: 0
       resources:
         requests:
           memory: 512Mi
@@ -306,35 +424,42 @@ spec:
     inputs:
       parameters:
         - name: input
-        - name: model
+        - name: tokenizer
         - name: context
         - name: eot
         - name: pad
         - name: output
         - name: boundary
+        - name: boundary_index
         - name: sampling
         - name: reorder
+        - name: sanitize
+        - name: retokenize
     retryStrategy:
       limit: 1
     container:
       image: "{{workflow.parameters.tokenizer_image}}:{{workflow.parameters.tokenizer_tag}}"
       command: [ "/ko-app/dataset_tokenizer" ]
-      args: ["-tokenizer", "{{inputs.parameters.model}}",
+      args: ["-tokenizer", "{{inputs.parameters.tokenizer}}",
              "-context", "{{inputs.parameters.context}}",
              "-eot", "{{inputs.parameters.eot}}",
              "-pad", "{{inputs.parameters.pad}}",
              "-input", "{{inputs.parameters.input}}",
              "-output", "{{inputs.parameters.output}}",
              "-boundary", "{{inputs.parameters.boundary}}",
+             "-boundary_overlap", "{{inputs.parameters.boundary_index}}",
              "-reorder", "{{inputs.parameters.reorder}}",
              "-sampling", "{{inputs.parameters.sampling}}",
-             "-sanitize"]
+             "-sanitize={{inputs.parameters.sanitize}}",
+             "-retokenize={{inputs.parameters.retokenize}}"]
+      securityContext:
+        runAsUser: 0
       resources:
         requests:
-          memory: 256Mi
+          memory: 512Mi
           cpu: "4"
         limits:
-          memory: 256Mi
+          memory: 512Mi
           cpu: "4"
       volumeMounts:
         - mountPath: "/{{workflow.parameters.pvc}}"
@@ -359,10 +484,27 @@ spec:
         - name: finetuner_params
         - name: wandb_key
         - name: torch_cache
+        - name: trainer_ram
+        - name: trainer_cores
+        - name: trainer_gpus
+    podSpecPatch: |
+      containers:
+        - name: main
+          resources:
+            requests:
+              memory: "{{workflow.parameters.trainer_ram}}Gi"
+              cpu: "{{workflow.parameters.trainer_cores}}"
+              nvidia.com/gpu: "{{workflow.parameters.trainer_gpus}}"
+              ephemeral-storage: 512Gi
+            limits:
+              memory: "{{workflow.parameters.trainer_ram}}Gi"
+              cpu: "{{workflow.parameters.trainer_cores}}"
+              nvidia.com/gpu: "{{workflow.parameters.trainer_gpus}}"
+              ephemeral-storage: 512Gi
     container:
       image: "{{workflow.parameters.finetuner_image}}:{{workflow.parameters.finetuner_tag}}"
       command: ["/usr/bin/bash", "-c"]
-      args: ["/usr/bin/python3 /app/finetuner.py {{inputs.parameters.finetuner_params}}"]
+      args: ["/usr/bin/python3 -m deepspeed.launcher.runner --num_gpus {{workflow.parameters.trainer_gpus}} /app/finetuner.py {{inputs.parameters.finetuner_params}}"]
       tty: true
       env:
       - name: WANDB_API_KEY
@@ -374,18 +516,25 @@ spec:
       resources:
         requests:
           memory: 128Gi
-          cpu: "8"
+          cpu: 8
+          nvidia.com/gpu: 1
         limits:
-          memory: 192Gi
-          cpu: "8"
+          memory: 128Gi
+          cpu: 8
           nvidia.com/gpu: 1
       volumeMounts:
         - mountPath: "/{{workflow.parameters.pvc}}"
           name: "{{workflow.parameters.pvc}}"
+        - name: dshm
+          mountPath: /dev/shm
+
     volumes:
       - name: "{{workflow.parameters.pvc}}"
         persistentVolumeClaim:
            claimName: "{{workflow.parameters.pvc}}"
+      - emptyDir:
+          medium: Memory
+        name: dshm
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
@@ -404,6 +553,7 @@ spec:
     inputs:
       parameters:
         - name: model_path
+        - name: model_name
     resource:
       action: apply
       manifest: |
@@ -432,20 +582,32 @@ spec:
                             - "{{workflow.parameters.region}}"
             containers:
               - name: kfserving-container
-                image: "{{workflow.parameters.inference_image}}:{{workflow.parameters.inference_tag}}"
+                image: "{{workflow.parameters.finetuner_image}}:{{workflow.parameters.finetuner_tag}}"
                 imagePullPolicy: IfNotPresent
-                command:
-                  - "python3"
-                  - "/inference/huggingface.py"
+                command: ["/usr/bin/bash", "-c"]
+                args: ["/usr/bin/python3 /app/inference.py --model=${INFERENCE_MODEL} --port=${INFERENCE_PORT}"]
                 env:
-                  - name: MODEL_NAME
-                    value: "final"
-                  - name: MODEL_PRECISION
-                    value: "fp16"
+                  - name: INFERENCE_PORT
+                    value: "80"
+                  - name: INFERENCE_MODEL
+                    value: /mnt/pvc/{{ inputs.parameters.model_path }}
                   - name: STORAGE_URI # KFServing mounts the PVC at /mnt/pvc/
                     value: pvc://{{ workflow.parameters.pvc }}/
-                  - name: MODEL_PATH
-                    value: /mnt/pvc/{{ inputs.parameters.model_path }}
+                ports:
+                  - protocol: TCP
+                    containerPort: 80
+                livenessProbe:
+                  httpGet:
+                    path: /
+                    port: 80
+                  initialDelaySeconds: 300
+                  periodSeconds: 30
+                readinessProbe:
+                  httpGet:
+                    path: /
+                    port: 80
+                  initialDelaySeconds: 300
+                  periodSeconds: 30
                 resources:
                   requests:
                     nvidia.com/gpu: 1
