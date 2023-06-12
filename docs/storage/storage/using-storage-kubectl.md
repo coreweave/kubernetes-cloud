@@ -150,15 +150,29 @@ spec:
 
 #### **Read-only additional disks**
 
-`VirtualServer.spec.storage.additionalDisks[]` allows attaching disks as read-only.
+Attach disks as read-only by including `readOnly: true` in the `additionalDisks` specification.&#x20;
 
-<table><thead><tr><th width="275.66666666666663">Field</th><th width="93">Type</th><th>Description</th></tr></thead><tbody><tr><td><code>storage.additionalDisks[ ].readOnly</code></td><td>bool</td><td>The additional disk is attached as a read-only device. Default set to <code>false</code>.</td></tr></tbody></table>
+```yaml
+apiVersion: virtualservers.coreweave.com/v1alpha1
+kind: VirtualServer
+metadata:
+  name: block-storage-example
+spec:
+  ...
+  storage:
+    additionalDisks:
+    - name: block-storage
+      readOnly: true
+      spec:
+        persistentVolumeClaim:
+          name: block-storage-pvc
+```
 
-If you are using a PVC, and the value of `persistentVolumeClaim.readOnly` on the PVC disk is set to `true`, the value of `VirtualServer.spec.storage.additionalDisks[].readOnly` **must also be set to `true`**.
+{% hint style="info" %}
+**Note**
 
-If it is not, the Virtual Server will report an error.
-
-<table data-header-hidden><thead><tr><th width="293.3333333333333">Disk type</th><th>Action</th></tr></thead><tbody><tr><td><code>readOnly</code> disk</td><td>Set the <code>vs.storage.additionalDisks.readOnly: true</code>.</td></tr><tr><td><code>readOnly</code> disk with a <code>readOnly</code> PVC</td><td>Set both the value for the storage disk to (<code>vs.storage.additionalDisks.readOnly</code>) to <code>true</code>, as well as the PVC claim (<code>additionalDisk.spec.persistentVolumeClaim.readOnly</code>) to <code>true</code>.</td></tr></tbody></table>
+It's required for `readOnly` to be `true` when attaching a PersistentVolumeClaim with `accessMode` set to `ReadOnlyMany`.
+{% endhint %}
 
 ## **Resizing Volumes**
 

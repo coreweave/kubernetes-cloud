@@ -166,7 +166,7 @@
     * [Create and Access Storage](vfx-and-rendering/how-to-guides-and-tutorials/create-a-virtual-workstation/storage/README.md)
       * [Samba](vfx-and-rendering/how-to-guides-and-tutorials/create-a-virtual-workstation/storage/samba.md)
       * [NFS](vfx-and-rendering/how-to-guides-and-tutorials/create-a-virtual-workstation/storage/nfs.md)
-      * [FileBrowser](storage/filebrowser.md)
+      *
       * [Synology NAS](vfx-and-rendering/how-to-guides-and-tutorials/create-a-virtual-workstation/storage/synology-nas.md)
       * [Media Shuttle](vfx-and-rendering/how-to-guides-and-tutorials/create-a-virtual-workstation/storage/media-shuttle.md)
     * [Configure Networking](vfx-and-rendering/how-to-guides-and-tutorials/create-a-virtual-workstation/networking.md)
@@ -175,7 +175,7 @@
     * [Deploy Thinkbox Deadline](vfx-and-rendering/how-to-guides-and-tutorials/vfx-studio-components-guide/deadline.md)
     * [CGI Rendering with Argo Workflows](vfx-and-rendering/how-to-guides-and-tutorials/vfx-studio-components-guide/cgi-rendering.md)
 * [On-Premise Integration for Studios](vfx-and-rendering/on-premise-integration-for-studios/README.md)
-  * [Site-to-Site VPN](coreweave-kubernetes/networking/site-to-site-connections/site-to-site-vpn/README.md)
+  *
   * [Transparent Cache](vfx-and-rendering/on-premise-integration-for-studios/transparent-cache.md)
 
 ## Cloud Account Management
