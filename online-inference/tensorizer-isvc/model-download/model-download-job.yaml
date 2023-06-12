@@ -7,7 +7,7 @@ spec:
     spec:
       containers:
       - name: model-downloader
-        image: rtalaricw/model-download-gptj:v1.3
+        image: rtalaricw/model-download-gptj:v2.0
         imagePullPolicy: IfNotPresent
         volumeMounts:
           - name: model-cache

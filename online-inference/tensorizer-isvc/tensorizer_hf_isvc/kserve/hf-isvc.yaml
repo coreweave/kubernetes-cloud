@@ -11,7 +11,7 @@ spec:
     containerConcurrency: 1
     containers:
     - name: kserve-hf-gptj
-      image: rtalaricw/gptj-hf-tensorizer-pvc-kserve:v1.0
+      image: rtalaricw/gptj-hf-tensorizer-pvc-kserve:v2.1
       env:
         - name: STORAGE_URI 
           value: pvc://model-storage/
