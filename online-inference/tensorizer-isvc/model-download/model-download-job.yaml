@@ -1,0 +1,37 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: model-download
+spec:
+  template:
+    spec:
+      containers:
+      - name: model-downloader
+        image: rtalaricw/model-download-gptj:v2.0
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+          - name: model-cache
+            mountPath: /mnt
+        resources:
+          requests:
+            cpu: 2
+            memory: 40Gi
+          limits:
+            cpu: 2
+            memory: 40Gi
+      volumes:
+        - name: model-cache
+          persistentVolumeClaim:
+            claimName: model-storage
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: topology.kubernetes.io/region
+                operator: In
+                values:
+                  - LAS1
+              
+      restartPolicy: Never
+  backoffLimit: 1

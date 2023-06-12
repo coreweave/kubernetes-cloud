@@ -1,0 +1,43 @@
+apiVersion: serving.kubeflow.org/v1beta1
+kind: InferenceService
+metadata:
+  labels:
+    qos.coreweave.cloud/latency: low
+  name: kserve-hf-gptj
+spec:
+  predictor:
+    maxReplicas: 100
+    minReplicas: 1
+    containerConcurrency: 1
+    containers:
+    - name: kserve-hf-gptj
+      image: rtalaricw/gptj-hf-tensorizer-pvc-kserve:v2.1
+      env:
+        - name: STORAGE_URI 
+          value: pvc://model-storage/
+        - name: MODEL_LOAD_TYPE
+          value: hf
+        - name: PYTHONUNBUFFERED
+          value: "1"
+      resources:
+        requests:
+          cpu: 8
+          memory: 64Gi
+          nvidia.com/gpu: 1
+        limits:
+          cpu: 8
+          memory: 64Gi
+          nvidia.com/gpu: 1
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: gpu.nvidia.com/class
+              operator: In
+              values:
+                - A40
+            - key: topology.kubernetes.io/region
+              operator: In
+              values:
+                - LAS1
