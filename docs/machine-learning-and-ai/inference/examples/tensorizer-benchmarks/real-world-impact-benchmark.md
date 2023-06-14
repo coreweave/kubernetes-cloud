@@ -13,7 +13,7 @@ Serving traffic using machine learning models for inference requires a trade-off
 {% hint style="success" %}
 **Additional Resources**
 
-To learn more about Tensorizer before embarking on this tutorial, check out our blog post, ["Decrease PyTorch Model Load Times with CoreWeave’s Tensorizer,"](https://coreweave.com/blog/coreweaves-tensorizer-decrease-pytorch-model-load-times) or [our slideshow presentation](https://docs.google.com/presentation/d/1o67YkRchVEszAesU\_xFFtNChwp9GWfGIJ6aIzi7cEOI/edit?usp=sharing) of the same title.
+To learn more about Tensorizer before embarking on this tutorial, check out our blog post, ["Decrease PyTorch Model Load Times with CoreWeave’s Tensorizer,"](https://coreweave.com/blog/coreweaves-tensorizer-decrease-pytorch-model-load-times) or [our slideshow presentation of the same title](https://docs.google.com/presentation/d/e/2PACX-1vQMjpMBapaweNqYcpL7oUUwv0Y7m4kvQ5sPw2zoPEpRw-0iJFOwI3jSyuZVzZtjc95Asex6oiHdsKxd/pub?start=false\&loop=false\&delayms=10000).
 {% endhint %}
 
 ## Prerequisites
@@ -117,7 +117,7 @@ $ docker build ./tensorizer_hf_isvc -f ./tensorizer_hf_isvc/flask/Dockerfile
 
 ### RAM Usage
 
-Tensorizer uses only enough RAM that is equal to the **size of the largest tensor** to load the model directly into GPU in 'Plaid' mode. As models get larger, the cost-effectiveness of using tensorizer becomes more prevalent since you do not have to load the entire model into CPU RAM before transferring it to the GPU. Therefore, scaling inference services during bursts of traffic minimizing cost for RAM.&#x20;
+Tensorizer uses only an amount of RAM that is equal to the **size of the largest tensor** to load the model directly into GPU in "Plaid" mode. As models get larger, the cost-effectiveness of using Tensorizer becomes more prevalent, as the entire model does not need to be loaded into CPU RAM before transferring it to the GPU. Therefore, scaling inference services during bursts of traffic minimizes costs for RAM.
 
 ### Model load times
 
@@ -129,7 +129,7 @@ Here, "model load times" refers to completely initializing the model from a chec
 
 CoreWeave’s Tensorizer outperforms SafeTensors and HuggingFace for model load times on GPT-J-6B with NVIDIA A40s.
 
-<figure><img src="../../../../.gitbook/assets/image (6).png" alt="Graph displaying Tensorizer smaller model load times compared to SafeTensors and Hugging Face."><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (5).png" alt="Graph displaying Tensorizer smaller model load times compared to SafeTensors and Hugging Face."><figcaption></figcaption></figure>
 
 #### Larger model metrics
 
@@ -145,6 +145,6 @@ The burst involved 100 concurrent requests on GPT-J using NVIDIA A40s.
 
 In these results, the data shown reflects how the `InferenceService` scaled from `1` idle GPU with zero requests to `100` requests sent at once. the `InferenceService` ran on [NVIDIA A40s](../../../../../coreweave-kubernetes/node-types.md).
 
-<figure><img src="../../../../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
 
 The average latency per request is `0.43s` for Tensorizer end-to-end inference on GPT-Jm, as compared to `2.45` seconds. Tensorizer provides cost effectiveness, lower latency and minimal RAM usage as model size gets larger.

@@ -74,7 +74,7 @@ One way to initiate a clone deployment is to open the New Virtual Server form, a
 
 Select an existing Virtual Server in the drop-down presented. Then toggle the **Clone (use resource as source)** option to create an exact clone of the selected Virtual Server.
 
-<figure><img src="../../docs/.gitbook/assets/image (10) (1).png" alt="Clone server modal"><figcaption><p>Clone server modal</p></figcaption></figure>
+<figure><img src="../../docs/.gitbook/assets/image (10).png" alt="Clone server modal"><figcaption><p>Clone server modal</p></figcaption></figure>
 
 ### Clone from an existing server entry
 
