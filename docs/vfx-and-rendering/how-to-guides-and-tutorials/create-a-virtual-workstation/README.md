@@ -176,3 +176,9 @@ Typically, administrators and support staff do not need the same resources as ar
 In this example, a new Virtual Machine is configured running Windows 10.
 
 <figure><img src="../../../.gitbook/assets/image (25).png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="info" %}
+**Note**
+
+When artist machines are powered off, only the use of [persistent storage](../../../storage/storage/) and [public IP addresses](../../../../resources/resource-based-pricing.md#public-ip-address-pricing) are billed.
+{% endhint %}
