@@ -29,7 +29,7 @@ This guide presumes that you have an active CoreWeave Cloud account, and have ob
 
 CoreWeave's shared filesystem volumes can also be accessed by many Nodes simultaneously, allowing massive amounts of compute power to access the same dataset.
 
-<figure><img src="../../.gitbook/assets/image (5) (1).png" alt="Screenshot of the volume creation modal"><figcaption><p>Navigate to the Storage Volumes page, then click </p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5) (1) (1).png" alt="Screenshot of the volume creation modal"><figcaption><p>Navigate to the Storage Volumes page, then click </p></figcaption></figure>
 
 For this tutorial, the following values are used when creating the storage volume. If needed, it is easy to [increase the size](https://docs.coreweave.com/coreweave-kubernetes/storage#resizing) of a storage volume later.
 

@@ -48,7 +48,7 @@ While [configuration options](coreweave-apps.md#configuration-options) can be ma
 
 When the web editor has focus, sensitive values such as passwords are obscured with asterisks in the YAML editor. Click the YAML pane to give it focus and reveal the sensitive values, or click the **Hide YAML** button between the panes to close the YAML.
 
-<figure><img src="../../docs/.gitbook/assets/image (4).png" alt="New Virtual Server deployment page"><figcaption><p>New Virtual Server deployment page</p></figcaption></figure>
+<figure><img src="../../docs/.gitbook/assets/image (4) (3).png" alt="New Virtual Server deployment page"><figcaption><p>New Virtual Server deployment page</p></figcaption></figure>
 
 There are three buttons in the upper-right corner of the web UI pane:
 
@@ -74,7 +74,7 @@ One way to initiate a clone deployment is to open the New Virtual Server form, a
 
 Select an existing Virtual Server in the drop-down presented. Then toggle the **Clone (use resource as source)** option to create an exact clone of the selected Virtual Server.
 
-<figure><img src="../../docs/.gitbook/assets/image (10).png" alt="Clone server modal"><figcaption><p>Clone server modal</p></figcaption></figure>
+<figure><img src="../../docs/.gitbook/assets/image (10) (1).png" alt="Clone server modal"><figcaption><p>Clone server modal</p></figcaption></figure>
 
 ### Clone from an existing server entry
 
@@ -102,7 +102,7 @@ A custom deployment loads the operating system image from an existing PVC or a r
 
 To deploy a custom Virtual Server, follow the same steps as if deploying a [new server from scratch](coreweave-apps.md#new-server-1), then select either **Image From Remote Source**, or **Image From PVC** in the Operating System section.&#x20;
 
-<figure><img src="../../docs/.gitbook/assets/image.png" alt="Choose a Custom option"><figcaption><p>Choose a Custom option</p></figcaption></figure>
+<figure><img src="../../docs/.gitbook/assets/image (61).png" alt="Choose a Custom option"><figcaption><p>Choose a Custom option</p></figcaption></figure>
 
 #### Image from remote source
 

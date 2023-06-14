@@ -50,6 +50,24 @@ See all available pre-Tensorized models in the GitHub `README` file:
 
 {% embed url="https://github.com/coreweave/tensorizer/#available-pre-tensorized-models-on-the-coreweave-cloud" %}
 
+## Benchmarks
+
+Currently, two primary benchmarks are available for Tensorizer.
+
+### Real world impact benchmark
+
+The real world impact benchmark sets up two inference services, one which uses Tensorizer to load the model, and one which does not. Then, with both services sitting idle with `1` GPU, they are each hit with `100` concurrent requests. Metrics on average response time and autoscaling capabilities were extracted for comparison.
+
+This benchmark may be replicated by following [the real world impact benchmark tutorial](examples/tensorizer-benchmarks/real-world-impact-benchmark.md).
+
+### Comparison benchmark
+
+The comparison benchmark measures raw model load time from a PVC across vanilla Hugging Face, Safetensors, and Tensorizer, for comparison between all three. This comparison is much like a lab test for performance measuring.
+
+The code for this benchmark may be viewed on CoreWeave's GitHub.
+
+{% embed url="https://github.com/coreweave/tensorizer/tree/main/examples/benchmark" %}
+
 ## Learn more
 
 <table data-card-size="large" data-view="cards"><thead><tr><th></th><th data-hidden></th><th data-hidden></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><span data-gb-custom-inline data-tag="emoji" data-code="1f5a5">🖥</span> View Tensorizer source code</td><td></td><td></td><td><a href="https://github.com/coreweave/tensorizer/">https://github.com/coreweave/tensorizer/</a></td></tr><tr><td><span data-gb-custom-inline data-tag="emoji" data-code="1f9e0">🧠</span> View Tensorizer code examples</td><td></td><td></td><td><a href="https://github.com/coreweave/tensorizer/tree/main/examples">https://github.com/coreweave/tensorizer/tree/main/examples</a></td></tr><tr><td><span data-gb-custom-inline data-tag="emoji" data-code="1f4da">📚</span> Read more about Tensorizer usage</td><td></td><td></td><td><a href="https://github.com/coreweave/tensorizer/#basic-usage">https://github.com/coreweave/tensorizer/#basic-usage</a></td></tr><tr><td><span data-gb-custom-inline data-tag="emoji" data-code="1f389">🎉</span> View available pre-Tensorized models</td><td></td><td></td><td><a href="https://github.com/coreweave/tensorizer/#available-pre-tensorized-models-on-the-coreweave-cloud">https://github.com/coreweave/tensorizer/#available-pre-tensorized-models-on-the-coreweave-cloud</a></td></tr></tbody></table>

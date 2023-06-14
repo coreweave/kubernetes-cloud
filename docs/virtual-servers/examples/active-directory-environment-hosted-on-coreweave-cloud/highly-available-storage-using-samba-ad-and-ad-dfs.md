@@ -142,7 +142,7 @@ Under **Properties**, in the DFS tab, `smbad02` is shown as the currently active
 
 Copying a file to the DFS Root Folder path demonstrates that the file gets copied to the shares presented by the Samba-AD instances:
 
-<figure><img src="../../../.gitbook/assets/image (2) (3).png" alt="" width="375"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (3) (2).png" alt="" width="375"><figcaption></figcaption></figure>
 
 ### Adding a secondary DFS Namespace Server
 

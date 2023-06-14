@@ -67,7 +67,7 @@ Click the **Clouds** tab on the left-hand side of the screen, then click **Conne
 
 From the list of providers, select CoreWeave. From the **Connect Provider** tab, click the **Upload cw-kubeconfig** button to upload the generated `cw-kubeconfig` file.
 
-<figure><img src="../../.gitbook/assets/image (7) (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (7) (2) (3).png" alt=""><figcaption></figcaption></figure>
 
 Once the file is uploaded, the credentials run through a verification check. Once the check succeeds, a green checkmark will appear under the **Connected** column beside the **CoreWeave Tenant** name.
 

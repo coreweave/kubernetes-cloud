@@ -119,6 +119,8 @@
   * [Get Started with Inference](machine-learning-and-ai/inference/online-inference.md)
   * [Tensorizer](machine-learning-and-ai/inference/tensorizer.md)
   * [Examples and Tutorials](machine-learning-and-ai/inference/examples/README.md)
+    * [Tensorizer Benchmarks](machine-learning-and-ai/inference/examples/tensorizer-benchmarks/README.md)
+      * [Real World Impact Benchmark](machine-learning-and-ai/inference/examples/tensorizer-benchmarks/real-world-impact-benchmark.md)
     * [One-Click Models](machine-learning-and-ai/inference/examples/models/README.md)
       * [GPT-J-6B](machine-learning-and-ai/inference/examples/models/gpt-j-6b.md)
     * [PyTorch/JAX](machine-learning-and-ai/inference/examples/pytorch-jax/README.md)

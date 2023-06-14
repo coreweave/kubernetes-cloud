@@ -69,7 +69,7 @@ Our Prometheus scraping service offers many useful [billing metrics](../../corew
 
     <div align="left">
 
-    <figure><img src="../.gitbook/assets/image (11).png" alt="Connection settings"><figcaption><p>Connection settings</p></figcaption></figure>
+    <figure><img src="../.gitbook/assets/image (11) (6).png" alt="Connection settings"><figcaption><p>Connection settings</p></figcaption></figure>
 
     </div>
 7.  Click **Save & Test** at the bottom of the page to verify and save the new datasource.\
