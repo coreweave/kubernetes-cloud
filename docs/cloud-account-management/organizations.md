@@ -40,7 +40,7 @@ The organization management page also allows admins to perform the following act
 
 By default, new users inherit the same access controls to the namespace as the user who invited them.
 
-<figure><img src="../.gitbook/assets/image (6) (1).png" alt=""><figcaption><p>Copy, resend, or revoke the invitation under the <strong>Actions</strong> column</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (6) (3).png" alt=""><figcaption><p>Copy, resend, or revoke the invitation under the <strong>Actions</strong> column</p></figcaption></figure>
 
 Once an invitation is accepted and the new user has completed registration, their account may be managed from the organization management page.
 

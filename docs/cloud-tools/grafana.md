@@ -12,7 +12,7 @@ To access the managed Grafana instance, use the menu in the Account Details sect
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (24).png" alt="Screenshot of Grafana menu in CoreWeave Cloud"><figcaption><p>Grafana menu</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (24) (3).png" alt="Screenshot of Grafana menu in CoreWeave Cloud"><figcaption><p>Grafana menu</p></figcaption></figure>
 
 </div>
 
@@ -78,7 +78,7 @@ Our Prometheus scraping service offers many useful [billing metrics](../../corew
 
     <div align="left">
 
-    <figure><img src="../.gitbook/assets/image (8) (1).png" alt="Successful connection"><figcaption><p>Successful connection</p></figcaption></figure>
+    <figure><img src="../.gitbook/assets/image (8).png" alt="Successful connection"><figcaption><p>Successful connection</p></figcaption></figure>
 
     </div>
 

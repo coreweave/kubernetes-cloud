@@ -129,7 +129,7 @@ Here, "model load times" refers to completely initializing the model from a chec
 
 CoreWeave’s Tensorizer outperforms SafeTensors and HuggingFace for model load times on GPT-J-6B with NVIDIA A40s.
 
-<figure><img src="../../../../.gitbook/assets/image (5).png" alt="Graph displaying Tensorizer smaller model load times compared to SafeTensors and Hugging Face."><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (22).png" alt="Graph displaying Tensorizer smaller model load times compared to SafeTensors and Hugging Face."><figcaption></figcaption></figure>
 
 #### Larger model metrics
 
@@ -145,6 +145,6 @@ The burst involved 100 concurrent requests on GPT-J using NVIDIA A40s.
 
 In these results, the data shown reflects how the `InferenceService` scaled from `1` idle GPU with zero requests to `100` requests sent at once. the `InferenceService` ran on [NVIDIA A40s](../../../../../coreweave-kubernetes/node-types.md).
 
-<figure><img src="../../../../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (20).png" alt=""><figcaption></figcaption></figure>
 
 The average latency per request is `0.43s` for Tensorizer end-to-end inference on GPT-Jm, as compared to `2.45` seconds. Tensorizer provides cost effectiveness, lower latency and minimal RAM usage as model size gets larger.

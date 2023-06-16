@@ -40,7 +40,7 @@ Different applications will provide different configuration options on the **dep
 
 ### YAML tab
 
-<figure><img src="../.gitbook/assets/image (20) (2).png" alt=""><figcaption><p>An application's deployment YAML</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (20) (2) (1).png" alt=""><figcaption><p>An application's deployment YAML</p></figcaption></figure>
 
 If you would like a greater degree of control over the configuration of the application, or you'd like to save the configurations to deploy more applications, another way to configure applications is by clicking the **YAML** tab at the top of the page.
 
