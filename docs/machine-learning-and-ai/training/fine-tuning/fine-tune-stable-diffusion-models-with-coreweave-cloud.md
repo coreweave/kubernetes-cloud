@@ -129,13 +129,13 @@ The GitHub repository for this guide has template files for both training method
 {% tab title="DreamBooth" %}
 <mark style="background-color:green;">DreamBooth Templates</mark>
 
-<table><thead><tr><th width="341">Filename</th><th>Description</th></tr></thead><tbody><tr><td><code>db-workflow-template.yaml</code></td><td>The Argo Workflow Template itself.</td></tr><tr><td><code>db-workflow-event-binding.yaml</code></td><td>The Event Binding used to trigger the Workflow via an API call.</td></tr><tr><td><code>inference-role.yaml</code></td><td>The inference role you configured earlier.</td></tr><tr><td><code>db-finetune-pvc.yaml</code></td><td>The model storage volume described earlier.</td></tr><tr><td><code>huggingface-secret.yaml</code></td><td>The Hugging Face token used to download a base model.</td></tr><tr><td><code>wandb-secret.yaml</code></td><td>The Weights and Biases token used for reporting during finetuning.</td></tr></tbody></table>
+<table><thead><tr><th width="341">Filename</th><th>Description</th></tr></thead><tbody><tr><td><a href="../../../../sd-dreambooth-workflow/db-workflow-template.yaml"><code>db-workflow-template.yaml</code></a></td><td>The Argo Workflow Template itself.</td></tr><tr><td><a href="../../../../sd-dreambooth-workflow/db-workflow-event-binding.yaml"><code>db-workflow-event-binding.yaml</code></a></td><td>The Event Binding used to trigger the Workflow via an API call.</td></tr><tr><td><a href="../../../../sd-dreambooth-workflow/inference-role.yaml"><code>inference-role.yaml</code></a></td><td>The inference role you configured earlier.</td></tr><tr><td><a href="../../../../sd-dreambooth-workflow/db-finetune-pvc.yaml"><code>db-finetune-pvc.yaml</code></a></td><td>The model storage volume described earlier.</td></tr><tr><td><a href="../../../../sd-dreambooth-workflow/huggingface-secret.yaml"><code>huggingface-secret.yaml</code></a></td><td>The Hugging Face token used to download a base model.</td></tr><tr><td><a href="../../../../sd-dreambooth-workflow/wandb-secret.yaml"><code>wandb-secret.yaml</code></a></td><td>The Weights and Biases token used for reporting during fine-tuning.</td></tr></tbody></table>
 {% endtab %}
 
 {% tab title="Textual Inversion" %}
 <mark style="background-color:orange;">Textual Inversion Templates</mark>
 
-<table><thead><tr><th width="329">Filename</th><th>Description</th></tr></thead><tbody><tr><td><code>sd-finetune-workflow-template.yaml</code></td><td>The Argo Workflow Template itself</td></tr><tr><td><code>sd-finetune-workflow-event-binding.yaml</code></td><td>The Event Binding used to trigger the Workflow via an API call.</td></tr><tr><td><code>inference-role.yaml</code></td><td>The inference role you configured earlier in this demo</td></tr><tr><td><code>sd-finetune-pvc.yaml</code></td><td>A model storage volume, as described earlier in this demo</td></tr><tr><td><code>sd-finetuner/Dockerfile</code></td><td>A Dockerfile that can be used to build your own fine-tuner image, should you modify the fine-tuner code</td></tr><tr><td><code>sd-finetuner/finetuner.py</code></td><td>The entry point for the Stable Diffusion fine-tuner.</td></tr><tr><td><code>sd-finetuner/datasets.py</code></td><td>Script that contains the functionality to handle different dataset formats (i.e. DreamBooth vs textual inversion)</td></tr><tr><td><code>sd-finetuner/requirements.txt</code></td><td>The Python requirements which list the dependencies for the fine-tuner</td></tr><tr><td><code>huggingface-secret.yaml</code></td><td>The Hugging Face token used to download a base model.</td></tr><tr><td><code>wandb-secret.yaml</code></td><td>The Weights and Biases token used for reporting during finetuning.</td></tr></tbody></table>
+<table><thead><tr><th width="329">Filename</th><th>Description</th></tr></thead><tbody><tr><td><a href="../../../../sd-finetuner-workflow/sd-finetune-workflow-template.yaml"><code>sd-finetune-workflow-template.yaml</code></a></td><td>The Argo Workflow Template itself</td></tr><tr><td><a href="../../../../sd-finetuner-workflow/sd-finetune-workflow-event-binding.yaml"><code>sd-finetune-workflow-event-binding.yaml</code></a></td><td>The Event Binding used to trigger the Workflow via an API call.</td></tr><tr><td><a href="../../../../sd-finetuner-workflow/inference-role.yaml"><code>inference-role.yaml</code></a></td><td>The inference role you configured earlier in this demo</td></tr><tr><td><a href="../../../../sd-finetuner-workflow/sd-finetune-pvc.yaml"><code>sd-finetune-pvc.yaml</code></a></td><td>A model storage volume, as described earlier in this demo</td></tr><tr><td><a href="../../../../sd-finetuner-workflow/sd-finetuner/Dockerfile"><code>sd-finetuner/Dockerfile</code></a></td><td>A Dockerfile that can be used to build your own fine-tuner image, should you modify the fine-tuner code</td></tr><tr><td><a href="../../../../sd-finetuner-workflow/sd-finetuner/finetuner.py"><code>sd-finetuner/finetuner.py</code></a></td><td>The entry point for the Stable Diffusion fine-tuner.</td></tr><tr><td><a href="../../../../sd-finetuner-workflow/sd-finetuner/datasets.py"><code>sd-finetuner/datasets.py</code></a></td><td>Script that contains the functionality to handle different dataset formats (i.e. DreamBooth vs textual inversion)</td></tr><tr><td><a href="../../../../sd-finetuner-workflow/sd-finetuner/requirements.txt"><code>sd-finetuner/requirements.txt</code></a></td><td>The Python requirements which list the dependencies for the fine-tuner</td></tr><tr><td><a href="../../../../sd-finetuner-workflow/huggingface-secret.yaml"><code>huggingface-secret.yaml</code></a></td><td>The Hugging Face token used to download a base model.</td></tr><tr><td><a href="../../../../sd-finetuner-workflow/wandb-secret.yaml"><code>wandb-secret.yaml</code></a></td><td>The Weights and Biases token used for reporting during finetuning.</td></tr></tbody></table>
 {% endtab %}
 {% endtabs %}
 
@@ -153,7 +153,12 @@ From the application deployment menu, click on the **Catalog** tab, then search 
 
 ### PVC
 
-Create a `ReadWriteMany` PVC storage volume from the [Storage](broken-reference) menu.
+Create a `ReadWriteMany` PVC storage volume from the [Storage](broken-reference) menu. By default, this workflow uses a specific PVC depending on your fine-tune method:
+
+* The <mark style="background-color:green;">DreamBooth</mark> PVC name should be `db-finetune-data`
+* The <mark style="background-color:orange;">Textual Inversion</mark> PVC name should be `sd-finetune-data`&#x20;
+
+This name can be changed in the configuration after you are familiar with the workflow.&#x20;
 
 `1TB` to `2TB` is recommended for training Stable Diffusion models, depending on the size of the dataset and how many fine-tunes you wish to run.  Later, if you later require more space, it's easy to [increase the size](broken-reference) of the PVC as needed.
 
@@ -161,12 +166,7 @@ The PVC can be shared between multiple fine-tune runs. We recommend using HDD ty
 
 <figure><img src="../../../.gitbook/assets/pvc.png" alt=""><figcaption><p>Configuring a PVC storage volume from the Cloud UI</p></figcaption></figure>
 
-By default, this workflow uses a specific PVC depending on your fine-tune method:
-
-* The <mark style="background-color:green;">DreamBooth</mark> PVC is `db-finetune-data`
-* The <mark style="background-color:orange;">Textual Inversion</mark> PVC is `sd-finetune-data`&#x20;
-
-This name can be changed in the configuration after you are familiar with the workflow. If you prefer, you can also deploy the PVC with the YAML snippet for your method below, then use `kubectl apply -f` to  apply it.
+If you prefer, you can also deploy the PVC with the YAML snippet for your method below, then use `kubectl apply -f` to  apply it.
 
 {% tabs %}
 {% tab title="DreamBooth" %}
@@ -210,34 +210,57 @@ spec:
 {% endtab %}
 {% endtabs %}
 
-### Secrets
+### Kubernetes Secrets
 
-The workflow interacts with Hugging Face to (potentially) download the base model, and Weights and Biases to log metrics during the fine tuning. The fine-tuner can accept these account tokens over the command line, but the Workflow will read them from Kubernetes secrets.
+The workflow requires two Kubernetes Secrets to be created — one from a Weights and Biases API key, the other from a Hugging Face user access token. These are used to log metrics during fine tuning, and (potentially) download the base model from Hugging Face.&#x20;
 
-Before applying the secrets, you need to edit both `wandb-secret.yaml` and `huggingface-secret.yaml` to include your account tokens. Make sure to base64 encode them before pasting them into the file.
-
-For example, if your WandB token is `my-special-token` then run the following:&#x20;
+To create the Weights and Biases Secret, encode your [Weights and Biases API key](https://wandb.ai/settings) with base64.
 
 ```bash
-$ echo "my-special-token" -n | base64
-bXktc3BlY2lhbC10b2tlbiAtbgo= 
+$ echo "example-wandb-api-key" -n | base64
 ```
 
-Then, paste the output into `wandb-secret.yaml`:
+Output:
 
-{% code title="wandb-secret.yaml" %}
-```yaml
-apiVersion: v1
+```bash
+ZXhhbXBsZS1hcGkta2V5IC1uCg==
+```
+
+Add the encoded string to `wandb-secret.yaml` at line 3 as shown. The string will be unique to the API key.
+
+<pre class="language-yaml" data-title="wandb-secret.yaml" data-line-numbers><code class="lang-yaml">apiVersion: v1
 data:
-  token: bXktc3BlY2lhbC10b2tlbiAtbgo=
-kind: Secret
+<strong>  token: ZXhhbXBsZS1hcGkta2V5IC1uCg==
+</strong>kind: Secret
+metadata:
+  name: wandb-token-secret
+type: Opaque
+</code></pre>
+
+Next, create the Hugging Face Secret by encoding the [user access token](https://huggingface.co/settings/tokens) from your account.
+
+```bash
+$ echo "hugging-face-token" -n | base64
+```
+
+Output:
+
+```bash
+aHVnZ2luZy1mYWNlLXRva2VuIC1uCg==
+```
+
+Add the string to `huggingface-secret.yaml` . The string is unique to the token.
+
+<pre class="language-yaml" data-title="huggingface-secret.yaml" data-line-numbers><code class="lang-yaml">apiVersion: v1
+data:
+<strong>  token: aHVnZ2luZy1mYWNlLXRva2VuIC1uCg==
+</strong>kind: Secret
 metadata:
   name: huggingface-token-secret
 type: Opaque
-```
-{% endcode %}
+</code></pre>
 
-After editing both of the secret files to include your tokens, run the following command to apply them:
+Apply both manifests to create the Secrets.
 
 ```bash
 $ kubectl apply -f wandb-secret.yaml
@@ -248,7 +271,7 @@ $ kubectl apply -f huggingface-secret.yaml
 
 The filebrowser component is optional, but may make your interaction easier. This application allows you to easily transfer files and folders to and from your PVC. You can deploy filebrowser from the [Application Catalog](https://apps.coreweave.com/).
 
-We recommend using a short name, such as `finetune`, for the filebrowser application to avoid SSL CNAME issues. When deploying filebrowser, make sure to add the `sd-finetune-data` PVC that you created earlier to the filebrowser list of mounts.
+We recommend using a short name, such as `finetune`, for the filebrowser application to avoid SSL CNAME issues. When deploying filebrowser, make sure to add the PVC created earlier to the filebrowser list of mounts.
 
 {% hint style="success" %}
 **Tip**
@@ -298,51 +321,11 @@ Here is an example dataset, in the directory named `dataset`, with six text-imag
 
 ## Permissions Setup
 
-In order to automatically create an `InferenceService`, the Argo Workflow job needs special permissions. The YAML snippet below exemplifies a `ServiceAccount` with the required permissions.
+In order to automatically create an `InferenceService`, the Argo Workflow job needs special permissions, which are declared in `inference-role.yaml.` Apply that manifest to grant the permissions.
 
-To follow along, copy the snippet below into a file titled `inference-role.yaml`:
-
-{% code title="inference-role.yaml" %}
-```yaml
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: inference
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  name: role:inference
-rules:
-  - apiGroups:
-      - serving.kubeflow.org
-    resources:
-      - inferenceservices
-    verbs:
-      - '*'
-  - apiGroups:
-      - serving.knative.dev
-    resources:
-      - services
-      - revisions
-    verbs:
-      - '*'
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  name: rolebinding:inference-inference
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: Role
-  name: role:inference
-subjects:
-  - kind: ServiceAccount
-    name: inference
+```bash
+$ kubectl apply -f inference-role.yaml
 ```
-{% endcode %}
-
-Invoking `kubectl apply -f inference-role.yaml` will apply the permissions described above.
 
 ## Deploy the Workflow template
 
@@ -390,7 +373,7 @@ You can trigger runs of the workflow from the Argo UI, or by setting up a webhoo
 
 ### Use Argo Workflows UI
 
-Once deployed, you should see the workflow template in the Argo Workflows UI. An example of Textual Inversion method is shown below. If you use the DreamBooth method, everything is the same except the name will be `db-finetune-template`.
+Once the workflow template is applied, you should see it in the Argo Workflows UI. An example of Textual Inversion method is shown below. If you use the DreamBooth method, everything is the same except the name will be `db-finetune-template`.
 
 <figure><img src="../../../.gitbook/assets/image (9) (1).png" alt=""><figcaption><p>Deployed Workflow Template in the Argo UI</p></figcaption></figure>
 
@@ -400,19 +383,23 @@ To trigger a new run of the workflow through the UI, click on the template, then
 {% tab title="DreamBooth " %}
 <mark style="background-color:green;">DreamBooth parameters</mark>
 
-* `run_name`
-* `instance_dataset`
-* `instance_prompt`
-* `class_dataset`
-* `class_prompt`
-* `output`
+| Parameter          | Description                                                                 |
+| ------------------ | --------------------------------------------------------------------------- |
+| `run_name`         | The workflow name, also used in WandB logs.                                 |
+| `instance_dataset` | The populated dataset directory.                                            |
+| `instance_prompt`  | The prompt with identifier specifying the instance.                         |
+| `class_dataset`    | The path where generic images are located in the filebrowser.               |
+| `class_prompt`     | The prompt to specify images in the same class as provided instance images. |
+| `output`           | The output directory.                                                       |
 {% endtab %}
 
 {% tab title="Textual Inversion Method" %}
 <mark style="background-color:orange;">Textual Inversion parameters</mark>
 
-* `run_name`&#x20;
-* `dataset`&#x20;
+|            |                                             |
+| ---------- | ------------------------------------------- |
+| `run_name` | The workflow name, also used in WandB logs. |
+| `dataset`  | The populated dataset directory.            |
 {% endtab %}
 {% endtabs %}
 
@@ -551,7 +538,7 @@ Invoking `argo watch <workflow name>` tells Argo that we want to watch the job a
 <mark style="background-color:green;">DreamBooth output</mark>
 
 <pre class="language-bash"><code class="lang-bash"><strong>Name:                db-finetune-template-4fe7b
-</strong>Namespace:           tenant-sta-nav-npratt
+</strong>Namespace:           tenant-example
 ServiceAccount:      inference
 Status:              Running
 Conditions:          
@@ -711,28 +698,31 @@ You can access your Argo Workflow application via the web UI to see all the fine
 
 <figure><img src="../../../.gitbook/assets/webui.png" alt=""><figcaption><p>Argo Workflow Web UI</p></figcaption></figure>
 
-## Artifacts and Inference
+## Artifacts
 
 Once the model completes fine-tuning, the the model artifacts are available in:
 
 * For <mark style="background-color:green;">DreamBooth</mark>, the directory is supplied to the workflow as the `output` parameter.
 * For <mark style="background-color:orange;">Textual Inversion</mark>, the directory name pattern is `{{pvc}}/finetunes/{{run_name}}`.
 
-You can download the model at this point, or you can run the `InferenceService` on the model.
+You can download the model from the respective location.
 
-If you followed the directions for Inference Service, and have installed the KNative client, you can get the URL by invoking `kn service list`.
+## Inference
 
-Services can also be listed without the KNative Client by executing `kubectl get ksvc`.&#x20;
+If you set up the [inference service](../../inference/online-inference.md), you can query the URL endpoint to test the model.&#x20;
 
-See ethe xample output for your fine-tune method:
+* If the KNative client is installed, get the URL by invoking `kn service list`.
+* Retrieve the URL without KNative by executing `kubectl get ksvc`.&#x20;
+
+See the example output for your fine-tune method:
 
 {% tabs %}
 {% tab title="DreamBooth" %}
 <mark style="background-color:green;">DreamBooth output</mark>
 
 ```
-NAME                                      URL                                                                                               LATESTCREATED                                   LATESTREADY                                     READY   REASON
-inference-example-dog-predictor-default   https://inference-example-dog-predictor-default.tenant-sta-nav-npratt.knative.chi.coreweave.com   inference-example-dog-predictor-default-00001   inference-example-dog-predictor-default-00001   True     
+NAME                                      URL                                                                                        LATESTCREATED                                   LATESTREADY                                     READY   REASON
+inference-example-dog-predictor-default   https://inference-example-dog-predictor-default.tenant-example.knative.chi.coreweave.com   inference-example-dog-predictor-default-00001   inference-example-dog-predictor-default-00001   True     
 ```
 {% endtab %}
 
@@ -740,24 +730,26 @@ inference-example-dog-predictor-default   https://inference-example-dog-predicto
 <mark style="background-color:orange;">Textual Inversion output</mark>
 
 ```
-NAME                               URL                                                                                                LATESTCREATED                            LATESTREADY                              READY   REASON
-inference-test-predictor-default   http://inference-test-predictor-default.tenant-sta-amercurio-amercurio.knative.chi.coreweave.com   inference-test-predictor-default-00001   inference-test-predictor-default-00001   True    
+NAME                               URL                                                                                LATESTCREATED                            LATESTREADY                              READY   REASON
+inference-test-predictor-default   http://inference-test-predictor-default.tenant-example.knative.chi.coreweave.com   inference-test-predictor-default-00001   inference-test-predictor-default-00001   True    
 ```
 {% endtab %}
 {% endtabs %}
 
 ### Test Query&#x20;
 
-To run a test query, run the `curl` example for your fine-tune method:
+To run a test query, run the `curl` example for your fine-tune method with the URL retrieved from the previous step.
 
 {% tabs %}
 {% tab title="DreamBooth" %}
 <mark style="background-color:green;">DreamBooth test query</mark>
 
+Replace `<output parameter>` with the value from your run.
+
 ```shell-session
-curl https://inference-example-dog-predictor-default.tenant-sta-nav-npratt.knative.chi.coreweave.com/v1/models/docs-example:predict \
+curl https://inference-example-dog-predictor-default.tenant-example.knative.chi.coreweave.com/v1/models/<output parameter>:predict \
     -d '{"prompt": "A photo of sks dog at the beach", "parameters": {"seed": 42, "width": 512, "height": 512}}' \
-    --output beach_dog.pngproduce
+    --output beach_dog.png
 ```
 
 The above command should produce an image similar to:
@@ -768,8 +760,10 @@ The above command should produce an image similar to:
 {% tab title="Textual Inversion" %}
 <mark style="background-color:orange;">Textual Inversion test query</mark>
 
+Replace `<run_name>` with the value from your run.
+
 ```shell-session
-curl http://inference-test-predictor-default.tenant-sta-amercurio-amercurio.knative.chi.coreweave.com/v1/models/test:predict \
+curl http://inference-test-predictor-default.tenant-example.knative.chi.coreweave.com/v1/models/<run_name>:predict \
     -d '{"prompt": "California sunset on the beach, red clouds, Nikon DSLR, professional photography", "parameters": {"seed": 42, "width": 512, "height": 512}}' \
     --output sunset.png
 ```
@@ -780,7 +774,7 @@ The above command should produce an image similar to:
 {% endtab %}
 {% endtabs %}
 
-The model and dataset have now been run through the fine-tuning process to do test inferences against the new model.
+The model and dataset have now been run through the fine-tuning process, allowing test inferences against the new model.
 
 ## Cleaning Up
 

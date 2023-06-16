@@ -102,7 +102,7 @@ A custom deployment loads the operating system image from an existing PVC or a r
 
 To deploy a custom Virtual Server, follow the same steps as if deploying a [new server from scratch](coreweave-apps.md#new-server-1), then select either **Image From Remote Source**, or **Image From PVC** in the Operating System section.&#x20;
 
-<figure><img src="../../docs/.gitbook/assets/image (2).png" alt="Choose a Custom option"><figcaption><p>Choose a Custom option</p></figcaption></figure>
+<figure><img src="../../docs/.gitbook/assets/image.png" alt="Choose a Custom option"><figcaption><p>Choose a Custom option</p></figcaption></figure>
 
 #### Image from remote source
 

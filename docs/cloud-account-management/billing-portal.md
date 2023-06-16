@@ -30,7 +30,7 @@ In the upper right corner of the portal, you will see two links, **My Account** 
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (5) (4).png" alt="Screenshot of the Billing Portal"><figcaption><p>Billing Portal</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (5).png" alt="Screenshot of the Billing Portal"><figcaption><p>Billing Portal</p></figcaption></figure>
 
 </div>
 

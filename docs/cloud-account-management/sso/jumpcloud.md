@@ -58,7 +58,7 @@ The `email` attribute is what uniquely identifies users.
 
 ### Entity certificate
 
-<figure><img src="../../.gitbook/assets/image (35).png" alt="Screenshot of the certificate status on JumpCloud SSO"><figcaption><p>The certificate status is found on the left-hand side of the SSO configuration box</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (35) (4).png" alt="Screenshot of the certificate status on JumpCloud SSO"><figcaption><p>The certificate status is found on the left-hand side of the SSO configuration box</p></figcaption></figure>
 
 To acquire and provide the SSO certificate from JumpCloud to CoreWeave, first locate the certificate status field on the left-hand side of the JumpCloud SSO configuration modal. Click the small triangle to the right of the certificate status, then select **Download certificate**. An XML file will download, which contains the body of the x.509 certificate.
 

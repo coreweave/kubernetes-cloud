@@ -41,7 +41,7 @@ Optionally, but highly recommended, is the use of CoreWeave's serialization libr
 
 The tutorial requires two images. The downloader image may be sourced from [its public image](https://github.com/wbrown/gpt\_bpe). The model image may either be built locally and pushed to a container image registry, or may also be sourced from the publicly available images.
 
-<table><thead><tr><th width="200.33333333333331">Kind</th><th width="335">Description</th><th>Public image source</th></tr></thead><tbody><tr><td><strong>The downloader image</strong></td><td><p>This image downloads the model to a <a href="../../../../../storage/storage/">shared storage volume</a>. The individual inference Pods will load the model from this storage so as to avoid downloading it over the internet every time they scale up.</p><p></p><p>Referenced in the <a href="../../../../../../online-inference/stable-diffusion/02-model-download-job.yaml">02-model-download-job.yaml</a> file.</p></td><td><code>ghcr.io/wbrown/gpt_bpe/model_downloader:baa7df3</code></td></tr><tr><td><strong>The model image</strong></td><td><p>Runs the <code>CompVis/stable-diffusion-v1-4</code> model.</p><p></p><p>Referenced in the <a href="../../../../../../online-inference/stable-diffusion/03-inference-service.yaml">03-inference-service.yaml</a> file.</p></td><td><code>harubaru1/stable-diffusion:17</code></td></tr></tbody></table>
+<table><thead><tr><th width="200.33333333333331">Kind</th><th width="335">Description</th><th>Public image source</th></tr></thead><tbody><tr><td><strong>The downloader image</strong></td><td><p>This image downloads the model to a <a href="../../../../../storage/storage/">shared storage volume</a>. The individual inference Pods will load the model from this storage so as to avoid downloading it over the internet every time they scale up.</p><p></p><p>Referenced in the <a href="../../../../../../online-inference/stable-diffusion/02-model-download-job.yaml">02-model-download-job.yaml</a> file.</p></td><td><code>ghcr.io/wbrown/gpt_bpe/model_downloader:6d77d9c</code></td></tr><tr><td><strong>The model image</strong></td><td><p>Runs the <code>CompVis/stable-diffusion-v1-4</code> model.</p><p></p><p>Referenced in the <a href="../../../../../../online-inference/stable-diffusion/03-inference-service.yaml">03-inference-service.yaml</a> file.</p></td><td><code>harubaru1/stable-diffusion:17</code></td></tr></tbody></table>
 
 ### Build the model image from a Dockerfile
 
@@ -99,16 +99,10 @@ To do this, ensure you are logged in to the Hugging Face, then navigate to the[ 
 From [the Access Token page in your Hugging Face profile settings](https://huggingface.co/settings/tokens), locate an existing token or generate a new token. Copy its contents, then Base64-encode it using `base64`.
 
 ```bash
-$  echo -n "<YOUR TOKEN>" | base64
+$ echo -n "<YOUR TOKEN>" | base64
 
 VE9LRU5fSEVSRQ==
 ```
-
-{% hint style="warning" %}
-**Important**
-
-The extra space preceding the `echo` command prevents the command - and your HuggingFace API token - from being recorded in your shell history.
-{% endhint %}
 
 In the `01-huggingface-secret.yaml` file, replace the `token` value with the newly generated Base64-encoded token. Then, create the secret using `kubectl create`.
 
@@ -141,7 +135,7 @@ $ kubectl logs -l job-name=stable-diffusion-download --follow
 
 ### InferenceService
 
-Once the model has finished downloading, deploy the `InferenceService` by applying the `01-huggingface-secret.yaml` file.
+Once the model has finished downloading, deploy the `InferenceService` by applying the `03-inference-service.yaml` file.
 
 ```bash
 $ kubectl apply -f 03-inference-service.yaml
@@ -263,17 +257,17 @@ $ s3cmd mb s3://BUCKET
 Once you have generated an access key and a secret key, copy and Base64-encode both keys.
 
 ```shell-session
-$  echo -n "<YOUR ACCESS KEY>" | base64
+$ echo -n "<YOUR ACCESS KEY>" | base64
 QUNDRVNTX0tFWV9IRVJF
 
-$  echo -n "<YOUR SECRET KEY>" | base64
+$ echo -n "<YOUR SECRET KEY>" | base64
 U0VDUkVUX0tFWV9IRVJF
 ```
 
 You will also have to Base64-encode the hostname that you intend to use for storing the serialized model. For the purpose of this example, we will be using the `ORD1` region, where our hostname is the Object Storage endpoint URL `object.ord1.coreweave.com`.
 
 ```shell-session
-$  echo -n "object.ord1.coreweave.com" | base64
+$ echo -n "object.ord1.coreweave.com" | base64
 b2JqZWN0Lm9yZDEuY29yZXdlYXZlLmNvbQ==
 ```
 

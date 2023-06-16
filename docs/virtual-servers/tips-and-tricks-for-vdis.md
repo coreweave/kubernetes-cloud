@@ -36,7 +36,7 @@ For most cases, matching your VDI resolution to your local display resolution wi
 
 Parsec's "[Immersive Mode](https://support.parsec.app/hc/en-us/articles/360003146271-Send-Special-Keys-To-The-Host-By-Default-Immersive-Mode-)" passes Windows-native hotkeys to the host machine.
 
-<figure><img src="../.gitbook/assets/image (23) (2).png" alt="Screenshot: It is recommended to set &#x22;Immersive Mode&#x22; to &#x22;Keyboard&#x22;"><figcaption><p>It is recommended to set "Immersive Mode" to "Keyboard"</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (23) (2) (1).png" alt="Screenshot: It is recommended to set &#x22;Immersive Mode&#x22; to &#x22;Keyboard&#x22;"><figcaption><p>It is recommended to set "Immersive Mode" to "Keyboard"</p></figcaption></figure>
 
 ### Set bandwidth limit to 50Mbps
 

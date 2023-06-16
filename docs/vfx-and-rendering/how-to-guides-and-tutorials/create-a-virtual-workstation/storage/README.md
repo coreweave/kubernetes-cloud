@@ -22,7 +22,7 @@ Creating storage volumes is as simple as navigating to the Storage Volumes page 
 
 Near the bottom of the deployment form is the **Attach Volumes** section. Here, created volumes may be selected to attach to the Virtual Workstation. To attach a listed volume to the Virtual Workstation, click the toggle beside the desired volume to "Attached."
 
-<figure><img src="../../../../.gitbook/assets/image (20) (2).png" alt="Screenshot of the volume attachment toggles"><figcaption><p>Volumes are detached by default, so must be explicitly attached using the toggles</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (20) (4).png" alt="Screenshot of the volume attachment toggles"><figcaption><p>Volumes are detached by default, so must be explicitly attached using the toggles</p></figcaption></figure>
 
 ## Exposing storage
 
