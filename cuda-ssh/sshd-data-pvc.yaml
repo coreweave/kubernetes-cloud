@@ -3,7 +3,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: sshd-data-pv-claim
 spec:
-  # https://docs.coreweave.com/coreweave-kubernetes/storage
+  # https://docs.coreweave.com/storage/storage
   storageClassName: block-nvme-ord1
   accessModes:
     - ReadWriteOnce
