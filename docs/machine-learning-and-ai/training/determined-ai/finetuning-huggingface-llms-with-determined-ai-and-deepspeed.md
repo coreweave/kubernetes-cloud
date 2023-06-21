@@ -286,7 +286,7 @@ The trial overview shows a lot of important info in one tab. You can see a graph
 
 All checkpoints may be seen in the **Overview** tab, but each checkpoint is also given its own tab.
 
-<figure><img src="../../../.gitbook/assets/image (37) (2) (1).png" alt=""><figcaption><p>Checkpoints tab in the Determined Web UI</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (37) (2).png" alt=""><figcaption><p>Checkpoints tab in the Determined Web UI</p></figcaption></figure>
 
 Viewing a specific checkpoint's information will show you additional information like the file sizes and location of the checkpoint.
 
