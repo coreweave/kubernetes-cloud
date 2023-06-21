@@ -8,8 +8,8 @@ Fine-tuning and training Stable Diffusion can be computationally expensive, but 
 
 This guide is a reference example of [how to use an Argo Workflow](broken-reference) to create a pipeline at CoreWeave to fine-tune and train Stable Diffusion models. It's a working demonstration to get you started, but it's not intended to be a production application.&#x20;
 
-{% hint style="info" %}
-**Two-in-one demonstration**
+{% hint style="warning" %}
+**Important**
 
 This article covers both **DreamBooth** and **Textual Inversion** training methods. Most of the steps are the same for both methods. But, when they are different, we used tabbed sections and colored highlights to indicate which training method applies.&#x20;
 

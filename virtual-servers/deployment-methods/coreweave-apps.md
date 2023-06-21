@@ -17,7 +17,7 @@ Once signed in to your CoreWeave Cloud account, navigate to the **Virtual Server
 <figure><img src="../../docs/.gitbook/assets/image (45).png" alt="Screenshot of the CoreWeave Cloud UI main page"><figcaption><p>Navigate to the Virtual Server creation page either from the Deploy Now button or using the side navigation</p></figcaption></figure>
 
 {% hint style="info" %}
-**CoreWeave Cloud vs. CoreWeave Apps**
+**Note**
 
 The [**CoreWeave Cloud**](https://cloud.coreweave.com/virtualservers) Virtual Server has more features than the [**CoreWeave Apps**](https://apps.coreweave.com) edition, but you can use either one. You may see a selection screen like this when deploying.
 
@@ -48,7 +48,7 @@ While [configuration options](coreweave-apps.md#configuration-options) can be ma
 
 When the web editor has focus, sensitive values such as passwords are obscured with asterisks in the YAML editor. Click the YAML pane to give it focus and reveal the sensitive values, or click the **Hide YAML** button between the panes to close the YAML.
 
-<figure><img src="../../docs/.gitbook/assets/image (4).png" alt="New Virtual Server deployment page"><figcaption><p>New Virtual Server deployment page</p></figcaption></figure>
+<figure><img src="../../docs/.gitbook/assets/image (4) (3).png" alt="New Virtual Server deployment page"><figcaption><p>New Virtual Server deployment page</p></figcaption></figure>
 
 There are three buttons in the upper-right corner of the web UI pane:
 

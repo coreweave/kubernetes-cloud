@@ -30,7 +30,7 @@ In the upper right corner of the portal, you will see two links, **My Account** 
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (5).png" alt="Screenshot of the Billing Portal"><figcaption><p>Billing Portal</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (5) (2).png" alt="Screenshot of the Billing Portal"><figcaption><p>Billing Portal</p></figcaption></figure>
 
 </div>
 
@@ -70,7 +70,7 @@ If you have multiple subscriptions, you may see icons that indicate normal and c
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (7).png" alt="Examples of invoice icons"><figcaption><p>invoice icons</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (7) (1).png" alt="Examples of invoice icons"><figcaption><p>invoice icons</p></figcaption></figure>
 
 </div>
 
