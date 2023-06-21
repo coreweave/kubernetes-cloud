@@ -17,18 +17,16 @@ spec:
       terminationGracePeriodSeconds: 10
       initContainers:
       - name: init
-        image: atlanticcrypto/cuda-ssh-server:10.2-cudnn
-        command: ["/bin/bash"]
-        args: ["-c", "if [ ! -f /target/initialized ]; then
-                      password=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 13 ; echo '');
-                      echo \"root:$password\" | chpasswd;
-                      echo \"Root password is: $password\";
-                      sed -i -e 's/archive.ubuntu.com/mirror.deace.id/' /etc/apt/sources.list;
-                      echo 'Acquire::http::Proxy \"http://10.134.98.2:3128\";' > /etc/apt/apt.conf.d/proxy.conf;
-                      cp -ax / /target;
-                      echo 'Initialization complete';
-                      touch /target/initialized;
-                      fi"]
+        image: ghcr.io/coreweave/ml-containers/cuda-ssh:209c517-torch-ceeb8c2-nccl-cuda11.8.0-nccl2.16.2-1-torch2.0.1-vision0.15.2-audio2.0.2
+        command: ["/bin/bash", "-c"]
+        args:
+          - |
+            if [ ! -f /target/initialized ]; then
+              dpkg-reconfigure openssh-server && \
+              cp -ax / /target && \
+              echo 'Initialization complete' && \
+              touch /target/initialized;
+            fi
         resources:
           requests:
             cpu: 1
@@ -39,10 +37,10 @@ spec:
 
       containers:
       - name: sshd
-        command: ["/usr/sbin/sshd"]
-        args: ["-D"]
+        command: ["/usr/bin/tini", "--"]
+        args: ["service", "ssh", "start", "-D"]
         tty: true
-        image: atlanticcrypto/cuda-ssh-server:10.2-cudnn
+        image: ghcr.io/coreweave/ml-containers/cuda-ssh:209c517-torch-ceeb8c2-nccl-cuda11.8.0-nccl2.16.2-1-torch2.0.1-vision0.15.2-audio2.0.2
         ports:
           - name: sshd
             containerPort: 22
@@ -91,11 +89,11 @@ spec:
 
         resources:
           requests:
-            cpu: 1500m # The CPU unit is mili-cores. 500m is 0.5 cores
-            memory: 4Gi
+            cpu: 2500m # The CPU unit is milli-cores. 500m is 0.5 cores
+            memory: 64Gi
           limits:
             cpu: 7000m
-            memory: 8Gi
+            memory: 128Gi
             nvidia.com/gpu: 6
             # GPUs can only be allocated as a limit, which both reserves and limits the number of GPUs the Pod will have access to
             # Making individual Pods resource light is advantageous for bin-packing. Since this Pod is for general purpose interactive testing
@@ -107,15 +105,15 @@ spec:
       # Read more about affinity at: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
       affinity:
         nodeAffinity:
-          # This will REQUIRE the Pod to be run on a system with a Pascal GPU
+          # This will REQUIRE the Pod to be run on a system with an RTX A5000 GPU
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
             - matchExpressions:
               - key: gpu.nvidia.com/class
                 operator: In
                 values:
-                  - NV_Pascal
-              - key: failure-domain.beta.kubernetes.io/region
+                  - RTX_A5000
+              - key: topology.kubernetes.io/region
                 operator: In
                 values:
                   - ORD1
