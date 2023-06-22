@@ -156,7 +156,7 @@
     * [Train ResNet-50 with ImageNet](machine-learning-and-ai/training/kubeflow-training-operators-pytorch-mpi/train-resnet-50-with-imagenet.md)
   * [Fine-tuning](machine-learning-and-ai/training/fine-tuning/README.md)
     * [Fine-tune Stable Diffusion Models with CoreWeave Cloud](machine-learning-and-ai/training/fine-tuning/fine-tune-stable-diffusion-models-with-coreweave-cloud.md)
-    * [Fine-tune GPT Models with CoreWeave](machine-learning-and-ai/training/fine-tuning/finetuning-machine-learning-models.md)
+    * [Fine-tune Large Language Models with CoreWeave Cloud](machine-learning-and-ai/training/argo-workflows/fine-tuning/finetuning-machine-learning-models.md)
     * [Fine-tune GPT-NeoX-20B with Argo Workflows](machine-learning-and-ai/training/fine-tuning/finetune-gpt-neox-20b-with-argo-workflows.md)
 
 ## VFX & Rendering

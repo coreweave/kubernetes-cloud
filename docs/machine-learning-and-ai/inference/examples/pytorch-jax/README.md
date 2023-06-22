@@ -1,6 +1,6 @@
 # PyTorch/JAX
 
-<figure><img src="../../../../.gitbook/assets/image (49) (2).png" alt="The PyTorch logo"><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (49) (1) (2).png" alt="The PyTorch logo"><figcaption></figcaption></figure>
 
 [PyTorch](https://pytorch.org/) is an open source machine learning framework. It is an optimized tensor library for deep learning using GPUs and CPUs. This section contains a few instructional walkthroughs on using use PyTorch on CoreWeave Cloud for machine learning and deep learning projects.
 

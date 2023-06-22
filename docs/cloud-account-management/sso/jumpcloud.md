@@ -8,7 +8,7 @@ To configure CoreWeave SSO using [JumpCloud](https://jumpcloud.com/) as your ide
 
 On the configuration screen, select **JumpCloud** from the **Your IDP** drop-down menu.
 
-<figure><img src="../../.gitbook/assets/image (22) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (22).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 **Note**
@@ -20,7 +20,7 @@ It's recommended to keep the CoreWeave Cloud window open so that you may referen
 
 From your JumpCloud admin dashboard, navigate to the **SSO** page. From here, navigate to **User Authentication >** **SSO** to set up the configuration.
 
-<figure><img src="../../.gitbook/assets/image (52) (4).png" alt="Screenshot of JumpCloud&#x27;s SSO configuration screen"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (52).png" alt="Screenshot of JumpCloud&#x27;s SSO configuration screen"><figcaption></figcaption></figure>
 
 The **IdP Entity ID** field refers to the identity provider's entity ID. Take this value and input it into the **Entity ID provided by the IDP** field in [the CoreWeave Cloud SSO configuration module](./#the-saml-sso-modal).
 
@@ -34,13 +34,13 @@ The following fields - **SAMLSubject NameID**, **SAMLSubject NameID Format**, an
 
 <table><thead><tr><th width="297">Field name</th><th>Field value</th></tr></thead><tbody><tr><td>SAMLSubject NameID</td><td><code>email</code></td></tr><tr><td>SAMLSubject NameID Format</td><td><code>urn:oasis:name:tc:SAML:1.1:nameid-format:unspecified</code></td></tr><tr><td>Signature Algorithm</td><td><code>RSA-SHA256</code></td></tr></tbody></table>
 
-<figure><img src="../../.gitbook/assets/image (17) (4) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (17) (4).png" alt=""><figcaption></figcaption></figure>
 
 Leave the **Sign Assertion** checkbox unchecked.
 
 The **IDP URL** field will contain some value equivalent to `https://sso.jumpcloud.com/saml2/saml2`.
 
-<figure><img src="../../.gitbook/assets/image (15) (1).png" alt="Screenshot of the IDP URL field on JumpCloud"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (15).png" alt="Screenshot of the IDP URL field on JumpCloud"><figcaption></figcaption></figure>
 
 ### User attributes
 
@@ -48,7 +48,7 @@ Under the **IDP URL** field in the **Attributes** section are several fields for
 
 <table><thead><tr><th width="357">Service Provider Attribute Name</th><th>JumpCloud Attribute Name</th></tr></thead><tbody><tr><td>first_name</td><td><code>firstname</code></td></tr><tr><td>last_name</td><td><code>lastname</code></td></tr><tr><td>email</td><td><code>email</code></td></tr><tr><td>login</td><td><code>email</code></td></tr></tbody></table>
 
-<figure><img src="../../.gitbook/assets/image (56) (3).png" alt="Screenshot of JumpCloud SSO attributes"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (56).png" alt="Screenshot of JumpCloud SSO attributes"><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 **Note**

@@ -58,7 +58,7 @@ While allowing multiple namespaces for an organization provides a Kubernetes-nat
 
 To create and manage your account's namespaces, first [log in to your CoreWeave Cloud account](https://cloud.coreweave.com). Then, navigate to [the **Namespaces** page](https://cloud.coreweave.com/namespaces).
 
-<figure><img src="../.gitbook/assets/image (12) (2) (1) (1).png" alt="Screenshot of the namespace management page"><figcaption><p>The namespace management page</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (3) (4) (1).png" alt="Screenshot of the namespace management page"><figcaption><p>The namespace management page</p></figcaption></figure>
 
 To create a new namespace, click the **Create New Namespace** button in the upper right-hand corner. This will open the **New Namespace** modal.
 

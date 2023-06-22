@@ -30,7 +30,7 @@ The graphical toggles affect the `network.directAttachLoadBalancerIP` and `.netw
 \
 When both options are set to `true`, public networking is provided via an automatically-provisioned public IP address. When both are `false`, public networking is disabled, and no public IP will be provisioned.
 
-<figure><img src="../../.gitbook/assets/image (24) (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (24) (1).png" alt=""><figcaption></figcaption></figure>
 
 Example in plain text:
 
@@ -78,7 +78,7 @@ When `network.directAttachLoadBalancerIP` is set to `true`, custom UDP and TCP p
 
 Desired ports may be configured in their respective lists, as seen in this example:
 
-<figure><img src="../../.gitbook/assets/image (56).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (56) (2).png" alt=""><figcaption></figcaption></figure>
 
 Example in plain text:
 

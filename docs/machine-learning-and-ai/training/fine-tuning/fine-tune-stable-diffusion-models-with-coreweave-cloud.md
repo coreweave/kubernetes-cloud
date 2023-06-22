@@ -375,7 +375,7 @@ You can trigger runs of the workflow from the Argo UI, or by setting up a webhoo
 
 Once the workflow template is applied, you should see it in the Argo Workflows UI. An example of Textual Inversion method is shown below. If you use the DreamBooth method, everything is the same except the name will be `db-finetune-template`.
 
-<figure><img src="../../../.gitbook/assets/image (9) (1).png" alt=""><figcaption><p>Deployed Workflow Template in the Argo UI</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (9).png" alt=""><figcaption><p>Deployed Workflow Template in the Argo UI</p></figcaption></figure>
 
 To trigger a new run of the workflow through the UI, click on the template, then the submit button, then change the necessary parameters. The most common parameters are shown below, but there are many other workflow parameters you may want to review.
 
@@ -688,7 +688,7 @@ The Media tab is where you can see images being generated during the fine-tuning
 
 In the performance tab you will see how fast the GPU is performing in a metric of samples per second.
 
-<figure><img src="../../../.gitbook/assets/i0oCpjf (1) (1) (1).png" alt=""><figcaption><p>Fine-tuning metrics</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/i0oCpjf (2).png" alt=""><figcaption><p>Fine-tuning metrics</p></figcaption></figure>
 
 For the training tab, a multitude of fine-tuning metrics are recorded which indicates whether or not the workflow is making progress by reducing loss over time. These metrics can be very useful in determining whether or not the model has reached convergence.
 

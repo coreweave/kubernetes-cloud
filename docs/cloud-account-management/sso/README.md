@@ -24,13 +24,13 @@ Only CoreWeave organization admins may configure SSO. Additionally, organization
 
 To add or edit SSO configurations, first [log in to your CoreWeave Cloud account](https://cloud.coreweave.com), then navigate to the [Organization Management page](https://cloud.coreweave.com/organization). Below the **Users** section, find the **SSO Configurations** section.
 
-<figure><img src="../../.gitbook/assets/image (58) (1) (2).png" alt="Screenshot of the SSO Configurations area on the CoreWeave Cloud UI"><figcaption><p>The SSO Configurations area on the CoreWeave Cloud UI</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (58) (1).png" alt="Screenshot of the SSO Configurations area on the CoreWeave Cloud UI"><figcaption><p>The SSO Configurations area on the CoreWeave Cloud UI</p></figcaption></figure>
 
 To add a new configuration, click the **Add Configuration** button. To edit an existing configuration, select the pencil icon under the **Actions** column to the right of the configuration name.
 
 ### The SAML SSO modal
 
-<figure><img src="../../.gitbook/assets/image (41).png" alt="Screenshot of the SAML SSO Setup modal"><figcaption><p>The SAML SSO Setup modal</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (41) (5).png" alt="Screenshot of the SAML SSO Setup modal"><figcaption><p>The SAML SSO Setup modal</p></figcaption></figure>
 
 Adding or editing a configuration is done through the **SAML SSO Setup** modal. All SSO configurations are similar across IDPs, so most require the same information and the same process:
 
@@ -41,19 +41,19 @@ Adding or editing a configuration is done through the **SAML SSO Setup** modal. 
 
 ### Select an Identity Provider (IDP)
 
-<figure><img src="../../.gitbook/assets/image (53) (3).png" alt="Screenshot of the SAML SSO Setup modal, with the IDP drop-down highlighted"><figcaption><p>The IDP selector menu</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (53) (1).png" alt="Screenshot of the SAML SSO Setup modal, with the IDP drop-down highlighted"><figcaption><p>The IDP selector menu</p></figcaption></figure>
 
 From the **Your IDP** drop-down menu, select your IDP.
 
 ### Configure the IDP
 
-<figure><img src="../../.gitbook/assets/image (55) (1) (2).png" alt="Screenshot of the CoreWeave-specific configuration values in the SSO module"><figcaption><p>The CoreWeave-specific configuration values in the SSO module</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (55).png" alt="Screenshot of the CoreWeave-specific configuration values in the SSO module"><figcaption><p>The CoreWeave-specific configuration values in the SSO module</p></figcaption></figure>
 
 The Assertion Consumer Service (ACS) URL and the service provider (SP) entity ID are provided in the following two fields. These values are required to complete your IDP's configuration.
 
 ### Configure CoreWeave SSO
 
-<figure><img src="../../.gitbook/assets/image (24) (1).png" alt="Screenshot of the IDP-provided fields, and the Display Name, in the SSO module"><figcaption><p>IDP-provided fields, and the Display Name, in the SSO module</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (24) (5).png" alt="Screenshot of the IDP-provided fields, and the Display Name, in the SSO module"><figcaption><p>IDP-provided fields, and the Display Name, in the SSO module</p></figcaption></figure>
 
 The fields **Entity ID provided by the IDP, Single Sign-On URL**, and **X.509 Certificate provided by IDP** are provided by your IDP. See the guide for [JumpCloud](jumpcloud.md), [Okta](okta.md), or [the generic IDP setup instructions](generic-idp.md) for further details.
 
@@ -67,6 +67,6 @@ Finally, provide a name for the SSO configuration in the Display Name field that
 
 ### Activate the SSO configuration
 
-<figure><img src="../../.gitbook/assets/image (29) (1).png" alt=""><figcaption><p>Check the "Configuration Active" box to turn on the SSO configuration</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (29) (5).png" alt=""><figcaption><p>Check the "Configuration Active" box to turn on the SSO configuration</p></figcaption></figure>
 
 Finally, once the other fields are complete, ensure the **Configuration Active** checkbox is checked before clicking the **Save** button. Checking this box, then clicking **Save**, will turn the SSO configuration on.

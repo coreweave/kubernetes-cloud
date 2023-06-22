@@ -26,11 +26,11 @@ Users within an organization may be managed from [the organization management pa
 
 ### Invite users
 
-<figure><img src="../.gitbook/assets/image (15).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (15) (4).png" alt=""><figcaption></figcaption></figure>
 
 To invite new users, navigate to the organization management page in CoreWeave Cloud, then click the **Invite a User** button. A form will appear, prompting for the email of the person you'd like to invite. Enter this address, then click **Send Invite.**
 
-<figure><img src="../.gitbook/assets/image (84) (1).png" alt="Screenshot of the user invite modal"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (142).png" alt="Screenshot of the user invite modal"><figcaption></figcaption></figure>
 
 The organization management page also allows admins to perform the following actions:
 
@@ -40,13 +40,13 @@ The organization management page also allows admins to perform the following act
 
 By default, new users inherit the same access controls to the namespace as the user who invited them.
 
-<figure><img src="../.gitbook/assets/image (6) (3).png" alt=""><figcaption><p>Copy, resend, or revoke the invitation under the <strong>Actions</strong> column</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (6) (2).png" alt=""><figcaption><p>Copy, resend, or revoke the invitation under the <strong>Actions</strong> column</p></figcaption></figure>
 
 Once an invitation is accepted and the new user has completed registration, their account may be managed from the organization management page.
 
 Under the **Actions** column, users may be deactivated and reactivated. Deactivating users will prevent them from accessing their account, but user accounts may be reactivated at any time. To manage the activation status of a user's account, click the button located on the left side of the user row.
 
-<figure><img src="../.gitbook/assets/image (19) (2) (1).png" alt=""><figcaption><p>Click the <strong>Deactivate</strong> button beside a user to deactivate their account</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (19) (1).png" alt=""><figcaption><p>Click the <strong>Deactivate</strong> button beside a user to deactivate their account</p></figcaption></figure>
 
 {% hint style="danger" %}
 **Warning**
@@ -66,4 +66,4 @@ As the organization admin, expand a user's details on the organization managemen
 
 At this time, organization admins can grant users all permissions in a given namespace with the exception of `w:pods` (write to Pods) and `w:full` (full `write` access). If users other than the organization admin require these permissions, please [contact support](https://cloud.coreweave.com/contact).
 
-<figure><img src="../.gitbook/assets/image (18) (1) (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (18) (1).png" alt=""><figcaption></figcaption></figure>

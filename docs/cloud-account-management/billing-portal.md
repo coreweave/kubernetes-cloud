@@ -30,7 +30,7 @@ In the upper right corner of the portal, you will see two links, **My Account** 
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (5) (2).png" alt="Screenshot of the Billing Portal"><figcaption><p>Billing Portal</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (5) (5).png" alt="Screenshot of the Billing Portal"><figcaption><p>Billing Portal</p></figcaption></figure>
 
 </div>
 
@@ -45,7 +45,7 @@ The Subscriptions tab shows the billing details for your CoreWeave namespaces ea
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (90) (1).png" alt="Subscriptions tab of the billing portal"><figcaption><p>Subscriptions tab</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (153).png" alt="Subscriptions tab of the billing portal"><figcaption><p>Subscriptions tab</p></figcaption></figure>
 
 </div>
 

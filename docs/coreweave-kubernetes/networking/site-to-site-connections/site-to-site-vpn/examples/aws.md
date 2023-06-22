@@ -26,11 +26,11 @@ First, you'll need to create a **virtual private gateway** and **attach it** to 
 
 From the VPC creation screen in your AWS account, navigate to **Virtual private network (VPN)** -> **Virtual private gateways.**
 
-![The "virtual private gateways" link.](<../../../../../.gitbook/assets/image (4) (1) (1) (2).png>)
+![The "virtual private gateways" link.](<../../../../../.gitbook/assets/image (4) (1) (1) (1).png>)
 
 Select the orange **Create virtual private gateway** button in the upper right-hand corner to begin configuring the gateway. This will lead you to the configuration screen, as shown below.
 
-![The virtual private gateway creation screen.](../../../../../.gitbook/assets/virtual-private-gateway.png)
+![The virtual private gateway creation screen.](<../../../../../.gitbook/assets/virtual-private-gateway (1).png>)
 
 After the virtual private gateway has been created, attach the gateway to the VPC by selecting **Actions -> Attach to VPC.**
 
@@ -146,7 +146,7 @@ Once the AWS VPC has been created and the VPN connection has been configured, a 
 
 To do this, configure the routing tables found under **Virtual private cloud -> Route tables**.
 
-![Route tables option menu under the virtual private cloud menu.](<../../../../../.gitbook/assets/image (13) (1) (1) (1) (1) (1) (1) (1) (1).png>)
+![Route tables option menu under the virtual private cloud menu.](<../../../../../.gitbook/assets/image (13) (1) (1).png>)
 
 Click the **route table ID** to open the configuration options for that table, and click the grey **Edit routes** button in the upper-right hand corner of the lower menu.
 

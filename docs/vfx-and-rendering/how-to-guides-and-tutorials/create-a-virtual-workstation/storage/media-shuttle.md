@@ -18,13 +18,13 @@ Open Media Shuttle. Click **Add**, beside Storage.
 
 Select the checkbox to agree to the license agreement terms.
 
-<figure><img src="../../../../.gitbook/assets/image (39) (1) (1).png" alt="Screenshot of the license agreement checkbox in Media Shuttle"><figcaption><p>License agreement checkbox</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (39) (1).png" alt="Screenshot of the license agreement checkbox in Media Shuttle"><figcaption><p>License agreement checkbox</p></figcaption></figure>
 
 Once you have completed the following steps in the wizard, the storage server registration key will be presented to you. Retain this for the next few setup steps.
 
 Return to [the Applications Catalog](../../../../coreweave-kubernetes/applications-catalog.md), and search for **media-shuttle**. Find the **media-shuttle** application, select it, then click the **Deploy** button in the bottom right corner of the screen to begin configuring the application.
 
-<figure><img src="../../../../../.gitbook/assets/image (80).png" alt="The Media Shuttle application icon"><figcaption><p>The Media Shuttle application icon displayed in the applications Catalog</p></figcaption></figure>
+<figure><img src="../../../../../.gitbook/assets/image (64) (1) (1).png" alt="The Media Shuttle application icon"><figcaption><p>The Media Shuttle application icon displayed in the applications Catalog</p></figcaption></figure>
 
 Clicking the **Deploy** button will open the application configuration screen.
 

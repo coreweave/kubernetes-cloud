@@ -6,7 +6,7 @@ description: Manage Storage Volumes using the CoreWeave Cloud UI
 
 [The CoreWeave Cloud UI](../../../virtual-servers/deployment-methods/coreweave-apps.md) provides an easy-to-use storage configuration page. To access it, first log in to your CoreWeave Cloud account. Then, from the left-hand menu, navigate to **Storage Volumes**. To create a new Storage Volume, click the **New Volume** button in the upper right-hand corner or center of the page.
 
-<figure><img src="../../.gitbook/assets/image (5) (2) (3).png" alt="Screenshot: The Storage Volumes management page"><figcaption><p>The Storage Volumes management page</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5) (1).png" alt="Screenshot: The Storage Volumes management page"><figcaption><p>The Storage Volumes management page</p></figcaption></figure>
 
 ## Create a new Storage Volume
 
@@ -74,7 +74,7 @@ Shared File System Volumes are resized online, without disruption to workloads.
 **Resizing** **Block Volumes** requires **stopping or restarting all workloads** that are attached the Volume in order for the resize to take effect.
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (55).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (55) (2).png" alt=""><figcaption></figcaption></figure>
 
 ## Attach a Storage Volume using the Cloud UI
 
@@ -92,7 +92,7 @@ To attach a filesystem or block volume, locate the volume in the list provided u
 
 The storage block volume information will be reflected in the YAML editor under the `.filesystems` block.
 
-<figure><img src="../../.gitbook/assets/image (34).png" alt=""><figcaption><p>An example of a mounted filesystem volume reflected </p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (34) (1).png" alt=""><figcaption><p>An example of a mounted filesystem volume reflected </p></figcaption></figure>
 
 Example in plain text:
 

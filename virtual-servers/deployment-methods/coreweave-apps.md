@@ -21,7 +21,7 @@ Once signed in to your CoreWeave Cloud account, navigate to the **Virtual Server
 
 The [**CoreWeave Cloud**](https://cloud.coreweave.com/virtualservers) Virtual Server has more features than the [**CoreWeave Apps**](https://apps.coreweave.com) edition, but you can use either one. You may see a selection screen like this when deploying.
 
-![Deploy a Virtual Server](<../../docs/.gitbook/assets/image (17).png>)&#x20;
+![Deploy a Virtual Server](<../../docs/.gitbook/assets/image (17) (1).png>)&#x20;
 
 These instructions are for **CoreWeave Cloud** Virtual Server.
 {% endhint %}
@@ -48,11 +48,11 @@ While [configuration options](coreweave-apps.md#configuration-options) can be ma
 
 When the web editor has focus, sensitive values such as passwords are obscured with asterisks in the YAML editor. Click the YAML pane to give it focus and reveal the sensitive values, or click the **Hide YAML** button between the panes to close the YAML.
 
-<figure><img src="../../docs/.gitbook/assets/image (4) (3).png" alt="New Virtual Server deployment page"><figcaption><p>New Virtual Server deployment page</p></figcaption></figure>
+<figure><img src="../../docs/.gitbook/assets/image (4) (2).png" alt="New Virtual Server deployment page"><figcaption><p>New Virtual Server deployment page</p></figcaption></figure>
 
 There are three buttons in the upper-right corner of the web UI pane:
 
-<figure><img src="../../docs/.gitbook/assets/image (12).png" alt="Option buttons"><figcaption><p>Option buttons</p></figcaption></figure>
+<figure><img src="../../docs/.gitbook/assets/image (12) (2).png" alt="Option buttons"><figcaption><p>Option buttons</p></figcaption></figure>
 
 * **Magic wand button:** Revert the form to the last valid configuration.
 * **Arrow button:** Reset the form, clearing all fields.
@@ -80,7 +80,7 @@ Select an existing Virtual Server in the drop-down presented. Then toggle the **
 
 Another way to deploy a clone is to select **Clone** from the **more** menu of an existing server. Or, expand the server details and click **Clone**.
 
-<figure><img src="../../docs/.gitbook/assets/image (3) (4).png" alt="Deployment options"><figcaption><p>Deployment options</p></figcaption></figure>
+<figure><img src="../../docs/.gitbook/assets/image (3) (2).png" alt="Deployment options"><figcaption><p>Deployment options</p></figcaption></figure>
 
 ## :pencil: Deploy from a t**emplate**
 
@@ -88,7 +88,7 @@ A template uses an existing Virtual Server as a model. Deploying from a template
 
 The steps to deploy as a template are similar to [deploying a clone](coreweave-apps.md#clone-an-existing-server-1), but choose the **Use As Template** option instead. In the Select Template modal, leave the Clone option untoggled:
 
-<figure><img src="../../docs/.gitbook/assets/image (18).png" alt="Leave Clone untoggled to create a template"><figcaption><p>Leave <strong>Clone</strong> untoggled to create a template</p></figcaption></figure>
+<figure><img src="../../docs/.gitbook/assets/image (18) (3).png" alt="Leave Clone untoggled to create a template"><figcaption><p>Leave <strong>Clone</strong> untoggled to create a template</p></figcaption></figure>
 
 ### Adjusting configuration when using a template
 
@@ -102,7 +102,7 @@ A custom deployment loads the operating system image from an existing PVC or a r
 
 To deploy a custom Virtual Server, follow the same steps as if deploying a [new server from scratch](coreweave-apps.md#new-server-1), then select either **Image From Remote Source**, or **Image From PVC** in the Operating System section.&#x20;
 
-<figure><img src="../../docs/.gitbook/assets/image (19).png" alt="Choose a Custom option"><figcaption><p>Choose a Custom option</p></figcaption></figure>
+<figure><img src="../../docs/.gitbook/assets/image (31).png" alt="Choose a Custom option"><figcaption><p>Choose a Custom option</p></figcaption></figure>
 
 #### Image from remote source
 
@@ -132,7 +132,7 @@ For more fine-grained control over the Virtual Server configuration, use the YAM
 
 The YAML editor allows the Custom Resource Definition (CRD) of the Virtual Server to be edited directly, offering a high level of both flexible customization and transparency. The CRD's YAML may also be copied from here for future programmatic deployments using the CLI.
 
-<figure><img src="../../docs/.gitbook/assets/image (72).png" alt="Screenshot demonstrating that the YAML editor button is on the right-hand side of the screen"><figcaption><p>The View/Hide YAML tab is located on the right-hand side of the screen</p></figcaption></figure>
+<figure><img src="../../docs/.gitbook/assets/image (72) (1).png" alt="Screenshot demonstrating that the YAML editor button is on the right-hand side of the screen"><figcaption><p>The View/Hide YAML tab is located on the right-hand side of the screen</p></figcaption></figure>
 
 ### Deploy the Virtual Server
 
@@ -146,7 +146,7 @@ Once your Virtual Server has begun deploying, you will be automatically redirect
 
 Click the new Virtual Server to expand its menu for more information and to see all options.
 
-<figure><img src="../../docs/.gitbook/assets/image (67).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../docs/.gitbook/assets/image (67) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Virtual terminal
 
@@ -170,4 +170,4 @@ A basic diagnostic log of all actions involving the Virtual Server are recorded 
 The events listed under **Events** are short-lived, so should mostly be used for diagnostic purposes or for tracing the status of the Virtual Server.
 {% endhint %}
 
-<figure><img src="../../docs/.gitbook/assets/image (48).png" alt="Screenshot of the events list"><figcaption></figcaption></figure>
+<figure><img src="../../docs/.gitbook/assets/image (48) (1).png" alt="Screenshot of the events list"><figcaption></figcaption></figure>
