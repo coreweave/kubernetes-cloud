@@ -12,7 +12,7 @@ When using Parsec to connect to your Windows-based VDI, there are a few configur
 
 Once you have selected a machine to connect to, further configuration options for that instance are shown by clicking the Parsec logo button on the left-hand side of the screen.
 
-<figure><img src="../.gitbook/assets/image (4) (2).png" alt="Screenshot: The gear icon leading to the Parsec Settings page"><figcaption><p>The gear icon leading to the Parsec Settings page</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (4) (2) (1).png" alt="Screenshot: The gear icon leading to the Parsec Settings page"><figcaption><p>The gear icon leading to the Parsec Settings page</p></figcaption></figure>
 
 ### Enable H.265 (HEVC) encoding
 

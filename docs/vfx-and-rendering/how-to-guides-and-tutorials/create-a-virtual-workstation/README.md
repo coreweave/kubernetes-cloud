@@ -35,7 +35,7 @@ Begin by repeating the process for [creating a new Virtual Workstation](./#creat
 
 For this tutorial, the first artist machine will run **Windows 10 Professional**. Select **Windows 10 Professional** from [the Operating System configuration screen](../../../virtual-servers/virtual-server-configuration-options/operating-system-and-root-disk.md):
 
-<figure><img src="../../../.gitbook/assets/image (19) (2).png" alt=""><figcaption><p>Select "Windows 10 Professional" from the Operating System expandable</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (19) (2) (2).png" alt=""><figcaption><p>Select "Windows 10 Professional" from the Operating System expandable</p></figcaption></figure>
 
 Continue to configure the artist machine.
 
@@ -57,7 +57,7 @@ Next, click the **Deploy** button to launch the Virtual Workstation in your name
 
 To deploy a Windows 10 Workstation with Teradici instead of Parsec, click the Teradici toggle under **Operating System Additions**.
 
-<figure><img src="../../../.gitbook/assets/image (23).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (23) (4).png" alt=""><figcaption></figcaption></figure>
 
 Deploy the Virtual Server by clicking the **Deploy** button. Once the Virtual Server is done initializing, the credentials specified in the creation interface may be used to connect to it.
 

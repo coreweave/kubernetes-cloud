@@ -26,7 +26,7 @@ Choose a number of **Slots** (that is, the number of GPUs to use) and set a **Na
 
 <figure><img src="../../../.gitbook/assets/image (1) (3) (1).png" alt="Screenshot of the JupyterLab configuration modal"><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (13) (1).png" alt="Screenshot of Notebook configuration screen"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (13) (1) (1).png" alt="Screenshot of Notebook configuration screen"><figcaption></figcaption></figure>
 
 
 

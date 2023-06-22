@@ -39,7 +39,7 @@ To build custom dashboards from CoreWeave's [Prometheus metrics](../../coreweave
 
 Wait for the Pods to deploy, then click the Ingress URL to log in with the username and password in the upper-right corner.
 
-<figure><img src="../.gitbook/assets/image (13).png" alt="Screenshot of deployment screen"><figcaption><p>Deployment screen</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (13) (1).png" alt="Screenshot of deployment screen"><figcaption><p>Deployment screen</p></figcaption></figure>
 
 ### Connect to Prometheus
 
@@ -50,7 +50,7 @@ Our Prometheus scraping service offers many useful [billing metrics](../../corew
 
     <div align="left">
 
-    <figure><img src="../.gitbook/assets/image (9).png" alt="Data sources menu"><figcaption><p>Data sources menu</p></figcaption></figure>
+    <figure><img src="../.gitbook/assets/image (9) (2).png" alt="Data sources menu"><figcaption><p>Data sources menu</p></figcaption></figure>
 
     </div>
 
@@ -78,7 +78,7 @@ Our Prometheus scraping service offers many useful [billing metrics](../../corew
 
     <div align="left">
 
-    <figure><img src="../.gitbook/assets/image (8).png" alt="Successful connection"><figcaption><p>Successful connection</p></figcaption></figure>
+    <figure><img src="../.gitbook/assets/image (8) (1).png" alt="Successful connection"><figcaption><p>Successful connection</p></figcaption></figure>
 
     </div>
 

@@ -183,7 +183,7 @@ In total, there are three stages, each of which adds another level of paralleliz
 
 
 
-<figure><img src="../../../.gitbook/assets/image (18) (2).png" alt="Graph from the ZeRO paper showing the memory efficiency from different optimization stages."><figcaption><p>Graph from the <a href="https://arxiv.org/abs/1910.02054v3">ZeRO paper</a> showing the memory efficiency from different optimization stages.</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (18) (2) (1).png" alt="Graph from the ZeRO paper showing the memory efficiency from different optimization stages."><figcaption><p>Graph from the <a href="https://arxiv.org/abs/1910.02054v3">ZeRO paper</a> showing the memory efficiency from different optimization stages.</p></figcaption></figure>
 
 ### The experiment config
 

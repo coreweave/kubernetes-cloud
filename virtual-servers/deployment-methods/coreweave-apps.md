@@ -14,7 +14,7 @@ This guide presumes you have [an active CoreWeave Cloud account](../../docs/core
 
 From the CoreWeave Cloud main dashboard, either navigate to the **Virtual Servers** menu in the left-hand navigation, or click the **Deploy Now** button in the **Deploy Virtual Server** box in the center of the page.
 
-<figure><img src="../../docs/.gitbook/assets/image (44).png" alt="Screenshot of the Virtual Server link in both places"><figcaption></figcaption></figure>
+<figure><img src="../../docs/.gitbook/assets/image (43).png" alt="Screenshot of the Virtual Server link in both places"><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 **Note**
@@ -88,7 +88,7 @@ A template uses an existing Virtual Server as a model. Deploying from a template
 
 The steps to deploy as a template are similar to [deploying a clone](coreweave-apps.md#clone-an-existing-server-1), but choose the **Use As Template** option instead. In the Select Template modal, leave the Clone option untoggled:
 
-<figure><img src="../../docs/.gitbook/assets/image (18).png" alt="Leave Clone untoggled to create a template"><figcaption><p>Leave <strong>Clone</strong> untoggled to create a template</p></figcaption></figure>
+<figure><img src="../../docs/.gitbook/assets/image (18) (2).png" alt="Leave Clone untoggled to create a template"><figcaption><p>Leave <strong>Clone</strong> untoggled to create a template</p></figcaption></figure>
 
 ### Adjusting configuration when using a template
 
@@ -102,7 +102,7 @@ A custom deployment loads the operating system image from an existing PVC or a r
 
 To deploy a custom Virtual Server, follow the same steps as if deploying a [new server from scratch](coreweave-apps.md#new-server-1), then select either **Image From Remote Source**, or **Image From PVC** in the Operating System section.&#x20;
 
-<figure><img src="../../docs/.gitbook/assets/image (17).png" alt="Choose a Custom option"><figcaption><p>Choose a Custom option</p></figcaption></figure>
+<figure><img src="../../docs/.gitbook/assets/image (17) (2).png" alt="Choose a Custom option"><figcaption><p>Choose a Custom option</p></figcaption></figure>
 
 #### Image from remote source
 

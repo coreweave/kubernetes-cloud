@@ -142,7 +142,7 @@ $ docker push <URL>/<APP NAME>:<TAG VERSION>
 
 For the purposes of this example walkthrough, the application requires backend storage. [Create a storage volume](../storage/storage/using-storage-cloud-ui.md#creating-storage-volumes) from the Cloud UI, and give it a name that will be easy to associate with the application later.
 
-<figure><img src="../.gitbook/assets/image (19).png" alt=""><figcaption><p>In this example, a storage volume with the name <code>kobold-ai</code> is created</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (19) (2).png" alt=""><figcaption><p>In this example, a storage volume with the name <code>kobold-ai</code> is created</p></figcaption></figure>
 
 {% hint style="warning" %}
 **Important**
