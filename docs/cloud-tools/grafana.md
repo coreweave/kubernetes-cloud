@@ -12,7 +12,7 @@ To access the managed Grafana instance, use the menu in the Account Details sect
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (24).png" alt="Screenshot of Grafana menu in CoreWeave Cloud"><figcaption><p>Grafana menu</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (24) (3).png" alt="Screenshot of Grafana menu in CoreWeave Cloud"><figcaption><p>Grafana menu</p></figcaption></figure>
 
 </div>
 
