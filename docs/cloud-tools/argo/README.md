@@ -14,7 +14,7 @@ If you are experienced with Argo Workflows and only need CoreWeave Cloud deploym
 
 <div align="left">
 
-<figure><img src="../../.gitbook/assets/image (35) (1).png" alt="Screenshot of Argor Workflows in Application catalog"><figcaption><p>Argo Workflows</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (35) (3).png" alt="Screenshot of Argor Workflows in Application catalog"><figcaption><p>Argo Workflows</p></figcaption></figure>
 
 </div>
 
@@ -60,7 +60,7 @@ Client authentication mode is strongly encouraged as a [security best practice](
 
 <div align="left">
 
-<figure><img src="../../.gitbook/assets/image (36) (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (36) (3) (1).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -126,13 +126,13 @@ The web UI is an interactive way to submit and manage jobs, manage workflows, mo
 
 To get started, navigate to the Argo Workflows deployment in the [Applications Catalog](https://apps.coreweave.com/), then click the **Access URL** to open the login page.&#x20;
 
-<figure><img src="../../.gitbook/assets/image (14) (6).png" alt="Screenshot of Access URL"><figcaption><p>Access URL</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (14) (1).png" alt="Screenshot of Access URL"><figcaption><p>Access URL</p></figcaption></figure>
 
 Paste the Bearer token that was retrieved earlier into the **client authentication** box, then click **Login**.&#x20;
 
 <div align="left">
 
-<figure><img src="../../.gitbook/assets/image (26) (5).png" alt="Screenshot of Argo login screen"><figcaption><p>Screenshot of Argo login screen</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (26) (4).png" alt="Screenshot of Argo login screen"><figcaption><p>Screenshot of Argo login screen</p></figcaption></figure>
 
 </div>
 
@@ -218,7 +218,7 @@ The Pods begin spinning up:
 
 <div align="left">
 
-<figure><img src="../../.gitbook/assets/image (37) (1).png" alt="Screenshot of Workflow Pods starting"><figcaption><p>Workflow Pods starting</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (37) (3).png" alt="Screenshot of Workflow Pods starting"><figcaption><p>Workflow Pods starting</p></figcaption></figure>
 
 </div>
 

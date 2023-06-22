@@ -36,7 +36,7 @@ The basic steps to deploying your own custom containerized application onto Core
 
 To deploy a locally built, containerized application, the container image must first be pushed to a container image repository.
 
-CoreWeave provides an easy way to deploy a [Docker Registry](https://docs.docker.com/registry/) instance into your namespace for this purpose. Simply install the [Docker Registry application](https://docs.docker.com/registry/) from [the applications Catalog](applications-catalog.md) on the [Cloud UI](../../virtual-servers/deployment-methods/coreweave-apps.md). Once deployed, the Docker Registry instance may be configured for access both within and outside of the CoreWeave environment.
+CoreWeave provides an easy way to deploy a [Docker Registry](https://docs.docker.com/registry/) instance into your namespace for this purpose. Simply install the [Docker Registry application](https://docs.docker.com/registry/) from [the applications Catalog](coreweave-cloud-ui/applications-catalog.md) on the [Cloud UI](../../virtual-servers/deployment-methods/coreweave-apps.md). Once deployed, the Docker Registry instance may be configured for access both within and outside of the CoreWeave environment.
 
 All requests to the Docker Registry instance are authenticated. Credentials are automatically provisioned in an `imagePullSecret` in the namespace, which contains the credentials that are either manually configured during setup or automatically generated for you.
 
@@ -64,7 +64,7 @@ To install the Docker Registry application, first [log in to your CoreWeave Clou
 
 From the Catalog homepage, search for `docker`. Then, select the version of the Docker Registry application that you'd like to deploy.
 
-<figure><img src="../.gitbook/assets/image (8) (1).png" alt="Screenshot of docker-registry in the applications Catalog"><figcaption><p>Locate the docker-registry application in the applications Catalog</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (8) (4).png" alt="Screenshot of docker-registry in the applications Catalog"><figcaption><p>Locate the docker-registry application in the applications Catalog</p></figcaption></figure>
 
 Clicking on the application's card will open its deployment page, which contains further information about the application itself. Click the **Deploy** button to navigate to the application's configuration screen, which is used to configure the instance.
 
@@ -142,7 +142,7 @@ $ docker push <URL>/<APP NAME>:<TAG VERSION>
 
 For the purposes of this example walkthrough, the application requires backend storage. [Create a storage volume](../storage/storage/using-storage-cloud-ui.md#creating-storage-volumes) from the Cloud UI, and give it a name that will be easy to associate with the application later.
 
-<figure><img src="../.gitbook/assets/image (76) (2).png" alt=""><figcaption><p>In this example, a storage volume with the name <code>kobold-ai</code> is created</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (19).png" alt=""><figcaption><p>In this example, a storage volume with the name <code>kobold-ai</code> is created</p></figcaption></figure>
 
 {% hint style="warning" %}
 **Important**
@@ -158,7 +158,7 @@ If your application requires a lot of storage, it is recommended to configure a 
 
 In this example, the application will benefit from having a file browser, so we'll install [the FileBrowser application](../storage/filebrowser.md) from the Applications Catalog, and configure it with an equally recognizable name:
 
-<figure><img src="../.gitbook/assets/image (10) (1) (2).png" alt="Screenshot: A FileBrowser instance named after the application to which it will be associated"><figcaption><p>A FileBrowser instance named after the application to which it will be associated</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (10) (1) (1).png" alt="Screenshot: A FileBrowser instance named after the application to which it will be associated"><figcaption><p>A FileBrowser instance named after the application to which it will be associated</p></figcaption></figure>
 
 ## Build the Deployment manifest
 

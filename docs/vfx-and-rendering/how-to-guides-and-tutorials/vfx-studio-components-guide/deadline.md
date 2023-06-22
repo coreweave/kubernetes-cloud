@@ -26,7 +26,7 @@ There are two methods for deploying Thinkbox Deadline on CoreWeave. This guide p
 
 <table data-card-size="large" data-view="cards"><thead><tr><th></th><th></th><th data-hidden></th></tr></thead><tbody><tr><td><mark style="background-color:green;"><strong>(Recommended)</strong></mark> <strong>Fully Managed</strong></td><td>CoreWeave deploys the repository and all related components entirely.</td><td></td></tr><tr><td><strong>Workers-Only</strong></td><td>CoreWeave deploys only autoscaled Deadline workers, which then connect to an on-premise Deadline repository.</td><td></td></tr></tbody></table>
 
-First, [log in to your CoreWeave Cloud dashboard](https://cloud.coreweave.com), then navigate to [the Applications Catalog](../../../coreweave-kubernetes/applications-catalog.md) from the menu on the left.
+First, [log in to your CoreWeave Cloud dashboard](https://cloud.coreweave.com), then navigate to [the Applications Catalog](../../../coreweave-kubernetes/coreweave-cloud-ui/applications-catalog.md) from the menu on the left.
 
 From the Catalog, search for **Deadline**, then select the Deadline application from the list of results. Thinkbox Deadline configurations are presented only as YAML values. Clicking the **Deploy** button in the upper right-hand corner opens the YAML configuration screen, as shown below.
 

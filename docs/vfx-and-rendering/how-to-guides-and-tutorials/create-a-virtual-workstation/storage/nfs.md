@@ -4,9 +4,9 @@ description: Expose storage volumes using NFS server
 
 # NFS
 
-To expose storage using NFS, find the **nfs-server** application in [the Applications Catalog](../../../../coreweave-kubernetes/applications-catalog.md). Click the **Deploy** button to configure the NFS settings.
+To expose storage using NFS, find the **nfs-server** application in [the Applications Catalog](../../../../coreweave-kubernetes/coreweave-cloud-ui/applications-catalog.md). Click the **Deploy** button to configure the NFS settings.
 
-<figure><img src="../../../../.gitbook/assets/image (29) (1).png" alt="The NFS application in the application Catalog"><figcaption><p>The NFS application in the application Catalog</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (29) (2) (1).png" alt="The NFS application in the application Catalog"><figcaption><p>The NFS application in the application Catalog</p></figcaption></figure>
 
 {% hint style="warning" %}
 **Important**
@@ -14,7 +14,7 @@ To expose storage using NFS, find the **nfs-server** application in [the Applica
 One major difference between an NFS deployment and a Samba deployment on CoreWeave is that the one-click NFS solution **does not include any authentication.** For added security, consider integrating with Active Directory directly, or use network policies to ensure access to the NFS service is only accessible to the correct endpoints.
 {% endhint %}
 
-<figure><img src="../../../../.gitbook/assets/image (27) (1) (1).png" alt="The NFS configuration screen"><figcaption><p>The NFS configuration screen</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (27) (1).png" alt="The NFS configuration screen"><figcaption><p>The NFS configuration screen</p></figcaption></figure>
 
 Give the NFS volume a name, then select a data center region. This region should be the same one in which the storage volume is deployed.
 

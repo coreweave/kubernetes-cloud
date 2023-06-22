@@ -4,7 +4,7 @@ description: Deploy popular open source machine learning models with one click
 
 # One-Click Models
 
-The [Examples and Tutorials](../) section provides step-by-step guides for deploying popular machine learning frameworks and models onto CoreWeave Cloud, but some popular open source models are also available in [the applications Catalog](../../../../coreweave-kubernetes/applications-catalog.md) as **One-Click Models.**
+The [Examples and Tutorials](../) section provides step-by-step guides for deploying popular machine learning frameworks and models onto CoreWeave Cloud, but some popular open source models are also available in [the applications Catalog](../../../../coreweave-kubernetes/coreweave-cloud-ui/applications-catalog.md) as **One-Click Models.**
 
 ## Available One-Click Models
 

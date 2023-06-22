@@ -16,7 +16,7 @@ Our team is revising this example to work with the current version of TensorFlow
 
 In this simple example, an instance of TensorFlow with Jupyter is deployed to CoreWeave Cloud and exposed to the public Internet using Kubernetes.
 
-![Screenshot](../../tensorflow-jupyter/screenshot.png)
+![Screenshot](<../../docs/.gitbook/assets/screenshot (1).png>)
 
 ## Prerequisites
 

@@ -24,15 +24,15 @@ Once the Determined application is launched, open the Determined AI Web UI. Clic
 
 Choose a number of **Slots** (that is, the number of GPUs to use) and set a **Name** for your Notebook, then [select a Resource Pool](../../../compass/determined-ai/install-determined-ai.md#resource-pools).
 
-<figure><img src="../../../.gitbook/assets/image (1) (1).png" alt="Screenshot of the JupyterLab configuration modal"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (3) (1).png" alt="Screenshot of the JupyterLab configuration modal"><figcaption></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (13) (5).png" alt="Screenshot of Notebook configuration screen"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (13) (1).png" alt="Screenshot of Notebook configuration screen"><figcaption></figcaption></figure>
 
 
 
 Once configuration is complete, click the **Launch** button in the bottom right-hand corner of the modal. This will prompt Determined to prepare [the JupyterLab environment](https://towardsdatascience.com/how-to-setup-your-jupyterlab-project-environment-74909dade29b).
 
-<figure><img src="../../../.gitbook/assets/image (2) (3) (2).png" alt="Determined AI configuring the Jupyter-lab environment"><figcaption><p>Determined AI configuring the Jupyter-lab environment</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (3) (1).png" alt="Determined AI configuring the Jupyter-lab environment"><figcaption><p>Determined AI configuring the Jupyter-lab environment</p></figcaption></figure>
 
 Once the environment is ready, you will be redirected to the JupyterLab home screen. From here, you may begin a Notebook, open a terminal, or create other kinds of files for your Notebook, such as Markdown text files.
 
@@ -42,11 +42,11 @@ Once the environment is ready, you will be redirected to the JupyterLab home scr
 To learn more about Jupyter and how to use Notebooks and JupyterLab, refer to [the Jupyter documentation](https://docs.jupyter.org/en/latest/).
 {% endhint %}
 
-<figure><img src="../../../.gitbook/assets/image (12) (5).png" alt="The Jupyter-lab homescreen"><figcaption><p>The Jupyter-lab homescreen</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (12) (1) (3) (1).png" alt="The Jupyter-lab homescreen"><figcaption><p>The Jupyter-lab homescreen</p></figcaption></figure>
 
 To shut down the notebook, navigate to the **File** menu, then select **Shut Down**.
 
-![The file -> shutdown menu](<../../../.gitbook/assets/image (11) (6).png>)
+![The file -> shutdown menu](<../../../.gitbook/assets/image (11) (6) (1).png>)
 
 This will end the lab. In order to return to Jupyter Lab, you must re-launch the environment as described above.
 

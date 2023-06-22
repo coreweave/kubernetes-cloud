@@ -98,7 +98,7 @@ After allowing about five minutes after the Virtual Server has reached the `Runn
 $ kubectl get vs
 ```
 
-<figure><img src="../../../.gitbook/assets/image (8) (2) (1).png" alt="Output of kubectl get vs"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (8) (2) (1) (1).png" alt="Output of kubectl get vs"><figcaption></figcaption></figure>
 
 ## Install and configure domain services
 
@@ -177,7 +177,7 @@ After rebooting the second server, this Windows Virtual Server will now be joine
 gpupdate /force
 ```
 
-<figure><img src="../../../.gitbook/assets/image (12) (2) (1).png" alt="The output of gpupdate /force"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (12) (2) (1) (1) (1).png" alt="The output of gpupdate /force"><figcaption></figcaption></figure>
 
 ## Add a secondary Domain Controller
 

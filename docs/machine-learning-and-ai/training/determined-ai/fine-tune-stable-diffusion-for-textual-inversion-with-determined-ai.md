@@ -64,27 +64,27 @@ To quickly test your configuration, add the `HF_AUTH_TOKEN` value. Leave all oth
 
 After launching the experiment, navigate to the Web UI. Click the **Logs** tab to view training progress.
 
-<figure><img src="../../../.gitbook/assets/Screenshot from 2023-03-13 12-29-15 (1).png" alt="Stable Diffusion with Textual Inversion running on CoreWeave infrastructure using Determined AI"><figcaption><p>Stable Diffusion with Textual Inversion running on CoreWeave infrastructure using Determined AI</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/Screenshot from 2023-03-13 12-29-15.png" alt="Stable Diffusion with Textual Inversion running on CoreWeave infrastructure using Determined AI"><figcaption><p>Stable Diffusion with Textual Inversion running on CoreWeave infrastructure using Determined AI</p></figcaption></figure>
 
 When the experiment completes, the checkpoints are exported to Object Storage (shown as `s3`).
 
-<figure><img src="../../../.gitbook/assets/Screenshot from 2023-03-13 12-30-42.png" alt="Showcases all steps completed in the fine-tuning job"><figcaption><p>Showcases all steps completed in the fine-tuning job</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/Screenshot from 2023-03-13 12-30-42 (1).png" alt="Showcases all steps completed in the fine-tuning job"><figcaption><p>Showcases all steps completed in the fine-tuning job</p></figcaption></figure>
 
 You can view Loss on the **Overview** tab. Here, you can choose **Fork** or **Continue Trial** if required to get better results.
 
-<figure><img src="../../../.gitbook/assets/Screenshot from 2023-03-13 12-30-02 (1).png" alt="Loss going down as more batches are iterated upon"><figcaption><p>Loss going down as more batches are iterated upon</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/Screenshot from 2023-03-13 12-30-02.png" alt="Loss going down as more batches are iterated upon"><figcaption><p>Loss going down as more batches are iterated upon</p></figcaption></figure>
 
 Use the **Checkpoints** tab to view them.
 
-<figure><img src="../../../.gitbook/assets/Screenshot from 2023-03-13 12-30-20 (1).png" alt="All listed Checkpoints for the experiment"><figcaption><p>All listed Checkpoints for the experiment</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/Screenshot from 2023-03-13 12-30-20.png" alt="All listed Checkpoints for the experiment"><figcaption><p>All listed Checkpoints for the experiment</p></figcaption></figure>
 
 Use the **Hyperparameters** tab to see the values passed to the experiment.
 
-<figure><img src="../../../.gitbook/assets/Screenshot from 2023-03-13 12-32-55.png" alt="Hyperparameters for the fine-tuning experiment"><figcaption><p>HyperParameters for the fine-tuning experiment</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/Screenshot from 2023-03-13 12-32-55 (1).png" alt="Hyperparameters for the fine-tuning experiment"><figcaption><p>HyperParameters for the fine-tuning experiment</p></figcaption></figure>
 
 You can visualize the results via TensorBoard.
 
-<figure><img src="../../../.gitbook/assets/Screenshot from 2023-03-13 12-33-24.png" alt="TensorBoard showing inference prompts"><figcaption><p>TensorBoard showing inference prompts</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/Screenshot from 2023-03-13 12-33-24 (1).png" alt="TensorBoard showing inference prompts"><figcaption><p>TensorBoard showing inference prompts</p></figcaption></figure>
 
 ## Generate Images
 

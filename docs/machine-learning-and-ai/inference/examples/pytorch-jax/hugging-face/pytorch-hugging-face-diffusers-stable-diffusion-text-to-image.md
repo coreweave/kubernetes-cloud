@@ -207,7 +207,7 @@ Depending on use case, GPUs with less VRAM will also work down to 8GB GPUs, such
 
 The graph and table below compare recent GPU benchmark inference speeds for Stable Diffusion processing on different GPUs:
 
-<figure><img src="../../../../../.gitbook/assets/image (7) (1) (1).png" alt="A graph displaying a comparison of benchmark inference times for Stable Diffusion on different GPUs"><figcaption></figcaption></figure>
+<figure><img src="../../../../../.gitbook/assets/image (7) (2) (2).png" alt="A graph displaying a comparison of benchmark inference times for Stable Diffusion on different GPUs"><figcaption></figcaption></figure>
 
 <table><thead><tr><th width="336">GPU</th><th>Seconds</th></tr></thead><tbody><tr><td>Quadro RTX 4000</td><td>9.91</td></tr><tr><td>Quadro RTX 5000</td><td>7.94</td></tr><tr><td>A6000</td><td>4.45</td></tr><tr><td>A40</td><td>4.78</td></tr><tr><td>A100 40GB PCIE</td><td>3.35</td></tr><tr><td>A100 40GB NVLINK</td><td>3.29</td></tr><tr><td>A100 80GB NVLINK</td><td>3.19</td></tr><tr><td>AWS A100 40GB</td><td>4.10</td></tr></tbody></table>
 

@@ -12,27 +12,27 @@ description: Feature Updates and Release Notes for CoreWeave Cloud
 
 <table data-card-size="large" data-view="cards"><thead><tr><th></th><th data-hidden></th><th data-hidden></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td> <span data-gb-custom-inline data-tag="emoji" data-code="1f449">👉</span> Learn more about Tensorizer</td><td></td><td></td><td><a href="machine-learning-and-ai/inference/tensorizer.md">tensorizer.md</a></td></tr></tbody></table>
 
-### :unlock: [Easy, secure log-ins with CoreWeave SSO](cloud-account-management/sso/)
+### :unlock: [Easy, secure log-ins with CoreWeave SSO](coreweave-kubernetes/cloud-account-management/sso/)
 
 Single Sign-On, more commonly referred to as SSO, is an authentication scheme that allows the users in an organization to authenticate to CoreWeave Cloud from the same identity provider (IDP) used to log in to other organization-wide apps. Single Sign-On enhances security, and makes for a smoother log-in experience for your team.
 
 CoreWeave currently supports Okta, JumpCloud, and general, generic IDP configurations.
 
-<table data-card-size="large" data-view="cards"><thead><tr><th></th><th data-hidden></th><th data-hidden></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><span data-gb-custom-inline data-tag="emoji" data-code="1f449">👉</span> Learn more about CoreWeave SSO</td><td></td><td></td><td><a href="cloud-account-management/sso/">sso</a></td></tr><tr><td><span data-gb-custom-inline data-tag="emoji" data-code="1f510">🔐</span> Configure SSO for Okta</td><td></td><td></td><td><a href="cloud-account-management/sso/okta.md">okta.md</a></td></tr><tr><td><span data-gb-custom-inline data-tag="emoji" data-code="1f329">🌩</span> Configure SSO for JumpCloud</td><td></td><td></td><td><a href="cloud-account-management/sso/jumpcloud.md">jumpcloud.md</a></td></tr><tr><td><span data-gb-custom-inline data-tag="emoji" data-code="1f511">🔑</span> Configure SSO for a generic IDP</td><td></td><td></td><td><a href="cloud-account-management/sso/generic-idp.md">generic-idp.md</a></td></tr></tbody></table>
+<table data-card-size="large" data-view="cards"><thead><tr><th></th><th data-hidden></th><th data-hidden></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><span data-gb-custom-inline data-tag="emoji" data-code="1f449">👉</span> Learn more about CoreWeave SSO</td><td></td><td></td><td><a href="coreweave-kubernetes/cloud-account-management/sso/">sso</a></td></tr><tr><td><span data-gb-custom-inline data-tag="emoji" data-code="1f510">🔐</span> Configure SSO for Okta</td><td></td><td></td><td><a href="coreweave-kubernetes/cloud-account-management/sso/okta.md">okta.md</a></td></tr><tr><td><span data-gb-custom-inline data-tag="emoji" data-code="1f329">🌩</span> Configure SSO for JumpCloud</td><td></td><td></td><td><a href="coreweave-kubernetes/cloud-account-management/sso/jumpcloud.md">jumpcloud.md</a></td></tr><tr><td><span data-gb-custom-inline data-tag="emoji" data-code="1f511">🔑</span> Configure SSO for a generic IDP</td><td></td><td></td><td><a href="coreweave-kubernetes/cloud-account-management/sso/generic-idp.md">generic-idp.md</a></td></tr></tbody></table>
 
 ### :bulb: [Even greater flexibility for Virtual Servers in a sleek new UI](../virtual-servers/deployment-methods/coreweave-apps.md)
 
 Our sleek new Cloud UI overhaul for Virtual Servers makes creating high-performance virtual machines even easier than ever! And, for those who want even finer-grained control, the new YAML editor allows users to edit the Custom Resource Definition (CRD) directly, allowing for extreme flexibility.
 
-<figure><img src=".gitbook/assets/image (83).png" alt="Screenshot of the new Virtual Server UI"><figcaption><p>The new Virtual Server UI features a side-by-side YAML editor</p></figcaption></figure>
+<figure><img src=".gitbook/assets/image (83) (1).png" alt="Screenshot of the new Virtual Server UI"><figcaption><p>The new Virtual Server UI features a side-by-side YAML editor</p></figcaption></figure>
 
 <table data-card-size="large" data-view="cards"><thead><tr><th></th><th data-hidden></th><th data-hidden></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><span data-gb-custom-inline data-tag="emoji" data-code="1f449">👉</span> Learn about the new UI</td><td></td><td></td><td><a href="../virtual-servers/deployment-methods/coreweave-apps.md">coreweave-apps.md</a></td></tr><tr><td><span data-gb-custom-inline data-tag="emoji" data-code="1f389">🎉</span> See the new UI in action</td><td></td><td></td><td><a href="https://cloud.coreweave.com/virtualservers">https://cloud.coreweave.com/virtualservers</a></td></tr></tbody></table>
 
-### :sparkles: [New namespace access controls for users](cloud-account-management/organizations.md#user-access-control-by-namespace)
+### :sparkles: [New namespace access controls for users](coreweave-kubernetes/cloud-account-management/organizations.md#user-access-control-by-namespace)
 
-With [new per-namespace user access controls](cloud-account-management/organizations.md#user-access-control-by-namespace), your organization admin can now grant users in the organization access controls to one or more namespaces, allowing users the ability to easily spin up new Virtual Servers, allocate storage, and more!
+With [new per-namespace user access controls](coreweave-kubernetes/cloud-account-management/organizations.md#user-access-control-by-namespace), your organization admin can now grant users in the organization access controls to one or more namespaces, allowing users the ability to easily spin up new Virtual Servers, allocate storage, and more!
 
-<table data-card-size="large" data-view="cards"><thead><tr><th></th><th data-hidden></th><th data-hidden></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><span data-gb-custom-inline data-tag="emoji" data-code="1f449">👉</span> Learn about namespace access controls</td><td></td><td></td><td><a href="cloud-account-management/organizations.md#user-access-control-by-namespace">#user-access-control-by-namespace</a></td></tr></tbody></table>
+<table data-card-size="large" data-view="cards"><thead><tr><th></th><th data-hidden></th><th data-hidden></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><span data-gb-custom-inline data-tag="emoji" data-code="1f449">👉</span> Learn about namespace access controls</td><td></td><td></td><td><a href="coreweave-kubernetes/cloud-account-management/organizations.md#user-access-control-by-namespace">#user-access-control-by-namespace</a></td></tr></tbody></table>
 
 ### :brain: [Introducing Resource Pools for Determined AI](compass/determined-ai/install-determined-ai.md#resource-pools)
 
@@ -154,7 +154,7 @@ CoreWeave Cloud now **supports multiple namespaces for organizations!**
 
 CoreWeave Cloud now supports multiple namespaces for organizations, **enabled by default!**
 
-<table data-card-size="large" data-view="cards"><thead><tr><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>➡️ Learn more about multi-namespace support!</strong></td><td><a href="cloud-account-management/namespace-management.md">namespace-management.md</a></td></tr></tbody></table>
+<table data-card-size="large" data-view="cards"><thead><tr><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>➡️ Learn more about multi-namespace support!</strong></td><td><a href="coreweave-kubernetes/cloud-account-management/namespace-management.md">namespace-management.md</a></td></tr></tbody></table>
 
 ### Accelerated Object Storage:zap:
 
@@ -192,7 +192,7 @@ Some features are only available through an upgrade request. To increase your qu
 
 ### NVIDIA A100 80GB NVLINK with InfiniBand and SHARP:zap:
 
-<figure><img src=".gitbook/assets/image (3) (1) (1).png" alt="NVIDIA Mellanox Quantum leaf switches in the CoreWeave LAS1 datacenter"><figcaption><p>NVIDIA Mellanox Quantum leaf switches in the CoreWeave LAS1 datacenter</p></figcaption></figure>
+<figure><img src=".gitbook/assets/image (3) (1) (2).png" alt="NVIDIA Mellanox Quantum leaf switches in the CoreWeave LAS1 datacenter"><figcaption><p>NVIDIA Mellanox Quantum leaf switches in the CoreWeave LAS1 datacenter</p></figcaption></figure>
 
 **A100 80GB NVLINK SXM4** GPUs are now available in the **LAS1** region. These GPUs are provisioned in large clusters, intended for distributed training and inference of LLMs such as [BLOOM 176B](machine-learning-and-ai/inference/examples/pytorch-jax/hugging-face/pytorch-hugging-face-transformers-bigscience-bloom-1.md#what-is-bloom).
 

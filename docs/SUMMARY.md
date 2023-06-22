@@ -7,7 +7,16 @@
 ## CoreWeave Kubernetes
 
 * [Get Started with CoreWeave](coreweave-kubernetes/getting-started.md)
-* [Applications Catalog](coreweave-kubernetes/applications-catalog.md)
+* [CoreWeave Cloud UI](coreweave-kubernetes/coreweave-cloud-ui/README.md)
+  * [Applications Catalog](coreweave-kubernetes/coreweave-cloud-ui/applications-catalog.md)
+* [Cloud Account Management](coreweave-kubernetes/cloud-account-management/README.md)
+  * [Organizations](coreweave-kubernetes/cloud-account-management/organizations.md)
+  * [Namespace Management](coreweave-kubernetes/cloud-account-management/namespace-management.md)
+  * [Billing and Usage Information](coreweave-kubernetes/cloud-account-management/billing-portal.md)
+  * [SSO](coreweave-kubernetes/cloud-account-management/sso/README.md)
+    * [Okta](coreweave-kubernetes/cloud-account-management/sso/okta.md)
+    * [JumpCloud](coreweave-kubernetes/cloud-account-management/sso/jumpcloud.md)
+    * [Generic IDP](coreweave-kubernetes/cloud-account-management/sso/generic-idp.md)
 * [Serverless](coreweave-kubernetes/serverless/README.md)
 * [Exposing Applications](coreweave-kubernetes/exposing-applications.md)
 * [Custom Containers](coreweave-kubernetes/custom-containers.md)
@@ -179,16 +188,6 @@
 * [On-Premise Integration for Studios](vfx-and-rendering/on-premise-integration-for-studios/README.md)
   *
   * [Transparent Cache](vfx-and-rendering/on-premise-integration-for-studios/transparent-cache.md)
-
-## Cloud Account Management
-
-* [Organizations](cloud-account-management/organizations.md)
-* [SSO](cloud-account-management/sso/README.md)
-  * [Okta](cloud-account-management/sso/okta.md)
-  * [JumpCloud](cloud-account-management/sso/jumpcloud.md)
-  * [Generic IDP](cloud-account-management/sso/generic-idp.md)
-* [Namespace Management](cloud-account-management/namespace-management.md)
-* [Billing and Usage Information](cloud-account-management/billing-portal.md)
 
 ## Security
 

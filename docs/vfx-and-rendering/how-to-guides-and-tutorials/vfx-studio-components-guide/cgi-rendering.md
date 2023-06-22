@@ -27,7 +27,7 @@ This tutorial covers the following procedure:
 2. [Install FileBrowser](cgi-rendering.md#install-filebrowser)
 3. [Create the render Workflow](cgi-rendering.md#create-the-render-workflow)
 
-<figure><img src="../../../.gitbook/assets/image (23) (1) (1).png" alt=""><figcaption><p>Image of a CGI-rendered car</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/cars.png" alt=""><figcaption><p>Image of a CGI-rendered car</p></figcaption></figure>
 
 ## Create a storage volume
 
@@ -63,7 +63,7 @@ A shared filesystem of `100Gi` is now deployed in the namespace with the name `s
 
 ## Install FileBrowser
 
-The end goal of this tutorial is to create an easy-to-use service for rendering a Blender animation. The simplest solution for accessing output assets is to use the open-source utility [FileBrowser](http://www.filebrowser.xyz), which is available through [the Applications Catalog](../../../coreweave-kubernetes/applications-catalog.md) by searching for **filebrowser**.
+The end goal of this tutorial is to create an easy-to-use service for rendering a Blender animation. The simplest solution for accessing output assets is to use the open-source utility [FileBrowser](http://www.filebrowser.xyz), which is available through [the Applications Catalog](../../../coreweave-kubernetes/coreweave-cloud-ui/applications-catalog.md) by searching for **filebrowser**.
 
 For more information on installing and using FileBrowser, see [the FileBrowser installation guide](../../../storage/filebrowser.md).
 
@@ -73,11 +73,11 @@ For more information on installing and using FileBrowser, see [the FileBrowser i
 It is recommended that the name of the FileBrowser application be kept short. Names that are too long may run into SSL CNAME issues.
 {% endhint %}
 
-<figure><img src="../../../.gitbook/assets/image (24) (3).png" alt=""><figcaption><p>The filebrowser application in the Applications Catalog</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (24) (1) (1) (1).png" alt=""><figcaption><p>The filebrowser application in the Applications Catalog</p></figcaption></figure>
 
 The newly-created storage volume (PVC) is used as the backend for FileBrowser. Under the "Attach existing volumes to your FileBrowser," select the new volume (here, `shared-data-pvc`) by clicking the small blue plus sign to the right of the Volume name.
 
-<figure><img src="../../../.gitbook/assets/image (21) (1) (1).png" alt=""><figcaption><p>The FileBrowser configuration screen, including a list of "Available Volumes"</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (21) (1) (1) (1) (1).png" alt=""><figcaption><p>The FileBrowser configuration screen, including a list of "Available Volumes"</p></figcaption></figure>
 
 Configure how you'd like the volume to appear once mounted, then click the **Deploy** button.
 
@@ -93,11 +93,11 @@ Navigate to the **Access URLs** box on the status page to find the Ingress URL (
 
 This Ingress URL is used to access the FileBrowser application in using a Web browser.
 
-![The FileBrowser login screen](<../../../../.gitbook/assets/image (3) (1) (1) (2).png>)
+![The FileBrowser login screen](<../../../../.gitbook/assets/image (3) (1) (1) (1).png>)
 
 In this example, one of the typical Blender benchmarks, [BMW\_27](https://download.blender.org/demo/test/BMW27\_2.blend.zip), is uploaded as the unpacked file `bmw27_gpu.blend` to the root path in the FileBrowser application. Once logged into FileBrowser, the file may be uploaded using its Web UI.
 
-![The FileBrowser UI displaying the uploaded bmw27\_gpu.blend file](<../../../../.gitbook/assets/image (2) (1).png>)
+![The FileBrowser UI displaying the uploaded bmw27\_gpu.blend file](<../../../../.gitbook/assets/image (2) (1) (1).png>)
 
 ## Create the render workflow
 
@@ -303,6 +303,6 @@ This output shows the status of the 10 frames specified being rendered on 10 dif
 
 Now, using FileBrowser via the provided Ingress URL, a new folder named `outputs` has been generated, along with a subdirectory inside of it that contains the newly rendered frames. In this example, the subdirectory is named `bmw27_gpu`.
 
-<figure><img src="../../../../.gitbook/assets/image (1).png" alt="Newly rendered frames in the file browser"><figcaption><p>Newly rendered frames viewed in FileBrowser</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (1) (1).png" alt="Newly rendered frames in the file browser"><figcaption><p>Newly rendered frames viewed in FileBrowser</p></figcaption></figure>
 
 Using this Argo Workflow as a template or starting point, it is easy to run Blender GPU rendering on thousands of GPUs simultaneously!

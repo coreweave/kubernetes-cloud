@@ -22,7 +22,7 @@ Each page beneath this one contains a tabbed table. Each tab explains how to dep
 
 For example:
 
-<figure><img src="../../.gitbook/assets/image (30) (2) (1).png" alt="Screenshot of a tabbed page for Networking"><figcaption><p>Click the tab for the chosen deployment method to get more information about its config options</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (30).png" alt="Screenshot of a tabbed page for Networking"><figcaption><p>Click the tab for the chosen deployment method to get more information about its config options</p></figcaption></figure>
 
 ## Examples
 

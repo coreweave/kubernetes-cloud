@@ -29,7 +29,7 @@ This guide presumes that you have an active CoreWeave Cloud account, and have ob
 
 CoreWeave's shared filesystem volumes can also be accessed by many Nodes simultaneously, allowing massive amounts of compute power to access the same dataset.
 
-<figure><img src="../../.gitbook/assets/image (5) (1) (2).png" alt="Screenshot of the volume creation modal"><figcaption><p>Navigate to the Storage Volumes page, then click </p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5) (1) (1).png" alt="Screenshot of the volume creation modal"><figcaption><p>Navigate to the Storage Volumes page, then click </p></figcaption></figure>
 
 For this tutorial, the following values are used when creating the storage volume. If needed, it is easy to [increase the size](https://docs.coreweave.com/coreweave-kubernetes/storage#resizing) of a storage volume later.
 
@@ -139,7 +139,7 @@ After the application is in a **Ready** state, navigate to the Ingress URL provi
 The client is configured to communicate with the server via the environment variable `$DET_MASTER`.
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (5) (5) (1).png" alt="The Web UI access info in the post-launch notes"><figcaption><p>The Web UI access info in the post-launch notes</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5) (1) (4).png" alt="The Web UI access info in the post-launch notes"><figcaption><p>The Web UI access info in the post-launch notes</p></figcaption></figure>
 
 At the Determined AI home screen, you can [launch a JupyterLab and subsequent Jupyter Notebooks](../../machine-learning-and-ai/training/determined-ai/launch-jupyter-notebook-on-coreweave-via-determined-ai.md), or perform model fine-tuning with [GPT DeepSpeed](../../machine-learning-and-ai/training/determined-ai/launch-gpt-deepspeed-models-using-determinedai.md), [GPT-NeoX](gpt-neox.md), or [Hugging Face](../../machine-learning-and-ai/training/determined-ai/finetuning-huggingface-llms-with-determined-ai-and-deepspeed.md).
 
@@ -149,7 +149,7 @@ At the Determined AI home screen, you can [launch a JupyterLab and subsequent Ju
 The default username for the Determined application is `admin`, and there is no default password set. Make sure to add a password after logging into the application for the first time.
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (3) (1).png" alt="The Determined AI Web UI"><figcaption><p>The Determined AI Web UI</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3) (6).png" alt="The Determined AI Web UI"><figcaption><p>The Determined AI Web UI</p></figcaption></figure>
 
 ## Additional reading
 

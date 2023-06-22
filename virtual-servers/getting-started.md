@@ -8,7 +8,7 @@ description: >-
 
 CoreWeave **Virtual Servers** are highly configurable virtual machines deployed and managed on CoreWeave Cloud via the easy-to-use [Cloud UI](deployment-methods/coreweave-apps.md), or programmatically via the Kubernetes API, enabling anyone to deploy and host applications at scale with high availability.
 
-<figure><img src="../docs/.gitbook/assets/image (58).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../docs/.gitbook/assets/image (58) (3).png" alt=""><figcaption></figcaption></figure>
 
 ## Features
 
@@ -20,7 +20,8 @@ While not every use case is appropriately solved using Virtual Servers, there ar
 
 CoreWeave Virtual Servers run under the same API control plane and use the same storage and networking as your Kubernetes workloads. This provides a single, powerful platform for both stateful and stateless resource management.
 
-<table data-card-size="large" data-view="cards"><thead><tr><th></th><th></th><th data-hidden></th></tr></thead><tbody><tr><td><span data-gb-custom-inline data-tag="emoji" data-code="1f4aa">💪</span> <strong>Bare metal performance, even when running containerized Virtual Machines</strong></td><td><p>CoreWeave Virtual Servers provide all the isolation and control benefits that come with running a workload on a real server.</p><p></p><p>Leveraging GPU PCI pass-through means no GPU virtualization or shared resources on Virtual Servers.</p></td><td></td></tr><tr><td><span data-gb-custom-inline data-tag="emoji" data-code="1f5a5">🖥</span> <strong>Create virtual desktops and developer workstations accessible from anywhere</strong></td><td><p>Virtual Servers can be deployed with virtual desktop environments, also known as <strong>virtual desktop infrastructures</strong> or VDIs, which provide developer workstations running either Linux or Windows.</p><p></p><p>By using applications like <a href="https://parsec.app/">Parsec</a> (for Windows machines) and <a href="https://www.teradici.com/">Teradici</a> (for Linux), developers can log in to their workstations to access their work from anywhere!</p></td><td></td></tr></tbody></table>
+* :muscle: **Leverage bare metal performance, even when running containerized Virtual Machines.** CoreWeave Virtual Servers provide all the isolation and control benefits that come with running a workload on a real server. Leveraging GPU PCI pass-through means no GPU virtualization or shared resources on Virtual Servers.
+* :desktop: **Create virtual desktops and developer workstations accessible from anywhere.** Virtual Servers can be deployed with virtual desktop environments, also known as **virtual desktop infrastructures** or VDIs, which provide developer workstations running either Linux or Windows. By using applications like [Parsec](https://parsec.app/) (for Windows machines) and [Teradici](https://www.teradici.com/) (for Linux), developers can log in to their workstations to access their work from anywhere!
 
 {% hint style="success" %}
 **Don't need a Virtual Server?**

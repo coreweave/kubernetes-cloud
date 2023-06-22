@@ -24,7 +24,7 @@ CoreWeave Cloud Storage Volumes are built on top of [Ceph](https://docs.ceph.com
 
 :checkered\_flag: May be cloned to instantiate new Virtual Servers from a template
 
-:fire: Automatic backups are supported using BackBlaze via [CoreWeave Apps](../../coreweave-kubernetes/applications-catalog.md)
+:fire: Automatic backups are supported using BackBlaze via [CoreWeave Apps](../../coreweave-kubernetes/coreweave-cloud-ui/applications-catalog.md)
 
 ### Creating and using Storage Volumes
 

@@ -6,7 +6,7 @@ description: Manage Storage Volumes using the CoreWeave Cloud UI
 
 [The CoreWeave Cloud UI](../../../virtual-servers/deployment-methods/coreweave-apps.md) provides an easy-to-use storage configuration page. To access it, first log in to your CoreWeave Cloud account. Then, from the left-hand menu, navigate to **Storage Volumes**. To create a new Storage Volume, click the **New Volume** button in the upper right-hand corner or center of the page.
 
-<figure><img src="../../.gitbook/assets/image (5) (1).png" alt="Screenshot: The Storage Volumes management page"><figcaption><p>The Storage Volumes management page</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5) (2).png" alt="Screenshot: The Storage Volumes management page"><figcaption><p>The Storage Volumes management page</p></figcaption></figure>
 
 ## Create a new Storage Volume
 
@@ -60,7 +60,7 @@ While optional, if it is desired to schedule specific workloads onto certain sto
 
 Navigate to **Storage** to view a list of all available storage volumes. To see more details about a volume, click to expand the volume's detail window.
 
-<figure><img src="../../.gitbook/assets/image (66).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (66) (4).png" alt=""><figcaption></figcaption></figure>
 
 The detailed view of the storage volume will include its age, its size, how much of it is being used, as well as some important metadata such as all labels associated with the drive, the cost it is currently incurring, its creation date, and its access modes. The volume may also be edited, cloned to create an exact copy of it, or completely deleted from this menu.
 
@@ -74,7 +74,7 @@ Shared File System Volumes are resized online, without disruption to workloads.
 **Resizing** **Block Volumes** requires **stopping or restarting all workloads** that are attached the Volume in order for the resize to take effect.
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (55) (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (55) (3).png" alt=""><figcaption></figcaption></figure>
 
 ## Attach a Storage Volume using the Cloud UI
 
@@ -88,11 +88,11 @@ When [creating a Virtual Server](../../../virtual-servers/getting-started.md), t
 
 To attach a filesystem or block volume, locate the volume in the list provided under the **Available volume** column. To attach it, click the toggle until it is in the "on" position and says "Attached."
 
-<figure><img src="../../.gitbook/assets/image (44).png" alt="Screenshot of a volume being attached to a Virtual Server using sliders"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (44) (3).png" alt="Screenshot of a volume being attached to a Virtual Server using sliders"><figcaption></figcaption></figure>
 
 The storage block volume information will be reflected in the YAML editor under the `.filesystems` block.
 
-<figure><img src="../../.gitbook/assets/image (34) (1).png" alt=""><figcaption><p>An example of a mounted filesystem volume reflected </p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (34) (3).png" alt=""><figcaption><p>An example of a mounted filesystem volume reflected </p></figcaption></figure>
 
 Example in plain text:
 

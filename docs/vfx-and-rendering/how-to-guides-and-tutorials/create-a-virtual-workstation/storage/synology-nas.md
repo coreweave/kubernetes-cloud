@@ -25,7 +25,7 @@ Select the tab that corresponds to your filesystem type.
 {% tab title="SMB" %}
 From the Control Panel, navigate to **File Services**. If you are primarily using **SMB (Windows File Sharing)** to access your data, SMB is likely already enabled. The CoreWeave VPN will then use SMB to connect to your storage.
 
-<figure><img src="../../../../.gitbook/assets/image (35) (1) (1).png" alt=""><figcaption><p>Adjusting shared folder permissions for SMB</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (26) (1) (1) (1).png" alt=""><figcaption><p>Adjusting shared folder permissions for SMB</p></figcaption></figure>
 
 Ensure that a specific User Account has been created for CoreWeave. Provide the username and password to your CoreWeave Support Specialist. Give this account permissions on all Shared Folders that will be accessible from CoreWeave Cloud. Take note of the share names and provide them to your CoreWeave Support Specialist.
 {% endtab %}
@@ -41,6 +41,6 @@ Ensure that permissions for all Shared Folders accessible from CoreWeave Cloud a
 
 
 
-<figure><img src="../../../../.gitbook/assets/image (31) (2) (1).png" alt=""><figcaption><p>Described NFS settings as shown in the <strong>Edit NFS rules</strong> window</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (31) (2).png" alt=""><figcaption><p>Described NFS settings as shown in the <strong>Edit NFS rules</strong> window</p></figcaption></figure>
 {% endtab %}
 {% endtabs %}

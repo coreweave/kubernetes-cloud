@@ -67,7 +67,7 @@ We can monitor the Virtual Server spinning up with `kubectl get pods --watch`
 
 Once our VS has reached "Running" status, we can get an External IP to connect to it with `kubectl get vs`
 
-![Output of "kubectl get vs"](<../../.gitbook/assets/image (31) (1).png>)
+![Output of "kubectl get vs"](<../../.gitbook/assets/image (31) (1) (1) (1) (1).png>)
 
 {% hint style="info" %}
 Allow \~5 minutes after "Running" status for the Virtual Server to complete initial start procedures.
@@ -77,11 +77,11 @@ Allow \~5 minutes after "Running" status for the Virtual Server to complete init
 
 Once the Virtual Server is ready, we can use the External IP to connect to it via RDP (`mstsc`):
 
-![Windows RDP Client](<../../docs/.gitbook/assets/image (37) (1) (1).png>)
+![Windows RDP Client](<../../docs/.gitbook/assets/image (37) (1).png>)
 
 Or via OpenSSH:
 
-![Connection prompt via SSH](<../../docs/.gitbook/assets/image (32) (2).png>)
+![Connection prompt via SSH](<../../docs/.gitbook/assets/image (32).png>)
 
 Or even via Console (useful for instances where a Public IP is not desired) using `virtctl console vs-windows10-source`:
 
@@ -101,7 +101,7 @@ Using `kubectl get vs`, we can confirm `Started: False`:
 
 We can see that the PVC created along with our source Virtual Server persists with it shut off:
 
-![Output of "kubectl get pvc"](<../../docs/.gitbook/assets/image (34).png>)
+![Output of "kubectl get pvc"](<../../docs/.gitbook/assets/image (34) (1).png>)
 
 We will reference this PVC to create a new Virtual Server:
 
@@ -176,7 +176,7 @@ This will clone a PVC within the same region in which it was created.
 
 We can now safely delete our Virtual Server with `k delete vs vs-windows10-source`:
 
-![Output of "kubectl delete vs"](<../../docs/.gitbook/assets/image (33) (1).png>)
+![Output of "kubectl delete vs"](<../../docs/.gitbook/assets/image (33) (2).png>)
 
 With `k get pvc`, we can see our original Virtual Server PVC is now deleted, and only the clone remains:
 
