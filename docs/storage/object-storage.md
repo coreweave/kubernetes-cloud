@@ -198,7 +198,7 @@ From the Object Storage page, the **Access Level** field displays the key's curr
 
 <figure><img src="../.gitbook/assets/image (4) (5).png" alt=""><figcaption><p>Access levels are displayed on the Object Storage page</p></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/image (3) (1) (4).png" alt="Screenshot: Access levels drop-down"><figcaption><p>Any access level may be chosen from this drop-down</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (3) (1).png" alt="Screenshot: Access levels drop-down"><figcaption><p>Any access level may be chosen from this drop-down</p></figcaption></figure>
 
 ### IAM actions
 

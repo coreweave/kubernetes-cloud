@@ -6,11 +6,11 @@ description: Feature Updates and Release Notes for CoreWeave Cloud
 
 ## May 2023
 
-### :zap: [Get extremely fast model load times with CoreWeave Tensorizer](machine-learning-and-ai/inference/tensorizer.md)
+### :zap: [Get extremely fast model load times with CoreWeave Tensorizer](coreweave-machine-learning-and-ai/inference/tensorizer.md)
 
 [CoreWeave's Tensorizer](https://github.com/coreweave/tensorizer/) is an S3 and local filesystem compatible module, model, and tensor serializer and deserializer that makes it possible to load models **in less than five seconds**, making it easier, more flexible, and more cost-efficient to serve models at scale. Reduce resource usage with flexible iterations.
 
-<table data-card-size="large" data-view="cards"><thead><tr><th></th><th data-hidden></th><th data-hidden></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td> <span data-gb-custom-inline data-tag="emoji" data-code="1f449">👉</span> Learn more about Tensorizer</td><td></td><td></td><td><a href="machine-learning-and-ai/inference/tensorizer.md">tensorizer.md</a></td></tr></tbody></table>
+<table data-card-size="large" data-view="cards"><thead><tr><th></th><th data-hidden></th><th data-hidden></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td> <span data-gb-custom-inline data-tag="emoji" data-code="1f449">👉</span> Learn more about Tensorizer</td><td></td><td></td><td><a href="coreweave-machine-learning-and-ai/inference/tensorizer.md">tensorizer.md</a></td></tr></tbody></table>
 
 ### :unlock: [Easy, secure log-ins with CoreWeave SSO](coreweave-kubernetes/cloud-account-management/sso/)
 
@@ -34,21 +34,21 @@ With [new per-namespace user access controls](coreweave-kubernetes/cloud-account
 
 <table data-card-size="large" data-view="cards"><thead><tr><th></th><th data-hidden></th><th data-hidden></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><span data-gb-custom-inline data-tag="emoji" data-code="1f449">👉</span> Learn about namespace access controls</td><td></td><td></td><td><a href="coreweave-kubernetes/cloud-account-management/organizations.md#user-access-control-by-namespace">#user-access-control-by-namespace</a></td></tr></tbody></table>
 
-### :brain: [Introducing Resource Pools for Determined AI](compass/determined-ai/install-determined-ai.md#resource-pools)
+### :brain: [Introducing Resource Pools for Determined AI](coreweave-machine-learning-and-ai/how-to-guides-and-tutorials/model-training-guides/determined-ai-guides/install-determined-ai.md#resource-pools)
 
 **Resource Pools** are groups of hardware selections plus memory requests and limits that make it simple to select resource groups for Determined AI deployments, helping users get their Determined AI experiments up and running faster.
 
-<table data-card-size="large" data-view="cards"><thead><tr><th></th><th data-hidden></th><th data-hidden></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><span data-gb-custom-inline data-tag="emoji" data-code="1f449">👉</span> See Resource Pools in action</td><td></td><td></td><td><a href="compass/determined-ai/install-determined-ai.md#resource-pools">#resource-pools</a></td></tr></tbody></table>
+<table data-card-size="large" data-view="cards"><thead><tr><th></th><th data-hidden></th><th data-hidden></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><span data-gb-custom-inline data-tag="emoji" data-code="1f449">👉</span> See Resource Pools in action</td><td></td><td></td><td><a href="coreweave-machine-learning-and-ai/how-to-guides-and-tutorials/model-training-guides/determined-ai-guides/install-determined-ai.md#resource-pools">#resource-pools</a></td></tr></tbody></table>
 
-### :zap: [Fine-tune Stable Diffusion with DreamBooth](machine-learning-and-ai/training/fine-tuning/fine-tune-stable-diffusion-models-with-coreweave-cloud.md)
+### :zap: [Fine-tune Stable Diffusion with DreamBooth](coreweave-machine-learning-and-ai/how-to-guides-and-tutorials/model-training-guides/fine-tuning/fine-tune-stable-diffusion-models-with-coreweave-cloud.md)
 
-[Our Fine-tune Stable Diffusion Models demo](machine-learning-and-ai/training/fine-tuning/fine-tune-stable-diffusion-models-with-coreweave-cloud.md) now incorporates details for working with DreamBooth!
+[Our Fine-tune Stable Diffusion Models demo](coreweave-machine-learning-and-ai/how-to-guides-and-tutorials/model-training-guides/fine-tuning/fine-tune-stable-diffusion-models-with-coreweave-cloud.md) now incorporates details for working with DreamBooth!
 
 [DreamBooth](https://arxiv.org/abs/2208.12242) is a technique used to teach novel concepts to Stable Diffusion. The DreamBooth method allows you to fine-tune Stable Diffusion on a small number of examples to produce images containing a specific object or person. This method for fine-tuning diffusion models was introduced in a paper publish in 2022, [DreamBooth: Fine Tuning Text-to-Image Diffusion Models for Subject-Driven Generation](https://arxiv.org/abs/2208.12242). A lighter introductory text was also released along with the paper [in this blog post](https://dreambooth.github.io/).
 
 The DreamBooth method is a way to teach a diffusion model about a specific object or style using approximately three to five example images. After the model is fine-tuned on a specific object using DreamBooth, it can produce images containing that object in new settings.
 
-<table data-card-size="large" data-view="cards"><thead><tr><th></th><th data-hidden></th><th data-hidden></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><span data-gb-custom-inline data-tag="emoji" data-code="1f449">👉</span> Check out Fine-tuning Stable Diffusion, now featuring DreamBooth</td><td></td><td></td><td><a href="machine-learning-and-ai/training/fine-tuning/fine-tune-stable-diffusion-models-with-coreweave-cloud.md">fine-tune-stable-diffusion-models-with-coreweave-cloud.md</a></td></tr></tbody></table>
+<table data-card-size="large" data-view="cards"><thead><tr><th></th><th data-hidden></th><th data-hidden></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><span data-gb-custom-inline data-tag="emoji" data-code="1f449">👉</span> Check out Fine-tuning Stable Diffusion, now featuring DreamBooth</td><td></td><td></td><td><a href="coreweave-machine-learning-and-ai/how-to-guides-and-tutorials/model-training-guides/fine-tuning/fine-tune-stable-diffusion-models-with-coreweave-cloud.md">fine-tune-stable-diffusion-models-with-coreweave-cloud.md</a></td></tr></tbody></table>
 
 ### :handshake:[ Meet our Partners: Zeet](coreweave-kubernetes/partners/zeet.md)
 
@@ -62,9 +62,9 @@ Our partnership allows companies to tap into the industry’s broadest selection
 
 New this month on CoreWeave Cloud...
 
-### :tada: [HGX H100 nodes are now online!](compass/nvidia-hgx-h100.md)
+### :tada: [HGX H100 nodes are now online!](coreweave-machine-learning-and-ai/nvidia-hgx-h100.md)
 
-Big news! We are proud to announce that CoreWeave has become **the first Cloud provider in the world** to bring the super powerful [NVIDIA HGX H100](compass/nvidia-hgx-h100.md) nodes online!
+Big news! We are proud to announce that CoreWeave has become **the first Cloud provider in the world** to bring the super powerful [NVIDIA HGX H100](coreweave-machine-learning-and-ai/nvidia-hgx-h100.md) nodes online!
 
 The NVIDIA HGX H100 enables up to seven times more efficient high-performance computing (HPC) applications, up to nine times faster AI training on large models, and up to thirty times faster [AI inference](broken-reference) than the [NVIDIA HGX A100](../coreweave-kubernetes/node-types.md).
 
@@ -102,11 +102,11 @@ Leveraging [its own container image service](https://github.com/dragonflyoss/ima
 Nydus on CoreWeave is currently an **alpha offering**, with limited, node-specific release.
 {% endhint %}
 
-### :muscle: [Distributed training using Kubeflow operators](machine-learning-and-ai/training/kubeflow-training-operators-pytorch-mpi/)
+### :muscle: [Distributed training using Kubeflow operators](coreweave-machine-learning-and-ai/training/kubeflow-training-operators-pytorch-mpi.md)
 
 The[ Kubeflow project](https://www.kubeflow.org/) is dedicated to making deployments of Machine Learning (ML) workflows on Kubernetes simple, portable, and scalable. The goal is not to recreate other services, but to provide a straightforward way to deploy best-of-breed open-source systems for ML to diverse infrastructures. Anywhere you are running Kubernetes, you should be able to run Kubeflow.
 
-CoreWeave is pleased to present [new tutorials](machine-learning-and-ai/training/kubeflow-training-operators-pytorch-mpi/) on using Kubeflow training operators for distributed training on CoreWeave Cloud! Follow along with these walkthroughs to train [ResNet-50 with ImageNet](machine-learning-and-ai/training/kubeflow-training-operators-pytorch-mpi/train-resnet-50-with-imagenet.md), or [fine-tune GPT-NeoX-20B with Argo Workflows](machine-learning-and-ai/training/fine-tuning/finetune-gpt-neox-20b-with-argo-workflows.md)!
+CoreWeave is pleased to present [new tutorials](coreweave-machine-learning-and-ai/training/kubeflow-training-operators-pytorch-mpi.md) on using Kubeflow training operators for distributed training on CoreWeave Cloud! Follow along with these walkthroughs to train [ResNet-50 with ImageNet](coreweave-machine-learning-and-ai/how-to-guides-and-tutorials/model-training-guides/kubeflow-training-operator-guides/train-resnet-50-with-imagenet.md), or [fine-tune GPT-NeoX-20B with Argo Workflows](coreweave-machine-learning-and-ai/how-to-guides-and-tutorials/model-training-guides/fine-tuning/finetune-gpt-neox-20b-with-argo-workflows.md)!
 
 ### :minidisc:[ Import disk images using CoreWeave Object Storage](virtual-servers/root-disk-lifecycle-management/importing-a-qcow2-image.md#using-coreweave-object-storage)
 
@@ -136,7 +136,7 @@ This speed, combined with the lowest NVIDIA GPUDirect network latency in the mar
 
 **HGX H100s will be available in Q1 of 2023!**
 
-<table data-card-size="large" data-view="cards"><thead><tr><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td>➡️ <strong>Learn more and make a reservation for an HGX H100!</strong></td><td><a href="compass/nvidia-hgx-h100.md">nvidia-hgx-h100.md</a></td></tr></tbody></table>
+<table data-card-size="large" data-view="cards"><thead><tr><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td>➡️ <strong>Learn more and make a reservation for an HGX H100!</strong></td><td><a href="coreweave-machine-learning-and-ai/nvidia-hgx-h100.md">nvidia-hgx-h100.md</a></td></tr></tbody></table>
 
 ### Launch GPT DeepSpeed Models using Determined AI :brain:
 
@@ -144,7 +144,7 @@ DeepSpeed is an [open source](https://en.wikipedia.org/wiki/Open\_source) [deep 
 
 In our new walkthrough, a minimal GPT-NeoX DeepSpeed distributed training job is launched without the additional features such as tracking, metrics, and visualization that DeterminedAI offers.
 
-<table data-card-size="large" data-view="cards"><thead><tr><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td> ➡️ <strong>Launch GPT DeepSpeed models using DeterminedAI now!</strong></td><td><a href="machine-learning-and-ai/training/determined-ai/launch-gpt-deepspeed-models-using-determinedai.md">launch-gpt-deepspeed-models-using-determinedai.md</a></td></tr></tbody></table>
+<table data-card-size="large" data-view="cards"><thead><tr><th></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td> ➡️ <strong>Launch GPT DeepSpeed models using DeterminedAI now!</strong></td><td><a href="coreweave-machine-learning-and-ai/how-to-guides-and-tutorials/model-training-guides/determined-ai-guides/launch-gpt-deepspeed-models-using-determinedai.md">launch-gpt-deepspeed-models-using-determinedai.md</a></td></tr></tbody></table>
 
 ### Multi-namespace support :ferris\_wheel:
 
@@ -194,7 +194,7 @@ Some features are only available through an upgrade request. To increase your qu
 
 <figure><img src=".gitbook/assets/image (3) (1) (2).png" alt="NVIDIA Mellanox Quantum leaf switches in the CoreWeave LAS1 datacenter"><figcaption><p>NVIDIA Mellanox Quantum leaf switches in the CoreWeave LAS1 datacenter</p></figcaption></figure>
 
-**A100 80GB NVLINK SXM4** GPUs are now available in the **LAS1** region. These GPUs are provisioned in large clusters, intended for distributed training and inference of LLMs such as [BLOOM 176B](machine-learning-and-ai/inference/examples/pytorch-jax/hugging-face/pytorch-hugging-face-transformers-bigscience-bloom-1.md#what-is-bloom).
+**A100 80GB NVLINK SXM4** GPUs are now available in the **LAS1** region. These GPUs are provisioned in large clusters, intended for distributed training and inference of LLMs such as [BLOOM 176B](coreweave-machine-learning-and-ai/how-to-guides-and-tutorials/examples/hugging-face-guides/pytorch-hugging-face-transformers-bigscience-bloom-1.md#what-is-bloom).
 
 Connectivity between compute hardware, as well as storage, plays a major role in overall system performance for applications of Neural Net Training, Rendering, and Simulation. Certain workloads, such as those used for training massive language models of over 100 billion parameters over hundreds or thousands of GPUs, require the fastest, lowest-latency interconnect.
 
@@ -240,11 +240,11 @@ For those of you who require or desire more custom control over your Kubernetes 
 
 It's never been easier to deploy, train, and fine-tune machine learning models on the Cloud for some incredible results, and with our [new walkthroughs and examples](https://github.com/coreweave/kubernetes-cloud/) demonstrating just some of the ways CoreWeave's state-of-the-art compute power can be leveraged for model training, you can start today!:
 
-* [**PyTorch Hugging Face Diffusers - Stable Diffusion Text to Image**](machine-learning-and-ai/inference/examples/pytorch-jax/hugging-face/pytorch-hugging-face-diffusers-stable-diffusion-text-to-image.md)**:** Generating high-quality images with photorealistic qualities from nothing but a text prompt used to be the stuff of science fiction. But now, using the open source model built by our friends at [Stability.AI](https://stability.ai/), you can leverage CoreWeave Cloud's compute power to do precisely that with just a few clicks and commands in [our latest walkthrough of this cutting-edge AI technology](https://docs.coreweave.com/compass/examples/pytorch-hugging-face-diffusers-stable-diffusion-text-to-image).
-* [**PyTorch Hugging Face Transformers BigScience BLOOM:** ](machine-learning-and-ai/inference/examples/pytorch-jax/hugging-face/pytorch-hugging-face-transformers-bigscience-bloom.md)In the[ PyTorch Hugging Face Transformers BigScience BLOOM](machine-learning-and-ai/inference/examples/pytorch-jax/hugging-face/pytorch-hugging-face-transformers-bigscience-bloom-1.md) walkthrough, you'll learn how to use the autoregressive Large Language Model (LLM) trained to continue text from a prompt on vast amounts of text data using industrial-scale computational resources. BLOOM is able to output coherent text in 46 languages - and 13 programming languages - whose structure is hardly distinguishable from text written by humans. BLOOM can even be instructed to perform text tasks it hasn't been explicitly trained for by casting them as text generation tasks.
-* [**Triton Inference Server for GPT-J with FasterTransformer:**](machine-learning-and-ai/inference/examples/triton-inference/triton-inference-server-fastertransformer.md) GPT-J is one of the most popular Open Source NLP model. It's size and performance makes it a perfect fit for cost sensitive NLP use cases. In our [Triton Inference Server for GPT-J FasterTransformer walkthrough](https://huggingface.co/EleutherAI/gpt-j-6B), you'll learn how to leverage [FasterTransformer ](https://github.com/NVIDIA/FasterTransformer)for up to 40% faster GPT-J inference over a vanilla Hugging Face Transformers based implementation.
-* [**Triton Inference Server for GPT-NeoX 20B with FasterTransformer**](machine-learning-and-ai/inference/examples/triton-inference/triton-inference-server-fastertransformer.md)**:** Together with EleutherAI, CoreWeave trained and released the Open Source GPT-NeoX 20B model in January. We are now taking self-hosted inference of this Large Language Model to the next level by offering a NVIDIA FasterTransformer-based inference option. In our [Triton Inference Server for GPT-NeoX 20B walkthrough](https://huggingface.co/EleutherAI/gpt-j-6B), you'll learn how to leverage [FasterTransformer ](https://github.com/NVIDIA/FasterTransformer)for up to 40% faster GPT-NeoX inference over a vanilla Hugging Face Transformers based implementation.
-* [**GPT-NeoX fine-tuning**](compass/determined-ai/gpt-neox.md)**:** In our new [GPT-NeoX fine-tuning walkthrough](compass/determined-ai/gpt-neox.md), using [the Determined AI MLOps platform](https://www.determined.ai/blog/determined-algorithmia-integration) to run distributed fine-tuning jobs, you'll learn how to fine-tune a 20B parameter autoregressive model trained on [the Pile dataset](https://arxiv.org/abs/2101.00027) to generate text based on context or unconditionally for use cases such as story generation, chat bots, summarization, and more.
+* [**PyTorch Hugging Face Diffusers - Stable Diffusion Text to Image**](coreweave-machine-learning-and-ai/how-to-guides-and-tutorials/examples/hugging-face-guides/pytorch-hugging-face-diffusers-stable-diffusion-text-to-image.md)**:** Generating high-quality images with photorealistic qualities from nothing but a text prompt used to be the stuff of science fiction. But now, using the open source model built by our friends at [Stability.AI](https://stability.ai/), you can leverage CoreWeave Cloud's compute power to do precisely that with just a few clicks and commands in [our latest walkthrough of this cutting-edge AI technology](https://docs.coreweave.com/compass/examples/pytorch-hugging-face-diffusers-stable-diffusion-text-to-image).
+* [**PyTorch Hugging Face Transformers BigScience BLOOM:** ](coreweave-machine-learning-and-ai/how-to-guides-and-tutorials/examples/hugging-face-guides/pytorch-hugging-face-transformers-bigscience-bloom.md)In the[ PyTorch Hugging Face Transformers BigScience BLOOM](coreweave-machine-learning-and-ai/how-to-guides-and-tutorials/examples/hugging-face-guides/pytorch-hugging-face-transformers-bigscience-bloom-1.md) walkthrough, you'll learn how to use the autoregressive Large Language Model (LLM) trained to continue text from a prompt on vast amounts of text data using industrial-scale computational resources. BLOOM is able to output coherent text in 46 languages - and 13 programming languages - whose structure is hardly distinguishable from text written by humans. BLOOM can even be instructed to perform text tasks it hasn't been explicitly trained for by casting them as text generation tasks.
+* [**Triton Inference Server for GPT-J with FasterTransformer:**](coreweave-machine-learning-and-ai/how-to-guides-and-tutorials/examples/triton-inference-guides/triton-inference-server-fastertransformer.md) GPT-J is one of the most popular Open Source NLP model. It's size and performance makes it a perfect fit for cost sensitive NLP use cases. In our [Triton Inference Server for GPT-J FasterTransformer walkthrough](https://huggingface.co/EleutherAI/gpt-j-6B), you'll learn how to leverage [FasterTransformer ](https://github.com/NVIDIA/FasterTransformer)for up to 40% faster GPT-J inference over a vanilla Hugging Face Transformers based implementation.
+* [**Triton Inference Server for GPT-NeoX 20B with FasterTransformer**](coreweave-machine-learning-and-ai/how-to-guides-and-tutorials/examples/triton-inference-guides/triton-inference-server-fastertransformer.md)**:** Together with EleutherAI, CoreWeave trained and released the Open Source GPT-NeoX 20B model in January. We are now taking self-hosted inference of this Large Language Model to the next level by offering a NVIDIA FasterTransformer-based inference option. In our [Triton Inference Server for GPT-NeoX 20B walkthrough](https://huggingface.co/EleutherAI/gpt-j-6B), you'll learn how to leverage [FasterTransformer ](https://github.com/NVIDIA/FasterTransformer)for up to 40% faster GPT-NeoX inference over a vanilla Hugging Face Transformers based implementation.
+* [**GPT-NeoX fine-tuning**](coreweave-machine-learning-and-ai/how-to-guides-and-tutorials/model-training-guides/determined-ai-guides/gpt-neox.md)**:** In our new [GPT-NeoX fine-tuning walkthrough](coreweave-machine-learning-and-ai/how-to-guides-and-tutorials/model-training-guides/determined-ai-guides/gpt-neox.md), using [the Determined AI MLOps platform](https://www.determined.ai/blog/determined-algorithmia-integration) to run distributed fine-tuning jobs, you'll learn how to fine-tune a 20B parameter autoregressive model trained on [the Pile dataset](https://arxiv.org/abs/2101.00027) to generate text based on context or unconditionally for use cases such as story generation, chat bots, summarization, and more.
 
 ### Introducing Layer 2 VPC :cloud:
 

@@ -60,7 +60,7 @@ Client authentication mode is strongly encouraged as a [security best practice](
 
 <div align="left">
 
-<figure><img src="../../.gitbook/assets/image (36) (3) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (36) (3).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 
@@ -248,16 +248,16 @@ All of these methods work in conjunction with the [Kubernetes API](https://argop
 
 Because Argo Workflows is so powerful, we use it for many Machine Learning and VFX tutorials. Here are a few examples:
 
-{% content-ref url="../../machine-learning-and-ai/training/fine-tuning/finetune-gpt-neox-20b-with-argo-workflows.md" %}
-[finetune-gpt-neox-20b-with-argo-workflows.md](../../machine-learning-and-ai/training/fine-tuning/finetune-gpt-neox-20b-with-argo-workflows.md)
+{% content-ref url="../../coreweave-machine-learning-and-ai/how-to-guides-and-tutorials/model-training-guides/fine-tuning/finetune-gpt-neox-20b-with-argo-workflows.md" %}
+[finetune-gpt-neox-20b-with-argo-workflows.md](../../coreweave-machine-learning-and-ai/how-to-guides-and-tutorials/model-training-guides/fine-tuning/finetune-gpt-neox-20b-with-argo-workflows.md)
 {% endcontent-ref %}
 
-{% content-ref url="../../machine-learning-and-ai/training/fine-tuning/fine-tune-stable-diffusion-models-with-coreweave-cloud.md" %}
-[fine-tune-stable-diffusion-models-with-coreweave-cloud.md](../../machine-learning-and-ai/training/fine-tuning/fine-tune-stable-diffusion-models-with-coreweave-cloud.md)
+{% content-ref url="../../coreweave-machine-learning-and-ai/how-to-guides-and-tutorials/model-training-guides/fine-tuning/fine-tune-stable-diffusion-models-with-coreweave-cloud.md" %}
+[fine-tune-stable-diffusion-models-with-coreweave-cloud.md](../../coreweave-machine-learning-and-ai/how-to-guides-and-tutorials/model-training-guides/fine-tuning/fine-tune-stable-diffusion-models-with-coreweave-cloud.md)
 {% endcontent-ref %}
 
-{% content-ref url="../../machine-learning-and-ai/training/argo-workflows/fine-tuning/finetuning-machine-learning-models.md" %}
-[finetuning-machine-learning-models.md](../../machine-learning-and-ai/training/argo-workflows/fine-tuning/finetuning-machine-learning-models.md)
+{% content-ref url="../../coreweave-machine-learning-and-ai/how-to-guides-and-tutorials/model-training-guides/fine-tuning/finetuning-machine-learning-models.md" %}
+[finetuning-machine-learning-models.md](../../coreweave-machine-learning-and-ai/how-to-guides-and-tutorials/model-training-guides/fine-tuning/finetuning-machine-learning-models.md)
 {% endcontent-ref %}
 
 {% content-ref url="../../vfx-and-rendering/how-to-guides-and-tutorials/vfx-studio-components-guide/cgi-rendering.md" %}

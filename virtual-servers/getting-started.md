@@ -8,7 +8,7 @@ description: >-
 
 CoreWeave **Virtual Servers** are highly configurable virtual machines deployed and managed on CoreWeave Cloud via the easy-to-use [Cloud UI](deployment-methods/coreweave-apps.md), or programmatically via the Kubernetes API, enabling anyone to deploy and host applications at scale with high availability.
 
-<figure><img src="../docs/.gitbook/assets/image (58) (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../docs/.gitbook/assets/image (58).png" alt=""><figcaption></figcaption></figure>
 
 ## Features
 

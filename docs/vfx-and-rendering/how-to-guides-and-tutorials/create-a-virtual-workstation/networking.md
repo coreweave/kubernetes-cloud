@@ -82,7 +82,7 @@ The Policy prevents connections that originate outside the cluster from reaching
 The [Network Policy Editor](https://editor.networkpolicy.io/) is a visual, interactive tool that assists composing these policies by working with diagrams like the example below.
 {% endhint %}
 
-<figure><img src="../../../.gitbook/assets/image (62).png" alt="NetworkPolicy visualization"><figcaption><p>Network Policy Editor diagram</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (62) (4).png" alt="NetworkPolicy visualization"><figcaption><p>Network Policy Editor diagram</p></figcaption></figure>
 
 If the Network Policy were to be stricter, it might only allow traffic that originates from the [Active Directory Samba](../../../virtual-servers/examples/active-directory-environment-hosted-on-coreweave-cloud/) and from [Teradici Connection Manager](https://www.teradici.com/web-help/pcoip\_connection\_manager\_security\_gateway/19.08/). This would prevent any external or internal resource from connecting to our machines without going through the connection manager and the [Leostream connection broker](../management.md).
 

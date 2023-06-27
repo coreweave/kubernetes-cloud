@@ -12,7 +12,7 @@ To access the managed Grafana instance, use the menu in the Account Details sect
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (24) (3).png" alt="Screenshot of Grafana menu in CoreWeave Cloud"><figcaption><p>Grafana menu</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (24).png" alt="Screenshot of Grafana menu in CoreWeave Cloud"><figcaption><p>Grafana menu</p></figcaption></figure>
 
 </div>
 
@@ -24,7 +24,7 @@ To build custom dashboards from CoreWeave's [Prometheus metrics](../../coreweave
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (21) (1).png" alt="Grafana in the application catalog"><figcaption><p>Grafana</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (21).png" alt="Grafana in the application catalog"><figcaption><p>Grafana</p></figcaption></figure>
 
 </div>
 
@@ -39,7 +39,7 @@ To build custom dashboards from CoreWeave's [Prometheus metrics](../../coreweave
 
 Wait for the Pods to deploy, then click the Ingress URL to log in with the username and password in the upper-right corner.
 
-<figure><img src="../.gitbook/assets/image (13) (1).png" alt="Screenshot of deployment screen"><figcaption><p>Deployment screen</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (13).png" alt="Screenshot of deployment screen"><figcaption><p>Deployment screen</p></figcaption></figure>
 
 ### Connect to Prometheus
 
@@ -69,7 +69,7 @@ Our Prometheus scraping service offers many useful [billing metrics](../../corew
 
     <div align="left">
 
-    <figure><img src="../.gitbook/assets/image (11) (6).png" alt="Connection settings"><figcaption><p>Connection settings</p></figcaption></figure>
+    <figure><img src="../.gitbook/assets/image (11) (2).png" alt="Connection settings"><figcaption><p>Connection settings</p></figcaption></figure>
 
     </div>
 7.  Click **Save & Test** at the bottom of the page to verify and save the new datasource.\
@@ -78,7 +78,7 @@ Our Prometheus scraping service offers many useful [billing metrics](../../corew
 
     <div align="left">
 
-    <figure><img src="../.gitbook/assets/image (8) (1).png" alt="Successful connection"><figcaption><p>Successful connection</p></figcaption></figure>
+    <figure><img src="../.gitbook/assets/image (8) (2).png" alt="Successful connection"><figcaption><p>Successful connection</p></figcaption></figure>
 
     </div>
 

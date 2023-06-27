@@ -30,7 +30,7 @@ With the storage volumes allocated, they may now be presented with Samba-AD.
 
 Samba-AD is installed from [the Cloud UI Applications Catalog](../../../coreweave-kubernetes/coreweave-cloud-ui/applications-catalog.md) by searching `samba-ad`. Click the **samba-ad** card, then click the **Deploy** button to configure and launch Samba-AD.
 
-<figure><img src="../../../.gitbook/assets/image (3) (2).png" alt="Screenshot: search for samba-ad in the applications catalog to find it"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (3) (2) (2).png" alt="Screenshot: search for samba-ad in the applications catalog to find it"><figcaption></figcaption></figure>
 
 ### Configure Samba-AD
 

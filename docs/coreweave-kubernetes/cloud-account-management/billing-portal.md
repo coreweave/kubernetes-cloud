@@ -32,13 +32,13 @@ To access the billing portal, [log in to CoreWeave Cloud](https://cloud.coreweav
 Only organization administrators can access the portal. If this menu item does not appear, please contact our support team at [support@coreweave.com](mailto:support@coreweave.com).
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (4).png" alt="" width="549"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5).png" alt="" width="549"><figcaption></figcaption></figure>
 
 ### My account
 
 <div align="left">
 
-<figure><img src="../../.gitbook/assets/image (5) (1).png" alt="Screenshot of the Billing Portal"><figcaption><p>Billing Portal</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5) (2).png" alt="Screenshot of the Billing Portal"><figcaption><p>Billing Portal</p></figcaption></figure>
 
 </div>
 
@@ -81,7 +81,7 @@ If you have multiple subscriptions, you may see icons that indicate normal and c
 
 <div align="left">
 
-<figure><img src="../../.gitbook/assets/image (7) (3).png" alt="Examples of invoice icons"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (7) (1).png" alt="Examples of invoice icons"><figcaption></figcaption></figure>
 
 </div>
 
@@ -103,7 +103,7 @@ All billable resources may be viewed in CoreWeave Cloud.&#x20;
 
 On the main dashboard of the Cloud UI, the **Account Overview** section offers a high-level glance at the amount of billable resources in use, as well as the total expenses for the previous day, the current billing period, and the total cost per hour.
 
-<figure><img src="../../.gitbook/assets/image (23).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (53).png" alt=""><figcaption></figcaption></figure>
 
 For a more in-depth view of resources in use, [Grafana](https://grafana.coreweave.com/) may be used to find useful dashboards with compute and storage summaries, and detailed reports of the GPUs, CPUs, memory, and network activity for each Pod. These Grafana dashboards are managed, and cannot be modified, however [new dashboards can be created](../../../coreweave-kubernetes/prometheus/grafana.md).
 

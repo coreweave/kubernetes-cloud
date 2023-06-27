@@ -36,7 +36,7 @@ Only the organization administrator may invite new users. To invite new users, a
 By default, new users inherit the same access controls to the namespace as the user who invited them.
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (17).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (18).png" alt=""><figcaption></figcaption></figure>
 
 The organization management page also allows admins to perform the following actions:
 
@@ -44,13 +44,13 @@ The organization management page also allows admins to perform the following act
 * **Resend** the invitation email to the invited user
 * **Revoke** the invitation from the invited user
 
-<figure><img src="../../.gitbook/assets/image (6) (1).png" alt=""><figcaption><p>Copy, resend, or revoke the invitation under the <strong>Actions</strong> column</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (6) (3).png" alt=""><figcaption><p>Copy, resend, or revoke the invitation under the <strong>Actions</strong> column</p></figcaption></figure>
 
 Once an invitation is accepted and the new user has completed registration, their account may be managed from the organization management page.
 
 Under the **Actions** column, users may be deactivated and reactivated. Deactivating users will prevent them from accessing their account, but user accounts may be reactivated at any time. To manage the activation status of a user's account, click the button located on the left side of the user row.
 
-<figure><img src="../../.gitbook/assets/image (19) (2) (1).png" alt=""><figcaption><p>Click the <strong>Deactivate</strong> button beside a user to deactivate their account</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (19) (2).png" alt=""><figcaption><p>Click the <strong>Deactivate</strong> button beside a user to deactivate their account</p></figcaption></figure>
 
 {% hint style="danger" %}
 **Warning**
@@ -70,4 +70,4 @@ As the organization admin, expand a user's details on the organization managemen
 
 At this time, organization admins can grant users all permissions in a given namespace with the exception of `w:pods` (write to Pods) and `w:full` (full `write` access). If users other than the organization admin require these permissions, please [contact support](https://cloud.coreweave.com/contact).
 
-<figure><img src="../../.gitbook/assets/image (18) (1) (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (18) (1) (1).png" alt=""><figcaption></figcaption></figure>

@@ -32,7 +32,7 @@ Once the organization admin account has been approved and is activated, the admi
 
 New Kubeconfig files and credentials as well as new API tokens are edited, viewed, and generated from this page.
 
-<figure><img src="../.gitbook/assets/image (18).png" alt="Screenshot of the &#x22;API &#x26; Kubeconfig&#x22; page in the Cloud app"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (3).png" alt="Screenshot of the &#x22;API &#x26; Kubeconfig&#x22; page in the Cloud app"><figcaption></figcaption></figure>
 
 ### Generate the Kubeconfig file
 

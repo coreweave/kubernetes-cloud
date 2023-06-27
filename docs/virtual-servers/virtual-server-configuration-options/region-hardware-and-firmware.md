@@ -22,7 +22,7 @@ Ensure the Virtual Server's name doesn't conflict with any [Storage Volumes](../
 
 From the [CoreWeave Cloud UI](../../../virtual-servers/deployment-methods/coreweave-apps.md) Virtual Server deployment menu, enter a server name.
 
-<figure><img src="../../.gitbook/assets/image (2) (1).png" alt=""><figcaption><p>Enter the Virtual Server name</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (5).png" alt=""><figcaption><p>Enter the Virtual Server name</p></figcaption></figure>
 {% endtab %}
 
 {% tab title="CLI" %}

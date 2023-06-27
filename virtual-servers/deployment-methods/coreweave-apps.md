@@ -14,14 +14,14 @@ This guide presumes you have [an active CoreWeave Cloud account](../../docs/core
 
 From the CoreWeave Cloud main dashboard, either navigate to the **Virtual Servers** menu in the left-hand navigation, or click the **Deploy Now** button in the **Deploy Virtual Server** box in the center of the page.
 
-<figure><img src="../../docs/.gitbook/assets/image (24).png" alt="Screenshot of the Virtual Server link in both places"><figcaption></figcaption></figure>
+<figure><img src="../../docs/.gitbook/assets/image (62).png" alt="Screenshot of the Virtual Server link in both places"><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 **Note**
 
 The [**CoreWeave Cloud**](https://cloud.coreweave.com/virtualservers) Virtual Server has more features than the [**CoreWeave Apps**](https://apps.coreweave.com) edition, but you can use either one. You may see a selection screen like this when deploying.
 
-![Deploy a Virtual Server](<../../docs/.gitbook/assets/image (17) (4).png>)&#x20;
+![Deploy a Virtual Server](<../../docs/.gitbook/assets/image (17) (5).png>)&#x20;
 
 These instructions are for **CoreWeave Cloud** Virtual Server.
 {% endhint %}
@@ -48,11 +48,11 @@ While [configuration options](coreweave-apps.md#configuration-options) can be ma
 
 When the web editor has focus, sensitive values such as passwords are obscured with asterisks in the YAML editor. Click the YAML pane to give it focus and reveal the sensitive values, or click the **Hide YAML** button between the panes to close the YAML.
 
-<figure><img src="../../docs/.gitbook/assets/image (4) (3).png" alt="New Virtual Server deployment page"><figcaption><p>New Virtual Server deployment page</p></figcaption></figure>
+<figure><img src="../../docs/.gitbook/assets/image (4) (2).png" alt="New Virtual Server deployment page"><figcaption><p>New Virtual Server deployment page</p></figcaption></figure>
 
 There are three buttons in the upper-right corner of the web UI pane:
 
-<figure><img src="../../docs/.gitbook/assets/image (12) (2).png" alt="Option buttons"><figcaption><p>Option buttons</p></figcaption></figure>
+<figure><img src="../../docs/.gitbook/assets/image (12) (4).png" alt="Option buttons"><figcaption><p>Option buttons</p></figcaption></figure>
 
 * **Magic wand button:** Revert the form to the last valid configuration.
 * **Arrow button:** Reset the form, clearing all fields.
@@ -74,13 +74,13 @@ One way to initiate a clone deployment is to open the New Virtual Server form, a
 
 Select an existing Virtual Server in the drop-down presented. Then toggle the **Clone (use resource as source)** option to create an exact clone of the selected Virtual Server.
 
-<figure><img src="../../docs/.gitbook/assets/image (10) (1).png" alt="Clone server modal"><figcaption><p>Clone server modal</p></figcaption></figure>
+<figure><img src="../../docs/.gitbook/assets/image (10) (2).png" alt="Clone server modal"><figcaption><p>Clone server modal</p></figcaption></figure>
 
 ### Clone from an existing server entry
 
 Another way to deploy a clone is to select **Clone** from the **more** menu of an existing server. Or, expand the server details and click **Clone**.
 
-<figure><img src="../../docs/.gitbook/assets/image (3) (4).png" alt="Deployment options"><figcaption><p>Deployment options</p></figcaption></figure>
+<figure><img src="../../docs/.gitbook/assets/image (3) (2).png" alt="Deployment options"><figcaption><p>Deployment options</p></figcaption></figure>
 
 ## :pencil: Deploy from a t**emplate**
 
@@ -102,7 +102,7 @@ A custom deployment loads the operating system image from an existing PVC or a r
 
 To deploy a custom Virtual Server, follow the same steps as if deploying a [new server from scratch](coreweave-apps.md#new-server-1), then select either **Image From Remote Source**, or **Image From PVC** in the Operating System section.&#x20;
 
-<figure><img src="../../docs/.gitbook/assets/image (17) (2).png" alt="Choose a Custom option"><figcaption><p>Choose a Custom option</p></figcaption></figure>
+<figure><img src="../../docs/.gitbook/assets/image (8).png" alt="Choose a Custom option"><figcaption><p>Choose a Custom option</p></figcaption></figure>
 
 #### Image from remote source
 
@@ -146,7 +146,7 @@ Once your Virtual Server has begun deploying, you will be automatically redirect
 
 Click the new Virtual Server to expand its menu for more information and to see all options.
 
-<figure><img src="../../docs/.gitbook/assets/image (67) (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../docs/.gitbook/assets/image (67).png" alt=""><figcaption></figcaption></figure>
 
 ### Virtual terminal
 
@@ -170,4 +170,4 @@ A basic diagnostic log of all actions involving the Virtual Server are recorded 
 The events listed under **Events** are short-lived, so should mostly be used for diagnostic purposes or for tracing the status of the Virtual Server.
 {% endhint %}
 
-<figure><img src="../../docs/.gitbook/assets/image (48) (3).png" alt="Screenshot of the events list"><figcaption></figcaption></figure>
+<figure><img src="../../docs/.gitbook/assets/image (48).png" alt="Screenshot of the events list"><figcaption></figcaption></figure>

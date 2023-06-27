@@ -16,7 +16,7 @@ From the [CoreWeave Cloud UI](../../../virtual-servers/deployment-methods/corewe
 
 Here, a set of key-value labels may be specified:
 
-<figure><img src="../../.gitbook/assets/image (29) (4).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (29).png" alt=""><figcaption></figcaption></figure>
 
 Existing labels will appear in blue bubbles above the editable fields. To remove an existing label, click the "X" button beside its name. To edit it, click the pencil icon.
 

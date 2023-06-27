@@ -28,7 +28,7 @@ The Active Directory flavor of the Samba application will require a domain contr
 
 The Samba instance and the filesystem volume to expose should be deployed in the same data center region. When selecting a region for the Samba instance, ensure it matches the one chosen for the filesystem volume.
 
-<figure><img src="../../../../.gitbook/assets/image (12) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (12) (2).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 **Note**
@@ -44,7 +44,7 @@ The following examples demonstrate different configuration settings per Samba ty
 
 To install a standard Samba instance, navigate to the application Catalog and search for **Samba**. Select the Samba application, then click the **Deploy** button in the lower right-hand corner to open the configuration options.
 
-<figure><img src="../../../../.gitbook/assets/image (30) (3) (1).png" alt="The standard Samba configuration options"><figcaption><p>The standard Samba configuration options</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (30) (3).png" alt="The standard Samba configuration options"><figcaption><p>The standard Samba configuration options</p></figcaption></figure>
 
 Under the **Form** tab, within the **Samba Server** box, select the same region into which your storage volume was provisioned earlier.
 

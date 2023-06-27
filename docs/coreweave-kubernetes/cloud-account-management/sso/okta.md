@@ -30,7 +30,7 @@ From the SAML integration screen, enter an application name (such as `CoreWeave 
 For more information on Okta's SAML integration fields, refer to [Okta's Application Integration Wizard SAML field reference](https://help.okta.com/en-us/Content/Topics/Apps/aiw-saml-reference.htm).
 {% endhint %}
 
-<figure><img src="../../../.gitbook/assets/image (10) (2).png" alt=""><figcaption><p>The Okta IDP configuration page</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (10) (2) (1).png" alt=""><figcaption><p>The Okta IDP configuration page</p></figcaption></figure>
 
 ### Configure SAML
 

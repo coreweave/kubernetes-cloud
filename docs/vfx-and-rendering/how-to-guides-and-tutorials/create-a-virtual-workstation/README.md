@@ -35,7 +35,7 @@ Begin by repeating the process for [creating a new Virtual Workstation](./#creat
 
 For this tutorial, the first artist machine will run **Windows 10 Professional**. Select **Windows 10 Professional** from [the Operating System configuration screen](../../../virtual-servers/virtual-server-configuration-options/operating-system-and-root-disk.md):
 
-<figure><img src="../../../.gitbook/assets/image (19) (2) (2).png" alt=""><figcaption><p>Select "Windows 10 Professional" from the Operating System expandable</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (19) (4).png" alt=""><figcaption><p>Select "Windows 10 Professional" from the Operating System expandable</p></figcaption></figure>
 
 Continue to configure the artist machine.
 
@@ -49,7 +49,7 @@ If you are utilizing Active Directory, you will have to put in a temporary user 
 
 To deploy a Windows 10 Workstation with Parsec, click the **Parsec Remote Desktop** toggle under **Operating System Additions**.
 
-<figure><img src="../../../.gitbook/assets/image (3) (4) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (3) (4).png" alt=""><figcaption></figcaption></figure>
 
 Next, click the **Deploy** button to launch the Virtual Workstation in your namespace. Once the Virtual Workstation is running, log into it. Start Parsec, then enter your credentials.
 
@@ -57,7 +57,7 @@ Next, click the **Deploy** button to launch the Virtual Workstation in your name
 
 To deploy a Windows 10 Workstation with Teradici instead of Parsec, click the Teradici toggle under **Operating System Additions**.
 
-<figure><img src="../../../.gitbook/assets/image (23) (4).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (23).png" alt=""><figcaption></figcaption></figure>
 
 Deploy the Virtual Server by clicking the **Deploy** button. Once the Virtual Server is done initializing, the credentials specified in the creation interface may be used to connect to it.
 
