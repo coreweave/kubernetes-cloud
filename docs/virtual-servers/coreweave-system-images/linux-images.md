@@ -1,23 +1,21 @@
 # Linux Images
 
-**Objective:** Learn the various features, enhancements, and best practices with Linux images provided by CoreWeave Cloud.
+CoreWeave offers a variety of operating system base images, enhanced to run on CoreWeave Cloud, stored in the `vd-images` namespace.
 
-\
-**Overview:** CoreWeave offers a variety of operating system base images, enhanced to run on CoreWeave Cloud, via our **vd-images** namespace. This guide details the Linux specific ones.
+## Distributions and flavors
 
-## Distributions and Flavors
-
-### Distributions :clipboard:
+### Distributions
 
 CoreWeave provides out of the box support for several popular Linux distributions:
 
-* Ubuntu Linux 18.04&#x20;
 * Ubuntu Linux 20.04
 * Ubuntu Linux 22.04
 * CentOS 7
 * _Rocky Linux 8 support coming soon!_ :calendar:
 
 {% hint style="info" %}
+**Note**
+
 Most "Generic Cloud" distribution images are drop-in compatible with the CoreWeave Cloud Virtual Server platform. \
 \
 For more information on importing an image, see [Importing a QCOW2 image](../root-disk-lifecycle-management/importing-a-qcow2-image.md#importing-disk-image).
@@ -32,20 +30,22 @@ Linux images provided by CoreWeave Cloud are available in three different flavor
 * Docker + NVIDIA Drivers + Teradici Graphics Agent
 
 {% hint style="info" %}
+**Note**
+
 Image flavors are tagged with the [metadata label](./#metadata-labels) `images.coreweave.cloud/features`
 {% endhint %}
 
-#### Docker
+### Docker
 
 All images are pre-installed with the [Docker Engine](https://docs.docker.com/engine/). Docker only images are not intended to be used with a GPU, and therefore do not have a desktop environment installed, or contain NVIDIA drivers.&#x20;
 
-#### Docker + NVIDIA
+### Docker + NVIDIA
 
 Images with feature tags `nvidia` and `docker` e.g. `nvidia_docker`, include the [Docker Engine](https://docs.docker.com/engine/), the [NVIDIA Container Toolkit](https://github.com/NVIDIA/nvidia-docker), and [NVIDIA GPU drivers](https://www.nvidia.com/en-us/drivers/unix/). NVIDIA driver version is periodically changed in new image releases, pending validation and dependency matches.
 
 While these images contain NVIDIA drivers and are therefore intended to be used with a GPU, no desktop environment is pre-installed.&#x20;
 
-#### Docker + NVIDIA + Teradici
+### Docker + NVIDIA + Teradici
 
 Images with feature tags `nvidia`, `teradici`, and `docker` e.g. `nvidia_teradici_docker`, include the [Docker Engine](https://docs.docker.com/engine/), the [NVIDIA Container Toolkit](https://github.com/NVIDIA/nvidia-docker), [NVIDIA GPU drivers](https://www.nvidia.com/en-us/drivers/unix/), and the [Teradici Graphics Agent](https://docs.teradici.com/find/product/cloud-access-software/2022.04/graphics-agent-for-linux?subscriptionName=cloud-access-plus). Out of the box, the graphics agent points to a CoreWeave Licensing Server, where Teradici subscription licenses are billed at an hourly rate.
 
@@ -53,11 +53,17 @@ Intended for use as a Virtual Workstation, Teradici tagged images come pre-insta
 
 Virtual Servers deployed with Teradici can be accessed using [their Software Client](https://docs.teradici.com/find/product/cloud-access-software/2022.04/software-client-for-linux?subscriptionName=cloud-access-plus) for Windows, macOS, and Linux.&#x20;
 
-## cloud-init :gear:
+## cloud-init
 
 All Linux images provided by CoreWeave Cloud include [cloud-init](https://github.com/canonical/cloud-init) for instance instantiation.&#x20;
 
-cloud-init provides a powerful way to provision an instance programmatically, or pass through generic metadata.&#x20;
+Cloud-init provides a powerful way to provision an instance programmatically, or pass through generic metadata.
+
+{% hint style="info" %}
+**Additional Resources**
+
+See more in [Cloud-init](../virtual-server-configuration-options/cloud-init.md).
+{% endhint %}
 
 ### cloud-init Modules
 
@@ -133,6 +139,8 @@ cloud_final_modules:
 ```
 
 {% hint style="info" %}
+**Note**
+
 For more information, see cloud-init's [Module Reference](https://cloudinit.readthedocs.io/en/latest/topics/modules.html#module-reference).
 {% endhint %}
 
@@ -246,7 +254,9 @@ cloudInit: |
 ```
 
 {% hint style="info" %}
-This performs **`apt update && apt upgrade`** or **`yum upgrade`** on first boot
+**Note**
+
+This performs `apt update && apt upgrade` or `yum upgrade` on first boot.
 {% endhint %}
 
 #### Install packages
@@ -260,9 +270,9 @@ cloudInit: |
 ```
 
 {% hint style="info" %}
-Prior to installing packages, the repository database is updated.&#x20;
+**Note**
 
-If no package version is specified, the latest version is installed.
+Prior to installing packages, the repository database is updated. If no package version is specified, the latest version is installed.
 {% endhint %}
 
 #### Run arbitrary commands
@@ -276,6 +286,8 @@ cloudInit: |
 ```
 
 {% hint style="info" %}
+**Note**
+
 Commands and arguments can be formatted in any of the ways listed above.
 {% endhint %}
 
@@ -404,8 +416,11 @@ spec:
 
 After creating the Virtual Server, output from the cloudInit directives can be found in `/var/log/cloud-init-output.log`:
 
+{% code overflow="wrap" %}
 ```bash
-sudo cat /var/log/cloud-init-output.log
+$ sudo cat /var/log/cloud-init-output.log
+
 Cloud-init v. 22.1-14-g2e17a0d6-0ubuntu1~22.04.5 running 'init-local' at Sun, 05 Jun 2022 17:20:40 +0000. Up 6.62 seconds.
 Cloud-init v. 22.1-14-g2e17a0d6-0ubuntu1~22.04.5 running 'init' at Sun, 05 Jun 2022 17:20:40 +0000. Up 7.32 seconds.
 ```
+{% endcode %}

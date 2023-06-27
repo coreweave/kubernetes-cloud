@@ -12,7 +12,7 @@ Once logged in to CoreWeave Cloud, account management options are found by click
 
 The **Account** page manages your specific user account settings, such as your password, email address, and so on. Two-factor authentication is also enabled or disabled on this page.
 
-<figure><img src="../../.gitbook/assets/image (9).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
 ## Organization
 
@@ -30,5 +30,5 @@ The **billing** link redirects to the billing portal.
 
 To [contact your CoreWeave support specialist](https://cloud.staging.coreweave.com/contact), click the **contact support** link.
 
-<figure><img src="../../.gitbook/assets/image (18).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
 

@@ -12,7 +12,7 @@ To access the managed Grafana instance, use the menu in the Account Details sect
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (24).png" alt="Screenshot of Grafana menu in CoreWeave Cloud"><figcaption><p>Grafana menu</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (24) (3).png" alt="Screenshot of Grafana menu in CoreWeave Cloud"><figcaption><p>Grafana menu</p></figcaption></figure>
 
 </div>
 
@@ -39,7 +39,7 @@ To build custom dashboards from CoreWeave's [Prometheus metrics](../../coreweave
 
 Wait for the Pods to deploy, then click the Ingress URL to log in with the username and password in the upper-right corner.
 
-<figure><img src="../.gitbook/assets/image (13).png" alt="Screenshot of deployment screen"><figcaption><p>Deployment screen</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (13) (5).png" alt="Screenshot of deployment screen"><figcaption><p>Deployment screen</p></figcaption></figure>
 
 ### Connect to Prometheus
 

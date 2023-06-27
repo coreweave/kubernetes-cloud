@@ -8,7 +8,7 @@ To configure CoreWeave SSO using [Okta](https://www.okta.com/) as your identity 
 
 On the configuration screen, select **Okta** from the **Your IDP** drop-down menu.
 
-<figure><img src="../../../.gitbook/assets/image (43) (3) (1).png" alt="Screenshot of the SSO configuration modal, set up for Okta"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (43) (3).png" alt="Screenshot of the SSO configuration modal, set up for Okta"><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 **Note**
@@ -68,7 +68,7 @@ The `email` attribute is what uniquely identifies users.
 
 To acquire the identity provider URL, the IDP Single sign-on URL, and the X.509 certificate, click the **View SAML setup instructions** button on the right-hand side of the "Configure SAML" page.
 
-<figure><img src="../../../.gitbook/assets/image (2) (4).png" alt=""><figcaption><p>The "View SAML setup instructions" button is on the right-hand side of the SAML configuration screen</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (4) (2).png" alt=""><figcaption><p>The "View SAML setup instructions" button is on the right-hand side of the SAML configuration screen</p></figcaption></figure>
 
 This will redirect to a "How to" page, which contains all values for these fields.
 
@@ -80,7 +80,7 @@ The provided values in these fields must be added to their associated fields in 
 
 The final portion of the Okta SAML integration is a feedback form for Okta, and may be filled out as you wish - this feedback is used by Okta. Once this section is complete, click **Finish**.
 
-<figure><img src="../../../.gitbook/assets/image (7) (1) (1) (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (7) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## Configure CoreWeave SSO
 
