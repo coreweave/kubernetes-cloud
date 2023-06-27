@@ -14,7 +14,7 @@ Click the OS type tab to see all currently available OS versions.
 {% tab title="Linux" %}
 ### Linux
 
-<table><thead><tr><th width="340">Name</th><th>Versions</th></tr></thead><tbody><tr><td>Rocky</td><td>8</td></tr><tr><td>CentOS</td><td>7</td></tr><tr><td>Ubuntu</td><td>18.04, 20.04, 22.04</td></tr></tbody></table>
+<table><thead><tr><th width="340">Name</th><th>Versions</th></tr></thead><tbody><tr><td>Rocky</td><td>8</td></tr><tr><td>CentOS</td><td>7</td></tr><tr><td>Ubuntu</td><td>20.04, 22.04</td></tr></tbody></table>
 {% endtab %}
 
 {% tab title="Windows" %}

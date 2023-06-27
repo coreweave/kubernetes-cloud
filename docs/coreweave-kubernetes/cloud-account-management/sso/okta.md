@@ -8,7 +8,7 @@ To configure CoreWeave SSO using [Okta](https://www.okta.com/) as your identity 
 
 On the configuration screen, select **Okta** from the **Your IDP** drop-down menu.
 
-<figure><img src="../../../.gitbook/assets/image (43) (3).png" alt="Screenshot of the SSO configuration modal, set up for Okta"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (43) (3) (1).png" alt="Screenshot of the SSO configuration modal, set up for Okta"><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 **Note**
@@ -80,7 +80,7 @@ The provided values in these fields must be added to their associated fields in 
 
 The final portion of the Okta SAML integration is a feedback form for Okta, and may be filled out as you wish - this feedback is used by Okta. Once this section is complete, click **Finish**.
 
-<figure><img src="../../../.gitbook/assets/image (7) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (7) (1) (1) (2).png" alt=""><figcaption></figcaption></figure>
 
 ## Configure CoreWeave SSO
 

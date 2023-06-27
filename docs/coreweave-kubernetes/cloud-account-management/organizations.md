@@ -36,7 +36,7 @@ Only the organization administrator may invite new users. To invite new users, a
 By default, new users inherit the same access controls to the namespace as the user who invited them.
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (18).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (57).png" alt=""><figcaption></figcaption></figure>
 
 The organization management page also allows admins to perform the following actions:
 

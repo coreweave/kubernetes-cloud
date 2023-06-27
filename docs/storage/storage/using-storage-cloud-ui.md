@@ -88,11 +88,11 @@ When [creating a Virtual Server](../../../virtual-servers/getting-started.md), t
 
 To attach a filesystem or block volume, locate the volume in the list provided under the **Available volume** column. To attach it, click the toggle until it is in the "on" position and says "Attached."
 
-<figure><img src="../../.gitbook/assets/image (44).png" alt="Screenshot of a volume being attached to a Virtual Server using sliders"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (44) (1).png" alt="Screenshot of a volume being attached to a Virtual Server using sliders"><figcaption></figcaption></figure>
 
 The storage block volume information will be reflected in the YAML editor under the `.filesystems` block.
 
-<figure><img src="../../.gitbook/assets/image (34).png" alt=""><figcaption><p>An example of a mounted filesystem volume reflected </p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (34) (3).png" alt=""><figcaption><p>An example of a mounted filesystem volume reflected </p></figcaption></figure>
 
 Example in plain text:
 

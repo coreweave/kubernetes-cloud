@@ -24,7 +24,7 @@ To build custom dashboards from CoreWeave's [Prometheus metrics](../../coreweave
 
 <div align="left">
 
-<figure><img src="../.gitbook/assets/image (21).png" alt="Grafana in the application catalog"><figcaption><p>Grafana</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (21) (1).png" alt="Grafana in the application catalog"><figcaption><p>Grafana</p></figcaption></figure>
 
 </div>
 
