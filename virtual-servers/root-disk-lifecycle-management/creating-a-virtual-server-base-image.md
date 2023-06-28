@@ -81,7 +81,7 @@ Once the Virtual Server is ready, we can use the External IP to connect to it vi
 
 Or via OpenSSH:
 
-![Connection prompt via SSH](<../../docs/.gitbook/assets/image (32).png>)
+![Connection prompt via SSH](<../../docs/.gitbook/assets/image (32) (2).png>)
 
 Or even via Console (useful for instances where a Public IP is not desired) using `virtctl console vs-windows10-source`:
 

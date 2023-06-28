@@ -6,7 +6,7 @@ description: Manage your Cloud account details from the Cloud UI
 
 Once logged in to CoreWeave Cloud, account management options are found by clicking the profile button in the upper right-hand corner, beside the **Active Namespace** selector.
 
-<figure><img src="../../.gitbook/assets/image (53).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (31).png" alt=""><figcaption></figcaption></figure>
 
 ## Your account
 
@@ -30,5 +30,5 @@ The **billing** link redirects to the billing portal.
 
 To [contact your CoreWeave support specialist](https://cloud.staging.coreweave.com/contact), click the **contact support** link.
 
-<figure><img src="../../.gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
 

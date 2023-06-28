@@ -62,7 +62,7 @@ Finally, click the **Deploy** button in the lower left-hand corner.
 
 To install a Samba-AD instance, navigate to the application Catalog and search for **Samba**. Select the **samba-ad** application, then click the **Deploy** button in the lower right-hand corner to open the configuration options.
 
-<figure><img src="../../../../.gitbook/assets/image (38).png" alt="The Samba-AD configuration options"><figcaption><p>The Samba-AD configuration options</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (38) (2).png" alt="The Samba-AD configuration options"><figcaption><p>The Samba-AD configuration options</p></figcaption></figure>
 
 First, select the same data region into which your storage volume was provisioned earlier. Then, complete the Samba Server Domain information, and whether or not to specify a custom DNS suffix.
 

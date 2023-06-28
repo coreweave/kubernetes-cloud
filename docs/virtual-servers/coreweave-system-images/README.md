@@ -14,7 +14,7 @@ Using [`kubectl`](../../coreweave-kubernetes/getting-started.md#install-kubernet
 
 ## Example query commands
 
-List all (non-private) latest images available for use.
+### List all (non-private) latest images available for use
 
 {% code overflow="wrap" %}
 ```shell
@@ -22,7 +22,7 @@ kubectl get pvc -n vd-images -l images.coreweave.cloud/latest=true,images.corewe
 ```
 {% endcode %}
 
-Sort all images by **region**.
+### Sort all images by **region**
 
 {% code overflow="wrap" %}
 ```shell
@@ -30,7 +30,7 @@ kubectl get pvc -n vd-images -l images.coreweave.cloud/latest=true,images.corewe
 ```
 {% endcode %}
 
-Show all **Windows images** only.
+### Show all **Windows images** only
 
 {% code overflow="wrap" %}
 ```shell
@@ -38,7 +38,7 @@ kubectl get pvc -n vd-images -l images.coreweave.cloud/latest=true,images.corewe
 ```
 {% endcode %}
 
-Show all **Windows 10 images** only.
+### Show all **Windows 10 images** only
 
 {% code overflow="wrap" %}
 ```shell
@@ -46,7 +46,9 @@ kubectl get pvc -n vd-images -l images.coreweave.cloud/latest=true,images.corewe
 ```
 {% endcode %}
 
-Show all Windows **10 images** by **region**.
+### Sort Windows 10 images by region, and extract the image name
+
+Extracting the image name using `-o jsonpath='{.items[*].metadata.name}'` is useful for things like automation scripts.
 
 {% code overflow="wrap" %}
 ```shell
@@ -54,7 +56,7 @@ kubectl get pvc -n vd-images -l images.coreweave.cloud/latest=true,images.corewe
 ```
 {% endcode %}
 
-Show all **Linux images** only.
+### Show all **Linux images** only
 
 {% code overflow="wrap" %}
 ```shell
@@ -62,7 +64,7 @@ kubectl get pvc -n vd-images -l images.coreweave.cloud/latest=true,images.corewe
 ```
 {% endcode %}
 
-Show all **Ubuntu images** only.
+### Show all **Ubuntu images** only
 
 {% code overflow="wrap" %}
 ```shell
@@ -70,7 +72,7 @@ kubectl get pvc -n vd-images -l images.coreweave.cloud/latest=true,images.corewe
 ```
 {% endcode %}
 
-Show all **Ubuntu 20.04** **images** only.
+### Show all **Ubuntu 20.04** **images** only
 
 {% code overflow="wrap" %}
 ```shell
@@ -78,7 +80,9 @@ kubectl get pvc -n vd-images -l images.coreweave.cloud/latest=true,images.corewe
 ```
 {% endcode %}
 
-Show all **Ubuntu 20.04** **images** by **region**.
+### Sort Ubuntu 20.04 images by region, and extract the image name
+
+Extracting the image name using `-o jsonpath='{.items[*].metadata.name}'` is useful for things like automation scripts.
 
 {% code overflow="wrap" %}
 ```shell
@@ -86,7 +90,7 @@ kubectl get pvc -n vd-images -l images.coreweave.cloud/latest=true,images.corewe
 ```
 {% endcode %}
 
-Show all **Linux images** and **their features**, filtered by **region**.
+### Show all **Linux images** and **their features**, filtered by **region**
 
 {% code overflow="wrap" %}
 ```shell
