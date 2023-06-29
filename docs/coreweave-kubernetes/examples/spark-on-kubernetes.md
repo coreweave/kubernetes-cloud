@@ -16,11 +16,11 @@ Before proceeding with this guide, complete the following two steps: first, veri
 
 ### 1. Configure Kubernetes
 
-You'll find the full details in [Get Started with CoreWeave](https://docs.coreweave.com/coreweave-kubernetes/getting-started), but the brief steps are:
+Complete account creation details are found in [Cloud Account and Access](../../welcome-to-coreweave/getting-started.md).
 
-1. Make sure [you've installed](https://kubernetes.io/docs/tasks/tools/) `kubectl`.
-2. [Create an API token](https://cloud.coreweave.com/api-access) and download the kubeconfig.
-3. [Install](../../welcome-to-coreweave/getting-started.md#i-do-not-have-a-.kube-config-file) the new kubeconfig or [merge it with your existing one](../../welcome-to-coreweave/getting-started.md#i-have-an-existing-kubeconfig-file).
+1. Install `kubectl`.
+2. [Create an API token](https://cloud.coreweave.com/api-access), and download the Kubeconfig.
+3. [Install](../../welcome-to-coreweave/getting-started.md#i-do-not-have-a-.kube-config-file) the new Kubeconfig, or [merge it with your existing one](../../welcome-to-coreweave/getting-started.md#i-have-an-existing-kubeconfig-file).
 4.  Set your Kubernetes context to `coreweave.`
 
     ```

@@ -10,7 +10,7 @@ Each of the Cloud UI dashboards make it easy to deploy and manage resources or m
 
 ## Main dashboard
 
-<figure><img src="../../.gitbook/assets/image (3).png" alt="Screenshot of the main dashboard of the CoreWeave Cloud UI"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (9).png" alt="Screenshot of the main dashboard of the CoreWeave Cloud UI"><figcaption></figcaption></figure>
 
 The main dashboard is the first page after logging in to CoreWeave Cloud. On this page, a basic overview of the organization's statistics is displayed near the bottom of the page, which includes an overview of resource usage and billing information.
 
@@ -24,7 +24,7 @@ All other dashboards are accessed using the navigation on the left side of the p
 
 ## Virtual Servers
 
-<figure><img src="../../.gitbook/assets/image (38).png" alt="Screenshot of the Virtual Servers dashboard"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (11).png" alt="Screenshot of the Virtual Servers dashboard"><figcaption></figcaption></figure>
 
 [Virtual Servers](broken-reference) are specialized virtual machines, configurable and deployable entirely through the Cloud UI's Web interface. Virtual Servers leverage the bare metal performance of CoreWeave Cloud for applications in [machine learning](broken-reference), [VFX rendering](broken-reference), or as [Virtual Workstations](../../vfx-and-rendering/virtual-workstations.md).
 
@@ -38,7 +38,7 @@ The **applications dashboard** displays all applications currently installed in 
 
 ## Catalog
 
-<figure><img src="../../.gitbook/assets/image (18).png" alt="Screenshot of the applications catalog"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (8).png" alt="Screenshot of the applications catalog"><figcaption></figcaption></figure>
 
 The [CoreWeave Cloud Applications Catalog](https://apps.coreweave.com) is a built-in catalog featuring many useful applications, which can be deployed and ready to use in just a few clicks.
 
@@ -46,7 +46,7 @@ The [CoreWeave Cloud Applications Catalog](https://apps.coreweave.com) is a buil
 
 ## Storage Volumes
 
-<figure><img src="../../.gitbook/assets/image (9).png" alt="Screenshot of the storage volumes dashboard"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1).png" alt="Screenshot of the storage volumes dashboard"><figcaption></figcaption></figure>
 
 High-performance, network-attached storage volumes for [containerized custom applications](../../coreweave-kubernetes/custom-containers.md) and for [Virtual Servers](../../../virtual-servers/getting-started.md) are easy to provision and manage from the Storage Volumes dashboard.
 
@@ -58,7 +58,7 @@ Quota increase requests may also be submitted here, by clicking the **Increase Q
 
 ## API Access
 
-<figure><img src="../../.gitbook/assets/image (40).png" alt="Screenshot of the API management dashboard"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (12).png" alt="Screenshot of the API management dashboard"><figcaption></figcaption></figure>
 
 From the **API Access** page, [organization administrators](../cloud-account-management/organizations.md#organization-admin) may generate new [API access tokens and new Kubeconfig files](../getting-started.md) to allow organization members access to the namespace and the resources deployed within it.
 
@@ -66,7 +66,7 @@ From the **API Access** page, [organization administrators](../cloud-account-man
 
 ## Object Storage
 
-<figure><img src="../../.gitbook/assets/image (36).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (15).png" alt=""><figcaption></figcaption></figure>
 
 CoreWeave [Object Storage](../../storage/object-storage.md) is an S3-compatible storage system that allows data to be stored and retrieved in a flexible and efficient way. From the Object Storage dashboard, new [Object Storage tokens](../../storage/object-storage.md#authentication) are generated and managed to configure authentication and access levels to Object Storage buckets.
 
@@ -74,15 +74,15 @@ CoreWeave [Object Storage](../../storage/object-storage.md) is an S3-compatible 
 
 ## Namespaces
 
-<figure><img src="../../.gitbook/assets/image (22).png" alt="Screenshot of the namespace management dashboard"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (21).png" alt="Screenshot of the namespace management dashboard"><figcaption></figcaption></figure>
 
 Each organization on CoreWeave Cloud may have one or multiple namespaces, which are managed from the **Namespaces** dashboard. The current state of the namespace is seen here, and includes information such as the current number of GPUs in use, the number of Pods running in the namespace, the number of Virtual Servers deployed to the namespace, and the storage capacity of the namespace. Quota increase requests may also be submitted from this dashboard by clicking the ellipses on the right-hand side of the namespace listing.
 
-<figure><img src="../../.gitbook/assets/image (6).png" alt="Screenshot of the namespace management dashboard"><figcaption><p>Request a quota increase from the namespace management dashboard</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (34).png" alt="Screenshot of the namespace management dashboard"><figcaption><p>Request a quota increase from the namespace management dashboard</p></figcaption></figure>
 
 To switch namespaces, click the **Active Namespace** dropdown selector in the upper right-hand corner of the Cloud UI, and select the desired namespace.
 
-<figure><img src="../../.gitbook/assets/image (30).png" alt="Screenshot of the namespace selector"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (24).png" alt="Screenshot of the namespace selector"><figcaption></figcaption></figure>
 
 <table data-view="cards"><thead><tr><th></th><th data-hidden></th><th data-hidden></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><span data-gb-custom-inline data-tag="emoji" data-code="1f449">👉</span> Learn more</td><td></td><td></td><td><a href="../cloud-account-management/namespace-management.md">namespace-management.md</a></td></tr></tbody></table>
 

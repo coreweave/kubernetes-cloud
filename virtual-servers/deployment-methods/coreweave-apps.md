@@ -14,7 +14,7 @@ This guide presumes you have [an active CoreWeave Cloud account](../../docs/welc
 
 From the CoreWeave Cloud main dashboard, either navigate to the **Virtual Servers** menu in the left-hand navigation, or click the **Deploy Now** button in the **Deploy Virtual Server** box in the center of the page.
 
-<figure><img src="../../docs/.gitbook/assets/image (21).png" alt="Screenshot of the Virtual Server link in both places"><figcaption></figcaption></figure>
+<figure><img src="../../docs/.gitbook/assets/image (7).png" alt="Screenshot of the Virtual Server link in both places"><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 **Note**

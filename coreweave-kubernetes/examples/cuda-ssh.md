@@ -19,7 +19,7 @@ Only the standard root-level directories and their children are persisted, such 
 
 ## Prerequisites
 
-This guide presumes that the user has an active CoreWeave account and a corresponding namespace. The guide also presumes that `kubectl` is installed on the host machine. For more information, see [Get Started with CoreWeave](../../docs/welcome-to-coreweave/getting-started.md).
+This guide presumes that the user has an active CoreWeave account and a corresponding namespace. The guide also presumes that `kubectl` is installed on the host machine. For more information, see [Cloud Account and Access](../../docs/welcome-to-coreweave/getting-started.md).
 
 ### Example source code
 

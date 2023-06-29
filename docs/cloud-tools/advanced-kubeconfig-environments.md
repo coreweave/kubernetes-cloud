@@ -11,7 +11,7 @@ This guide explains the order of precedence when using multiple kubeconfigs, how
 {% hint style="info" %}
 **Quickstart**
 
-To set up a CoreWeave kubeconfig on a system without an existing kubeconfig, see [Get Started with CoreWeave](../welcome-to-coreweave/getting-started.md).
+To set up a CoreWeave kubeconfig on a system without an existing kubeconfig, see [Cloud Account and Access](../welcome-to-coreweave/getting-started.md).
 {% endhint %}
 
 Kubernetes tools like [kubectl](kubectl.md), Helm, and Argo Workflows follow an order of precedence to locate the active kubeconfig.

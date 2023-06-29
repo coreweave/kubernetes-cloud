@@ -43,7 +43,7 @@ The following presumes that you already have [an active CoreWeave Cloud account]
 
 If you already have an API token to give to Zeet, skip this step.
 
-API tokens can be found embedded in the generated `kubeconfig` files. For more information, see [Get Started with CoreWeave](../getting-started.md#obtain-coreweave-access-credentials).
+API tokens can be found embedded in the generated `kubeconfig` files. For more information, see [Cloud Account and Access](../getting-started.md).
 
 After signing in to your CoreWeave Cloud account, ask [your organization administrator](../cloud-account-management/organizations.md#organization-admin) to generate a new API token by navigating to the **API Access page**, or navigate directly to [`https://cloud.coreweave.com/api-access`](https://cloud.coreweave.com/api-access) in your browser.
 
