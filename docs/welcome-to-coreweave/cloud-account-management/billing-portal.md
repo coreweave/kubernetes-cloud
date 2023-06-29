@@ -32,7 +32,7 @@ To access the billing portal, [log in to CoreWeave Cloud](https://cloud.coreweav
 Only organization administrators can access the portal. If this menu item does not appear, please contact our support team at [support@coreweave.com](mailto:support@coreweave.com).
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image.png" alt="" width="549"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (32).png" alt="" width="549"><figcaption></figcaption></figure>
 
 ### My account
 

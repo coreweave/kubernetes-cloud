@@ -40,7 +40,7 @@ SLURM support is currently available for reserved instance customers only. Pleas
 
 ## Model training on CoreWeave
 
-Training [Machine Learning](broken-reference) models, especially models of modern Deep Neural Networks, is at the center of CoreWeave Cloud's architecture. The entire CoreWeave Cloud stack is purpose-built to enable highly scalable, cost-efficient model training.
+Training [Machine Learning models](how-to-guides-and-tutorials/model-training-guides/), especially models of modern Deep Neural Networks, is at the center of CoreWeave Cloud's architecture. The entire CoreWeave Cloud stack is purpose-built to enable highly scalable, cost-efficient model training.
 
 In addition to its core tech stack, CoreWeave has a history of supporting our customers with cutting-edge Machine Learning research through in-house expertise, industry partnerships, and contributions to research organizations. Our team has extensive experience in training large transformer architectures, optimizing [Hugging Face code](https://huggingface.co/), and selecting the right hardware for any given job.
 

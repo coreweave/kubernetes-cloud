@@ -36,7 +36,7 @@ Only the organization administrator may invite new users. To invite new users, a
 By default, new users inherit the same access controls to the namespace as the user who invited them.
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (39).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (8).png" alt=""><figcaption></figcaption></figure>
 
 The organization management page also allows admins to perform the following actions:
 
@@ -50,7 +50,7 @@ Once an invitation is accepted and the new user has completed registration, thei
 
 Under the **Actions** column, users may be deactivated and reactivated. Deactivating users will prevent them from accessing their account, but user accounts may be reactivated at any time. To manage the activation status of a user's account, click the button located on the left side of the user row.
 
-<figure><img src="../../.gitbook/assets/image (19) (2).png" alt=""><figcaption><p>Click the <strong>Deactivate</strong> button beside a user to deactivate their account</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (19) (2) (2).png" alt=""><figcaption><p>Click the <strong>Deactivate</strong> button beside a user to deactivate their account</p></figcaption></figure>
 
 {% hint style="danger" %}
 **Warning**

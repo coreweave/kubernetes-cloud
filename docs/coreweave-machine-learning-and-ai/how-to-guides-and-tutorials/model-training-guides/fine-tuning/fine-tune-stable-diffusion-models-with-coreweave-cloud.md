@@ -23,7 +23,7 @@ This guide contains all the information required to train Stable Diffusion, but 
 
 It also assumes you are familiar with the topics covered in these articles.
 
-* [Get Started with Inference](broken-reference)
+* [Inference](../../../inference/)
 * [Tensorizer](../../../inference/tensorizer.md)
 * [Get Started with Workflows](../../../../cloud-tools/argo/)
 
@@ -709,7 +709,7 @@ You can download the model from the respective location.
 
 ## Inference
 
-If you set up the [inference service](broken-reference), you can query the URL endpoint to test the model.&#x20;
+If you set up the inference service, you can query the URL endpoint to test the model.&#x20;
 
 * If the KNative client is installed, get the URL by invoking `kn service list`.
 * Retrieve the URL without KNative by executing `kubectl get ksvc`.&#x20;
