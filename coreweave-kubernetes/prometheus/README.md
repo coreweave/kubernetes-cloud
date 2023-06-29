@@ -4,7 +4,7 @@ description: Fully managed Prometheus metrics available for your cloud environme
 
 # Metrics
 
-CoreWeave makes a wide range of Prometheus metrics available out of the box. To access CoreWeave's Prometheus metrics service you'll need a CoreWeave account and an Access Token. If you don't have an account yet, follow the steps on the [Getting Started](../../docs/coreweave-kubernetes/getting-started.md) guide.
+CoreWeave makes a wide range of Prometheus metrics available out of the box. To access CoreWeave's Prometheus metrics service you'll need a CoreWeave account and an Access Token. If you don't have an account yet, follow the steps on the [Getting Started](../../docs/welcome-to-coreweave/getting-started.md) guide.
 
 You'll be able to access the Prometheus Dashboard once you're logged into CoreWeave Cloud.
 
@@ -14,7 +14,7 @@ Access the **Prometheus Dashboard** at [**https://prometheus.ord1.coreweave.com*
 
 ## API Key Authentication :key2:
 
-You can access the Prometheus server by sending your [Access Token](../../docs/coreweave-kubernetes/getting-started.md#obtain-access-credentials) as the Authorization Header during your request.
+You can access the Prometheus server by sending your [Access Token](../../docs/welcome-to-coreweave/getting-started.md#obtain-access-credentials) as the Authorization Header during your request.
 
 * Header: **`Authorization`** Value: **`Bearer <TOKEN>`**
 * URL: **`https://prometheus.ord1.coreweave.com`**

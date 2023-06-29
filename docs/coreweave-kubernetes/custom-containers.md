@@ -10,9 +10,9 @@ This guide walks through the steps necessary to deploy a basic containerized app
 
 This guide presumes that you have:
 
-<table data-view="cards"><thead><tr><th></th><th data-hidden></th><th data-hidden></th></tr></thead><tbody><tr><td><a href="getting-started.md">An active CoreWeave Cloud account</a></td><td></td><td></td></tr><tr><td><a href="getting-started.md#generate-the-kubeconfig-file">Configured and installed a kubeconfig file</a> for use with CoreWeave Kubernetes</td><td></td><td></td></tr><tr><td>An application that has already successfully been containerized using Docker or a similar container runtime</td><td></td><td></td></tr></tbody></table>
+<table data-view="cards"><thead><tr><th></th><th data-hidden></th><th data-hidden></th></tr></thead><tbody><tr><td><a href="../welcome-to-coreweave/getting-started.md">An active CoreWeave Cloud account</a></td><td></td><td></td></tr><tr><td><a href="../welcome-to-coreweave/getting-started.md#generate-the-kubeconfig-file">Configured and installed a kubeconfig file</a> for use with CoreWeave Kubernetes</td><td></td><td></td></tr><tr><td>An application that has already successfully been containerized using Docker or a similar container runtime</td><td></td><td></td></tr></tbody></table>
 
-If you have not already completed these steps, first visit [Get Started with CoreWeave](getting-started.md).
+If you have not already completed these steps, first visit [Get Started with CoreWeave](../welcome-to-coreweave/getting-started.md).
 
 {% hint style="info" %}
 **Additional Resources**
@@ -36,7 +36,7 @@ The basic steps to deploying your own custom containerized application onto Core
 
 To deploy a locally built, containerized application, the container image must first be pushed to a container image repository.
 
-CoreWeave provides an easy way to deploy a [Docker Registry](https://docs.docker.com/registry/) instance into your namespace for this purpose. Simply install the [Docker Registry application](https://docs.docker.com/registry/) from [the applications Catalog](coreweave-cloud-ui/applications-catalog.md) on the [Cloud UI](../../virtual-servers/deployment-methods/coreweave-apps.md). Once deployed, the Docker Registry instance may be configured for access both within and outside of the CoreWeave environment.
+CoreWeave provides an easy way to deploy a [Docker Registry](https://docs.docker.com/registry/) instance into your namespace for this purpose. Simply install the [Docker Registry application](https://docs.docker.com/registry/) from [the applications Catalog](../welcome-to-coreweave/coreweave-cloud-ui/applications-catalog.md) on the [Cloud UI](../../virtual-servers/deployment-methods/coreweave-apps.md). Once deployed, the Docker Registry instance may be configured for access both within and outside of the CoreWeave environment.
 
 All requests to the Docker Registry instance are authenticated. Credentials are automatically provisioned in an `imagePullSecret` in the namespace, which contains the credentials that are either manually configured during setup or automatically generated for you.
 
@@ -147,7 +147,7 @@ For the purposes of this example walkthrough, the application requires backend s
 {% hint style="warning" %}
 **Important**
 
-When creating your storage volume, it is generally recommended to ensure that the [data center region](../data-center-regions.md) it is being allocated to is the same as your associated workload. See ["Define Kubernetes affinities"](custom-containers.md#define-kubernetes-affinities) for instructions on how to ensure the workload is scheduled to the same region.
+When creating your storage volume, it is generally recommended to ensure that the [data center region](data-center-regions.md) it is being allocated to is the same as your associated workload. See ["Define Kubernetes affinities"](custom-containers.md#define-kubernetes-affinities) for instructions on how to ensure the workload is scheduled to the same region.
 {% endhint %}
 
 {% hint style="info" %}
@@ -304,7 +304,7 @@ This dictates that the storage volume defined in `.spec.volumes` will be mounted
 
 #### `.spec.affinity`
 
-[Kubernetes `affinities`](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity) are used to assign specific workloads to specific node types. On CoreWeave, they are used to determine on which node types workloads should run, as well in which [data center region](../data-center-regions.md) workloads should run.
+[Kubernetes `affinities`](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity) are used to assign specific workloads to specific node types. On CoreWeave, they are used to determine on which node types workloads should run, as well in which [data center region](data-center-regions.md) workloads should run.
 
 ### Define the node types
 

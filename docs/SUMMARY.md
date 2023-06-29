@@ -1,28 +1,32 @@
 # Table of contents
 
-* [CoreWeave Cloud](README.md)
-* [Data Center Regions](data-center-regions.md)
-* [Release Notes](release-notes.md)
+## Welcome to CoreWeave
+
+* [Get Started with CoreWeave](README.md)
+* [Cloud Account and Access](welcome-to-coreweave/getting-started.md)
+* [CoreWeave Cloud UI](welcome-to-coreweave/coreweave-cloud-ui/README.md)
+  * [Applications Catalog](welcome-to-coreweave/coreweave-cloud-ui/applications-catalog.md)
+* [Cloud Account Management](welcome-to-coreweave/cloud-account-management/README.md)
+  * [Organizations](welcome-to-coreweave/cloud-account-management/organizations.md)
+  * [Namespace Management](welcome-to-coreweave/cloud-account-management/namespace-management.md)
+  * [Billing and Usage Information](welcome-to-coreweave/cloud-account-management/billing-portal.md)
+  * [SSO](welcome-to-coreweave/cloud-account-management/sso/README.md)
+    * [Okta](welcome-to-coreweave/cloud-account-management/sso/okta.md)
+    * [JumpCloud](welcome-to-coreweave/cloud-account-management/sso/jumpcloud.md)
+    * [Generic IDP](welcome-to-coreweave/cloud-account-management/sso/generic-idp.md)
+* [Release Notes](welcome-to-coreweave/release-notes.md)
+* [Partners](welcome-to-coreweave/partners/README.md)
+  * [Zeet](welcome-to-coreweave/partners/zeet.md)
 
 ## CoreWeave Kubernetes
 
-* [Get Started with CoreWeave](coreweave-kubernetes/getting-started.md)
-* [CoreWeave Cloud UI](coreweave-kubernetes/coreweave-cloud-ui/README.md)
-  * [Applications Catalog](coreweave-kubernetes/coreweave-cloud-ui/applications-catalog.md)
-* [Cloud Account Management](coreweave-kubernetes/cloud-account-management/README.md)
-  * [Organizations](coreweave-kubernetes/cloud-account-management/organizations.md)
-  * [Namespace Management](coreweave-kubernetes/cloud-account-management/namespace-management.md)
-  * [Billing and Usage Information](coreweave-kubernetes/cloud-account-management/billing-portal.md)
-  * [SSO](coreweave-kubernetes/cloud-account-management/sso/README.md)
-    * [Okta](coreweave-kubernetes/cloud-account-management/sso/okta.md)
-    * [JumpCloud](coreweave-kubernetes/cloud-account-management/sso/jumpcloud.md)
-    * [Generic IDP](coreweave-kubernetes/cloud-account-management/sso/generic-idp.md)
-* [Serverless](coreweave-kubernetes/serverless/README.md)
+* [Data Center Regions](coreweave-kubernetes/data-center-regions.md)
+* [Node Types](../coreweave-kubernetes/node-types.md)
 * [Exposing Applications](coreweave-kubernetes/exposing-applications.md)
 * [Custom Containers](coreweave-kubernetes/custom-containers.md)
+* [Serverless](coreweave-kubernetes/serverless/README.md)
 * [Useful Commands](../coreweave-kubernetes/useful-commands.md)
 * [Sealed Secrets](coreweave-kubernetes/sealed-secrets.md)
-* [Node Types](../coreweave-kubernetes/node-types.md)
 * [Advanced Label Selectors](../coreweave-kubernetes/label-selectors.md)
 * [CoSchedulers](coreweave-kubernetes/coschedulers.md)
 * [Metrics](../coreweave-kubernetes/prometheus/README.md)
@@ -33,12 +37,10 @@
   * [Spark on Kubernetes](coreweave-kubernetes/examples/spark-on-kubernetes.md)
   * [Jupyter Notebook with TensorFlow](../coreweave-kubernetes/examples/tensorflow-jupyter.md)
   * [SSH Server with CUDA](../coreweave-kubernetes/examples/cuda-ssh.md)
-* [Partners](coreweave-kubernetes/partners/README.md)
-  * [Zeet](coreweave-kubernetes/partners/zeet.md)
 
 ## Cloud Tools
 
-* [Advanced Kubeconfig Environments](cloud-tools/advanced-kubeconfig-environments.md)
+* [Kubectl](cloud-tools/kubectl.md)
 * [Argo Workflows](cloud-tools/argo/README.md)
   * [Use the Argo Workflows CLI](cloud-tools/argo/use-the-argo-workflows-cli.md)
   * [Use the Argo Workflows REST API](cloud-tools/argo/use-the-argo-workflows-rest-api.md)
@@ -46,7 +48,7 @@
   * [Security Best Practices for Argo Workflows](cloud-tools/argo/security-best-practices-for-argo-workflows.md)
   * [Optimize Argo Workflows Performance and Resilience](cloud-tools/argo/optimize-argo-workflows-performance-and-resilience.md)
 * [Grafana](cloud-tools/grafana.md)
-* [Kubectl](cloud-tools/kubectl.md)
+* [Advanced Kubeconfig Environments](cloud-tools/advanced-kubeconfig-environments.md)
 * [Nydus](cloud-tools/nydus.md)
 
 ## Networking

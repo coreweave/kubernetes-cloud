@@ -10,7 +10,7 @@ The Virtual Server is deployed with a static, internal-only IP. This example als
 
 ## Prerequisites
 
-This example presumes that the user already [has an active CoreWeave account and has configured their user credentials](../../../coreweave-kubernetes/getting-started.md#create-an-account) such that resources may be deployed to their namespace.
+This example presumes that the user already [has an active CoreWeave account and has configured their user credentials](../../../welcome-to-coreweave/getting-started.md#create-an-account) such that resources may be deployed to their namespace.
 
 The Windows Servers below are deployed using `kubectl`. To follow along, ensure that `kubectl` is installed on your local system.
 

@@ -6,7 +6,7 @@ description: Select the data center region, hardware, and firmware for a Virtual
 
 ## Region
 
-Virtual Servers may be deployed across any of data center regions. CoreWeave's [data center regions](../../data-center-regions.md) are broken up into three geographical buckets - **US East**, **Central** and **West.** Each provides redundant 200Gbps+ public Internet connectivity from Tier 1 global carriers, and are connected to each other using 400Gbps+ of dark fiber transport to allow for easy, free transfers of data within CoreWeave Cloud.
+Virtual Servers may be deployed across any of data center regions. CoreWeave's [data center regions](../../coreweave-kubernetes/data-center-regions.md) are broken up into three geographical buckets - **US East**, **Central** and **West.** Each provides redundant 200Gbps+ public Internet connectivity from Tier 1 global carriers, and are connected to each other using 400Gbps+ of dark fiber transport to allow for easy, free transfers of data within CoreWeave Cloud.
 
 {% hint style="info" %}
 **Note**

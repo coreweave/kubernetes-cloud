@@ -22,7 +22,7 @@ Select the checkbox to agree to the license agreement terms.
 
 Once you have completed the following steps in the wizard, the storage server registration key will be presented to you. Retain this for the next few setup steps.
 
-Return to [the Applications Catalog](../../../../coreweave-kubernetes/coreweave-cloud-ui/applications-catalog.md), and search for **media-shuttle**. Find the **media-shuttle** application, select it, then click the **Deploy** button in the bottom right corner of the screen to begin configuring the application.
+Return to [the Applications Catalog](../../../../welcome-to-coreweave/coreweave-cloud-ui/applications-catalog.md), and search for **media-shuttle**. Find the **media-shuttle** application, select it, then click the **Deploy** button in the bottom right corner of the screen to begin configuring the application.
 
 <figure><img src="../../../../../.gitbook/assets/image (80).png" alt="The Media Shuttle application icon"><figcaption><p>The Media Shuttle application icon displayed in the applications Catalog</p></figcaption></figure>
 

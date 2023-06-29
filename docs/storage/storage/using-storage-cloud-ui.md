@@ -20,7 +20,7 @@ The **namespace** field will be prepopulated with your current tenant namespace 
 
 ### Region
 
-The **region** field specifies in which [data center region](../../data-center-regions.md) you'd like the new storage volume to be hosted.
+The **region** field specifies in which [data center region](../../coreweave-kubernetes/data-center-regions.md) you'd like the new storage volume to be hosted.
 
 {% hint style="warning" %}
 **Important**

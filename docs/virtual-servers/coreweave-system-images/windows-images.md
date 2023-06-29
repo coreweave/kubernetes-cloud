@@ -31,7 +31,7 @@ When creating a new [Virtual Server](broken-reference) on CoreWeave Cloud, insta
 
 [View the rest of the source file on GitHub](https://docs.coreweave.com/virtual-servers/coreweave-system-images).
 
-### Via the [CoreWeave Apps Web UI](../../coreweave-kubernetes/coreweave-cloud-ui/applications-catalog.md):
+### Via the [CoreWeave Apps Web UI](../../welcome-to-coreweave/coreweave-cloud-ui/applications-catalog.md):
 
 Within the Virtual Server deployment form, switch to the YAML tab:
 

@@ -12,7 +12,7 @@ This process consists of adding the Distributed File System Namespace role to a 
 
 ## Prerequisites
 
-This example presumes that [a Windows Server with an Active Directory Domain](./) has already been deployed. It is also presumed that the user already [has an active CoreWeave account and has configured their user credentials](../../../coreweave-kubernetes/getting-started.md#create-an-account) such that resources may be deployed to their namespace.
+This example presumes that [a Windows Server with an Active Directory Domain](./) has already been deployed. It is also presumed that the user already [has an active CoreWeave account and has configured their user credentials](../../../welcome-to-coreweave/getting-started.md#create-an-account) such that resources may be deployed to their namespace.
 
 ## Create Storage Volumes
 
@@ -28,7 +28,7 @@ In this example, three volumes are used for the Samba-AD instance. They are each
 
 With the storage volumes allocated, they may now be presented with Samba-AD.
 
-Samba-AD is installed from [the Cloud UI Applications Catalog](../../../coreweave-kubernetes/coreweave-cloud-ui/applications-catalog.md) by searching `samba-ad`. Click the **samba-ad** card, then click the **Deploy** button to configure and launch Samba-AD.
+Samba-AD is installed from [the Cloud UI Applications Catalog](../../../welcome-to-coreweave/coreweave-cloud-ui/applications-catalog.md) by searching `samba-ad`. Click the **samba-ad** card, then click the **Deploy** button to configure and launch Samba-AD.
 
 <figure><img src="../../../.gitbook/assets/image (3) (2) (2).png" alt="Screenshot: search for samba-ad in the applications catalog to find it"><figcaption></figcaption></figure>
 

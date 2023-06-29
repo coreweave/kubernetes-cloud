@@ -63,7 +63,7 @@ A shared filesystem of `100Gi` is now deployed in the namespace with the name `s
 
 ## Install FileBrowser
 
-The end goal of this tutorial is to create an easy-to-use service for rendering a Blender animation. The simplest solution for accessing output assets is to use the open-source utility [FileBrowser](http://www.filebrowser.xyz), which is available through [the Applications Catalog](../../../coreweave-kubernetes/coreweave-cloud-ui/applications-catalog.md) by searching for **filebrowser**.
+The end goal of this tutorial is to create an easy-to-use service for rendering a Blender animation. The simplest solution for accessing output assets is to use the open-source utility [FileBrowser](http://www.filebrowser.xyz), which is available through [the Applications Catalog](../../../welcome-to-coreweave/coreweave-cloud-ui/applications-catalog.md) by searching for **filebrowser**.
 
 For more information on installing and using FileBrowser, see [the FileBrowser installation guide](../../../storage/filebrowser.md).
 

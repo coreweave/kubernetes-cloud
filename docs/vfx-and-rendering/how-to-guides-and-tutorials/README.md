@@ -4,7 +4,7 @@ The following guides provide step-by-step instructions for leveraging CoreWeave 
 
 ## Prerequisites
 
-All of the tutorials in this section assume that the user already has [an active CoreWeave Cloud account](../../coreweave-kubernetes/getting-started.md).
+All of the tutorials in this section assume that the user already has [an active CoreWeave Cloud account](../../welcome-to-coreweave/getting-started.md).
 
 ### Virtual Workstations
 

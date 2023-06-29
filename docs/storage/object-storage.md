@@ -24,7 +24,7 @@ Using the CoreWeave Cloud UI, an Object Storage configuration file can be genera
 
 <figure><img src="../.gitbook/assets/image (9) (2) (2).png" alt="Screenshot of the Object Storage link on the side nav of the Cloud UI"><figcaption><p>The Object Storage link is located on the left-hand menu on the Cloud UI</p></figcaption></figure>
 
-To create a new token, click the button labelled **Create a New Token**. This will bring up the **New Storage Token** modal, which prompts you to assign a name, a default [S3 region](../data-center-regions.md) (which can be changed later), and [an access level](object-storage.md#identity-and-access-management-iam-and-access-levels) to the token.
+To create a new token, click the button labelled **Create a New Token**. This will bring up the **New Storage Token** modal, which prompts you to assign a name, a default [S3 region](../coreweave-kubernetes/data-center-regions.md) (which can be changed later), and [an access level](object-storage.md#identity-and-access-management-iam-and-access-levels) to the token.
 
 <figure><img src="../.gitbook/assets/image (52) (1).png" alt="Screenshot of the new storage token modal"><figcaption><p>The New Storage Token modal</p></figcaption></figure>
 

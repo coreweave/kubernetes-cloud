@@ -14,11 +14,11 @@ Virtual Servers are the most "vanilla" of CoreWeave's compute offerings. Virtual
 
 <table data-view="cards"><thead><tr><th></th><th data-hidden></th><th data-hidden></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><span data-gb-custom-inline data-tag="emoji" data-code="1f449">👉</span> Learn more</td><td></td><td></td><td><a href="broken-reference">Broken link</a></td></tr></tbody></table>
 
-### :sailboat: [**Kubernetes**](../coreweave-kubernetes/getting-started.md)
+### :sailboat: [**Kubernetes**](../welcome-to-coreweave/getting-started.md)
 
 Our Kubernetes offering differs from most of the other leading cloud providers by offering a **fully managed cluster** with thousands of GPUs pre-populated. Kubernetes access gives experienced MLOps teams the power to deploy their own stacks in a bare metal container environment. The Kubernetes environment fully supports massive distributed training on our NVIDIA A100 HGX clusters with RDMA GPUDirect InfiniBand. Plus, there's no need to worry about cluster scaling or idle virtual machines incurring costs - charges are incurred only for what is actually used.
 
-<table data-view="cards"><thead><tr><th></th><th data-hidden></th><th data-hidden></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><span data-gb-custom-inline data-tag="emoji" data-code="1f449">👉</span> Learn more</td><td></td><td></td><td><a href="../coreweave-kubernetes/getting-started.md">getting-started.md</a></td></tr></tbody></table>
+<table data-view="cards"><thead><tr><th></th><th data-hidden></th><th data-hidden></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><span data-gb-custom-inline data-tag="emoji" data-code="1f449">👉</span> Learn more</td><td></td><td></td><td><a href="../welcome-to-coreweave/getting-started.md">getting-started.md</a></td></tr></tbody></table>
 
 ### :muscle: NVIDIA HGX H100
 

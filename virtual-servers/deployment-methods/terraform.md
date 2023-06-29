@@ -15,7 +15,7 @@ To use the Terraform module as your deployment method, you will first need to ob
 {% hint style="info" %}
 **Note**
 
-See [Obtain Access Credentials](../../docs/coreweave-kubernetes/getting-started.md#obtain-access-credentials) for more information.
+See [Obtain Access Credentials](../../docs/welcome-to-coreweave/getting-started.md#obtain-access-credentials) for more information.
 {% endhint %}
 
 With the [Virtual Server module](https://github.com/coreweave/kubernetes-cloud/tree/master/virtual-server/examples/terraform) cloned, and all [configuration options](../../docs/virtual-servers/virtual-server-configuration-options/) adjusted to your preferences, a Virtual Server can either be created by running the module directly:

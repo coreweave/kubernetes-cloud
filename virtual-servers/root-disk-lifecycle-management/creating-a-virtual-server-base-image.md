@@ -8,7 +8,7 @@
 ## Deploy source Virtual Server
 
 {% hint style="success" %}
-Be sure to review [Getting Started](../../docs/coreweave-kubernetes/getting-started.md#obtain-access-credentials) and the [kubectl Virtual Server deployment method](../../docs/virtual-servers/deployment-methods/kubectl.md#deploying-a-virtual-server) before starting this guide.
+Be sure to review [Getting Started](../../docs/welcome-to-coreweave/getting-started.md#obtain-access-credentials) and the [kubectl Virtual Server deployment method](../../docs/virtual-servers/deployment-methods/kubectl.md#deploying-a-virtual-server) before starting this guide.
 {% endhint %}
 
 First, we will deploy a Windows Virtual Server using a [reference YAML](../../virtual-server/examples/kubectl/virtual-server-windows.yaml). This will serve as the source disk for our subsequent instances:

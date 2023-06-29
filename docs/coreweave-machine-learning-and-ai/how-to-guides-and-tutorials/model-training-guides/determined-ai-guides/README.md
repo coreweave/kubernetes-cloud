@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-All of the tutorials listed below assume the user has an active [CoreWeave Cloud account](../../../../coreweave-kubernetes/getting-started.md).
+All of the tutorials listed below assume the user has an active [CoreWeave Cloud account](../../../../welcome-to-coreweave/getting-started.md).
 
 ## How-to guides and tutorials: Determined AI
 

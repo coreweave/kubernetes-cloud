@@ -6,7 +6,7 @@ Operating System images provided by CoreWeave Cloud include enhancements and fea
 
 Operating system source images provided by CoreWeave for Virtual Servers live in the `vd-images` namespace on CoreWeave Cloud. Several metadata properties exist for easy identification.
 
-Using [`kubectl`](../../coreweave-kubernetes/getting-started.md#install-kubernetes-command-line-tools) with the metadata labels listed above, individual images are easily queried.
+Using [`kubectl`](../../welcome-to-coreweave/getting-started.md#install-kubernetes-command-line-tools) with the metadata labels listed above, individual images are easily queried.
 
 ### Metadata labels
 

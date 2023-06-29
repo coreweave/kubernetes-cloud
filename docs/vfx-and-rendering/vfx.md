@@ -6,7 +6,7 @@ description: Build a feature-rich VFX studio on CoreWeave Cloud
 
 CoreWeave Cloud makes it easy to deploy an end-to-end VFX production pipeline in the Cloud. Solutions can be either hosted entirely on CoreWeave Cloud, or integrated with pipelines hosted elsewhere.
 
-* :earth\_africa: With [data center locations](../data-center-regions.md) in New York City, Chicago and Las Vegas, CoreWeave guarantees a low-latency Virtual Workstation experience for remote employees.
+* :earth\_africa: With [data center locations](../coreweave-kubernetes/data-center-regions.md) in New York City, Chicago and Las Vegas, CoreWeave guarantees a low-latency Virtual Workstation experience for remote employees.
 * :zap:The industry's fastest autoscale starts your tasks on hundreds of GPUs or thousands of CPUs in 30 seconds, and scales them down once finished to avoid incurring charges while idle.
 
 <figure><img src="../.gitbook/assets/110822001-a1eafa00-825e-11eb-9f67-66411d3ad641.png" alt="Diagram displaying various configuration options and applications for Virtual Workstations on CoreWeave Cloud"><figcaption><p>Configuration possibilities are endless with CoreWeave Virtual Workstations</p></figcaption></figure>

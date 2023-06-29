@@ -18,7 +18,7 @@ Tutorial source code for GPT-2 for AITextgen
 
 ## Get started
 
-After installing `kubectl` and [adding your CoreWeave Cloud access credentials](../../../../coreweave-kubernetes/getting-started.md#obtain-coreweave-access-credentials), clone the repository and folder for the tutorial source code.
+After installing `kubectl` and [adding your CoreWeave Cloud access credentials](../../../../welcome-to-coreweave/getting-started.md#obtain-coreweave-access-credentials), clone the repository and folder for the tutorial source code.
 
 This guide assumes use of a private container registry requiring authentication. Recommended solutions include using the [Docker Registry application directly on CoreWeave Cloud](../../../../coreweave-kubernetes/custom-containers.md), or else creating and using [a Docker Hub account](https://hub.docker.com/). Otherwise, another private container registry may work.
 

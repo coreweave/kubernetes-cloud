@@ -21,7 +21,7 @@ Once the above have been completed, then the Determined AI application may be in
 
 ### Configure your CoreWeave credentials
 
-This guide presumes that you have an active CoreWeave Cloud account, and have obtained and locally configured your [CoreWeave access credentials](../../../../coreweave-kubernetes/getting-started.md#obtain-coreweave-access-credentials).
+This guide presumes that you have an active CoreWeave Cloud account, and have obtained and locally configured your [CoreWeave access credentials](../../../../welcome-to-coreweave/getting-started.md#obtain-coreweave-access-credentials).
 
 ### Create a shared filesystem volume
 
@@ -124,7 +124,7 @@ At the bottom of the configuration screen, ensure that the newly-created filesys
 {% hint style="warning" %}
 **Important**
 
-It is highly recommended to set the [Data Center Region](../../../../data-center-regions.md) of the application to be the same as that in which the shared filesystem volume was deployed.
+It is highly recommended to set the [Data Center Region](../../../../coreweave-kubernetes/data-center-regions.md) of the application to be the same as that in which the shared filesystem volume was deployed.
 {% endhint %}
 
 Finally, click **Deploy** to launch the application.

@@ -4,7 +4,7 @@ The guides and tutorials in this section provide step-by-step instructions to le
 
 ## Prerequisites
 
-All of the following tutorials assume that the user has [an active CoreWeave Cloud account](../../coreweave-kubernetes/getting-started.md).
+All of the following tutorials assume that the user has [an active CoreWeave Cloud account](../../welcome-to-coreweave/getting-started.md).
 
 ## How-to guides and tutorials: Machine learning and AI
 

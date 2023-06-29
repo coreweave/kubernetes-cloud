@@ -58,7 +58,7 @@ It's easy to schedule your workloads, whether they be containerized micro-servic
 
 To schedule a Virtual Server in a specific region, we've added an easy-to-use region selector on the [CoreWeave Cloud Virtual Server UI](https://cloud.coreweave.com/virtual-servers) when creating a new Virtual Server, which allows you to easily select the desired data center.
 
-<figure><img src=".gitbook/assets/image (9) (4) (1).png" alt="Data region selectors on CoreWeave Cloud UI"><figcaption><p>Data region selectors on CoreWeave Cloud UI</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (9) (4) (1).png" alt="Data region selectors on CoreWeave Cloud UI"><figcaption><p>Data region selectors on CoreWeave Cloud UI</p></figcaption></figure>
 
 To schedule resources in a specific region using the Kubernetes API, simply add an affinity such as the one shown below to your deployment or other deployable resources:
 
@@ -105,7 +105,7 @@ The following table provides the storage class names, correspondent to each stor
 {% hint style="info" %}
 **Additional Resources**
 
-[Learn more about Storage on CoreWeave Cloud.](storage/storage/)
+[Learn more about Storage on CoreWeave Cloud.](../storage/storage/)
 {% endhint %}
 
 <table><thead><tr><th width="127.18821327831549">Storage Class</th><th width="212" align="center">LGA1</th><th width="206.14289554743957" align="center">ORD1</th><th align="center">LAS1</th></tr></thead><tbody><tr><td>Block NVMe</td><td align="center"><code>block-nvme-lga1</code></td><td align="center"><code>block-nvme-ord1</code></td><td align="center"><code>block-nvme-las1</code></td></tr><tr><td>Shared NVMe</td><td align="center"><code>shared-nvme-lga1</code></td><td align="center"><code>shared-nvme-ord1</code></td><td align="center"><code>shared-nvme-las1</code></td></tr><tr><td>Block HDD</td><td align="center"><code>block-hdd-lga1</code></td><td align="center"><code>block-hdd-ord1</code></td><td align="center"><code>block-hdd-las1</code></td></tr><tr><td>Shared HDD</td><td align="center"><code>shared-hdd-lga1</code></td><td align="center"><code>shared-hdd-ord1</code></td><td align="center"><code>shared-hdd-las1</code></td></tr></tbody></table>

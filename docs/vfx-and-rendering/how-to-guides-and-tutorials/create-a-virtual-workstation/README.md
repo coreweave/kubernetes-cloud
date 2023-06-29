@@ -12,7 +12,7 @@ In this tutorial, several Virtual Workstations are created using the [CoreWeave 
 
 ## Prerequisites
 
-This guide assumes that the user already has [an active CoreWeave Cloud account](../../../coreweave-kubernetes/getting-started.md).
+This guide assumes that the user already has [an active CoreWeave Cloud account](../../../welcome-to-coreweave/getting-started.md).
 
 ## Create a Virtual Workstation
 

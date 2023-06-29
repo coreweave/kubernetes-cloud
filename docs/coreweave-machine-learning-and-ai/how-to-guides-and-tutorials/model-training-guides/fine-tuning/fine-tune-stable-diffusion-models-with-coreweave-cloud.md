@@ -19,7 +19,7 @@ This article covers both **DreamBooth** and **Textual Inversion** training metho
 
 ## Prerequisites
 
-This guide contains all the information required to train Stable Diffusion, but assumes that you have already followed the process to set up the CoreWeave Kubernetes environment. If you have not done so already, follow the [Get Started with CoreWeave](../../../../coreweave-kubernetes/getting-started.md) steps before proceeding.
+This guide contains all the information required to train Stable Diffusion, but assumes that you have already followed the process to set up the CoreWeave Kubernetes environment. If you have not done so already, follow the [Get Started with CoreWeave](../../../../welcome-to-coreweave/getting-started.md) steps before proceeding.
 
 It also assumes you are familiar with the topics covered in these articles.
 

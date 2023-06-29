@@ -22,7 +22,7 @@ $ git clone --recurse-submodules https://github.com/coreweave/gpt-det-deepseed.g
 
 This guide assumes that the following are completed in advance.
 
-* You have [set up your CoreWeave Kubernetes environment](../../../../coreweave-kubernetes/getting-started.md) locally
+* You have [set up your CoreWeave Kubernetes environment](../../../../welcome-to-coreweave/getting-started.md) locally
 * `git` is locally installed
 * [Determined AI is installed in your namespace](install-determined-ai.md)
 

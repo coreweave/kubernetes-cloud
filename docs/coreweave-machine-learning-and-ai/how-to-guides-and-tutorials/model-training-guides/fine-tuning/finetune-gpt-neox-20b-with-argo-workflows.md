@@ -110,12 +110,12 @@ Before running the Workflow, a few things need to be created in your namespace.&
 {% hint style="info" %}
 **Note**
 
-This guide assumes that you have already followed the process to set up the CoreWeave Kubernetes environment. If you have not done so already, [follow our Getting Started guide](../../../../coreweave-kubernetes/getting-started.md) before proceeding with this guide.
+This guide assumes that you have already followed the process to set up the CoreWeave Kubernetes environment. If you have not done so already, [follow our Getting Started guide](../../../../welcome-to-coreweave/getting-started.md) before proceeding with this guide.
 {% endhint %}
 
 ### Argo Workflows
 
-To run an Argo workflow, first deploy the Argo Workflows application in your namespace via the CoreWeave's [application Catalog](../../../../coreweave-kubernetes/coreweave-cloud-ui/applications-catalog.md).
+To run an Argo workflow, first deploy the Argo Workflows application in your namespace via the CoreWeave's [application Catalog](../../../../welcome-to-coreweave/coreweave-cloud-ui/applications-catalog.md).
 
 {% hint style="info" %}
 **Additional Information**

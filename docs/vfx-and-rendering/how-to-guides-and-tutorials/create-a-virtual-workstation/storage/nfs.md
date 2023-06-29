@@ -4,7 +4,7 @@ description: Expose storage volumes using NFS server
 
 # NFS
 
-To expose storage using NFS, find the **nfs-server** application in [the Applications Catalog](../../../../coreweave-kubernetes/coreweave-cloud-ui/applications-catalog.md). Click the **Deploy** button to configure the NFS settings.
+To expose storage using NFS, find the **nfs-server** application in [the Applications Catalog](../../../../welcome-to-coreweave/coreweave-cloud-ui/applications-catalog.md). Click the **Deploy** button to configure the NFS settings.
 
 <figure><img src="../../../../.gitbook/assets/image (29) (2) (1).png" alt="The NFS application in the application Catalog"><figcaption><p>The NFS application in the application Catalog</p></figcaption></figure>
 

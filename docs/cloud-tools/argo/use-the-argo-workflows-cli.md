@@ -8,7 +8,7 @@ The Argo Command Line Interface (CLI) is a powerful tool used to create, submit,
 
 ## Use Argo CLI
 
-To submit a job with the CLI, first verify the [CoreWeave Kubernetes environment](../../coreweave-kubernetes/getting-started.md#setup-kubernetes-config) is set up.
+To submit a job with the CLI, first verify the [CoreWeave Kubernetes environment](../../welcome-to-coreweave/getting-started.md#setup-kubernetes-config) is set up.
 
 Next, download the latest Argo CLI from [the GitHub releases](https://github.com/argoproj/argo-workflows/releases) page and follow their Quick Start installation instructions.&#x20;
 

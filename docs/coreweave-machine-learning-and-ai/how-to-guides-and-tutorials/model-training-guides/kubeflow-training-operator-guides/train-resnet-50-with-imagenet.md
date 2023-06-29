@@ -175,7 +175,7 @@ The names of `MPIJobs` are unique. An old job must be deleted before a new one c
 {% hint style="info" %}
 **Note**
 
-This guide assumes that you have already followed the process to set up the CoreWeave Kubernetes environment. If you have not done so already, [follow our Getting Started guide](../../../../coreweave-kubernetes/getting-started.md) before proceeding with this guide.
+This guide assumes that you have already followed the process to set up the CoreWeave Kubernetes environment. If you have not done so already, [follow our Getting Started guide](../../../../welcome-to-coreweave/getting-started.md) before proceeding with this guide.
 {% endhint %}
 
 ### Deploy the PVC

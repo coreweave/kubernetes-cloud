@@ -16,7 +16,7 @@ CoreWeave Cloud removes most of the Kubernetes resources automatically, however 
 
 ## Accessing the Inference Service
 
-This tutorial presumes you have installed `kubectl`, and [configured your Kubernetes environment ](../../../../coreweave-kubernetes/getting-started.md)for CoreWeave Cloud use.
+This tutorial presumes you have installed `kubectl`, and [configured your Kubernetes environment ](../../../../welcome-to-coreweave/getting-started.md)for CoreWeave Cloud use.
 
 The Inference Service is a specific kind of Kubernetes resource. Once the Inference Service is [deployed](../../../inference/models.md#deploy), verify that the Inference Service is ready using `kubectl get isvc`:
 

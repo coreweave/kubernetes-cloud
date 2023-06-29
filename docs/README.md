@@ -2,7 +2,7 @@
 description: Welcome to CoreWeave!
 ---
 
-# CoreWeave Cloud
+# Get Started with CoreWeave
 
 ## Quick Links
 
@@ -24,7 +24,7 @@ Unlike other cloud providers, your workloads execute on bare metal. When a conta
 
 ### :gear: **Fully managed with no maintenance or no control-plane charges**
 
-You access compute using the Cloud UI, Workflows or directly as a Kubernetes namespace via [traditional Kubernetes tools](coreweave-kubernetes/getting-started.md#install-kubernetes-command-line-tools). We manage the control-plane, node availability and scaling. You submit your Models, Jobs or Deployments, and we handle the rest.
+You access compute using the Cloud UI, Workflows or directly as a Kubernetes namespace via [traditional Kubernetes tools](welcome-to-coreweave/getting-started.md#install-kubernetes-command-line-tools). We manage the control-plane, node availability and scaling. You submit your Models, Jobs or Deployments, and we handle the rest.
 
 ### :tada: Everything else - the team and the tools to make you successful
 

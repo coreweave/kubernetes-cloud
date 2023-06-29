@@ -23,7 +23,7 @@ In this simple example, an instance of TensorFlow with Jupyter is deployed to Co
 This tutorial presumes that you have...
 
 * installed [`kubectl`](https://kubernetes.io/docs/reference/kubectl/) on your system
-* obtained and configured [CoreWeave access credentials](../../docs/coreweave-kubernetes/getting-started.md#obtain-coreweave-access-credentials)
+* obtained and configured [CoreWeave access credentials](../../docs/welcome-to-coreweave/getting-started.md#obtain-coreweave-access-credentials)
 
 {% hint style="warning" %}
 **Important**
