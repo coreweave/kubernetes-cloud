@@ -135,7 +135,7 @@ CoreWeave’s Tensorizer outperforms SafeTensors and HuggingFace for model load 
 
 CoreWeave’s Tensorizer outperforms SafeTensors and HuggingFace for model load times on OPT-30B with NVIDIA A100s.
 
-<figure><img src="../../../../.gitbook/assets/image (19) (2).png" alt="Graph displaying Tensorizer larger model load times compared to SafeTensors and Hugging Face."><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (19).png" alt="Graph displaying Tensorizer larger model load times compared to SafeTensors and Hugging Face."><figcaption></figcaption></figure>
 
 ### Handling burst requests
 

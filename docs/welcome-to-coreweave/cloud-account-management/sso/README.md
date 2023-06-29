@@ -67,6 +67,6 @@ Finally, provide a name for the SSO configuration in the Display Name field that
 
 ### Activate the SSO configuration
 
-<figure><img src="../../../.gitbook/assets/image (29) (1).png" alt=""><figcaption><p>Check the "Configuration Active" box to turn on the SSO configuration</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (29) (1) (1).png" alt=""><figcaption><p>Check the "Configuration Active" box to turn on the SSO configuration</p></figcaption></figure>
 
 Finally, once the other fields are complete, ensure the **Configuration Active** checkbox is checked before clicking the **Save** button. Checking this box, then clicking **Save**, will turn the SSO configuration on.

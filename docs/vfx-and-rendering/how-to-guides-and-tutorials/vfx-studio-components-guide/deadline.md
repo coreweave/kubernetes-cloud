@@ -403,7 +403,7 @@ repository:
           password: temp123
 ```
 
-Edit the values to represent the connection details to your on-premises Deadline repository. If your repository is not accessible over a public IP, consider first setting up [Cloudlink](broken-reference) to proxy your connections through.
+Edit the values to represent the connection details to your on-premises Deadline repository. If your repository is not accessible over a public IP, consider first setting up [Cloudlink](../../vfx.md#on-premise-integrations-with-coreweave-cloudlink) to proxy your connections through.
 
 Once ready, run `kubectl get services` and look for the Cloudlink `forwards` Service. Use the external IP of that Service as the value of `host` in your YAML file.
 {% endtab %}
