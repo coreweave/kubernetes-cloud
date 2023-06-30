@@ -183,7 +183,7 @@ In total, there are three stages, each of which adds another level of paralleliz
 
 
 
-<figure><img src="../../../../.gitbook/assets/image (18) (2) (1).png" alt="Graph from the ZeRO paper showing the memory efficiency from different optimization stages."><figcaption><p>Graph from the <a href="https://arxiv.org/abs/1910.02054v3">ZeRO paper</a> showing the memory efficiency from different optimization stages.</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (18) (2).png" alt="Graph from the ZeRO paper showing the memory efficiency from different optimization stages."><figcaption><p>Graph from the <a href="https://arxiv.org/abs/1910.02054v3">ZeRO paper</a> showing the memory efficiency from different optimization stages.</p></figcaption></figure>
 
 ### The experiment config
 
@@ -328,7 +328,7 @@ From the overview of an experiment that is running multiple trials, you can trac
 
 You can see more information about each specific trial in the **Trials** tab. Each individual trial may also be inspected from here by clicking into them.
 
-<figure><img src="../../../../.gitbook/assets/image (19) (2) (1).png" alt=""><figcaption><p>Trials Tab in the Determined Web UI</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (19) (2) (1) (1).png" alt=""><figcaption><p>Trials Tab in the Determined Web UI</p></figcaption></figure>
 
 {% hint style="info" %}
 **Note**

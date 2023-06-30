@@ -30,7 +30,7 @@ From the SAML integration screen, enter an application name (such as `CoreWeave 
 For more information on Okta's SAML integration fields, refer to [Okta's Application Integration Wizard SAML field reference](https://help.okta.com/en-us/Content/Topics/Apps/aiw-saml-reference.htm).
 {% endhint %}
 
-<figure><img src="../../../.gitbook/assets/image (10) (2) (1).png" alt=""><figcaption><p>The Okta IDP configuration page</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (10) (2).png" alt=""><figcaption><p>The Okta IDP configuration page</p></figcaption></figure>
 
 ### Configure SAML
 
@@ -68,7 +68,7 @@ The `email` attribute is what uniquely identifies users.
 
 To acquire the identity provider URL, the IDP Single sign-on URL, and the X.509 certificate, click the **View SAML setup instructions** button on the right-hand side of the "Configure SAML" page.
 
-<figure><img src="../../../.gitbook/assets/image (2) (4) (2).png" alt=""><figcaption><p>The "View SAML setup instructions" button is on the right-hand side of the SAML configuration screen</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (4).png" alt=""><figcaption><p>The "View SAML setup instructions" button is on the right-hand side of the SAML configuration screen</p></figcaption></figure>
 
 This will redirect to a "How to" page, which contains all values for these fields.
 

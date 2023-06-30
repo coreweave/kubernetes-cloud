@@ -28,7 +28,7 @@ The Active Directory flavor of the Samba application will require a domain contr
 
 The Samba instance and the filesystem volume to expose should be deployed in the same data center region. When selecting a region for the Samba instance, ensure it matches the one chosen for the filesystem volume.
 
-<figure><img src="../../../../.gitbook/assets/image (12) (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (12) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 **Note**
@@ -62,7 +62,7 @@ Finally, click the **Deploy** button in the lower left-hand corner.
 
 To install a Samba-AD instance, navigate to the application Catalog and search for **Samba**. Select the **samba-ad** application, then click the **Deploy** button in the lower right-hand corner to open the configuration options.
 
-<figure><img src="../../../../.gitbook/assets/image (38) (2).png" alt="The Samba-AD configuration options"><figcaption><p>The Samba-AD configuration options</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (38).png" alt="The Samba-AD configuration options"><figcaption><p>The Samba-AD configuration options</p></figcaption></figure>
 
 First, select the same data region into which your storage volume was provisioned earlier. Then, complete the Samba Server Domain information, and whether or not to specify a custom DNS suffix.
 

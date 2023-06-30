@@ -106,6 +106,8 @@ There are three designated storage classes for Object Storage formats, which cor
 
 Each endpoint represents an independent, exclusive object store. This means that objects stored in `ORD1`buckets are not accessible from the `LAS1` region, and so on.
 
+Bucket names must be unique per region. It is a recommended practice to include the region name (such as `ord1`) in the name of the bucket.
+
 Users may use any regional Object Storage endpoint and create and use buckets as they wish, but each region comes with its own quota limit. The default quota limit is `30TB` of data per region.
 
 {% hint style="info" %}
@@ -198,7 +200,7 @@ From the Object Storage page, the **Access Level** field displays the key's curr
 
 <figure><img src="../.gitbook/assets/image (4) (5).png" alt=""><figcaption><p>Access levels are displayed on the Object Storage page</p></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/image (3) (1).png" alt="Screenshot: Access levels drop-down"><figcaption><p>Any access level may be chosen from this drop-down</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (3) (1) (4).png" alt="Screenshot: Access levels drop-down"><figcaption><p>Any access level may be chosen from this drop-down</p></figcaption></figure>
 
 ### IAM actions
 

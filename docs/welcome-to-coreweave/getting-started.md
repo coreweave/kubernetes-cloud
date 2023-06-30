@@ -36,7 +36,7 @@ At CoreWeave, [Kubeconfig files](https://kubernetes.io/docs/concepts/configurati
 
 New Kubeconfig files and credentials as well as new API tokens are created and managed on this page.
 
-<figure><img src="../.gitbook/assets/image (1) (3).png" alt="Screenshot of the &#x22;API &#x26; Kubeconfig&#x22; page in the Cloud app"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (113).png" alt="Screenshot of the &#x22;API &#x26; Kubeconfig&#x22; page in the Cloud app"><figcaption></figcaption></figure>
 
 ### Generate a new Kubeconfig file
 
