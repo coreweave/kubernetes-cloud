@@ -1,58 +1,58 @@
-apiVersion: serving.kubeflow.org/v1beta1
-kind: InferenceService
+apiVersion: batch/v1
+kind: Job
 metadata:
   name: bloom-176b
 spec:
-  predictor:
-    containerConcurrency: 1
-    minReplicas: 1
-    maxReplicas: 1 
-    affinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-          - matchExpressions:
-            - key: gpu.nvidia.com/class
-              operator: In
-              values:
-              - A100_PCIE_80GB
-            - key: topology.kubernetes.io/region
-              operator: In
-              values:
-              - ORD1 
-    containers:
+  template:
+    spec:
+      containers:
       - name: kserve-container
-        image: tweldoncw/bloom-176b:1
+        image: harubaru1/bloom-176b:4
         command:
           - "python3"
           - "/workspace/bloom.py"
         env:
-          # The following values are defaults which may be changed as needed
           - name: MODEL_PATH
-            value: "/mnt/pvc/bloom" 
-          - name: STORAGE_URI # Kserve mounts the PVC at /mnt/pvc/
-            value: pvc://model-cache/
-          - name: MODEL_DOWNLOAD_TIMEOUT
-            value: "3600"
-          # The following values are defaults which may be changed as needed here, as well in each predictor request. 
-          - name: MIN_LENGTH
-            value: "1"
+            value: "/mnt/pvc/bloom"
           - name: MAX_LENGTH
-            value: "40"
-          - name: TEMPERATURE
-            value: "1.0"
-          - name: TOP_K
-            value: "50"
-          - name: TOP_P
-            value: "1.0"
-          - name: REPETITION_PENALTY
-            value: "1.125"
+            value: "500"
         resources:
           requests:
             cpu: 12
             memory: 64Gi
-            nvidia.com/gpu: 5
+            nvidia.com/gpu: 8
           limits:
             cpu: 12
             memory: 64Gi
-            nvidia.com/gpu: 5
+            nvidia.com/gpu: 8
+        volumeMounts:
+          - name: model-cache
+            mountPath: /mnt/pvc
+        resources:
+          requests:
+            cpu: 32
+            memory: 512Gi
+            nvidia.com/gpu: 8
+          limits:
+            cpu: 32
+            memory: 512Gi 
+            nvidia.com/gpu: 8
+      volumes:
+        - name: model-cache
+          persistentVolumeClaim:
+            claimName: model-cache
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: topology.kubernetes.io/region
+                operator: In
+                values: 
+                - LGA1
+              - key: gpu.nvidia.com/class
+                operator: In
+                values:
+                - A100_NVLINK_80GB
+      restartPolicy: Never
+  backoffLimit: 2
