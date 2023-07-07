@@ -21,6 +21,7 @@ generator = pipeline(
     device_map="auto",
 )
 
+@torch.inference_mode()
 def predict(max_length: int, num_iter: int):
     start = time.time()
 
@@ -31,7 +32,7 @@ def predict(max_length: int, num_iter: int):
         )
 
     elapsed_time = time.time() - start
-    tokens_per_second = max_length / elapsed_time
+    tokens_per_second = (max_length * num_iter) / elapsed_time
 
     return tokens_per_second, elapsed_time
 
@@ -40,4 +41,4 @@ num_iter = int(os.getenv('NUM_ITER', '5'))
 
 print('Running benchmark.')
 tps, et = predict(max_length, num_iter)
-print(f"{options['MODEL_PATH']}: inferenced at {tps} tokens per second, {et} seconds taken to run.")
+print(f"{options['MODEL_PATH']}: inferenced at {tps} tokens per second, {et} seconds taken to run on {max_length} tokens.")
