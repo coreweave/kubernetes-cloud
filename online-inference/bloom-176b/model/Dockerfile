@@ -1,9 +1,7 @@
 # PyTorch and Hugging Face
-FROM pytorch/pytorch:1.12.0-cuda11.3-cudnn8-runtime AS pytorch-huggingface
+FROM ghcr.io/coreweave/ml-containers/torch:a0333d3-nccl-cuda12.1.1-nccl2.18.1-1-torch2.0.1-vision0.15.2-audio2.0.2 AS pytorch-huggingface
 
 # Upgrade packages
-RUN apt update && apt upgrade -y
-
 RUN apt update && apt install -y curl git wget zip tree
 
 ADD requirements.txt /tmp/
