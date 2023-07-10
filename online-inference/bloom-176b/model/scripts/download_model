@@ -6,15 +6,21 @@
 set -ex
 
 if [[ $# -ne 2 ]]; then
-    echo "Invalid number of arguments"
-    echo "Usage: ./download_huggingface.sh <model_name> <save_path>"
-    echo "  - model_name  - model name to download e.g. NovelAI/genji-python-6b"
-    echo "  - save_path  - base directory where the model is saved, e.g. /mnt/pvc"
+    echo "\
+    Invalid number of arguments 
+      Usage: ./download_huggingface.sh <model_name> <save_path> 
+          - model_name  - model name to download e.g. NovelAI/genji-python-6b 
+          - save_path  - base directory where the model is saved, e.g. /mnt/pvc 
+          - concurrency(optional) - the number of parallel workers to download with, default: 10"
     exit 1
 fi
 
 MODEL_NAME=$1
 SAVE_PATH=$2
+
+# If a third argument is provided treat it as the desired concurrency
+DEFAULT_CONCURRENCY=10
+CONCURRENCY="${3:-$DEFAULT_CONCURRENCY}"
 
 BLOBSTORE_PREFIX="inference"
 PATH=${PATH}:"${CURRENT_DIR}/scripts/bin"
@@ -24,28 +30,14 @@ echo "MODEL_NAME: ${MODEL_NAME}"
 
 mkdir -pv "${SAVE_PATH}/${MODEL_NAME}"
 
-function download_file {
-  local FILE_PATH=$1
-  local DIR_PATH=$(dirname "${FILE_PATH}")
-  mkdir -p "${DIR_PATH}"
-  curl "http://blobstore.s3.ord1.coreweave.com/inference/${FILE_PATH}" --output "${FILE_PATH}"
-}
-
 function  download {
   echo "Downloading model ${MODEL_NAME} into ${SAVE_PATH}"
-
   pushd "${SAVE_PATH}"
   mkdir -p "${MODEL_NAME}"
   pushd "${MODEL_NAME}"
-  FILE_LIST=($(curl --insecure "http://blobstore.s3.ord1.coreweave.com/inference/${MODEL_NAME}/files.txt" | awk '{print $4;}'))
-  popd
-
-  for file in "${FILE_LIST[@]}";do
-    relative_path=${file#"s3://blobstore/inference/"}
-    download_file "${relative_path}"
-  done
-
-  popd
+  curl --insecure "http://blobstore.s3.ord1.coreweave.com/inference/${MODEL_NAME}/files.txt" | awk '{print $4}' |  xargs -I {} echo cp {} $SAVE_PATH/$MODEL_NAME/ >> /tmp/file_list_$MODEL_NAME 
+  s5cmd  --numworkers $CONCURRENCY --no-sign-request --endpoint-url http://s3.ord1.coreweave.com run /tmp/file_list_$MODEL_NAME 
+  rm /tmp/file_list_$MODEL_NAME 
 }
 
 function set_ready {
