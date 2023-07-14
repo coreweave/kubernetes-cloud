@@ -14,7 +14,7 @@
     * [Okta](welcome-to-coreweave/cloud-account-management/sso/okta.md)
     * [JumpCloud](welcome-to-coreweave/cloud-account-management/sso/jumpcloud.md)
     * [Generic IDP](welcome-to-coreweave/cloud-account-management/sso/generic-idp.md)
-* [Release Notes](welcome-to-coreweave/release-notes.md)
+* [Release Notes](release-notes.md)
 * [Partners](welcome-to-coreweave/partners/README.md)
   * [Zeet](welcome-to-coreweave/partners/zeet.md)
 

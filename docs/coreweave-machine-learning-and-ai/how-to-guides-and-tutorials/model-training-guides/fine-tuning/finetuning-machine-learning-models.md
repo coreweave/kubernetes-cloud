@@ -114,7 +114,7 @@ It's also possible to use a [Virtual Server](broken-reference) to load files ont
 5. Hover over `finetune-data` in **Available Volumes** to reveal the `+` icon, and click it to attach the volume. Ensure that it is mounted, as demonstrated in the example below.
 6. Click **Deploy**.
 
-<figure><img src="../../../../.gitbook/assets/image (111).png" alt="Screenshot of filebrowser deployment"><figcaption><p>Screenshot of filebrowser deployment</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (17).png" alt="Screenshot of filebrowser deployment"><figcaption><p>Screenshot of filebrowser deployment</p></figcaption></figure>
 
 ## Load the fine-tuning dataset
 
@@ -487,7 +487,7 @@ The deployment may require up to 5 minutes to request a TLS certificate. If an H
 
 Paste the Bearer token, which was retrieved [in the prerequisites section](finetuning-machine-learning-models.md#retrieve-the-bearer-token), into the **client authentication** box then click **Login**.&#x20;
 
-<figure><img src="../../../../.gitbook/assets/image (92).png" alt="Screenshot of Argo login screen"><figcaption><p>Screenshot of Argo login screen</p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (18).png" alt="Screenshot of Argo login screen"><figcaption><p>Screenshot of Argo login screen</p></figcaption></figure>
 
 Navigate to the **Workflows** menu to see the progress as it goes through the tokenization, fine-tune, and inference stages.
 

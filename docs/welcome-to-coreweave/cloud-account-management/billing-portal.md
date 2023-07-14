@@ -81,7 +81,7 @@ If you have multiple subscriptions, you may see icons that indicate normal and c
 
 <div align="left">
 
-<figure><img src="../../.gitbook/assets/image (7) (3).png" alt="Examples of invoice icons"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (7) (2).png" alt="Examples of invoice icons"><figcaption></figcaption></figure>
 
 </div>
 
@@ -103,7 +103,7 @@ All billable resources may be viewed in CoreWeave Cloud.&#x20;
 
 On the main dashboard of the Cloud UI, the **Account Overview** section offers a high-level glance at the amount of billable resources in use, as well as the total expenses for the previous day, the current billing period, and the total cost per hour.
 
-<figure><img src="../../.gitbook/assets/image (43).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (43) (2).png" alt=""><figcaption></figcaption></figure>
 
 For a more in-depth view of resources in use, [Grafana](https://grafana.coreweave.com/) may be used to find useful dashboards with compute and storage summaries, and detailed reports of the GPUs, CPUs, memory, and network activity for each Pod. These Grafana dashboards are managed, and cannot be modified, however [new dashboards can be created](../../../coreweave-kubernetes/prometheus/grafana.md).
 

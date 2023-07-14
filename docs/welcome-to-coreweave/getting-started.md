@@ -36,7 +36,7 @@ At CoreWeave, [Kubeconfig files](https://kubernetes.io/docs/concepts/configurati
 
 New Kubeconfig files and credentials as well as new API tokens are created and managed on this page.
 
-<figure><img src="../.gitbook/assets/image (113).png" alt="Screenshot of the &#x22;API &#x26; Kubeconfig&#x22; page in the Cloud app"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (4).png" alt="Screenshot of the &#x22;API &#x26; Kubeconfig&#x22; page in the Cloud app"><figcaption></figcaption></figure>
 
 ### <mark style="background-color:red;">\[Org admins]</mark> Generate a new access token and Kubeconfig file
 
@@ -51,13 +51,13 @@ Be sure to save this file and the token in a secure location. If you lose your A
 
 Token names are optional, but recommended. If the **Automatically download Kubeconfig** checkbox is checked, a Kubeconfig file with the new token embedded within it, named `cw-kubeconfig`, will download automatically upon token creation. To prevent this, uncheck this box.
 
-<figure><img src="../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (8).png" alt=""><figcaption></figcaption></figure>
 
 Below the name input is the option to select the namespaces to which this token grants access. Select a namespace by clicking it, then click the right-pointing arrow to move it to the box on the right. Namespaces listed in the box on the right will be granted to the new token upon creation. To select multiple namespaces, check the boxes beside each desired namespace, then click the right-facing arrow to add them. Clicking the left-pointing arrow will remove namespaces to be added.
 
 Once namespace selection is complete, click **Create token**.
 
-<figure><img src="../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
 
 #### Custom RBAC for tokens
 

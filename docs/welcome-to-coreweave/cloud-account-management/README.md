@@ -30,5 +30,5 @@ The **billing** link redirects to the billing portal.
 
 To [contact your CoreWeave support specialist](https://cloud.staging.coreweave.com/contact), click the **contact support** link.
 
-<figure><img src="../../.gitbook/assets/image (39).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (39) (1).png" alt=""><figcaption></figcaption></figure>
 

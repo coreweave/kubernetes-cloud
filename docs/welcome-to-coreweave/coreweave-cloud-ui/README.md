@@ -46,7 +46,7 @@ The [CoreWeave Cloud Applications Catalog](https://apps.coreweave.com) is a buil
 
 ## Storage Volumes
 
-<figure><img src="../../.gitbook/assets/image (67).png" alt="Screenshot of the storage volumes dashboard"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (67) (3).png" alt="Screenshot of the storage volumes dashboard"><figcaption></figcaption></figure>
 
 High-performance, network-attached storage volumes for [containerized custom applications](../../coreweave-kubernetes/custom-containers.md) and for [Virtual Servers](../../../virtual-servers/getting-started.md) are easy to provision and manage from the Storage Volumes dashboard.
 
@@ -58,7 +58,7 @@ Quota increase requests may also be submitted here, by clicking the **Increase Q
 
 ## API Access
 
-<figure><img src="../../.gitbook/assets/image (11).png" alt="Screenshot of the API management dashboard"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (11) (1).png" alt="Screenshot of the API management dashboard"><figcaption></figcaption></figure>
 
 From the **API Access** page, [organization administrators](../cloud-account-management/organizations.md#organization-admin) may generate new [API access tokens and new Kubeconfig files](../getting-started.md) to allow organization members access to the namespace and the resources deployed within it.
 
@@ -66,7 +66,7 @@ From the **API Access** page, [organization administrators](../cloud-account-man
 
 ## Object Storage
 
-<figure><img src="../../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 CoreWeave [Object Storage](../../storage/object-storage.md) is an S3-compatible storage system that allows data to be stored and retrieved in a flexible and efficient way. From the Object Storage dashboard, new [Object Storage tokens](../../storage/object-storage.md#authentication) are generated and managed to configure authentication and access levels to Object Storage buckets.
 
@@ -74,11 +74,11 @@ CoreWeave [Object Storage](../../storage/object-storage.md) is an S3-compatible 
 
 ## Namespaces
 
-<figure><img src="../../.gitbook/assets/image (56).png" alt="Screenshot of the namespace management dashboard"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (56) (1).png" alt="Screenshot of the namespace management dashboard"><figcaption></figcaption></figure>
 
 Each organization on CoreWeave Cloud may have one or multiple namespaces, which are managed from the **Namespaces** dashboard. The current state of the namespace is seen here, and includes information such as the current number of GPUs in use, the number of Pods running in the namespace, the number of Virtual Servers deployed to the namespace, and the storage capacity of the namespace. Quota increase requests may also be submitted from this dashboard by clicking the ellipses on the right-hand side of the namespace listing.
 
-<figure><img src="../../.gitbook/assets/image (10).png" alt="Screenshot of the namespace management dashboard"><figcaption><p>Request a quota increase from the namespace management dashboard</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (10) (3).png" alt="Screenshot of the namespace management dashboard"><figcaption><p>Request a quota increase from the namespace management dashboard</p></figcaption></figure>
 
 To switch namespaces, click the **Active Namespace** dropdown selector in the upper right-hand corner of the Cloud UI, and select the desired namespace.
 

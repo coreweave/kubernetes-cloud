@@ -78,7 +78,7 @@ When `network.directAttachLoadBalancerIP` is set to `true`, custom UDP and TCP p
 
 Desired ports may be configured in their respective lists, as seen in this example:
 
-<figure><img src="../../.gitbook/assets/image (56) (4).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (56).png" alt=""><figcaption></figcaption></figure>
 
 Example in plain text:
 

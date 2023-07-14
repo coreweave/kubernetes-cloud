@@ -21,7 +21,7 @@ From the CoreWeave Cloud main dashboard, either navigate to the **Virtual Server
 
 The [**CoreWeave Cloud**](https://cloud.coreweave.com/virtualservers) Virtual Server has more features than the [**CoreWeave Apps**](https://apps.coreweave.com) edition, but you can use either one. You may see a selection screen like this when deploying.
 
-![Deploy a Virtual Server](<../../docs/.gitbook/assets/image (17) (4).png>)&#x20;
+![Deploy a Virtual Server](<../../docs/.gitbook/assets/image (17) (1).png>)&#x20;
 
 These instructions are for **CoreWeave Cloud** Virtual Server.
 {% endhint %}
@@ -74,7 +74,7 @@ One way to initiate a clone deployment is to open the New Virtual Server form, a
 
 Select an existing Virtual Server in the drop-down presented. Then toggle the **Clone (use resource as source)** option to create an exact clone of the selected Virtual Server.
 
-<figure><img src="../../docs/.gitbook/assets/image (10) (1).png" alt="Clone server modal"><figcaption><p>Clone server modal</p></figcaption></figure>
+<figure><img src="../../docs/.gitbook/assets/image (10).png" alt="Clone server modal"><figcaption><p>Clone server modal</p></figcaption></figure>
 
 ### Clone from an existing server entry
 
@@ -88,7 +88,7 @@ A template uses an existing Virtual Server as a model. Deploying from a template
 
 The steps to deploy as a template are similar to [deploying a clone](coreweave-apps.md#clone-an-existing-server-1), but choose the **Use As Template** option instead. In the Select Template modal, leave the Clone option untoggled:
 
-<figure><img src="../../docs/.gitbook/assets/image (18).png" alt="Leave Clone untoggled to create a template"><figcaption><p>Leave <strong>Clone</strong> untoggled to create a template</p></figcaption></figure>
+<figure><img src="../../docs/.gitbook/assets/image (18) (4).png" alt="Leave Clone untoggled to create a template"><figcaption><p>Leave <strong>Clone</strong> untoggled to create a template</p></figcaption></figure>
 
 ### Adjusting configuration when using a template
 
@@ -102,7 +102,7 @@ A custom deployment loads the operating system image from an existing PVC or a r
 
 To deploy a custom Virtual Server, follow the same steps as if deploying a [new server from scratch](coreweave-apps.md#new-server-1), then select either **Image From Remote Source**, or **Image From PVC** in the Operating System section.&#x20;
 
-<figure><img src="../../docs/.gitbook/assets/image (17).png" alt="Choose a Custom option"><figcaption><p>Choose a Custom option</p></figcaption></figure>
+<figure><img src="../../docs/.gitbook/assets/image (61).png" alt="Choose a Custom option"><figcaption><p>Choose a Custom option</p></figcaption></figure>
 
 #### Image from remote source
 
@@ -146,7 +146,7 @@ Once your Virtual Server has begun deploying, you will be automatically redirect
 
 Click the new Virtual Server to expand its menu for more information and to see all options.
 
-<figure><img src="../../docs/.gitbook/assets/image (67) (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../docs/.gitbook/assets/image (67).png" alt=""><figcaption></figcaption></figure>
 
 ### Virtual terminal
 
@@ -170,4 +170,4 @@ A basic diagnostic log of all actions involving the Virtual Server are recorded 
 The events listed under **Events** are short-lived, so should mostly be used for diagnostic purposes or for tracing the status of the Virtual Server.
 {% endhint %}
 
-<figure><img src="../../docs/.gitbook/assets/image (48) (3).png" alt="Screenshot of the events list"><figcaption></figcaption></figure>
+<figure><img src="../../docs/.gitbook/assets/image (48).png" alt="Screenshot of the events list"><figcaption></figcaption></figure>

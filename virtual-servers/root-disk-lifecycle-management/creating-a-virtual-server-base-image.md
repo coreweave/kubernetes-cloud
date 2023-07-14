@@ -101,7 +101,7 @@ Using `kubectl get vs`, we can confirm `Started: False`:
 
 We can see that the PVC created along with our source Virtual Server persists with it shut off:
 
-![Output of "kubectl get pvc"](<../../docs/.gitbook/assets/image (34) (1).png>)
+![Output of "kubectl get pvc"](<../../docs/.gitbook/assets/image (34) (1) (1).png>)
 
 We will reference this PVC to create a new Virtual Server:
 

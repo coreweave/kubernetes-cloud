@@ -60,7 +60,7 @@ Client authentication mode is strongly encouraged as a [security best practice](
 
 <div align="left">
 
-<figure><img src="../../.gitbook/assets/image (36) (3) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (36) (3).png" alt=""><figcaption></figcaption></figure>
 
 </div>
 

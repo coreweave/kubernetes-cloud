@@ -26,7 +26,7 @@ Using the CoreWeave Cloud UI, an Object Storage configuration file can be genera
 
 To create a new token, click the button labelled **Create a New Token**. This will bring up the **New Storage Token** modal, which prompts you to assign a name, a default [S3 region](../coreweave-kubernetes/data-center-regions.md) (which can be changed later), and [an access level](object-storage.md#identity-and-access-management-iam-and-access-levels) to the token.
 
-<figure><img src="../.gitbook/assets/image (52) (1).png" alt="Screenshot of the new storage token modal"><figcaption><p>The New Storage Token modal</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (52) (1) (2).png" alt="Screenshot of the new storage token modal"><figcaption><p>The New Storage Token modal</p></figcaption></figure>
 
 Finally, clicking the **Generate** button generates the token's configuration file:
 
@@ -200,7 +200,7 @@ From the Object Storage page, the **Access Level** field displays the key's curr
 
 <figure><img src="../.gitbook/assets/image (4) (5).png" alt=""><figcaption><p>Access levels are displayed on the Object Storage page</p></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/image (3) (1) (4).png" alt="Screenshot: Access levels drop-down"><figcaption><p>Any access level may be chosen from this drop-down</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (3) (1).png" alt="Screenshot: Access levels drop-down"><figcaption><p>Any access level may be chosen from this drop-down</p></figcaption></figure>
 
 ### IAM actions
 

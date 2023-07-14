@@ -24,9 +24,9 @@ Once the Determined application is launched, open the Determined AI Web UI. Clic
 
 Choose a number of **Slots** (that is, the number of GPUs to use) and set a **Name** for your Notebook, then [select a Resource Pool](install-determined-ai.md#resource-pools).
 
-<figure><img src="../../../../.gitbook/assets/image (1) (3) (1).png" alt="Screenshot of the JupyterLab configuration modal"><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (1) (3).png" alt="Screenshot of the JupyterLab configuration modal"><figcaption></figcaption></figure>
 
-<figure><img src="../../../../.gitbook/assets/image (13) (1).png" alt="Screenshot of Notebook configuration screen"><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (13) (1) (1).png" alt="Screenshot of Notebook configuration screen"><figcaption></figcaption></figure>
 
 
 
@@ -46,7 +46,7 @@ To learn more about Jupyter and how to use Notebooks and JupyterLab, refer to [t
 
 To shut down the notebook, navigate to the **File** menu, then select **Shut Down**.
 
-![The file -> shutdown menu](<../../../../.gitbook/assets/image (11) (6) (1).png>)
+![The file -> shutdown menu](<../../../../.gitbook/assets/image (11) (6).png>)
 
 This will end the lab. In order to return to Jupyter Lab, you must re-launch the environment as described above.
 
