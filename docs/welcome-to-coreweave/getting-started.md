@@ -38,7 +38,9 @@ New Kubeconfig files and credentials as well as new API tokens are created and m
 
 <figure><img src="../.gitbook/assets/image (113).png" alt="Screenshot of the &#x22;API &#x26; Kubeconfig&#x22; page in the Cloud app"><figcaption></figcaption></figure>
 
-### Generate a new Kubeconfig file
+### <mark style="background-color:red;">\[Org admins]</mark> Generate a new access token and Kubeconfig file
+
+[Organization admins](cloud-account-management/organizations.md#organizations-and-organization-administrators) may generate new API access tokens by navigating to the [API Access page](https://cloud.coreweave.com/api-access) on the Cloud UI. From here, click the **API & Kubeconfig** tab at the top right of the page, then click the **Create a New Token** button to the right to open the token generation modal.
 
 {% hint style="danger" %}
 **Warning**
@@ -47,17 +49,19 @@ New Kubeconfig files and credentials as well as new API tokens are created and m
 Be sure to save this file and the token in a secure location. If you lose your Access Token, it can be found inside your [Kubeconfig file](getting-started.md#configure-kubernetes).
 {% endhint %}
 
-Organization admins may generate new Access Tokens by navigating to the [API Access page](https://cloud.coreweave.com/api-access) on the Cloud UI. From here, click the **API & Kubeconfig** tab at the top right of the page, then click the **Create a New Token** button to the right.
+Token names are optional, but recommended. If the **Automatically download Kubeconfig** checkbox is checked, a Kubeconfig file with the new token embedded within it, named `cw-kubeconfig`, will download automatically upon token creation. To prevent this, uncheck this box.
 
-Once prompted, give the token a recognizable name, then click the **Generate** button. Generating the new token will also create a Kubeconfig file with the name `cw-kubeconfig`, which will embed your token. This file will download automatically.
+<figure><img src="../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
-{% hint style="info" %}
-**Note**
+Below the name input is the option to select the namespaces to which this token grants access. Select a namespace by clicking it, then click the right-pointing arrow to move it to the box on the right. Namespaces listed in the box on the right will be granted to the new token upon creation. To select multiple namespaces, check the boxes beside each desired namespace, then click the right-facing arrow to add them. Clicking the left-pointing arrow will remove namespaces to be added.
 
-If you would like to prevent the Kubeconfig file from downloading automatically, un-check the **Automatically download Kubeconfig** checkbox.
-{% endhint %}
+Once namespace selection is complete, click **Create token**.
 
-<figure><img src="../.gitbook/assets/image (4) (4).png" alt="The &#x22;New Access Token&#x22; modal"><figcaption><p>The "New Access Token" modal</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+#### Custom RBAC for tokens
+
+For more fine-grained access control, organization admins may create a token with no namespaces selected. This creates a "blank" token, whose permissions are managed solely by custom [Kubernetes RBAC policies](https://kubernetes.io/docs/reference/access-authn-authz/rbac/) bound to the token as the RBAC subject. For more information, [contact support](https://cloud.coreweave.com/contact).
 
 ### Install Kubernetes tools
 

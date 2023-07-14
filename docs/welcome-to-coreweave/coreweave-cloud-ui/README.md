@@ -66,7 +66,7 @@ From the **API Access** page, [organization administrators](../cloud-account-man
 
 ## Object Storage
 
-<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
 
 CoreWeave [Object Storage](../../storage/object-storage.md) is an S3-compatible storage system that allows data to be stored and retrieved in a flexible and efficient way. From the Object Storage dashboard, new [Object Storage tokens](../../storage/object-storage.md#authentication) are generated and managed to configure authentication and access levels to Object Storage buckets.
 
