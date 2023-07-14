@@ -6,10 +6,6 @@ description: Feature Updates and Release Notes for CoreWeave Cloud
 
 ## July 2023
 
-### :closed\_lock\_with\_key:[Updates to access management](welcome-to-coreweave/getting-started.md)
-
-With this latest batch of updates, organization administrators are now able to customize the access level of newly invited members from the invitation creation page. Similarly, organization admins are also now able to modify existing users' namespace permissions, and can assign specific permissions to users related to billing.
-
 ### :chart\_with\_upwards\_trend: [New Tensorizer benchmarks and benchmark tutorial](coreweave-machine-learning-and-ai/how-to-guides-and-tutorials/examples/tensorizer-benchmarks-and-examples/real-world-impact-benchmark.md)
 
 [CoreWeave Tensorizer](coreweave-machine-learning-and-ai/inference/tensorizer.md) is a tool for fast PyTorch module, model, and tensor serialization and deserialization, making it possible to load models extremely quickly from HTTP/HTTPS and S3 endpoints. It also speeds up loading from network and local disk volumes.
