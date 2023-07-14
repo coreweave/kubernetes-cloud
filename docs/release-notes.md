@@ -20,7 +20,7 @@ In addition to [a brand new blog post](https://coreweave.com/blog/coreweaves-ten
 
 <table data-card-size="large" data-view="cards"><thead><tr><th></th><th data-hidden></th><th data-hidden></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><span data-gb-custom-inline data-tag="emoji" data-code="1f449">👉</span> Learn more about Tensorizer</td><td></td><td></td><td><a href="coreweave-machine-learning-and-ai/inference/tensorizer.md">tensorizer.md</a></td></tr><tr><td><span data-gb-custom-inline data-tag="emoji" data-code="26a1">⚡</span> Check out the new tutorial</td><td></td><td></td><td><a href="coreweave-machine-learning-and-ai/how-to-guides-and-tutorials/examples/tensorizer-benchmarks-and-examples/real-world-impact-benchmark.md">real-world-impact-benchmark.md</a></td></tr><tr><td><span data-gb-custom-inline data-tag="emoji" data-code="1f9e0">🧠</span> Read more on our blog</td><td></td><td></td><td><a href="https://docs.coreweave.com/machine-learning-and-ai/inference/examples/tensorizer-benchmarks/real-world-impact-benchmark">https://docs.coreweave.com/machine-learning-and-ai/inference/examples/tensorizer-benchmarks/real-world-impact-benchmark</a></td></tr></tbody></table>
 
-### :sparkles: [UI updates to CoreWeave Cloud UI](welcome-to-coreweave/coreweave-cloud-ui/)
+### :sparkles: [Updates to the CoreWeave Cloud UI](welcome-to-coreweave/coreweave-cloud-ui/)
 
 <figure><img src=".gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
 
@@ -28,11 +28,11 @@ In addition to [a brand new blog post](https://coreweave.com/blog/coreweaves-ten
 
 <table data-card-size="large" data-view="cards"><thead><tr><th></th><th data-hidden></th><th data-hidden></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><span data-gb-custom-inline data-tag="emoji" data-code="1f449">👉</span> Learn more</td><td></td><td></td><td><a href="../virtual-servers/deployment-methods/coreweave-apps.md">coreweave-apps.md</a></td></tr></tbody></table>
 
-### :lock\_with\_ink\_pen:[ New namespaces access controls for user tokens](welcome-to-coreweave/getting-started.md#org-admins-generate-a-new-access-token-and-kubeconfig-file)
+### :lock\_with\_ink\_pen:[ New namespace access controls for user tokens](welcome-to-coreweave/getting-started.md#org-admins-generate-a-new-access-token-and-kubeconfig-file)
 
 <figure><img src=".gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
 
-New namespace access controls provide [organization administrators](welcome-to-coreweave/cloud-account-management/organizations.md#organizations-and-organization-administrators) with the ability to create access tokens with specific namespace permissions, allowing for a greater level of security for organization members. A token with no specified namespace permissions can also be created, granting the organization administrator the ability to create Kubernetes custom RBAC policies.&#x20;
+With new namespace access controls, [organization administrators](welcome-to-coreweave/cloud-account-management/organizations.md#organizations-and-organization-administrators) can create access tokens with specific namespace permissions, allowing for a greater level of security for organization members. A token with no specified namespace permissions can also be created, granting the organization administrator the ability to create Kubernetes custom RBAC policies.
 
 <table data-card-size="large" data-view="cards"><thead><tr><th></th><th data-hidden></th><th data-hidden></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><span data-gb-custom-inline data-tag="emoji" data-code="1f449">👉</span> Learn more</td><td></td><td></td><td><a href="welcome-to-coreweave/getting-started.md#org-admins-generate-a-new-access-token-and-kubeconfig-file">#org-admins-generate-a-new-access-token-and-kubeconfig-file</a></td></tr></tbody></table>
 
