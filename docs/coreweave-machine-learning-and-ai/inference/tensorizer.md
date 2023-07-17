@@ -8,6 +8,18 @@ description: >-
 
 [CoreWeave's Tensorizer](https://github.com/coreweave/tensorizer/) is a module, model, and tensor serializer and deserializer that makes it possible to load models **in less than five seconds**, making it easier, more flexible, and more cost-efficient to serve models at scale.
 
+{% hint style="success" %}
+**Did You Know?**
+
+Compared to Hugging Face:
+
+* Tensorizer's latency per request is more than five times faster.
+* Tensorizer containers spin up faster, requiring fewer Pods to serve more requests.
+* Tensorizor uses significantly less RAM for “lazy loading.”
+
+To learn more, see [Decrease PyTorch Model Load Times with CoreWeave’s Tensorizer](https://coreweave.com/blog/coreweaves-tensorizer-decrease-pytorch-model-load-times).
+{% endhint %}
+
 ## Features
 
 ### :chart\_with\_upwards\_trend: Reduction in resource usage
