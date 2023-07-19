@@ -8,11 +8,9 @@ description: Sign up for CoreWeave Cloud and configure access
 
 Welcome to CoreWeave Cloud!
 
-### Create an account
+### Request an account
 
-The first step to getting access to CoreWeave Cloud is to [sign up for an account](https://cloud.coreweave.com/signup).
-
-After providing payment information, you will receive a verification email to the account provided. After verifying your address, your information will be submitted to our team to verify your account request. You will also be redirected to a page that confirms the request was received.
+The first step to getting access to CoreWeave Cloud is to fill out [the Contact Sales form](https://www.coreweave.com/contact-us). Your information will be submitted to our team for review, who will be in touch with next steps.
 
 {% hint style="success" %}
 **Tip**
@@ -20,7 +18,7 @@ After providing payment information, you will receive a verification email to th
 For a higher chance of admission, it is strongly recommended to fill out [the inbound sales form](https://coreweave.com/contact-us) after submitting your account request. **Please note, account approval may take up to three business days.**
 {% endhint %}
 
-### Obtain CoreWeave access credentials
+### Create CoreWeave access credentials
 
 {% hint style="danger" %}
 **Important**
