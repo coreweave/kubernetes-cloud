@@ -22,7 +22,7 @@ spec:
               - ORD1 
     containers:
       - name: kserve-container
-        image: ghcr.io/coreweave/ml-containers/sd-inference:bb1ac67
+        image: ghcr.io/coreweave/ml-containers/sd-inference:1eb7a14
         command:
           - "python3"
           - "/app/service.py"
