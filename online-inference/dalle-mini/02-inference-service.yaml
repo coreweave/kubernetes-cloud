@@ -1,8 +1,8 @@
 apiVersion: serving.kubeflow.org/v1beta1
 kind: InferenceService
 metadata:
-  name: dalle-mega
-  #name: dalle-mini
+  #name: dalle-mega
+  name: dalle-mini
 spec:
   predictor:
     containerConcurrency: 1
@@ -29,8 +29,8 @@ spec:
           - "/app/service.py"
         env:
           - name: MODEL_ID
-            value: "dalle-mini/dalle-mega"
-            #value: "dalle-mini/dalle-mini"
+            #value: "dalle-mini/dalle-mega"
+            value: "dalle-mini/dalle-mini"
           - name: MODEL_CACHE
             value: "/mnt/models"
           - name: STORAGE_URI # Kserve mounts the PVC at /mnt/models/
