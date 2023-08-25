@@ -1,5 +1,5 @@
-kserve==0.9.0
-torch>=1.12.1
+kserve
+torch
 transformers~=4.27.1
 diffusers==0.14.0
 tensorizer==1.0.1
