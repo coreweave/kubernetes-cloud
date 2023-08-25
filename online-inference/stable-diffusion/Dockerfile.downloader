@@ -1,7 +1,11 @@
-FROM python:3.9.13-alpine3.16
+FROM ubuntu
+RUN apt-get update 
+RUN apt-get install -y python3 python3-pip 
 RUN mkdir /app
-ADD downloader/ /app/
+ADD downloader/ download.py/app
 WORKDIR /app
+COPY /service/requirements.txt /app/
+RUN pip3 install huggingface_hub
 RUN pip3 install --upgrade pip
 RUN pip3 install -r requirements.txt
 CMD ["python3", "/app/download.py"]
