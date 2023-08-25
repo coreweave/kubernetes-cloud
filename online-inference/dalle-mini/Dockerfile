@@ -1,5 +1,5 @@
 ARG MODEL=dalle-mini
-ARG CUDA_RELEASE=11.2.1-cudnn8-devel-ubuntu20.04
+ARG CUDA_RELEASE=12.2.0-devel-ubuntu20.04
 FROM nvidia/cuda:${CUDA_RELEASE} AS base
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-mark unhold $(apt-mark showhold)
