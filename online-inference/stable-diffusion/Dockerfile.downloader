@@ -2,7 +2,7 @@ FROM ubuntu
 RUN apt-get update 
 RUN apt-get install -y python3 python3-pip 
 RUN mkdir /app
-ADD downloader/ download.py/app
+ADD downloader/ /app
 WORKDIR /app
 COPY /service/requirements.txt /app/
 RUN pip3 install huggingface_hub
