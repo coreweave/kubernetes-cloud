@@ -1,8 +1,8 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  #name: dalle-mini-download
-  name: dalle-mega-download
+  name: dalle-mini-download
+  #name: dalle-mega-download
 spec:
   template:
     spec:
@@ -13,8 +13,8 @@ spec:
         command: 
           - "python3"
           - "/app/download.py"
-          #- "--model-id=dalle-mini/dalle-mini"
-          - "--model-id=dalle-mini/dalle-mega"
+          - "--model-id=dalle-mini/dalle-mini"
+          #- "--model-id=dalle-mini/dalle-mega"
           - "--model-cache=/mnt/pvc"
         volumeMounts:
           - name: model-cache
