@@ -1,3 +1,6 @@
 accelerate==0.11.0
 git+https://github.com/huggingface/transformers.git@ccc0897 # For device_map in pipelines() support
 kserve==0.8.0.2
+
+# MIT-licensed version of a kserve transitive dependency (necessary for kserve < 0.10.1)
+-e git+https://github.com/AleksTk/table-logger@3cab68c59062ce4d9cb3b667f64e83a23789bf63#egg=table-logger
