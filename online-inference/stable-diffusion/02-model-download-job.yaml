@@ -14,6 +14,8 @@ spec:
           - "--model=CompVis/stable-diffusion-v1-4"
           - "--dest=/mnt/models/CompVis/stable-diffusion-v1-4"
           - "--type=diffusers"
+        securityContext:
+          runAsUser: 0
         env:
         - name: HF_HOME
           value: /mnt/models/
