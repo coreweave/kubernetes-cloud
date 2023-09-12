@@ -33,10 +33,10 @@ spec:
           resources:
             requests:
               cpu: 1
-              memory: 4Gi
+              memory: 8Gi
             limits:
               cpu: 1
-              memory: 4Gi
+              memory: 8Gi
       volumes:
         - name: kubeflow-imagenet
           persistentVolumeClaim:
