@@ -28,7 +28,7 @@ spec:
                 - ORD1 
       containers:
       - name: kfserving-container
-        image: harubaru1/stable-diffusion:46
+        image: ghcr.io/coreweave/ml-containers/sd-inference:amercurio-sd-overhaul-7d29c61
         command:
         - "python3"
         - "/app/service.py"
