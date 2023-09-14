@@ -1,9 +1,11 @@
 apiVersion: serving.kubeflow.org/v1beta1
 kind: InferenceService
 metadata:
-  name: stable-diffusion
+  name: sd
   annotations: 
     networking.knative.dev/ingress-class: kourier.ingress.networking.knative.dev
+  labels:
+    knative.coreweave.cloud/ingress: kourier.ingress.networking.knative.dev
 spec:
   predictor:
     minReplicas: 1
