@@ -1,0 +1,70 @@
+apiVersion: serving.kubeflow.org/v1beta1
+kind: InferenceService
+metadata:
+  name: stable-diffusion
+spec:
+  predictor:
+    minReplicas: 1
+    maxReplicas: 1 
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: gpu.nvidia.com/class
+              operator: In
+              values:
+              - Quadro_RTX_5000
+            - key: topology.kubernetes.io/region
+              operator: In
+              values:
+              - ORD1 
+    containers:
+      - name: kfserving-container
+        image: harubaru1/stable-diffusion:46
+        command:
+          - "python3"
+          - "/app/service.py"
+          - "--model-uri=s3://tensorized/runwayml/stable-diffusion-v1-5"
+          - "--precision=float16"
+          - "--port=80"
+        env:
+          - name: AWS_KEY
+            valueFrom:
+              secretKeyRef:
+                name: s3-access-key
+                key: access_key
+          - name: AWS_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: s3-secret-key
+                key: secret_key
+          - name: AWS_HOST
+            valueFrom:
+              secretKeyRef:
+                name: s3-host-url
+                key: url
+        ports:
+          - protocol: TCP
+            containerPort: 80
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 30
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 30
+          periodSeconds: 30
+        resources:
+          requests:
+            cpu: 4
+            memory: 16Gi
+            nvidia.com/gpu: 1
+          limits:
+            cpu: 4
+            memory: 16Gi
+            nvidia.com/gpu: 1

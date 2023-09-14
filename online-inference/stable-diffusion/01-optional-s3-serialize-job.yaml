@@ -1,23 +1,20 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: stable-diffusion-uploader
+  name: stable-diffusion-serializer
 spec:
   template:
     spec:
       containers:
-      - name: model-uploader
-        image: harubaru1/s3cmd:4
+      - name: model-serializer
+        image: harubaru1/stable-diffusion:46
         imagePullPolicy: IfNotPresent
-        command: ["/bin/sh", "-c"]
-        args:
-          - >
-            /usr/bin/s3cmd
-            --access_key=${AWS_KEY}
-            --secret_key=${AWS_SECRET}
-            put --recursive --acl-public
-            /mnt/models/CompVis/stable-diffusion-v1-4
-            s3://<BUCKET URL>/
+        command:
+          - "python3"
+          - "/app/serialize.py"
+          - "--hf-model-id=runwayml/stable-diffusion-v1-5"
+          - "--precision=float16"
+          - "--dest-bucket=your-bucket-here"
         env:
         - name: AWS_KEY
           valueFrom:
@@ -34,20 +31,13 @@ spec:
             secretKeyRef:
               name: s3-host-url
               key: url
-        volumeMounts:
-          - name: model-cache
-            mountPath: /mnt/models
         resources:
           requests:
-            cpu: 1
-            memory: 2Gi 
+            cpu: 2
+            memory: 16Gi
           limits:
-            cpu: 1
-            memory: 2Gi 
-      volumes:
-        - name: model-cache
-          persistentVolumeClaim:
-            claimName: stable-diffusion-model-cache
+            cpu: 2
+            memory: 16Gi
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
