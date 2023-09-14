@@ -34,16 +34,19 @@ spec:
               secretKeyRef:
                 name: s3-access-key
                 key: access_key
+                optional: true
           - name: AWS_SECRET
             valueFrom:
               secretKeyRef:
                 name: s3-secret-key
                 key: secret_key
+                optional: true
           - name: AWS_HOST
             valueFrom:
               secretKeyRef:
                 name: s3-host-url
                 key: url
+                optional: true
         ports:
           - protocol: TCP
             containerPort: 80
