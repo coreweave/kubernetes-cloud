@@ -1,5 +1,5 @@
-apiVersion: serving.kubeflow.org/v1beta1
-kind: InferenceService
+apiVersion: serving.knative.dev/v1
+kind: Service
 metadata:
   name: sd
   annotations: 
@@ -7,53 +7,56 @@ metadata:
   labels:
     knative.coreweave.cloud/ingress: kourier.ingress.networking.knative.dev
 spec:
-  predictor:
-    minReplicas: 1
-    maxReplicas: 1 
-    affinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-          - matchExpressions:
-            - key: gpu.nvidia.com/class
-              operator: In
-              values:
-              - Quadro_RTX_5000
-            - key: topology.kubernetes.io/region
-              operator: In
-              values:
-              - ORD1 
-    containers:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/minScale: "1"
+        autoscaling.knative.dev/maxScale: "1"
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: gpu.nvidia.com/class
+                operator: In
+                values:
+                - Quadro_RTX_5000
+              - key: topology.kubernetes.io/region
+                operator: In
+                values:
+                - ORD1 
+      containers:
       - name: kfserving-container
         image: harubaru1/stable-diffusion:46
         command:
-          - "python3"
-          - "/app/service.py"
-          - "--model-uri=s3://tensorized/runwayml/stable-diffusion-v1-5"
-          - "--precision=float16"
-          - "--port=80"
+        - "python3"
+        - "/app/service.py"
+        - "--model-uri=s3://tensorized/runwayml/stable-diffusion-v1-5"
+        - "--precision=float16"
+        - "--port=80"
         env:
-          - name: AWS_KEY
-            valueFrom:
-              secretKeyRef:
-                name: s3-access-key
-                key: access_key
-                optional: true
-          - name: AWS_SECRET
-            valueFrom:
-              secretKeyRef:
-                name: s3-secret-key
-                key: secret_key
-                optional: true
-          - name: AWS_HOST
-            valueFrom:
-              secretKeyRef:
-                name: s3-host-url
-                key: url
-                optional: true
+        - name: AWS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: s3-access-key
+              key: access_key
+              optional: true
+        - name: AWS_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: s3-secret-key
+              key: secret_key
+              optional: true
+        - name: AWS_HOST
+          valueFrom:
+            secretKeyRef:
+              name: s3-host-url
+              key: url
+              optional: true
         ports:
-          - protocol: TCP
-            containerPort: 80
+        - protocol: TCP
+          containerPort: 80
         livenessProbe:
           httpGet:
             path: /
