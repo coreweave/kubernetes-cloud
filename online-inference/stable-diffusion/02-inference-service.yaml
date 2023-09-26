@@ -1,0 +1,80 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: sd
+  annotations: 
+    networking.knative.dev/ingress-class: kourier.ingress.networking.knative.dev
+  labels:
+    knative.coreweave.cloud/ingress: kourier.ingress.networking.knative.dev
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/minScale: "1"
+        autoscaling.knative.dev/maxScale: "1"
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: gpu.nvidia.com/class
+                operator: In
+                values:
+                - Quadro_RTX_5000
+              - key: topology.kubernetes.io/region
+                operator: In
+                values:
+                - ORD1 
+      containers:
+      - name: kfserving-container
+        image: ghcr.io/coreweave/ml-containers/sd-inference:amercurio-sd-overhaul-7d29c61
+        command:
+        - "python3"
+        - "/app/service.py"
+        - "--model-uri=s3://tensorized/runwayml/stable-diffusion-v1-5"
+        - "--precision=float16"
+        - "--port=80"
+        env:
+        - name: AWS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: s3-access-key
+              key: access_key
+              optional: true
+        - name: AWS_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: s3-secret-key
+              key: secret_key
+              optional: true
+        - name: AWS_HOST
+          valueFrom:
+            secretKeyRef:
+              name: s3-host-url
+              key: url
+              optional: true
+        ports:
+        - protocol: TCP
+          containerPort: 80
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 30
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 30
+          periodSeconds: 30
+        resources:
+          requests:
+            cpu: 4
+            memory: 16Gi
+            nvidia.com/gpu: 1
+          limits:
+            cpu: 4
+            memory: 16Gi
+            nvidia.com/gpu: 1

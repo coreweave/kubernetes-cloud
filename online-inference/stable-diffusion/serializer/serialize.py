@@ -1,79 +1,55 @@
-import argparse
-import os
-import json
-from typing import Optional, Union
-
 import torch
+import os
+import logging
+from tensorizer import TensorSerializer, stream_io
 from diffusers import StableDiffusionPipeline
-from diffusers.configuration_utils import ConfigMixin
-from tensorizer import TensorSerializer
-from transformers import AutoConfig
+from argparse import ArgumentParser
 
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__file__)
 
-def serialize_model(
-        model: torch.nn.Module,
-        config: Optional[Union[ConfigMixin, AutoConfig, dict]],
-        model_directory: str,
-        model_prefix: str = "model",
-):
-    """
-    Remove the tensors from a PyTorch model, convert them to NumPy
-    arrays and serialize them to GooseTensor format. The stripped
-    model is also serialized to pytorch format.
-    Args:
-        model: The model to serialize.
-        config: The model's configuration. This is optional and only
-            required for HuggingFace Transformers models. Diffusers
-            models do not require this.
-        model_directory: The directory to save the serialized model to.
-        model_prefix: The prefix to use for the serialized model files. This
-            is purely optional and it allows for multiple models to be
-            serialized to the same directory. A good example are Stable
-            Diffusion models. Default is "model".
-    """
+parser = ArgumentParser()
+parser.add_argument("--hf-model-id", default="runwayml/stable-diffusion-v1-5", type=str)
+parser.add_argument("--precision", choices=["float16", "float32"], default="float16", type=str)
+parser.add_argument("--dest-bucket", default=None, required=True, type=str)
+parser.add_argument("--s3-access-key", default=os.getenv("AWS_KEY"), required=False, type=str)
+parser.add_argument("--s3-secret-access-key", default=os.getenv("AWS_SECRET"), required=False, type=str)
+parser.add_argument("--s3-endpoint", default=os.getenv("AWS_HOST", "object.ord1.coreweave.com"), required=False, type=str)
+args = parser.parse_args()
 
-    os.makedirs(model_directory, exist_ok=True)
-    dir_prefix = f"{model_directory}/{model_prefix}"
+def save_artifact(model, path, sub_path):
+    serializer = TensorSerializer(path + sub_path)
+    serializer.write_module(model)
+    serializer.close()
 
-    if config is None:
-        config = model
-    if config is not None:
-        if hasattr(config, "to_json_file"):
-            config.to_json_file(f"{dir_prefix}-config.json")
-        if isinstance(config, dict):
-            open(f"{dir_prefix}-config.json", "w").write(
-                json.dumps(config, indent=2)
-            )
+def save_artifact_s3(model, path, sub_path):
+    serializer = TensorSerializer(
+        stream_io.open_stream(
+            path_uri = path + sub_path,
+            mode = 'wb',
+            s3_access_key_id = args.s3_access_key,
+            s3_secret_access_key = args.s3_secret_access_key,
+            s3_endpoint = args.s3_endpoint,
+            s3_config_path=None
+        )
+    )
+    serializer.write_module(model)
+    serializer.close()
+    logger.info(f"Tensorized S3 artifact written to {path + sub_path}")
 
-    ts = TensorSerializer(f"{dir_prefix}.tensors")
-    ts.write_module(model)
-    ts.close()
-
-
-def main():
-    token = os.environ.get("HUGGING_FACE_HUB_TOKEN")
-
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--model-id', default="CompVis/stable-diffusion-v1-4")
-    parser.add_argument('--save-path', default="CompVis/stable-diffusion-v1-4")
-    args = parser.parse_args()
-
-    pipeline = StableDiffusionPipeline.from_pretrained(
-        args.model_id,
-        use_auth_token=token,
+if __name__ == '__main__':
+    model_id = args.hf_model_id
+    model = StableDiffusionPipeline.from_pretrained(
+        model_id,
+        torch_dtype=torch.float16 if args.precision == "float16" else torch.float32
     )
 
-    os.makedirs(args.save_path, exist_ok=True)
+    BASE_S3_URL = f"s3://{args.dest_bucket}/"
 
-    serialize_model(pipeline.text_encoder.eval(),
-                    pipeline.text_encoder.config,
-                    args.save_path,
-                    "encoder")
-    serialize_model(pipeline.vae.eval(), None, args.save_path, "vae")
-    serialize_model(pipeline.unet.eval(), None, args.save_path, "unet")
+    dtype_str = "/fp16" if args.precision == "float16" else ""
 
-    pipeline.tokenizer.save_pretrained(args.save_path)
+    save_artifact_s3(model.vae, BASE_S3_URL + model_id + dtype_str, '/vae.tensors')
+    save_artifact_s3(model.unet, BASE_S3_URL + model_id + dtype_str, '/unet.tensors')
+    save_artifact_s3(model.text_encoder, BASE_S3_URL + model_id + dtype_str, '/text_encoder.tensors')
 
-
-if __name__ == "__main__":
-    main()
+    logger.info(f"Wrote tensorized S3 artifact to: {BASE_S3_URL + model_id}")
