@@ -1,0 +1,77 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: {name}
+  annotations:
+    networking.knative.dev/ingress-class: kourier.ingress.networking.knative.dev
+  labels:
+    knative.coreweave.cloud/ingress: kourier.ingress.networking.knative.dev
+spec:
+  template:
+    metadata:
+      annotations:
+        {annotations}
+    spec:
+      containerConcurrency: {container_concurrency}
+      timeoutSeconds: {timeout_seconds}
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: gpu.nvidia.com/class
+                    operator: In
+                    values:
+                      - RTX_A5000
+                  - key: topology.kubernetes.io/region
+                    operator: In
+                    values:
+                      - LGA1
+      containers:
+        - name: main
+          # Uses tensorizer properly, but the image uses Mistral's as the base
+          image: navarrepratt/vllm:big-image-2
+          args:
+            - "--host"
+            - "0.0.0.0"
+            - "--model"
+            - "mistralai/Mistral-7B-Instruct-v0.1"
+            - "--load-format"
+            - "tensorizer"
+            - "--tensorizer-path"
+            - "s3://tensorized/mistral-7b-instruct-vllm.tensors"
+          resources:
+            requests:
+              cpu: 4
+              memory: 16Gi
+              nvidia.com/gpu: 1
+            limits:
+              cpu: 4
+              memory: 16Gi
+              nvidia.com/gpu: 1
+          volumeMounts:
+            - name: s3cfg
+              mountPath: /root/.s3cfg
+              subPath: .s3cfg
+          ports:
+            - protocol: TCP
+              containerPort: 8000
+          readinessProbe:
+            httpGet:
+              path: /v1/models
+              port: 8000
+            initialDelaySeconds: 30
+            periodSeconds: 5
+          env:
+            - name: HF_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  key: token
+                  name: huggingface-token-secret
+      volumes:
+        - name: s3cfg
+          secret:
+            secretName: lga-s3cfg
+            items:
+              - key: .s3cfg
+                path: .s3cfg
