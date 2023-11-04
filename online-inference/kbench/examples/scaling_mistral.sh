@@ -9,7 +9,7 @@ python "$BENCHMARK_SCRIPTS_PATH/test_scaling_concurrency.py" \
   -c 30 40 50 60 70 \
   --target-concurrency 30 \
   -r 1 \
-  -m 10 \
+  --rate-multiplier 10 \
   -p 10000 \
   -t "mistralai/Mistral-7B-Instruct-v0.1" \
-  -d "ShareGPT_V3_unfiltered_claned_split.json"
+  -d "ShareGPT_V3_unfiltered_cleaned_split.json"

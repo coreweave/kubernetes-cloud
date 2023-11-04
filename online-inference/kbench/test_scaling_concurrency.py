@@ -9,7 +9,8 @@ from matplotlib import pyplot as plt
 from tqdm import tqdm
 
 from k8s_utils import get_ksvc_template, deploy_ksvc, delete_ksvc
-from request_utils import send_requests, send_scaling_requests, RequestStats
+from request_utils import send_requests, send_scaling_requests, RequestStats, \
+    RequestArgs
 from data import sample_requests
 
 
@@ -25,7 +26,7 @@ async def test_scaling(
         panic_window_percentage: float = 50.0,
         panic_threshold_percentage: float = 200.0,
         warm_up_requests: int = 0,
-        n_sampling: int = 1,
+        request_args: Optional[RequestArgs] = None,
         desc: str = ""
 ) -> List[RequestStats]:
     annotations = {
@@ -41,14 +42,14 @@ async def test_scaling(
         container_concurrency=container_concurrency,
         ksvc_template=ksvc_template
     )
-    api_url = await deploy_ksvc(manifest, wait=True)
+    api_url = await deploy_ksvc(manifest, wait=True, verbose=False)
 
     pbar = tqdm(total=len(requests), desc=f"Scaling Test {desc}")
     try:
         if warm_up_requests > 0:
             await send_requests(api_url,
                                 random.sample(requests, warm_up_requests),
-                                n_sampling=n_sampling)
+                                request_args=request_args)
         results = await send_scaling_requests(
             api_url,
             requests,
@@ -75,7 +76,7 @@ async def run_container_concurreny_experiment(
         ksvc_template: str,
         file_name: str = "container_concurrency_results.pkl",
         warm_up_requests: int = 0,
-        n_sampling: int = 1
+        request_args: Optional[RequestArgs] = None,
 ) -> Dict[int, List[RequestStats]]:
     """Run scaling tests with various container concurrencies."""
 
@@ -92,7 +93,7 @@ async def run_container_concurreny_experiment(
                          rate_variation_period,
                          ksvc_template,
                          warm_up_requests=warm_up_requests,
-                         n_sampling=n_sampling,
+                         request_args=request_args,
                          desc=f"{container_concurrency}cc"))
         tasks.append(task)
 
@@ -273,7 +274,7 @@ def get_args() -> argparse.Namespace:
                       type=float,
                       default=1.0,
                       help="The baseline requests per second. Defaults to 1.")
-    args.add_argument("-m", "--rate-multiplier",
+    args.add_argument("--rate-multiplier",
                       type=float,
                       default=1.0,
                       help="The maximum multiplier used to alter the request "
@@ -298,6 +299,12 @@ def get_args() -> argparse.Namespace:
                       default="ShareGPT_V3_unfiltered_cleaned_split.json",
                       help="Local path to the dataset to use. Defaults to "
                            "'ShareGPT_V3_unfiltered_cleaned_split.json'.")
+    args.add_argument("-m", "--model",
+                      type=str,
+                      default="mistralai/Mistral-7B-Instruct-v0.1",
+                      help="The model name to use when calling the OpenAI "
+                           "endpoint of the Knative service. Defaults to "
+                           "'mistralai/Mistral-7B-Instruct-v0.1'.")
     args = args.parse_args()
 
     assert args.target_concurrency <= min(args.container_concurrencies), \
@@ -310,6 +317,10 @@ async def main() -> None:
     args = get_args()
     requests = sample_requests(args.dataset, args.requests, args.tokenizer)
 
+    request_args = RequestArgs(model=args.model,
+                               n=args.n_sampling)
+
+    print("Running tests...")
     results = await run_container_concurreny_experiment(
         requests,
         args.target_concurrency,
@@ -319,7 +330,7 @@ async def main() -> None:
         args.rate_variation_period,
         args.ksvc_template,
         file_name=f"{args.output}.pkl",
-        n_sampling=args.n_sampling
+        request_args=request_args
     )
 
     plot_all_scaling_latencies(

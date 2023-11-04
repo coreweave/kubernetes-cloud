@@ -39,16 +39,31 @@ class RequestStats:
         return self.total_tokens / self.latency
 
 
+@dataclass
+class RequestArgs:
+    model: str = "mistralai/Mistral-7B-Instruct-v0.1"
+    n: int = 1
+    top_p: int = 1
+    best_of: int = 1
+    use_beam: bool = False
+    stream: bool = True
+
+    @property
+    def temperature(self):
+        return 0.0 if self.use_beam else 1.0
+
+
 async def single_request(
         api_url: str,
-        request,
-        best_of: int = 1,
-        use_beam_search: bool = False,
+        request: Tuple[str, int, int],
+        request_args: Optional[RequestArgs] = None,
+        pbar: Optional[tqdm] = None,
         verbose: bool = False,
-        n: int = 1,
-        pbar: Optional[tqdm] = None
 ) -> RequestStats:
     """Send a single request to the API."""
+
+    if request_args is None:
+        request_args = RequestArgs()
 
     prompt, prompt_len, output_len = request
     if verbose:
@@ -57,15 +72,15 @@ async def single_request(
     openai_args = {
         "api_base": api_url + "/v1",
         "api_key": "EMPTY",
-        "model": "mistralai/Mistral-7B-Instruct-v0.1",
+        "model": request_args.model,
         "messages": [{"role": "user", "content": prompt}],
-        "stream": True,
-        "n": n,
-        "temperature": 0.0 if use_beam_search else 1.0,
-        "top_p": 1.0,
+        "stream": request_args.stream,
+        "n": request_args.n,
+        "temperature": request_args.temperature,
+        "top_p": request_args.top_p,
         "max_tokens": output_len,
-        "best_of": best_of,
-        "use_beam_search": use_beam_search,
+        "best_of": request_args.best_of,
+        "use_beam_search": request_args.use_beam,
     }
 
     request_start_time = time.perf_counter()
@@ -115,7 +130,7 @@ async def single_request(
 async def send_requests(
         api_url: str,
         requests: List[Tuple[str, int, int]],
-        n_sampling: int = 1,
+        request_args: Optional[RequestArgs] = None,
         pbar: Optional[tqdm] = None
 ) -> List[RequestStats]:
     """Send n requests to the API while only running 1 at a time."""
@@ -124,11 +139,9 @@ async def send_requests(
     for req in requests:
         stats = await single_request(api_url,
                                      req,
-                                     n=n_sampling)
+                                     request_args=request_args,
+                                     pbar=pbar)
         all_stats.append(stats)
-
-        if pbar:
-            pbar.update(1)
 
     return all_stats
 
@@ -139,16 +152,23 @@ async def send_scaling_requests(
         rate: float,
         rate_multiplier: float,
         rate_variation_period: int,
-        n_sampling: int = 1,
+        request_args: Optional[RequestArgs] = None,
         pbar: Optional[tqdm] = None
 ) -> List[RequestStats]:
     """Send all the given requests while managing the request rate."""
 
     tasks: List[asyncio.Task] = []
-    async for request in get_request(requests, rate, rate_multiplier,
-                                     rate_variation_period, pbar):
-        task = asyncio.create_task(
-            single_request(api_url, request, n=n_sampling, pbar=pbar))
+    request_generator = get_request(requests,
+                                    rate,
+                                    rate_multiplier,
+                                    rate_variation_period,
+                                    pbar)
+
+    async for request in request_generator:
+        task = asyncio.create_task(single_request(api_url,
+                                                  request,
+                                                  request_args=request_args,
+                                                  pbar=pbar))
         tasks.append(task)
 
     return await asyncio.gather(*tasks)

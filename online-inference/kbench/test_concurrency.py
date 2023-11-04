@@ -10,7 +10,7 @@ from matplotlib import pyplot as plt
 from tqdm.autonotebook import tqdm
 
 from k8s_utils import get_ksvc_template, deploy_ksvc, delete_ksvc
-from request_utils import send_requests
+from request_utils import send_requests, RequestArgs
 from data import sample_requests
 
 
@@ -18,7 +18,7 @@ async def test_req_level(
         size: int,
         requests: List[Tuple[str, int, int]],
         ksvc_template: str,
-        n_sampling: int = 1,
+        request_args: Optional[RequestArgs] = None,
         verbose: bool = False
 ) -> Tuple[List[float], List[float], float]:
     """Run N requests at a time and gather relevant metrics."""
@@ -27,7 +27,7 @@ async def test_req_level(
         f"concur-req-{size}-{random.randint(10000, 99999)}",
         ksvc_template=ksvc_template
     )
-    api_url = await deploy_ksvc(manifest, wait=True)
+    api_url = await deploy_ksvc(manifest, wait=True, verbose=False)
 
     pbar = None
     if verbose:
@@ -42,7 +42,7 @@ async def test_req_level(
             shuffled_requests = random.sample(requests, len(requests))
             task = asyncio.create_task(send_requests(api_url,
                                                      shuffled_requests,
-                                                     n_sampling=n_sampling,
+                                                     request_args=request_args,
                                                      pbar=pbar))
             tasks.append(task)
 
@@ -73,9 +73,9 @@ async def test_req_levels(
         levels: List[int],
         requests: List[Tuple[str, int, int]],
         ksvc_template: str,
+        request_args: Optional[RequestArgs] = None,
         file_name: str = "concurrent_req_results_small.pkl",
-        n_sampling: int = 1
-) -> None:
+) -> Dict[int, Tuple[List[float], List[float], List[float]]]:
     """Test the throughput and latencies of various of concurrent requests."""
 
     tests = []
@@ -83,7 +83,7 @@ async def test_req_levels(
         test = asyncio.create_task(test_req_level(concurrency,
                                                   requests,
                                                   ksvc_template,
-                                                  n_sampling=n_sampling,
+                                                  request_args=request_args,
                                                   verbose=True))
         tests.append(test)
 
@@ -265,13 +265,18 @@ def get_args() -> argparse.Namespace:
                       type=str,
                       default="mistralai/Mistral-7B-Instruct-v0.1",
                       help="Local or HuggingFace path to the tokenizer to use. "
-                           "Defaults to 'mistralai/Mistral-7B-Instruct-v0.1'."
-                      )
+                           "Defaults to 'mistralai/Mistral-7B-Instruct-v0.1'.")
     args.add_argument("-d", "--dataset",
                       type=str,
                       default="ShareGPT_V3_unfiltered_cleaned_split.json",
                       help="Local path to the dataset to use. Defaults to "
                            "'ShareGPT_V3_unfiltered_cleaned_split.json'.")
+    args.add_argument("-m", "--model",
+                      type=str,
+                      default="mistralai/Mistral-7B-Instruct-v0.1",
+                      help="The model name to use when calling the OpenAI "
+                           "endpoint of the Knative service. Defaults to "
+                           "'mistralai/Mistral-7B-Instruct-v0.1'.")
     return args.parse_args()
 
 
@@ -279,11 +284,15 @@ async def main() -> None:
     args = get_args()
     requests = sample_requests(args.dataset, args.requests, args.tokenizer)
 
+    request_args = RequestArgs(model=args.model,
+                               n=args.n_sampling)
+
+    print("Running tests...")
     results = await test_req_levels(args.concurrencies,
                                     requests,
                                     args.ksvc_template,
-                                    file_name=f"{args.output}.pkl",
-                                    n_sampling=args.n_sampling)
+                                    request_args=request_args,
+                                    file_name=f"{args.output}.pkl")
 
     plot_concur_req_results(results=results)
 
