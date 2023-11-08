@@ -17,8 +17,19 @@ spec:
     - name: model
       value: 'EleutherAI/pythia-2.8b-deduped'
     # The directory to read your dataset in, and tokenize for training.
+    # path/to/dataset/ 
     - name: dataset
       value: 'dataset'
+    # if you are reading from pvc or s3 for the dataset
+    - name: datasource
+      value: 'pvc'
+
+    #s3 credentials - secret and access tokens for dataset
+    - name: s3secret
+      value: ''
+
+    - name: s3access
+      value: ''
     # Whether to allow running arbitrary code from HuggingFace model repos.
     # Necessary for some exotic or very new models on HuggingFace.
     # ONLY enable this if a run fails without it, AND you trust the code
@@ -182,21 +193,21 @@ spec:
       value: 'RTX_A5000'
     # Container images -- generally, don't alter this.
     - name: model_downloader_image
-      value: 'ghcr.io/wbrown/gpt_bpe/model_downloader'
+      value: 'ghcr.io/coreweave/gpt_bpe/model_downloader'
     - name: model_downloader_tag
-      value: '7c82f97'
+      value: 'd44973d'
     - name: tokenizer_image
-      value: 'ghcr.io/wbrown/gpt_bpe/dataset_tokenizer'
+      value: 'ghcr.io/coreweave/gpt_bpe/dataset_tokenizer'
     - name: tokenizer_tag
-      value: '7c82f97'
+      value: '5515b56'
     - name: dataset_downloader_image
       value: 'ghcr.io/coreweave/dataset-downloader/smashwords-downloader'
     - name: dataset_downloader_tag
       value: 'cd6408a'
     - name: finetuner_image
-      value: 'gooseai/finetuner'
+      value: 'rexwang8/finetuner'
     - name: finetuner_tag
-      value: 'b32173f'
+      value: 'siete'
   templates:
   - name: main
     steps:
@@ -233,7 +244,7 @@ spec:
         arguments:
           parameters:
           - name: input
-            value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.dataset}}"
+            value: "{{= workflow.parameters.datasource == 's3' ? 's3://' + workflow.parameters.dataset : '/' + workflow.parameters.pvc + '/' + workflow.parameters.dataset }}"
           - name: output
             value: "/{{workflow.parameters.pvc}}/{{workflow.parameters.dataset}}-{{=sprig.replace('/', '_', sprig.replace('.','_', sprig.replace('-','_', workflow.parameters.model)))}}-{{workflow.parameters.context}}-b{{workflow.parameters.boundary_index}}-{{workflow.parameters.tokenizer_tag}}.tokens"
           - name: tokenizer
@@ -438,6 +449,11 @@ spec:
     retryStrategy:
       limit: 1
     container:
+      env:
+        - name: AWS_ACCESS_KEY_ID
+          value: "{{workflow.parameters.s3access}}"
+        - name: AWS_SECRET_ACCESS_KEY
+          value: "{{workflow.parameters.s3secret}}"
       image: "{{workflow.parameters.tokenizer_image}}:{{workflow.parameters.tokenizer_tag}}"
       command: [ "/ko-app/dataset_tokenizer" ]
       args: ["-tokenizer", "{{inputs.parameters.tokenizer}}",
@@ -451,15 +467,16 @@ spec:
              "-reorder", "{{inputs.parameters.reorder}}",
              "-sampling", "{{inputs.parameters.sampling}}",
              "-sanitize={{inputs.parameters.sanitize}}",
+             "-object_storage_endpoint=https://object.ord1.coreweave.com",
              "-retokenize={{inputs.parameters.retokenize}}"]
       securityContext:
         runAsUser: 0
       resources:
         requests:
-          memory: 512Mi
+          memory: 2Gi
           cpu: "4"
         limits:
-          memory: 512Mi
+          memory: 2Gi
           cpu: "4"
       volumeMounts:
         - mountPath: "/{{workflow.parameters.pvc}}"
