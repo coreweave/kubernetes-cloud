@@ -2,7 +2,6 @@
 
 ### Examples
 
-[OpenAI GPT-2 Text Generation](./gpt-2) (TF 1)  
 [Inception Image Classifier](./image-classifier) (TF 2)  
 [BASNet Object Detector](./custom-basnet) (Custom Public Predictor)  
 [FastAI Sentiment Analyzer](./custom-sentiment) (Custom PyTorch Predictor)  

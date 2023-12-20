@@ -1,0 +1,51 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: hf-llm-serializer
+spec:
+  template:
+    spec:
+      containers:
+      - name: model-serializer
+        image: harubaru1/hf-llm:1
+        imagePullPolicy: IfNotPresent
+        command:
+          - "python3"
+          - "/app/serialize.py"
+          - "--hf-model-id=distilgpt2"
+          - "--precision=float16"
+          - "--dest-bucket=your-bucket-here"
+        env:
+        - name: AWS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: s3-access-key
+              key: access_key
+        - name: AWS_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: s3-secret-key
+              key: secret_key
+        - name: AWS_HOST
+          valueFrom:
+            secretKeyRef:
+              name: s3-host-url
+              key: url
+        resources:
+          requests:
+            cpu: 2
+            memory: 16Gi
+          limits:
+            cpu: 2
+            memory: 16Gi
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: topology.kubernetes.io/region
+                operator: In
+                values: 
+                - ORD1
+      restartPolicy: Never
+  backoffLimit: 2
