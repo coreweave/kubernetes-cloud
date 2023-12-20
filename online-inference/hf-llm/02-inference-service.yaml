@@ -28,7 +28,7 @@ spec:
                 - ORD1
       containers:
       - name: kfserving-container
-        image: harubaru1/hf-llm:1
+        image: ghcr.io/coreweave/ml-containers/hf-llm-inference:e459100
         command:
         - "python3"
         - "/app/service.py"
