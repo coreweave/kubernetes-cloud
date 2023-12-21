@@ -4,6 +4,7 @@ import uvicorn
 import json
 import torch
 import logging
+import traceback
 import tensorizer
 from argparse import ArgumentParser
 from pydantic import BaseModel
@@ -132,7 +133,15 @@ async def completion(completion: Completion):
         )
         return Response(content=json.dumps(output), media_type="application/json", status_code=200)
     except Exception as e:
-        return Response(content=str(e), media_type="text/plain", status_code=500)
+        logger.error(traceback.format_exc())
+        return Response(
+            content=(
+                f"Server encountered an error of type {type(e).__name__}."
+                "\nSee logs for details."
+            ),
+            media_type="text/plain",
+            status_code=500,
+        )
 
 
 if __name__ == "__main__":
