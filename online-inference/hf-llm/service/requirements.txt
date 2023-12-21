@@ -1,4 +1,4 @@
-torch==2.0.0
+torch>=2.0.0,<=2.3.0
 transformers==4.36.2
 tensorizer==2.7.1
 fastapi==0.105.0
