@@ -51,7 +51,7 @@ spec:
         - name: AWS_HOST
           valueFrom:
             secretKeyRef:
-              name: s3-host-url
+              name: s3-credentials
               key: host_url
               optional: true
         ports:
