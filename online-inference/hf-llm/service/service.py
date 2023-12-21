@@ -112,7 +112,7 @@ app.add_middleware(
 
 @app.get("/")
 def get_health():
-    logger.info("Health check requested")
+    logger.debug("Health check requested")
     return "OK"
 
 
