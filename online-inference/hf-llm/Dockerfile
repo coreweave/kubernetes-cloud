@@ -1,4 +1,4 @@
-FROM ghcr.io/coreweave/ml-containers/torch:afecfe9-base-cuda11.8.0-torch2.0.0-vision0.15.1
+FROM ghcr.io/coreweave/ml-containers/torch:afecfe9-base-cuda12.0.1-torch2.0.0-vision0.15.1
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get -qq update && \
