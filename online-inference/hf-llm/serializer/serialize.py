@@ -45,8 +45,7 @@ if __name__ == "__main__":
         torch_dtype=torch.float16 if args.precision == "float16" else torch.float32
     )
 
-    BASE_S3_URL = f"s3://{args.dest_bucket}/"
-    DTYPE_STR = "/fp16" if args.precision == "float16" else ""
+    model_file = "fp16/model.tensors" if args.precision == "float16" else ""
+    uri = "s3://" + "/".join((args.dest_bucket, model_id, model_file))
 
-    save_artifact_s3(model, BASE_S3_URL + model_id +
-                     DTYPE_STR + "/model.tensors")
+    save_artifact_s3(model, uri)

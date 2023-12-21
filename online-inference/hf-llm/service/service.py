@@ -56,19 +56,42 @@ def load_artifact(path_uri: str, module: torch.nn.Module) -> None:
 
 
 def load_model_s3(path_uri: str) -> TextGenerationPipeline:
-    hf_id = '/'.join(path_uri.split("/")[-2:])
+    match = re.match(
+        (
+            r"s3://"
+            r"(?P<bucket>[^/]+)"
+            r"/(?P<id>[^/]+(?:/[^/]+)??)"
+            r"(?:/fp16)?"
+            r"(?:/$)?"
+            r"(?:/model.tensors)?"
+            r"$"
+        ),
+        path_uri,
+    )
+    if not match:
+        raise ValueError(
+            f"Could not parse S3 URI: {path_uri!r}"
+            "\nExpected format: s3://<bucket name>/<HuggingFace ID>"
+            "\nFor example:"
+            "\n  - s3://tensorized/EleutherAI/pythia-70m"
+            "\n  - s3://my-private-bucket/distilgpt2"
+        )
+    hf_id = match.group("id")
     config = AutoConfig.from_pretrained(hf_id)
     tokenizer = AutoTokenizer.from_pretrained(hf_id)
 
     with tensorizer.utils.no_init_or_tensor():
         model = AutoModelForCausalLM.from_config(config)
 
-    dtype_str = "/fp16" if args.precision == "float16" else ""
-    start = time.time()
-    load_artifact(f"{path_uri}{dtype_str}/model.tensors", model)
-    logger.info(
-        f"Model loaded successfully in {time.time() - start:.2f} seconds"
+    model_file = (
+        "fp16/model.tensors" if args.precision == "float16" else "model.tensors"
     )
+    bucket = match.group("bucket")
+    s3_uri = "s3://" + "/".join((bucket, hf_id, model_file))
+    start = time.monotonic()
+    load_artifact(s3_uri, model)
+    end = time.monotonic()
+    logger.info(f"Model loaded successfully in {end - start:.2f} seconds")
 
     return TextGenerationPipeline(model=model, tokenizer=tokenizer, device=args.device_id)
 
