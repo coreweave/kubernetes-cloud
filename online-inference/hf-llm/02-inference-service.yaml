@@ -36,19 +36,19 @@ spec:
         - "--precision=float16"
         - "--port=80"
         env:
-        - name: AWS_KEY
+        - name: S3_KEY
           valueFrom:
             secretKeyRef:
               name: s3-credentials
               key: access_key
               optional: true
-        - name: AWS_SECRET
+        - name: S3_SECRET
           valueFrom:
             secretKeyRef:
               name: s3-credentials
               key: secret_key
               optional: true
-        - name: AWS_HOST
+        - name: S3_HOST
           valueFrom:
             secretKeyRef:
               name: s3-credentials

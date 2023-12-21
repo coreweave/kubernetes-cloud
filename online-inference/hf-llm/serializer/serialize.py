@@ -8,13 +8,17 @@ from transformers import AutoModelForCausalLM
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__file__)
 
+s3_access_key_default = os.getenv("S3_KEY") or None
+s3_secret_access_key_default = os.getenv("S3_SECRET") or None
+s3_endpoint_default = os.getenv("S3_HOST") or "object.ord1.coreweave.com"
+
 parser = ArgumentParser()
 parser.add_argument("--hf-model-id", default="distilgpt2", type=str)
 parser.add_argument("--precision", choices=["float16", "float32"], default="float16", type=str)
-parser.add_argument("--dest-bucket", default=None, required=True, type=str)
-parser.add_argument("--s3-access-key", default=os.getenv("AWS_KEY"), required=False, type=str)
-parser.add_argument("--s3-secret-access-key", default=os.getenv("AWS_SECRET"), required=False, type=str)
-parser.add_argument("--s3-endpoint", default=os.getenv("AWS_HOST", "object.ord1.coreweave.com"), required=False, type=str)
+parser.add_argument("--dest-bucket", required=True, type=str)
+parser.add_argument("--s3-access-key", default=s3_access_key_default, required=s3_access_key_default is None, type=str)
+parser.add_argument("--s3-secret-access-key", default=s3_secret_access_key_default, required=s3_secret_access_key_default is None, type=str)
+parser.add_argument("--s3-endpoint", default=s3_endpoint_default, type=str)
 args = parser.parse_args()
 
 

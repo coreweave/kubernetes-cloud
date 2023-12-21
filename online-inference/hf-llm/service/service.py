@@ -19,15 +19,22 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__file__)
 
 # Argument parser setup
+model_uri_default = (
+    os.getenv("MODEL_URI") or "s3://tensorized/EleutherAI/pythia-70m"
+)
+s3_access_key_default = os.getenv("S3_KEY") or None
+s3_secret_access_key_default = os.getenv("S3_SECRET") or None
+s3_endpoint_default = os.getenv("S3_HOST") or "accel-object.ord1.coreweave.com"
+
 parser = ArgumentParser()
-parser.add_argument("--model-uri", default=os.getenv("MODEL_URI", "s3://tensorized/EleutherAI/pythia-70m"), type=str)
+parser.add_argument("--model-uri", default=model_uri_default, type=str)
 parser.add_argument("--precision", choices=["float16", "float32"], default="float16", type=str)
 parser.add_argument("--device-id", default=0, help="GPU ID to use for inference, or -1 for CPU [default = 0]")
 parser.add_argument("--port", default=80, help="Port to listen on [default = 80 (http)]", type=int)
 parser.add_argument("--ip", type=str, default="0.0.0.0", help="IP address to listen on [default = 0.0.0.0 (all interfaces)]")
-parser.add_argument("--s3-access-key", default=os.getenv("AWS_KEY"), type=str)
-parser.add_argument("--s3-secret-access-key", default=os.getenv("AWS_SECRET"), type=str)
-parser.add_argument("--s3-endpoint", default=os.getenv("AWS_HOST", "accel-object.ord1.coreweave.com"), type=str)
+parser.add_argument("--s3-access-key", default=s3_access_key_default, type=str)
+parser.add_argument("--s3-secret-access-key", default=s3_secret_access_key_default, type=str)
+parser.add_argument("--s3-endpoint", default=s3_endpoint_default, type=str)
 args = parser.parse_args()
 
 
