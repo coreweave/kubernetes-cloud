@@ -1,0 +1,51 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: hf-llm-serializer
+spec:
+  template:
+    spec:
+      containers:
+      - name: model-serializer
+        image: ghcr.io/coreweave/ml-containers/hf-llm-inference:073f175
+        imagePullPolicy: IfNotPresent
+        command:
+          - "python3"
+          - "/app/serialize.py"
+          - "--hf-model-id=distilgpt2"
+          - "--precision=float16"
+          - "--dest-bucket=your-bucket-here"
+        env:
+        - name: S3_KEY
+          valueFrom:
+            secretKeyRef:
+              name: s3-credentials
+              key: access_key
+        - name: S3_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: s3-credentials
+              key: secret_key
+        - name: S3_HOST
+          valueFrom:
+            secretKeyRef:
+              name: s3-credentials
+              key: host_url
+        resources:
+          requests:
+            cpu: 2
+            memory: 16Gi
+          limits:
+            cpu: 2
+            memory: 16Gi
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: topology.kubernetes.io/region
+                operator: In
+                values: 
+                - ORD1
+      restartPolicy: Never
+  backoffLimit: 2
