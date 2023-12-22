@@ -1,0 +1,5 @@
+*
+!serializer/requirements.txt
+!serializer/*.py
+!service/requirements.txt
+!service/*.py

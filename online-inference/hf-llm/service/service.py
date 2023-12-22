@@ -1,33 +1,64 @@
-import os
-import time
-import uvicorn
 import json
-import torch
 import logging
+import os
+import re
+import time
 import traceback
-import tensorizer
 from argparse import ArgumentParser
-from pydantic import BaseModel
-from typing import Optional, List
+from typing import List, Optional
+
+import tensorizer
+import torch
+import uvicorn
 from fastapi import FastAPI, Response
 from fastapi.middleware.cors import CORSMiddleware
-from transformers import (TextGenerationPipeline, AutoConfig,
-                          AutoTokenizer, AutoModelForCausalLM)
+from pydantic import BaseModel
+from transformers import (
+    AutoConfig,
+    AutoModelForCausalLM,
+    AutoTokenizer,
+    TextGenerationPipeline,
+)
 
 # Logger setup
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__file__)
 
 # Argument parser setup
+model_uri_default = (
+    os.getenv("MODEL_URI") or "s3://tensorized/EleutherAI/pythia-70m"
+)
+s3_access_key_default = os.getenv("S3_KEY") or None
+s3_secret_access_key_default = os.getenv("S3_SECRET") or None
+s3_endpoint_default = os.getenv("S3_HOST") or "accel-object.ord1.coreweave.com"
+
 parser = ArgumentParser()
-parser.add_argument("--model-uri", default=os.getenv("MODEL_URI", "s3://tensorized/EleutherAI/pythia-70m"), type=str)
-parser.add_argument("--precision", choices=["float16", "float32"], default="float16", type=str)
-parser.add_argument("--device-id", default=0, help="GPU ID to use for inference, or -1 for CPU [default = 0]")
-parser.add_argument("--port", default=80, help="Port to listen on [default = 80 (http)]", type=int)
-parser.add_argument("--ip", type=str, default="0.0.0.0", help="IP address to listen on [default = 0.0.0.0 (all interfaces)]")
-parser.add_argument("--s3-access-key", default=os.getenv("AWS_KEY"), type=str)
-parser.add_argument("--s3-secret-access-key", default=os.getenv("AWS_SECRET"), type=str)
-parser.add_argument("--s3-endpoint", default=os.getenv("AWS_HOST", "accel-object.ord1.coreweave.com"), type=str)
+parser.add_argument("--model-uri", default=model_uri_default, type=str)
+parser.add_argument(
+    "--precision", choices=["float16", "float32"], default="float16", type=str
+)
+parser.add_argument(
+    "--device-id",
+    default=0,
+    help="GPU ID to use for inference, or -1 for CPU [default = 0]",
+)
+parser.add_argument(
+    "--port",
+    default=80,
+    help="Port to listen on [default = 80 (http)]",
+    type=int,
+)
+parser.add_argument(
+    "--ip",
+    type=str,
+    default="0.0.0.0",
+    help="IP address to listen on [default = 0.0.0.0 (all interfaces)]",
+)
+parser.add_argument("--s3-access-key", default=s3_access_key_default, type=str)
+parser.add_argument(
+    "--s3-secret-access-key", default=s3_secret_access_key_default, type=str
+)
+parser.add_argument("--s3-endpoint", default=s3_endpoint_default, type=str)
 args = parser.parse_args()
 
 
@@ -41,7 +72,7 @@ def load_artifact(path_uri: str, module: torch.nn.Module) -> None:
             s3_endpoint=args.s3_endpoint,
             s3_config_path=None,
         ),
-        plaid_mode=True
+        plaid_mode=True,
     )
     deserializer.load_into_module(module)
     deserializer.close()
@@ -49,28 +80,55 @@ def load_artifact(path_uri: str, module: torch.nn.Module) -> None:
 
 
 def load_model_s3(path_uri: str) -> TextGenerationPipeline:
-    hf_id = '/'.join(path_uri.split("/")[-2:])
+    match = re.match(
+        (
+            r"s3://"
+            r"(?P<bucket>[^/]+)"
+            r"/(?P<id>[^/]+(?:/[^/]+)??)"
+            r"(?:/fp16)?"
+            r"(?:/$)?"
+            r"(?:/model.tensors)?"
+            r"$"
+        ),
+        path_uri,
+    )
+    if not match:
+        raise ValueError(
+            f"Could not parse S3 URI: {path_uri!r}"
+            "\nExpected format: s3://<bucket name>/<HuggingFace ID>"
+            "\nFor example:"
+            "\n  - s3://tensorized/EleutherAI/pythia-70m"
+            "\n  - s3://my-private-bucket/distilgpt2"
+        )
+    hf_id = match.group("id")
     config = AutoConfig.from_pretrained(hf_id)
     tokenizer = AutoTokenizer.from_pretrained(hf_id)
 
     with tensorizer.utils.no_init_or_tensor():
         model = AutoModelForCausalLM.from_config(config)
 
-    dtype_str = "/fp16" if args.precision == "float16" else ""
-    start = time.time()
-    load_artifact(f"{path_uri}{dtype_str}/model.tensors", model)
-    logger.info(
-        f"Model loaded successfully in {time.time() - start:.2f} seconds"
+    model_file = (
+        "fp16/model.tensors" if args.precision == "float16" else "model.tensors"
     )
+    bucket = match.group("bucket")
+    s3_uri = "s3://" + "/".join((bucket, hf_id, model_file))
+    start = time.monotonic()
+    load_artifact(s3_uri, model)
+    end = time.monotonic()
+    logger.info(f"Model loaded successfully in {end - start:.2f} seconds")
 
-    return TextGenerationPipeline(model=model, tokenizer=tokenizer, device=args.device_id)
+    return TextGenerationPipeline(
+        model=model, tokenizer=tokenizer, device=args.device_id
+    )
 
 
 def load_model_local(path_uri: str) -> TextGenerationPipeline:
     dtype = torch.float16 if args.precision == "float16" else torch.float32
     model = AutoModelForCausalLM.from_pretrained(path_uri, torch_dtype=dtype)
     tokenizer = AutoTokenizer.from_pretrained(path_uri)
-    return TextGenerationPipeline(model=model, tokenizer=tokenizer, device=args.device_id)
+    return TextGenerationPipeline(
+        model=model, tokenizer=tokenizer, device=args.device_id
+    )
 
 
 def load_model(path_uri: str) -> TextGenerationPipeline:
@@ -129,9 +187,13 @@ async def completion(completion: Completion):
             do_sample=completion.do_sample,
             penalty_alpha=completion.penalty_alpha,
             num_return_sequences=completion.num_return_sequences,
-            stop_sequence=completion.stop_sequence
+            stop_sequence=completion.stop_sequence,
         )
-        return Response(content=json.dumps(output), media_type="application/json", status_code=200)
+        return Response(
+            content=json.dumps(output),
+            media_type="application/json",
+            status_code=200,
+        )
     except Exception as e:
         logger.error(traceback.format_exc())
         return Response(
