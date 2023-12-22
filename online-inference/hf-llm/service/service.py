@@ -188,6 +188,7 @@ async def completion(completion: Completion):
             penalty_alpha=completion.penalty_alpha,
             num_return_sequences=completion.num_return_sequences,
             stop_sequence=completion.stop_sequence,
+            pad_token_id=pipe.tokenizer.eos_token_id,
         )
         return Response(
             content=json.dumps(output),
