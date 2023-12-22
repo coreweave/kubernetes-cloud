@@ -177,19 +177,20 @@ def get_health():
 @app.post("/completion")
 async def completion(completion: Completion):
     try:
-        output = pipe(
-            completion.prompt,
-            max_new_tokens=completion.max_new_tokens,
-            temperature=completion.temperature,
-            top_p=completion.top_p,
-            top_k=completion.top_k,
-            repetition_penalty=completion.repetition_penalty,
-            do_sample=completion.do_sample,
-            penalty_alpha=completion.penalty_alpha,
-            num_return_sequences=completion.num_return_sequences,
-            stop_sequence=completion.stop_sequence,
-            pad_token_id=pipe.tokenizer.eos_token_id,
-        )
+        with torch.inference_mode():
+            output = pipe(
+                completion.prompt,
+                max_new_tokens=completion.max_new_tokens,
+                temperature=completion.temperature,
+                top_p=completion.top_p,
+                top_k=completion.top_k,
+                repetition_penalty=completion.repetition_penalty,
+                do_sample=completion.do_sample,
+                penalty_alpha=completion.penalty_alpha,
+                num_return_sequences=completion.num_return_sequences,
+                stop_sequence=completion.stop_sequence,
+                pad_token_id=pipe.tokenizer.eos_token_id,
+            )
         return Response(
             content=json.dumps(output),
             media_type="application/json",
