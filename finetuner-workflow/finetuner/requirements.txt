@@ -1,7 +1,8 @@
 transformers~=4.28.1
 numpy~=1.24.2
 wandb~=0.14.0
-torch==2.0.0
+#torch, flashattn, deepspeed included in torch-extras base img
+torch~=2.0.0
 psutil==5.9.4
 accelerate~=0.17.1
 tensorizer==1.1.0
