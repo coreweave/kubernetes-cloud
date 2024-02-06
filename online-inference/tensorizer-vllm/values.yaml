@@ -1,8 +1,0 @@
-serialization:
-  model_type: # diffusers or transformers
-  input_directory: # path to the dir containing model files
-  output_prefix: # prefix for the output files
-  overwrite: # whether to overwrite existing model tensors
-  validate: # whether to validate the model tensors
-  s3_access_key: # K8s Secret name for S3 access key
-  s3_secret_key: # K8s Secret name for S3 secret key

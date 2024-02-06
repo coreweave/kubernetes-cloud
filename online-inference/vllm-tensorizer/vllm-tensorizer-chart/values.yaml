@@ -1,0 +1,12 @@
+serialization:
+  model_type: transformers # diffusers or transformers
+  input_directory: EleutherAI/pythia-1.4b # path to the dir containing model files
+  output_prefix: s3://tensorized-ssteel/EleutherAI/pythia-1.4b/model.tensors # prefix for the output files
+  overwrite: # whether to overwrite existing model tensors
+  validate: # whether to validate the model tensors
+  s3_access_key: s3-access-key # K8s Secret name for S3 access key
+  s3_secret_key: s3-secret-key # K8s Secret name for S3 secret key
+serving:
+  name: test_service # name of the service
+  model: EleutherAI/pythia-1.4b
+  download_dir: s3://tensorized-ssteel/EleutherAI/pythia-1.4b
