@@ -34,7 +34,8 @@ spec:
                       - LGA1
       containers:
         - name: main
-          image: ghcr.io/coreweave/ml-containers/vllm-tensorizer:ss-vllm-tensorizer-df6d7ae-cca41fc7ea472e19e639cedfb1d8376707947e2a
+          image: ghcr.io/coreweave/ml-containers/vllm-tensorizer:ss-vllm-tensorizer-81c9cdd-19307ba71ddeb7e1cc6aec3c1baa8b50d59c1beb
+          command: ["python3", "-m", "vllm.entrypoints.openai.api_server"]
           args:
             - "--host"
             - "0.0.0.0"
@@ -60,11 +61,11 @@ spec:
           resources:
             requests:
               cpu: 4
-              memory: 16Gi
+              memory: 124Gi
               nvidia.com/gpu: 1
             limits:
               cpu: 4
-              memory: 16Gi
+              memory: 124Gi
               nvidia.com/gpu: 1
           ports:
             - protocol: TCP
