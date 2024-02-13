@@ -1,7 +1,7 @@
 apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
-  name: vllm-tensorizer-serving
+  name: {{ .Values.serving.name}}
   annotations:
     networking.knative.dev/ingress-class: kourier.ingress.networking.knative.dev
 
@@ -27,14 +27,14 @@ spec:
                   - key: gpu.nvidia.com/class
                     operator: In
                     values:
-                      - RTX_A5000
+                      - RTX_A5000 # Not recommended for model sizes exceeding 7B params fp32 or 12B params fp16
                   - key: topology.kubernetes.io/region
                     operator: In
                     values:
                       - LGA1
       containers:
         - name: main
-          image: ghcr.io/coreweave/ml-containers/vllm-tensorizer:ss-vllm-tensorizer-81c9cdd-19307ba71ddeb7e1cc6aec3c1baa8b50d59c1beb
+          image: ghcr.io/coreweave/ml-containers/vllm-tensorizer:999655b-5febd752209bd0bf032b81bfcf692ad20aedf705
           command: ["python3", "-m", "vllm.entrypoints.openai.api_server"]
           args:
             - "--host"
@@ -43,9 +43,8 @@ spec:
             - "{{ .Values.serving.model }}"
             - "--load-format"
             - "tensorizer"
-            - "--download-dir"
-            - "{{ .Values.serving.download_dir}}"
-            - "--plaid-mode"
+            - "--tensorizer-uri"
+            - "{{ .Values.serving.tensorizer_uri }}"
           env:
             ## Omitting functionality for specifying S3_ENDPOINT_URL for now
             - name: S3_ACCESS_KEY_ID

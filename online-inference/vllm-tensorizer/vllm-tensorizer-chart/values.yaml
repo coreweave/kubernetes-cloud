@@ -9,4 +9,4 @@ serialization:
 serving:
   name: # name of the service
   model: # model name (usually a huggingface ID)
-  download_dir: # path to model tensors. Usually under `model.tensors` in the output prefix
+  tensorizer_uri: # path to serialized tensors
