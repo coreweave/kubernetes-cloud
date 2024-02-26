@@ -264,6 +264,7 @@ spec:
           parameters:
           - name: finetuner_params
             # Pass the params in as one string so we can template in the conditional flags
+            # temporarily removed to fix regression: --warmup-ratio={{workflow.parameters.warmup_ratio}}
             value: >-
               --run-name={{workflow.parameters.run_name}}
               --model=/{{workflow.parameters.pvc}}/models/{{workflow.parameters.model}}
@@ -275,7 +276,6 @@ spec:
               --train-ratio=1.0
               --eot='{{workflow.parameters.eot_token}}'
               --pad='{{workflow.parameters.pad_token}}'
-              --warmup-ratio={{workflow.parameters.warmup_ratio}}
               --bs={{workflow.parameters.batch_size}}
               --bs-divisor={{workflow.parameters.batch_size_divisor}}
               --gradients={{workflow.parameters.gradients}}
