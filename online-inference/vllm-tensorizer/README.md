@@ -11,15 +11,34 @@ particularly demonstrates the reductions in latency and cost that can be
 achieved by using CoreWeave's `tensorizer` to load models, and using 
 CoreWeave's ML container images for inference.
 
+The difference fast autoscaling makes is represented in the image below. Without
+autoscaling, the service isn't able to be adaptive to traffic patterns, which means
+any patterns that aren't specifically catered to be handled by the compute set up
+will result in either underprovisioning or overprovisioning. This can lead to
+either slow response times, wasted resources or both. 
+
+![fig1](images/autoscaling.png)
+
+With slow autoscaling, often due to slow pod startup times, the service *can* 
+adapt to changing traffic patterns, but not quickly enough, causing a lag where 
+the service is constantly trying to catch up to the traffic. This typically causes
+the service to be underprovisioned during a traffic spike (causing an increase in
+response time) and overprovisioned during a traffic lull (causing wasted resources).
+
+With fast autoscaling, the service can adapt to traffic patterns quickly, ensuring
+that the service is always able to handle the current traffic with the appropriate
+amount of compute. This results in the best possible response times and the least
+amount of wasted resources.
+
+
 With `tensorizer`, models can be loaded extremely quickly from HTTP/HTTPS,
 Redis, or S3 endpoints. This is significantly faster than packing a container
 image with the model artifacts and loading locally, especially when making
-use of CoreWeave's accelerated object storage. 
-
-
-CoreWeave's `ml-containers` repo contains a variety of container images that 
-are optimized for machine learning workloads. These images are optimized to be
-as lightweight as possible to further reduce pod startup time.
+use of CoreWeave's accelerated object storage. In addition, CoreWeave's `ml-containers` 
+repo contains a variety of container images that are optimized for machine learning 
+workloads. These images are optimized to be as lightweight as possible to further 
+reduce pod startup time, making inference services run on CoreWeave lightning quick,
+cost-effective, and responsive.
 
 ## Getting Started
 
