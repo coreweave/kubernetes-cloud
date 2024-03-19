@@ -1,0 +1,39 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: serialization-job
+  annotations:
+    "helm.sh/hook": pre-upgrade
+    "helm.sh/hook-delete-policy": before-hook-creation
+spec:
+  template:
+    spec:
+      containers:
+      - name: serialization
+        image: ghcr.io/coreweave/ml-containers/tensorizer:a26e561
+        workingDir: /app/tensorizer/examples
+        args:
+          - /bin/sh
+          - -c
+          - |
+              pip install -r requirements.txt && \
+              python hf_serialization.py \
+              --model-type {{ .Values.serialization.model_type }} \
+              {{ .Values.serialization.input_directory }} \
+              {{ .Values.serialization.output_prefix }} \
+              {{ .Values.serialization.overwrite }} \
+              {{ .Values.serialization.validate }}
+        env:
+          ## Omitting functionality for specifying S3_ENDPOINT_URL for now
+          - name: S3_ACCESS_KEY_ID
+            valueFrom:
+              secretKeyRef:
+                name: "{{ .Values.serialization.s3_access_key }}"
+                key: "key"
+          - name: S3_SECRET_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                name: "{{ .Values.serialization.s3_secret_key }}"
+                key: "key"
+      restartPolicy: Never
+  backoffLimit: 4
