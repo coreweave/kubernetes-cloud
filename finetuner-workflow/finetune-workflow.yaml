@@ -159,6 +159,10 @@ spec:
     # you have a model already ready to go under `model_run` name.
     - name: inference_only
       value: 'false'
+    # LLMs are inferenced at a default precision of float16. You can change this to float32
+    # if you require higher precision inference.
+    - name: inference_precision
+      value: 'float16'
     # Download a dataset of Western Romance books from SmashWords.com
     - name: download_dataset
       value: 'false'
@@ -194,9 +198,13 @@ spec:
     - name: dataset_downloader_tag
       value: 'cd6408a'
     - name: finetuner_image
-      value: 'gooseai/finetuner'
+      value: 'docker.io/harubaru1/finetuner'
     - name: finetuner_tag
-      value: 'b32173f'
+      value: '62'
+    - name: inference_image
+      value: 'docker.io/harubaru1/hf-llm'
+    - name: inference_tag
+      value: '2'
   templates:
   - name: main
     steps:
@@ -206,7 +214,8 @@ spec:
           parameters:
             - name: model
               value: "{{workflow.parameters.model}}"
-        when: "'{{workflow.parameters.tensorizer_uri}}' == ''"
+            - name: tensorizer_uri
+              value: "{{workflow.parameters.tensorizer_uri}}"
 
     - - name: model-downloader
         template: model-downloader
@@ -217,8 +226,7 @@ spec:
             - name: dest
               value: "/{{workflow.parameters.pvc}}/models/{{workflow.parameters.model}}"
             - name: tokenizer_only
-              value: "{{steps.check-model.outputs.result}}"
-        when: "'{{workflow.parameters.tensorizer_uri}}' == ''"
+              value: "{{steps.check-model.outputs.result}} or {{workflow.parameters.tensorizer_uri}}"
 
     - - name: dataset-downloader
         template: dataset-downloader
@@ -323,12 +331,13 @@ spec:
     inputs:
       parameters:
         - name: model
+        - name: tensorizer_uri
     retryStrategy:
       limit: 1
     container:
       image: "alpine/curl:3.14"
       command: [ "/bin/sh", "-c" ]
-      args: [ "/usr/bin/curl -I -XGET -s -o /dev/null -w \"%{http_code}\" https://accel-object.ord1.coreweave.com/tensorized/{{inputs.parameters.model}}/model.tensors | grep -q 200 && echo -n 'true' > /tmp/output.txt || echo -n 'false' > /tmp/output.txt" ]
+      args: [ "/usr/bin/curl -I -XGET -s -o /dev/null -w \"%{http_code}\" https://accel-object.ord1.coreweave.com/tensorized/{{inputs.parameters.model}}/model.tensors | grep -q 200 || [ -n \"{{inputs.parameters.tensorizer_uri}}\" ] && echo -n 'true' > /tmp/output.txt || echo -n 'false' > /tmp/output.txt" ]
     outputs:
       parameters:
         - name: result
@@ -582,10 +591,10 @@ spec:
                             - "{{workflow.parameters.region}}"
             containers:
               - name: kfserving-container
-                image: "{{workflow.parameters.finetuner_image}}:{{workflow.parameters.finetuner_tag}}"
+                image: "{{workflow.parameters.inference_image}}:{{workflow.parameters.inference_tag}}"
                 imagePullPolicy: IfNotPresent
                 command: ["/usr/bin/bash", "-c"]
-                args: ["/usr/bin/python3 /app/inference.py --model=${INFERENCE_MODEL} --port=${INFERENCE_PORT}"]
+                args: ["/usr/bin/python3 /app/service.py --model-uri=${INFERENCE_MODEL} --port=${INFERENCE_PORT} --precision=${PRECISION}"]
                 env:
                   - name: INFERENCE_PORT
                     value: "80"
@@ -593,6 +602,8 @@ spec:
                     value: /mnt/pvc/{{ inputs.parameters.model_path }}
                   - name: STORAGE_URI # KFServing mounts the PVC at /mnt/pvc/
                     value: pvc://{{ workflow.parameters.pvc }}/
+                  - name: PRECISION
+                    value: {{ workflow.parameters.inference_precision }}
                 ports:
                   - protocol: TCP
                     containerPort: 80

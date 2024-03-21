@@ -29,7 +29,7 @@ from deepspeed.runtime.zero.stage_1_and_2 import (
 from deepspeed.runtime.zero.stage3 import (
     estimate_zero3_model_states_mem_needs_all_live,
 )
-from tensorizer import TensorDeserializer, utils as tensorizer_utils, stream_io
+from tensorizer import TensorDeserializer, TensorSerializer, utils as tensorizer_utils, stream_io
 
 from utils import *
 
@@ -48,9 +48,10 @@ from transformers import (
     AutoModelForCausalLM,
     IntervalStrategy,
     TrainerCallback,
-    PreTrainedTokenizer,
+    PreTrainedTokenizer, TrainerState, TrainerControl,
 )
-from transformers.modeling_utils import PreTrainedModel
+from transformers.modeling_utils import PreTrainedModel, unwrap_model
+from transformers.trainer_utils import PREFIX_CHECKPOINT_DIR
 
 device = "cpu"
 if torch.cuda.is_available():
@@ -491,6 +492,26 @@ class ModifiedTrainer(Trainer):
                 sys.stderr.flush()
 
         return results
+
+
+def tensorizer_save(checkpoint_dir: str) -> None:
+    checkpoint_model = trainer.model
+    supported_classes = (PreTrainedModel,)  # TODO: PEFT support.
+    checkpoint_model = checkpoint_model if isinstance(checkpoint_model, supported_classes) else unwrap_model(
+        checkpoint_model)
+
+    serializer = TensorSerializer(f"{checkpoint_dir}/model.tensors")
+    serializer.write_module(checkpoint_model)
+    serializer.close()
+
+
+class TensorizerCheckpointCallback(TrainerCallback):
+    def __init__(self) -> None:
+        super().__init__()
+
+    def on_save(self, trainer_args: TrainingArguments, state: TrainerState, control: TrainerControl, **kwargs) -> None:
+        checkpoint_dir = os.path.join(trainer_args.output_dir, f"{PREFIX_CHECKPOINT_DIR}-{state.global_step}")
+        tensorizer_save(checkpoint_dir)
 
 
 class PerformanceCallback(TrainerCallback):
@@ -959,7 +980,7 @@ if args.log_level.upper() != "DEBUG":
 os.makedirs(args.output_path, exist_ok=True)
 os.chdir(args.output_path)
 
-callbacks = [PerformanceCallback()]
+callbacks = [PerformanceCallback(), TensorizerCheckpointCallback()]
 
 # Set up our prompt testing callback if we were given a prompt file.
 if args.prompt_file:
@@ -1045,6 +1066,7 @@ trainer = ModifiedTrainer(
     callbacks=callbacks,
 )
 
+
 # Finally, do our training!
 if last_checkpoint is not None:
     trainer.train(str(os.path.join(output_dir, last_checkpoint)))
@@ -1054,6 +1076,7 @@ else:
 # At the end of it all, record to a `final` output.
 final_path = os.path.join(output_dir, "final")
 trainer.save_model(final_path)
+tensorizer_save(final_path) # Must be invoked manually.
 
 # Write out our tokenizer files.
 tokenizer.save_pretrained(final_path)
