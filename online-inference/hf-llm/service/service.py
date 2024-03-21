@@ -76,7 +76,24 @@ def load_artifact(path_uri: str, module: torch.nn.Module) -> None:
     )
     deserializer.load_into_module(module)
     deserializer.close()
-    logger.info(f"Loaded tensorized S3 artifact from {path_uri}")
+    logger.info(f"Loaded tensorized artifact from {path_uri}")
+
+
+def load_pipeline(hf_id: str, path_uri: str) -> TextGenerationPipeline:
+    config = AutoConfig.from_pretrained(hf_id)
+    tokenizer = AutoTokenizer.from_pretrained(hf_id)
+
+    with tensorizer.utils.no_init_or_tensor():
+        model = AutoModelForCausalLM.from_config(config)
+
+    start = time.monotonic()
+    load_artifact(path_uri, model)
+    end = time.monotonic()
+    logger.info(f"Model loaded successfully in {end - start:.2f} seconds")
+
+    return TextGenerationPipeline(
+        model=model, tokenizer=tokenizer, device=args.device_id
+    )
 
 
 def load_model_s3(path_uri: str) -> TextGenerationPipeline:
@@ -100,29 +117,21 @@ def load_model_s3(path_uri: str) -> TextGenerationPipeline:
             "\n  - s3://tensorized/EleutherAI/pythia-70m"
             "\n  - s3://my-private-bucket/distilgpt2"
         )
+    bucket = match.group("bucket")
     hf_id = match.group("id")
-    config = AutoConfig.from_pretrained(hf_id)
-    tokenizer = AutoTokenizer.from_pretrained(hf_id)
-
-    with tensorizer.utils.no_init_or_tensor():
-        model = AutoModelForCausalLM.from_config(config)
-
     model_file = (
         "fp16/model.tensors" if args.precision == "float16" else "model.tensors"
     )
-    bucket = match.group("bucket")
     s3_uri = "s3://" + "/".join((bucket, hf_id, model_file))
-    start = time.monotonic()
-    load_artifact(s3_uri, model)
-    end = time.monotonic()
-    logger.info(f"Model loaded successfully in {end - start:.2f} seconds")
 
-    return TextGenerationPipeline(
-        model=model, tokenizer=tokenizer, device=args.device_id
-    )
+    return load_pipeline(hf_id, s3_uri)
 
 
 def load_model_local(path_uri: str) -> TextGenerationPipeline:
+    return load_pipeline(path_uri, f"{path_uri}/model.tensors")
+
+
+def load_model_hub(path_uri: str) -> TextGenerationPipeline:
     dtype = torch.float16 if args.precision == "float16" else torch.float32
     model = AutoModelForCausalLM.from_pretrained(path_uri, torch_dtype=dtype)
     tokenizer = AutoTokenizer.from_pretrained(path_uri)
@@ -135,8 +144,10 @@ def load_model(path_uri: str) -> TextGenerationPipeline:
     logger.info(f"Loading {args.precision} model from: {path_uri}")
     if path_uri.startswith("s3://"):
         return load_model_s3(path_uri)
-    else:
+    elif os.path.exists(f"{path_uri}/model.tensors"):
         return load_model_local(path_uri)
+    else:
+        return load_model_hub(path_uri)
 
 
 class Completion(BaseModel):
