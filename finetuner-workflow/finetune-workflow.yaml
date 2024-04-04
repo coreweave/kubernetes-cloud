@@ -19,6 +19,9 @@ spec:
     # The directory to read your dataset in, and tokenize for training.
     - name: dataset
       value: 'dataset'
+    # Whether to enable asynchronous model checkpointing or not.
+    - name: asynchronous_checkpointing
+      value: 'true'
     # Whether to allow running arbitrary code from HuggingFace model repos.
     # Necessary for some exotic or very new models on HuggingFace.
     # ONLY enable this if a run fails without it, AND you trust the code
@@ -200,7 +203,7 @@ spec:
     - name: finetuner_image
       value: 'docker.io/harubaru1/finetuner'
     - name: finetuner_tag
-      value: '62'
+      value: '70'
     - name: inference_image
       value: 'docker.io/harubaru1/hf-llm'
     - name: inference_tag
@@ -275,6 +278,7 @@ spec:
             value: >-
               --run-name={{workflow.parameters.run_name}}
               --model=/{{workflow.parameters.pvc}}/models/{{workflow.parameters.model}}
+              --asynchronous-checkpointing={{workflow.parameters.asynchronous_checkpointing}}
               --trust-remote-code={{workflow.parameters.trust_remote_code}}
               --dataset /{{workflow.parameters.pvc}}/{{workflow.parameters.dataset}}-{{=sprig.replace('/', '_', sprig.replace('.','_', sprig.replace('-','_', workflow.parameters.model)))}}-{{workflow.parameters.context}}-b{{workflow.parameters.boundary_index}}-{{workflow.parameters.tokenizer_tag}}.tokens
               --tensorizer-uri='{{workflow.parameters.tensorizer_uri}}'

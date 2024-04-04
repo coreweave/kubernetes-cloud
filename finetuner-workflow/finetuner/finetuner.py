@@ -23,6 +23,7 @@ import subprocess
 import shutil
 import logging
 import deepspeed
+import threading
 from deepspeed.runtime.zero.stage_1_and_2 import (
     estimate_zero2_model_states_mem_needs_all_live,
 )
@@ -69,6 +70,12 @@ parser.add_argument(
     type=str,
     help="The model to train against (directory, or HuggingFace ID)",
     required=True,
+)
+parser.add_argument(
+    "--asynchronous-checkpointing",
+    action=FuzzyBoolAction,
+    help="Whether to perform checkpointing asynchronously or not",
+    default=True,
 )
 parser.add_argument(
    "--trust-remote-code",
@@ -493,6 +500,9 @@ class ModifiedTrainer(Trainer):
 
         return results
 
+    def _save_checkpoint(self, ckpt, trial, metrics=None):
+        return
+
 
 def tensorizer_save(checkpoint_dir: str) -> None:
     checkpoint_model = trainer.model
@@ -504,15 +514,56 @@ def tensorizer_save(checkpoint_dir: str) -> None:
     serializer.write_module(checkpoint_model)
     serializer.close()
 
+def tensorizer_save_thread(checkpoint_dir: str, checkpoint_lock: threading.Lock) -> None:
+    if checkpoint_lock.acquire(blocking=False):
+        tensorizer_save(checkpoint_dir)
+        checkpoint_lock.release()
+    else:
+        print("Skipping checkpoint because checkpoint is being written.")
 
 class TensorizerCheckpointCallback(TrainerCallback):
     def __init__(self) -> None:
         super().__init__()
+        self.checkpoint_threads = []
+        self.checkpoint_lock = threading.Lock()
+
+    def join_all(self) -> None: # For explicit calling.
+        for thread in self.checkpoint_threads:
+            thread.join()
+        self.checkpoint_threads = []
+
+    def on_step_end(self, trainer_args: TrainingArguments, state: TrainerState, control: TrainerControl, **kwargs) -> None:
+        if self.checkpoint_lock.locked():
+            print("Checkpoint is still being written.")
+        else:
+            print("Lock is unused.")
 
     def on_save(self, trainer_args: TrainingArguments, state: TrainerState, control: TrainerControl, **kwargs) -> None:
         checkpoint_dir = os.path.join(trainer_args.output_dir, f"{PREFIX_CHECKPOINT_DIR}-{state.global_step}")
-        tensorizer_save(checkpoint_dir)
+        if args.asynchronous_checkpointing:
+            checkpoint_thread = threading.Thread(
+                target=tensorizer_save_thread,
+                args=(checkpoint_dir, self.checkpoint_lock)
+            )
+            checkpoint_thread.start()
+            self.checkpoint_threads.append(checkpoint_thread)
+        else:
+            tensorizer_save(checkpoint_dir)
 
+GPU_AVAILABLE_FLOPS = {
+    'a40': {
+        'float16':  1.497e14,
+    }
+}
+
+def gpu_flops_available() -> float:
+    dev_name = torch.cuda.get_device_name()
+    for item, value in GPU_AVAILABLE_FLOPS.items():
+        if item in dev_name.lower():
+            for dtype, flops in value.items():
+                if dtype in str(model.dtype):
+                    return flops
+    return None
 
 class PerformanceCallback(TrainerCallback):
     def __init__(self) -> None:
@@ -531,6 +582,28 @@ class PerformanceCallback(TrainerCallback):
         self.ff_step = time.time()
 
     def on_step_end(self, args, state, control, **kwargs):
+        def get_flops(iter_time_s: float) -> float:
+            vocab_size = model.config.vocab_size
+            batch_size = args.train_batch_size
+            seq_len = model.config.max_position_embeddings
+            hidden_size = model.config.hidden_size
+            num_layers = model.config.num_hidden_layers
+            ckpt_activations_factor = 4 if args.gradient_checkpointing else 3
+            flops_per_iteration = (
+                24
+                * ckpt_activations_factor
+                * batch_size
+                * seq_len
+                * num_layers
+                * (hidden_size**2)
+                * (
+                    1.0
+                    + (seq_len / (6.0 * hidden_size))
+                    + (vocab_size / (16.0 * num_layers * hidden_size))
+                )
+            )
+            return flops_per_iteration / (iter_time_s * world_size)
+
         self.opt_step = time.time()
         if is_main_process():
             # Report to WandB
@@ -548,6 +621,7 @@ class PerformanceCallback(TrainerCallback):
                     "perf/total_time_per_step": step_time,
                     "perf/rank_samples_per_second": rank_samples_per_second,
                     "perf/world_samples_per_second": world_samples_per_second,
+                    "perf/rank_mfu": get_flops(step_time) / gpu_flops_available()
                 },
                 step=state.global_step,
             )
@@ -737,6 +811,7 @@ if is_main_process():
     logger.info(f"TORCH: {torch.__version__}")
     logger.info(f"TRANSFORMERS: {transformers.__version__}")
     logger.info(MemoryUsage.now())
+    logger.info(f"ASYNCHRONOUS CHECKPOINTING: {args.asynchronous_checkpointing}")
     logger.info(f"MODEL: {args.model}")
     logger.info(f"TRAIN RATIO: {args.train_ratio}")
     logger.info(f"WARMUP RATIO: {args.warmup_ratio}")
@@ -980,7 +1055,9 @@ if args.log_level.upper() != "DEBUG":
 os.makedirs(args.output_path, exist_ok=True)
 os.chdir(args.output_path)
 
-callbacks = [PerformanceCallback(), TensorizerCheckpointCallback()]
+tensorizer_callback = TensorizerCheckpointCallback()
+
+callbacks = [PerformanceCallback(), tensorizer_callback]
 
 # Set up our prompt testing callback if we were given a prompt file.
 if args.prompt_file:
@@ -1076,7 +1153,9 @@ else:
 # At the end of it all, record to a `final` output.
 final_path = os.path.join(output_dir, "final")
 trainer.save_model(final_path)
-tensorizer_save(final_path) # Must be invoked manually.
+#tensorizer_save(final_path) # Must be invoked manually.
+if args.asynchronous_checkpointing:
+    tensorizer_callback.join_all()
 
 # Write out our tokenizer files.
 tokenizer.save_pretrained(final_path)
