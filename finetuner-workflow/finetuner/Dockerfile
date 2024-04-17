@@ -8,7 +8,8 @@ ARG BASE_IMAGE=ghcr.io/coreweave/ml-containers/torch:afecfe9-base-cuda11.8.0-tor
 # gcc-10/g++-10/lld do not need to be installed here, but they improve the build.
 # gfortran-10 is just for compiler_wrapper.f95.
 FROM ${BASE_IMAGE} as builder
-RUN apt-get install -y --no-install-recommends \
+RUN  apt-get update -y && \
+    apt-get install -y --no-install-recommends \
         cuda-nvcc-11-8 cuda-nvml-dev-11-8 libcurand-dev-11-8 \
         libcublas-dev-11-8 libcusparse-dev-11-8 \
         libcusolver-dev-11-8 cuda-nvprof-11-8 \
@@ -45,6 +46,5 @@ RUN pip3 install --no-cache-dir -r requirements.txt
 COPY ds_config.json .
 COPY finetuner.py .
 COPY evaluator.py .
-COPY inference.py .
 COPY utils.py .
 CMD [ "/usr/bin/python3", "finetuner.py" ]
