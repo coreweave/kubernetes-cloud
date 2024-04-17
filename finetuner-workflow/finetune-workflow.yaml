@@ -337,7 +337,20 @@ spec:
     container:
       image: "alpine/curl:8.5.0"
       command: [ "/bin/sh", "-c" ]
-      args: [ "/usr/bin/curl -I -XGET -s -o /dev/null -w \"%{http_code}\" https://object.ord1.coreweave.com/tensorized/{{inputs.parameters.model}}/model.tensors | grep -q 200 || [ -n \"{{inputs.parameters.tensorizer_uri}}\" ] && echo -n 'true' > /tmp/output.txt || echo -n 'false' > /tmp/output.txt" ]
+      args:
+        - |
+          CHECK_STATUS() {
+            /usr/bin/curl -I -XGET -s -o /dev/null -w '%{http_code}' "$1" | grep -q 200;
+          };
+          if [ -n "${TENSORIZER_URI}" ] || CHECK_STATUS "${DEFAULT_URI}";
+          then OUTPUT='true';
+          else OUTPUT='false';
+          fi && printf '%s' "${OUTPUT}" > /tmp/output.txt;
+      env:
+        - name: TENSORIZER_URI
+          value: "{{inputs.parameters.tensorizer_uri}}"
+        - name: DEFAULT_URI
+          value: "https://object.ord1.coreweave.com/tensorized/{{inputs.parameters.model}}/model.tensors"
     outputs:
       parameters:
         - name: result
