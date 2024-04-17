@@ -607,7 +607,7 @@ spec:
                 image: "{{workflow.parameters.inference_image}}:{{workflow.parameters.inference_tag}}"
                 imagePullPolicy: IfNotPresent
                 command: ["/usr/bin/bash", "-c"]
-                args: ["/usr/bin/python3 /app/service.py --model-uri=${INFERENCE_MODEL} --port=${INFERENCE_PORT} --precision=${PRECISION}"]
+                args: ["/usr/bin/python3 /app/service.py --model-uri=${INFERENCE_MODEL} --port=${INFERENCE_PORT} --precision=${INFERENCE_PRECISION}"]
                 env:
                   - name: INFERENCE_PORT
                     value: "80"
@@ -615,7 +615,7 @@ spec:
                     value: /mnt/pvc/{{ inputs.parameters.model_path }}
                   - name: STORAGE_URI # KFServing mounts the PVC at /mnt/pvc/
                     value: pvc://{{ workflow.parameters.pvc }}/
-                  - name: PRECISION
+                  - name: INFERENCE_PRECISION
                     value: {{ workflow.parameters.inference_precision }}
                 ports:
                   - protocol: TCP
