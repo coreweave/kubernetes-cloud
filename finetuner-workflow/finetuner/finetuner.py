@@ -1066,7 +1066,6 @@ trainer = ModifiedTrainer(
     callbacks=callbacks,
 )
 
-
 # Finally, do our training!
 if last_checkpoint is not None:
     trainer.train(str(os.path.join(output_dir, last_checkpoint)))
