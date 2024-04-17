@@ -335,7 +335,7 @@ spec:
     retryStrategy:
       limit: 1
     container:
-      image: "alpine/curl:3.14"
+      image: "alpine/curl:8.5.0"
       command: [ "/bin/sh", "-c" ]
       args: [ "/usr/bin/curl -I -XGET -s -o /dev/null -w \"%{http_code}\" https://object.ord1.coreweave.com/tensorized/{{inputs.parameters.model}}/model.tensors | grep -q 200 || [ -n \"{{inputs.parameters.tensorizer_uri}}\" ] && echo -n 'true' > /tmp/output.txt || echo -n 'false' > /tmp/output.txt" ]
     outputs:
