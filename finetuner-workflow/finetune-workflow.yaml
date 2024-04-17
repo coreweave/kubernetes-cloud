@@ -226,7 +226,7 @@ spec:
             - name: dest
               value: "/{{workflow.parameters.pvc}}/models/{{workflow.parameters.model}}"
             - name: tokenizer_only
-              value: "{{steps.check-model.outputs.result}} or {{workflow.parameters.tensorizer_uri}}"
+              value: "{{steps.check-model.outputs.result}}"
 
     - - name: dataset-downloader
         template: dataset-downloader
