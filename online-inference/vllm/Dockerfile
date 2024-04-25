@@ -2,7 +2,7 @@ FROM ghcr.io/coreweave/ml-containers/torch-extras:c1bf355-nccl-cuda12.2.2-ubuntu
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get -qq update && \
-    apt-get -qq install --no-install-recommends -y git curl && \
+    apt-get -qq install --no-install-recommends -y git curl libsodium23 && \
     apt-get clean
 
 RUN pip install git+https://github.com/coreweave/vllm.git@sangstar/tensorizer-update#egg=vllm[tensorizer]
