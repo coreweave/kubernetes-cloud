@@ -2,7 +2,7 @@ This folder contains instructions to run the vLLM inference server.
 
 Some of the features include:
 
-1. Serialize HuggingFace models supported here to vLLM based format: https://github.com/vllm-project/vllm?tab=readme-ov-file#about
+1. Serialize a [vLLM-supported model](https://github.com/vllm-project/vllm?tab=readme-ov-file#about) from the HuggingFace Model Hub.
 2. Tensorizer support for fast model deserialization and loading from vLLM 
 
 To run the example:
