@@ -13,7 +13,7 @@ spec:
           - "/bin/sh"
           - "-c"
           - |
-            cd /app/vllm && python3 -m examples.tensorize_vllm_model --model EleutherAI/pythia-70m --dtype float16 serialize --serialized-directory s3://model-store/ --suffix vllm
+            cd /app/vllm && python3 -m examples.tensorize_vllm_model --model EleutherAI/pythia-70m serialize --serialized-directory s3://model-store/ --suffix vllm
         env:
         - name: S3_ACCESS_KEY_ID
           valueFrom:
