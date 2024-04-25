@@ -1,0 +1,57 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: hf-llm-serializer
+spec:
+  template:
+    spec:
+      containers:
+      - name: model-serializer
+        image: rtalaricw/vllm:0.1
+        imagePullPolicy: IfNotPresent
+        command:
+          - "/bin/sh"
+          - "-c"
+          - |
+            cd /app/vllm && python3 -m examples.tensorize_vllm_model --model EleutherAI/pythia-70m --dtype float16 serialize --serialized-directory s3://model-store/ --suffix vllm
+        env:
+        - name: S3_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: s3-credentials
+              key: access_key
+        - name: S3_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: s3-credentials
+              key: secret_key
+        - name: S3_ENDPOINT_URL
+          valueFrom:
+            secretKeyRef:
+              name: s3-credentials
+              key: host_url
+        resources:
+          requests:
+            cpu: "2"
+            memory: 16Gi
+            nvidia.com/gpu: "1"
+          limits:
+            cpu: "2"
+            memory: 16Gi
+            nvidia.com/gpu: "1"
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: topology.kubernetes.io/region
+                operator: In
+                values: 
+                - LAS1
+              - key: gpu.nvidia.com/class
+                operator: In
+                values:
+                - A40
+            
+      restartPolicy: Never
+  backoffLimit: 1

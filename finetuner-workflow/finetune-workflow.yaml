@@ -68,11 +68,11 @@ spec:
     # range is allowed to fill out the current `context`, and then the entire
     # range is used to start the next `context`.
     - name: boundary_token
-      value: '\n'
+      value: "\n"
     # token index in context to approximately overlap contexts on, -1 for last
     # boundary token in context
     - name: boundary_index
-      value: '-1'
+      value: "-1"
     # The context size to train. Most models have a default maximum of `2048`,
     # but this can be adjusted downwards. This is most useful when the text
     # you're training on is divided along logical boundaries and is split
@@ -182,13 +182,13 @@ spec:
       value: 'RTX_A5000'
     # Container images -- generally, don't alter this.
     - name: model_downloader_image
-      value: 'ghcr.io/wbrown/gpt_bpe/model_downloader'
+      value: 'ghcr.io/coreweave/gpt_bpe/model_downloader'
     - name: model_downloader_tag
-      value: '7c82f97'
+      value: 'edd9879'
     - name: tokenizer_image
-      value: 'ghcr.io/wbrown/gpt_bpe/dataset_tokenizer'
+      value: 'ghcr.io/coreweave/gpt_bpe/dataset_tokenizer'
     - name: tokenizer_tag
-      value: '7c82f97'
+      value: 'edd9879'
     - name: dataset_downloader_image
       value: 'ghcr.io/coreweave/dataset-downloader/smashwords-downloader'
     - name: dataset_downloader_tag
