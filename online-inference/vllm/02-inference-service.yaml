@@ -21,11 +21,11 @@ spec:
               - key: gpu.nvidia.com/class
                 operator: In
                 values:
-                - A40
+                - RTX_A5000
               - key: topology.kubernetes.io/region
                 operator: In
                 values:
-                - LAS1
+                - ORD1
       containers:
       - name: kfserving-container
         image: rtalaricw/vllm:0.1
@@ -44,19 +44,16 @@ spec:
             secretKeyRef:
               name: s3-credentials
               key: access_key
-              optional: true
         - name: S3_SECRET_ACCESS_KEY
           valueFrom:
             secretKeyRef:
               name: s3-credentials
               key: secret_key
-              optional: true
         - name: S3_ENDPOINT_URL
           valueFrom:
             secretKeyRef:
               name: s3-credentials
               key: host_url
-              optional: true
         ports:
         - protocol: TCP
           containerPort: 80

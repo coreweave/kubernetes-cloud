@@ -15,4 +15,6 @@ You should have an inference service running a container with an OpenAI compatib
 
 To interact with the client, you can ```kubectl get ksvc``` to find your inference service named: ```vllm-inference-service``` to get the URL. 
 
+The URL will be ```<INFERENCE_SERVICE_URL>:80/```.
+
 You can use the OpenAI Python client or CURL to interact with it. More information about the client can be found here: https://docs.vllm.ai/en/latest/getting_started/quickstart.html

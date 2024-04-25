@@ -47,11 +47,11 @@ spec:
               - key: topology.kubernetes.io/region
                 operator: In
                 values: 
-                - LAS1
+                - ORD1
               - key: gpu.nvidia.com/class
                 operator: In
                 values:
-                - A40
+                - RTX_A5000
             
       restartPolicy: Never
   backoffLimit: 1
