@@ -35,8 +35,8 @@ spec:
           - |
             python -m vllm.entrypoints.openai.api_server \
               --model EleutherAI/pythia-70m \
-              --model-loader-extra-config '{"tensorizer_uri": "s3://model-store/vllm/EleutherAI/pythia-70m/vllm/model.tensors"}'
-              --load-format tensorizer
+              --model-loader-extra-config '{"tensorizer_uri": "s3://model-store/vllm/EleutherAI/pythia-70m/vllm/model.tensors"}' \
+              --load-format tensorizer \
               --port 80
         env:
         - name: S3_ACCESS_KEY_ID
@@ -62,13 +62,13 @@ spec:
           containerPort: 80
         livenessProbe:
           httpGet:
-            path: /
+            path: /v1/models
             port: 80
           initialDelaySeconds: 30
           periodSeconds: 30
         readinessProbe:
           httpGet:
-            path: /
+            path: /health
             port: 80
           initialDelaySeconds: 30
           periodSeconds: 30
