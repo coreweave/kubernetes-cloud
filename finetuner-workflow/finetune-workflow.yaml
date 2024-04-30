@@ -68,11 +68,11 @@ spec:
     # range is allowed to fill out the current `context`, and then the entire
     # range is used to start the next `context`.
     - name: boundary_token
-      value: "\n"
+      value: '\n'
     # token index in context to approximately overlap contexts on, -1 for last
     # boundary token in context
     - name: boundary_index
-      value: "-1"
+      value: '-1'
     # The context size to train. Most models have a default maximum of `2048`,
     # but this can be adjusted downwards. This is most useful when the text
     # you're training on is divided along logical boundaries and is split
