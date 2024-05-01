@@ -182,13 +182,13 @@ spec:
       value: 'RTX_A5000'
     # Container images -- generally, don't alter this.
     - name: model_downloader_image
-      value: 'ghcr.io/wbrown/gpt_bpe/model_downloader'
+      value: 'ghcr.io/coreweave/gpt_bpe/model_downloader'
     - name: model_downloader_tag
-      value: '7c82f97'
+      value: 'edd9879'
     - name: tokenizer_image
-      value: 'ghcr.io/wbrown/gpt_bpe/dataset_tokenizer'
+      value: 'ghcr.io/coreweave/gpt_bpe/dataset_tokenizer'
     - name: tokenizer_tag
-      value: '7c82f97'
+      value: 'edd9879'
     - name: dataset_downloader_image
       value: 'ghcr.io/coreweave/dataset-downloader/smashwords-downloader'
     - name: dataset_downloader_tag
