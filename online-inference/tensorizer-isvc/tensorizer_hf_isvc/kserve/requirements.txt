@@ -1,3 +1,8 @@
 kserve==0.10.1
-transformers==4.27.1
+transformers==4.37.0
 tensorizer==1.1.0
+azure-storage-blob>=12.13.0 # not directly required, pinned by Snyk to avoid a vulnerability
+fastapi>=0.109.1 # not directly required, pinned by Snyk to avoid a vulnerability
+numpy>=1.22.2 # not directly required, pinned by Snyk to avoid a vulnerability
+orjson>=3.9.15 # not directly required, pinned by Snyk to avoid a vulnerability
+ray>=2.8.1 # not directly required, pinned by Snyk to avoid a vulnerability
