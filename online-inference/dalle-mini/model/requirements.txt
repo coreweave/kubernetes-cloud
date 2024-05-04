@@ -5,7 +5,7 @@ git+https://github.com/patil-suraj/vqgan-jax.git@10ef240
 jupyter==1.0.0
 jupyterlab==3.4.4
 ipywidgets==7.7.1
-tqdm==4.64.0
+tqdm==4.66.3
 kserve==0.9.0
 msrest==0.7.1
 
