@@ -5,4 +5,5 @@ torch==2.0.0
 psutil==5.9.4
 accelerate==0.27.2
 tensorizer>=2.8.1,<3.0.0
+sentencepiece==0.2.0
 -r requirements-precompilable.txt
