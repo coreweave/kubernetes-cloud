@@ -121,6 +121,9 @@ spec:
     # not work well with models such as Fairseq.
     - name: force_fp16
       value: 'false'
+    # The maximum batch size that can be estimated.
+    # - name: batch_size_max
+    #  value: '16'
     # The batch size quotient for the batch size guess.
     - name: batch_size_divisor
       value: '1.0'  # range: > 0
@@ -188,11 +191,11 @@ spec:
     - name: model_downloader_image
       value: 'ghcr.io/coreweave/gpt_bpe/model_downloader'
     - name: model_downloader_tag
-      value: 'edd9879'
+      value: '5515b56'
     - name: tokenizer_image
       value: 'ghcr.io/coreweave/gpt_bpe/dataset_tokenizer'
     - name: tokenizer_tag
-      value: 'edd9879'
+      value: '5515b56'
     - name: dataset_downloader_image
       value: 'ghcr.io/coreweave/dataset-downloader/smashwords-downloader'
     - name: dataset_downloader_tag
@@ -200,11 +203,11 @@ spec:
     - name: finetuner_image
       value: 'docker.io/harubaru1/finetuner'
     - name: finetuner_tag
-      value: '62'
+      value: '71'
     - name: inference_image
-      value: 'docker.io/harubaru1/hf-llm'
+      value: 'rtalaricw/vllm'
     - name: inference_tag
-      value: '2'
+      value: '0.1'
   templates:
   - name: main
     steps:
@@ -318,14 +321,22 @@ spec:
             value: "{{workflow.parameters.trainer_gpus}}"
         when: "{{workflow.parameters.inference_only}} == false"
 
-    - - name: inference-service
-        template: model-inference-service
+    - - name: vllm-serialization
+        template: model-vllm-serialization
         arguments:
           parameters:
             - name: model_path
+              value: "/{{workflow.parameters.pvc}}/finetunes/results-{{workflow.parameters.run_name}}/final"
+        when: "{{workflow.parameters.run_inference}} == true"
+
+    - - name: vllm-inference-service
+        template: model-inference-service
+        arguments:
+          parameters:
+            - name: model_uri
+              value: "vllm/{{workflow.parameters.pvc}}/finetunes/results-{{workflow.parameters.run_name}}/final/vllm/model.tensors"
+            - name: model_path
               value: "finetunes/results-{{workflow.parameters.run_name}}/final"
-            - name: model_name
-              value: "final"
         when: "{{workflow.parameters.run_inference}} == true"
   - name: check-model
     inputs:
@@ -571,11 +582,64 @@ spec:
                   values:
                     - "{{workflow.parameters.region}}"
 
-  - name: model-inference-service
+  - name: model-vllm-serialization
     inputs:
       parameters:
         - name: model_path
-        - name: model_name
+    retryStrategy:
+      limit: 1
+    container:
+      image: "{{workflow.parameters.inference_image}}:{{workflow.parameters.inference_tag}}"
+      command: [ "/bin/bash", "-c" ]
+      args:
+        - |
+          cd /app/vllm &&
+          python3 -m examples.tensorize_vllm_model \
+          --model=${MODEL_PATH} \
+          serialize \
+          --serialized-directory /{{workflow.parameters.pvc}} \
+          --suffix vllm
+      env:
+        - name: MODEL_PATH
+          value: "{{inputs.parameters.model_path}}"
+      resources:
+        requests:
+          memory: 64Gi
+          cpu: 4
+          nvidia.com/gpu: 1
+        limits:
+          memory: 64Gi
+          cpu: 4
+          nvidia.com/gpu: 1
+      volumeMounts:
+        - mountPath: "/{{workflow.parameters.pvc}}"
+          name: "{{workflow.parameters.pvc}}"
+    volumes:
+      - name: "{{workflow.parameters.pvc}}"
+        persistentVolumeClaim:
+           claimName: "{{workflow.parameters.pvc}}"
+      - emptyDir:
+          medium: Memory
+        name: dshm
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: gpu.nvidia.com/class
+                  operator: In
+                  values:
+                    - "{{workflow.parameters.trainer_gpu}}"
+                - key: topology.kubernetes.io/region
+                  operator: In
+                  values:
+                    - "{{workflow.parameters.region}}"
+
+  - name: model-inference-service
+    inputs:
+      parameters:
+        - name: model_uri
+        - name: model_path
     resource:
       action: apply
       manifest: |
@@ -606,12 +670,21 @@ spec:
               - name: kfserving-container
                 image: "{{workflow.parameters.inference_image}}:{{workflow.parameters.inference_tag}}"
                 imagePullPolicy: IfNotPresent
-                command: ["/usr/bin/bash", "-c"]
-                args: ["/usr/bin/python3 /app/service.py --model-uri=${INFERENCE_MODEL} --port=${INFERENCE_PORT} --precision=${INFERENCE_PRECISION}"]
+                command: ["/bin/bash", "-c"]
+                args:
+                  - |
+                    python -m vllm.entrypoints.openai.api_server \
+                      --model ${INFERENCE_MODEL_PATH} \
+                      --model-loader-extra-config "{\"tensorizer_uri\": \"${INFERENCE_MODEL_URI}\"}" \
+                      --load-format tensorizer \
+                      --port ${INFERENCE_PORT} \
+                      --dtype ${INFERENCE_PRECISION}
                 env:
                   - name: INFERENCE_PORT
                     value: "80"
-                  - name: INFERENCE_MODEL
+                  - name: INFERENCE_MODEL_URI
+                    value: /mnt/pvc/{{ inputs.parameters.model_uri }}
+                  - name: INFERENCE_MODEL_PATH
                     value: /mnt/pvc/{{ inputs.parameters.model_path }}
                   - name: STORAGE_URI # KFServing mounts the PVC at /mnt/pvc/
                     value: pvc://{{ workflow.parameters.pvc }}/
@@ -622,15 +695,15 @@ spec:
                     containerPort: 80
                 livenessProbe:
                   httpGet:
-                    path: /
+                    path: /health
                     port: 80
-                  initialDelaySeconds: 300
+                  initialDelaySeconds: 30
                   periodSeconds: 30
                 readinessProbe:
                   httpGet:
-                    path: /
+                    path: /health
                     port: 80
-                  initialDelaySeconds: 300
+                  initialDelaySeconds: 30
                   periodSeconds: 30
                 resources:
                   requests:
