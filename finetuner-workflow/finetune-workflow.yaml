@@ -121,9 +121,10 @@ spec:
     # not work well with models such as Fairseq.
     - name: force_fp16
       value: 'false'
-    # The maximum batch size that can be estimated.
-    # - name: batch_size_max
-    #  value: '16'
+    # The maximum batch size that can be estimated. This can be set to -1
+    # to remove the maximum limit that can be estimated.
+    - name: batch_size_max
+      value: '32' # range: > 0 or -1
     # The batch size quotient for the batch size guess.
     - name: batch_size_divisor
       value: '1.0'  # range: > 0
@@ -203,7 +204,7 @@ spec:
     - name: finetuner_image
       value: 'docker.io/harubaru1/finetuner'
     - name: finetuner_tag
-      value: '71'
+      value: '72'
     - name: inference_image
       value: 'rtalaricw/vllm'
     - name: inference_tag
@@ -288,6 +289,7 @@ spec:
               --pad='{{workflow.parameters.pad_token}}'
               --warmup-ratio={{workflow.parameters.warmup_ratio}}
               --bs={{workflow.parameters.batch_size}}
+              --bs-max={{workflow.parameters.batch_size_max}}
               --bs-divisor={{workflow.parameters.batch_size_divisor}}
               --gradients={{workflow.parameters.gradients}}
               --zero-stage={{workflow.parameters.zero_stage}}

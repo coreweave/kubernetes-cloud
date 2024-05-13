@@ -128,6 +128,12 @@ parser.add_argument(
     default=-1,
 )
 parser.add_argument(
+    "--bs-max",
+    type=val.positive(int, special_val=-1),
+    help="Maximum batch size for batch size estimation (-1 == no max)",
+    default=-1,
+)
+parser.add_argument(
     "--bs-divisor",
     type=val.positive(Decimal),
     help="Batch size divisor for automatically determining batch size",
@@ -912,6 +918,8 @@ if hasattr(model.config, "force_fp32_attn"):
 # use for this model and GPU.
 if args.bs == -1:
     bs = estimate_batch_size(args.bs_divisor)
+    if args.bs_max != -1: # Constrain our estimated batch size if --bs-max is not -1.
+        bs = min(bs, args.bs_max)
 else:
     bs = args.bs
 
