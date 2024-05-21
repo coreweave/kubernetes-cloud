@@ -12,3 +12,4 @@ bitsandbytes
 pynvml~=11.4.1
 psutil~=5.9.0
 accelerate==0.15.0
+requests>=2.32.0 # not directly required, pinned by Snyk to avoid a vulnerability
