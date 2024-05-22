@@ -2,3 +2,4 @@ kfserving==0.5.1
 aitextgen
 tensorflow
 
+requests>=2.32.0 # not directly required, pinned by Snyk to avoid a vulnerability
