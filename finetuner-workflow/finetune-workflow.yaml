@@ -31,7 +31,7 @@ spec:
     # Whether to retokenize the data on each run. It is strongly recommended to
     # NOT enable this if you are making multiple runs on the same dataset.
     - name: retokenize
-      value: 'true'
+      value: 'false'
     # Whether to sanitize the data during tokenization,
     # fixing common whitespace and line-ending issues automatically.
     - name: sanitize
@@ -192,11 +192,11 @@ spec:
     - name: model_downloader_image
       value: 'ghcr.io/coreweave/gpt_bpe/model_downloader'
     - name: model_downloader_tag
-      value: '5515b56'
+      value: 'edd9879'
     - name: tokenizer_image
       value: 'ghcr.io/coreweave/gpt_bpe/dataset_tokenizer'
     - name: tokenizer_tag
-      value: '5515b56'
+      value: 'edd9879'
     - name: dataset_downloader_image
       value: 'ghcr.io/coreweave/dataset-downloader/smashwords-downloader'
     - name: dataset_downloader_tag
@@ -204,7 +204,7 @@ spec:
     - name: finetuner_image
       value: 'docker.io/harubaru1/finetuner'
     - name: finetuner_tag
-      value: '72'
+      value: '78'
     - name: inference_image
       value: 'rtalaricw/vllm'
     - name: inference_tag
@@ -230,7 +230,7 @@ spec:
             - name: dest
               value: "/{{workflow.parameters.pvc}}/models/{{workflow.parameters.model}}"
             - name: tokenizer_only
-              value: "{{steps.check-model.outputs.result}}"
+              value: "{{steps.check-model.outputs.parameters.result}}"
 
     - - name: dataset-downloader
         template: dataset-downloader
@@ -281,7 +281,6 @@ spec:
               --model=/{{workflow.parameters.pvc}}/models/{{workflow.parameters.model}}
               --trust-remote-code={{workflow.parameters.trust_remote_code}}
               --dataset /{{workflow.parameters.pvc}}/{{workflow.parameters.dataset}}-{{=sprig.replace('/', '_', sprig.replace('.','_', sprig.replace('-','_', workflow.parameters.model)))}}-{{workflow.parameters.context}}-b{{workflow.parameters.boundary_index}}-{{workflow.parameters.tokenizer_tag}}.tokens
-              --tensorizer-uri='{{workflow.parameters.tensorizer_uri}}'
               --lr={{workflow.parameters.learn_rate}}
               --epochs={{workflow.parameters.epochs}}
               --train-ratio=1.0
@@ -313,6 +312,8 @@ spec:
               --repetition-penalty={{workflow.parameters.repetition_penalty}}
           - name: wandb_key
             value: "{{workflow.parameters.wandb_key}}"
+          - name: tensorizer_uri
+            value: "{{steps.check-model.outputs.parameters.s3_uri}}"
           - name: torch_cache
             value: "/{{workflow.parameters.pvc}}/torch/"
           - name: trainer_ram
@@ -353,22 +354,33 @@ spec:
       args:
         - |
           CHECK_STATUS() {
-            /usr/bin/curl -I -XGET -s -o /dev/null -w '%{http_code}' "$1" | grep -q 200;
-          };
-          if [ -n "${TENSORIZER_URI}" ] || CHECK_STATUS "${DEFAULT_URI}";
-          then OUTPUT='true';
-          else OUTPUT='false';
-          fi && printf '%s' "${OUTPUT}" > /tmp/output.txt;
+            /usr/bin/curl -I -XGET -s -o /dev/null -w '%{http_code}' "$1" | grep -q 200
+          }
+          if [ -n "${TENSORIZER_URI}" ] || CHECK_STATUS "${DEFAULT_URI}"
+          then
+            URI_OUTPUT="${TENSORIZER_URI:-$S3_URI}"
+            OUTPUT='true'
+          else
+            URI_OUTPUT="${TENSORIZER_URI}"
+            OUTPUT='false'
+          fi
+          printf '%s' "${OUTPUT}" > /tmp/output.txt
+          printf '%s' "${URI_OUTPUT}" > /tmp/uri.txt
       env:
         - name: TENSORIZER_URI
           value: "{{inputs.parameters.tensorizer_uri}}"
         - name: DEFAULT_URI
           value: "https://object.ord1.coreweave.com/tensorized/{{inputs.parameters.model}}/model.tensors"
+        - name: S3_URI
+          value: "s3://tensorized/{{inputs.parameters.model}}/model.tensors"
     outputs:
       parameters:
         - name: result
           valueFrom:
             path: /tmp/output.txt
+        - name: s3_uri
+          valueFrom:
+            path: /tmp/uri.txt
 
   - name: model-downloader
     inputs:
@@ -383,7 +395,7 @@ spec:
       command: [ "/ko-app/model_downloader" ]
       args: [ "-model", "{{inputs.parameters.model}}",
               "-dest", "{{inputs.parameters.dest}}",
-              "-tokenizer-only", "{{inputs.parameters.tokenizer_only}}" ]
+              "-tokenizer-only={{inputs.parameters.tokenizer_only}}" ]
       securityContext:
         runAsUser: 0
       resources:
@@ -518,6 +530,7 @@ spec:
       parameters:
         - name: finetuner_params
         - name: wandb_key
+        - name: tensorizer_uri
         - name: torch_cache
         - name: trainer_ram
         - name: trainer_cores
@@ -539,7 +552,7 @@ spec:
     container:
       image: "{{workflow.parameters.finetuner_image}}:{{workflow.parameters.finetuner_tag}}"
       command: ["/usr/bin/bash", "-c"]
-      args: ["/usr/bin/python3 -m deepspeed.launcher.runner --num_gpus {{workflow.parameters.trainer_gpus}} /app/finetuner.py {{inputs.parameters.finetuner_params}}"]
+      args: ["/usr/bin/python3 -m deepspeed.launcher.runner --num_gpus {{workflow.parameters.trainer_gpus}} /app/finetuner.py {{inputs.parameters.finetuner_params}} --tensorizer-uri={{inputs.parameters.tensorizer_uri}}"]
       tty: true
       env:
       - name: WANDB_API_KEY
