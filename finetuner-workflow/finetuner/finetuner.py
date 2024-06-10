@@ -443,7 +443,7 @@ try:
     if "eos_token" not in tokenizer.special_tokens_map:
         tokens_to_add["eos_token"] = "<|endoftext|>"
     if "pad_token" not in tokenizer.special_tokens_map:
-        tokens_to_add["pad_token"] = "<|endoftext|>"
+        tokens_to_add["pad_token"] = tokenizer.eos_token
     if tokens_to_add:
         tokenizer.add_special_tokens(tokens_to_add)
 except Exception as e:
@@ -675,7 +675,7 @@ class TokenizedDataset(Dataset):
         length_mb = os.stat(path).st_size / (1 << 20)
         num_tokens = self.length * context_length
         self._padding_is_ambiguous = tokenizer.pad_token_id == tokenizer.eos_token_id
-        self._pad_token_id = tokenizer.pad_token_id
+        self._pad_token_id = 0xFFFF  # uint16 max
         if is_main_process():
             logger.info(f"DATASET: {path}")
             logger.info(
@@ -807,7 +807,7 @@ if args.fp16_full_eval:
 
 if is_main_process():
     logger.info(f"TRAIN_DATASET: {len(train_dataset):,} examples")
-    logger.info(f"VALUE_DATASET: {len(val_dataset):,} examples")
+    logger.info(f"VALID_DATASET: {len(val_dataset):,} examples")
     logger.info(f"RANDOM SEED: {args.seed}")
 
 
@@ -835,8 +835,7 @@ try:
         model = tensorizer_utils.no_init_or_tensor(
             lambda: AutoModelForCausalLM.from_config(config)
         )
-
-        deserializer = TensorDeserializer(args.tensorizer_uri)
+        deserializer = TensorDeserializer(args.tensorizer_uri, device=device)
         deserializer.load_into_module(model)
         deserializer.close()
         del deserializer
@@ -1057,10 +1056,19 @@ training_args = TrainingArguments(
 
 
 def collector(data):
+    input_ids = torch.stack([f[0] for f in data])
+    attention_mask = torch.stack([f[1] for f in data])
+    labels = torch.stack([f[0] for f in data])
+
+    padding_mask = input_ids == 0xffff
+    attention_mask.masked_fill_(padding_mask, 0)
+    input_ids.masked_fill_(padding_mask, tokenizer.eos_token_id)
+    labels.masked_fill_(padding_mask, -100)
+
     return {
-        "input_ids": torch.stack([f[0] for f in data]),
-        "attention_mask": torch.stack([f[1] for f in data]),
-        "labels": torch.stack([f[0] for f in data]),
+        "input_ids": input_ids,
+        "attention_mask": attention_mask,
+        "labels": labels,
     }
 
 
