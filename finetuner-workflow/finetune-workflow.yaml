@@ -68,7 +68,7 @@ spec:
     # range is allowed to fill out the current `context`, and then the entire
     # range is used to start the next `context`.
     - name: boundary_token
-      value: '\n'
+      value: ''
     # token index in context to approximately overlap contexts on, -1 for last
     # boundary token in context
     - name: boundary_index
@@ -154,6 +154,10 @@ spec:
     # WandB token.
     - name: wandb_key
       value: ''
+    # HF API token.
+    - name: hf_key
+      value: ''
+    # WandB project to log metrics to.
     - name: project_id
       value: 'huggingface'
     # Inference service configuration.
@@ -192,11 +196,11 @@ spec:
     - name: model_downloader_image
       value: 'ghcr.io/coreweave/gpt_bpe/model_downloader'
     - name: model_downloader_tag
-      value: 'edd9879'
+      value: 'b0e1976'
     - name: tokenizer_image
       value: 'ghcr.io/coreweave/gpt_bpe/dataset_tokenizer'
     - name: tokenizer_tag
-      value: 'edd9879'
+      value: 'b0e1976'
     - name: dataset_downloader_image
       value: 'ghcr.io/coreweave/dataset-downloader/smashwords-downloader'
     - name: dataset_downloader_tag
@@ -231,6 +235,8 @@ spec:
               value: "/{{workflow.parameters.pvc}}/models/{{workflow.parameters.model}}"
             - name: tokenizer_only
               value: "{{steps.check-model.outputs.parameters.result}}"
+            - name: hf_key
+              value: "{{workflow.parameters.hf_key}}"
 
     - - name: dataset-downloader
         template: dataset-downloader
@@ -396,6 +402,9 @@ spec:
       args: [ "-model", "{{inputs.parameters.model}}",
               "-dest", "{{inputs.parameters.dest}}",
               "-tokenizer-only={{inputs.parameters.tokenizer_only}}" ]
+      env:
+      - name: HF_API_TOKEN
+        value: "{{workflow.parameters.hf_key}}"
       securityContext:
         runAsUser: 0
       resources:
