@@ -675,7 +675,7 @@ class TokenizedDataset(Dataset):
         length_mb = os.stat(path).st_size / (1 << 20)
         num_tokens = self.length * context_length
         self._padding_is_ambiguous = tokenizer.pad_token_id == tokenizer.eos_token_id
-        self._pad_token_id = 0xFFFF  # uint16 max
+        self._pad_token_id = 0xffff  # uint16 max
         if is_main_process():
             logger.info(f"DATASET: {path}")
             logger.info(
