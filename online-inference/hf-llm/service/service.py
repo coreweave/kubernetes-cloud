@@ -144,10 +144,13 @@ def load_model(path_uri: str) -> TextGenerationPipeline:
     logger.info(f"Loading {args.precision} model from: {path_uri}")
     if path_uri.startswith("s3://"):
         return load_model_s3(path_uri)
-    elif os.path.exists(f"{path_uri}/model.tensors"):
-        return load_model_local(path_uri)
-    else:
-        return load_model_hub(path_uri)
+    if os.path.exists(path_uri):
+        if os.path.isfile(path_uri):
+            return load_pipeline(path_uri)
+        full_path: str = os.path.join(path_uri, "model.tensors")
+        if os.path.isfile(full_path):
+            return load_pipeline(full_path)
+    return load_model_hub(path_uri)
 
 
 class Completion(BaseModel):
