@@ -29,7 +29,7 @@ from deepspeed.runtime.zero.stage_1_and_2 import (
 from deepspeed.runtime.zero.stage3 import (
     estimate_zero3_model_states_mem_needs_all_live,
 )
-from tensorizer import TensorDeserializer, utils as tensorizer_utils, stream_io
+from tensorizer import TensorDeserializer, TensorSerializer, utils as tensorizer_utils, stream_io
 
 from utils import *
 
@@ -48,9 +48,10 @@ from transformers import (
     AutoModelForCausalLM,
     IntervalStrategy,
     TrainerCallback,
-    PreTrainedTokenizer,
+    PreTrainedTokenizer, TrainerState, TrainerControl,
 )
-from transformers.modeling_utils import PreTrainedModel
+from transformers.modeling_utils import PreTrainedModel, unwrap_model
+from transformers.trainer_utils import PREFIX_CHECKPOINT_DIR
 
 device = "cpu"
 if torch.cuda.is_available():
@@ -124,6 +125,12 @@ parser.add_argument(
     "--bs",
     type=val.positive(int, special_val=-1),
     help="Batch size (-1 == autosize)",
+    default=-1,
+)
+parser.add_argument(
+    "--bs-max",
+    type=val.positive(int, special_val=-1),
+    help="Maximum batch size for batch size estimation (-1 == no max)",
     default=-1,
 )
 parser.add_argument(
@@ -436,7 +443,7 @@ try:
     if "eos_token" not in tokenizer.special_tokens_map:
         tokens_to_add["eos_token"] = "<|endoftext|>"
     if "pad_token" not in tokenizer.special_tokens_map:
-        tokens_to_add["pad_token"] = "<|endoftext|>"
+        tokens_to_add["pad_token"] = tokenizer.eos_token
     if tokens_to_add:
         tokenizer.add_special_tokens(tokens_to_add)
 except Exception as e:
@@ -491,6 +498,26 @@ class ModifiedTrainer(Trainer):
                 sys.stderr.flush()
 
         return results
+
+
+def tensorizer_save(checkpoint_dir: str) -> None:
+    checkpoint_model = trainer.model
+    supported_classes = (PreTrainedModel,)  # TODO: PEFT support.
+    checkpoint_model = checkpoint_model if isinstance(checkpoint_model, supported_classes) else unwrap_model(
+        checkpoint_model)
+
+    serializer = TensorSerializer(f"{checkpoint_dir}/model.tensors")
+    serializer.write_module(checkpoint_model)
+    serializer.close()
+
+
+class TensorizerCheckpointCallback(TrainerCallback):
+    def __init__(self) -> None:
+        super().__init__()
+
+    def on_save(self, trainer_args: TrainingArguments, state: TrainerState, control: TrainerControl, **kwargs) -> None:
+        checkpoint_dir = os.path.join(trainer_args.output_dir, f"{PREFIX_CHECKPOINT_DIR}-{state.global_step}")
+        tensorizer_save(checkpoint_dir)
 
 
 class PerformanceCallback(TrainerCallback):
@@ -648,7 +675,7 @@ class TokenizedDataset(Dataset):
         length_mb = os.stat(path).st_size / (1 << 20)
         num_tokens = self.length * context_length
         self._padding_is_ambiguous = tokenizer.pad_token_id == tokenizer.eos_token_id
-        self._pad_token_id = tokenizer.pad_token_id
+        self._pad_token_id = 0xffff  # uint16 max
         if is_main_process():
             logger.info(f"DATASET: {path}")
             logger.info(
@@ -780,7 +807,7 @@ if args.fp16_full_eval:
 
 if is_main_process():
     logger.info(f"TRAIN_DATASET: {len(train_dataset):,} examples")
-    logger.info(f"VALUE_DATASET: {len(val_dataset):,} examples")
+    logger.info(f"VALID_DATASET: {len(val_dataset):,} examples")
     logger.info(f"RANDOM SEED: {args.seed}")
 
 
@@ -808,8 +835,7 @@ try:
         model = tensorizer_utils.no_init_or_tensor(
             lambda: AutoModelForCausalLM.from_config(config)
         )
-
-        deserializer = TensorDeserializer(args.tensorizer_uri)
+        deserializer = TensorDeserializer(args.tensorizer_uri, device=device)
         deserializer.load_into_module(model)
         deserializer.close()
         del deserializer
@@ -891,6 +917,8 @@ if hasattr(model.config, "force_fp32_attn"):
 # use for this model and GPU.
 if args.bs == -1:
     bs = estimate_batch_size(args.bs_divisor)
+    if args.bs_max != -1: # Constrain our estimated batch size if --bs-max is not -1.
+        bs = min(bs, args.bs_max)
 else:
     bs = args.bs
 
@@ -959,7 +987,7 @@ if args.log_level.upper() != "DEBUG":
 os.makedirs(args.output_path, exist_ok=True)
 os.chdir(args.output_path)
 
-callbacks = [PerformanceCallback()]
+callbacks = [PerformanceCallback(), TensorizerCheckpointCallback()]
 
 # Set up our prompt testing callback if we were given a prompt file.
 if args.prompt_file:
@@ -1028,10 +1056,19 @@ training_args = TrainingArguments(
 
 
 def collector(data):
+    input_ids = torch.stack([f[0] for f in data])
+    attention_mask = torch.stack([f[1] for f in data])
+    labels = torch.stack([f[0] for f in data])
+
+    padding_mask = input_ids == 0xffff
+    attention_mask.masked_fill_(padding_mask, 0)
+    input_ids.masked_fill_(padding_mask, tokenizer.eos_token_id)
+    labels.masked_fill_(padding_mask, -100)
+
     return {
-        "input_ids": torch.stack([f[0] for f in data]),
-        "attention_mask": torch.stack([f[1] for f in data]),
-        "labels": torch.stack([f[0] for f in data]),
+        "input_ids": input_ids,
+        "attention_mask": attention_mask,
+        "labels": labels,
     }
 
 
@@ -1054,6 +1091,7 @@ else:
 # At the end of it all, record to a `final` output.
 final_path = os.path.join(output_dir, "final")
 trainer.save_model(final_path)
+tensorizer_save(final_path) # Must be invoked manually.
 
 # Write out our tokenizer files.
 tokenizer.save_pretrained(final_path)
