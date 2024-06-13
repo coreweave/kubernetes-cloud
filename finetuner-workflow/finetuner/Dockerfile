@@ -28,7 +28,7 @@ COPY compiler_wrapper.f95 .
 COPY requirements-precompilable.txt .
 RUN gfortran -O3 ./compiler_wrapper.f95 -o ./compiler && \
     python3 -m pip install -U --no-cache-dir \
-      packaging setuptools wheel pip && \
+      packaging setuptools==69.5.1 wheel pip && \
     DS_BUILD_UTILS=1 DS_BUILD_CPU_ADAM=1 \
       CC=$(realpath ./compiler) python3 -m pip wheel \
       --no-cache-dir --no-build-isolation --no-deps \
