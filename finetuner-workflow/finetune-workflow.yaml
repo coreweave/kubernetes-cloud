@@ -318,6 +318,8 @@ spec:
               --repetition-penalty={{workflow.parameters.repetition_penalty}}
           - name: wandb_key
             value: "{{workflow.parameters.wandb_key}}"
+          - name: hf_key
+            value: "{{workflow.parameters.hf_key}}"
           - name: tensorizer_uri
             value: "{{steps.check-model.outputs.parameters.s3_uri}}"
           - name: torch_cache
@@ -394,6 +396,7 @@ spec:
         - name: model
         - name: dest
         - name: tokenizer_only
+        - name: hf_key
     retryStrategy:
       limit: 1
     container:
@@ -404,7 +407,7 @@ spec:
               "-tokenizer-only={{inputs.parameters.tokenizer_only}}" ]
       env:
       - name: HF_API_TOKEN
-        value: "{{workflow.parameters.hf_key}}"
+        value: "{{inputs.parameters.hf_key}}"
       securityContext:
         runAsUser: 0
       resources:
@@ -539,6 +542,7 @@ spec:
       parameters:
         - name: finetuner_params
         - name: wandb_key
+        - name: hf_key
         - name: tensorizer_uri
         - name: torch_cache
         - name: trainer_ram
@@ -566,6 +570,8 @@ spec:
       env:
       - name: WANDB_API_KEY
         value: "{{inputs.parameters.wandb_key}}"
+      - name: HF_TOKEN
+        value: "{{inputs.parameters.hf_key}}"
       - name: PYTHONUNBUFFERED
         value: "1"
       - name: TORCH_EXTENSIONS_DIR
