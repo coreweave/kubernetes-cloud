@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.2
 
-ARG BASE_IMAGE=ghcr.io/coreweave/ml-containers/torch:afecfe9-base-cuda11.8.0-torch2.0.0-vision0.15.1
+ARG BASE_IMAGE=ghcr.io/coreweave/ml-containers/torch:ef85248-base-cuda11.8.0-ubuntu20.04-torch2.3.0-vision0.18.0-audio2.3.0
 
 # Dependencies requiring NVCC are built ahead of time in a separate stage
 # so that the ~2 GiB dev library installations don't have to be included
