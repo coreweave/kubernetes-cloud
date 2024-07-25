@@ -23,9 +23,13 @@ spec:
     # Necessary for some exotic or very new models on HuggingFace.
     # ONLY enable this if a run fails without it, AND you trust the code
     # provided by the authors of the HuggingFace model you are using.
+    # The path to the dataset is relative to the PVC root.
     - name: trust_remote_code
       value: 'false'
     # An S3 or path to use to extract pretrained weights for Tensorizer.
+    # This is automatically set if the model already exists in the CoreWeave
+    # S3 tensorized model bucket. A list of supported models is available at:
+    # https://github.com/coreweave/tensorizer/blob/main/README.md#large-language-models
     - name: tensorizer_uri
       value: ''
     # Whether to retokenize the data on each run. It is strongly recommended to
@@ -82,7 +86,7 @@ spec:
     # A prompts file to read in for testing the model, and reporting the
     # outputs. This is useful for monitoring the progress and effectiveness of
     # training. One prompt per line, newlines escaped with `\n` if the prompt
-    # is a multiline one.
+    # is a multiline one. The path to the file is relative to the PVC root.
     - name: prompt_file
       value: ''
     # The interval of step counts to run the prompts tests. If we provide
@@ -151,10 +155,10 @@ spec:
     # Where we store our training logs on the PVC.
     - name: logs
       value: 'logs'
-    # WandB token.
+    # WandB token. This must be supplied if you want to log metrics to WandB.
     - name: wandb_key
       value: ''
-    # HF API token.
+    # HF API token. Used to download private models from HuggingFace.
     - name: hf_key
       value: ''
     # WandB project to log metrics to.
