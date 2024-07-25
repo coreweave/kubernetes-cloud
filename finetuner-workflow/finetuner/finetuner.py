@@ -1060,7 +1060,7 @@ def collector(data):
     attention_mask = torch.stack([f[1] for f in data])
     labels = torch.stack([f[0] for f in data])
 
-    padding_mask = input_ids == 0xffff
+    padding_mask = input_ids == 0xffff # TODO: Update to uint32_max when we switch to uint32.
     attention_mask.masked_fill_(padding_mask, 0)
     input_ids.masked_fill_(padding_mask, tokenizer.eos_token_id)
     labels.masked_fill_(padding_mask, -100)
