@@ -416,10 +416,10 @@ spec:
         runAsUser: 0
       resources:
         requests:
-          memory: 512Mi
+          memory: 2Gi
           cpu: "2"
         limits:
-          memory: 512Mi
+          memory: 2Gi
           cpu: "2"
       volumeMounts:
         - mountPath: "/{{workflow.parameters.pvc}}"
