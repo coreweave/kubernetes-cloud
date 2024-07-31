@@ -212,9 +212,9 @@ spec:
     - name: finetuner_image
       value: 'docker.io/harubaru1/finetuner'
     - name: finetuner_tag
-      value: '78'
+      value: '125'
     - name: inference_image
-      value: 'rtalaricw/vllm'
+      value: 'docker.io/rtalaricw/vllm'
     - name: inference_tag
       value: '0.1'
   templates:
