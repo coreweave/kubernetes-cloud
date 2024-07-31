@@ -674,14 +674,17 @@ class TokenizedDataset(Dataset):
         self.length = int(file_stat.st_size / 2 / context_length)
         length_mb = os.stat(path).st_size / (1 << 20)
         num_tokens = self.length * context_length
+        use_uint16 = len(tokenizer) < 0xffff
         self._padding_is_ambiguous = tokenizer.pad_token_id == tokenizer.eos_token_id
-        self._pad_token_id = 0xffff  # uint16 max
+        self._pad_token_id = 0xffff if use_uint16 else 0xffffffff
+        self._token_dtype = numpy.uint16 if use_uint16 else numpy.uint32
         if is_main_process():
             logger.info(f"DATASET: {path}")
             logger.info(
                 f"DATASET SIZE: {length_mb:,.2f}MiB, {num_tokens:,} tokens, "
                 f"{self.length:,} contexts"
             )
+            logger.info(f"DATASET PAD ID: {self._pad_token_id}")
 
     def __len__(self) -> int:
         return self.length
@@ -693,7 +696,7 @@ class TokenizedDataset(Dataset):
         arr = numpy.ndarray.__new__(
             numpy.memmap,
             [self._context_length],
-            dtype=numpy.ushort,
+            dtype=self._token_dtype,
             buffer=mv,
             offset=0,
         ).astype(numpy.int_)
@@ -720,6 +723,22 @@ class TokenizedDataset(Dataset):
 
     def __getitem__(self, idx) -> Tuple[torch.Tensor, torch.Tensor]:
         return self.load(idx)
+
+    def collector(self, data):
+        input_ids = torch.stack([f[0] for f in data])
+        attention_mask = torch.stack([f[1] for f in data])
+        labels = torch.stack([f[0] for f in data])
+
+        padding_mask = input_ids == self._pad_token_id
+        attention_mask.masked_fill_(padding_mask, False)
+        input_ids.masked_fill_(padding_mask, tokenizer.eos_token_id)
+        labels.masked_fill_(padding_mask, -100)
+
+        return {
+            "input_ids": input_ids,
+            "attention_mask": attention_mask,
+            "labels": labels,
+        }
 
 
 # Inform the user of host, and various versions -- useful for debugging issues.
@@ -1055,30 +1074,13 @@ training_args = TrainingArguments(
 )
 
 
-def collector(data):
-    input_ids = torch.stack([f[0] for f in data])
-    attention_mask = torch.stack([f[1] for f in data])
-    labels = torch.stack([f[0] for f in data])
-
-    padding_mask = input_ids == 0xffff # TODO: Update to uint32_max when we switch to uint32.
-    attention_mask.masked_fill_(padding_mask, 0)
-    input_ids.masked_fill_(padding_mask, tokenizer.eos_token_id)
-    labels.masked_fill_(padding_mask, -100)
-
-    return {
-        "input_ids": input_ids,
-        "attention_mask": attention_mask,
-        "labels": labels,
-    }
-
-
 # Initialize our trainer object.
 trainer = ModifiedTrainer(
     model=model,
     args=training_args,
     train_dataset=train_dataset,
     eval_dataset=val_dataset,
-    data_collator=collector,
+    data_collator=dataset.collector,
     callbacks=callbacks,
 )
 
