@@ -1,6 +1,6 @@
 diffusers==0.14.0
 numpy==1.23.4
-wandb==0.13.4
+wandb==0.15.12
 torch
 torchvision
 transformers>=4.21.0
