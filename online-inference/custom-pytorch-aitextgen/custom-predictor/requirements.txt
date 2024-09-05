@@ -2,3 +2,5 @@ kfserving==0.5.1
 aitextgen
 tensorflow
 
+pytorch-lightning>=2.4.0 # not directly required, pinned by Snyk to avoid a vulnerability
+transformers>=4.36.0 # not directly required, pinned by Snyk to avoid a vulnerability
