@@ -1,6 +1,6 @@
 transformers~=4.28.1
 numpy~=1.24.2
-wandb~=0.14.0
+wandb~=0.15.12
 torch==2.0.0
 psutil==5.9.4
 accelerate~=0.17.1
