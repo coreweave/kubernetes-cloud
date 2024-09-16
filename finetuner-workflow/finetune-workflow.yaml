@@ -23,15 +23,19 @@ spec:
     # Necessary for some exotic or very new models on HuggingFace.
     # ONLY enable this if a run fails without it, AND you trust the code
     # provided by the authors of the HuggingFace model you are using.
+    # The path to the dataset is relative to the PVC root.
     - name: trust_remote_code
       value: 'false'
     # An S3 or path to use to extract pretrained weights for Tensorizer.
+    # This is automatically set if the model already exists in the CoreWeave
+    # S3 tensorized model bucket. A list of supported models is available at:
+    # https://github.com/coreweave/tensorizer/blob/main/README.md#large-language-models
     - name: tensorizer_uri
       value: ''
     # Whether to retokenize the data on each run. It is strongly recommended to
     # NOT enable this if you are making multiple runs on the same dataset.
     - name: retokenize
-      value: 'true'
+      value: 'false'
     # Whether to sanitize the data during tokenization,
     # fixing common whitespace and line-ending issues automatically.
     - name: sanitize
@@ -68,7 +72,7 @@ spec:
     # range is allowed to fill out the current `context`, and then the entire
     # range is used to start the next `context`.
     - name: boundary_token
-      value: '\n'
+      value: ''
     # token index in context to approximately overlap contexts on, -1 for last
     # boundary token in context
     - name: boundary_index
@@ -82,7 +86,7 @@ spec:
     # A prompts file to read in for testing the model, and reporting the
     # outputs. This is useful for monitoring the progress and effectiveness of
     # training. One prompt per line, newlines escaped with `\n` if the prompt
-    # is a multiline one.
+    # is a multiline one. The path to the file is relative to the PVC root.
     - name: prompt_file
       value: ''
     # The interval of step counts to run the prompts tests. If we provide
@@ -121,6 +125,10 @@ spec:
     # not work well with models such as Fairseq.
     - name: force_fp16
       value: 'false'
+    # The maximum batch size that can be estimated. This can be set to -1
+    # to remove the maximum limit that can be estimated.
+    - name: batch_size_max
+      value: '24' # range: > 0 or -1
     # The batch size quotient for the batch size guess.
     - name: batch_size_divisor
       value: '1.0'  # range: > 0
@@ -147,9 +155,13 @@ spec:
     # Where we store our training logs on the PVC.
     - name: logs
       value: 'logs'
-    # WandB token.
+    # WandB token. This must be supplied if you want to log metrics to WandB.
     - name: wandb_key
       value: ''
+    # HF API token. Used to download private models from HuggingFace.
+    - name: hf_key
+      value: ''
+    # WandB project to log metrics to.
     - name: project_id
       value: 'huggingface'
     # Inference service configuration.
@@ -159,6 +171,10 @@ spec:
     # you have a model already ready to go under `model_run` name.
     - name: inference_only
       value: 'false'
+    # LLMs are inferenced at a default precision of float16. You can change this to float32
+    # if you require higher precision inference.
+    - name: inference_precision
+      value: 'float16'
     # Download a dataset of Western Romance books from SmashWords.com
     - name: download_dataset
       value: 'false'
@@ -184,19 +200,23 @@ spec:
     - name: model_downloader_image
       value: 'ghcr.io/coreweave/gpt_bpe/model_downloader'
     - name: model_downloader_tag
-      value: 'edd9879'
+      value: 'b0e1976'
     - name: tokenizer_image
       value: 'ghcr.io/coreweave/gpt_bpe/dataset_tokenizer'
     - name: tokenizer_tag
-      value: 'edd9879'
+      value: 'b0e1976'
     - name: dataset_downloader_image
       value: 'ghcr.io/coreweave/dataset-downloader/smashwords-downloader'
     - name: dataset_downloader_tag
       value: 'cd6408a'
     - name: finetuner_image
-      value: 'gooseai/finetuner'
+      value: 'docker.io/harubaru1/finetuner'
     - name: finetuner_tag
-      value: 'b32173f'
+      value: '125'
+    - name: inference_image
+      value: 'docker.io/rtalaricw/vllm'
+    - name: inference_tag
+      value: '0.1'
   templates:
   - name: main
     steps:
@@ -206,7 +226,8 @@ spec:
           parameters:
             - name: model
               value: "{{workflow.parameters.model}}"
-        when: "'{{workflow.parameters.tensorizer_uri}}' == ''"
+            - name: tensorizer_uri
+              value: "{{workflow.parameters.tensorizer_uri}}"
 
     - - name: model-downloader
         template: model-downloader
@@ -217,8 +238,9 @@ spec:
             - name: dest
               value: "/{{workflow.parameters.pvc}}/models/{{workflow.parameters.model}}"
             - name: tokenizer_only
-              value: "{{steps.check-model.outputs.result}}"
-        when: "'{{workflow.parameters.tensorizer_uri}}' == ''"
+              value: "{{steps.check-model.outputs.parameters.result}}"
+            - name: hf_key
+              value: "{{workflow.parameters.hf_key}}"
 
     - - name: dataset-downloader
         template: dataset-downloader
@@ -269,7 +291,6 @@ spec:
               --model=/{{workflow.parameters.pvc}}/models/{{workflow.parameters.model}}
               --trust-remote-code={{workflow.parameters.trust_remote_code}}
               --dataset /{{workflow.parameters.pvc}}/{{workflow.parameters.dataset}}-{{=sprig.replace('/', '_', sprig.replace('.','_', sprig.replace('-','_', workflow.parameters.model)))}}-{{workflow.parameters.context}}-b{{workflow.parameters.boundary_index}}-{{workflow.parameters.tokenizer_tag}}.tokens
-              --tensorizer-uri='{{workflow.parameters.tensorizer_uri}}'
               --lr={{workflow.parameters.learn_rate}}
               --epochs={{workflow.parameters.epochs}}
               --train-ratio=1.0
@@ -277,6 +298,7 @@ spec:
               --pad='{{workflow.parameters.pad_token}}'
               --warmup-ratio={{workflow.parameters.warmup_ratio}}
               --bs={{workflow.parameters.batch_size}}
+              --bs-max={{workflow.parameters.batch_size_max}}
               --bs-divisor={{workflow.parameters.batch_size_divisor}}
               --gradients={{workflow.parameters.gradients}}
               --zero-stage={{workflow.parameters.zero_stage}}
@@ -300,6 +322,10 @@ spec:
               --repetition-penalty={{workflow.parameters.repetition_penalty}}
           - name: wandb_key
             value: "{{workflow.parameters.wandb_key}}"
+          - name: hf_key
+            value: "{{workflow.parameters.hf_key}}"
+          - name: tensorizer_uri
+            value: "{{steps.check-model.outputs.parameters.s3_uri}}"
           - name: torch_cache
             value: "/{{workflow.parameters.pvc}}/torch/"
           - name: trainer_ram
@@ -310,30 +336,63 @@ spec:
             value: "{{workflow.parameters.trainer_gpus}}"
         when: "{{workflow.parameters.inference_only}} == false"
 
-    - - name: inference-service
-        template: model-inference-service
+    - - name: vllm-serialization
+        template: model-vllm-serialization
         arguments:
           parameters:
             - name: model_path
+              value: "/{{workflow.parameters.pvc}}/finetunes/results-{{workflow.parameters.run_name}}/final"
+        when: "{{workflow.parameters.run_inference}} == true"
+
+    - - name: vllm-inference-service
+        template: model-inference-service
+        arguments:
+          parameters:
+            - name: model_uri
+              value: "vllm/{{workflow.parameters.pvc}}/finetunes/results-{{workflow.parameters.run_name}}/final/vllm/model.tensors"
+            - name: model_path
               value: "finetunes/results-{{workflow.parameters.run_name}}/final"
-            - name: model_name
-              value: "final"
         when: "{{workflow.parameters.run_inference}} == true"
   - name: check-model
     inputs:
       parameters:
         - name: model
+        - name: tensorizer_uri
     retryStrategy:
       limit: 1
     container:
-      image: "alpine/curl:3.14"
+      image: "alpine/curl:8.5.0"
       command: [ "/bin/sh", "-c" ]
-      args: [ "/usr/bin/curl -I -XGET -s -o /dev/null -w \"%{http_code}\" https://accel-object.ord1.coreweave.com/tensorized/{{inputs.parameters.model}}/model.tensors | grep -q 200 && echo -n 'true' > /tmp/output.txt || echo -n 'false' > /tmp/output.txt" ]
+      args:
+        - |
+          CHECK_STATUS() {
+            /usr/bin/curl -I -XGET -s -o /dev/null -w '%{http_code}' "$1" | grep -q 200
+          }
+          if [ -n "${TENSORIZER_URI}" ] || CHECK_STATUS "${DEFAULT_URI}"
+          then
+            URI_OUTPUT="${TENSORIZER_URI:-$S3_URI}"
+            OUTPUT='true'
+          else
+            URI_OUTPUT="${TENSORIZER_URI}"
+            OUTPUT='false'
+          fi
+          printf '%s' "${OUTPUT}" > /tmp/output.txt
+          printf '%s' "${URI_OUTPUT}" > /tmp/uri.txt
+      env:
+        - name: TENSORIZER_URI
+          value: "{{inputs.parameters.tensorizer_uri}}"
+        - name: DEFAULT_URI
+          value: "https://object.ord1.coreweave.com/tensorized/{{inputs.parameters.model}}/model.tensors"
+        - name: S3_URI
+          value: "s3://tensorized/{{inputs.parameters.model}}/model.tensors"
     outputs:
       parameters:
         - name: result
           valueFrom:
             path: /tmp/output.txt
+        - name: s3_uri
+          valueFrom:
+            path: /tmp/uri.txt
 
   - name: model-downloader
     inputs:
@@ -341,6 +400,7 @@ spec:
         - name: model
         - name: dest
         - name: tokenizer_only
+        - name: hf_key
     retryStrategy:
       limit: 1
     container:
@@ -348,15 +408,18 @@ spec:
       command: [ "/ko-app/model_downloader" ]
       args: [ "-model", "{{inputs.parameters.model}}",
               "-dest", "{{inputs.parameters.dest}}",
-              "-tokenizer-only", "{{inputs.parameters.tokenizer_only}}" ]
+              "-tokenizer-only={{inputs.parameters.tokenizer_only}}" ]
+      env:
+      - name: HF_API_TOKEN
+        value: "{{inputs.parameters.hf_key}}"
       securityContext:
         runAsUser: 0
       resources:
         requests:
-          memory: 512Mi
+          memory: 2Gi
           cpu: "2"
         limits:
-          memory: 512Mi
+          memory: 2Gi
           cpu: "2"
       volumeMounts:
         - mountPath: "/{{workflow.parameters.pvc}}"
@@ -483,6 +546,8 @@ spec:
       parameters:
         - name: finetuner_params
         - name: wandb_key
+        - name: hf_key
+        - name: tensorizer_uri
         - name: torch_cache
         - name: trainer_ram
         - name: trainer_cores
@@ -504,11 +569,13 @@ spec:
     container:
       image: "{{workflow.parameters.finetuner_image}}:{{workflow.parameters.finetuner_tag}}"
       command: ["/usr/bin/bash", "-c"]
-      args: ["/usr/bin/python3 -m deepspeed.launcher.runner --num_gpus {{workflow.parameters.trainer_gpus}} /app/finetuner.py {{inputs.parameters.finetuner_params}}"]
+      args: ["/usr/bin/python3 -m deepspeed.launcher.runner --num_gpus {{workflow.parameters.trainer_gpus}} /app/finetuner.py {{inputs.parameters.finetuner_params}} --tensorizer-uri={{inputs.parameters.tensorizer_uri}}"]
       tty: true
       env:
       - name: WANDB_API_KEY
         value: "{{inputs.parameters.wandb_key}}"
+      - name: HF_TOKEN
+        value: "{{inputs.parameters.hf_key}}"
       - name: PYTHONUNBUFFERED
         value: "1"
       - name: TORCH_EXTENSIONS_DIR
@@ -549,11 +616,64 @@ spec:
                   values:
                     - "{{workflow.parameters.region}}"
 
-  - name: model-inference-service
+  - name: model-vllm-serialization
     inputs:
       parameters:
         - name: model_path
-        - name: model_name
+    retryStrategy:
+      limit: 1
+    container:
+      image: "{{workflow.parameters.inference_image}}:{{workflow.parameters.inference_tag}}"
+      command: [ "/bin/bash", "-c" ]
+      args:
+        - |
+          cd /app/vllm &&
+          python3 -m examples.tensorize_vllm_model \
+          --model=${MODEL_PATH} \
+          serialize \
+          --serialized-directory /{{workflow.parameters.pvc}} \
+          --suffix vllm
+      env:
+        - name: MODEL_PATH
+          value: "{{inputs.parameters.model_path}}"
+      resources:
+        requests:
+          memory: 64Gi
+          cpu: 4
+          nvidia.com/gpu: 1
+        limits:
+          memory: 64Gi
+          cpu: 4
+          nvidia.com/gpu: 1
+      volumeMounts:
+        - mountPath: "/{{workflow.parameters.pvc}}"
+          name: "{{workflow.parameters.pvc}}"
+    volumes:
+      - name: "{{workflow.parameters.pvc}}"
+        persistentVolumeClaim:
+           claimName: "{{workflow.parameters.pvc}}"
+      - emptyDir:
+          medium: Memory
+        name: dshm
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: gpu.nvidia.com/class
+                  operator: In
+                  values:
+                    - "{{workflow.parameters.trainer_gpu}}"
+                - key: topology.kubernetes.io/region
+                  operator: In
+                  values:
+                    - "{{workflow.parameters.region}}"
+
+  - name: model-inference-service
+    inputs:
+      parameters:
+        - name: model_uri
+        - name: model_path
     resource:
       action: apply
       manifest: |
@@ -582,31 +702,42 @@ spec:
                             - "{{workflow.parameters.region}}"
             containers:
               - name: kfserving-container
-                image: "{{workflow.parameters.finetuner_image}}:{{workflow.parameters.finetuner_tag}}"
+                image: "{{workflow.parameters.inference_image}}:{{workflow.parameters.inference_tag}}"
                 imagePullPolicy: IfNotPresent
-                command: ["/usr/bin/bash", "-c"]
-                args: ["/usr/bin/python3 /app/inference.py --model=${INFERENCE_MODEL} --port=${INFERENCE_PORT}"]
+                command: ["/bin/bash", "-c"]
+                args:
+                  - |
+                    python -m vllm.entrypoints.openai.api_server \
+                      --model ${INFERENCE_MODEL_PATH} \
+                      --model-loader-extra-config "{\"tensorizer_uri\": \"${INFERENCE_MODEL_URI}\"}" \
+                      --load-format tensorizer \
+                      --port ${INFERENCE_PORT} \
+                      --dtype ${INFERENCE_PRECISION}
                 env:
                   - name: INFERENCE_PORT
                     value: "80"
-                  - name: INFERENCE_MODEL
+                  - name: INFERENCE_MODEL_URI
+                    value: /mnt/pvc/{{ inputs.parameters.model_uri }}
+                  - name: INFERENCE_MODEL_PATH
                     value: /mnt/pvc/{{ inputs.parameters.model_path }}
                   - name: STORAGE_URI # KFServing mounts the PVC at /mnt/pvc/
                     value: pvc://{{ workflow.parameters.pvc }}/
+                  - name: INFERENCE_PRECISION
+                    value: {{ workflow.parameters.inference_precision }}
                 ports:
                   - protocol: TCP
                     containerPort: 80
                 livenessProbe:
                   httpGet:
-                    path: /
+                    path: /health
                     port: 80
-                  initialDelaySeconds: 300
+                  initialDelaySeconds: 60
                   periodSeconds: 30
                 readinessProbe:
                   httpGet:
-                    path: /
+                    path: /health
                     port: 80
-                  initialDelaySeconds: 300
+                  initialDelaySeconds: 60
                   periodSeconds: 30
                 resources:
                   requests:

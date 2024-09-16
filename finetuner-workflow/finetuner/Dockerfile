@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.2
 
-ARG BASE_IMAGE=ghcr.io/coreweave/ml-containers/torch:afecfe9-base-cuda11.8.0-torch2.0.0-vision0.15.1
+ARG BASE_IMAGE=ghcr.io/coreweave/ml-containers/torch:ef85248-base-cuda11.8.0-ubuntu20.04-torch2.3.0-vision0.18.0-audio2.3.0
 
 # Dependencies requiring NVCC are built ahead of time in a separate stage
 # so that the ~2 GiB dev library installations don't have to be included
@@ -8,7 +8,8 @@ ARG BASE_IMAGE=ghcr.io/coreweave/ml-containers/torch:afecfe9-base-cuda11.8.0-tor
 # gcc-10/g++-10/lld do not need to be installed here, but they improve the build.
 # gfortran-10 is just for compiler_wrapper.f95.
 FROM ${BASE_IMAGE} as builder
-RUN apt-get install -y --no-install-recommends \
+RUN  apt-get update -y && \
+    apt-get install -y --no-install-recommends \
         cuda-nvcc-11-8 cuda-nvml-dev-11-8 libcurand-dev-11-8 \
         libcublas-dev-11-8 libcusparse-dev-11-8 \
         libcusolver-dev-11-8 cuda-nvprof-11-8 \
@@ -27,7 +28,7 @@ COPY compiler_wrapper.f95 .
 COPY requirements-precompilable.txt .
 RUN gfortran -O3 ./compiler_wrapper.f95 -o ./compiler && \
     python3 -m pip install -U --no-cache-dir \
-      packaging setuptools wheel pip && \
+      packaging setuptools==69.5.1 wheel pip && \
     DS_BUILD_UTILS=1 DS_BUILD_CPU_ADAM=1 \
       CC=$(realpath ./compiler) python3 -m pip wheel \
       --no-cache-dir --no-build-isolation --no-deps \
@@ -45,6 +46,5 @@ RUN pip3 install --no-cache-dir -r requirements.txt
 COPY ds_config.json .
 COPY finetuner.py .
 COPY evaluator.py .
-COPY inference.py .
 COPY utils.py .
 CMD [ "/usr/bin/python3", "finetuner.py" ]
