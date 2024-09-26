@@ -2,3 +2,4 @@ kfserving==0.5.1
 aitextgen
 tensorflow
 
+keras>=2.13.1rc0 # not directly required, pinned by Snyk to avoid a vulnerability
