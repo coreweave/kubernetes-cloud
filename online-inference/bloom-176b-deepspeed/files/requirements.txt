@@ -5,7 +5,7 @@ torchaudio
 transformers==4.21.3
 accelerate==0.12.0
 deepspeed>=0.7.3
-flask==2.2.2 
+flask==2.2.5 
 flask_api==3.0.post1
 gunicorn==20.1.0
 pydantic==1.10.2
