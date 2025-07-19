@@ -2,3 +2,4 @@ kfserving==0.5.1
 aitextgen
 tensorflow
 
+tornado>=6.3.3 # not directly required, pinned by Snyk to avoid a vulnerability
