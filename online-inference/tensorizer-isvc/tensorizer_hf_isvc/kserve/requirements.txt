@@ -1,3 +1,5 @@
 kserve==0.10.1
 transformers==4.27.1
 tensorizer==1.1.0
+ray>=2.8.1 # not directly required, pinned by Snyk to avoid a vulnerability
+setuptools>=70.0.0 # not directly required, pinned by Snyk to avoid a vulnerability
