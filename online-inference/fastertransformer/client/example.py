@@ -113,7 +113,7 @@ def stream_consumer(queue):
 
         for output in result.get_response().outputs:
             if output.name == "output_ids":
-                print(f"Ouput: {decode_data(list(result.as_numpy(output.name)[0][0]), model=args.model)}")
+                print(f"Output: {decode_data(list(result.as_numpy(output.name)[0][0]), model=args.model)}")
 
 
 def stream_callback(queue, result, error):
@@ -149,12 +149,12 @@ def main_http(config, request):
 
     for output in result.get_response()['outputs']:
         if output['name'] == "output_ids":
-            print(f"Ouput: {decode_data(list(result.as_numpy(output['name'])[0][0]), model=args.model)}")
+            print(f"Output: {decode_data(list(result.as_numpy(output['name'])[0][0]), model=args.model)}")
 
 def parse_args():
     parser = ArgumentParser()
-    parser.add_argument("--url", help="InferenceService URL for Fastertransfomer", required=True)
-    parser.add_argument("--prompt", help="Prompt to generate based of.", required=True)
+    parser.add_argument("--url", help="InferenceService URL for FasterTransformer", required=True)
+    parser.add_argument("--prompt", help="Prompt to generate based on.", required=True)
     parser.add_argument("--model", help="gptj or gpt-neox", required=True)
     parser.add_argument("--protocol", help="Prompt to generate based of.", required=True)
     
